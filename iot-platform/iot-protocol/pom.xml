@@ -15,22 +15,22 @@
 
     <modules>
         <!-- 协议公共模块 -->
-        <module>protocol-common</module>
+        <module>iot-protocol-common</module>
         <!-- QS设备协议 -->
-        <module>protocol-qs</module>
+        <module>iot-protocol-qs</module>
         <!-- ZLM流媒体协议 -->
-        <module>protocol-zlm</module>
+        <module>iot-protocol-zlm</module>
         <!-- GB28181国标协议 -->
-        <module>protocol-gb28181</module>
+        <module>iot-protocol-gb28181</module>
         <!-- 海康设备协议 -->
-        <module>protocol-haikang</module>
+        <module>iot-protocol-haikang</module>
         <!-- 海康ISUP协议 -->
-        <module>protocol-haikang-isup</module>
+        <module>iot-protocol-haikang-isup</module>
         <!-- 大华设备协议 -->
-        <module>protocol-dahua</module>
+        <module>iot-protocol-dahua</module>
         <!-- ONVIF协议 -->
-        <module>protocol-onvif</module>
+        <module>iot-protocol-onvif</module>
         <!-- JT1078部标协议 -->
-        <module>protocol-jt1078</module>
+        <module>iot-protocol-jt1078</module>
     </modules>
 </project>

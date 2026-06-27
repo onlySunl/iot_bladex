@@ -20,10 +20,6 @@
             <artifactId>iot-common</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-common</artifactId>
-            <version>4.2.0.RELEASE</version>
-        </dependency>
+
     </dependencies>
 </project>

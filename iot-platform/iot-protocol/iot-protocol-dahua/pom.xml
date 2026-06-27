@@ -25,5 +25,10 @@
             <artifactId>iot-api-dahua</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>com.sun.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 </project>
