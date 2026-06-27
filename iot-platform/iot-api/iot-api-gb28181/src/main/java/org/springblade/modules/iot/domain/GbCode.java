@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.domain.gb28181;
+package org.springblade.modules.iot.domain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.tangzc.autotable.annotation.AutoColumn;

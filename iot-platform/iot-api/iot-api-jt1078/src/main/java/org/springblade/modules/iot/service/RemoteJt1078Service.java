@@ -1,11 +1,12 @@
 package org.springblade.modules.iot.service;
 
-import org.springblade.core.constant.SecurityConstants;
-import org.springblade.core.constant.ServiceNameConstants;
-import org.springblade.core.domain.R;
-import org.springblade.core.domain.RtpServerParam;
-import org.springblade.modules.iot.domain.jt1078.domain.Jt1078Device;
-import org.springblade.modules.iot.domain.jt1078.factory.RemoteJt1078FallbackFactory;
+
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.common.constants.SecurityConstants;
+import org.springblade.modules.iot.common.constants.ServiceNameConstants;
+import org.springblade.modules.iot.common.domain.RtpServerParam;
+import org.springblade.modules.iot.domain.Jt1078Device;
+import org.springblade.modules.iot.factory.RemoteJt1078FallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,11 @@ import java.util.List;
  *
  * @author fengcheng
  */
-@FeignClient(contextId = "remoteJt1078Service", value = ServiceNameConstants.JT1078_SERVICE, fallbackFactory = RemoteJt1078FallbackFactory.class)
+@FeignClient(contextId = "remoteJt1078Service",
+        value = ServiceNameConstants.JT1078_SERVICE,
+        fallbackFactory = RemoteJt1078FallbackFactory.class,
+        url= ServiceNameConstants.SERVICE_URL
+)
 public interface RemoteJt1078Service {
 
     /**

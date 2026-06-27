@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.domain.gb28181;
+package org.springblade.modules.iot.domain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.tangzc.autotable.annotation.AutoColumn;
@@ -6,9 +6,10 @@ import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import com.tangzc.mpe.autotable.annotation.Table;
 
 
-import org.springblade.modules.iot.domain.gb28181.bean.SipTransactionInfo;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import org.springblade.modules.iot.bean.SipTransactionInfo;
 
 import java.io.Serializable;
 

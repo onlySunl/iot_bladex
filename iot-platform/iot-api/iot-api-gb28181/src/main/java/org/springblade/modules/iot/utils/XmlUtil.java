@@ -2,8 +2,6 @@ package org.springblade.modules.iot.utils;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-import org.springblade.modules.iot.domain.gb28181.common.MessageElement;
-import org.springblade.modules.iot.domain.gb28181.common.MessageElementForCatalog;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.dom4j.Attribute;
@@ -11,6 +9,8 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.springblade.modules.iot.common.MessageElement;
+import org.springblade.modules.iot.common.MessageElementForCatalog;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.ReflectionUtils;
 

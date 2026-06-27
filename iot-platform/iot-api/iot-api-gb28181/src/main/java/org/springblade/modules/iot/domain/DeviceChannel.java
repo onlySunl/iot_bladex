@@ -1,18 +1,19 @@
-package org.springblade.modules.iot.domain.gb28181;
+package org.springblade.modules.iot.domain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.tangzc.autotable.annotation.AutoColumn;
 import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import com.tangzc.mpe.autotable.annotation.Table;
 
-import org.springblade.modules.iot.domain.gb28181.common.MessageElementForCatalog;
-import org.springblade.modules.iot.domain.gb28181.common.enums.ChannelDataType;
-import org.springblade.modules.iot.domain.gb28181.utils.XmlUtil;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.Element;
+import org.springblade.modules.iot.common.MessageElementForCatalog;
+import org.springblade.modules.iot.enums.ChannelDataType;
+import org.springblade.modules.iot.utils.XmlUtil;
 import org.springframework.util.ObjectUtils;
 
 import java.io.Serializable;

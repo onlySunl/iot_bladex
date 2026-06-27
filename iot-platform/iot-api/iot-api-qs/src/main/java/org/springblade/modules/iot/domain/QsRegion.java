@@ -6,7 +6,7 @@ import com.tangzc.autotable.annotation.AutoColumn;
 import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import com.tangzc.mpe.autotable.annotation.Table;
 
-import org.springblade.core.utils.DateUtils;
+import org.springblade.core.tool.utils.DateUtil;
 import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -59,8 +59,8 @@ public class QsRegion extends CustomBaseEntity implements Comparable<QsRegion> {
         region.setDeviceId(commonRegionDeviceId);
         region.setName(commonRegionName);
         region.setParentDeviceId(commonRegionParentId);
-        region.setCreateTime(DateUtils.getNowDate());
-        region.setUpdateTime(DateUtils.getNowDate());
+        region.setCreateTime(DateUtil.now());
+        region.setUpdateTime(DateUtil.now());
         return region;
     }
 }

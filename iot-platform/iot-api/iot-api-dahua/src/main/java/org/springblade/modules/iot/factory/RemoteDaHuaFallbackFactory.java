@@ -1,7 +1,8 @@
 package org.springblade.modules.iot.factory;
 
-import org.springblade.core.domain.R;
-import org.springblade.core.domain.RtpServerParam;
+
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.common.domain.RtpServerParam;
 import org.springblade.modules.iot.service.RemoteDaHuaService;
 import org.springblade.modules.iot.domain.DahuaDevice;
 import org.springblade.modules.iot.domain.LoginDevice;

@@ -1,11 +1,11 @@
 package org.springblade.modules.iot.factory;
 
-import org.springblade.core.domain.R;
-import org.springblade.modules.iot.service.onvif.RemoteOnvifService;
+import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.domain.OnvifDevice;
 import org.springblade.modules.iot.domain.WSOnvifDevice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springblade.modules.iot.service.RemoteOnvifService;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 

@@ -1,12 +1,7 @@
-package org.springblade.modules.iot.domain.gb28181;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.tangzc.autotable.annotation.AutoColumn;
-import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
-import com.tangzc.mpe.autotable.annotation.Table;
+package org.springblade.modules.iot.domain;
 
-import org.springblade.modules.iot.domain.gb28181.bean.SipTransactionInfo;
-import org.springblade.modules.iot.domain.gb28181.common.InviteSessionType;
+import org.springblade.modules.iot.bean.SipTransactionInfo;
+import org.springblade.modules.iot.common.InviteSessionType;
 import gov.nist.javax.sip.message.SIPResponse;
 import lombok.Data;
 

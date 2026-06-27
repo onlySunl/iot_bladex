@@ -1,9 +1,9 @@
 package org.springblade.modules.iot.config;
 
 import com.alibaba.fastjson2.annotation.JSONField;
-import org.springblade.modules.iot.domain.hook.HookParam;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springblade.modules.iot.hook.HookParam;
 
 /**
  * ZLM配置
@@ -117,7 +117,7 @@ public class ZLMServerConfig extends HookParam {
     private String generalMergeWriteMS;
 
     @JSONField(name = "general.mediaServerId")
-    private String generalMediaServerId;
+    private Long generalMediaServerId;
 
     @JSONField(name = "general.wait_track_ready_ms")
     private String generalWaitTrackReadyMs;

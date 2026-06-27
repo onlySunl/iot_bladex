@@ -1,8 +1,9 @@
 package org.springblade.modules.iot.service;
 
-import org.springblade.core.constant.SecurityConstants;
-import org.springblade.core.constant.ServiceNameConstants;
-import org.springblade.core.domain.R;
+
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.common.constants.SecurityConstants;
+import org.springblade.modules.iot.common.constants.ServiceNameConstants;
 import org.springblade.modules.iot.domain.QsGb28181Platform;
 import org.springblade.modules.iot.domain.QsGb28181PlatformChannel;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -15,7 +16,10 @@ import java.util.List;
  *
  * @author ruoyi
  */
-@FeignClient(contextId = "remoteQsGb28181PlatformService", value = ServiceNameConstants.QS_SERVICE)
+@FeignClient(contextId = "remoteQsGb28181PlatformService",
+        value = ServiceNameConstants.QS_SERVICE,
+        url= ServiceNameConstants.SERVICE_URL
+)
 public interface RemoteQsGb28181PlatformService {
 
     /**

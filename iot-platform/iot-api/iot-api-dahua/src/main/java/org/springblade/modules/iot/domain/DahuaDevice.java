@@ -21,7 +21,6 @@ import java.io.Serializable;
  */
 @Data
 @TableName("dahua_device")
-@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(value = "dahua_device", comment = "大华设备表")

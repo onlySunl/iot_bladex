@@ -6,8 +6,7 @@ import com.tangzc.autotable.annotation.AutoColumn;
 import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import com.tangzc.mpe.autotable.annotation.Table;
 
-import org.springblade.core.annotation.Excel;
-import org.springblade.core.annotation.Excel.ColumnType;
+
 import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;

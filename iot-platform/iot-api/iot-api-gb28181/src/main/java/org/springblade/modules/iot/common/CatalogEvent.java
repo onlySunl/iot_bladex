@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.common;
 
-import org.springblade.modules.iot.domain.gb28181.domain.CommonGBChannel;
 import lombok.Getter;
 import lombok.Setter;
+import org.springblade.modules.iot.domain.CommonGBChannel;
 import org.springframework.context.ApplicationEvent;
 
 import java.util.List;

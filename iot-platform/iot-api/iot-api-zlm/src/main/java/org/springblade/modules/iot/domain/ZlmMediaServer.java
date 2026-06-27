@@ -7,7 +7,6 @@ import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import com.tangzc.mpe.autotable.annotation.Table;
 
 
-import org.springblade.core.annotation.Excel;
 import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 import org.springblade.modules.iot.config.ZLMServerConfig;
 import lombok.Data;
@@ -26,11 +25,6 @@ import org.springframework.util.ObjectUtils;
 public class ZlmMediaServer extends CustomBaseEntity {
 
     private static final long serialVersionUID = 1L;
-
-    /** ID */
-    @TableField(value = "id")
-    @AutoColumn(comment = "ID", length = 255)
-    private String id;
 
     /** IP */
     @TableField(value = "ip")
@@ -183,15 +177,9 @@ public class ZlmMediaServer extends CustomBaseEntity {
     private String transcodeSuffix;
 
     /** 服务Id */
-    @Excel(name = "服务Id")
-    @TableField(value = "server_id")
     @AutoColumn(comment = "服务Id", length = 100, defaultValueType = DefaultValueEnum.EMPTY_STRING)
     private String serverId;
 
-    /** 状态(OFFLINE=离线,ON=在线) */
-    @TableField(value = "status")
-    @AutoColumn(comment = "状态(OFFLINE=离线,ON=在线)", length = 20, defaultValueType = DefaultValueEnum.EMPTY_STRING)
-    private String status;
 
     public ZlmMediaServer() {
     }

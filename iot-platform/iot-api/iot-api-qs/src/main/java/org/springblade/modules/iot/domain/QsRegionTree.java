@@ -34,10 +34,7 @@ public class QsRegionTree extends QsRegion {
     /** 直播流接入类型(1=RTSP,2=RTMP,3=FLV,4=HLS,5=ONVIF,6=视频文件,7=海康SDK,8=海康ISUP,9=大华SDK,10=宇视SDK,11=天地伟业SDK,12=国标28181,13=PUSH,14=部标1078) */
     private int streamType;
 
-    /**
-     * 设备状态(OFFLINE=离线,ON=在线)
-     */
-    private String status;
+
 
     /**
      * 经度 WGS-84坐标系

@@ -1,14 +1,15 @@
 package org.springblade.modules.iot.service;
 
 
-import org.springblade.core.constant.SecurityConstants;
-import org.springblade.core.constant.ServiceNameConstants;
-import org.springblade.core.domain.R;
+
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.common.constants.SecurityConstants;
+import org.springblade.modules.iot.common.constants.ServiceNameConstants;
+import org.springblade.modules.iot.common.domain.RtpServerParam;
 import org.springblade.modules.iot.domain.HaikangDeviceInfo;
 import org.springblade.modules.iot.domain.LoginDevice;
-import org.springblade.core.domain.RtpServerParam;
 import org.springblade.modules.iot.domain.PresetInfo;
-import org.springblade.modules.iot.factory.haikang.RemoteHaiKangFallbackFactory;
+import org.springblade.modules.iot.factory.RemoteHaiKangFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,11 @@ import java.util.List;
  * @Author fengcheng
  * @date 2026-03-28
  **/
-@FeignClient(contextId = "remoteHaiKangService", value = ServiceNameConstants.HAIKANG_SERVICE, fallbackFactory = RemoteHaiKangFallbackFactory.class)
+@FeignClient(contextId = "remoteHaiKangService",
+        value = ServiceNameConstants.HAIKANG_SERVICE,
+        fallbackFactory = RemoteHaiKangFallbackFactory.class,
+        url=ServiceNameConstants.SERVICE_URL
+)
 public interface RemoteHaiKangService {
 
     /**

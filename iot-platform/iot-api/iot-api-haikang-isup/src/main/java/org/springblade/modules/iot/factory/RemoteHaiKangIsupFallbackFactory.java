@@ -1,16 +1,15 @@
 package org.springblade.modules.iot.factory;
 
-import org.springblade.core.domain.R;
-import org.springblade.core.domain.RtpServerParam;
-import org.springblade.modules.iot.service.haikangisup.RemoteHaiKangIsupService;
-import org.springblade.modules.iot.domain.isup.domain.HaiKangIsupDeviceInfo;
-import org.springblade.modules.iot.domain.isup.domain.HaiKangIsupPresetInfo;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.common.domain.RtpServerParam;
+import org.springblade.modules.iot.domain.HaiKangIsupDeviceInfo;
+import org.springblade.modules.iot.domain.HaiKangIsupPresetInfo;
+import org.springblade.modules.iot.service.RemoteHaiKangIsupService;
 import org.springframework.cloud.openfeign.FallbackFactory;
 
 /**

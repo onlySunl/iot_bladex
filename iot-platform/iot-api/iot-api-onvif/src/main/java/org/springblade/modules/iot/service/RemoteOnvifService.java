@@ -1,11 +1,12 @@
 package org.springblade.modules.iot.service;
 
-import org.springblade.core.constant.SecurityConstants;
-import org.springblade.core.constant.ServiceNameConstants;
-import org.springblade.core.domain.R;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.common.constants.SecurityConstants;
+import org.springblade.modules.iot.common.constants.ServiceNameConstants;
 import org.springblade.modules.iot.domain.OnvifDevice;
 import org.springblade.modules.iot.domain.WSOnvifDevice;
-import org.springblade.modules.iot.factory.onvif.RemoteOnvifFallbackFactory;
+
+import org.springblade.modules.iot.factory.RemoteOnvifFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +26,11 @@ import java.util.Map;
  * @Author fengcheng
  * @date 2026-04-10
  **/
-@FeignClient(contextId = "remoteOnvifService", value = ServiceNameConstants.ONVIF_SERVICE, fallbackFactory = RemoteOnvifFallbackFactory.class)
+@FeignClient(contextId = "remoteOnvifService",
+        value = ServiceNameConstants.ONVIF_SERVICE,
+        fallbackFactory = RemoteOnvifFallbackFactory.class,
+        url= ServiceNameConstants.SERVICE_URL
+)
 public interface RemoteOnvifService {
 
     /**

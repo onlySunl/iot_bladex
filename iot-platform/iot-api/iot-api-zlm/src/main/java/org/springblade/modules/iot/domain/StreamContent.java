@@ -91,7 +91,7 @@ public class StreamContent implements Serializable {
     private String rtcs;
 
     /**流媒体ID**/
-    private String mediaServerId;
+    private Long mediaServerId;
 
     /**流编码信息**/
     private MediaInfo mediaInfo;

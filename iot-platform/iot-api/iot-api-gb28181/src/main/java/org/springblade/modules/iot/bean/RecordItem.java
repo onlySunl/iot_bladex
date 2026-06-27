@@ -1,11 +1,11 @@
 package org.springblade.modules.iot.bean;
 
 
-import org.springblade.modules.iot.domain.gb28181.utils.DateUtil;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.springblade.modules.iot.utils.DateUtil;
 
 import java.time.Instant;
 import java.time.temporal.TemporalAccessor;

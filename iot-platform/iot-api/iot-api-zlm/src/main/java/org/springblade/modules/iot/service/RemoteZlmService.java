@@ -1,14 +1,14 @@
 package org.springblade.modules.iot.service;
 
-import org.springblade.core.constant.SecurityConstants;
-import org.springblade.core.constant.ServiceNameConstants;
-import org.springblade.core.domain.R;
-import org.springblade.core.domain.RtpServerParam;
-import org.springblade.modules.iot.domain.QsDevice;
+
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.common.constants.SecurityConstants;
+import org.springblade.modules.iot.common.constants.ServiceNameConstants;
+import org.springblade.modules.iot.common.domain.RtpServerParam;
 import org.springblade.modules.iot.domain.Gb28181PlatformPlay;
 import org.springblade.modules.iot.domain.Gb28181PlatformPlayback;
 import org.springblade.modules.iot.domain.ZlmMediaServer;
-import org.springblade.modules.iot.factory.zlm.RemoteZlmFallbackFactory;
+import org.springblade.modules.iot.factory.RemoteZlmFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +22,11 @@ import java.util.Map;
  * @Author fengcheng
  * @date 2026-03-28
  **/
-@FeignClient(contextId = "remoteZlmService", value = ServiceNameConstants.ZLM_SERVICE, fallbackFactory = RemoteZlmFallbackFactory.class)
+@FeignClient(contextId = "remoteZlmService",
+        value = ServiceNameConstants.ZLM_SERVICE,
+        fallbackFactory = RemoteZlmFallbackFactory.class,
+        url= ServiceNameConstants.SERVICE_URL
+)
 public interface RemoteZlmService {
 
     @DeleteMapping("/api/zlm/sessionManagerPut/{mediaServerId}/{ssrc}")

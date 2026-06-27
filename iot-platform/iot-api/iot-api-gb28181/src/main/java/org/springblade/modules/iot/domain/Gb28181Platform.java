@@ -157,16 +157,6 @@ public class Gb28181Platform extends CustomBaseEntity {
     @AutoColumn(comment = "保密属性", length = 11, defaultValueType = DefaultValueEnum.NULL)
     private Integer secrecy;
 
-    /** 创建时间 */
-    @TableField(value = "create_time")
-    @AutoColumn(comment = "创建时间", length = 50, defaultValueType = DefaultValueEnum.EMPTY_STRING)
-    private String createTime;
-
-    /** 更新时间 */
-    @TableField(value = "update_time")
-    @AutoColumn(comment = "更新时间", length = 50, defaultValueType = DefaultValueEnum.EMPTY_STRING)
-    private String updateTime;
-
     /** 是否作为消息通道：0-否，1-是 */
     @TableField(value = "as_message_channel")
     @AutoColumn(comment = "是否作为消息通道", length = 1, defaultValueType = DefaultValueEnum.NULL)

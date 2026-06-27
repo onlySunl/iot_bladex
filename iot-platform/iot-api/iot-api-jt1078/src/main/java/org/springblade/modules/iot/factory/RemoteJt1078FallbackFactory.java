@@ -1,10 +1,10 @@
 package org.springblade.modules.iot.factory;
 
-import org.springblade.core.domain.R;
-import org.springblade.core.domain.RtpServerParam;
-import org.springblade.modules.iot.service.jt1078.RemoteJt1078Service;
-import org.springblade.modules.iot.domain.jt1078.domain.Jt1078Device;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.common.domain.RtpServerParam;
+import org.springblade.modules.iot.domain.Jt1078Device;
+import org.springblade.modules.iot.service.RemoteJt1078Service;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 

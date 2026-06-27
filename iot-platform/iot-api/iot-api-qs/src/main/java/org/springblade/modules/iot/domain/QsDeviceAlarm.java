@@ -6,8 +6,7 @@ import com.tangzc.autotable.annotation.AutoColumn;
 import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import com.tangzc.mpe.autotable.annotation.Table;
 
-import org.springblade.core.annotation.Excel;
-import org.springblade.core.annotation.Excel.ColumnType;
+
 import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -53,7 +52,7 @@ public class QsDeviceAlarm extends CustomBaseEntity {
 
     /** 告警级别 */
     @TableField(value = "alarm_level")
-    @AutoColumn(comment = "告警级别", length = 32, defaultValueEnum.EMPTY_STRING)
+    @AutoColumn(comment = "告警级别", length = 32, defaultValueType=DefaultValueEnum.EMPTY_STRING)
     private String alarmLevel;
 
     /** SDK类型 */

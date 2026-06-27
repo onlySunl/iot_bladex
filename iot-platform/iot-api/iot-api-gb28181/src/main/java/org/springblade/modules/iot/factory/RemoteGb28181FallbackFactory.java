@@ -1,16 +1,12 @@
 package org.springblade.modules.iot.factory;
 
-import org.springblade.core.domain.R;
-import org.springblade.core.domain.RtpServerParam;
-import org.springblade.modules.iot.service.gb28181.RemoteGb28181Service;
-import org.springblade.modules.iot.domain.gb28181.domain.CatalogRequest;
-import org.springblade.modules.iot.domain.gb28181.domain.Device;
-import org.springblade.modules.iot.domain.gb28181.domain.DeviceChannel;
-import org.springblade.modules.iot.domain.gb28181.domain.DeviceConfig;
 import com.alibaba.fastjson2.JSONObject;
-import org.springblade.modules.iot.domain.gb28181.domain.Gb28181Platform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.common.domain.RtpServerParam;
+import org.springblade.modules.iot.domain.*;
+import org.springblade.modules.iot.service.RemoteGb28181Service;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 

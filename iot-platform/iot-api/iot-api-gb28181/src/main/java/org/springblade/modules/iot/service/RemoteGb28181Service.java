@@ -1,17 +1,13 @@
 package org.springblade.modules.iot.service;
 
 
-import org.springblade.core.constant.SecurityConstants;
-import org.springblade.core.constant.ServiceNameConstants;
-import org.springblade.core.domain.R;
-import org.springblade.core.domain.RtpServerParam;
-import org.springblade.modules.iot.domain.gb28181.domain.CatalogRequest;
-import org.springblade.modules.iot.domain.gb28181.domain.Device;
-import org.springblade.modules.iot.domain.gb28181.domain.DeviceChannel;
-import org.springblade.modules.iot.domain.gb28181.domain.DeviceConfig;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.common.constants.SecurityConstants;
+import org.springblade.modules.iot.common.constants.ServiceNameConstants;
 import com.alibaba.fastjson2.JSONObject;
-import org.springblade.modules.iot.domain.gb28181.domain.Gb28181Platform;
-import org.springblade.modules.iot.domain.gb28181.factory.RemoteGb28181FallbackFactory;
+import org.springblade.modules.iot.common.domain.RtpServerParam;
+import org.springblade.modules.iot.domain.*;
+import org.springblade.modules.iot.factory.RemoteGb28181FallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +21,11 @@ import java.util.List;
  * @Author fengcheng
  * @date 2026-03-30
  **/
-@FeignClient(contextId = "remoteGb28181Service", value = ServiceNameConstants.GB28181_SERVICE, fallbackFactory = RemoteGb28181FallbackFactory.class)
+@FeignClient(contextId = "remoteGb28181Service",
+        value = ServiceNameConstants.GB28181_SERVICE,
+        fallbackFactory = RemoteGb28181FallbackFactory.class,
+        url= ServiceNameConstants.SERVICE_URL
+)
 public interface RemoteGb28181Service {
 
 

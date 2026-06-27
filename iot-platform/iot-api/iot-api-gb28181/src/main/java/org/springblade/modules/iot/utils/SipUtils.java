@@ -1,13 +1,13 @@
 package org.springblade.modules.iot.utils;
 
-import org.springblade.modules.iot.domain.gb28181.bean.Gb28181Sdp;
-import org.springblade.modules.iot.domain.gb28181.common.RemoteAddressInfo;
 import gov.nist.javax.sip.address.AddressImpl;
 import gov.nist.javax.sip.address.SipUri;
 import gov.nist.javax.sip.header.Subject;
 import gov.nist.javax.sip.message.SIPRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springblade.modules.iot.bean.Gb28181Sdp;
+import org.springblade.modules.iot.common.RemoteAddressInfo;
 import org.springframework.util.ObjectUtils;
 
 import javax.sdp.SdpFactory;

@@ -1,10 +1,11 @@
 package org.springblade.modules.iot.service;
 
-import org.springblade.core.constant.SecurityConstants;
-import org.springblade.core.constant.ServiceNameConstants;
-import org.springblade.core.domain.R;
+
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.common.constants.SecurityConstants;
+import org.springblade.modules.iot.common.constants.ServiceNameConstants;
 import org.springblade.modules.iot.domain.QsDeviceAlarm;
-import org.springblade.modules.iot.factory.qs.RemoteQsDeviceAlarmFallbackFactory;
+import org.springblade.modules.iot.factory.RemoteQsDeviceAlarmFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,11 @@ import java.util.List;
  *
  * @author ruoyi
  */
-@FeignClient(contextId = "remoteQsDeviceAlarmService", value = ServiceNameConstants.QS_SERVICE, fallbackFactory = RemoteQsDeviceAlarmFallbackFactory.class)
+@FeignClient(contextId = "remoteQsDeviceAlarmService",
+        value = ServiceNameConstants.QS_SERVICE,
+        fallbackFactory = RemoteQsDeviceAlarmFallbackFactory.class,
+        url= ServiceNameConstants.SERVICE_URL
+)
 public interface RemoteQsDeviceAlarmService {
 
     /**

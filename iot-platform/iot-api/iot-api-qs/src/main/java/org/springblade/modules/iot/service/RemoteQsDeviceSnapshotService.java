@@ -1,10 +1,10 @@
 package org.springblade.modules.iot.service;
 
-import org.springblade.core.constant.SecurityConstants;
-import org.springblade.core.constant.ServiceNameConstants;
-import org.springblade.core.domain.R;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.common.constants.SecurityConstants;
+import org.springblade.modules.iot.common.constants.ServiceNameConstants;
 import org.springblade.modules.iot.domain.QsDeviceSnapshot;
-import org.springblade.modules.iot.factory.qs.RemoteQsDeviceSnapshotFallbackFactory;
+import org.springblade.modules.iot.factory.RemoteQsDeviceSnapshotFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +15,11 @@ import java.util.List;
  *
  * @author ruoyi
  */
-@FeignClient(contextId = "remoteQsDeviceSnapshotService", value = ServiceNameConstants.QS_SERVICE, fallbackFactory = RemoteQsDeviceSnapshotFallbackFactory.class)
+@FeignClient(contextId = "remoteQsDeviceSnapshotService",
+        value = ServiceNameConstants.QS_SERVICE,
+        fallbackFactory = RemoteQsDeviceSnapshotFallbackFactory.class,
+        url= ServiceNameConstants.SERVICE_URL
+)
 public interface RemoteQsDeviceSnapshotService {
 
     /**

@@ -1,11 +1,12 @@
 package org.springblade.modules.iot.service;
 
-import org.springblade.core.domain.R;
-import org.springblade.core.constant.SecurityConstants;
-import org.springblade.core.constant.ServiceNameConstants;
+
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.common.constants.SecurityConstants;
+import org.springblade.modules.iot.common.constants.ServiceNameConstants;
 import org.springblade.modules.iot.domain.QsRegion;
 import org.springblade.modules.iot.domain.QsRegionTree;
-import org.springblade.modules.iot.factory.qs.RemoteQsRegionFallbackFactory;
+import org.springblade.modules.iot.factory.RemoteQsRegionFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,11 @@ import java.util.List;
  *
  * @author ruoyi
  */
-@FeignClient(contextId = "remoteQsRegionService", value = ServiceNameConstants.QS_SERVICE, fallbackFactory = RemoteQsRegionFallbackFactory.class)
+@FeignClient(contextId = "remoteQsRegionService",
+        value = ServiceNameConstants.QS_SERVICE,
+        fallbackFactory = RemoteQsRegionFallbackFactory.class,
+        url= ServiceNameConstants.SERVICE_URL
+)
 public interface RemoteQsRegionService {
 
     /**

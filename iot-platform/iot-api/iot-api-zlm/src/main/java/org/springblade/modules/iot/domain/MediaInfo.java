@@ -1,17 +1,14 @@
 package org.springblade.modules.iot.domain;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.tangzc.autotable.annotation.AutoColumn;
-import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
-import com.tangzc.mpe.autotable.annotation.Table;
+
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-import org.springblade.modules.iot.domain.hook.OnStreamArriveABLHookParam;
-import org.springblade.modules.iot.domain.hook.OnStreamChangedHookParam;
-import org.springblade.modules.iot.domain.hook.OriginType;
-import org.springblade.modules.iot.domain.utils.MediaServerUtils;
+
 import lombok.Data;
+import org.springblade.modules.iot.hook.OnStreamArriveABLHookParam;
+import org.springblade.modules.iot.hook.OnStreamChangedHookParam;
+import org.springblade.modules.iot.hook.OriginType;
+import org.springblade.modules.iot.utils.MediaServerUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;

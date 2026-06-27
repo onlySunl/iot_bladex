@@ -1,10 +1,4 @@
 package org.springblade.modules.iot.domain;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.tangzc.autotable.annotation.AutoColumn;
-import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
-import com.tangzc.mpe.autotable.annotation.Table;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import java.util.List;
@@ -33,11 +27,6 @@ public class QsGroupTree extends QsGroup {
 
     /** 直播流接入类型(1=RTSP,2=RTMP,3=FLV,4=HLS,5=ONVIF,6=视频文件,7=海康SDK,8=海康ISUP,9=大华SDK,10=宇视SDK,11=天地伟业SDK,12=国标28181,13=PUSH,14=部标1078) */
     private int streamType;
-
-    /**
-     * 设备状态(OFFLINE=离线,ON=在线)
-     */
-    private String status;
 
     /**
      * 经度 WGS-84坐标系

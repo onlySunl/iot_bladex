@@ -84,10 +84,6 @@ public class QsDevice extends CustomBaseEntity {
     @AutoColumn(comment = "报警通道号", length = 10, defaultValueType = DefaultValueEnum.NULL)
     private Integer alarmChannelId;
 
-    /** 状态(ENABLE/DEACTIVATE) */
-    @TableField(value = "status")
-    @AutoColumn(comment = "状态(ENABLE/DEACTIVATE)", length = 20, defaultValueType = DefaultValueEnum.EMPTY_STRING)
-    private String status;
 
     /** 码流类型(1=主码流,2=子码流,3=第三码流) */
     @TableField(value = "stream_type")
