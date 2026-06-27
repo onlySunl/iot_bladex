@@ -2,9 +2,8 @@ package org.springblade.modules.iot.dahua.lib.constant;
 
 /**
  * NetSDK 常量定义
- * 
- * 此文件包含所有常量定义
  */
+@SuppressWarnings("all")
 public class NetSDKConstants {
     private NetSDKConstants() {}
 
