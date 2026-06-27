@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springblade</groupId>
+        <artifactId>BLADE_IOT</artifactId>
+        <version>4.2.0.RELEASE</version>
+    </parent>
+    <groupId>org.springblade</groupId>
+    <artifactId>iot-platform</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>iot-common</module>
+        <module>iot-api</module>
+        <module>iot-biz</module>
+        <module>iot-protocol</module>
+        <module>iot-service</module>
+    </modules>
+    <version>4.2.0.RELEASE</version>
+    <properties>
+        <netty.version>4.1.94.Final</netty.version>
+        <eclipse.paho.version>1.2.5</eclipse.paho.version>
+        <milo.version>0.6.8</milo.version>
+        <jain-sip.version>1.2.0</jain-sip.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <!-- JAIN-SIP (NIST RI，包含 javax.sip API + 实现) -->
+            <dependency>
+                <groupId>javax.sip</groupId>
+                <artifactId>jain-sip-api</artifactId>
+                <version>${jain-sip.version}</version> <!-- 使用最新版本 -->
+            </dependency>
+            <!-- Netty -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+
+            <!-- Netty -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+            <!-- Eclipse Paho MQTT -->
+            <dependency>
+                <groupId>org.eclipse.paho</groupId>
+                <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+                <version>${eclipse.paho.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springblade</groupId>
+        <artifactId>BLADE_IOT</artifactId>
+        <version>4.2.0.RELEASE</version>
+    </parent>
+
+    <artifactId>blade-server</artifactId>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <module.name>blade.server</module.name>
+    </properties>
+
+    <dependencies>
+        <!-- ↓ BladeX依赖库 ↓ -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-common</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-api</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.snowsoft.iot</groupId>
+            <artifactId>iot-common</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.snowsoft.iot</groupId>
+            <artifactId>iot-api</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+
+       <!-- <dependency>
+            <groupId>cn.snowsoft.iot</groupId>
+            <artifactId>iot-biz</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>-->
+    </dependencies>
+    <build>
+        <finalName>${bladex.project.id}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>3.2.10</version>
+                    <configuration>
+                        <finalName>${project.build.finalName}</finalName>
+                        <excludes>
+                            <!-- 打包的 jar 中排除 lombok -->
+                            <exclude>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </exclude>
+                        </excludes>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${docker.fabric.version}</version>
+                    <configuration>
+                        <authConfig>
+                            <username>${docker.username}</username>
+                            <password>${docker.password}</password>
+                        </authConfig>
+                        <registry>${docker.registry.url}</registry>
+                        <images>
+                            <image>
+                                <name>${docker.namespace}/${project.build.finalName}:${project.version}</name>
+                                <alias>${project.name}</alias>
+                                <build>
+                                    <dockerFile>${project.basedir}/Dockerfile</dockerFile>
+                                </build>
+                            </image>
+                        </images>
+                        <buildArgs>
+                            <JAR_FILE>${basedir}/target/${project.build.finalName}.jar</JAR_FILE>
+                        </buildArgs>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+
+</project>

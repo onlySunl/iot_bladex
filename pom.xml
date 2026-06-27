@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.springblade</groupId>
+    <artifactId>BLADE_IOT</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>blade-server</module>
+        <module>blade-common</module>
+        <module>blade-api</module>
+        <module>iot-platform</module>
+    </modules>
+    <version>4.2.0.RELEASE</version>
+
+    <properties>
+        <bladex.project.id>blade-api</bladex.project.id>
+        <bladex.project.version>4.2.0.RELEASE</bladex.project.version>
+
+        <java.version>17</java.version>
+        <maven.plugin.version>3.11.0</maven.plugin.version>
+        <maven.flatten.version>1.3.0</maven.flatten.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Docker仓库服务配置 -->
+        <docker.registry.url>192.168.0.188</docker.registry.url>
+        <docker.username>admin</docker.username>
+        <docker.password>admin12345</docker.password>
+        <docker.namespace>blade</docker.namespace>
+        <docker.fabric.version>0.42.0</docker.fabric.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Blade -->
+            <dependency>
+                <groupId>org.springblade.platform</groupId>
+                <artifactId>blade-bom</artifactId>
+                <version>${bladex.project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-boot</artifactId>
+                <version>${bladex.project.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springblade</groupId>
+                        <artifactId>blade-core-cloud</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <dependencies>
+        <!-- ↓ BladeX依赖库 ↓ -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-boot</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-oauth2</artifactId>
+        </dependency>
+        <!-- 多租户字段隔离模式 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-tenant</artifactId>
+        </dependency>
+        <!-- 多租户数据库隔离模式则引入此配置 -->
+        <!--<dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-tenant-dynamic</artifactId>
+        </dependency>-->
+        <!-- 集成sharding功能则引入此配置 -->
+        <!--<dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-sharding</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-http</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-api-crypto</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-datascope</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-develop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-swagger</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-excel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-social</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- 报表 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-report</artifactId>
+        </dependency>
+        <!-- 验证码 -->
+        <dependency>
+            <groupId>com.github.whvcse</groupId>
+            <artifactId>easy-captcha</artifactId>
+        </dependency>
+        <!-- Mybatis-Plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+        </dependency>
+        <!--Oss-->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-oss</artifactId>
+        </dependency>
+        <!--Sms-->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-sms</artifactId>
+        </dependency>
+        <!--Aws S3-->
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+        </dependency>
+        <!--MinIO-->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+        </dependency>
+        <!--Alioss-->
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+        </dependency>
+        <!--AliSms-->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+        </dependency>
+        <!--华为云Obs-->
+        <dependency>
+            <groupId>com.huaweicloud</groupId>
+            <artifactId>esdk-obs-java</artifactId>
+        </dependency>
+        <!--腾讯COS-->
+        <dependency>
+            <groupId>com.qcloud</groupId>
+            <artifactId>cos_api</artifactId>
+        </dependency>
+        <!--腾讯SMS-->
+        <dependency>
+            <groupId>com.github.qcloudsms</groupId>
+            <artifactId>qcloudsms</artifactId>
+        </dependency>
+        <!--QiNiu-->
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+        </dependency>
+        <!--YunPian-->
+        <dependency>
+            <groupId>com.yunpian.sdk</groupId>
+            <artifactId>yunpian-java-sdk</artifactId>
+        </dependency>
+        <!-- liteflow -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-liteflow</artifactId>
+        </dependency>
+        <!-- Oracle -->
+        <!--<dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc7</artifactId>
+        </dependency>-->
+        <!-- PostgreSql -->
+        <!--<dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>-->
+        <!-- SqlServer -->
+        <!--<dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+        </dependency>-->
+        <!-- DaMeng -->
+        <!--<dependency>
+            <groupId>com.dameng</groupId>
+            <artifactId>DmJdbcDriver18</artifactId>
+        </dependency>-->
+        <!--YashanDB-->
+        <!--<dependency>
+            <groupId>com.yashandb.jdbc</groupId>
+            <artifactId>yasdb-jdbc</artifactId>
+        </dependency>-->
+        <!-- 任务调度 -->
+       <!-- <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-powerjob</artifactId>
+        </dependency>-->
+        <!-- 工作流 -->
+      <!--  <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-flowable</artifactId>
+        </dependency>-->
+        <!-- auto -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-auto</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- ↑ BladeX依赖库 ↑ -->
+
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>technology.tabula</groupId>
+            <artifactId>tabula</artifactId>
+            <version>1.0.5</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.24</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+            <version>5.8.27</version>
+        </dependency>
+
+        <!-- huTool 工具包 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-crypto</artifactId>
+            <version>5.8.27</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-http</artifactId>
+            <version>5.8.27</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-json</artifactId>
+            <version>5.8.27</version>
+        </dependency>
+        <!-- huTool 工具包 End -->
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.5.22</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-miniapp</artifactId>
+            <version>4.6.0</version>
+        </dependency>
+       <!-- <dependency>
+            <groupId>e-iceblue</groupId>
+            <artifactId>spire.pdf.free</artifactId>
+            <version>9.13.0</version>
+        </dependency>
+        <dependency>
+            <groupId>e-iceblue</groupId>
+            <artifactId>spire.xls.free</artifactId>
+            <version>5.3.0</version>
+        </dependency>-->
+
+    </dependencies>
+    <build>
+        <finalName>${project.name}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+            <!-- 打jar包 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <!-- 生成 INDEX.LIST -->
+                        <index>true</index>
+                        <!-- MANIFEST.MF 多生成一些描述信息 -->
+                        <manifest>
+                            <addBuildEnvironmentEntries>true</addBuildEnvironmentEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <!-- 自动模块名，方便模块化导入 -->
+                        <manifestEntries>
+                            <Automatic-Module-Name>${module.name}</Automatic-Module-Name>
+                        </manifestEntries>
+                        <!-- 生成的jar中，不要包含pom.xml和pom.properties这两个文件，减小 jar 体积 -->
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>${maven.flatten.version}</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>oss</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>maven-releases</id>
+            <name>sunlin Release Repository</name>
+            <url>http://140.143.155.241:18085/repository/maven-releases/</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <!--id的名字可以任意取，但是在setting文件中的属性<server>的ID与这里一致-->
+            <id>maven-releases</id>
+            <!--指向仓库类型为host(宿主仓库）的储存类型为Release的仓库-->
+            <url>http://140.143.155.241:18085/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
+
+</project>
