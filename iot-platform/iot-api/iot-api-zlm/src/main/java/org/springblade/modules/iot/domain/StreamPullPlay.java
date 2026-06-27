@@ -18,8 +18,6 @@ import java.io.Serializable;
  * @date 2026-04-02
  **/
 @Data
-@TableName("")
-@Table(value = "", comment = "")
 public class StreamPullPlay implements Serializable{
 
     /**

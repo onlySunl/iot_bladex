@@ -11,8 +11,6 @@ import java.util.List;
 
 
 @Data
-@TableName("")
-@Table(value = "", comment = "")
 public class OnvifDevice {
 
     /**

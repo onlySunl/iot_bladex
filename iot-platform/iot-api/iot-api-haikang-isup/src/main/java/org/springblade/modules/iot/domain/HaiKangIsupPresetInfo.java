@@ -16,8 +16,6 @@ import lombok.Data;
  * @date 2026-04-30
  **/
 @Data
-@TableName("")
-@Table(value = "", comment = "")
 public class HaiKangIsupPresetInfo {
     public int index;
     public String name;

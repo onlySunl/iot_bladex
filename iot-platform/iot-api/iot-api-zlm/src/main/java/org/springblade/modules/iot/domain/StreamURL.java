@@ -11,8 +11,6 @@ import java.io.Serializable;
 /**
  * 流地址信息
  */
-@TableName("")
-@Table(value = "", comment = "")
 public class StreamURL implements Serializable,Cloneable {
 
     /**

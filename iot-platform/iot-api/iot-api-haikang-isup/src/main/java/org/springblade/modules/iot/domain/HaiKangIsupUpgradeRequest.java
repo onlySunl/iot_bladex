@@ -11,8 +11,6 @@ import lombok.Data;
  * 海康ISUP设备升级请求参数
  */
 @Data
-@TableName("")
-@Table(value = "", comment = "")
 public class HaiKangIsupUpgradeRequest {
 
     /**

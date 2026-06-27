@@ -11,8 +11,6 @@ import java.io.Serializable;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("")
-@Table(value = "", comment = "")
 public class RTPServerParam extends CustomBaseEntity implements Serializable {
 
     private ZlmMediaServer mediaServer;

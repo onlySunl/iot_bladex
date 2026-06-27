@@ -16,8 +16,6 @@ import lombok.Data;
  * @date 2025-12-24
  **/
 @Data
-@TableName("")
-@Table(value = "", comment = "")
 public class HaiKangIsupDeviceInfo {
     /**
      * 模拟通道个数

@@ -21,8 +21,6 @@ import java.util.Map;
  * 视频信息
  */
 @Data
-@TableName("")
-@Table(value = "", comment = "")
 public class MediaInfo {
     /**应用名**/
     private String app;

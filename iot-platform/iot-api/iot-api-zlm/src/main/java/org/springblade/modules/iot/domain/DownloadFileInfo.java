@@ -10,8 +10,6 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-@TableName("")
-@Table(value = "", comment = "")
 public class DownloadFileInfo implements Serializable {
 
     private String httpPath;

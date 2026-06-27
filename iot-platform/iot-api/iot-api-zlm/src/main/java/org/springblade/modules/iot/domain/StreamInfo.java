@@ -14,8 +14,6 @@ import java.util.Objects;
  * 流信息
  */
 @Data
-@TableName("")
-@Table(value = "", comment = "")
 public class StreamInfo implements Serializable, Cloneable {
 
     /**应用名**/

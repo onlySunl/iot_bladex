@@ -13,8 +13,6 @@ import java.io.Serializable;
  * 流信息
  */
 @Data
-@TableName("")
-@Table(value = "", comment = "")
 public class StreamContent implements Serializable {
 
     /**应用名**/

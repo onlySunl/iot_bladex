@@ -15,8 +15,6 @@ import java.util.List;
  * 海康ISUP设备摄像头属性信息
  */
 @Data
-@TableName("")
-@Table(value = "", comment = "")
 public class HaiKangIsupCameraInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;

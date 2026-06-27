@@ -11,8 +11,6 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-@TableName("")
-@Table(value = "", comment = "")
 public class Gb28181PlatformPlayback implements Serializable {
     private static final long serialVersionUID = 1L;
 

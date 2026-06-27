@@ -10,8 +10,6 @@ import java.io.Serializable;
 /**
  * 海康设备录像下载响应
  */
-@TableName("")
-@Table(value = "", comment = "")
 public class HaikangRecordDownloadResponse implements Serializable {
 
     private static final long serialVersionUID = 1L;

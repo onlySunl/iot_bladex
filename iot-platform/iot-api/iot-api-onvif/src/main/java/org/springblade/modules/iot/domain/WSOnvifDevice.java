@@ -9,8 +9,6 @@ import lombok.Data;
 
 
 @Data
-@TableName("")
-@Table(value = "", comment = "")
 public class WSOnvifDevice {
     private String ip;
     private String auth;

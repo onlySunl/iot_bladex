@@ -10,8 +10,6 @@ import java.io.Serializable;
 /**
  * 海康设备录像下载请求
  */
-@TableName("")
-@Table(value = "", comment = "")
 public class HaikangRecordDownloadRequest extends CustomBaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
