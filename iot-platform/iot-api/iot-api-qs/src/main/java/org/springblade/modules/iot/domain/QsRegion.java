@@ -1,38 +1,52 @@
 package org.springblade.modules.iot.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import com.tangzc.mpe.autotable.annotation.Table;
+
 import org.springblade.core.utils.DateUtils;
 import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.util.Date;
 
 /**
  * 区域
  */
 @Data
+@TableName("qs_common_region")
+@EqualsAndHashCode(callSuper = true)
+@Table(value = "qs_common_region", comment = "区域表")
 public class QsRegion extends CustomBaseEntity implements Comparable<QsRegion> {
-    /**
-     * 数据库自增ID
-     */
-    private int id;
+    private static final long serialVersionUID = 1L;
 
-    /**
-     * 区域国标编号
-     */
+    /** 主键ID */
+    @TableField(value = "id")
+    @AutoColumn(comment = "主键ID", length = 20)
+    private Long id;
+
+    /** 区域国标编号 */
+    @TableField(value = "device_id")
+    @AutoColumn(comment = "区域国标编号", length = 50, defaultValueType = DefaultValueEnum.EMPTY_STRING)
     private String deviceId;
 
-    /**
-     * 区域名称
-     */
+    /** 区域名称 */
+    @TableField(value = "name")
+    @AutoColumn(comment = "区域名称", length = 255, defaultValueType = DefaultValueEnum.EMPTY_STRING)
     private String name;
 
-    /**
-     * 父区域国标ID
-     */
+    /** 父区域ID */
+    @TableField(value = "parent_id")
+    @AutoColumn(comment = "父区域ID", length = 11, defaultValueType = DefaultValueEnum.NULL)
     private Integer parentId;
 
-    /**
-     * 父区域国标ID
-     */
+    /** 父区域国标ID */
+    @TableField(value = "parent_device_id")
+    @AutoColumn(comment = "父区域国标ID", length = 50, defaultValueType = DefaultValueEnum.EMPTY_STRING)
     private String parentDeviceId;
 
     @Override

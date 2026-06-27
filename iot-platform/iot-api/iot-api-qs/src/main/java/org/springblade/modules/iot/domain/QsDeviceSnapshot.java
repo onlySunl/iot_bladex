@@ -1,67 +1,113 @@
 package org.springblade.modules.iot.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import com.tangzc.mpe.autotable.annotation.Table;
+
 import org.springblade.core.annotation.Excel;
 import org.springblade.core.annotation.Excel.ColumnType;
 import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
+@TableName("qs_device_snapshot")
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(value = "qs_device_snapshot", comment = "设备抓图记录表")
 public class QsDeviceSnapshot extends CustomBaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @Excel(name = "编号", cellType = ColumnType.NUMERIC)
+    /** 主键ID */
+    @TableField(value = "id")
+    @AutoColumn(comment = "主键ID", length = 20)
+    private Long id;
 
+    /** 关联设备ID */
+    @TableField(value = "device_id")
+    @AutoColumn(comment = "关联设备ID", length = 20, defaultValueType = DefaultValueEnum.NULL)
     private Long deviceId;
 
-    @Excel(name = "设备编号")
+    /** 设备编号 */
+    @TableField(value = "device_code")
+    @AutoColumn(comment = "设备编号", length = 128, defaultValueType = DefaultValueEnum.EMPTY_STRING)
     private String deviceCode;
 
-    @Excel(name = "设备名称")
+    /** 设备名称 */
+    @TableField(value = "device_name")
+    @AutoColumn(comment = "设备名称", length = 256, defaultValueType = DefaultValueEnum.EMPTY_STRING)
     private String deviceName;
 
-    @Excel(name = "文件地址")
+    /** 文件访问地址 */
+    @TableField(value = "file_url")
+    @AutoColumn(comment = "文件访问地址", length = 1024, defaultValueType = DefaultValueEnum.EMPTY_STRING)
     private String fileUrl;
 
+    /** 文件存储路径 */
+    @TableField(value = "file_path")
+    @AutoColumn(comment = "文件存储路径", length = 1024, defaultValueType = DefaultValueEnum.EMPTY_STRING)
     private String filePath;
 
-    @Excel(name = "文件大小", cellType = ColumnType.NUMERIC)
+    /** 文件大小(字节) */
+    @TableField(value = "file_size")
+    @AutoColumn(comment = "文件大小(字节)", length = 20, defaultValueType = DefaultValueEnum.NULL)
     private Long fileSize;
 
-    @Excel(name = "文件名称")
+    /** 文件名称 */
+    @TableField(value = "file_name")
+    @AutoColumn(comment = "文件名称", length = 256, defaultValueType = DefaultValueEnum.EMPTY_STRING)
     private String fileName;
 
-    @Excel(name = "文件类型")
+    /** 文件类型(jpg/png等) */
+    @TableField(value = "file_type")
+    @AutoColumn(comment = "文件类型", length = 64, defaultValueType = DefaultValueEnum.EMPTY_STRING)
     private String fileType;
 
-    @Excel(name = "抓图类型", readConverterExp = "manual=手动,alarm=报警,schedule=定时,preview=预览")
+    /** 抓图类型 */
+    @TableField(value = "snapshot_type")
+    @AutoColumn(comment = "抓图类型", length = 64, defaultValueType = DefaultValueEnum.EMPTY_STRING)
     private String snapshotType;
 
-    @Excel(name = "SDK类型", readConverterExp = "hik=海康,hik_isup=海康ISUP,dahua=大华,uniview=宇视,tiandy=天地伟业,gb28181=国标28181")
+    /** SDK类型 */
+    @TableField(value = "sdk_type")
+    @AutoColumn(comment = "SDK类型", length = 64, defaultValueType = DefaultValueEnum.EMPTY_STRING)
     private String sdkType;
 
-    @Excel(name = "通道号", cellType = ColumnType.NUMERIC)
+    /** 通道号 */
+    @TableField(value = "channel")
+    @AutoColumn(comment = "通道号", length = 11, defaultValueType = DefaultValueEnum.NULL)
     private Long channel;
 
-    @Excel(name = "抓图时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
+    /** 抓图时间 */
+    @TableField(value = "capture_time")
+    @AutoColumn(comment = "抓图时间", defaultValueType = DefaultValueEnum.NULL)
     private Date captureTime;
 
-    @Excel(name = "宽度", cellType = ColumnType.NUMERIC)
+    /** 图片宽度 */
+    @TableField(value = "width")
+    @AutoColumn(comment = "图片宽度", length = 11, defaultValueType = DefaultValueEnum.NULL)
     private Integer width;
 
-    @Excel(name = "高度", cellType = ColumnType.NUMERIC)
+    /** 图片高度 */
+    @TableField(value = "height")
+    @AutoColumn(comment = "图片高度", length = 11, defaultValueType = DefaultValueEnum.NULL)
     private Integer height;
 
-    @Excel(name = "纬度")
+    /** 纬度 */
+    @TableField(value = "latitude")
+    @AutoColumn(comment = "纬度", length = 20, defaultValueType = DefaultValueEnum.NULL)
     private BigDecimal latitude;
 
-    @Excel(name = "经度")
+    /** 经度 */
+    @TableField(value = "longitude")
+    @AutoColumn(comment = "经度", length = 20, defaultValueType = DefaultValueEnum.NULL)
     private BigDecimal longitude;
 }

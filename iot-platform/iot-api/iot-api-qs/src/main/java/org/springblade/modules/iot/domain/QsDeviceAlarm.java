@@ -1,67 +1,109 @@
 package org.springblade.modules.iot.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import com.tangzc.mpe.autotable.annotation.Table;
+
 import org.springblade.core.annotation.Excel;
 import org.springblade.core.annotation.Excel.ColumnType;
 import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
 
 @Data
+@TableName("qs_device_alarm")
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(value = "qs_device_alarm", comment = "设备告警表")
 public class QsDeviceAlarm extends CustomBaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @Excel(name = "编号", cellType = ColumnType.NUMERIC)
+    /** 主键ID */
+    @TableField(value = "id")
+    @AutoColumn(comment = "主键ID", length = 20)
+    private Long id;
 
+    /** 设备ID */
+    @TableField(value = "device_id")
+    @AutoColumn(comment = "设备ID", length = 20, defaultValueType = DefaultValueEnum.NULL)
     private Long deviceId;
 
-    @Excel(name = "设备编号")
+    /** 设备编号 */
+    @TableField(value = "device_code")
+    @AutoColumn(comment = "设备编号", length = 64, defaultValueType = DefaultValueEnum.EMPTY_STRING)
     private String deviceCode;
 
-    @Excel(name = "设备名称")
+    /** 设备名称 */
+    @TableField(value = "device_name")
+    @AutoColumn(comment = "设备名称", length = 128, defaultValueType = DefaultValueEnum.EMPTY_STRING)
     private String deviceName;
 
-    @Excel(name = "告警类型", readConverterExp = "motion=移动侦测,video_loss=视频丢失,cover=视频遮挡,cross_line=越界侦测,enter_area=区域入侵,leave_area=区域离开,object_remove=物品移除,object_leave=物品遗留,face_detection=人脸检测,other=其他")
+    /** 告警类型 */
+    @TableField(value = "alarm_type")
+    @AutoColumn(comment = "告警类型", length = 32, defaultValueType = DefaultValueEnum.EMPTY_STRING)
     private String alarmType;
 
-    @Excel(name = "告警级别", readConverterExp = "low=低,medium=中,high=高,critical=紧急")
+    /** 告警级别 */
+    @TableField(value = "alarm_level")
+    @AutoColumn(comment = "告警级别", length = 32, defaultValueEnum.EMPTY_STRING)
     private String alarmLevel;
 
-    @Excel(name = "SDK类型", readConverterExp = "hik=海康,hik_isup=海康ISUP,dahua=大华,uniview=宇视,tiandy=天地伟业,gb28181=国标28181")
+    /** SDK类型 */
+    @TableField(value = "sdk_type")
+    @AutoColumn(comment = "SDK类型", length = 32, defaultValueType = DefaultValueEnum.EMPTY_STRING)
     private String sdkType;
 
-    @Excel(name = "通道号", cellType = ColumnType.NUMERIC)
+    /** 通道号 */
+    @TableField(value = "channel")
+    @AutoColumn(comment = "通道号", length = 11, defaultValueType = DefaultValueEnum.NULL)
     private Integer channel;
 
-    @Excel(name = "告警时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
+    /** 告警时间 */
+    @TableField(value = "alarm_time")
+    @AutoColumn(comment = "告警时间", defaultValueType = DefaultValueEnum.NULL)
     private Date alarmTime;
 
-    @Excel(name = "告警内容")
+    /** 告警内容 */
+    @TableField(value = "alarm_content")
+    @AutoColumn(comment = "告警内容", length = 65535, defaultValueType = DefaultValueEnum.NULL)
     private String alarmContent;
 
-    @Excel(name = "告警图片地址")
+    /** 告警图片URL */
+    @TableField(value = "image_url")
+    @AutoColumn(comment = "告警图片URL", length = 512, defaultValueType = DefaultValueEnum.EMPTY_STRING)
     private String imageUrl;
 
-    @Excel(name = "是否已处理", readConverterExp = "0=未处理,1=已处理")
+    /** 是否已处理（0-否，1-是） */
+    @TableField(value = "handled")
+    @AutoColumn(comment = "是否已处理", length = 1, defaultValueType = DefaultValueEnum.NULL)
     private Integer handled;
 
-    @Excel(name = "处理人")
+    /** 处理人 */
+    @TableField(value = "handler")
+    @AutoColumn(comment = "处理人", length = 64, defaultValueType = DefaultValueEnum.EMPTY_STRING)
     private String handler;
 
-    @Excel(name = "处理时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
+    /** 处理时间 */
+    @TableField(value = "handle_time")
+    @AutoColumn(comment = "处理时间", defaultValueType = DefaultValueEnum.NULL)
     private Date handleTime;
 
-    @Excel(name = "备注")
+    /** 备注 */
+    @TableField(value = "remark")
+    @AutoColumn(comment = "备注", length = 500, defaultValueType = DefaultValueEnum.NULL)
     private String remark;
 
     /**
-     * 批量处理用的id数组
+     * 批量处理用的id数组（非数据库字段）
      */
+    @TableField(exist = false)
     private Long[] ids;
 }

@@ -1,10 +1,21 @@
 package org.springblade.modules.iot.domain;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import com.tangzc.mpe.autotable.annotation.Table;
+
+import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 
 import java.io.Serializable;
 
 /**
  * 大华设备录像下载请求
  */
+@Data
+@TableName("dahua_record_download_request")
+@EqualsAndHashCode(callSuper = true)
+@Table(value = "dahua_record_download_request", comment = "大华设备录像下载请求表")
 public class DahuaRecordDownloadRequest extends CustomBaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

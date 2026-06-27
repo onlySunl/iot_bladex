@@ -1,4 +1,9 @@
 package org.springblade.modules.iot.domain;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import com.tangzc.mpe.autotable.annotation.Table;
 
 import java.io.Serializable;
 
@@ -6,6 +11,8 @@ import java.io.Serializable;
 /**
  * 流地址信息
  */
+@TableName("")
+@Table(value = "", comment = "")
 public class StreamURL implements Serializable,Cloneable {
 
     /**

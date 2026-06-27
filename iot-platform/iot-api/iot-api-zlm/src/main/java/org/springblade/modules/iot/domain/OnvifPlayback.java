@@ -1,4 +1,9 @@
 package org.springblade.modules.iot.domain;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import com.tangzc.mpe.autotable.annotation.Table;
 
 import lombok.Data;
 
@@ -13,6 +18,8 @@ import java.io.Serializable;
  * @date 2026-04-02
  **/
 @Data
+@TableName("")
+@Table(value = "", comment = "")
 public class OnvifPlayback implements Serializable {
 
     /**

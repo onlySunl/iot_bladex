@@ -1,4 +1,9 @@
 package org.springblade.modules.iot.domain;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import com.tangzc.mpe.autotable.annotation.Table;
 
 import lombok.Data;
 
@@ -9,6 +14,8 @@ import java.util.Objects;
  * 流信息
  */
 @Data
+@TableName("")
+@Table(value = "", comment = "")
 public class StreamInfo implements Serializable, Cloneable {
 
     /**应用名**/
