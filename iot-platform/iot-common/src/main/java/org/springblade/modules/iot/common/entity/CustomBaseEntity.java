@@ -12,10 +12,6 @@ import org.springblade.core.mp.base.BaseEntity;
 public class CustomBaseEntity extends BaseEntity {
 
 
-    @AutoColumn(value = "mmc_year",comment = "数据所属年", length = 10, defaultValueType = DefaultValueEnum.NULL)
-    @JsonSerialize(using = ToStringSerializer.class, nullsUsing = NullSerializer.class)
-    protected Integer mmcYear;
-
     @AutoColumn(value = "revision",comment = "乐观锁", length = 10, defaultValueType = DefaultValueEnum.NULL)
     @JsonSerialize(using = ToStringSerializer.class, nullsUsing = NullSerializer.class)
     protected Integer revision;
