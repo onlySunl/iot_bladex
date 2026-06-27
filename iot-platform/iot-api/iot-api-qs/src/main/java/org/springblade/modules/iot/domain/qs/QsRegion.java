@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.domain.qs;
 
 import org.springblade.core.utils.DateUtils;
-import org.springblade.core.web.domain.BaseEntity;
+import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import lombok.Data;
  * 区域
  */
 @Data
-public class QsRegion extends BaseEntity implements Comparable<QsRegion> {
+public class QsRegion extends CustomBaseEntity implements Comparable<QsRegion> {
     /**
      * 数据库自增ID
      */

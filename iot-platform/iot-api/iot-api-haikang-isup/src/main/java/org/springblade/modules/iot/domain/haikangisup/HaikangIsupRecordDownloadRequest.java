@@ -5,14 +5,13 @@ import java.io.Serializable;
 /**
  * 海康Isup设备录像下载请求
  */
-public class HaikangIsupRecordDownloadRequest implements Serializable {
+public class HaikangIsupRecordDownloadRequest extends CustomBaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 设备ID
      */
-    private Long id;
 
     /**
      * 通道ID

@@ -4,7 +4,7 @@ import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springblade.core.annotation.Excel;
-import org.springblade.core.web.domain.BaseEntity;
+import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 
 /**
  * 云端录像对象 zlm_cloud_record
@@ -13,12 +13,11 @@ import org.springblade.core.web.domain.BaseEntity;
  * @date 2026-04-10
  */
 @Data
-public class ZlmCloudRecord extends BaseEntity
-{
+@EqualsAndHashCode(callSuper = true)
+public class ZlmCloudRecord extends CustomBaseEntity {
     private static final long serialVersionUID = 1L;
 
     /** 主键 */
-    private Long id;
 
     /** 应用名 */
     private String app;

@@ -5,9 +5,9 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class RTPServerParam implements Serializable {
+@EqualsAndHashCode(callSuper = true)
+public class RTPServerParam extends CustomBaseEntity implements Serializable {
 
-    private Long id;
     private ZlmMediaServer mediaServer;
     private StreamInfo streamInfo;
     private String app;
@@ -41,4 +41,5 @@ public class RTPServerParam implements Serializable {
      * 回放结束时间
      */
     private String endTime;
+    private static final long serialVersionUID = 1L;
 }

@@ -2,7 +2,7 @@ package org.springblade.modules.iot.domain.zlm;
 
 
 import org.springblade.core.annotation.Excel;
-import org.springblade.core.web.domain.BaseEntity;
+import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 import org.springblade.modules.iot.domain.zlm.config.ZLMServerConfig;
 import lombok.Data;
 import org.springframework.util.ObjectUtils;
@@ -13,12 +13,12 @@ import org.springframework.util.ObjectUtils;
  * @author fengcheng
  */
 @Data
-public class ZlmMediaServer extends BaseEntity{
+@EqualsAndHashCode(callSuper = true)
+public class ZlmMediaServer extends CustomBaseEntity{
 
     private static final long serialVersionUID = 1L;
 
     /** ID */
-    private String id;
 
     /** IP */
     private String ip;

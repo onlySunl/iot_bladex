@@ -5,14 +5,13 @@ import java.io.Serializable;
 /**
  * 大华设备录像下载请求
  */
-public class DahuaRecordDownloadRequest implements Serializable {
+public class DahuaRecordDownloadRequest extends CustomBaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 设备ID
      */
-    private Long id;
 
     /**
      * 通道ID

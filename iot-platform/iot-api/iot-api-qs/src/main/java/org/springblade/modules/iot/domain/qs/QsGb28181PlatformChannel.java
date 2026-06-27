@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.domain.qs;
 
-import org.springblade.core.web.domain.BaseEntity;
+import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,13 +11,12 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class QsGb28181PlatformChannel extends BaseEntity {
+public class QsGb28181PlatformChannel extends CustomBaseEntity {
     private static final long serialVersionUID = 1L;
 
     /**
      * 主键ID
      */
-    private Long id;
 
     /**
      * 国标GB28181平台ID

@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.domain.qs;
 
-import org.springblade.core.web.domain.BaseEntity;
+import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import lombok.Data;
  * 业务分组
  */
 @Data
-public class QsGroup extends BaseEntity implements Comparable<QsGroup> {
+public class QsGroup extends CustomBaseEntity implements Comparable<QsGroup> {
     /**
      * 数据库自增ID
      */

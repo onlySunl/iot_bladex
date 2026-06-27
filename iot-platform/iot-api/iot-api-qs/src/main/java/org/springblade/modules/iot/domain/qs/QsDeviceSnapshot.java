@@ -2,7 +2,7 @@ package org.springblade.modules.iot.domain.qs;
 
 import org.springblade.core.annotation.Excel;
 import org.springblade.core.annotation.Excel.ColumnType;
-import org.springblade.core.web.domain.BaseEntity;
+import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,13 +11,13 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class QsDeviceSnapshot extends BaseEntity {
+public class QsDeviceSnapshot extends CustomBaseEntity {
     private static final long serialVersionUID = 1L;
 
     @Excel(name = "编号", cellType = ColumnType.NUMERIC)
-    private Long id;
 
     private Long deviceId;
 

@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.domain.gb28181;
 
-import org.springblade.core.web.domain.BaseEntity;
+import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,13 +11,12 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Gb28181Platform extends BaseEntity {
+public class Gb28181Platform extends CustomBaseEntity {
     private static final long serialVersionUID = 1L;
 
     /**
      * 主键ID
      */
-    private Long id;
 
     /**
      * 是否启用：0-禁用，1-启用

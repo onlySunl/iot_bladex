@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.domain.qs;
 
-import org.springblade.core.web.domain.BaseEntity;
+import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,14 +12,13 @@ import lombok.NoArgsConstructor;
  * @date 2026-03-27
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class QsDevice extends BaseEntity
-{
+public class QsDevice extends CustomBaseEntity {
     private static final long serialVersionUID = 1L;
 
     /** 主键ID */
-    private Long id;
 
     /** 设备唯一标识 */
     private String deviceCode;
