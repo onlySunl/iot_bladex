@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springblade.modules.iot.protocol.gb28181.mapper.Gb28181PlatformChannelMapper">
+
+    <select id="selectByPlatformId" resultType="org.springblade.modules.iot.domain.Gb28181PlatformChannel">
+        SELECT * FROM gb28181_platform_channel WHERE platform_id = #{platformId}
+    </select>
+
+    <select id="selectByChannelId" resultType="org.springblade.modules.iot.domain.Gb28181PlatformChannel">
+        SELECT * FROM gb28181_platform_channel WHERE channel_id = #{channelId} LIMIT 1
+    </select>
+
+    <delete id="deleteByPlatformId">
+        DELETE FROM gb28181_platform_channel WHERE platform_id = #{platformId}
+    </delete>
+
+</mapper>

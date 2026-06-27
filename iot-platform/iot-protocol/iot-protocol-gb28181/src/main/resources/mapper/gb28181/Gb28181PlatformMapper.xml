@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springblade.modules.iot.protocol.gb28181.mapper.Gb28181PlatformMapper">
+
+    <select id="selectByServerGbId" resultType="org.springblade.modules.iot.domain.Gb28181Platform">
+        SELECT * FROM gb28181_platform WHERE server_gb_id = #{serverGbId} LIMIT 1
+    </select>
+
+    <select id="selectByDeviceGbId" resultType="org.springblade.modules.iot.domain.Gb28181Platform">
+        SELECT * FROM gb28181_platform WHERE device_gb_id = #{deviceGbId} LIMIT 1
+    </select>
+
+</mapper>

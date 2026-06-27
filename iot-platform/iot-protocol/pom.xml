@@ -15,7 +15,15 @@
     <description>IoT协议层 - MQTT/HTTP/TCP/UDP/CoAP/SIP服务器 + 协议解析 + TDengine + 数据处理 + 通知 + 录像
     </description>
     <modules>
-
+        <module>iot-protocol-common</module>
+        <module>iot-protocol-gb28181</module>
+        <module>iot-protocol-qs</module>
+        <module>iot-protocol-zlm</module>
+        <module>iot-protocol-haikang</module>
+        <module>iot-protocol-haikang-isup</module>
+        <module>iot-protocol-jt1078</module>
+        <module>iot-protocol-onvif</module>
+        <module>iot-protocol-dahua</module>
     </modules>
     <dependencies>
 
