@@ -1,10 +1,10 @@
-package org.springblade.modules.iot.protocol.qs.service;
+package org.springblade.modules.iot.qs.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springblade.modules.iot.domain.QsRegion;
-import org.springblade.modules.iot.protocol.qs.mapper.QsRegionMapper;
+import org.springblade.modules.iot.qs.mapper.QsRegionMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

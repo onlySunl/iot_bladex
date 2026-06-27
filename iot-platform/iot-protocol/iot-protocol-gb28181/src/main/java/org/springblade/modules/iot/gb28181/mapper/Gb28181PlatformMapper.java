@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.protocol.gb28181.mapper;
+package org.springblade.modules.iot.gb28181.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.domain.Gb28181Platform;

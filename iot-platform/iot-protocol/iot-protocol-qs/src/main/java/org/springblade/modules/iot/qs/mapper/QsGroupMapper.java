@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.protocol.qs.mapper;
+package org.springblade.modules.iot.qs.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.domain.QsGroup;

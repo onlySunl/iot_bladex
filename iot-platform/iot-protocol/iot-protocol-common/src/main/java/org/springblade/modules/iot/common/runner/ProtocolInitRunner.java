@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.protocol.common.runner;
+package org.springblade.modules.iot.common.runner;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springboot.autoconfigure.condition.ConditionalOnProperty;

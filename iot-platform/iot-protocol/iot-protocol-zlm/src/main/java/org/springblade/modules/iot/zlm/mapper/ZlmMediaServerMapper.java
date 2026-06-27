@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.protocol.zlm.mapper;
+package org.springblade.modules.iot.zlm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.domain.ZlmMediaServer;

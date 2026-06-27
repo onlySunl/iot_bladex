@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.protocol.qs.service;
+package org.springblade.modules.iot.qs.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springblade.modules.iot.domain.QsDeviceAlarm;
-import org.springblade.modules.iot.protocol.qs.mapper.QsDeviceAlarmMapper;
+import org.springblade.modules.iot.qs.mapper.QsDeviceAlarmMapper;
 import org.springframework.stereotype.Service;
 
 /**

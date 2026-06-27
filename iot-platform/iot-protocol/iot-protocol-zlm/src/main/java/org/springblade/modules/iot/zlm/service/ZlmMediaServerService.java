@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.protocol.zlm.service;
+package org.springblade.modules.iot.zlm.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springblade.modules.iot.domain.ZlmMediaServer;
-import org.springblade.modules.iot.protocol.zlm.mapper.ZlmMediaServerMapper;
+import org.springblade.modules.iot.zlm.mapper.ZlmMediaServerMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

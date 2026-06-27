@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.protocol.gb28181.service;
+package org.springblade.modules.iot.gb28181.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springblade.modules.iot.domain.Gb28181Platform;
-import org.springblade.modules.iot.protocol.gb28181.mapper.Gb28181PlatformMapper;
+import org.springblade.modules.iot.gb28181.mapper.Gb28181PlatformMapper;
 import org.springframework.stereotype.Service;
 
 /**
