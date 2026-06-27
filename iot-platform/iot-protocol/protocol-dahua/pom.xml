@@ -25,5 +25,11 @@
             <artifactId>iot-api-dahua</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
+        <!-- JNA 依赖 -->
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>5.12.1</version>
+        </dependency>
     </dependencies>
 </project>
