@@ -1,0 +1,12 @@
+[project]
+sub_id = "95adf16a"
+name = "BLADE_IOT"
+entrypoint = "blade-server/src/main/java/org/springblade/Application.java"
+requires = ["java-17"]
+project_type = "backend"
+
+[preview]
+preview_enable = "disabled"
+
+[subprojects]
+path = ["."]

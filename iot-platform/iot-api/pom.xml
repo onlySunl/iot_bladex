@@ -19,6 +19,17 @@
         <module.name>iot.api</module.name>
     </properties>
 
+    <modules>
+        <module>iot-api-dahua</module>
+        <module>iot-api-zlm</module>
+        <module>iot-api-haikang</module>
+        <module>iot-api-onvif</module>
+        <module>iot-api-qs</module>
+        <module>iot-api-haikang-isup</module>
+        <module>iot-api-gb28181</module>
+        <module>iot-api-jt1078</module>
+    </modules>
+
     <dependencies>
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
