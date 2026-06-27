@@ -1,13 +1,14 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * @author 260611
  * @description 热成像规则间温差异常报警 (DH_ALARM_BETWEENRULE_TEMP_DIFF)
  * @date 2023/05/24 10:24:56
  */
-public class ALARM_BETWEENRULE_DIFFTEMPER_INFO extends NetSDKLib.SdkStructure {
+public class ALARM_BETWEENRULE_DIFFTEMPER_INFO extends SdkStructure {
 	/**
 	 * 0:开始 1:停止
 	 */

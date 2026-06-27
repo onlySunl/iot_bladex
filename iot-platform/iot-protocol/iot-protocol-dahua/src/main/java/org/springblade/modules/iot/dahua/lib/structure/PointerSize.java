@@ -2,6 +2,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import com.sun.jna.Pointer;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * @author 291189
@@ -9,7 +10,7 @@ import com.sun.jna.Pointer;
  * @description
  * @date 2022/3/8 14:05
  */
-public class PointerSize extends NetSDKLib.SdkStructure {
-    public Pointer          pointer;
+public class PointerSize extends SdkStructure {
+    public Pointer pointer;
 }
 
