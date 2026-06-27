@@ -8,9 +8,10 @@ import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import com.tangzc.mpe.autotable.annotation.Column;
 import lombok.Data;
 import org.springblade.core.mp.base.BaseEntity;
-@Data
-public class CustomBaseEntity extends BaseEntity {
+import org.springblade.core.tenant.mp.TenantEntity;
 
+@Data
+public class CustomBaseEntity extends TenantEntity {
 
     @AutoColumn(value = "revision",comment = "乐观锁", length = 10, defaultValueType = DefaultValueEnum.NULL)
     @JsonSerialize(using = ToStringSerializer.class, nullsUsing = NullSerializer.class)
