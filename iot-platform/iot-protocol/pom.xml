@@ -3,29 +3,34 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>iot-platform</artifactId>
         <version>4.2.0.RELEASE</version>
     </parent>
-    <artifactId>iot-protocol</artifactId>
-    <name>iot-protocol</name>
-    <packaging>pom</packaging>
-    <description>IoT协议层 - MQTT/HTTP/TCP/UDP/CoAP/SIP服务器 + 协议解析 + TDengine + 数据处理 + 通知 + 录像
-    </description>
-    <modules>
-        <module>iot-protocol-common</module>
-        <module>iot-protocol-gb28181</module>
-        <module>iot-protocol-qs</module>
-        <module>iot-protocol-zlm</module>
-        <module>iot-protocol-haikang</module>
-        <module>iot-protocol-haikang-isup</module>
-        <module>iot-protocol-jt1078</module>
-        <module>iot-protocol-onvif</module>
-        <module>iot-protocol-dahua</module>
-    </modules>
-    <dependencies>
 
-    </dependencies>
+    <artifactId>iot-protocol</artifactId>
+    <packaging>pom</packaging>
+    <description>IoT协议实现模块</description>
+
+    <modules>
+        <!-- 协议公共模块 -->
+        <module>protocol-common</module>
+        <!-- QS设备协议 -->
+        <module>protocol-qs</module>
+        <!-- ZLM流媒体协议 -->
+        <module>protocol-zlm</module>
+        <!-- GB28181国标协议 -->
+        <module>protocol-gb28181</module>
+        <!-- 海康设备协议 -->
+        <module>protocol-haikang</module>
+        <!-- 海康ISUP协议 -->
+        <module>protocol-haikang-isup</module>
+        <!-- 大华设备协议 -->
+        <module>protocol-dahua</module>
+        <!-- ONVIF协议 -->
+        <module>protocol-onvif</module>
+        <!-- JT1078部标协议 -->
+        <module>protocol-jt1078</module>
+    </modules>
 </project>
