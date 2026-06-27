@@ -4,13 +4,13 @@ import org.springblade.core.constant.SecurityConstants;
 import org.springblade.core.constant.ServiceNameConstants;
 import org.springblade.core.domain.R;
 import org.springblade.core.domain.RtpServerParam;
-import org.springblade.modules.iot.domain.haikang.isup.domain.HaiKangIsupDeviceInfo;
-import org.springblade.modules.iot.domain.haikang.isup.domain.HaiKangIsupPresetInfo;
+import org.springblade.modules.iot.domain.isup.domain.HaiKangIsupDeviceInfo;
+import org.springblade.modules.iot.domain.isup.domain.HaiKangIsupPresetInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import org.springblade.modules.iot.domain.haikang.isup.factory.RemoteHaiKangIsupFallbackFactory;
+import org.springblade.modules.iot.domain.isup.factory.RemoteHaiKangIsupFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

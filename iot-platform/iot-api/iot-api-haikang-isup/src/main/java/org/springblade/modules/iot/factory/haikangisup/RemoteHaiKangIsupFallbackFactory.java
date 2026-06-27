@@ -3,8 +3,8 @@ package org.springblade.modules.iot.factory.haikangisup;
 import org.springblade.core.domain.R;
 import org.springblade.core.domain.RtpServerParam;
 import org.springblade.modules.iot.service.haikangisup.RemoteHaiKangIsupService;
-import org.springblade.modules.iot.domain.haikang.isup.domain.HaiKangIsupDeviceInfo;
-import org.springblade.modules.iot.domain.haikang.isup.domain.HaiKangIsupPresetInfo;
+import org.springblade.modules.iot.domain.isup.domain.HaiKangIsupDeviceInfo;
+import org.springblade.modules.iot.domain.isup.domain.HaiKangIsupPresetInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;

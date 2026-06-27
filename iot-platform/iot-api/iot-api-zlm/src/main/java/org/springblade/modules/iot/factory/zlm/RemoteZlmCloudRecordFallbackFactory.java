@@ -2,7 +2,7 @@ package org.springblade.modules.iot.factory.zlm;
 
 import org.springblade.core.domain.R;
 import org.springblade.modules.iot.service.zlm.RemoteZlmCloudRecordService;
-import org.springblade.modules.iot.domain.zlm.ZlmCloudRecord;
+import org.springblade.modules.iot.domain.ZlmCloudRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.openfeign.FallbackFactory;

@@ -2,8 +2,8 @@ package org.springblade.modules.iot.factory.qs;
 
 import org.springblade.core.domain.R;
 import org.springblade.modules.iot.service.qs.RemoteQsRegionService;
-import org.springblade.modules.iot.domain.qs.QsRegion;
-import org.springblade.modules.iot.domain.qs.QsRegionTree;
+import org.springblade.modules.iot.domain.QsRegion;
+import org.springblade.modules.iot.domain.QsRegionTree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.openfeign.FallbackFactory;

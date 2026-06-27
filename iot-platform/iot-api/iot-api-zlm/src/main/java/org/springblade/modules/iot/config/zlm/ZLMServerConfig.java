@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.config.zlm;
 
 import com.alibaba.fastjson2.annotation.JSONField;
-import org.springblade.modules.iot.domain.zlm.hook.HookParam;
+import org.springblade.modules.iot.domain.hook.HookParam;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

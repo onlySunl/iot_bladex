@@ -3,7 +3,7 @@ package org.springblade.modules.iot.service.qs;
 import org.springblade.core.constant.SecurityConstants;
 import org.springblade.core.constant.ServiceNameConstants;
 import org.springblade.core.domain.R;
-import org.springblade.modules.iot.domain.qs.QsDeviceAlarm;
+import org.springblade.modules.iot.domain.QsDeviceAlarm;
 import org.springblade.modules.iot.factory.qs.RemoteQsDeviceAlarmFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;

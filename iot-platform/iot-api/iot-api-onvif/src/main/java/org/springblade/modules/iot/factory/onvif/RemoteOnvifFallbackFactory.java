@@ -2,8 +2,8 @@ package org.springblade.modules.iot.factory.onvif;
 
 import org.springblade.core.domain.R;
 import org.springblade.modules.iot.service.onvif.RemoteOnvifService;
-import org.springblade.modules.iot.domain.onvif.OnvifDevice;
-import org.springblade.modules.iot.domain.onvif.WSOnvifDevice;
+import org.springblade.modules.iot.domain.OnvifDevice;
+import org.springblade.modules.iot.domain.WSOnvifDevice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.openfeign.FallbackFactory;

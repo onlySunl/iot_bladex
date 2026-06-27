@@ -3,8 +3,8 @@ package org.springblade.modules.iot.service.qs;
 import org.springblade.core.constant.SecurityConstants;
 import org.springblade.core.constant.ServiceNameConstants;
 import org.springblade.core.domain.R;
-import org.springblade.modules.iot.domain.qs.QsGb28181Platform;
-import org.springblade.modules.iot.domain.qs.QsGb28181PlatformChannel;
+import org.springblade.modules.iot.domain.QsGb28181Platform;
+import org.springblade.modules.iot.domain.QsGb28181PlatformChannel;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

@@ -2,7 +2,7 @@ package org.springblade.modules.iot.factory.qs;
 
 import org.springblade.core.domain.R;
 import org.springblade.modules.iot.service.qs.RemoteQsDeviceSnapshotService;
-import org.springblade.modules.iot.domain.qs.QsDeviceSnapshot;
+import org.springblade.modules.iot.domain.QsDeviceSnapshot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.openfeign.FallbackFactory;

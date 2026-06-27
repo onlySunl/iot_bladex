@@ -3,7 +3,7 @@ package org.springblade.modules.iot.service.zlm;
 import org.springblade.core.constant.SecurityConstants;
 import org.springblade.core.constant.ServiceNameConstants;
 import org.springblade.core.domain.R;
-import org.springblade.modules.iot.domain.zlm.ZlmCloudRecord;
+import org.springblade.modules.iot.domain.ZlmCloudRecord;
 import org.springblade.modules.iot.factory.zlm.RemoteZlmCloudRecordFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;

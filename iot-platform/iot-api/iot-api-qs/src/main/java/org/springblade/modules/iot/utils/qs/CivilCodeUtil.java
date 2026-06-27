@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.utils.qs;
 
-import org.springblade.modules.iot.domain.qs.common.CivilCodePo;
-import org.springblade.modules.iot.domain.qs.QsRegion;
+import org.springblade.modules.iot.domain.common.CivilCodePo;
+import org.springblade.modules.iot.domain.QsRegion;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
 
