@@ -213,4 +213,5 @@ public interface PTZMethods {
      * 									视频诊断功能接口														 *												 												     *
      * 视频诊断参数表配置 CFG_CMD_VIDEODIAGNOSIS_PROFILE														 *
      * 视频诊断任务表配置 CFG_CMD_VIDEODIAGNOSIS_TASK_ONE						 								 *
+     */
 }

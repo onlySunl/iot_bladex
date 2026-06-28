@@ -212,5 +212,4 @@ public interface StreamMethods {
      */
     public boolean CLIENT_GetDefaultRealChannel(LLong lLoginID,Pointer pInBuf,Pointer pOutBuf,int nWaitTime);
 
-    /**
 }
