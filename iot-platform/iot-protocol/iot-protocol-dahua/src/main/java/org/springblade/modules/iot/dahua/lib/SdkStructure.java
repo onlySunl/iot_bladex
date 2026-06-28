@@ -33,4 +33,22 @@ public class SdkStructure extends Structure {
     public int fieldOffset(String name) {
         return super.fieldOffset(name);
     }
+
+    /**
+     * 创建结构体数组
+     * @param size 数组大小
+     * @return 结构体数组
+     */
+    public SdkStructure[] toArray(int size) {
+        return (SdkStructure[]) toArray(new SdkStructure[size]);
+    }
+
+    /**
+     * 创建结构体数组
+     * @param array 目标数组
+     * @return 结构体数组
+     */
+    public SdkStructure[] toArray(SdkStructure[] array) {
+        return (SdkStructure[]) Structure.toArray(array);
+    }
 }
