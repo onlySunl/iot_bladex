@@ -29,6 +29,8 @@
             <groupId>com.sun.jna</groupId>
             <artifactId>jna</artifactId>
             <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/jar/jna.jar</systemPath>
         </dependency>
     </dependencies>
 </project>

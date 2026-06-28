@@ -3,19 +3,20 @@ package org.springblade.modules.iot.dahua.lib.method;
 import com.sun.jna.*;
 import com.sun.jna.ptr.*;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+import org.springblade.modules.iot.dahua.lib.Utils.LLong;
 
 /**
  * NetSDK 方法定义 - StreamMethods.java
  */
 public interface StreamMethods {
-
+     /**
      * 视频诊断计划表配置 CFG_CMD_VIDEODIAGNOSIS_PROJECT														 *
      * 删除任务接口  CLIENT_DeleteDevConfig																	 *
      * 获取成员配置接口 CLIENT_GetMemberNames	  对应命令  CFG_CMD_VIDEODIAGNOSIS_TASK					         *
      * 获取诊断状态  CLIENT_QueryNewSystemInfo CFG_CMD_VIDEODIAGNOSIS_GETSTATE							 	 *
      *********************************************************************************************************/
     // 实时获取视频诊断结果,pstInParam与pstOutParam内存由用户申请释放
-    public boolean CLIENT_StartVideoDiagnosis(LLong lLoginID,NET_IN_VIDEODIAGNOSIS pstInParam,NET_OUT_VIDEODIAGNOSIS pstOutParam);
+    public boolean CLIENT_StartVideoDiagnosis(LLong lLoginID, NET_IN_VIDEODIAGNOSIS pstInParam, NET_OUT_VIDEODIAGNOSIS pstOutParam);
 
     // 停止视频诊断结果上报
     public boolean CLIENT_StopVideoDiagnosis(LLong hDiagnosisHandle);

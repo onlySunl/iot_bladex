@@ -3,6 +3,7 @@ package org.springblade.modules.iot.dahua.lib.method;
 import com.sun.jna.*;
 import com.sun.jna.ptr.*;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+import org.springblade.modules.iot.dahua.lib.Utils.LLong;
 
 /**
  * NetSDK 方法定义 - RecordMethods.java
@@ -11,7 +12,7 @@ public interface RecordMethods {
 
 
     // 查询设备当前时间
-    public boolean CLIENT_QueryDeviceTime(LLong lLoginID,NET_TIME pDeviceTime,int waittime);
+    public boolean CLIENT_QueryDeviceTime(LLong lLoginID, NET_TIME pDeviceTime, int waittime);
 
     // 设置设备当前时间
     public boolean CLIENT_SetupDeviceTime(LLong lLoginID,NET_TIME pDeviceTime);

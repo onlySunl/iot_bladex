@@ -3,6 +3,7 @@ package org.springblade.modules.iot.dahua.lib.method;
 import com.sun.jna.*;
 import com.sun.jna.ptr.*;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+import org.springblade.modules.iot.dahua.lib.Utils.LLong;
 
 /**
  * NetSDK 方法定义 - PTZMethods.java
@@ -11,7 +12,7 @@ public interface PTZMethods {
 
 
     //获取人脸信息
-    public boolean CLIENT_DoFindFaceInfo(LLong lFindHandle,NET_IN_FACEINFO_DO_FIND pstIn,NET_OUT_FACEINFO_DO_FIND pstOut,int nWaitTime);
+    public boolean CLIENT_DoFindFaceInfo(LLong lFindHandle, NET_IN_FACEINFO_DO_FIND pstIn, NET_OUT_FACEINFO_DO_FIND pstOut, int nWaitTime);
 
     //停止查询人脸信息
     public boolean CLIENT_StopFindFaceInfo(LLong lFindHandle);

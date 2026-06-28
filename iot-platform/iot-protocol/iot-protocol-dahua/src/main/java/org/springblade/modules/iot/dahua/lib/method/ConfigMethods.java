@@ -3,6 +3,7 @@ package org.springblade.modules.iot.dahua.lib.method;
 import com.sun.jna.*;
 import com.sun.jna.ptr.*;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+import org.springblade.modules.iot.dahua.lib.Utils.LLong;
 
 /**
  * NetSDK 方法定义 - ConfigMethods.java

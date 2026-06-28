@@ -3,6 +3,7 @@ package org.springblade.modules.iot.dahua.lib.method;
 import com.sun.jna.*;
 import com.sun.jna.ptr.*;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+import org.springblade.modules.iot.dahua.lib.Utils.LLong;
 
 /**
  * NetSDK 方法定义 - OtherMethods.java
@@ -14,7 +15,7 @@ public interface OtherMethods {
      * @param pstuInParam 接口输入参数， 参考结构体定义 {@link com.netsdk.lib.structure.NET_IN_ATTACH_DOCK_STATUS}
      * @param pstuOutParam 接口输入参数， 参考结构体定义 {@link com.netsdk.lib.structure.NET_OUT_ATTACH_DOCK_STATUS}
      */
-    public LLong CLIENT_AttachDockStatus(LLong lLoginID,Pointer pstuInParam,Pointer pstuOutParam,int nWaitTime);
+    public LLong CLIENT_AttachDockStatus(LLong lLoginID, Pointer pstuInParam, Pointer pstuOutParam, int nWaitTime);
 
     /**
      * @brief
