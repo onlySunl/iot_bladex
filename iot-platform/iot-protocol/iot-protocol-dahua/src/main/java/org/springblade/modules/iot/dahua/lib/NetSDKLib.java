@@ -2,8 +2,18 @@ package org.springblade.modules.iot.dahua.lib;
 
 import com.sun.jna.*;
 import com.sun.jna.ptr.IntByReference;
+import com.sun.jna.ptr.*;
+import com.sun.jna.win32.*;
+import com.sun.jna.platform.win32.*;
+import com.sun.jna.platform.win32.WinDef.*;
+import com.sun.jna.platform.win32.WinNT.*;
+import com.sun.jna.platform.win32.Kernel32Lib;
 import org.springblade.modules.iot.dahua.lib.constant.NetSDKConstants;
 import org.springblade.modules.iot.dahua.lib.method.*;
+import org.springblade.modules.iot.dahua.lib.structure.*;
+import org.springblade.modules.iot.dahua.lib.enumeration.*;
+import org.springblade.modules.iot.dahua.lib.Utils;
+import org.springblade.modules.iot.dahua.lib.LastError;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -13,18 +23,8 @@ import java.util.List;
 
 /**
  * 大华 NetSDK JNA 接口封装
- * 
- * 文件结构：
- * - NetSDKLib.java: 核心接口定义
- * - constant/NetSDKConstants.java: 常量定义
- * - enumeration/: 枚举定义
- * - structure/: 结构体定义
- * - method/: 方法和回调接口定义
- * 
- * @author BladeX
  */
 public interface NetSDKLib extends
-    CallbackInterfaces,
     InitLoginMethods,
     ConfigMethods,
     RecordMethods,
@@ -34,9 +34,6 @@ public interface NetSDKLib extends
     OtherMethods,
     Library {
 
-    /**
-     * SDK 实例加载
-     */
     NetSDKLib NETSDK_INSTANCE = Native.load(
         LibraryLoad.getLoadLibrary("dhnetsdk"),
         NetSDKLib.class
@@ -47,9 +44,6 @@ public interface NetSDKLib extends
         NetSDKLib.class
     );
 
-    /**
-     * SDK结构体基类
-     */
     class SdkStructure extends Structure {
         @Override
         protected List<String> getFieldOrder() {
@@ -66,9 +60,6 @@ public interface NetSDKLib extends
         }
     }
 
-    /**
-     * 长整型指针封装
-     */
     class LLong extends IntegerType implements Serializable {
         private static final long serialVersionUID = 1L;
         public static int size;

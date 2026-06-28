@@ -2,10 +2,18 @@ package org.springblade.modules.iot.dahua.lib.method;
 
 import com.sun.jna.*;
 import com.sun.jna.ptr.*;
+import com.sun.jna.win32.*;
+import com.sun.jna.platform.win32.*;
+import com.sun.jna.platform.win32.WinDef.*;
+import com.sun.jna.platform.win32.WinNT.*;
+import com.sun.jna.platform.win32.Kernel32Lib;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+import org.springblade.modules.iot.dahua.lib.structure.*;
+import org.springblade.modules.iot.dahua.lib.enumeration.*;
+import org.springblade.modules.iot.dahua.lib.constant.NetSDKConstants;
+import org.springblade.modules.iot.dahua.lib.Utils;
+import org.springblade.modules.iot.dahua.lib.LastError;
 
-/**
- * NetSDK 方法定义 - StreamMethods.java
  */
 public interface StreamMethods {
 
