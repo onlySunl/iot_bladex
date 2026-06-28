@@ -1,10 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
 import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
-
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-
-import static org.springblade.modules.iot.dahua.lib.NET_MAX_RAID_DEVICE_NAME;
 
 /**
  * className：ALARM_RAID_INFO_EX
@@ -14,7 +10,6 @@ import static org.springblade.modules.iot.dahua.lib.NET_MAX_RAID_DEVICE_NAME;
  *
  * @version v1.0
  */
-
 public class ALARM_RAID_INFO_EX extends SdkStructure {
     /**
      *  0-开始, 1-停止
@@ -23,7 +18,7 @@ public class ALARM_RAID_INFO_EX extends SdkStructure {
     /**
      *  设备名称
      */
-    public byte[]           szDevice = new byte[NET_MAX_RAID_DEVICE_NAME];
+    public byte[]           szDevice = new byte[32];
     /**
      *  错误类型
      */

@@ -17,4 +17,13 @@ public class NET_TIME_EX extends SdkStructure {
     
     public NET_TIME_EX() {
     }
+    
+    /**
+     * 将时间转换为字符串格式 "yyyy-MM-dd HH:mm:ss"
+     * @return 时间字符串
+     */
+    public String toStringTime() {
+        return String.format("%04d-%02d-%02d %02d:%02d:%02d", 
+                dwYear, dwMonth, dwDay, dwHour, dwMinute, dwSecond);
+    }
 }

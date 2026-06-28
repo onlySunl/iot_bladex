@@ -1,12 +1,11 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
 import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
 /**
  * 水流速检测事件
 */
-public class ALARM_WATER_SPEED_DETECTION_INFO extends SdkStructure
-{
+public class ALARM_WATER_SPEED_DETECTION_INFO extends SdkStructure {
     /**
      * 通道号
     */

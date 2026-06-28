@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-
-
 import com.sun.jna.Pointer;
+
+import org.springblade.modules.iot.dahua.lib.constant.NetSDKConstants;
 import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**

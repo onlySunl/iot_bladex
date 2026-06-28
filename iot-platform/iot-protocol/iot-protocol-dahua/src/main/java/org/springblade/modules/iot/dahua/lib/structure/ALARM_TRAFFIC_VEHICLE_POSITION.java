@@ -1,18 +1,12 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
 import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
-
-
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-
-import static org.springblade.modules.iot.dahua.lib.NET_COMMON_STRING_128;
 
 /**
  * @author ： 260611
- * @description ： 车辆位置报警事件{@link NetSDKLib#NET_ALARM_TRAFFIC_VEHICLE_POSITION}
+ * @description ： 车辆位置报警事件
  * @since ： Created in 2022/03/01 14:55
  */
-
 public class ALARM_TRAFFIC_VEHICLE_POSITION extends SdkStructure {
     /**
      * 事件动作,0表示脉冲事件,1表示持续性事件开始,2表示持续性事件结束;
@@ -21,7 +15,7 @@ public class ALARM_TRAFFIC_VEHICLE_POSITION extends SdkStructure {
     /**
      * 事件名称
      */
-    public byte[]           szEventName = new byte[NET_COMMON_STRING_128];
+    public byte[]           szEventName = new byte[128];
     /**
      * 物体ID
      */
@@ -29,7 +23,7 @@ public class ALARM_TRAFFIC_VEHICLE_POSITION extends SdkStructure {
     /**
      * 车牌号
      */
-    public byte[]           szPlateNumber = new byte[NET_COMMON_STRING_128];
+    public byte[]           szPlateNumber = new byte[128];
     /**
      * 识别车牌与卡口抓拍线的相对距离(0为基准，表示视频抓拍卡口位置时的车牌距离；正数表示越过抓拍线；负数表示未越过抓拍线)
      */

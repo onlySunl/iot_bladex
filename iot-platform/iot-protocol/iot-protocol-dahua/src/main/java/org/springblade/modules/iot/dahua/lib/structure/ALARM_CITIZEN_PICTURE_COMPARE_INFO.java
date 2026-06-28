@@ -55,19 +55,19 @@ public class ALARM_CITIZEN_PICTURE_COMPARE_INFO extends SdkStructure {
     /**
      * 居民姓名
      */
-    public byte[]           szCitizen = new byte[NET_COMMON_STRING_64];
+    public byte[]           szCitizen = new byte[64];
     /**
      * 住址
      */
-    public byte[]           szAddress = new byte[NET_COMMON_STRING_256];
+    public byte[]           szAddress = new byte[256];
     /**
      * 证件号
      */
-    public byte[]           szNumber = new byte[NET_COMMON_STRING_64];
+    public byte[]           szNumber = new byte[64];
     /**
      * 签发机关
      */
-    public byte[]           szAuthority = new byte[NET_COMMON_STRING_256];
+    public byte[]           szAuthority = new byte[256];
     /**
      * 出生日期(年月日)
      */
@@ -88,11 +88,11 @@ public class ALARM_CITIZEN_PICTURE_COMPARE_INFO extends SdkStructure {
     /**
      * IC卡号
      */
-    public byte[]           szCardNo = new byte[NET_COMMON_STRING_32];
+    public byte[]           szCardNo = new byte[32];
     /**
      * 手机号（比对时先输入手机号）
      */
-    public byte[]           szCellPhone = new byte[NET_COMMON_STRING_32];
+    public byte[]           szCellPhone = new byte[32];
     /**
      * 事件类型：0：人证比对结果	1：人证人脸采集
      */
