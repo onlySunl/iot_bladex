@@ -43,7 +43,7 @@ public interface NetSDKLib extends
     );
 
     NetSDKLib CONFIG_INSTANCE = Native.load(
-        LibraryLoad.getLibraryLoad("dhconfigsdk"),
+        LibraryLoad.getLoadLibrary("dhconfigsdk"),
         NetSDKLib.class
     );
 
