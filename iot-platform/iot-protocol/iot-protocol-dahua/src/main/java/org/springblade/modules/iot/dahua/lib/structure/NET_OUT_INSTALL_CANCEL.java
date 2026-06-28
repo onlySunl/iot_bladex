@@ -1,4 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
+
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * CLIENT_UpgraderInstall接口的 EM_UPGRADE_INSTALL_CANCEL命令出参
 */

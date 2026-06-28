@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
 import com.sun.jna.Pointer;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * 事件类型 车辆进出车道报警

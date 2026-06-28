@@ -1,5 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
+
 
 /**
  * 修改课程记录 出参指针 {@link NetSDKLib#CLIENT_ModifyCourse}

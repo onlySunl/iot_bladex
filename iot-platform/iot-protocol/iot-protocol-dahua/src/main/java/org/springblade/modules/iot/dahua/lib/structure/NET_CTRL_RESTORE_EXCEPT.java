@@ -1,4 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
+
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * 恢复相机默认设置输入参数
 */

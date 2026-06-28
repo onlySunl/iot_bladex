@@ -1,5 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
+
 
 /**
  * 录播主机添加模式返回信息

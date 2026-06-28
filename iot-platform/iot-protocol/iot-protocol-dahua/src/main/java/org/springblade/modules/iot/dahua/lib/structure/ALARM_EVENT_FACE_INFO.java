@@ -1,5 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
+
 /**
  * 目标检测事件(对应事件 DH_EVENT_FACE_DETECTION)
  */

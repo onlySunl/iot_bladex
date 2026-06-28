@@ -1,5 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
+
 /**
  * @author 251823
  * @description CLIENT_SetRtscGlobalParam 接口输入参数

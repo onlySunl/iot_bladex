@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_VIDEOINPUTS_SERVICE_TYPE;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * 视频输入信息

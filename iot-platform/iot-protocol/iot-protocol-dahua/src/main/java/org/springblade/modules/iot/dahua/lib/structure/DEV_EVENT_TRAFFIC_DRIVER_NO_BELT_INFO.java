@@ -1,5 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * 事件类型 EVENT_IVS_TRAFFIC_DRIVER_NO_BELT (未系安全带报警事件)对应的数据块描述信息

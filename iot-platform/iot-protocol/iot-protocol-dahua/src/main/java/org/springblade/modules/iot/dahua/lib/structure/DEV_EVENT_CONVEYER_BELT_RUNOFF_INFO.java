@@ -1,5 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * 报警事件类型EVENT_IVS_CONVEYER_BELT_RUNOFF (传送带跑偏检测事件) 对应的数据块描述信息

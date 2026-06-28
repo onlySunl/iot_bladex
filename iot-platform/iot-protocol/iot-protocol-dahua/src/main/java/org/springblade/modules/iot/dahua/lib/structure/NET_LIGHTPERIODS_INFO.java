@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_TRFAFFIC_LIGHT_TYPE;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * 交通灯的持续时间，时间单位毫秒

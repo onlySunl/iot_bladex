@@ -1,4 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
+
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * 向客户端发送录像文件回调信息
 */

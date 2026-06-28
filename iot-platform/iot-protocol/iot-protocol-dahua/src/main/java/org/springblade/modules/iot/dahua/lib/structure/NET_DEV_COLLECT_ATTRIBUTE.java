@@ -1,4 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
+
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * 设备中可用于提取信息的可用读头能力信息
 */

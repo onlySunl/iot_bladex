@@ -1,5 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * 事件类型 DH_ALARM_XRAY_EMERGENCY_ALARM (X光机一键报警事件)对应的数据块描述信息

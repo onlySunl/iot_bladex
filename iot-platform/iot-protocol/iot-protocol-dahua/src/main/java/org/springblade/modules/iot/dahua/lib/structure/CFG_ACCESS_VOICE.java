@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
 import org.springblade.modules.iot.dahua.lib.enumeration.CFG_EM_VOICE_ID;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * @author 47081

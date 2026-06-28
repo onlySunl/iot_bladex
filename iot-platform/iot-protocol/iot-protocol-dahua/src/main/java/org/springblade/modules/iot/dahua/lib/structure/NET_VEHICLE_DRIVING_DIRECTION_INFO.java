@@ -1,5 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
+
 
 /**
  * NET_VEHICLE_OBJECT szDrivingDirection 的拆解字段

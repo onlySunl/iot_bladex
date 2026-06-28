@@ -3,6 +3,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 
 
 import org.springblade.modules.iot.dahua.lib.DH_MSG_OBJECT;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 import com.sun.jna.Pointer;
 
 /**

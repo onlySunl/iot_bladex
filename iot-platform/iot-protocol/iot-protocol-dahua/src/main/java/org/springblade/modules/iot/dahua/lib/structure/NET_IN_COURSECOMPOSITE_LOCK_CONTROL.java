@@ -1,5 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
+
 
 /**
  * 锁定和解锁组合通道和逻辑通道入参 {@link NetSDKLib#CLIENT_OperateCourseCompositeChannel}

@@ -1,5 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * 事件类型EVENT_IVS_GENERAL_ATTITUDE_DETECTION (姿态检测事件)对应的数据块描述信息

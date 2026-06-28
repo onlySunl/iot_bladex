@@ -2,6 +2,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 
 
 import java.nio.charset.Charset;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * 新日志信息结构,对应接口CLIENT_QueryDeviceLog接口

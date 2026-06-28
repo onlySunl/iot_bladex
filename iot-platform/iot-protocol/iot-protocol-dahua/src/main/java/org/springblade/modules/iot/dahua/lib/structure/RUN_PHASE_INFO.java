@@ -1,5 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
+
 /**
  * @author 251823
  * @description RTSC跑动暂停事件, 对应事件类型 NET_ALARM_RTSC_PHASE_RUNING

@@ -1,5 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import com.sun.jna.Pointer;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * CLIENT_FaceRecognitionReAbstract 接口输入参数
 */

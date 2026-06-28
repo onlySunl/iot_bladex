@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
 import org.springblade.modules.iot.dahua.lib.enumeration.NET_EM_CFG_OPERATE_TYPE;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 import static org.springblade.modules.iot.dahua.lib.constant.SDKStructureFieldLenth.MAX_SIP_SERVER_NUM;
 

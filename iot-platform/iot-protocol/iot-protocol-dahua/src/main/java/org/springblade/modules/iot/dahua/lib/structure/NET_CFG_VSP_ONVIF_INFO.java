@@ -1,4 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
+
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * ONVIF服务配置, 对应 NET_EM_CFG_VSP_ONVIF
 */

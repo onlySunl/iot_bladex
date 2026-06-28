@@ -1,5 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
+
 
 public class NET_RUNMODE_PARAMS extends SdkStructure {
     public int              dwSize;

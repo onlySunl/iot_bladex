@@ -1,5 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import com.sun.jna.Pointer;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * 低功耗设备保活状态回调数据
 */

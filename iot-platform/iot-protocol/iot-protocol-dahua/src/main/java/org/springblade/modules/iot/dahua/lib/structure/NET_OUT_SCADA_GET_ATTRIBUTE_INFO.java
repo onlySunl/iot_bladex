@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
 import com.sun.jna.Pointer;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 public class NET_OUT_SCADA_GET_ATTRIBUTE_INFO extends SdkStructure {
     /**

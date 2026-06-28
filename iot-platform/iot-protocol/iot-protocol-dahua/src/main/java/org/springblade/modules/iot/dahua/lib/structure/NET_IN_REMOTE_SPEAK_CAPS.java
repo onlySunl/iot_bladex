@@ -1,4 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
+
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * CLIENT_GetDevCaps NET_REMOTE_SPEAK_CAPS 入参
 */

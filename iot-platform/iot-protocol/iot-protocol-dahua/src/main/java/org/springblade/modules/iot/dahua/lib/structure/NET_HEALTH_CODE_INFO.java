@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_HEALTH_CODE_STATUS;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * 健康码信息
  */

@@ -1,5 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import com.sun.jna.Pointer;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * 设置车位指示灯亮灯计划入参
 */

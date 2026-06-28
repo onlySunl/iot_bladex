@@ -1,4 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
+
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * 录像/图片存储点配置, 对应 NET_EM_CFG_RECORD_STORAGE_POINT
 */

@@ -1,4 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
+
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * 窗口轮巡控制输出参数, 对应NET_SPLIT_OPERATE_SET_TOUR
 */

@@ -2,6 +2,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 
 
 import java.util.Calendar;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 import java.util.Date;
 
 /**

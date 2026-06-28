@@ -1,5 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
+
 /**
  * CLIENT_QueryDevInfo , NET_QUERY_DEV_STORAGE_INFOS接口输出参数
  * @author 29779

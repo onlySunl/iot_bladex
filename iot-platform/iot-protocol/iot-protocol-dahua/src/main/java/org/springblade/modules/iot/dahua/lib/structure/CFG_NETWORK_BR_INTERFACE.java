@@ -1,3 +1,4 @@
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
  package org.springblade.modules.iot.dahua.lib.structure;
  /**
   * @author 291189

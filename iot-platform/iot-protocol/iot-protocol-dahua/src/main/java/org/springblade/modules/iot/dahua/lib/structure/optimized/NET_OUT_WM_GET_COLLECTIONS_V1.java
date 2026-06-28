@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure.optimized;
 
 import org.springblade.modules.iot.dahua.lib.structure.BYTE_64;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 import com.sun.jna.Pointer;
 
 /**

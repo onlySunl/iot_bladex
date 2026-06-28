@@ -1,5 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import com.sun.jna.Pointer;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * 获取屏幕窗口解码信息CLIENT_MonitorWallGetWindowInfo出参
 */

@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_SNAP_POLICY_TYPE;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * 人像检测信息

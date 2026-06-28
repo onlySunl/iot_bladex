@@ -1,5 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
+
 /**
  * 城市机动车违停事件信息(对应 DH_ALARM_CITY_MOTORPARKING)
  */

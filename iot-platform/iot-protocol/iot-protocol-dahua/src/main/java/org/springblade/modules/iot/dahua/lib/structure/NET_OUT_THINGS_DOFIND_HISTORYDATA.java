@@ -2,6 +2,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 
 
 import com.sun.jna.Pointer;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * @author 260611

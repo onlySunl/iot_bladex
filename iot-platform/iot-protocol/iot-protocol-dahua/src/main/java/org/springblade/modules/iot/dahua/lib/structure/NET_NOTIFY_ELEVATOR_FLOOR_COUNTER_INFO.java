@@ -3,6 +3,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 
 
 import com.sun.jna.Pointer;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * 多维度电梯感知信息信息
 */

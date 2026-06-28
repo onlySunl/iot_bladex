@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
 import org.springblade.modules.iot.dahua.lib.enumeration.NET_TRAFFIC_LIGHT_STATUS;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * 信号灯指示灯状态

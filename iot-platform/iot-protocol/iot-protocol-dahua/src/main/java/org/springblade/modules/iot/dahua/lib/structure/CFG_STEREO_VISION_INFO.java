@@ -1,5 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * 事件类型EVENT_IVS_MAN_STAND_DETECTION(立体视觉站立事件), EVENT_IVS_NEAR_DISTANCE_DETECTION(近距离接触事件)对应的规则配置

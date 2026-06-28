@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_CAN_START_STREAM;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_COMPOSIT_CHANNEL_BIND_MODE;
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_IS_RECORD;
 

@@ -3,6 +3,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 
 
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_WORKACTION_STATE;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_WORKSTATDETECTION_TYPE;
 import com.sun.jna.Pointer;
 

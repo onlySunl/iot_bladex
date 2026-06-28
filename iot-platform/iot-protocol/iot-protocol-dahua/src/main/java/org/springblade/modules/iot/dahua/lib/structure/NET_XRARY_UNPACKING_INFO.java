@@ -3,6 +3,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 
 
 import com.sun.jna.Pointer;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * X光机集中判图时的开包信息
 */

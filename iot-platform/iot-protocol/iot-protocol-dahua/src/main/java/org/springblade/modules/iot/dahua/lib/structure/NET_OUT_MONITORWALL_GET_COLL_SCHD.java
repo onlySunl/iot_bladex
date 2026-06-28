@@ -2,6 +2,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 
 
 import static org.springblade.modules.iot.dahua.lib.constant.SDKStructureFieldLenth.NET_MAX_COLLECTION_NUM;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * 获取预案时间表 出参 {@link NetSDKLib#CLIENT_OperateMonitorWall}

@@ -1,5 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
+
 
 public class NET_CFG_TIME_RECORDBACKUP_RESTORE_INFO extends SdkStructure {
     public int              dwSize;                               // 结构体大小

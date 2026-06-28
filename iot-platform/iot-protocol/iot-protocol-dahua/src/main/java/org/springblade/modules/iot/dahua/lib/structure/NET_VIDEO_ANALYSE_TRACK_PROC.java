@@ -4,6 +4,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 
 
 import com.sun.jna.Pointer;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 import static org.springblade.modules.iot.dahua.lib.NetSDKConstants.POINTERSIZE;
 

@@ -3,6 +3,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 
 
 import org.springblade.modules.iot.dahua.lib.DH_MSG_OBJECT;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 import org.springblade.modules.iot.dahua.lib.DH_POINT;
 import org.springblade.modules.iot.dahua.lib.EVENT_INTELLI_COMM_INFO;
 import org.springblade.modules.iot.dahua.lib.NET_EVENT_FILE_INFO;

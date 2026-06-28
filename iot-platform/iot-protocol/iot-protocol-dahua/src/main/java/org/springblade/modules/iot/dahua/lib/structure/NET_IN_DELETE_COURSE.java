@@ -1,5 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
+
 
 /**
  * 删除课程记录 入参指针 {@link NetSDKLib#CLIENT_DeleteCourse}

@@ -1,5 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
+
 
 /**
  * 设置逻辑通道号和真实通道号的绑定关系出参 ，对应接口{@link NetSDKLib#CLIENT_SetBlindRealChannel}

@@ -1,4 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
+
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * NET_PARKING_SPACE_LIGHT_CONTROL 车位状态指示灯控制配置信息
 */

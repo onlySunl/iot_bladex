@@ -1,4 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
+
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * 下发https服务器地址，供设备以https方式上报公交线路、报站信息 CLIENT_DispatchBusHttpsServers 接口输出参数
 */

@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
 import org.springblade.modules.iot.dahua.lib.enumeration.NET_EM_RECORD_MODE;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * 获取录像模式出参，对应接口{@link NetSDKLib#CLIENT_GetCourseRecordMode}

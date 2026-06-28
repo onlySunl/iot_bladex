@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_PARKINGSPACE_STATE;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * 设置停车车位状态 入参

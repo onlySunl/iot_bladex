@@ -1,4 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
+
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * 获取所有 Onvif 用户信息， CLIENT_GetOnvifUserInfoAll 出参
 */

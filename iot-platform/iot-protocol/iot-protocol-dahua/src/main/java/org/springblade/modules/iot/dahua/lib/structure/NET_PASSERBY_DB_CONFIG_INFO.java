@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_PASSERBY_DB_OVERWRITE_TYPE;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * @author 47081

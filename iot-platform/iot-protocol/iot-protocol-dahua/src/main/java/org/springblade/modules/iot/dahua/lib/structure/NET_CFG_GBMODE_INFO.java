@@ -1,4 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
+
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * 视频OSD国标模式配置, 对应枚举NET_EM_CFG_GBMODE
 */

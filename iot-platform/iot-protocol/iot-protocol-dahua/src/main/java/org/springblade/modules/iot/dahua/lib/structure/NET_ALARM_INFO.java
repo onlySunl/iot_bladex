@@ -2,6 +2,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 
 
 import static org.springblade.modules.iot.dahua.lib.constant.SDKStructureFieldLenth.MAX_CHANNEL_ID_LEN;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * 报警相关信息

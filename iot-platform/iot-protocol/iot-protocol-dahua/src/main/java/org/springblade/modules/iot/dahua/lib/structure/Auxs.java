@@ -7,6 +7,7 @@ package org.springblade.modules.iot.dahua.lib.structure;/**
 
 
 import static org.springblade.modules.iot.dahua.lib.constant.SDKStructureFieldLenth.CFG_COMMON_STRING_32;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * @author 47081

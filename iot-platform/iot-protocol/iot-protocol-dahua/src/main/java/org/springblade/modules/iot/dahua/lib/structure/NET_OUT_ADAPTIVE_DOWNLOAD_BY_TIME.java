@@ -1,5 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
+
 
 /**
  * 自适应下载录像 按时间 {@link NetSDKLib#CLIENT_AdaptiveDownloadByTime} 出参

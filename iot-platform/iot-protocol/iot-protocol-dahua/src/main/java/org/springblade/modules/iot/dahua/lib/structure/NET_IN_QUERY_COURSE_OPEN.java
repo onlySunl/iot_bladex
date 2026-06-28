@@ -1,5 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
+
 
 /**
  * 开始查询课程 入参 {@link NetSDKLib#CLIENT_QueryCourseOpen}

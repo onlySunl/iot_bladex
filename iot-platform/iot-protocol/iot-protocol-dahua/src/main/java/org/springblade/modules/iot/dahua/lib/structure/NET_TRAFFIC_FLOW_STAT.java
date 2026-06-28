@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_DETECT_SENSOR_TYPE;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_TRAFFIC_FLOW_STATUS;
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_VIRTUAL_COIL_OCCUPANCY_STATUS;
 

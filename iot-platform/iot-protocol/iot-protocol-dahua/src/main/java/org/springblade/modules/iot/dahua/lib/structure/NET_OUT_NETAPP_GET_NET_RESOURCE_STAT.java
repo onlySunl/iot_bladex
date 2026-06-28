@@ -1,4 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
+
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * EM_RPC_NETAPP_TYPE_GET_NET_RESOURCE_STAT 出参
 */

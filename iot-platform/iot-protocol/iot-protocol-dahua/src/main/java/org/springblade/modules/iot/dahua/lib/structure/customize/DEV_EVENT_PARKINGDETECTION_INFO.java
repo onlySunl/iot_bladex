@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure.customize;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 import static org.springblade.modules.iot.dahua.lib.MAX_PATH;
 import static org.springblade.modules.iot.dahua.lib.NET_MAX_DETECT_REGION_NUM;

@@ -1,5 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
+
 
 /**
  * 设置景物点，原编号的景物点将会被覆盖 出参 入参 {@link NET_IN_SCENICSPOT_SETPOINTINFO_INFO} 接口

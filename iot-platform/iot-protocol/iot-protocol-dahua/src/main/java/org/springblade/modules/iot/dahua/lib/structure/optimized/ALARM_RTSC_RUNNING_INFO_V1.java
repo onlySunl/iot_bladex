@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure.optimized;
 
 import org.springblade.modules.iot.dahua.lib.structure.NET_TIME_EX;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * @author 251823

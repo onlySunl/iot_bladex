@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure.customize;
 
 import org.springblade.modules.iot.dahua.lib.Utils;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 import org.springblade.modules.iot.dahua.lib.structure.NET_TIME;
 
 import java.nio.charset.Charset;

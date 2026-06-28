@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_TRFAFFIC_LIGHT_SOURCE;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * (交通灯事件)对应的数据块描述信息

@@ -1,4 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
+
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * 休眠策略配置, 对应枚举 NET_EM_CFG_SLEEPING_CONTROL
 */

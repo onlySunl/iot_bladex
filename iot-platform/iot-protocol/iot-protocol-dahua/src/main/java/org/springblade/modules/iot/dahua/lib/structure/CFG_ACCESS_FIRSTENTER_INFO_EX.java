@@ -1,4 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
+
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * 首卡开门信息（拓展）与 CFG_ACCESS_FIRSTENTER_INFO 配合使用，是其拓展
 */

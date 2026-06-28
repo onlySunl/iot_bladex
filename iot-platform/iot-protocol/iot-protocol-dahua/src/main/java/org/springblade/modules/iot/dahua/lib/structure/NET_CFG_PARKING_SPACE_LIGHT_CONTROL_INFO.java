@@ -1,5 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import com.sun.jna.Pointer;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * NET_CFG_PARKING_SPACE_LIGHT_CONTROL_INFO 车位状态指示灯控制配置
 */
