@@ -1,0 +1,20 @@
+package org.springblade.modules.iot.dahua.lib.structure;
+
+import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+/**
+ * @author 251823
+ * @description 人群分布图的标定线段相关能力 
+ * @date 2021/01/11
+ */
+public class CROWD_CALIBRATION extends SdkStructure {
+	/**
+	 * 水平线段数量
+	 */
+    public int              nHorizontalLines;
+	/**
+	 * 垂直线段数量
+	 */
+    public int              nVerticalLines;
+}
+
