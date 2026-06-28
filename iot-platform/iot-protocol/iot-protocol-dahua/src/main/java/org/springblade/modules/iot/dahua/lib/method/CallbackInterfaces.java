@@ -1,8 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.method;
 
 import com.sun.jna.*;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.Utils.LLong;
 
 /**
  * NetSDK 回调接口定义
@@ -10,7 +8,7 @@ import org.springblade.modules.iot.dahua.lib.Utils.LLong;
 public interface CallbackInterfaces {
 
     public interface fDisConnect extends Callback {
-        public void invoke(NetSDKLib.LLong lLoginID, String pchDVRIP, int nDVRPort, Pointer dwUser);
+        public void invoke(LLong lLoginID, String pchDVRIP, int nDVRPort, Pointer dwUser);
     }
 
     // 网络连接恢复回调函数原形

@@ -3,6 +3,7 @@ package org.springblade.modules.iot.dahua.callback;
 import com.sun.jna.Pointer;
 import lombok.extern.slf4j.Slf4j;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+import org.springblade.modules.iot.dahua.lib.method.LLong;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -60,7 +61,7 @@ public class FPlayBackDataCallBack implements NetSDKLib.fDataCallBack {
     }
 
     @Override
-    public int invoke(NetSDKLib.LLong lRealHandle, int dwDataType, Pointer pBuffer, int dwBufSize, Pointer dwUser) {
+    public int invoke(LLong lRealHandle, int dwDataType, Pointer pBuffer, int dwBufSize, Pointer dwUser) {
         if (udpSocket == null || targetAddress == null || udpSocket.isClosed()) {
             return 0;
         }

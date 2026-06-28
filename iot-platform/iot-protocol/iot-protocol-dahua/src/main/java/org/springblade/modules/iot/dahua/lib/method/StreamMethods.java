@@ -14,9 +14,9 @@ import org.springblade.modules.iot.dahua.lib.constant.NetSDKConstants;
 import org.springblade.modules.iot.dahua.lib.Utils;
 import org.springblade.modules.iot.dahua.lib.LastError;
 
- */
-public interface StreamMethods {
 
+public interface StreamMethods {
+    /**
      * 视频诊断计划表配置 CFG_CMD_VIDEODIAGNOSIS_PROJECT														 *
      * 删除任务接口  CLIENT_DeleteDevConfig																	 *
      * 获取成员配置接口 CLIENT_GetMemberNames	  对应命令  CFG_CMD_VIDEODIAGNOSIS_TASK					         *
@@ -214,7 +214,7 @@ public interface StreamMethods {
      */
     public boolean CLIENT_OperateCourseCompositeChannelMode(LLong lLoginID,int emOperateType,Pointer pInParam,Pointer pOutParam,int nWaitTime);
 
-    /**
+
      * 获取录播主机默认真实通道号,pInBuf与pOutBuf内存由用户申请释放
      * NET_IN_GET_DEFAULT_REAL_CHANNEL* pInBuf, NET_OUT_GET_DEFAULT_REAL_CHANNEL* pOutBuf
      */

@@ -217,9 +217,6 @@ public interface PTZMethods {
     //获取考勤机在线状态
     public boolean CLIENT_Attendance_GetDevState(LLong lLoginID,NET_IN_ATTENDANCE_GETDEVSTATE pstuInParam,NET_OUT_ATTENDANCE_GETDEVSTATE pstuOutParam,int nWaitTime);
 
-    /*********************************************************************************************************
-     * 									视频诊断功能接口														 *												 												     *
-     * 视频诊断参数表配置 CFG_CMD_VIDEODIAGNOSIS_PROFILE														 *
-     * 视频诊断任务表配置 CFG_CMD_VIDEODIAGNOSIS_TASK_ONE						 								 *
+
      */
 }

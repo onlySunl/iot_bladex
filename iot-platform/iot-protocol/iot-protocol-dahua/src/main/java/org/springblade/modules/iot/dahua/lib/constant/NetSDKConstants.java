@@ -1,7 +1,5 @@
 package org.springblade.modules.iot.dahua.lib.constant;
-
-import org.ehcache.shadow.org.terracotta.offheapstore.storage.PointerSize;
-
+import com.sun.jna.*;
 /**
  * NetSDK 常量定义
  */

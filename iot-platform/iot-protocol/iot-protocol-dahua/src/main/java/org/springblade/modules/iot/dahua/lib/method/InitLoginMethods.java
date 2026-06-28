@@ -14,7 +14,6 @@ import org.springblade.modules.iot.dahua.lib.constant.NetSDKConstants;
 import org.springblade.modules.iot.dahua.lib.Utils;
 import org.springblade.modules.iot.dahua.lib.LastError;
 
- */
 public interface InitLoginMethods {
 
     public boolean CLIENT_Init(Callback cbDisConnect,Pointer dwUser);
