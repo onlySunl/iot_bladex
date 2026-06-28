@@ -1,13 +1,5 @@
-package org.springblade.modules.iot.haikang-isup.isup.controller;
+package org.springblade.modules.iot.haikangisup.controller;
 
-import org.springblade.modules.iot.common.core.domain.R;
-import org.springblade.modules.iot.common.core.web.controller.BaseController;
-import org.springblade.modules.iot.common.core.web.domain.AjaxResult;
-import org.springblade.modules.iot.haikang-isup.isup.api.domain.HaiKangIsupUpgradeRequest;
-import org.springblade.modules.iot.haikang-isup.isup.api.domain.HaikangIsupRecordDownloadRequest;
-import org.springblade.modules.iot.haikang-isup.isup.api.domain.HaikangIsupRecordDownloadResponse;
-import org.springblade.modules.iot.haikang-isup.isup.callBack.FRegisterCallBack;
-import org.springblade.modules.iot.haikang-isup.isup.service.haikang.IHaiKangIsupService;
 import jakarta.validation.constraints.NotBlank;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

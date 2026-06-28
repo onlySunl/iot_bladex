@@ -1,10 +1,6 @@
-package org.springblade.modules.iot.haikang-isup.isup.callBack;
+package org.springblade.modules.iot.haikangisup.callBack;
 
-import org.springblade.modules.iot.haikang-isup.isup.handler.PreviewStreamHandler;
-import org.springblade.modules.iot.haikang-isup.isup.manager.StreamManager;
-import org.springblade.modules.iot.haikang-isup.isup.service.haikang.stream.HCISUPStream;
-import org.springblade.modules.iot.haikang-isup.isup.service.haikang.stream.StreamService;
-import com.sun.jna.Pointer;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

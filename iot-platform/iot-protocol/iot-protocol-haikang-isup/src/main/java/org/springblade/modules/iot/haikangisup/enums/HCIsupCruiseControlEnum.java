@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.haikang-isup.isup.enums;
+package org.springblade.modules.iot.haikangisup.enums;
 
 /**
  * 海康ISUP巡航控制枚举

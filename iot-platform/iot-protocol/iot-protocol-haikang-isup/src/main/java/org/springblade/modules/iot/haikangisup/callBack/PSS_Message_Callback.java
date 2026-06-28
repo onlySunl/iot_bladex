@@ -1,7 +1,5 @@
-package org.springblade.modules.iot.haikang-isup.isup.callBack;
+package org.springblade.modules.iot.haikangisup.callBack;
 
-import org.springblade.modules.iot.haikang-isup.isup.service.haikang.ss.HCISUPSS;
-import com.sun.jna.Pointer;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

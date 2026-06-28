@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.gb28181.common.enums;
+package org.springblade.modules.iot.gb28181;
 
 /**
  * 支持的通道数据类型

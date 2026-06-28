@@ -1,18 +1,6 @@
-package org.springblade.modules.iot.haikang-isup.isup.callBack;
+package org.springblade.modules.iot.haikangisup.callBack;
 
-import org.springblade.modules.iot.common.core.constant.SecurityConstants;
-import org.springblade.modules.iot.common.core.domain.R;
-import org.springblade.modules.iot.common.core.utils.SpringUtils;
-import org.springblade.modules.iot.haikang-isup.isup.config.HaikangIsupConfig;
-import org.springblade.modules.iot.haikang-isup.isup.service.haikang.alarm.HCISUPAlarm;
-import org.springblade.modules.iot.haikang-isup.isup.utils.XmlParserUtils;
-import org.springblade.modules.iot.haikang-isup.isup.xml.EventNotificationAlert;
-import org.springblade.modules.iot.qs.api.RemoteQsDeviceAlarmService;
-import org.springblade.modules.iot.qs.api.RemoteQsDeviceService;
-import org.springblade.modules.iot.qs.api.domain.QsDevice;
-import org.springblade.modules.iot.qs.api.domain.QsDeviceAlarm;
-import com.sun.jna.Native;
-import com.sun.jna.Pointer;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

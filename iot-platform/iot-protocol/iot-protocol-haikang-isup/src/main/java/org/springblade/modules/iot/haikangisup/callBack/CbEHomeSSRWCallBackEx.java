@@ -1,6 +1,4 @@
-package org.springblade.modules.iot.haikang-isup.isup.callBack;
-
-import org.springblade.modules.iot.haikang-isup.isup.service.haikang.ss.HCISUPSS;
+package org.springblade.modules.iot.haikangisup.callBack;
 
 public class CbEHomeSSRWCallBackEx implements HCISUPSS.EHomeSSRWCallBackEx {
     @Override

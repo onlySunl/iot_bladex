@@ -1,18 +1,7 @@
-package org.springblade.modules.iot.haikang-isup.isup.api;
-
-import org.springblade.modules.iot.common.core.domain.R;
-import org.springblade.modules.iot.common.core.domain.RtpServerParam;
-import org.springblade.modules.iot.common.log.annotation.Log;
-import org.springblade.modules.iot.common.log.enums.BusinessType;
-import org.springblade.modules.iot.common.security.annotation.InnerAuth;
-import org.springblade.modules.iot.haikang-isup.isup.api.domain.HaiKangIsupDeviceInfo;
-import org.springblade.modules.iot.haikang-isup.isup.api.domain.HaiKangIsupPresetInfo;
+package org.springblade.modules.iot.haikangisup.api;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import org.springblade.modules.iot.haikang-isup.isup.callBack.FRegisterCallBack;
-import org.springblade.modules.iot.haikang-isup.isup.service.haikang.IHaiKangIsupService;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

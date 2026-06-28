@@ -1,14 +1,5 @@
-package org.springblade.modules.iot.haikang-isup.isup.callBack;
+package org.springblade.modules.iot.haikangisup.callBack;
 
-import org.springblade.modules.iot.common.core.constant.SecurityConstants;
-import org.springblade.modules.iot.common.core.domain.R;
-import org.springblade.modules.iot.common.core.utils.StringUtils;
-import org.springblade.modules.iot.haikang-isup.isup.service.haikang.ss.HCISUPSS;
-import org.springblade.modules.iot.qs.api.RemoteQsDeviceService;
-import org.springblade.modules.iot.qs.api.RemoteQsDeviceSnapshotService;
-import org.springblade.modules.iot.qs.api.domain.QsDevice;
-import org.springblade.modules.iot.qs.api.domain.QsDeviceSnapshot;
-import com.sun.jna.Pointer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

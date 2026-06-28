@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.haikang-isup.isup.config;
+package org.springblade.modules.iot.haikangisup.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

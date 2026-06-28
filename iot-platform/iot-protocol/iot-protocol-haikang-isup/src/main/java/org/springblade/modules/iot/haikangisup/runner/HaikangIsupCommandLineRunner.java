@@ -1,10 +1,5 @@
-package org.springblade.modules.iot.haikang-isup.isup.runner;
+package org.springblade.modules.iot.haikangisup.runner;
 
-import org.springblade.modules.iot.haikang-isup.isup.config.HaikangIsupConfig;
-import org.springblade.modules.iot.haikang-isup.isup.service.haikang.alarm.AlarmService;
-import org.springblade.modules.iot.haikang-isup.isup.service.haikang.cms.CmsService;
-import org.springblade.modules.iot.haikang-isup.isup.service.haikang.ss.SsService;
-import org.springblade.modules.iot.haikang-isup.isup.service.haikang.stream.StreamService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;

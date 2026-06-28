@@ -1,7 +1,4 @@
-package org.springblade.modules.iot.haikang-isup.isup.manager;
-
-import org.springblade.modules.iot.common.core.domain.RtpServerParam;
-import org.springblade.modules.iot.haikang-isup.isup.handler.PreviewStreamHandler;
+package org.springblade.modules.iot.haikangisup.manager;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

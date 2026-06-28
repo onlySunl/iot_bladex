@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.haikang-isup.isup.config;
+package org.springblade.modules.iot.haikangisup.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

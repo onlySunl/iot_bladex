@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.haikang-isup.isup.enums;
+package org.springblade.modules.iot.haikangisup.enums;
 
 /**
  * 海康ISUP辅助设备控制枚举（灯光、雨刮、风扇等）
