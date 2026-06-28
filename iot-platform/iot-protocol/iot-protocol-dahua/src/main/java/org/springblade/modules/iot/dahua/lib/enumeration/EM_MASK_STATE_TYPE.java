@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.enumeration;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 
 /**
