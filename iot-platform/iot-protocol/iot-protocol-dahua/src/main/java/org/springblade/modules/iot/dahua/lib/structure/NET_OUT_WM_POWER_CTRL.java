@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * 窗口电源控制出参

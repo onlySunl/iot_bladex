@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
 import org.springblade.modules.iot.dahua.lib.structure.NET_COLLECTION_INFO;
-import org.springblade.modules.iot.dahua.lib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * 获取电视墙预案列表出参

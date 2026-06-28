@@ -3,7 +3,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.EM_CATEGORY_TYPE;
 import org.springblade.modules.iot.dahua.lib.POINTCOORDINATE;
-import org.springblade.modules.iot.dahua.lib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * @description 事件类型EVENT_IVS_CROSSREGIONDETECTION(警戒区事件)对应的规则配置
  * @author 119178

@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
  * 获取刻录状态入参

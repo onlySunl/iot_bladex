@@ -3,7 +3,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.DH_POINT;
 import org.springblade.modules.iot.dahua.lib.POINTCOORDINATE;
-import org.springblade.modules.iot.dahua.lib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * @description 事件类型EVENT_IVS_TRAFFIC_CROSSLANE(违章变道事件) 对应的规则配置
  * @author 119178

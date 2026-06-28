@@ -2,7 +2,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 
 
 
-import org.springblade.modules.iot.dahua.lib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 import com.sun.jna.Pointer;
 /**
  * @description 任务全局配置

@@ -4,7 +4,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.EVENT_TRAFFIC_CAR_PART_INFO;
 import org.springblade.modules.iot.dahua.lib.NET_EVENT_FILE_INFO;
 import org.springblade.modules.iot.dahua.lib.NET_MSG_OBJECT;
-import org.springblade.modules.iot.dahua.lib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 import com.sun.jna.Pointer;
 
 import static org.springblade.modules.iot.dahua.lib.NetSDKConstants.POINTERSIZE;

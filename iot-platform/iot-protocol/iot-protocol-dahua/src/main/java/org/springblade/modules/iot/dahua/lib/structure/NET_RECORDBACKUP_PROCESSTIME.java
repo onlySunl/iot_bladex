@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 public class NET_RECORDBACKUP_PROCESSTIME extends SdkStructure {
     public NET_TIME_EX1     stuStartTime;                         // 开始时间

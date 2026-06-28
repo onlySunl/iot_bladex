@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 import com.sun.jna.Pointer;
 
 public class NET_OUT_DOWNLOAD_PIECE_FILE extends SdkStructure {

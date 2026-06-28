@@ -8,7 +8,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.DH_POINT;
 import org.springblade.modules.iot.dahua.lib.POINTCOORDINATE;
-import org.springblade.modules.iot.dahua.lib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 public class NET_RETROGRADE_DETECTION_RULE_INFO extends SdkStructure {
 	/**
 	 * 检测区

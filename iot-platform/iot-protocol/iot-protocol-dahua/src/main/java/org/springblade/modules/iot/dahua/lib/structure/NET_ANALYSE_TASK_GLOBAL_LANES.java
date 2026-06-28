@@ -2,7 +2,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.DH_POINT;
-import org.springblade.modules.iot.dahua.lib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_GLOBAL_LANES_LINE_TYPE;
 /**
  * @description 车道信息，每个车道两条边界线
