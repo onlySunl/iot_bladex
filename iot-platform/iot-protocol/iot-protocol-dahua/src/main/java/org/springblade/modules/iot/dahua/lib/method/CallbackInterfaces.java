@@ -1,14 +1,25 @@
 package org.springblade.modules.iot.dahua.lib.method;
 
+import org.springblade.modules.iot.dahua.lib.enumeration.*;
+import org.springblade.modules.iot.dahua.lib.structure.*;
 import com.sun.jna.*;
+import com.sun.jna.ptr.IntByReference;
+
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
- * NetSDK 回调接口定义
+ * NetSDK 方法定义
  */
+public interface CallbackInterfaces extends NetSDKLib {
+
 public interface CallbackInterfaces {
 
     public interface fDisConnect extends Callback {
-        public void invoke(LLong lLoginID, String pchDVRIP, int nDVRPort, Pointer dwUser);
+        public void invoke(LLong lLoginID,String pchDVRIP,int nDVRPort,Pointer dwUser);
     }
 
     // 网络连接恢复回调函数原形
@@ -61,7 +72,7 @@ public interface CallbackInterfaces {
 
     // 回放数据回调函数原形
     public interface fDataCallBack extends Callback {
-        public int invoke(LLong lRealHandle, int dwDataType, Pointer pBuffer, int dwBufSize, Pointer dwUser);
+        public int invoke(LLong lRealHandle,int dwDataType,Pointer pBuffer,int dwBufSize,Pointer dwUser);
     }
 
     // 回放进度回调函数原形
