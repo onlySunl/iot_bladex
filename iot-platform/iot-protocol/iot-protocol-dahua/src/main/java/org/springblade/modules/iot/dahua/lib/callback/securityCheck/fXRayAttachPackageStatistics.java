@@ -3,6 +3,8 @@ package org.springblade.modules.iot.dahua.lib.callback.securityCheck;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import com.sun.jna.Callback;
 import com.sun.jna.Pointer;
+import org.springblade.modules.iot.dahua.lib.method.LLong;
+
 /**
  * @author 291189
  * @version 1.0

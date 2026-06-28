@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.callback;
 
 import com.sun.jna.Callback;
+import com.sun.jna.Pointer;
 import org.springblade.modules.iot.dahua.lib.method.LLong;
 
 /**
