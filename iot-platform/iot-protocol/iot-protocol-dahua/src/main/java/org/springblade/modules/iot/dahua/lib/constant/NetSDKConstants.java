@@ -7,7 +7,7 @@ package org.springblade.modules.iot.dahua.lib.constant;
 public class NetSDKConstants {
     private NetSDKConstants() {}
 
-    public static final int POINTERSIZE                         = new PointerSize().size(); // JNA指针长度
+    public static final int POINTERSIZE                         = com.sun.jna.Native.POINTER_SIZE; // JNA指针长度
     public static final int MAX_INSIDEOBJECT_NUM                = 32;           // 最大包裹内物品个数
     public static final int NET_SERIALNO_LEN                    = 48;           // 设备序列号字符长度
     public static final int NET_CFG_Max_VideoColor              = 24;           // 每个通道最大视频输入颜色配置数量
