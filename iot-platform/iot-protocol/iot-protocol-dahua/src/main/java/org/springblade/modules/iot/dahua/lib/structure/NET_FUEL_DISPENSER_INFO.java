@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * @author 251823
  * @description 从加油机获取的信息

@@ -16,9 +16,9 @@ public class NET_IN_SPLIT_SET_WINDOWS_INFO extends SdkStructure
     */
     public byte[]           szCompositeID = new byte[64];
     /**
-     * 窗口信息,参见结构体定义 {@link NetSDKLib.NET_BLOCK_COLLECTION}
+     * 窗口信息,参见结构体定义 {@link NET_BLOCK_COLLECTION}
     */
-    public NetSDKLib.NET_BLOCK_COLLECTION stuInfos = new NetSDKLib.NET_BLOCK_COLLECTION();
+    public NET_BLOCK_COLLECTION stuInfos = new NET_BLOCK_COLLECTION();
 
     public NET_IN_SPLIT_SET_WINDOWS_INFO() {
         this.dwSize = this.size();

@@ -28,7 +28,7 @@ public class CFG_NUMBERSTAT_MULT_INFO extends SdkStructure {
 	/**
 	 * 支持的事件类型规则列表，事件类型，详见dhnetsdk.h中"智能分析事件类型"
 	 */
-    public CFG_SUPPORTED_RULES_INFO[] stuSupportedRules = (CFG_SUPPORTED_RULES_INFO[])new CFG_SUPPORTED_RULES_INFO().toArray(NetSDKLib.MAX_RULE_LIST_SIZE);
+    public CFG_SUPPORTED_RULES_INFO[] stuSupportedRules = (CFG_SUPPORTED_RULES_INFO[])new CFG_SUPPORTED_RULES_INFO().toArray(MAX_RULE_LIST_SIZE);
 
 	public CFG_NUMBERSTAT_MULT_INFO() {
 		for (int i = 0; i < stuSupportedRules.length; i++) {

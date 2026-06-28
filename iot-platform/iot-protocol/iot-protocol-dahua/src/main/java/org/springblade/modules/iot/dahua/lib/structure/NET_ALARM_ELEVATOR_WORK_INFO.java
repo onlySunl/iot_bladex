@@ -15,9 +15,9 @@ public class NET_ALARM_ELEVATOR_WORK_INFO extends SdkStructure
     */
     public int              nAction;
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 当前电梯内人数
     */

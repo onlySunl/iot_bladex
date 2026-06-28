@@ -53,7 +53,7 @@ public class DEV_EVENT_BARELAND_DETECTION_INFO extends SdkStructure {
     /**
      * 全景广角图
      */
-    public NetSDKLib.SCENE_IMAGE_INFO stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO();
+    public SCENE_IMAGE_INFO stuSceneImage = new SCENE_IMAGE_INFO();
     /**
      * 通道号
      */
@@ -67,9 +67,9 @@ public class DEV_EVENT_BARELAND_DETECTION_INFO extends SdkStructure {
      */
     public NET_TIME_EX      stuUTC = new NET_TIME_EX();
     /**
-     * 原始图,参见结构体定义 {@link NetSDKLib.NET_INTELLIGENCE_IMAGE_INFO}
+     * 原始图,参见结构体定义 {@link NET_INTELLIGENCE_IMAGE_INFO}
     */
-    public NetSDKLib.NET_INTELLIGENCE_IMAGE_INFO stuOriginalImage = new NetSDKLib.NET_INTELLIGENCE_IMAGE_INFO();
+    public NET_INTELLIGENCE_IMAGE_INFO stuOriginalImage = new NET_INTELLIGENCE_IMAGE_INFO();
     /**
      * 预留字节
      */

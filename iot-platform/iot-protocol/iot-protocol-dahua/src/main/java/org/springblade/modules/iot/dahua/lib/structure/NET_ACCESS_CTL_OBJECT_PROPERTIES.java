@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * 动态识别的结构化信息对象
 */

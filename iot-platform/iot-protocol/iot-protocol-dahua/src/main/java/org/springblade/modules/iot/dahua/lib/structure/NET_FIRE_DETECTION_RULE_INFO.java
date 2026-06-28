@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.POINTCOORDINATE;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.POINTCOORDINATE;
+import org.springblade.modules.iot.dahua.lib.SdkStructure;
 import org.springblade.modules.iot.dahua.lib.enumeration.NET_EM_SCENEDETECTION_TYPE;
 /**
  * @description 事件类型EVENT_IVS_FIREDETECTION(火焰检测事件) 对应的规则配置

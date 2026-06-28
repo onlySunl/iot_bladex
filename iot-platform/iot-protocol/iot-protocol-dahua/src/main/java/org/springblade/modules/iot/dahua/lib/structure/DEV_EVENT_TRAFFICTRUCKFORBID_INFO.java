@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.DH_MSG_OBJECT;
+
+
+import org.springblade.modules.iot.dahua.lib.DH_MSG_OBJECT;
 import com.sun.jna.Pointer;
 
 /**
@@ -66,15 +66,15 @@ public class DEV_EVENT_TRAFFICTRUCKFORBID_INFO extends SdkStructure {
     /**
      * 车辆信息
      */
-    public NetSDKLib.DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO stTrafficCar = new NetSDKLib.DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO();
+    public DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO stTrafficCar = new DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO();
     /**
      * 公共信息
      */
-    public NetSDKLib.EVENT_COMM_INFO stCommInfo = new NetSDKLib.EVENT_COMM_INFO();
+    public EVENT_COMM_INFO stCommInfo = new EVENT_COMM_INFO();
     /**
      * 事件对应文件信息
      */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo = new NetSDKLib.NET_EVENT_FILE_INFO();
+    public NET_EVENT_FILE_INFO stuFileInfo = new NET_EVENT_FILE_INFO();
     /**
      * 抓图标志(按位),具体见NET_RESERVED_COMMON
      */
@@ -82,15 +82,15 @@ public class DEV_EVENT_TRAFFICTRUCKFORBID_INFO extends SdkStructure {
     /**
      * 对应图片的分辨率
      */
-    public NetSDKLib.NET_RESOLUTION_INFO stuResolution = new NetSDKLib.NET_RESOLUTION_INFO();
+    public NET_RESOLUTION_INFO stuResolution = new NET_RESOLUTION_INFO();
     /**
-     * 全景图,参见结构体定义 {@link NetSDKLib.SCENE_IMAGE_INFO_EX}
+     * 全景图,参见结构体定义 {@link SCENE_IMAGE_INFO_EX}
     */
     public Pointer          pstuSceneImage;
     /**
      * 保留字节
      */
-    public byte[]           byReserved = new byte[1016-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           byReserved = new byte[1016-NetSDKConstants.POINTERSIZE];
     /**
      * 扩展协议字段,参见结构体定义 {@link NET_EVENT_INFO_EXTEND}
     */

@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /**
@@ -25,7 +25,7 @@ public class DEV_EVENT_TRAFFIC_NON_MOTOR_RETROGRADE_INFO extends SdkStructure {
     /**
      *  事件对应文件信息
      */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo;
+    public NET_EVENT_FILE_INFO stuFileInfo;
     /**
      *  时间戳(单位是毫秒)
      */
@@ -73,7 +73,7 @@ public class DEV_EVENT_TRAFFIC_NON_MOTOR_RETROGRADE_INFO extends SdkStructure {
     /**
      *  公共信息
      */
-    public NetSDKLib.EVENT_COMM_INFO stuCommInfo;
+    public EVENT_COMM_INFO stuCommInfo;
     /**
      *  是否有非机动车信息
      */
@@ -81,7 +81,7 @@ public class DEV_EVENT_TRAFFIC_NON_MOTOR_RETROGRADE_INFO extends SdkStructure {
     /**
      *  非机动车信息
      */
-    public NetSDKLib.VA_OBJECT_NONMOTOR stuNonMotor;
+    public VA_OBJECT_NONMOTOR stuNonMotor;
     /**
      *  抓图标志(按位),具体见NET_RESERVED_COMMON 
      */
@@ -89,7 +89,7 @@ public class DEV_EVENT_TRAFFIC_NON_MOTOR_RETROGRADE_INFO extends SdkStructure {
     /**
      *  对应图片的分辨率
      */
-    public NetSDKLib.NET_RESOLUTION_INFO stuResolution;
+    public NET_RESOLUTION_INFO stuResolution;
     /**
      * 图片信息数组,参见结构体定义 {@link NET_IMAGE_INFO_EX3}
     */
@@ -101,6 +101,6 @@ public class DEV_EVENT_TRAFFIC_NON_MOTOR_RETROGRADE_INFO extends SdkStructure {
     /**
      *  预留字段
      */
-    public byte[]           byReserved = new byte[1008-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           byReserved = new byte[1008-NetSDKConstants.POINTERSIZE];
 }
 

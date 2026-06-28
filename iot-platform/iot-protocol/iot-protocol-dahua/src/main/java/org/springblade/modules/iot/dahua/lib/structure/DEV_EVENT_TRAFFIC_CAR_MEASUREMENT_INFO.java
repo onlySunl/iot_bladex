@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /** 
@@ -33,7 +33,7 @@ public class DEV_EVENT_TRAFFIC_CAR_MEASUREMENT_INFO extends SdkStructure {
 /** 
 事件对应文件信息
 */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo = new NetSDKLib.NET_EVENT_FILE_INFO();
+    public NET_EVENT_FILE_INFO stuFileInfo = new NET_EVENT_FILE_INFO();
 /** 
 事件ID
 */
@@ -77,7 +77,7 @@ public class DEV_EVENT_TRAFFIC_CAR_MEASUREMENT_INFO extends SdkStructure {
 /** 
 卡片信息
 */
-    public NetSDKLib.EVENT_CARD_INFO stuCardInfo = new NetSDKLib.EVENT_CARD_INFO();
+    public EVENT_CARD_INFO stuCardInfo = new EVENT_CARD_INFO();
 /** 
 车辆行驶方向(相对车道方向) {@link org.springblade.modules.iot.dahua.lib.enumeration.EM_VEHICLE_DRIVING_DIRECTION}
 */
@@ -87,19 +87,19 @@ public class DEV_EVENT_TRAFFIC_CAR_MEASUREMENT_INFO extends SdkStructure {
 */
     public			int            emLightState;
 /** 
-开闸状态 {@link NetSDKLib.EM_OPEN_STROBE_STATE}
+开闸状态 {@link EM_OPEN_STROBE_STATE}
 */
     public			int            emOpenStrobeState;
 /** 
-抓拍车的位置 {@link NetSDKLib.EM_VEHICLE_DIRECTION}
+抓拍车的位置 {@link EM_VEHICLE_DIRECTION}
 */
     public			int            emVehicleDirection;
 /** 
-主驾驶座位安全带状态 {@link NetSDKLib.NET_SAFEBELT_STATE}
+主驾驶座位安全带状态 {@link NET_SAFEBELT_STATE}
 */
     public			int            emMainSeat;
 /** 
-副驶座位安全带状态 {@link NetSDKLib.NET_SAFEBELT_STATE}
+副驶座位安全带状态 {@link NET_SAFEBELT_STATE}
 */
     public			int            emSlaveSeat;
 /** 
@@ -117,31 +117,31 @@ public class DEV_EVENT_TRAFFIC_CAR_MEASUREMENT_INFO extends SdkStructure {
 /** 
 公共信息
 */
-    public NetSDKLib.EVENT_COMM_INFO stuCommInfo = new NetSDKLib.EVENT_COMM_INFO();
+    public EVENT_COMM_INFO stuCommInfo = new EVENT_COMM_INFO();
 /** 
 检测到的物体信息
 */
-    public NetSDKLib.DH_MSG_OBJECT stuObject = new NetSDKLib.DH_MSG_OBJECT();
+    public DH_MSG_OBJECT stuObject = new DH_MSG_OBJECT();
 /** 
 检测到的车辆信息
 */
-    public NetSDKLib.NET_MSG_OBJECT stuVehicle = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuVehicle = new NET_MSG_OBJECT();
 /** 
 交通车辆信息
 */
-    public NetSDKLib.DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO stTrafficCar = new NetSDKLib.DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO();
+    public DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO stTrafficCar = new DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO();
     /**
      * 抓图标志(按位),具体见NET_RESERVED_COMMON
     */
     public int              dwSnapFlagMask;
     /**
-     * 车身信息扩展,参见结构体定义 {@link NetSDKLib.NET_MSG_OBJECT_EX2}
+     * 车身信息扩展,参见结构体定义 {@link NET_MSG_OBJECT_EX2}
     */
     public Pointer          pstuVehicleEx2;
 /** 
 保留字节
 */
-    public			byte[]         byResersed = new byte[1020-NetSDKLib.SIZE_OF_POINTER];
+    public			byte[]         byResersed = new byte[1020-NetSDKConstants.POINTERSIZE];
 
 public DEV_EVENT_TRAFFIC_CAR_MEASUREMENT_INFO(){
 }

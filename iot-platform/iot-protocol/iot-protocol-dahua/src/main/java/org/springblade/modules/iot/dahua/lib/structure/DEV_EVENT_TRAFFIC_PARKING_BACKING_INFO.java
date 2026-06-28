@@ -50,11 +50,11 @@ public class DEV_EVENT_TRAFFIC_PARKING_BACKING_INFO extends SdkStructure {
     /**
      * / 车牌信息
      */
-    public NetSDKLib.NET_MSG_OBJECT stuObject = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuObject = new NET_MSG_OBJECT();
     /**
      * / 车身信息
      */
-    public NetSDKLib.NET_MSG_OBJECT stuVehicle = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuVehicle = new NET_MSG_OBJECT();
     /**
      * / TriggerType:触发类型,0车检器,1雷达,2视频 {@link org.springblade.modules.iot.dahua.lib.enumeration.EM_TRIGGER_TYPE}
      */
@@ -86,7 +86,7 @@ public class DEV_EVENT_TRAFFIC_PARKING_BACKING_INFO extends SdkStructure {
     /**
      * / 公共信息
      */
-    public NetSDKLib.EVENT_COMM_INFO stuCommInfo = new NetSDKLib.EVENT_COMM_INFO();
+    public EVENT_COMM_INFO stuCommInfo = new EVENT_COMM_INFO();
     /**
      * / 保留字节,留待扩展
      */

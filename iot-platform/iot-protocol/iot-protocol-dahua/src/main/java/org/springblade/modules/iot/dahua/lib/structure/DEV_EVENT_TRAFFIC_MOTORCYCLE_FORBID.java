@@ -39,29 +39,29 @@ public class DEV_EVENT_TRAFFIC_MOTORCYCLE_FORBID extends SdkStructure
     */
     public double           PTS;
     /**
-     * 事件发生的时间(单位是秒),参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间(单位是秒),参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX UTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX UTC = new NET_TIME_EX();
     /**
      * 事件时间(单位是毫秒)
     */
     public int              UTCMS;
     /**
-     * 检测到的车牌信息,参见结构体定义 {@link NetSDKLib.NET_MSG_OBJECT}
+     * 检测到的车牌信息,参见结构体定义 {@link NET_MSG_OBJECT}
     */
-    public NetSDKLib.NET_MSG_OBJECT stuObject = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuObject = new NET_MSG_OBJECT();
     /**
-     * 检测到的车辆信息,参见结构体定义 {@link NetSDKLib.NET_MSG_OBJECT}
+     * 检测到的车辆信息,参见结构体定义 {@link NET_MSG_OBJECT}
     */
-    public NetSDKLib.NET_MSG_OBJECT stuVehicle = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuVehicle = new NET_MSG_OBJECT();
     /**
-     * 事件对应文件信息,参见结构体定义 {@link NetSDKLib.NET_EVENT_FILE_INFO}
+     * 事件对应文件信息,参见结构体定义 {@link NET_EVENT_FILE_INFO}
     */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo = new NetSDKLib.NET_EVENT_FILE_INFO();
+    public NET_EVENT_FILE_INFO stuFileInfo = new NET_EVENT_FILE_INFO();
     /**
-     * 非机动车信息,参见结构体定义 {@link NetSDKLib.VA_OBJECT_NONMOTOR}
+     * 非机动车信息,参见结构体定义 {@link VA_OBJECT_NONMOTOR}
     */
-    public NetSDKLib.VA_OBJECT_NONMOTOR stuNonMotor = new NetSDKLib.VA_OBJECT_NONMOTOR();
+    public VA_OBJECT_NONMOTOR stuNonMotor = new VA_OBJECT_NONMOTOR();
     /**
      * 是否有非机动车信息
     */
@@ -75,13 +75,13 @@ public class DEV_EVENT_TRAFFIC_MOTORCYCLE_FORBID extends SdkStructure
     */
     public int              nSequence;
     /**
-     * 交通车辆的数据库记录,参见结构体定义 {@link NetSDKLib.DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO}
+     * 交通车辆的数据库记录,参见结构体定义 {@link DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO}
     */
-    public NetSDKLib.DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO stuTrafficCar = new NetSDKLib.DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO();
+    public DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO stuTrafficCar = new DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO();
     /**
-     * 公共信息,参见结构体定义 {@link NetSDKLib.EVENT_COMM_INFO}
+     * 公共信息,参见结构体定义 {@link EVENT_COMM_INFO}
     */
-    public NetSDKLib.EVENT_COMM_INFO stuCommInfo = new NetSDKLib.EVENT_COMM_INFO();
+    public EVENT_COMM_INFO stuCommInfo = new EVENT_COMM_INFO();
     /**
      * 保留字节
     */

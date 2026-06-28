@@ -3,7 +3,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.MAX_PATH;
+import static org.springblade.modules.iot.dahua.lib.MAX_PATH;
 
 /**
  * @author 47081

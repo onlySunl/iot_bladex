@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import com.sun.jna.Pointer;
 /**
  * CLIENT_ControlDevice接口的 DH_CTRL_NOTIFY_EVNENT 命令参数(向设备发送事件)

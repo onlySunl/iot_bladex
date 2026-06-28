@@ -55,11 +55,11 @@ public class CFG_VIDEOABNORMALDETECTION_INFO extends SdkStructure {
 	/**
 	 * 报警联动
 	 */
-    public NetSDKLib.CFG_ALARM_MSG_HANDLE stuEventHandler = new NetSDKLib.CFG_ALARM_MSG_HANDLE();
+    public CFG_ALARM_MSG_HANDLE stuEventHandler = new CFG_ALARM_MSG_HANDLE();
 	/**
 	 * 事件响应时间段
 	 */
-    public NetSDKLib.CFG_TIME_SECTION[] stuTimeSection = new NetSDKLib.CFG_TIME_SECTION[7 * 10];
+    public CFG_TIME_SECTION[] stuTimeSection = new CFG_TIME_SECTION[7 * 10];
 	/**
 	 * 检测区顶点数
 	 */
@@ -67,7 +67,7 @@ public class CFG_VIDEOABNORMALDETECTION_INFO extends SdkStructure {
 	/**
 	 * 检测区
 	 */
-    public NetSDKLib.CFG_POLYGON[] stuDetectRegion = new NetSDKLib.CFG_POLYGON[20];
+    public CFG_POLYGON[] stuDetectRegion = new CFG_POLYGON[20];
 	/**
 	 * 异常检测阈值数量
 	 */
@@ -79,10 +79,10 @@ public class CFG_VIDEOABNORMALDETECTION_INFO extends SdkStructure {
 
 	public CFG_VIDEOABNORMALDETECTION_INFO() {
 		for (int i = 0; i < stuTimeSection.length; i++) {
-			stuTimeSection[i] = new NetSDKLib.CFG_TIME_SECTION();
+			stuTimeSection[i] = new CFG_TIME_SECTION();
 		}
 		for (int i = 0; i < stuDetectRegion.length; i++) {
-			stuDetectRegion[i] = new NetSDKLib.CFG_POLYGON();
+			stuDetectRegion[i] = new CFG_POLYGON();
 		}
 	}
 }

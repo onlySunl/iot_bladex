@@ -1,9 +1,9 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_RECT;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.SdkStructure;
+
+
+import org.springblade.modules.iot.dahua.lib.NET_RECT;
+import org.springblade.modules.iot.dahua.lib.SdkStructure;
 import com.sun.jna.Pointer;
 
 /**
@@ -23,7 +23,7 @@ public class NET_VAOBJECT_NUMMAN extends SdkStructure {
     */
     public long             nQueueDuration;
     /**
-     * 人体属性信息,参见结构体定义 {@link NetSDKLib.HUMAN_ATTRIBUTES_INFO}
+     * 人体属性信息,参见结构体定义 {@link HUMAN_ATTRIBUTES_INFO}
     */
     public Pointer          pstuHumanAttributes;
     /**
@@ -31,9 +31,9 @@ public class NET_VAOBJECT_NUMMAN extends SdkStructure {
     */
     public Pointer          pstuHumanAttributesEx;
     /**
-     * 人脸属性,参见结构体定义 {@link NetSDKLib.NET_FACE_ATTRIBUTE}
+     * 人脸属性,参见结构体定义 {@link NET_FACE_ATTRIBUTE}
     */
     public Pointer          pstuFaceAttributes;
-    public byte[]           byReserved = new byte[120-3*NetSDKLib.SIZE_OF_POINTER]; // 预留字节
+    public byte[]           byReserved = new byte[120-3*NetSDKConstants.POINTERSIZE]; // 预留字节
 }
 

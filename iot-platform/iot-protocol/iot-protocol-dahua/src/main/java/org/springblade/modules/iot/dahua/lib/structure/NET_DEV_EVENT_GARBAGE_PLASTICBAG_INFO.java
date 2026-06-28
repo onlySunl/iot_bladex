@@ -60,7 +60,7 @@ public class NET_DEV_EVENT_GARBAGE_PLASTICBAG_INFO extends SdkStructure {
 	/**
 	 * 检测到的物体信息
 	 */
-    public NetSDKLib.DH_MSG_OBJECT[] stuObjects = new NetSDKLib.DH_MSG_OBJECT[64];
+    public DH_MSG_OBJECT[] stuObjects = new DH_MSG_OBJECT[64];
 	/**
 	 * 规则检测区域
 	 */
@@ -88,7 +88,7 @@ public class NET_DEV_EVENT_GARBAGE_PLASTICBAG_INFO extends SdkStructure {
 
 	public NET_DEV_EVENT_GARBAGE_PLASTICBAG_INFO() {
 		for (int i = 0; i < stuObjects.length; i++) {
-			stuObjects[i] = new NetSDKLib.DH_MSG_OBJECT();
+			stuObjects[i] = new DH_MSG_OBJECT();
 		}
 		for (int i = 0; i < stuDetectRegion.length; i++) {
 			stuDetectRegion[i] = new NET_POINT_EX();

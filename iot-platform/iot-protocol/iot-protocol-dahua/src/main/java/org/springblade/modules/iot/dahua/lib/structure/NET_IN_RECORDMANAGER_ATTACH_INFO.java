@@ -12,9 +12,9 @@ public class NET_IN_RECORDMANAGER_ATTACH_INFO extends SdkStructure
     */
     public int              dwSize;
     /**
-     * 回调函数,参见回调函数定义 {@link NetSDKLib.fRecordManagerStateCallBack}
+     * 回调函数,参见回调函数定义 {@link FRecordManagerStateCallBack}
     */
-    public NetSDKLib.fRecordManagerStateCallBack cbNotify;
+    public FRecordManagerStateCallBack cbNotify;
     /**
      * 用户信息
     */

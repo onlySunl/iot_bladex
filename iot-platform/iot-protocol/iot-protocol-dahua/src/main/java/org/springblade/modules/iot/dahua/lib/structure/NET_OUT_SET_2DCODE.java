@@ -7,7 +7,7 @@ import com.sun.jna.Pointer;
 /**
  * @author 47081
  * @version 1.0
- * @description {@link NetSDKLib#CLIENT_Set2DCode(NetSDKLib.LLong, Pointer, Pointer, int)}的出参
+ * @description {@link NetSDKLib#CLIENT_Set2DCode(LLong, Pointer, Pointer, int)}的出参
  * @date 2020/9/10
  */
 public class NET_OUT_SET_2DCODE extends SdkStructure {

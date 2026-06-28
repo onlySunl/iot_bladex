@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 /**
  * 开启/关闭指定通道录像出参 {@link NetSDKLib#CLIENT_SetCourseRecordState}

@@ -7,13 +7,13 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 public class NET_XRAY_DOWNLOAD_RECORD_CONDITION extends SdkStructure
 {
     /**
-     * 开始时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 开始时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuStartTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuStartTime = new NET_TIME();
     /**
-     * 结束时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 结束时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuEndTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuEndTime = new NET_TIME();
     /**
      * 通道号
     */

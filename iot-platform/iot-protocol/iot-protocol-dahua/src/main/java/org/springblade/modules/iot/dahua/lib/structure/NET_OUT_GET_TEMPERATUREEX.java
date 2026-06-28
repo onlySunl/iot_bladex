@@ -20,7 +20,7 @@ public class NET_OUT_GET_TEMPERATUREEX extends SdkStructure {
 	/**
 	 * 监测点温度
 	 */
-    public NET_TEMPERATUREEX_VALUE[] stuTemperatureEx = new NET_TEMPERATUREEX_VALUE[NetSDKLib.MAX_TEMPERATUREEX_POINT_NUM];
+    public NET_TEMPERATUREEX_VALUE[] stuTemperatureEx = new NET_TEMPERATUREEX_VALUE[MAX_TEMPERATUREEX_POINT_NUM];
 
 	public NET_OUT_GET_TEMPERATUREEX() {
 		for (int i = 0; i < stuTemperatureEx.length; i++) {

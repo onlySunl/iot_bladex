@@ -6,8 +6,8 @@ import org.springblade.modules.iot.dahua.lib.enumeration.EM_CAN_START_STREAM;
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_COURSE_STATE;
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_IS_RECORD;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_COMMON_STRING_128;
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_COMMON_STRING_64;
+import static org.springblade.modules.iot.dahua.lib.NET_COMMON_STRING_128;
+import static org.springblade.modules.iot.dahua.lib.NET_COMMON_STRING_64;
 
 /**
  * 课程信息

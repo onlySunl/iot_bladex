@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /**
@@ -55,6 +55,6 @@ public class NET_VIDEO_ANALYSE_ANALYSE_PROC extends SdkStructure {
     /**
      * 保留字节
      */
-    public byte[]           szReserved = new byte[1916 - NetSDKLib.SIZE_OF_POINTER * 32];
+    public byte[]           szReserved = new byte[1916 - NetSDKConstants.POINTERSIZE * 32];
 }
 

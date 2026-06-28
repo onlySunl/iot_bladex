@@ -19,9 +19,9 @@ public class NET_DEV_EVENT_COLD_SPOT_WARNING_INFO extends SdkStructure
     */
     public NET_EVENT_INFO_EXTEND stuEventInfoEx = new NET_EVENT_INFO_EXTEND();
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 冷点位置 归一化到[0,8191]上的坐标点,参见结构体定义 {@link NET_POINT_EX}
     */
@@ -31,7 +31,7 @@ public class NET_DEV_EVENT_COLD_SPOT_WARNING_INFO extends SdkStructure
     */
     public float            fColdSpotValue;
     /**
-     * 当前配置的温度单位,参见枚举定义 {@link NetSDKLib.NET_TEMPERATURE_UNIT}
+     * 当前配置的温度单位,参见枚举定义 {@link NET_TEMPERATURE_UNIT}
     */
     public int              emTemperatureUnit;
     /**

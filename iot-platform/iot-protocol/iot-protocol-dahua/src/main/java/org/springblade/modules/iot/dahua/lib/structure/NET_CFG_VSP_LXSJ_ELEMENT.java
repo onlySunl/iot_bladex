@@ -1,7 +1,6 @@
  package org.springblade.modules.iot.dahua.lib.structure;
 
 
- import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  /** 叠加元素 */
 public class NET_CFG_VSP_LXSJ_ELEMENT extends SdkStructure {
 /** 名称类型 NET_EM_LXSJ_ELEM_NAMETYPE*/

@@ -11,7 +11,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  */
 public class NET_IN_START_FIND_VEHICLE_REG_DB extends SdkStructure {
     public int              dwSize;                               // 结构体大小
-    public NetSDKLib.NET_VEHICLE_INFO stuVehicleInfo = new NetSDKLib.NET_VEHICLE_INFO(); // 车辆信息
+    public NET_VEHICLE_INFO stuVehicleInfo = new NET_VEHICLE_INFO(); // 车辆信息
     public NET_START_FIND_VEHICLE_REG_DB_CONDITION stuCondition = new NET_START_FIND_VEHICLE_REG_DB_CONDITION(); //查询条件
 
     public NET_IN_START_FIND_VEHICLE_REG_DB(){

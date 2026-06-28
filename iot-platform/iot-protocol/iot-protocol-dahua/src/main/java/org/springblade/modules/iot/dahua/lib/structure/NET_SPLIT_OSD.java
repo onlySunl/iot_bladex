@@ -25,11 +25,11 @@ public class NET_SPLIT_OSD extends SdkStructure {
 	/**
 	 * 前景区域
 	 */
-    public NetSDKLib.DH_RECT stuFrontRect = new NetSDKLib.DH_RECT();
+    public DH_RECT stuFrontRect = new DH_RECT();
 	/**
 	 * 背景区域
 	 */
-    public NetSDKLib.DH_RECT stuBackRect = new NetSDKLib.DH_RECT();
+    public DH_RECT stuBackRect = new DH_RECT();
 	/**
 	 * 是否滚动显示, 只对文本有效
 	 */

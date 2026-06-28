@@ -16,7 +16,7 @@ public interface fXRayAttachPackageStatistics extends Callback {
      * @param dwUser 用户数据
      */
     void invoke(
-            NetSDKLib.LLong lAttachHandle,
+            LLong lAttachHandle,
             Pointer pInfo,
             Pointer dwUser);
 

@@ -3,7 +3,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.MAX_PREVIEW_CHANNEL_NUM;
+import static org.springblade.modules.iot.dahua.lib.MAX_PREVIEW_CHANNEL_NUM;
 
 /**
  * 获取录播主机逻辑通道号入参，对应接口 {@link NetSDKLib#CLIENT_GetLogicChannel}

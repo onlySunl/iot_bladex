@@ -16,7 +16,7 @@ public class CFG_VACAP_SUPPORTEDSCENES extends SdkStructure {
 	/**
 	 * 支持的场景列表
 	 */
-    public CFG_CAP_SCENE[]  stScenes = (CFG_CAP_SCENE[])new CFG_CAP_SCENE().toArray(NetSDKLib.MAX_SCENE_LIST_SIZE);
+    public CFG_CAP_SCENE[]  stScenes = (CFG_CAP_SCENE[])new CFG_CAP_SCENE().toArray(MAX_SCENE_LIST_SIZE);
 	/**
 	 * 人数统计大类场景
 	 */

@@ -1,10 +1,10 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.MAX_INSIDEOBJECT_NUM;
+import static org.springblade.modules.iot.dahua.lib.MAX_INSIDEOBJECT_NUM;
 
 
 /**
@@ -81,7 +81,7 @@ public class DEV_EVENT_XRAY_DETECTION_INFO extends SdkStructure {
     /**
      * 客户自定义信息, X光机专用
      */
-    public NetSDKLib.NET_XRAY_CUSTOM_INFO stuViewCustomInfo[] = (NetSDKLib.NET_XRAY_CUSTOM_INFO[]) new NetSDKLib.NET_XRAY_CUSTOM_INFO().toArray(4);
+    public NET_XRAY_CUSTOM_INFO stuViewCustomInfo[] = (NET_XRAY_CUSTOM_INFO[]) new NET_XRAY_CUSTOM_INFO().toArray(4);
     /**
      * 包裹标识, 用来唯一标识一个包裹
      */
@@ -157,7 +157,7 @@ public class DEV_EVENT_XRAY_DETECTION_INFO extends SdkStructure {
     /**
      * 保留字节,留待扩展
      */
-    public byte             byReserved[] = new byte[248-NetSDKLib.SIZE_OF_POINTER*4];
+    public byte             byReserved[] = new byte[248-NetSDKConstants.POINTERSIZE*4];
 
     public DEV_EVENT_XRAY_DETECTION_INFO() {
         for (int i = 0; i < stuRelatedImageInfo.length; i++) {

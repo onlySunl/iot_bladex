@@ -40,11 +40,11 @@ public class MEDIAFILE_ANATOMY_TEMP_DETECT_INFO extends SdkStructure {
     /**
      *  文件路径 
      */
-    public byte[]           szFilePath = new byte[NetSDKLib.MAX_PATH];
+    public byte[]           szFilePath = new byte[MAX_PATH];
     /**
      *  关联的事件列表,事件类型列表,参见智能分析事件类型
      */
-    public int[]            nEventList = new int[NetSDKLib.MAX_IVS_EVENT_NUM];
+    public int[]            nEventList = new int[MAX_IVS_EVENT_NUM];
     /**
      *  事件总数
      */
@@ -105,7 +105,7 @@ public class MEDIAFILE_ANATOMY_TEMP_DETECT_INFO extends SdkStructure {
     /**
      *  人脸图路径
      */
-    public byte[]           szFacePicturePath = new byte[NetSDKLib.MAX_PATH];
+    public byte[]           szFacePicturePath = new byte[MAX_PATH];
     /**
      * 为TRUE表示仅stuStartTimeRealUTC和stuEndTimeRealUTC有效(仅使用stuStartTimeRealUTC和stuEndTimeRealUTC), 为FALSE表示仅stuBeginTime和stuEndTime有效(仅使用stuBeginTime和stuEndTime)
      */

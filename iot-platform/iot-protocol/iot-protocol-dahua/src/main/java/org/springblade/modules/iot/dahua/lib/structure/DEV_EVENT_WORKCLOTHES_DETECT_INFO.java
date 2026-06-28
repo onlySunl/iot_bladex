@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /**
@@ -62,23 +62,23 @@ public class DEV_EVENT_WORKCLOTHES_DETECT_INFO extends SdkStructure {
     /**
      * 全景大图信息
      */
-    public NetSDKLib.SCENE_IMAGE_INFO stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO();
+    public SCENE_IMAGE_INFO stuSceneImage = new SCENE_IMAGE_INFO();
     /**
      * 小图信息
      */
-    public NetSDKLib.HUMAN_IMAGE_INFO stuHumanImage = new NetSDKLib.HUMAN_IMAGE_INFO();
+    public HUMAN_IMAGE_INFO stuHumanImage = new HUMAN_IMAGE_INFO();
     /**
      * 安全帽属性
      */
-    public NetSDKLib.NET_HELMET_ATTRIBUTE stuHelmetAttribute = new NetSDKLib.NET_HELMET_ATTRIBUTE();
+    public NET_HELMET_ATTRIBUTE stuHelmetAttribute = new NET_HELMET_ATTRIBUTE();
     /**
      * 工作服属性
      */
-    public NetSDKLib.NET_WORKCLOTHES_ATTRIBUTE stuWorkClothesAttribute = new NetSDKLib.NET_WORKCLOTHES_ATTRIBUTE();
+    public NET_WORKCLOTHES_ATTRIBUTE stuWorkClothesAttribute = new NET_WORKCLOTHES_ATTRIBUTE();
     /**
      * 工作裤颜色
      */
-    public NetSDKLib.NET_WORKPANTS_ATTRIBUTE stuWorkPantsAttribute = new NetSDKLib.NET_WORKPANTS_ATTRIBUTE();
+    public NET_WORKPANTS_ATTRIBUTE stuWorkPantsAttribute = new NET_WORKPANTS_ATTRIBUTE();
     /**
      * 不规范报警类型 0-未知 1-防护服不规范 2: 工作服不规范3:安全帽不规范4:安全帽和工作服不规范
      */
@@ -142,7 +142,7 @@ public class DEV_EVENT_WORKCLOTHES_DETECT_INFO extends SdkStructure {
      */
     public NET_FIREPROOF_CLOTHES stuFireProofClothes = new NET_FIREPROOF_CLOTHES();
     /**
-     * 物体信息数据,{@link NetSDKLib.NET_MSG_OBJECT_EX2}
+     * 物体信息数据,{@link NET_MSG_OBJECT_EX2}
      */
     public Pointer          pstObjectInfo;
     /**
@@ -292,7 +292,7 @@ public class DEV_EVENT_WORKCLOTHES_DETECT_INFO extends SdkStructure {
     /**
      * 预留字节
      */
-    public byte[]           byReserved = new byte[236-2*NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           byReserved = new byte[236-2*NetSDKConstants.POINTERSIZE];
 
     public DEV_EVENT_WORKCLOTHES_DETECT_INFO() {
         for (int i = 0; i < stuImageInfo.length; i++) {

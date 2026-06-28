@@ -18,7 +18,7 @@ public class CFG_PTZ_PER_AUTOMOVE_INFO extends SdkStructure {
     /**
      * 时间表类型
      */
-    public NetSDKLib.CFG_TIME_SCHEDULE stTimeSchedule = new NetSDKLib.CFG_TIME_SCHEDULE();
+    public CFG_TIME_SCHEDULE stTimeSchedule = new CFG_TIME_SCHEDULE();
     /**
      * 定时功能 (link CFG_PTZ_FUNC_TYPE)
      */

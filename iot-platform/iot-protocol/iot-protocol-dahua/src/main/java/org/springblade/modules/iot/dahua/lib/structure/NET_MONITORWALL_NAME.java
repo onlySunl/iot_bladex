@@ -3,7 +3,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_COMMON_STRING_128;
+import static org.springblade.modules.iot.dahua.lib.NET_COMMON_STRING_128;
 
 /**
  * 电视墙名称 拆分自{@link NET_IN_MONITORWALL_GET_ENABLE}

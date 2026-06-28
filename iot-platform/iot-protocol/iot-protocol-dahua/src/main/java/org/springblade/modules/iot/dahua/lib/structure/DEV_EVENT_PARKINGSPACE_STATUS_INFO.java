@@ -23,13 +23,13 @@ public class DEV_EVENT_PARKINGSPACE_STATUS_INFO extends SdkStructure
     */
     public double           PTS;
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX UTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX UTC = new NET_TIME_EX();
     /**
-     * 事件对应文件信息,参见结构体定义 {@link NetSDKLib.NET_EVENT_FILE_INFO}
+     * 事件对应文件信息,参见结构体定义 {@link NET_EVENT_FILE_INFO}
     */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo = new NetSDKLib.NET_EVENT_FILE_INFO();
+    public NET_EVENT_FILE_INFO stuFileInfo = new NET_EVENT_FILE_INFO();
     /**
      * 视频分析的数据源地址
     */
@@ -63,9 +63,9 @@ public class DEV_EVENT_PARKINGSPACE_STATUS_INFO extends SdkStructure
     */
     public int              nWorkerNum;
     /**
-     * 车厢状态检测区域, 使用相对坐标体系，取值均为0-8191,参见结构体定义 {@link NetSDKLib.NET_POINT}
+     * 车厢状态检测区域, 使用相对坐标体系，取值均为0-8191,参见结构体定义 {@link NET_POINT}
     */
-    public NetSDKLib.NET_POINT[] stuBoxcarDetectRegion = new NetSDKLib.NET_POINT[4];
+    public NET_POINT[] stuBoxcarDetectRegion = new NET_POINT[4];
     /**
      * 车厢状态检测区域个数
     */
@@ -89,7 +89,7 @@ public class DEV_EVENT_PARKINGSPACE_STATUS_INFO extends SdkStructure
 
     public DEV_EVENT_PARKINGSPACE_STATUS_INFO() {
         for(int i = 0; i < stuBoxcarDetectRegion.length; i++){
-            stuBoxcarDetectRegion[i] = new NetSDKLib.NET_POINT();
+            stuBoxcarDetectRegion[i] = new NET_POINT();
         }
     }
 }

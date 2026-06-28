@@ -7,7 +7,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 public class NET_RADIOMETRY_REGION_TEMP_INFO extends SdkStructure
 {
     /**
-     * 温度单位,参见枚举定义 {@link NetSDKLib.EM_TEMPERATURE_UNIT}
+     * 温度单位,参见枚举定义 {@link EM_TEMPERATURE_UNIT}
     */
     public int              emTemperatureUnit;
     /**
@@ -23,13 +23,13 @@ public class NET_RADIOMETRY_REGION_TEMP_INFO extends SdkStructure
     */
     public int              nTemperMin;
     /**
-     * 随机区域内最高的温度的点的坐标,8192坐标系,参见结构体定义 {@link NetSDKLib.NET_POINT}
+     * 随机区域内最高的温度的点的坐标,8192坐标系,参见结构体定义 {@link NET_POINT}
     */
-    public NetSDKLib.NET_POINT stuTemperMaxPoint = new NetSDKLib.NET_POINT();
+    public NET_POINT stuTemperMaxPoint = new NET_POINT();
     /**
-     * 随机区域内最低的温度的点的坐标,8192坐标系,参见结构体定义 {@link NetSDKLib.NET_POINT}
+     * 随机区域内最低的温度的点的坐标,8192坐标系,参见结构体定义 {@link NET_POINT}
     */
-    public NetSDKLib.NET_POINT stuTemperMinPoint = new NetSDKLib.NET_POINT();
+    public NET_POINT stuTemperMinPoint = new NET_POINT();
     /**
      * 保留字节
     */

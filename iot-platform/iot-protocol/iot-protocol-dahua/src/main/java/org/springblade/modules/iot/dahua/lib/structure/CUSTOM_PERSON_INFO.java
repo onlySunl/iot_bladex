@@ -3,7 +3,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.DH_MAX_PERSON_INFO_LEN;
+import static org.springblade.modules.iot.dahua.lib.DH_MAX_PERSON_INFO_LEN;
 
 /**
  * className：CUSTOM_PERSON_INFO

@@ -12,17 +12,17 @@ public class NET_CB_ANALYSE_RESULT_INFO extends SdkStructure
     */
     public int              nTaskID;
     /**
-     * 图片时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 图片时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuPicTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuPicTime = new NET_TIME();
     /**
      * 实际的事件个数
     */
     public int              nRetEventCount;
     /**
-     * 录像二次分析事件信息,参见结构体定义 {@link NetSDKLib.NET_SECONDARY_ANALYSE_EVENT_INFO}
+     * 录像二次分析事件信息,参见结构体定义 {@link NET_SECONDARY_ANALYSE_EVENT_INFO}
     */
-    public NetSDKLib.NET_SECONDARY_ANALYSE_EVENT_INFO[] stuEventInfo = new NetSDKLib.NET_SECONDARY_ANALYSE_EVENT_INFO[8];
+    public NET_SECONDARY_ANALYSE_EVENT_INFO[] stuEventInfo = new NET_SECONDARY_ANALYSE_EVENT_INFO[8];
     /**
      * 用户数据
     */
@@ -38,7 +38,7 @@ public class NET_CB_ANALYSE_RESULT_INFO extends SdkStructure
 
     public NET_CB_ANALYSE_RESULT_INFO() {
         for(int i = 0; i < stuEventInfo.length; i++){
-            stuEventInfo[i] = new NetSDKLib.NET_SECONDARY_ANALYSE_EVENT_INFO();
+            stuEventInfo[i] = new NET_SECONDARY_ANALYSE_EVENT_INFO();
         }
     }
 }

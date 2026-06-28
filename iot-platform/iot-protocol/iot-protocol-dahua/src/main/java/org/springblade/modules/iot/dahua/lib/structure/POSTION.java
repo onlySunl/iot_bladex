@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 /**
  * PTZ 绝对坐标

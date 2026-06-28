@@ -16,9 +16,9 @@ public class NET_IN_ATTACH_IOTBOX_COMM_EX extends SdkStructure
     */
     public Pointer          dwUser;
     /**
-     * 回调函数,参见回调函数定义 {@link NetSDKLib.fNotifyIotboxRealdataEx}
+     * 回调函数,参见回调函数定义 {@link FNotifyIotboxRealdataEx}
     */
-    public NetSDKLib.fNotifyIotboxRealdataEx cbNotifyIotboxRealdataEx;
+    public FNotifyIotboxRealdataEx cbNotifyIotboxRealdataEx;
 
     public NET_IN_ATTACH_IOTBOX_COMM_EX() {
         this.dwSize = this.size();

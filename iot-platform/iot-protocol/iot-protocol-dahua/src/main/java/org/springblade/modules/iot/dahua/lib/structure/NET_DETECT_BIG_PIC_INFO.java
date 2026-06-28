@@ -37,7 +37,7 @@ public class NET_DETECT_BIG_PIC_INFO extends SdkStructure {
     /**
      * 规则检测区域
      */
-    public NetSDKLib.NET_POINT[] stuDetectRegion = new NetSDKLib.NET_POINT[20];
+    public NET_POINT[] stuDetectRegion = new NET_POINT[20];
     /**
      * 保留字节
      */
@@ -45,7 +45,7 @@ public class NET_DETECT_BIG_PIC_INFO extends SdkStructure {
 
     public NET_DETECT_BIG_PIC_INFO() {
         for (int i = 0; i < stuDetectRegion.length; i++) {
-            stuDetectRegion[i] = new NetSDKLib.NET_POINT();
+            stuDetectRegion[i] = new NET_POINT();
         }
     }
 }

@@ -7,17 +7,17 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 public class NET_LOCAL_ANALYSE_TASK_REPEAT_INFO extends SdkStructure
 {
     /**
-     * 目标类型,参见枚举定义 {@link NetSDKLib.EM_ANALYSE_OBJECT_TYPE}
+     * 目标类型,参见枚举定义 {@link EM_ANALYSE_OBJECT_TYPE}
     */
     public int              emObjectType;
     /**
-     * 重复开始时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 重复开始时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuStartTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuStartTime = new NET_TIME();
     /**
-     * 重复结束时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 重复结束时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuEndTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuEndTime = new NET_TIME();
     /**
      * 保留字节
     */

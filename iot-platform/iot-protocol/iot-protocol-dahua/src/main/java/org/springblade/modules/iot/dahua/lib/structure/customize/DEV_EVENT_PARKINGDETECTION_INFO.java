@@ -2,8 +2,8 @@ package org.springblade.modules.iot.dahua.lib.structure.customize;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.MAX_PATH;
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_MAX_DETECT_REGION_NUM;
+import static org.springblade.modules.iot.dahua.lib.MAX_PATH;
+import static org.springblade.modules.iot.dahua.lib.NET_MAX_DETECT_REGION_NUM;
 
 /**
  * 停船检测事件结构体
@@ -11,7 +11,7 @@ import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_MAX_DETECT_REG
  * ERR210428143 重型云台 水面预警事件 专用结构体
  * <p>
  * 注意: 其他项目不要使用, 通用的停车检测事件结构体见:
- * {@link NetSDKLib.DEV_EVENT_PARKINGDETECTION_INFO}
+ * {@link DEV_EVENT_PARKINGDETECTION_INFO}
  *
  * @author 47040
  * @since Created in 2021/5/13 16:57
@@ -36,7 +36,7 @@ public class DEV_EVENT_PARKINGDETECTION_INFO extends SdkStructure {
     /**
      * 事件发生的时间
      */
-    public NetSDKLib.NET_TIME_EX UTC;
+    public NET_TIME_EX UTC;
     /**
      * 事件ID
      */
@@ -44,7 +44,7 @@ public class DEV_EVENT_PARKINGDETECTION_INFO extends SdkStructure {
     /**
      * 检测到的物体
      */
-    public NetSDKLib.NET_MSG_OBJECT stuObject;
+    public NET_MSG_OBJECT stuObject;
     /**
      * 规则检测区域顶点数
      */
@@ -52,11 +52,11 @@ public class DEV_EVENT_PARKINGDETECTION_INFO extends SdkStructure {
     /**
      * 规则检测区域
      */
-    public NetSDKLib.NET_POINT[] DetectRegion = new NetSDKLib.NET_POINT[NET_MAX_DETECT_REGION_NUM];
+    public NET_POINT[] DetectRegion = new NET_POINT[NET_MAX_DETECT_REGION_NUM];
     /**
      * 事件对应文件信息
      */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo;
+    public NET_EVENT_FILE_INFO stuFileInfo;
     /**
      *
      */
@@ -92,7 +92,7 @@ public class DEV_EVENT_PARKINGDETECTION_INFO extends SdkStructure {
     /**
      * 扩展信息
      */
-    public NetSDKLib.NET_EXTENSION_INFO stuExtensionInfo;
+    public NET_EXTENSION_INFO stuExtensionInfo;
     /**
      * 车位名称
      */
@@ -129,7 +129,7 @@ public class DEV_EVENT_PARKINGDETECTION_INFO extends SdkStructure {
 
     public DEV_EVENT_PARKINGDETECTION_INFO() {
         for (int i = 0; i < DetectRegion.length; ++i) {
-            DetectRegion[i] = new NetSDKLib.NET_POINT();
+            DetectRegion[i] = new NET_POINT();
         }
     }
 

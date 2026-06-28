@@ -4,8 +4,8 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import org.springblade.modules.iot.dahua.lib.enumeration.NET_EM_SHAPE_TYPE;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.MAX_COMMON_STRING_64;
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_MAX_POLYGON_NUM;
+import static org.springblade.modules.iot.dahua.lib.MAX_COMMON_STRING_64;
+import static org.springblade.modules.iot.dahua.lib.NET_MAX_POLYGON_NUM;
 
 /**
  * 设置景物点，原编号的景物点将会被覆盖 入参 出参 {@link NET_OUT_SCENICSPOT_SETPOINTINFO_INFO} 接口
@@ -62,7 +62,7 @@ public class NET_IN_SCENICSPOT_SETPOINTINFO_INFO extends SdkStructure {
 	/**
 	 * 景物的轮廓,每个点依次表示轮廓顶点坐标
 	 */
-    public NetSDKLib.DH_POINT[] stuPolygon = new NetSDKLib.DH_POINT[NET_MAX_POLYGON_NUM];
+    public DH_POINT[] stuPolygon = new DH_POINT[NET_MAX_POLYGON_NUM];
 	/**
 	 * 景物轮廓点的个数，最大不超过 {@link NetSDKLib#NET_MAX_POLYGON_NUM}
 	 */
@@ -79,7 +79,7 @@ public class NET_IN_SCENICSPOT_SETPOINTINFO_INFO extends SdkStructure {
 	public NET_IN_SCENICSPOT_SETPOINTINFO_INFO() {
 		dwSize = this.size();
 		for (int i = 0; i < stuPolygon.length; i++) {
-			stuPolygon[i] = new NetSDKLib.DH_POINT();
+			stuPolygon[i] = new DH_POINT();
 		}
 	}
 }

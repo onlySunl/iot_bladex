@@ -23,7 +23,7 @@ public class NET_VIDEO_DIAGNOSIS_RECORD_INFO extends SdkStructure {
     /**
      * 视频诊断录像开始时间
      */
-    public NetSDKLib.CFG_NET_TIME stuStartTime;
+    public CFG_NET_TIME stuStartTime;
     /**
      * 视频诊断录像开始时间为当前实际检测时间的前PreSeconds秒（当该字段与StartTime同时存在时，以该字段优先）
      */

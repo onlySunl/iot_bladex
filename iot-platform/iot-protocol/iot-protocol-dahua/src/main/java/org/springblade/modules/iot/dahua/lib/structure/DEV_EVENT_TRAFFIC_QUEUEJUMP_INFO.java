@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /** 
@@ -38,15 +38,15 @@ public class DEV_EVENT_TRAFFIC_QUEUEJUMP_INFO extends SdkStructure {
 /** 
 事件对应文件信息
 */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo = new NetSDKLib.NET_EVENT_FILE_INFO();
+    public NET_EVENT_FILE_INFO stuFileInfo = new NET_EVENT_FILE_INFO();
 /** 
 车牌信息
 */
-    public NetSDKLib.NET_MSG_OBJECT stuObject = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuObject = new NET_MSG_OBJECT();
 /** 
 车身信息
 */
-    public NetSDKLib.NET_MSG_OBJECT stuVehicle = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuVehicle = new NET_MSG_OBJECT();
 /** 
 车辆信息
 */
@@ -75,11 +75,11 @@ public class DEV_EVENT_TRAFFIC_QUEUEJUMP_INFO extends SdkStructure {
 /** 
 对应图片的分辨率
 */
-    public NetSDKLib.NET_RESOLUTION_INFO stuResolution = new NetSDKLib.NET_RESOLUTION_INFO();
+    public NET_RESOLUTION_INFO stuResolution = new NET_RESOLUTION_INFO();
 /** 
 公共信息
 */
-    public NetSDKLib.EVENT_COMM_INFO stCommInfo = new NetSDKLib.EVENT_COMM_INFO();
+    public EVENT_COMM_INFO stCommInfo = new EVENT_COMM_INFO();
 /** 
 事件类型掩码，bit0表示报警事件，bit1表示违章事件。若bit0和bit1都置位则既是报警事件又是违章事件，默认bit0置位，报警事件
 */
@@ -89,13 +89,13 @@ public class DEV_EVENT_TRAFFIC_QUEUEJUMP_INFO extends SdkStructure {
 */
     public NET_EVENT_INFO_EXTEND stuEventInfoEx = new NET_EVENT_INFO_EXTEND();
     /**
-     * 全景图,参见结构体定义 {@link NetSDKLib.SCENE_IMAGE_INFO_EX}
+     * 全景图,参见结构体定义 {@link SCENE_IMAGE_INFO_EX}
     */
     public Pointer          pstuSceneImage;
 /** 
 保留字节
 */
-    public			byte[]         byReserved = new byte[1020-NetSDKLib.SIZE_OF_POINTER];
+    public			byte[]         byReserved = new byte[1020-NetSDKConstants.POINTERSIZE];
 
 public DEV_EVENT_TRAFFIC_QUEUEJUMP_INFO(){
 }

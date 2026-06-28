@@ -29,7 +29,7 @@ public class NET_IN_CAMERASTATE extends SdkStructure {
     /**
      * 状态回调函数
      */
-    public NetSDKLib.fCameraStateCallBack cbCamera;
+    public FCameraStateCallBack cbCamera;
     /**
      * 用户数据
      */

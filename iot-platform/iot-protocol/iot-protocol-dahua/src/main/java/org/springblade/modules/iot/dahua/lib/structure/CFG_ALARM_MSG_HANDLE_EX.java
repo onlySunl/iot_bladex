@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * 报警联动信息扩展
 */

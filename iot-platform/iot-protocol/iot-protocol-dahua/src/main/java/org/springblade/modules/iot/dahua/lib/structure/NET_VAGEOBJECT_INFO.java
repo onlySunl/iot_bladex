@@ -31,15 +31,15 @@ public class NET_VAGEOBJECT_INFO extends SdkStructure {
     /**
      *  包围盒 矩形类型，当物体类型为车辆、车牌时为0~8191相对坐标
      */
-    public NetSDKLib.NET_RECT stuBoundingBox;
+    public NET_RECT stuBoundingBox;
     /**
      *  包围盒 绝对坐标
      */
-    public NetSDKLib.NET_RECT stuOriginalBoundingBox;
+    public NET_RECT stuOriginalBoundingBox;
     /**
      *  物体型心（不是包围盒中心）, 二维空间点类型
      */
-    public NetSDKLib.NET_POINT stuCenter;
+    public NET_POINT stuCenter;
     /**
      *  主要颜色是否有效
      */

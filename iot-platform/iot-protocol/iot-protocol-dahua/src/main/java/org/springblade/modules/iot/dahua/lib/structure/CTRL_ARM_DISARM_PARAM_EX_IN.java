@@ -15,7 +15,7 @@ public class CTRL_ARM_DISARM_PARAM_EX_IN extends SdkStructure {
      */
     public int              dwSize;
     /**
-     * 布撤防状态，参考枚举 { @link org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_ALARM_MODE}
+     * 布撤防状态，参考枚举 { @link org.springblade.modules.iot.dahua.lib.NET_ALARM_MODE}
      */
     public int              emState;
     /**
@@ -23,7 +23,7 @@ public class CTRL_ARM_DISARM_PARAM_EX_IN extends SdkStructure {
      */
     public Pointer          szDevPwd;
     /**
-     * 情景模式，参考枚举 { @link org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_SCENE_MODE}
+     * 情景模式，参考枚举 { @link org.springblade.modules.iot.dahua.lib.NET_SCENE_MODE}
      */
     public int              emSceneMode;
     /**

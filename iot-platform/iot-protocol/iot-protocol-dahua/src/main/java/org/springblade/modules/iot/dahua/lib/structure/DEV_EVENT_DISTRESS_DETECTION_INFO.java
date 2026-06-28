@@ -23,17 +23,17 @@ public class DEV_EVENT_DISTRESS_DETECTION_INFO extends SdkStructure
     */
     public double           PTS;
     /**
-     * 智能事件所属大类,参见枚举定义 {@link NetSDKLib.EM_CLASS_TYPE}
+     * 智能事件所属大类,参见枚举定义 {@link EM_CLASS_TYPE}
     */
     public int              emClassType;
     /**
-     * 事件对应文件信息,参见结构体定义 {@link NetSDKLib.NET_EVENT_FILE_INFO}
+     * 事件对应文件信息,参见结构体定义 {@link NET_EVENT_FILE_INFO}
     */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo = new NetSDKLib.NET_EVENT_FILE_INFO();
+    public NET_EVENT_FILE_INFO stuFileInfo = new NET_EVENT_FILE_INFO();
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX UTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX UTC = new NET_TIME_EX();
     /**
      * 事件ID
     */
@@ -47,13 +47,13 @@ public class DEV_EVENT_DISTRESS_DETECTION_INFO extends SdkStructure
     */
     public int              nRuleID;
     /**
-     * 检测到的物体,参见结构体定义 {@link NetSDKLib.NET_MSG_OBJECT}
+     * 检测到的物体,参见结构体定义 {@link NET_MSG_OBJECT}
     */
-    public NetSDKLib.NET_MSG_OBJECT stuObject = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuObject = new NET_MSG_OBJECT();
     /**
-     * 规则检测区域,参见结构体定义 {@link NetSDKLib.NET_POINT}
+     * 规则检测区域,参见结构体定义 {@link NET_POINT}
     */
-    public NetSDKLib.NET_POINT[] stuDetectRegion = new NetSDKLib.NET_POINT[20];
+    public NET_POINT[] stuDetectRegion = new NET_POINT[20];
     /**
      * 规则检测区域顶点数
     */
@@ -69,7 +69,7 @@ public class DEV_EVENT_DISTRESS_DETECTION_INFO extends SdkStructure
 
     public DEV_EVENT_DISTRESS_DETECTION_INFO() {
         for(int i = 0; i < stuDetectRegion.length; i++){
-            stuDetectRegion[i] = new NetSDKLib.NET_POINT();
+            stuDetectRegion[i] = new NET_POINT();
         }
     }
 }

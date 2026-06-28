@@ -46,7 +46,7 @@ public class DEV_EVENT_ROAD_CONDITIONS_DETECTION_INFO extends SdkStructure {
 /** 
 GPS信息
 */
-    public NetSDKLib.NET_GPS_STATUS_INFO stuGPSStatus = new NetSDKLib.NET_GPS_STATUS_INFO();
+    public NET_GPS_STATUS_INFO stuGPSStatus = new NET_GPS_STATUS_INFO();
 /** 
 违章关联视频FTP上传路径
 */

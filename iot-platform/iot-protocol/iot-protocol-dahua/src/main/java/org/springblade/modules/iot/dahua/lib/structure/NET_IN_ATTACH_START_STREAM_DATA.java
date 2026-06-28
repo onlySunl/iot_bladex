@@ -12,9 +12,9 @@ public class NET_IN_ATTACH_START_STREAM_DATA extends SdkStructure
     */
     public int              dwSize;
     /**
-     * 回调函数,参见回调函数定义 {@link NetSDKLib.fStartStreamDataCallBack}
+     * 回调函数,参见回调函数定义 {@link FStartStreamDataCallBack}
     */
-    public NetSDKLib.fStartStreamDataCallBack cbStartStreamData;
+    public FStartStreamDataCallBack cbStartStreamData;
     /**
      * 用户信息
     */

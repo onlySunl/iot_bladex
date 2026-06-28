@@ -3,7 +3,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_MSG_OBJECT_EX2;
+import org.springblade.modules.iot.dahua.lib.NET_MSG_OBJECT_EX2;
 import com.sun.jna.Pointer;
 
 /**
@@ -59,11 +59,11 @@ public class DEV_EVENT_OBJECT_REMOVAL_DETECTION_INFO extends SdkStructure {
     /**
      * 物体信息数据
      */
-    public NetSDKLib.DH_MSG_OBJECT stuObject = new NetSDKLib.DH_MSG_OBJECT();
+    public DH_MSG_OBJECT stuObject = new DH_MSG_OBJECT();
     /**
      * 广角图
      */
-    public NetSDKLib.SCENE_IMAGE_INFO stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO();
+    public SCENE_IMAGE_INFO stuSceneImage = new SCENE_IMAGE_INFO();
     /**
      * 检测目标物体的个数
      */

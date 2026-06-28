@@ -9,7 +9,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  * @author ： 260611
  * @since ： Created in 2021/10/19 19:35
  */
-public class EM_HAS_BABYCARRIAGE extends NetSDKLib.SdkStructure {
+public class EM_HAS_BABYCARRIAGE extends SdkStructure {
     /**
      *  未知
      */

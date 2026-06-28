@@ -53,11 +53,11 @@ public class NET_DEV_EVENT_ACTION_COUNT_INFO extends SdkStructure {
 	/**
 	 * 检测到的物体信息
 	 */
-    public NetSDKLib.DH_MSG_OBJECT[] stuObjects = new NetSDKLib.DH_MSG_OBJECT[100];
+    public DH_MSG_OBJECT[] stuObjects = new DH_MSG_OBJECT[100];
 	/**
 	 * 全景广角图
 	 */
-    public NetSDKLib.SCENE_IMAGE_INFO_EX stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO_EX();
+    public SCENE_IMAGE_INFO_EX stuSceneImage = new SCENE_IMAGE_INFO_EX();
 	/**
 	 * 算法名称
 	 */
@@ -81,7 +81,7 @@ public class NET_DEV_EVENT_ACTION_COUNT_INFO extends SdkStructure {
 
 	public NET_DEV_EVENT_ACTION_COUNT_INFO() {
 		for (int i = 0; i < stuObjects.length; i++) {
-			stuObjects[i] = new NetSDKLib.DH_MSG_OBJECT();
+			stuObjects[i] = new DH_MSG_OBJECT();
 		}
 	}
 }

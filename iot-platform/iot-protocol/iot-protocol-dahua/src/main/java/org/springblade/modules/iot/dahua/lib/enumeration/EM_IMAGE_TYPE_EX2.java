@@ -9,7 +9,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  * @author ： 260611
  * @since ： Created in 2021/10/19 20:21
  */
-public class EM_IMAGE_TYPE_EX2 extends NetSDKLib.SdkStructure {
+public class EM_IMAGE_TYPE_EX2 extends SdkStructure {
 	/**
 	 *  未知
 	 */

@@ -7,7 +7,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 public class NET_PTZ_LINK extends SdkStructure
 {
     /**
-     * 云台联动类型,参见枚举定义 {@link NetSDKLib.CFG_LINK_TYPE}
+     * 云台联动类型,参见枚举定义 {@link CFG_LINK_TYPE}
     */
     public int              emType;
     /**

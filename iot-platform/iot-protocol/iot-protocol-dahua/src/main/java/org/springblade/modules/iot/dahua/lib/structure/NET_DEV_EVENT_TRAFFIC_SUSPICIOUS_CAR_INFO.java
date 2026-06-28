@@ -19,25 +19,25 @@ public class NET_DEV_EVENT_TRAFFIC_SUSPICIOUS_CAR_INFO extends SdkStructure
     */
     public NET_EVENT_INFO_EXTEND stuEventInfoEx = new NET_EVENT_INFO_EXTEND();
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 对齐字节
     */
     public byte[]           szReservedUTC = new byte[4];
     /**
-     * 检测到的车辆信息,参见结构体定义 {@link NetSDKLib.NET_MSG_OBJECT}
+     * 检测到的车辆信息,参见结构体定义 {@link NET_MSG_OBJECT}
     */
-    public NetSDKLib.NET_MSG_OBJECT stuVehicle = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuVehicle = new NET_MSG_OBJECT();
     /**
-     * 禁止名单信息,参见结构体定义 {@link NetSDKLib.NET_TRAFFIC_LIST_RECORD}
+     * 禁止名单信息,参见结构体定义 {@link NET_TRAFFIC_LIST_RECORD}
     */
-    public NetSDKLib.NET_TRAFFIC_LIST_RECORD stuCarInfo = new NetSDKLib.NET_TRAFFIC_LIST_RECORD();
+    public NET_TRAFFIC_LIST_RECORD stuCarInfo = new NET_TRAFFIC_LIST_RECORD();
     /**
-     * 交通事件公共信息,参见结构体定义 {@link NetSDKLib.EVENT_COMM_INFO}
+     * 交通事件公共信息,参见结构体定义 {@link EVENT_COMM_INFO}
     */
-    public NetSDKLib.EVENT_COMM_INFO stuCommInfo = new NetSDKLib.EVENT_COMM_INFO();
+    public EVENT_COMM_INFO stuCommInfo = new EVENT_COMM_INFO();
     /**
      * 保留字节
     */

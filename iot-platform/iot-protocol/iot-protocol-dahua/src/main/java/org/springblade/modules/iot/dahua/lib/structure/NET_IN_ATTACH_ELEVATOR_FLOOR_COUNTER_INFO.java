@@ -20,9 +20,9 @@ public class NET_IN_ATTACH_ELEVATOR_FLOOR_COUNTER_INFO extends SdkStructure
     */
     public int              nChannelNum;
     /**
-     * 回调函数,参见回调函数定义 {@link NetSDKLib.fNotifyElevatorFloorCounterdata}
+     * 回调函数,参见回调函数定义 {@link FNotifyElevatorFloorCounterdata}
     */
-    public NetSDKLib.fNotifyElevatorFloorCounterdata cbNotifyElevatorFloorCounterdata;
+    public FNotifyElevatorFloorCounterdata cbNotifyElevatorFloorCounterdata;
     /**
      * 用户自定义参数
     */

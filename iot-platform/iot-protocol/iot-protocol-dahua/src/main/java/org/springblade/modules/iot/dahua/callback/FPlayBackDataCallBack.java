@@ -16,7 +16,7 @@ import java.nio.ByteOrder;
  * 大华设备回放数据回调类
  */
 @Slf4j
-public class FPlayBackDataCallBack implements NetSDKLib.fDataCallBack {
+public class FPlayBackDataCallBack implements fDataCallBack {
     private final String host;
     private final String ssrc;
     private final int rtpPort;

@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * NET_VOICE_BROADCAST_INFO 语音播放内容信息
 */

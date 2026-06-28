@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /**
@@ -37,11 +37,11 @@ public class DEV_EVENT_TRAFFIC_NONMOTOR_OVERLOAD_INFO extends SdkStructure {
     /**
      *  事件对应文件信息
      */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo;
+    public NET_EVENT_FILE_INFO stuFileInfo;
     /**
      *  智能事件公共信息 
      */
-    public NetSDKLib.EVENT_INTELLI_COMM_INFO stuIntelliCommInfo;
+    public EVENT_INTELLI_COMM_INFO stuIntelliCommInfo;
     /**
      *  抓图标志(按位),具体见 { @link NET_RESERVED_COMMON}
      */
@@ -49,11 +49,11 @@ public class DEV_EVENT_TRAFFIC_NONMOTOR_OVERLOAD_INFO extends SdkStructure {
     /**
      *  对应图片的分辨率
      */
-    public NetSDKLib.NET_RESOLUTION_INFO stuResolution;
+    public NET_RESOLUTION_INFO stuResolution;
     /**
      *  非机动车信息
      */
-    public NetSDKLib.VA_OBJECT_NONMOTOR stuNonMotor;
+    public VA_OBJECT_NONMOTOR stuNonMotor;
     /**
      *  车道号
      */
@@ -65,11 +65,11 @@ public class DEV_EVENT_TRAFFIC_NONMOTOR_OVERLOAD_INFO extends SdkStructure {
     /**
      *  公共信息
      */
-    public NetSDKLib.EVENT_COMM_INFO stuCommInfo;
+    public EVENT_COMM_INFO stuCommInfo;
     /**
      *  交通车辆信息
      */
-    public NetSDKLib.DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO stTrafficCar;
+    public DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO stTrafficCar;
     /**
      * 图片信息数组,参见结构体定义 {@link NET_IMAGE_INFO_EX3}
     */
@@ -85,6 +85,6 @@ public class DEV_EVENT_TRAFFIC_NONMOTOR_OVERLOAD_INFO extends SdkStructure {
     /**
      *  保留字节 
      */
-    public byte[]           byReserved = new byte[980-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           byReserved = new byte[980-NetSDKConstants.POINTERSIZE];
 }
 

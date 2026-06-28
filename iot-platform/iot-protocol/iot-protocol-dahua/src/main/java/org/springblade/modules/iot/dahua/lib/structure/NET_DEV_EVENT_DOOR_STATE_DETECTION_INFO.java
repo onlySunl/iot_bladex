@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 /**
  * 事件类型 EVENT_IVS_DOOR_STATE_DETECTION(开关门检测事件)对应的数据块描述信息
@@ -44,9 +44,9 @@ public class NET_DEV_EVENT_DOOR_STATE_DETECTION_INFO extends SdkStructure
     */
     public double           dbPTS;
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 事件时间毫秒数
     */
@@ -64,13 +64,13 @@ public class NET_DEV_EVENT_DOOR_STATE_DETECTION_INFO extends SdkStructure
     */
     public int              nDetectRegionNum;
     /**
-     * 检测区,参见结构体定义 {@link NetSDKLib.NET_POINT}
+     * 检测区,参见结构体定义 {@link NET_POINT}
     */
-    public NetSDKLib.NET_POINT[] stuDetectRegion = new NetSDKLib.NET_POINT[20];
+    public NET_POINT[] stuDetectRegion = new NET_POINT[20];
     /**
-     * 全景广角图,参见结构体定义 {@link NetSDKLib.SCENE_IMAGE_INFO}
+     * 全景广角图,参见结构体定义 {@link SCENE_IMAGE_INFO}
     */
-    public NetSDKLib.SCENE_IMAGE_INFO stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO();
+    public SCENE_IMAGE_INFO stuSceneImage = new SCENE_IMAGE_INFO();
     /**
      * 报警类型 门状态异常或开门异常
     */
@@ -84,7 +84,7 @@ public class NET_DEV_EVENT_DOOR_STATE_DETECTION_INFO extends SdkStructure
     */
     public NET_OPEN_DOOR_ABNORMAL_INFO stuOpenDoorAbnormal = new NET_OPEN_DOOR_ABNORMAL_INFO();
     /**
-     * 检测目标的物体信息,参见结构体定义 {@link NetSDKLib.NET_MSG_OBJECT}
+     * 检测目标的物体信息,参见结构体定义 {@link NET_MSG_OBJECT}
     */
     public Pointer          pstuObjects;
     /**
@@ -94,11 +94,11 @@ public class NET_DEV_EVENT_DOOR_STATE_DETECTION_INFO extends SdkStructure
     /**
      * 预留字节
     */
-    public byte[]           szReserved = new byte[1016-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           szReserved = new byte[1016-NetSDKConstants.POINTERSIZE];
 
     public NET_DEV_EVENT_DOOR_STATE_DETECTION_INFO() {
         for(int i = 0; i < stuDetectRegion.length; i++){
-            stuDetectRegion[i] = new NetSDKLib.NET_POINT();
+            stuDetectRegion[i] = new NET_POINT();
         }
     }
 }

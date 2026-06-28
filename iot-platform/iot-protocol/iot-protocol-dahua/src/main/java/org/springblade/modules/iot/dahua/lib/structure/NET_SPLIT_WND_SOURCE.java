@@ -44,9 +44,9 @@ public class NET_SPLIT_WND_SOURCE extends SdkStructure
     */
     public int              bRemoteDevice;
     /**
-     * 远程设备信息,参见结构体定义 {@link NetSDKLib.NET_REMOTE_DEVICE}
+     * 远程设备信息,参见结构体定义 {@link NET_REMOTE_DEVICE}
     */
-    public NetSDKLib.NET_REMOTE_DEVICE stuRemoteDevice = new NetSDKLib.NET_REMOTE_DEVICE();
+    public NET_REMOTE_DEVICE stuRemoteDevice = new NET_REMOTE_DEVICE();
     /**
      * 视频源区域,若区域为(0,0,0,0)表示数据无效，设备使用默认值(0,0,8192,8192),参见结构体定义 {@link NET_RECT}
     */

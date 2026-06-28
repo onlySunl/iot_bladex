@@ -19,9 +19,9 @@ public class NET_ALARM_HUMAN_TRAIT_INFO extends SdkStructure
     */
     public NET_EVENT_INFO_EXTEND stuEventInfoEx = new NET_EVENT_INFO_EXTEND();
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 事件ID
     */
@@ -79,13 +79,13 @@ public class NET_ALARM_HUMAN_TRAIT_INFO extends SdkStructure
     */
     public long             nUniqueID;
     /**
-     * 目标属性,参见结构体定义 {@link NetSDKLib.NET_FACE_ATTRIBUTE}
+     * 目标属性,参见结构体定义 {@link NET_FACE_ATTRIBUTE}
     */
-    public NetSDKLib.NET_FACE_ATTRIBUTE stuFaceAttributes = new NetSDKLib.NET_FACE_ATTRIBUTE();
+    public NET_FACE_ATTRIBUTE stuFaceAttributes = new NET_FACE_ATTRIBUTE();
     /**
-     * 人体属性,参见结构体定义 {@link NetSDKLib.HUMAN_ATTRIBUTES_INFO}
+     * 人体属性,参见结构体定义 {@link HUMAN_ATTRIBUTES_INFO}
     */
-    public NetSDKLib.HUMAN_ATTRIBUTES_INFO stuHumanAttributes = new NetSDKLib.HUMAN_ATTRIBUTES_INFO();
+    public HUMAN_ATTRIBUTES_INFO stuHumanAttributes = new HUMAN_ATTRIBUTES_INFO();
     /**
      * stuHumanAttributes 的扩展,参见结构体定义 {@link HUMAN_ATTRIBUTES_INFO_EX}
     */

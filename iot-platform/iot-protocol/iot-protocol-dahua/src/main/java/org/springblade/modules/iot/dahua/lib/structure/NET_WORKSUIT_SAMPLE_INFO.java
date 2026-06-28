@@ -28,7 +28,7 @@ public class NET_WORKSUIT_SAMPLE_INFO extends SdkStructure {
 	/**
 	 * 图片信息
 	 */
-    public NetSDKLib.SCENE_IMAGE_INFO stuImageInfo = new NetSDKLib.SCENE_IMAGE_INFO();
+    public SCENE_IMAGE_INFO stuImageInfo = new SCENE_IMAGE_INFO();
 	/**
 	 *文件路径, 支持HTTP URL表示; 支持FTP URL表示; 支持服务器本地路径,填写图片路径后无需填写图片信息中的offset与length字段
 	 */

@@ -1,13 +1,13 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.EVENT_TRAFFIC_CAR_PART_INFO;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_EVENT_FILE_INFO;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_MSG_OBJECT;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.SdkStructure;
+
+import org.springblade.modules.iot.dahua.lib.EVENT_TRAFFIC_CAR_PART_INFO;
+import org.springblade.modules.iot.dahua.lib.NET_EVENT_FILE_INFO;
+import org.springblade.modules.iot.dahua.lib.NET_MSG_OBJECT;
+import org.springblade.modules.iot.dahua.lib.SdkStructure;
 import com.sun.jna.Pointer;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.SIZE_OF_POINTER;
+import static org.springblade.modules.iot.dahua.lib.NetSDKConstants.POINTERSIZE;
 
 /**
  * @author 119178
@@ -81,7 +81,7 @@ public class DEV_EVENT_TRAFFICACCIDENT_INFO extends SdkStructure {
 	 */
     public Pointer          pstuImageInfo;
 	/**
-	 * 公共信息 {@link org.springblade.modules.iot.dahua.lib.NetSDKLib.EVENT_COMM_INFO}
+	 * 公共信息 {@link org.springblade.modules.iot.dahua.lib.EVENT_COMM_INFO}
 	 */
     public Pointer          pstuCommInfo;
 	/**

@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.SdkStructure;
 
 /**
  * 录像保存天数配置 (对应枚举 {@link NET_EM_CFG_FILE_HOLD_DAYS} )

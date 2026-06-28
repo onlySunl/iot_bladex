@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /**
@@ -50,11 +50,11 @@ public class DEV_EVENT_GENEAL_ATTITUDE_INFO extends SdkStructure {
 	/**
 	 * 检测目标的物体信息
 	 */
-    public NetSDKLib.DH_MSG_OBJECT[] stuObjects = new NetSDKLib.DH_MSG_OBJECT[128];
+    public DH_MSG_OBJECT[] stuObjects = new DH_MSG_OBJECT[128];
 	/**
 	 * 全景广角图
 	 */
-    public NetSDKLib.SCENE_IMAGE_INFO stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO();
+    public SCENE_IMAGE_INFO stuSceneImage = new SCENE_IMAGE_INFO();
 	/**
 	 * 姿态类型 {@link org.springblade.modules.iot.dahua.lib.enumeration.NET_EM_ATTITUDE_TYPE}
 	 */
@@ -74,11 +74,11 @@ public class DEV_EVENT_GENEAL_ATTITUDE_INFO extends SdkStructure {
 	/**
 	 * 保留字节,留待扩展
 	 */
-    public byte[]           szReserved = new byte[1016-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           szReserved = new byte[1016-NetSDKConstants.POINTERSIZE];
 
 	public DEV_EVENT_GENEAL_ATTITUDE_INFO() {
 		for (int i = 0; i < stuObjects.length; i++) {
-			stuObjects[i] = new NetSDKLib.DH_MSG_OBJECT();
+			stuObjects[i] = new DH_MSG_OBJECT();
 		}
 	}
 }

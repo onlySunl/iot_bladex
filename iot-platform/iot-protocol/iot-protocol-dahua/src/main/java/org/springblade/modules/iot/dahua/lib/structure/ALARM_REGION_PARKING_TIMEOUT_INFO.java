@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 /**
  * 事件类型 NET_ALARM_REGION_PARKING_TIMEOUT(区间车位停车超时)

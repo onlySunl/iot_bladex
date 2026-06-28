@@ -18,7 +18,7 @@ public class NET_IN_ATTACH_GYRO extends SdkStructure {
 /** 
 回调函数
 */
-    public NetSDKLib.fNotifyGyroData cbNotifyGyroData;
+    public FNotifyGyroData cbNotifyGyroData;
 /** 
 用户自定义参数
 */

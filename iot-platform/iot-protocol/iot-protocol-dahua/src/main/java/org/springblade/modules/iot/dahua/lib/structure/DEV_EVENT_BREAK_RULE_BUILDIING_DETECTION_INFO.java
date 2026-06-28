@@ -35,7 +35,7 @@ public class DEV_EVENT_BREAK_RULE_BUILDIING_DETECTION_INFO extends SdkStructure 
 /** 
 全景广角图(当前事件只有：nOffSet、nLength有效)
 */
-    public NetSDKLib.SCENE_IMAGE_INFO stuSceneImageInfo = new NetSDKLib.SCENE_IMAGE_INFO();
+    public SCENE_IMAGE_INFO stuSceneImageInfo = new SCENE_IMAGE_INFO();
 /** 
 事件ID
 */
@@ -59,7 +59,7 @@ public class DEV_EVENT_BREAK_RULE_BUILDIING_DETECTION_INFO extends SdkStructure 
 /** 
 检测到的物体信息
 */
-    public			NetSDKLib.DH_MSG_OBJECT[] stuObjects = (NetSDKLib.DH_MSG_OBJECT[])new NetSDKLib.DH_MSG_OBJECT().toArray(128);
+    public			DH_MSG_OBJECT[] stuObjects = (DH_MSG_OBJECT[])new DH_MSG_OBJECT().toArray(128);
 /** 
 预留字段
 */

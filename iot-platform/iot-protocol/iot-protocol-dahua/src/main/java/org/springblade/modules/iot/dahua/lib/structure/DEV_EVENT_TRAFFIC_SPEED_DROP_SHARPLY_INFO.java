@@ -54,15 +54,15 @@ public class DEV_EVENT_TRAFFIC_SPEED_DROP_SHARPLY_INFO extends SdkStructure {
 /** 
 车牌信息
 */
-    public NetSDKLib.NET_MSG_OBJECT stuObject = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuObject = new NET_MSG_OBJECT();
 /** 
 车辆信息
 */
-    public NetSDKLib.NET_MSG_OBJECT stuVehicle = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuVehicle = new NET_MSG_OBJECT();
 /** 
 非机动车信息
 */
-    public NetSDKLib.VA_OBJECT_NONMOTOR stuNonMotor = new NetSDKLib.VA_OBJECT_NONMOTOR();
+    public VA_OBJECT_NONMOTOR stuNonMotor = new VA_OBJECT_NONMOTOR();
 /** 
 车道号
 */
@@ -74,7 +74,7 @@ public class DEV_EVENT_TRAFFIC_SPEED_DROP_SHARPLY_INFO extends SdkStructure {
 /** 
 公共信息
 */
-    public NetSDKLib.EVENT_COMM_INFO stCommInfo = new NetSDKLib.EVENT_COMM_INFO();
+    public EVENT_COMM_INFO stCommInfo = new EVENT_COMM_INFO();
 /** 
 交通车辆信息
 */

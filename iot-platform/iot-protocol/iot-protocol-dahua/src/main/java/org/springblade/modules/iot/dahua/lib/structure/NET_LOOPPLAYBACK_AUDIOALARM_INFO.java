@@ -19,7 +19,7 @@ public class NET_LOOPPLAYBACK_AUDIOALARM_INFO extends SdkStructure {
 /** 
 布撤防时间段
 */
-    public			NetSDKLib.NET_TSECT[] stuTimeSection = new NetSDKLib.NET_TSECT[8*6];
+    public			NET_TSECT[] stuTimeSection = new NET_TSECT[8*6];
 /** 
 语音播报文件路径
 */
@@ -35,7 +35,7 @@ public class NET_LOOPPLAYBACK_AUDIOALARM_INFO extends SdkStructure {
 
     public NET_LOOPPLAYBACK_AUDIOALARM_INFO(){
                 for(int i=0;i<stuTimeSection.length;i++){
-                    stuTimeSection[i]=new NetSDKLib.NET_TSECT();
+                    stuTimeSection[i]=new NET_TSECT();
                 }
         this.dwSize = this.size();
     }

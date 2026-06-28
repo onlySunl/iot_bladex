@@ -18,7 +18,7 @@ public class NET_IN_ATTACH_TRANSMIT_INFO extends SdkStructure {
     /**
      *  回调函数
      */
-    public  NetSDKLib.AsyncTransmitInfoCallBack cbTransmitInfo;
+    public  AsyncTransmitInfoCallBack cbTransmitInfo;
     /**
      *  用户数据
      */

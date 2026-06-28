@@ -23,9 +23,9 @@ public class NET_NUMBERSTATGROUP_SUMMARY extends SdkStructure
     */
     public int[]            arChannelList = new int[1024];
     /**
-     * 统计时间秒数，已包含时区偏移,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 统计时间秒数，已包含时区偏移,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 时区索引号
     */

@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 /**
  * 组合通道信息更新到time入参 {@link NetSDKLib#CLIENT_OperateCourseCompositeChannel}

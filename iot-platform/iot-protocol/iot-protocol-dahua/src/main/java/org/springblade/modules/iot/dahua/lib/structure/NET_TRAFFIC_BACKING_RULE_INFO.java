@@ -1,9 +1,9 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.DH_POINT;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.POINTCOORDINATE;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.DH_POINT;
+import org.springblade.modules.iot.dahua.lib.POINTCOORDINATE;
+import org.springblade.modules.iot.dahua.lib.SdkStructure;
 
 /**
  * @description 事件类型EVENT_IVS_TRAFFIC_BACKING(倒车) 对应的规则配置

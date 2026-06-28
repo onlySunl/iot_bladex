@@ -7,13 +7,13 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 public class NET_VEHICLE_FLOW_STAT_CONDITION extends SdkStructure
 {
     /**
-     * 开始时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 开始时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuStartTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuStartTime = new NET_TIME();
     /**
-     * 结束时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 结束时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuEndTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuEndTime = new NET_TIME();
     /**
      * 查询要求返回的报表统计信息粒度, "Hour"按小时, "Day"按天, "Month"按月, "Year"按年
     */

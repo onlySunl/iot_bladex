@@ -2,9 +2,9 @@ package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_MSG_OBJECT_EX2;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.SCENE_IMAGE_INFO;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.NET_MSG_OBJECT_EX2;
+import org.springblade.modules.iot.dahua.lib.SCENE_IMAGE_INFO;
+import org.springblade.modules.iot.dahua.lib.SdkStructure;
 
 /**
  * @author 421657

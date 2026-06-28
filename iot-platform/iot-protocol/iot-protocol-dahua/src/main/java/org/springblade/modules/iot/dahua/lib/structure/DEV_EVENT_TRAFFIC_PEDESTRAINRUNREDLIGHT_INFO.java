@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 import java.text.NumberFormat;
@@ -46,11 +46,11 @@ public class DEV_EVENT_TRAFFIC_PEDESTRAINRUNREDLIGHT_INFO extends SdkStructure {
     /**
      * 行人信息
      */
-    public NetSDKLib.NET_MSG_OBJECT stuObject;
+    public NET_MSG_OBJECT stuObject;
     /**
      * 事件对应文件信息
      */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo;
+    public NET_EVENT_FILE_INFO stuFileInfo;
     /**
      * 表示抓拍序号,如3,2,1,1表示抓拍结束,0表示异常结束
      */
@@ -66,29 +66,29 @@ public class DEV_EVENT_TRAFFIC_PEDESTRAINRUNREDLIGHT_INFO extends SdkStructure {
     public byte             byImageIndex;
     /**
      * 抓图标志(按位),具体见
-     * {@link NetSDKLib.NET_RESERVED_COMMON}
+     * {@link NET_RESERVED_COMMON}
      */
     public int              dwSnapFlagMask;
     /**
      * 对应图片的分辨率
      */
-    public NetSDKLib.NET_RESOLUTION_INFO stuResolution;
+    public NET_RESOLUTION_INFO stuResolution;
     /**
-     * 行人信息,参见结构体定义 {@link NetSDKLib.NET_MSG_OBJECT}
+     * 行人信息,参见结构体定义 {@link NET_MSG_OBJECT}
     */
     public Pointer          pstuVehicle;
     /**
-     * 全景图,参见结构体定义 {@link NetSDKLib.SCENE_IMAGE_INFO_EX}
+     * 全景图,参见结构体定义 {@link SCENE_IMAGE_INFO_EX}
     */
     public Pointer          pstuSceneImage;
     /**
      * 保留字节
      */
-    public byte[]           bReserved = new byte[1024-2*NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           bReserved = new byte[1024-2*NetSDKConstants.POINTERSIZE];
     /**
      * 公共信息
      */
-    public NetSDKLib.EVENT_COMM_INFO stCommInfo;
+    public EVENT_COMM_INFO stCommInfo;
     /**
      * 扩展协议字段,参见结构体定义 {@link NET_EVENT_INFO_EXTEND}
     */

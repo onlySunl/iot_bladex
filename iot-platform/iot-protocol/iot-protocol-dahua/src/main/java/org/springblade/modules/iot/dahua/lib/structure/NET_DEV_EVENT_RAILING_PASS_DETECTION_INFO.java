@@ -19,9 +19,9 @@ public class NET_DEV_EVENT_RAILING_PASS_DETECTION_INFO extends SdkStructure
     */
     public int              nRuleID;
     /**
-     * 事件发生的时间,标准的（不带时区偏差的）UTC时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,标准的（不带时区偏差的）UTC时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 事件公共扩展字段结构体,参见结构体定义 {@link NET_EVENT_INFO_EXTEND}
     */

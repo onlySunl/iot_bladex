@@ -2,7 +2,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.CFG_NET_TIME;
+import org.springblade.modules.iot.dahua.lib.CFG_NET_TIME;
 
 /**
  * @author 251823

@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /**
@@ -89,6 +89,6 @@ public class NET_ALARM_USER extends SdkStructure {
 	/**
 	 * 保留字节
 	 */
-    public byte[]           byReserved = new byte[256 - NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           byReserved = new byte[256 - NetSDKConstants.POINTERSIZE];
 }
 

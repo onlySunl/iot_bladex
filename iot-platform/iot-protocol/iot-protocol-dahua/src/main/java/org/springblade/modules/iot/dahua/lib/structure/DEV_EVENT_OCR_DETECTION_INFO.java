@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 /**
  * 事件类型 EVENT_IVS_OCR_DETECTION (OCR检测事件)对应的数据块描述信息
@@ -40,9 +40,9 @@ public class DEV_EVENT_OCR_DETECTION_INFO extends SdkStructure
     */
     public int              nIndexInGroup;
     /**
-     * 事件发生时间，带时区偏差的UTC时间，单位：秒,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生时间，带时区偏差的UTC时间，单位：秒,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 事件时间毫秒数
     */
@@ -72,9 +72,9 @@ public class DEV_EVENT_OCR_DETECTION_INFO extends SdkStructure
     */
     public int              emTriggerType;
     /**
-     * 全景广角图，仅IndexInData字段有效,参见结构体定义 {@link NetSDKLib.SCENE_IMAGE_INFO}
+     * 全景广角图，仅IndexInData字段有效,参见结构体定义 {@link SCENE_IMAGE_INFO}
     */
-    public NetSDKLib.SCENE_IMAGE_INFO stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO();
+    public SCENE_IMAGE_INFO stuSceneImage = new SCENE_IMAGE_INFO();
     /**
      * 图片信息数组,参见结构体定义 {@link NET_IMAGE_INFO_EX2}
     */
@@ -88,13 +88,13 @@ public class DEV_EVENT_OCR_DETECTION_INFO extends SdkStructure
     */
     public int              nObjectNum;
     /**
-     * 物体信息数据,参见结构体定义 {@link NetSDKLib.NET_MSG_OBJECT_EX2}
+     * 物体信息数据,参见结构体定义 {@link NET_MSG_OBJECT_EX2}
     */
     public Pointer          pstuObjectInfo;
     /**
      * 预留字节
     */
-    public byte[]           szReserved = new byte[1016-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           szReserved = new byte[1016-NetSDKConstants.POINTERSIZE];
 
     public DEV_EVENT_OCR_DETECTION_INFO() {
         for(int i = 0; i < stuImageInfo.length; i++){

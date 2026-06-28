@@ -16,9 +16,9 @@ public class NET_IN_ATTACH_AREA_FLOW extends SdkStructure
     */
     public int              nChannelID;
     /**
-     * 回调函数,参见回调函数定义 {@link NetSDKLib.fNotifyAreaFlowInfo}
+     * 回调函数,参见回调函数定义 {@link FNotifyAreaFlowInfo}
     */
-    public NetSDKLib.fNotifyAreaFlowInfo cbNotifyAreaFlowInfo;
+    public FNotifyAreaFlowInfo cbNotifyAreaFlowInfo;
     /**
      * 用户信息
     */

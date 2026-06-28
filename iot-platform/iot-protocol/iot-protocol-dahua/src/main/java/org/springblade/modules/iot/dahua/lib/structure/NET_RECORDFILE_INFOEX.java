@@ -12,7 +12,7 @@ public class NET_RECORDFILE_INFOEX extends SdkStructure {
 	/**
 	 * 录像文件信息
 	 */
-    public NetSDKLib.NET_RECORDFILE_INFO stuRecordFileInfo = new NetSDKLib.NET_RECORDFILE_INFO();
+    public NET_RECORDFILE_INFO stuRecordFileInfo = new NET_RECORDFILE_INFO();
 	/**
 	 * 字节对齐
 	 */

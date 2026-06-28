@@ -18,7 +18,7 @@ public class CAR_INFO extends SdkStructure {
      */
     public byte[]           szPlateNumber = new byte[128];
     /**
-     *  车辆类型,参考NetSDKLib.EM_CAR_TYPE
+     *  车辆类型,参考EM_CAR_TYPE
      */
     public int              emCarType;
     /**

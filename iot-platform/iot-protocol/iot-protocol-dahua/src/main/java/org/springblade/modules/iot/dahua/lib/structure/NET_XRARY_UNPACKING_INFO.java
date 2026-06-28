@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 /**
  * X光机集中判图时的开包信息
@@ -48,7 +48,7 @@ public class NET_XRARY_UNPACKING_INFO extends SdkStructure
      * 开包检查员ID
     */
     public byte[]           szInspectorID = new byte[32];
-    public byte[]           reserved = new byte[472-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           reserved = new byte[472-NetSDKConstants.POINTERSIZE];
 
     public NET_XRARY_UNPACKING_INFO() {
         for(int i = 0; i < stuMainViewInside.length; i++){

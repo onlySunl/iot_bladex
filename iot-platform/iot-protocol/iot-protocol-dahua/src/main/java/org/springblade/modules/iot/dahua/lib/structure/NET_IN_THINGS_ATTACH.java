@@ -30,7 +30,7 @@ public class NET_IN_THINGS_ATTACH extends SdkStructure {
     /**
      * 物模型属性信息回调
      */
-    public NetSDKLib.fThingsCallBack cbThingsInfo;
+    public FThingsCallBack cbThingsInfo;
     /**
      * 用户数据
      */

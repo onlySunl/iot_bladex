@@ -18,7 +18,7 @@ public class NET_IN_MINI_RADAR_ALARMPOINTINFO extends SdkStructure {
     /**
      * 雷达报警点信息回调
      */
-    public NetSDKLib.fMiniRadarAlarmPointInfoCallBack cbAlarmPointInfo;
+    public FMiniRadarAlarmPointInfoCallBack cbAlarmPointInfo;
     /**
      * 用户数据
      */

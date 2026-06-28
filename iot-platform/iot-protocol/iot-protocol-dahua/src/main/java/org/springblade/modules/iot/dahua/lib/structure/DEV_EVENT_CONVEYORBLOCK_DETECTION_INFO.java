@@ -19,7 +19,7 @@ public class DEV_EVENT_CONVEYORBLOCK_DETECTION_INFO extends SdkStructure
     */
     public byte[]           szName = new byte[128];
     /**
-     * 智能事件所属大类,参见枚举定义 {@link NetSDKLib.EM_CLASS_TYPE}
+     * 智能事件所属大类,参见枚举定义 {@link EM_CLASS_TYPE}
     */
     public int              emClassType;
     /**
@@ -31,9 +31,9 @@ public class DEV_EVENT_CONVEYORBLOCK_DETECTION_INFO extends SdkStructure
     */
     public double           dPTS;
     /**
-     * 事件发生时间，带时区偏差的UTC时间，单位秒,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生时间，带时区偏差的UTC时间，单位秒,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX UTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX UTC = new NET_TIME_EX();
     /**
      * 事件时间毫秒数
     */
@@ -47,9 +47,9 @@ public class DEV_EVENT_CONVEYORBLOCK_DETECTION_INFO extends SdkStructure
     */
     public int              nSequence;
     /**
-     * 全景图,参见结构体定义 {@link NetSDKLib.SCENE_IMAGE_INFO_EX}
+     * 全景图,参见结构体定义 {@link SCENE_IMAGE_INFO_EX}
     */
-    public NetSDKLib.SCENE_IMAGE_INFO_EX stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO_EX();
+    public SCENE_IMAGE_INFO_EX stuSceneImage = new SCENE_IMAGE_INFO_EX();
     /**
      * stuSceneImage 是否有效
     */

@@ -1,5 +1,5 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
 
 /**
  * @author 119178
@@ -7,11 +7,11 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  * @date 2020/12/21
  */
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.EVENT_COMM_INFO;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_EVENT_FILE_INFO;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_RECT;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.SdkStructure;
+
+import org.springblade.modules.iot.dahua.lib.EVENT_COMM_INFO;
+import org.springblade.modules.iot.dahua.lib.NET_EVENT_FILE_INFO;
+import org.springblade.modules.iot.dahua.lib.NET_RECT;
+import org.springblade.modules.iot.dahua.lib.SdkStructure;
 import com.sun.jna.Pointer;
 
 public class DEV_EVENT_TRAFFIC_ROAD_BLOCK_INFO extends SdkStructure {
@@ -70,6 +70,6 @@ public class DEV_EVENT_TRAFFIC_ROAD_BLOCK_INFO extends SdkStructure {
 	/**
 	 * 预留字节
 	 */
-    public byte[]           bReserved = new byte[4088 - NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           bReserved = new byte[4088 - NetSDKConstants.POINTERSIZE];
 }
 

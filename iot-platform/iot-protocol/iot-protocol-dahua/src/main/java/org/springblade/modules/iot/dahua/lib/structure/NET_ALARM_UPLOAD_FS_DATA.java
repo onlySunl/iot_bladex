@@ -15,19 +15,19 @@ public class NET_ALARM_UPLOAD_FS_DATA extends SdkStructure
     */
     public int              nFeatureValidNum;
     /**
-     * 目标特征数组,与 nFeatureValidNum 结合使用,参见枚举定义 {@link NetSDKLib.EM_DEV_EVENT_FACEDETECT_FEATURE_TYPE}
+     * 目标特征数组,与 nFeatureValidNum 结合使用,参见枚举定义 {@link EM_DEV_EVENT_FACEDETECT_FEATURE_TYPE}
     */
     public int[]            emFeature = new int[32];
     /**
-     * 性别,参见枚举定义 {@link NetSDKLib.EM_DEV_EVENT_FACEDETECT_SEX_TYPE}
+     * 性别,参见枚举定义 {@link EM_DEV_EVENT_FACEDETECT_SEX_TYPE}
     */
     public int              emSex;
     /**
-     * 口罩状态,参见枚举定义 {@link NetSDKLib.EM_MASK_STATE_TYPE}
+     * 口罩状态,参见枚举定义 {@link EM_MASK_STATE_TYPE}
     */
     public int              emMask;
     /**
-     * 胡子状态,参见枚举定义 {@link NetSDKLib.EM_BEARD_STATE_TYPE}
+     * 胡子状态,参见枚举定义 {@link EM_BEARD_STATE_TYPE}
     */
     public int              emBeard;
     /**

@@ -4,7 +4,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import org.springblade.modules.iot.dahua.lib.enumeration.NET_ENUM_INPUT_CHANNEL_MEDIA;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.MAX_PREVIEW_CHANNEL_NUM;
+import static org.springblade.modules.iot.dahua.lib.MAX_PREVIEW_CHANNEL_NUM;
 
 /**
  * 获取录播主机通道输入媒体介质出参 ，对应接口{@link NetSDKLib#CLIENT_GetInputChannelMedia}

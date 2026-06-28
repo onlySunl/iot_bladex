@@ -204,7 +204,7 @@ public class NET_TRAFFIC_FLOW_STATE extends SdkStructure {
     /**
      * 每个车道的最后一辆车坐标,采用8192坐标系
      */
-    public NetSDKLib.NET_POINT stQueueEnd = new NetSDKLib.NET_POINT();
+    public NET_POINT stQueueEnd = new NET_POINT();
     /**
      * 排队长度,单位：米, 从信号交叉口停车线到上游排队车辆末端之间的距离
      */

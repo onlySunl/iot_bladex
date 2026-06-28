@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * 事件类型 EVENT_IVS_OCR_DETECTION(地物识别事件)对应的规则配置
 */

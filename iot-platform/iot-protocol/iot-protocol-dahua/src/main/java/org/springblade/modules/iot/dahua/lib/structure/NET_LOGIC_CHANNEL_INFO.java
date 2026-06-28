@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import org.springblade.modules.iot.dahua.lib.enumeration.NET_EM_LOGIC_CHANNEL;
 
 /**

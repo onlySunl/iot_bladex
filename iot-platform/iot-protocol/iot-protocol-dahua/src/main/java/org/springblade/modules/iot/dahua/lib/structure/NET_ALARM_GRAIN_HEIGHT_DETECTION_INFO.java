@@ -19,9 +19,9 @@ public class NET_ALARM_GRAIN_HEIGHT_DETECTION_INFO extends SdkStructure
     */
     public NET_EVENT_INFO_EXTEND stuEventInfoEx = new NET_EVENT_INFO_EXTEND();
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 事件编号，用来唯一标志一个事件
     */
@@ -39,13 +39,13 @@ public class NET_ALARM_GRAIN_HEIGHT_DETECTION_INFO extends SdkStructure
     */
     public double           dbPTS;
     /**
-     * 全景广角图,协议中仅IndexInData有效,参见结构体定义 {@link NetSDKLib.SCENE_IMAGE_INFO_EX}
+     * 全景广角图,协议中仅IndexInData有效,参见结构体定义 {@link SCENE_IMAGE_INFO_EX}
     */
-    public NetSDKLib.SCENE_IMAGE_INFO_EX stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO_EX();
+    public SCENE_IMAGE_INFO_EX stuSceneImage = new SCENE_IMAGE_INFO_EX();
     /**
-     * 物体信息列表,参见结构体定义 {@link NetSDKLib.NET_MSG_OBJECT}
+     * 物体信息列表,参见结构体定义 {@link NET_MSG_OBJECT}
     */
-    public NetSDKLib.NET_MSG_OBJECT[] stuObjects = new NetSDKLib.NET_MSG_OBJECT[32];
+    public NET_MSG_OBJECT[] stuObjects = new NET_MSG_OBJECT[32];
     /**
      * 物体信息列表实际数量
     */
@@ -65,7 +65,7 @@ public class NET_ALARM_GRAIN_HEIGHT_DETECTION_INFO extends SdkStructure
 
     public NET_ALARM_GRAIN_HEIGHT_DETECTION_INFO() {
         for(int i = 0; i < stuObjects.length; i++){
-            stuObjects[i] = new NetSDKLib.NET_MSG_OBJECT();
+            stuObjects[i] = new NET_MSG_OBJECT();
         }
     }
 }

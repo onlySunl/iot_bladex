@@ -18,7 +18,7 @@ public class NET_IN_DETACH_NORMAL_USING_JSON extends SdkStructure
     /**
      * 订阅句柄
     */
-    public NetSDKLib.LLong  lAttachHandle;
+    public LLong  lAttachHandle;
     /**
      * 订阅参数，见EM_SUPPORT_ATTACH_TYPE枚举说明
     */

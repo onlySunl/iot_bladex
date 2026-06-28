@@ -22,7 +22,7 @@ public class NET_IN_MULTIFACE_DETECT_STATE extends SdkStructure {
     /**
      * 回调函数
      */
-    public NetSDKLib.fMultiFaceDetectState cbMultiFaceDetectState;
+    public FMultiFaceDetectState cbMultiFaceDetectState;
     /**
      * 用户数据
      */
@@ -30,7 +30,7 @@ public class NET_IN_MULTIFACE_DETECT_STATE extends SdkStructure {
     /**
      * 回调函数扩展（推荐使用）
      */
-    public NetSDKLib.fMultiFaceDetectStateEx cbMultiFaceDetectStateEx;
+    public FMultiFaceDetectStateEx cbMultiFaceDetectStateEx;
     /**
      * 查询令牌
      */

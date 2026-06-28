@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import com.sun.jna.Pointer;
 /**
  * CLIENT_UpgraderInstall接口的 EM_UPGRADE_INSTALL_APPEND_DATA命令入参

@@ -8,9 +8,9 @@ import com.sun.jna.Pointer;
 public class NET_ATTACH_NORMAL_STARTLISTENEX_PARAM extends SdkStructure
 {
     /**
-     * 回调函数,参见回调函数定义 {@link NetSDKLib.fAttachNormalCallBack}
+     * 回调函数,参见回调函数定义 {@link FAttachNormalCallBack}
     */
-    public NetSDKLib.fAttachNormalCallBack cbAttachNormal;
+    public FAttachNormalCallBack cbAttachNormal;
     /**
      * 用户信息
     */

@@ -23,9 +23,9 @@ public class CFG_WRITE_ON_THE_BOARD_DETECTION_INFO extends SdkStructure
     */
     public BYTE_ARRAY_128[] szObjectTypes = new BYTE_ARRAY_128[16];
     /**
-     * 报警联动,参见结构体定义 {@link NetSDKLib.CFG_ALARM_MSG_HANDLE}
+     * 报警联动,参见结构体定义 {@link CFG_ALARM_MSG_HANDLE}
     */
-    public NetSDKLib.CFG_ALARM_MSG_HANDLE stuEventHandler = new NetSDKLib.CFG_ALARM_MSG_HANDLE();
+    public CFG_ALARM_MSG_HANDLE stuEventHandler = new CFG_ALARM_MSG_HANDLE();
     /**
      * 事件响应时间段,参见结构体定义 {@link org.springblade.modules.iot.dahua.lib.structure.CFG_TIME_SECTION}
     */
@@ -39,9 +39,9 @@ public class CFG_WRITE_ON_THE_BOARD_DETECTION_INFO extends SdkStructure
     */
     public int              nDetectRegionNum;
     /**
-     * 警戒区， 多边形类型，多边形中每个端点的坐标归一化到[0,8192)区间。,参见结构体定义 {@link NetSDKLib.CFG_POLYLINE}
+     * 警戒区， 多边形类型，多边形中每个端点的坐标归一化到[0,8192)区间。,参见结构体定义 {@link CFG_POLYLINE}
     */
-    public NetSDKLib.CFG_POLYLINE[] stuDetectRegion = new NetSDKLib.CFG_POLYLINE[20];
+    public CFG_POLYLINE[] stuDetectRegion = new CFG_POLYLINE[20];
     /**
      * 最短持续时间, 单位 s, 默认2，范围[1,3600]
     */
@@ -75,9 +75,9 @@ public class CFG_WRITE_ON_THE_BOARD_DETECTION_INFO extends SdkStructure
     */
     public int              nDesignedRegionPoint;
     /**
-     * 检测区,参见结构体定义 {@link NetSDKLib.CFG_POLYGON}
+     * 检测区,参见结构体定义 {@link CFG_POLYGON}
     */
-    public NetSDKLib.CFG_POLYGON[] stuDesignedRegion = new NetSDKLib.CFG_POLYGON[2];
+    public CFG_POLYGON[] stuDesignedRegion = new CFG_POLYGON[2];
     /**
      * 保留字节
     */
@@ -88,10 +88,10 @@ public class CFG_WRITE_ON_THE_BOARD_DETECTION_INFO extends SdkStructure
             stuTimeSection[i] = new CFG_TIME_SECTION_ARRAY_10();
         }
         for(int i = 0; i < stuDetectRegion.length; i++){
-            stuDetectRegion[i] = new NetSDKLib.CFG_POLYLINE();
+            stuDetectRegion[i] = new CFG_POLYLINE();
         }
         for(int i = 0; i < stuDesignedRegion.length; i++){
-            stuDesignedRegion[i] = new NetSDKLib.CFG_POLYGON();
+            stuDesignedRegion[i] = new CFG_POLYGON();
         }
     }
 }

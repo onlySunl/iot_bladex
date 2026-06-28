@@ -54,11 +54,11 @@ IndexInGroup一个事件组内的抓拍序号
 /** 
 车牌信息
 */
-    public NetSDKLib.NET_MSG_OBJECT stuObject = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuObject = new NET_MSG_OBJECT();
 /** 
 车身信息
 */
-    public	NetSDKLib.NET_MSG_OBJECT stuVehicle = new NetSDKLib.NET_MSG_OBJECT();
+    public	NET_MSG_OBJECT stuVehicle = new NET_MSG_OBJECT();
 /** 
 TriggerType:触发类型,0车检器,1雷达,2视频 {@link org.springblade.modules.iot.dahua.lib.enumeration.EM_TRIGGER_TYPE}
 */
@@ -94,15 +94,15 @@ TriggerType:触发类型,0车检器,1雷达,2视频 {@link org.springblade.modul
 /** 
 公共信息
 */
-    public NetSDKLib.EVENT_COMM_INFO stuCommInfo = new NetSDKLib.EVENT_COMM_INFO();
+    public EVENT_COMM_INFO stuCommInfo = new EVENT_COMM_INFO();
 /** 
 GPS信息
 */
-    public NetSDKLib.NET_GPS_INFO stuGPSInfo = new NetSDKLib.NET_GPS_INFO();
+    public NET_GPS_INFO stuGPSInfo = new NET_GPS_INFO();
 /** 
 事件对应文件信息
 */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo = new NetSDKLib.NET_EVENT_FILE_INFO();
+    public NET_EVENT_FILE_INFO stuFileInfo = new NET_EVENT_FILE_INFO();
 /** 
 抓图标志(按位),具体见NET_RESERVED_COMMON
 */

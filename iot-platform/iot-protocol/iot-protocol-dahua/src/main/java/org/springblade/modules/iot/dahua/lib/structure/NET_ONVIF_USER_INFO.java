@@ -15,9 +15,9 @@ public class NET_ONVIF_USER_INFO extends SdkStructure
     */
     public byte[]           szPassword = new byte[128];
     /**
-     * 最近修改密码的时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 最近修改密码的时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuPasswordModifiedTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuPasswordModifiedTime = new NET_TIME();
     /**
      * 用户所在的组,参见枚举定义 {@link org.springblade.modules.iot.dahua.lib.enumeration.EM_GROUP_TYPE}
     */

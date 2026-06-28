@@ -45,7 +45,7 @@ public class ALARM_RADAR_REGIONDETECTION_INFO extends SdkStructure {
 /** 
 检测区域,[0,8191]
 */
-    public			NetSDKLib.NET_POINT[] stuDetectRegion = new NetSDKLib.NET_POINT[20];
+    public			NET_POINT[] stuDetectRegion = new NET_POINT[20];
 /** 
 报警类型 {@link org.springblade.modules.iot.dahua.lib.enumeration.EM_RADAR_ALARM_TYPE}
 */
@@ -124,7 +124,7 @@ public ALARM_RADAR_REGIONDETECTION_INFO(){
 			stuObjects[i]=new NET_RADAR_DETECT_OBJECT();
 			}
 		for(int i=0;i<stuDetectRegion.length;i++){
-			stuDetectRegion[i]=new NetSDKLib.NET_POINT();
+			stuDetectRegion[i]=new NET_POINT();
 			}
 		for(int i=0;i<stuCardInfo.length;i++){
 			stuCardInfo[i]=new NET_RADAR_REGIONDETECTION_RFIDCARD_INFO();

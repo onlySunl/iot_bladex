@@ -10,7 +10,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  */
 public class MEDIAFILE_ANATOMY_TEMP_DETECT_FACEDETECT_RESULT extends SdkStructure {
 	 /**
-     *  性别,参考枚举{@link NetSDKLib.EM_SEX_TYPE }
+     *  性别,参考枚举{@link EM_SEX_TYPE }
      */
     public int              emSex;
     /**
@@ -18,7 +18,7 @@ public class MEDIAFILE_ANATOMY_TEMP_DETECT_FACEDETECT_RESULT extends SdkStructur
      */
     public int              nAge;
     /**
-     *  人脸表情,参考枚举{@link NetSDKLib.EM_DEV_EVENT_FACEDETECT_FEATURE_TYPE }
+     *  人脸表情,参考枚举{@link EM_DEV_EVENT_FACEDETECT_FEATURE_TYPE }
      */
     public int              emEmotion;
     /**
@@ -26,19 +26,19 @@ public class MEDIAFILE_ANATOMY_TEMP_DETECT_FACEDETECT_RESULT extends SdkStructur
      */
     public byte[]           szReserved1 = new byte[4];
     /**
-     *  眼睛状态,参考枚举{@link NetSDKLib.EM_EYE_STATE_TYPE }
+     *  眼睛状态,参考枚举{@link EM_EYE_STATE_TYPE }
      */
     public int              emEye;
     /**
-     *  嘴巴状态,参考枚举{@link NetSDKLib.EM_MOUTH_STATE_TYPE }
+     *  嘴巴状态,参考枚举{@link EM_MOUTH_STATE_TYPE }
      */
     public int              emMouth;
     /**
-     *  口罩状态,参考枚举{@link NetSDKLib.EM_MASK_STATE_TYPE }
+     *  口罩状态,参考枚举{@link EM_MASK_STATE_TYPE }
      */
     public int              emMask;
     /**
-     *  胡子状态,参考枚举{@link NetSDKLib.EM_BEARD_STATE_TYPE }
+     *  胡子状态,参考枚举{@link EM_BEARD_STATE_TYPE }
      */
     public int              emBeard;
     /**
@@ -50,7 +50,7 @@ public class MEDIAFILE_ANATOMY_TEMP_DETECT_FACEDETECT_RESULT extends SdkStructur
      */
     public byte[]           byReserved1 = new byte[4];
     /**
-     *  眼镜类型,参考枚举{@link NetSDKLib.EM_FACEDETECT_GLASSES_TYPE } 
+     *  眼镜类型,参考枚举{@link EM_FACEDETECT_GLASSES_TYPE } 
      */
     public int              emGlasses;
     /**

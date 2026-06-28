@@ -49,7 +49,7 @@ public class NET_DEV_EVENT_GRANARY_TRANS_ACTION_DETECTION_INFO extends SdkStruct
     /**
      * / 物体信息列表
      */
-    public NetSDKLib.NET_MSG_OBJECT[] stuObjects = new NetSDKLib.NET_MSG_OBJECT[128];
+    public NET_MSG_OBJECT[] stuObjects = new NET_MSG_OBJECT[128];
     /**
      * / 相对事件时间戳,单位毫秒
      */
@@ -57,7 +57,7 @@ public class NET_DEV_EVENT_GRANARY_TRANS_ACTION_DETECTION_INFO extends SdkStruct
     /**
      * / 全景图
      */
-    public NetSDKLib.SCENE_IMAGE_INFO_EX stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO_EX();
+    public SCENE_IMAGE_INFO_EX stuSceneImage = new SCENE_IMAGE_INFO_EX();
     /**
      * / 检测区域
      */
@@ -73,7 +73,7 @@ public class NET_DEV_EVENT_GRANARY_TRANS_ACTION_DETECTION_INFO extends SdkStruct
 
     public NET_DEV_EVENT_GRANARY_TRANS_ACTION_DETECTION_INFO() {
         for (int i = 0; i < stuObjects.length; i++) {
-            stuObjects[i] = new NetSDKLib.NET_MSG_OBJECT();
+            stuObjects[i] = new NET_MSG_OBJECT();
         }
         for (int i = 0; i < stuDetectRegion.length; i++) {
             stuDetectRegion[i] = new NET_POINT_EX();

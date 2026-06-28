@@ -39,15 +39,15 @@ public class DEV_EVENT_CROSSLINE_INFO_EX extends SdkStructure {
 	/**
 	 * 检测到的物体
 	 */
-    public NetSDKLib.NET_MSG_OBJECT_EX stuObject = new NetSDKLib.NET_MSG_OBJECT_EX();
+    public NET_MSG_OBJECT_EX stuObject = new NET_MSG_OBJECT_EX();
 	/**
 	 * 事件对应文件信息
 	 */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo = new NetSDKLib.NET_EVENT_FILE_INFO();
+    public NET_EVENT_FILE_INFO stuFileInfo = new NET_EVENT_FILE_INFO();
 	/**
 	 * 规则检测线
 	 */
-    public NetSDKLib.DH_POINT[] DetectLine = (NetSDKLib.DH_POINT[]) new NetSDKLib.DH_POINT().toArray(20);
+    public DH_POINT[] DetectLine = (DH_POINT[]) new DH_POINT().toArray(20);
 	/**
 	 * 规则检测线顶点数
 	 */
@@ -55,7 +55,7 @@ public class DEV_EVENT_CROSSLINE_INFO_EX extends SdkStructure {
 	/**
 	 * 物体运动轨迹
 	 */
-    public NetSDKLib.DH_POINT[] TrackLine = (NetSDKLib.DH_POINT[]) new NetSDKLib.DH_POINT().toArray(20);
+    public DH_POINT[] TrackLine = (DH_POINT[]) new DH_POINT().toArray(20);
 	/**
 	 * 物体运动轨迹顶点数
 	 */
@@ -103,11 +103,11 @@ public class DEV_EVENT_CROSSLINE_INFO_EX extends SdkStructure {
 	/**
 	 * 智能事件公共信息
 	 */
-    public NetSDKLib.EVENT_INTELLI_COMM_INFO stuIntelliCommInfo = new NetSDKLib.EVENT_INTELLI_COMM_INFO();
+    public EVENT_INTELLI_COMM_INFO stuIntelliCommInfo = new EVENT_INTELLI_COMM_INFO();
 	/**
 	 * 全景广角图
 	 */
-    public NetSDKLib.SCENE_IMAGE_INFO_EX stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO_EX();
+    public SCENE_IMAGE_INFO_EX stuSceneImage = new SCENE_IMAGE_INFO_EX();
 	/**
 	 * 检测到人的数量
 	 */

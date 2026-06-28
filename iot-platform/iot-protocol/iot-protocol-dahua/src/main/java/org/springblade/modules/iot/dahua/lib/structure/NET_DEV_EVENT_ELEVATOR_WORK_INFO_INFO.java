@@ -19,9 +19,9 @@ public class NET_DEV_EVENT_ELEVATOR_WORK_INFO_INFO extends SdkStructure
     */
     public NET_EVENT_INFO_EXTEND stuEventInfoEx = new NET_EVENT_INFO_EXTEND();
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 事件编号，用来唯一标志一个事件
     */
@@ -87,13 +87,13 @@ public class NET_DEV_EVENT_ELEVATOR_WORK_INFO_INFO extends SdkStructure
     */
     public int              nObjectsCount;
     /**
-     * 非机动车信息,参见结构体定义 {@link NetSDKLib.VA_OBJECT_NONMOTOR}
+     * 非机动车信息,参见结构体定义 {@link VA_OBJECT_NONMOTOR}
     */
-    public NetSDKLib.VA_OBJECT_NONMOTOR[] stuNonMotor = new NetSDKLib.VA_OBJECT_NONMOTOR[8];
+    public VA_OBJECT_NONMOTOR[] stuNonMotor = new VA_OBJECT_NONMOTOR[8];
     /**
-     * 全景广角图,参见结构体定义 {@link NetSDKLib.SCENE_IMAGE_INFO_EX}
+     * 全景广角图,参见结构体定义 {@link SCENE_IMAGE_INFO_EX}
     */
-    public NetSDKLib.SCENE_IMAGE_INFO_EX stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO_EX();
+    public SCENE_IMAGE_INFO_EX stuSceneImage = new SCENE_IMAGE_INFO_EX();
     /**
      * 电梯内亮度，分为三档 “Strong”，“Medium”，“Weak”，字符串表示
     */
@@ -109,7 +109,7 @@ public class NET_DEV_EVENT_ELEVATOR_WORK_INFO_INFO extends SdkStructure
 
     public NET_DEV_EVENT_ELEVATOR_WORK_INFO_INFO() {
         for(int i = 0; i < stuNonMotor.length; i++){
-            stuNonMotor[i] = new NetSDKLib.VA_OBJECT_NONMOTOR();
+            stuNonMotor[i] = new VA_OBJECT_NONMOTOR();
         }
     }
 }

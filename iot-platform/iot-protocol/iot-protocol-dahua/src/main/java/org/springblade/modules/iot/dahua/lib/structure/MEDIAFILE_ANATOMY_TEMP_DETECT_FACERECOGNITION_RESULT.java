@@ -16,7 +16,7 @@ public class MEDIAFILE_ANATOMY_TEMP_DETECT_FACERECOGNITION_RESULT extends SdkStr
     /**
      *  全景图片文件路径
      */
-    public NetSDKLib.NET_PIC_INFO_EX stuGlobalScenePic;
+    public NET_PIC_INFO_EX stuGlobalScenePic;
     /**
      *  当前人脸匹配到的候选对象数量
      */
@@ -24,11 +24,11 @@ public class MEDIAFILE_ANATOMY_TEMP_DETECT_FACERECOGNITION_RESULT extends SdkStr
     /**
      *  当前人脸匹配到的候选对象信息, 实际返回个数为 nCandidateNum
      */
-    public MEDIAFILE_ANATOMY_TEMP_DETECT_CANDIDATE_INFO[] stuCandidates = (MEDIAFILE_ANATOMY_TEMP_DETECT_CANDIDATE_INFO[]) new MEDIAFILE_ANATOMY_TEMP_DETECT_CANDIDATE_INFO().toArray(NetSDKLib.NET_MAX_CANDIDATE_NUM);
+    public MEDIAFILE_ANATOMY_TEMP_DETECT_CANDIDATE_INFO[] stuCandidates = (MEDIAFILE_ANATOMY_TEMP_DETECT_CANDIDATE_INFO[]) new MEDIAFILE_ANATOMY_TEMP_DETECT_CANDIDATE_INFO().toArray(NET_MAX_CANDIDATE_NUM);
       /**
      *  人脸小图信息
      */
-    public NetSDKLib.FACE_INFO_OBJECT stuFaceInfo;
+    public FACE_INFO_OBJECT stuFaceInfo;
     /**
      *  预留字段
      */

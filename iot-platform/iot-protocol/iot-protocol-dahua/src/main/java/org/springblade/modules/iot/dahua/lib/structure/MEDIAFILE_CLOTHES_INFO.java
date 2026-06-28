@@ -7,11 +7,11 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 public class MEDIAFILE_CLOTHES_INFO extends SdkStructure
 {
     /**
-     * 工作服颜色,参见枚举定义 {@link NetSDKLib.EM_CLOTHES_COLOR}
+     * 工作服颜色,参见枚举定义 {@link EM_CLOTHES_COLOR}
     */
     public int              emColor;
     /**
-     * 工作服状态,参见枚举定义 {@link NetSDKLib.EM_WORKCLOTHES_STATE}
+     * 工作服状态,参见枚举定义 {@link EM_WORKCLOTHES_STATE}
     */
     public int              emState;
     /**

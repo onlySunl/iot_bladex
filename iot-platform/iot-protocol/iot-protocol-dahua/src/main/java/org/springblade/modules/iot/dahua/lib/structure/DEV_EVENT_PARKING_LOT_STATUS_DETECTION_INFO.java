@@ -23,7 +23,7 @@ public class DEV_EVENT_PARKING_LOT_STATUS_DETECTION_INFO extends SdkStructure {
      */
     public byte[]           szName = new byte[128];
     /**
-     * 智能事件所属大类 {@link NetSDKLib.EM_CLASS_TYPE}
+     * 智能事件所属大类 {@link EM_CLASS_TYPE}
      */
     public int              emClassType;
     /**
@@ -53,11 +53,11 @@ public class DEV_EVENT_PARKING_LOT_STATUS_DETECTION_INFO extends SdkStructure {
     /**
      * 室外停车位状态
      */
-    public NetSDKLib.NET_PARKING_STATUS[] stuParkingStatus = new NetSDKLib.NET_PARKING_STATUS[100];
+    public NET_PARKING_STATUS[] stuParkingStatus = new NET_PARKING_STATUS[100];
     /**
      * 全景广角图
      */
-    public NetSDKLib.SCENE_IMAGE_INFO_EX stuSceneImage;
+    public SCENE_IMAGE_INFO_EX stuSceneImage;
     /**
      * 图片信息数组
      */
@@ -73,7 +73,7 @@ public class DEV_EVENT_PARKING_LOT_STATUS_DETECTION_INFO extends SdkStructure {
 
     public DEV_EVENT_PARKING_LOT_STATUS_DETECTION_INFO() {
         for (int i = 0; i < stuParkingStatus.length; i++) {
-            stuParkingStatus[i] = new NetSDKLib.NET_PARKING_STATUS();
+            stuParkingStatus[i] = new NET_PARKING_STATUS();
         }
     }
 }

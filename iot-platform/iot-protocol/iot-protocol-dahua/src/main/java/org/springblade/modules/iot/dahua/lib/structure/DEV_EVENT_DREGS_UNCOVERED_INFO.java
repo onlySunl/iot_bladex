@@ -4,7 +4,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_MAX_DETECT_REGION_NUM;
+import static org.springblade.modules.iot.dahua.lib.NET_MAX_DETECT_REGION_NUM;
 
 /**
  * @author ： 260611
@@ -48,7 +48,7 @@ public class DEV_EVENT_DREGS_UNCOVERED_INFO extends SdkStructure {
     /**
      * 检测区域,[0,8191]
      */
-    public NetSDKLib.NET_POINT[] stuDetectRegion = (NetSDKLib.NET_POINT[]) new NetSDKLib.NET_POINT().toArray(NET_MAX_DETECT_REGION_NUM);
+    public NET_POINT[] stuDetectRegion = (NET_POINT[]) new NET_POINT().toArray(NET_MAX_DETECT_REGION_NUM);
     /**
      * 车辆信息
      */

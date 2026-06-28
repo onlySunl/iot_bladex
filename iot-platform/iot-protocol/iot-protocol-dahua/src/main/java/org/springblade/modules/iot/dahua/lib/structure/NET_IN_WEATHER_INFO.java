@@ -13,9 +13,9 @@ public class NET_IN_WEATHER_INFO extends SdkStructure
     */
     public int              nChannel;
     /**
-     * 回调函数,参见回调函数定义 {@link NetSDKLib.fWeatherInfoCallBack}
+     * 回调函数,参见回调函数定义 {@link FWeatherInfoCallBack}
     */
-    public NetSDKLib.fWeatherInfoCallBack cbWeatherInfo;
+    public FWeatherInfoCallBack cbWeatherInfo;
     /**
      * 用户数据
     */

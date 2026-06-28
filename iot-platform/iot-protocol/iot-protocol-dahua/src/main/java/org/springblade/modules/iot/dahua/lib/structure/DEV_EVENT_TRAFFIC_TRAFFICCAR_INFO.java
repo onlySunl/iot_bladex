@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /**
@@ -211,7 +211,7 @@ public class DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO extends SdkStructure {
     /**
      * 允许名单信息
      */
-    public NetSDKLib.NET_TRAFFICCAR_WHITE_LIST stuWhiteList = new NetSDKLib.NET_TRAFFICCAR_WHITE_LIST();
+    public NET_TRAFFICCAR_WHITE_LIST stuWhiteList = new NET_TRAFFICCAR_WHITE_LIST();
     /**
      * 车辆类型 {@link org.springblade.modules.iot.dahua.lib.enumeration.EM_TRAFFICCAR_CAR_TYPE}
      */
@@ -231,9 +231,9 @@ public class DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO extends SdkStructure {
     /**
      * 禁止名单信息
      */
-    public NetSDKLib.NET_TRAFFICCAR_BLACK_LIST stuBlackList = new NetSDKLib.NET_TRAFFICCAR_BLACK_LIST();
+    public NET_TRAFFICCAR_BLACK_LIST stuBlackList = new NET_TRAFFICCAR_BLACK_LIST();
     /**
-     * 车流量方向 {@link NetSDKLib.EM_VEHICLE_DIRECTION}
+     * 车流量方向 {@link EM_VEHICLE_DIRECTION}
      */
     public int              emFlowDirection;
     /**
@@ -257,7 +257,7 @@ public class DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO extends SdkStructure {
      */
     public NET_TRAFFICCAR_ORIGINAL_VEHICLE stuOriginalVehicle = new NET_TRAFFICCAR_ORIGINAL_VEHICLE();
     /**
-     * 按功能划分的车辆类型 {@link NetSDKLib.EM_VEHICLE_TYPE_BY_FUNC}
+     * 按功能划分的车辆类型 {@link EM_VEHICLE_TYPE_BY_FUNC}
      */
     public int              emVehicleTypeByFunc;
     /**
@@ -291,6 +291,6 @@ public class DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO extends SdkStructure {
     /**
      * 保留字节,留待扩展
      */
-    public byte[]           bReserved = new byte[64-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           bReserved = new byte[64-NetSDKConstants.POINTERSIZE];
 }
 

@@ -1,10 +1,10 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_EVENT_NAME_LEN;
+import static org.springblade.modules.iot.dahua.lib.NET_EVENT_NAME_LEN;
 
 /**
  * @author ： 260611
@@ -40,11 +40,11 @@ public class DEV_EVENT_TRAFFIC_THROW_INFO extends SdkStructure {
     /**
      * 事件对应文件信息
      */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo = new NetSDKLib.NET_EVENT_FILE_INFO();
+    public NET_EVENT_FILE_INFO stuFileInfo = new NET_EVENT_FILE_INFO();
     /**
      * 对应图片的分辨率
      */
-    public NetSDKLib.NET_RESOLUTION_INFO stuResolution = new NetSDKLib.NET_RESOLUTION_INFO();
+    public NET_RESOLUTION_INFO stuResolution = new NET_RESOLUTION_INFO();
     /**
      * 抓图标志(按位),0位:"*",1位:"Timing",2位:"Manual",3位:"Marked",4位:"Event",5位:"Mosaic",6位:"Cutout"
      */
@@ -68,23 +68,23 @@ public class DEV_EVENT_TRAFFIC_THROW_INFO extends SdkStructure {
     /**
      * 检测到的物体
      */
-    public NetSDKLib.NET_MSG_OBJECT stuObject = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuObject = new NET_MSG_OBJECT();
     /**
      * 智能事件公共信息
      */
-    public NetSDKLib.EVENT_INTELLI_COMM_INFO stuIntelliCommInfo = new NetSDKLib.EVENT_INTELLI_COMM_INFO();
+    public EVENT_INTELLI_COMM_INFO stuIntelliCommInfo = new EVENT_INTELLI_COMM_INFO();
     /**
      * 交通车辆部分信息
      */
-    public NetSDKLib.EVENT_TRAFFIC_CAR_PART_INFO stuTrafficCarPartInfo = new NetSDKLib.EVENT_TRAFFIC_CAR_PART_INFO();
+    public EVENT_TRAFFIC_CAR_PART_INFO stuTrafficCarPartInfo = new EVENT_TRAFFIC_CAR_PART_INFO();
     /**
      * GPS信息 
      */
-    public NetSDKLib.NET_GPS_INFO stuGPSInfo = new NetSDKLib.NET_GPS_INFO();
+    public NET_GPS_INFO stuGPSInfo = new NET_GPS_INFO();
     /**
-     * 全景广角图,参见结构体定义 {@link NetSDKLib.SCENE_IMAGE_INFO}
+     * 全景广角图,参见结构体定义 {@link SCENE_IMAGE_INFO}
     */
-    public NetSDKLib.SCENE_IMAGE_INFO stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO();
+    public SCENE_IMAGE_INFO stuSceneImage = new SCENE_IMAGE_INFO();
     /**
      * 图片信息数组,参见结构体定义 {@link NET_IMAGE_INFO_EX3}
     */
@@ -96,10 +96,10 @@ public class DEV_EVENT_TRAFFIC_THROW_INFO extends SdkStructure {
     /**
      * 保留字节
      */
-    public byte[]           bReserved = new byte[264-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           bReserved = new byte[264-NetSDKConstants.POINTERSIZE];
     /**
      * 公共信息
      */
-    public NetSDKLib.EVENT_COMM_INFO stCommInfo = new NetSDKLib.EVENT_COMM_INFO();
+    public EVENT_COMM_INFO stCommInfo = new EVENT_COMM_INFO();
 }
 

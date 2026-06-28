@@ -9,7 +9,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  * @author ： 260611
  * @since ： Created in 2021/10/19 20:21
  */
-public class EM_NTP_STATUS extends NetSDKLib.SdkStructure {
+public class EM_NTP_STATUS extends SdkStructure {
     /**
      *    NET_NTP_STATUS_UNKNOWN = 0 ,
      */

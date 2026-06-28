@@ -37,15 +37,15 @@ public class DEV_EVENT_CAR_DRIVING_IN_INFO extends SdkStructure {
     /**
      * 事件对应文件信息
      */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo;
+    public NET_EVENT_FILE_INFO stuFileInfo;
     /**
      * 检测到的车牌信息
      */
-    public NetSDKLib.DH_MSG_OBJECT stuObject;
+    public DH_MSG_OBJECT stuObject;
     /**
      * 检测到的车辆信息
      */
-    public NetSDKLib.DH_MSG_OBJECT stuVehicle;
+    public DH_MSG_OBJECT stuVehicle;
     /**
      * 触发类型 {@link EM_TRIGGER_TYPE}
      */
@@ -73,11 +73,11 @@ public class DEV_EVENT_CAR_DRIVING_IN_INFO extends SdkStructure {
     /**
      * 交通车辆的数据库记录
      */
-    public NetSDKLib.DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO stuTrafficCar;
+    public DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO stuTrafficCar;
     /**
      * 公共信息
      */
-    public NetSDKLib.EVENT_COMM_INFO stuCommInfo;
+    public EVENT_COMM_INFO stuCommInfo;
     /**
      * 抓拍过程 {@link EM_CAPTURE_PROCESS_END_TYPE}
      */

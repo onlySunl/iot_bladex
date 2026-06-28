@@ -9,7 +9,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  * @author ： 260611
  * @since ： Created in 2021/10/19 19:21
  */
-public class EM_EVENT_WORKCLOTHES_RULE_TYPE extends NetSDKLib.SdkStructure {
+public class EM_EVENT_WORKCLOTHES_RULE_TYPE extends SdkStructure {
     /**
      *  未知
      */

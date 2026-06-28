@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * EM_PRC_NETAPP_TYPE_GET_DIAL_INFO 入参
 */

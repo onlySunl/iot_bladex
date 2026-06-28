@@ -51,7 +51,7 @@ RealUTC 是否有效，bRealUTC 为 TRUE 时，用 UTC，否则用 stuTime 字�
 */
     public			int            nBlockId;
 /** 
-事件类型   {@link NetSDKLib.NET_ACCESS_CTL_EVENT_TYPE }
+事件类型   {@link NET_ACCESS_CTL_EVENT_TYPE }
 */
     public			int            emType;
 /** 
@@ -59,19 +59,19 @@ RealUTC 是否有效，bRealUTC 为 TRUE 时，用 UTC，否则用 stuTime 字�
 */
     public			int            emStatus;
 /** 
-卡类型  {@link NetSDKLib.NET_ACCESSCTLCARD_TYPE }
+卡类型  {@link NET_ACCESSCTLCARD_TYPE }
 */
     public			int            emCardType;
 /** 
-用户类型  {@link NetSDKLib.EM_USER_TYPE }
+用户类型  {@link EM_USER_TYPE }
 */
     public			int            emUserType;
 /** 
-卡状态   {@link NetSDKLib.NET_ACCESSCTLCARD_STATE }
+卡状态   {@link NET_ACCESSCTLCARD_STATE }
 */
     public			int            emCardStatus;
 /** 
-开门方式      {@link NetSDKLib.NET_ACCESS_DOOROPEN_METHOD }
+开门方式      {@link NET_ACCESS_DOOROPEN_METHOD }
 */
     public			int            emMethod;
 /** 

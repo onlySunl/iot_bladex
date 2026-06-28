@@ -1,11 +1,11 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.SIZE_OF_POINTER;
+import static org.springblade.modules.iot.dahua.lib.NetSDKConstants.POINTERSIZE;
 
 /** 
 * @author 291189

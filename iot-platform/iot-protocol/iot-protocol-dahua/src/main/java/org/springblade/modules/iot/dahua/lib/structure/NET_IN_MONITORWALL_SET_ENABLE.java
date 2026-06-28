@@ -4,7 +4,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import org.springblade.modules.iot.dahua.lib.enumeration.NET_MONITORWALL_OPERATE_TYPE;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_MAX_MONITORWALL_NUM;
+import static org.springblade.modules.iot.dahua.lib.NET_MAX_MONITORWALL_NUM;
 
 /**
  * 电视墙设置使能 入参

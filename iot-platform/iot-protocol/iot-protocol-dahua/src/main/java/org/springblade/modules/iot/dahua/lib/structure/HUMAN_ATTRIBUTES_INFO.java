@@ -74,7 +74,7 @@ public class HUMAN_ATTRIBUTES_INFO extends SdkStructure {
     /**
      *  人体型心(不是包围盒中心), 0-8191相对坐标, 相对于大图
      */
-    public NetSDKLib.NET_POINT stuHumanCenter = new NetSDKLib.NET_POINT();
+    public NET_POINT stuHumanCenter = new NET_POINT();
     /**
      *  是否有反光背心;
      */

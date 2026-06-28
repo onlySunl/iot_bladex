@@ -3,7 +3,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_MAX_MODE_NUMBER;
+import static org.springblade.modules.iot.dahua.lib.NET_MAX_MODE_NUMBER;
 
 /**
  * 录播主机修改模式入参

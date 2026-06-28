@@ -39,9 +39,9 @@ public class DEV_EVENT_WATER_SPEED_DETECTION_INFO extends SdkStructure
     */
     public double           dbPTS;
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 事件的数据类型,参见枚举定义 {@link org.springblade.modules.iot.dahua.lib.enumeration.NETAEM_EVENT_TYPE}
     */
@@ -67,13 +67,13 @@ public class DEV_EVENT_WATER_SPEED_DETECTION_INFO extends SdkStructure
     */
     public int              emStatus;
     /**
-     * 原始图，近景,参见结构体定义 {@link NetSDKLib.NET_INTELLIGENCE_IMAGE_INFO}
+     * 原始图，近景,参见结构体定义 {@link NET_INTELLIGENCE_IMAGE_INFO}
     */
-    public NetSDKLib.NET_INTELLIGENCE_IMAGE_INFO stuOriginalImage = new NetSDKLib.NET_INTELLIGENCE_IMAGE_INFO();
+    public NET_INTELLIGENCE_IMAGE_INFO stuOriginalImage = new NET_INTELLIGENCE_IMAGE_INFO();
     /**
-     * 球机变到最小倍下的抓图,参见结构体定义 {@link NetSDKLib.NET_INTELLIGENCE_IMAGE_INFO}
+     * 球机变到最小倍下的抓图,参见结构体定义 {@link NET_INTELLIGENCE_IMAGE_INFO}
     */
-    public NetSDKLib.NET_INTELLIGENCE_IMAGE_INFO stuSceneImage = new NetSDKLib.NET_INTELLIGENCE_IMAGE_INFO();
+    public NET_INTELLIGENCE_IMAGE_INFO stuSceneImage = new NET_INTELLIGENCE_IMAGE_INFO();
     /**
      * 保留字节,留待扩展
     */

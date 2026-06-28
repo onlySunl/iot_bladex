@@ -28,17 +28,17 @@ public class DEV_EVENT_FACEBODY_ANALYSE_INFO extends SdkStructure {
     public byte[]           byReserved1 = new byte[4];            // 字节对齐
     public FACE_TRAIT       stuFaceTrait = new FACE_TRAIT();      // 人脸特征
     public BODY_TRAIT       stuBodyTrait = new BODY_TRAIT();      // 人体特征
-    public NetSDKLib.NET_EVENT_IMAGE_OFFSET_INFO stuBodyImage = new NetSDKLib.NET_EVENT_IMAGE_OFFSET_INFO(); // 人体图片信息
-    public NetSDKLib.NET_EVENT_IMAGE_OFFSET_INFO stuFaceImage = new NetSDKLib.NET_EVENT_IMAGE_OFFSET_INFO(); // 人脸图片信息
-    public NetSDKLib.NET_EVENT_IMAGE_OFFSET_INFO stuSceneImage = new NetSDKLib.NET_EVENT_IMAGE_OFFSET_INFO(); // 全景图片信息
+    public NET_EVENT_IMAGE_OFFSET_INFO stuBodyImage = new NET_EVENT_IMAGE_OFFSET_INFO(); // 人体图片信息
+    public NET_EVENT_IMAGE_OFFSET_INFO stuFaceImage = new NET_EVENT_IMAGE_OFFSET_INFO(); // 人脸图片信息
+    public NET_EVENT_IMAGE_OFFSET_INFO stuSceneImage = new NET_EVENT_IMAGE_OFFSET_INFO(); // 全景图片信息
     public OBJECT_RELATED_INFO stuFaceObject = new OBJECT_RELATED_INFO(); // 人脸关联信息
     public OBJECT_RELATED_INFO stuBodyObject = new OBJECT_RELATED_INFO(); // 人体关联信息
-    public NetSDKLib.CANDIDATE_INFOEX[] stuCandidate = new  NetSDKLib.CANDIDATE_INFOEX[NetSDKLib.NET_MAX_CANDIDATE_NUM]; // 候选人脸列表
+    public CANDIDATE_INFOEX[] stuCandidate = new  CANDIDATE_INFOEX[NET_MAX_CANDIDATE_NUM]; // 候选人脸列表
     public int              nCandidateNum;                        // 返回的候选人脸个数
 
     public DEV_EVENT_FACEBODY_ANALYSE_INFO(){
         for(int i=0;i<stuCandidate.length;i++){
-            stuCandidate[i] = new NetSDKLib.CANDIDATE_INFOEX();
+            stuCandidate[i] = new CANDIDATE_INFOEX();
         }
     }
 

@@ -22,7 +22,7 @@ public class NET_IN_ATTACH_CROWDDISTRI_MAP_INFO extends SdkStructure {
     /**
      *  订阅人群分布图实时统计信息回调函数
      */
-    public NetSDKLib.fCrowdDistriStream cbCrowdDistriStream;
+    public FCrowdDistriStream cbCrowdDistriStream;
     /**
      *  用户数据
      */

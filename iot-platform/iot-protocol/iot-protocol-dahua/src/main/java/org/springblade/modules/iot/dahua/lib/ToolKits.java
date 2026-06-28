@@ -2,7 +2,7 @@ package org.springblade.modules.iot.dahua.lib;
 
 import org.springblade.modules.iot.dahua.common.ErrorCode;
 import org.springblade.modules.iot.dahua.common.PaintPanel;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.LLong;
+import org.springblade.modules.iot.dahua.lib.LLong;
 import org.springblade.modules.iot.dahua.module.LoginModule;
 import com.sun.jna.Memory;
 import com.sun.jna.Pointer;

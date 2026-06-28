@@ -19,9 +19,9 @@ public class DEV_EVENT_DHOP_CUSTOM_INFO extends SdkStructure
     */
     public byte[]           szName = new byte[128];
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX UTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX UTC = new NET_TIME_EX();
     /**
      * 事件ID
     */

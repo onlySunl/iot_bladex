@@ -27,9 +27,9 @@ public class CFG_PHONECALL_DETECT_INFO extends SdkStructure
     */
     public int              nPtzPresetId;
     /**
-     * 报警联动,参见结构体定义 {@link NetSDKLib.CFG_ALARM_MSG_HANDLE}
+     * 报警联动,参见结构体定义 {@link CFG_ALARM_MSG_HANDLE}
     */
-    public NetSDKLib.CFG_ALARM_MSG_HANDLE stuEventHandler = new NetSDKLib.CFG_ALARM_MSG_HANDLE();
+    public CFG_ALARM_MSG_HANDLE stuEventHandler = new CFG_ALARM_MSG_HANDLE();
     /**
      * 事件响应时间段,参见结构体定义 {@link org.springblade.modules.iot.dahua.lib.structure.CFG_TIME_SECTION}
     */
@@ -39,9 +39,9 @@ public class CFG_PHONECALL_DETECT_INFO extends SdkStructure
     */
     public int              nDetectRegionPoint;
     /**
-     * 检测区,参见结构体定义 {@link NetSDKLib.CFG_POLYGON}
+     * 检测区,参见结构体定义 {@link CFG_POLYGON}
     */
-    public NetSDKLib.CFG_POLYGON[] stuDetectRegion = new NetSDKLib.CFG_POLYGON[20];
+    public CFG_POLYGON[] stuDetectRegion = new CFG_POLYGON[20];
     /**
      * 最短持续时间，单位秒
     */
@@ -59,9 +59,9 @@ public class CFG_PHONECALL_DETECT_INFO extends SdkStructure
     */
     public int              bSizeFilterEnable;
     /**
-     * 规则特定的尺寸过滤器，为提高规则判断精度,参见结构体定义 {@link NetSDKLib.CFG_SIZEFILTER_INFO}
+     * 规则特定的尺寸过滤器，为提高规则判断精度,参见结构体定义 {@link CFG_SIZEFILTER_INFO}
     */
-    public NetSDKLib.CFG_SIZEFILTER_INFO stuSizeFilter = new NetSDKLib.CFG_SIZEFILTER_INFO();
+    public CFG_SIZEFILTER_INFO stuSizeFilter = new CFG_SIZEFILTER_INFO();
     /**
      * 关联目标, 抓拍目标使能开关，false:关闭，true：开启，默认关闭
     */
@@ -76,7 +76,7 @@ public class CFG_PHONECALL_DETECT_INFO extends SdkStructure
             stuTimeSection[i] = new CFG_TIME_SECTION_ARRAY_10();
         }
         for(int i = 0; i < stuDetectRegion.length; i++){
-            stuDetectRegion[i] = new NetSDKLib.CFG_POLYGON();
+            stuDetectRegion[i] = new CFG_POLYGON();
         }
     }
 }

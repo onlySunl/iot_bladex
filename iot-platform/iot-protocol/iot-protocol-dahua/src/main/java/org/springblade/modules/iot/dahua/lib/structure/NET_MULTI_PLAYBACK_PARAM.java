@@ -56,7 +56,7 @@ public class NET_MULTI_PLAYBACK_PARAM extends SdkStructure {
 /** 
 视频数据回调
 */
-    public			NetSDKLib.fDataCallBack fDownLoadDataCallBack;
+    public			fDataCallBack fDownLoadDataCallBack;
 /** 
 视频数据用户数据
 */
@@ -64,7 +64,7 @@ public class NET_MULTI_PLAYBACK_PARAM extends SdkStructure {
 /** 
 回放进度回调
 */
-    public			NetSDKLib.fDownLoadPosCallBack cbDownLoadPos;
+    public			FDownLoadPosCallBack cbDownLoadPos;
 /** 
 进度回调用户数据
 */

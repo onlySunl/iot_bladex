@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import com.sun.jna.Pointer;
 /**
  * CLIENT_SetWaybillInfo 接口输入参数

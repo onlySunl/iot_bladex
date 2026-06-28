@@ -957,13 +957,13 @@ public interface NetSDKLib extends Library {
 
     /**
      * @brief 报警上传功能,启动服务；dwTimeOut参数已无效
-     * @param pfscb 接口输入参数， 参考回调函数定义 {@link com.netsdk.lib.NetSDKLib.fServiceCallBack}
+     * @param pfscb 接口输入参数， 参考回调函数定义 {@link com.netsdk.lib.FServiceCallBack}
      */
     public LLong CLIENT_StartService(int wPort,Pointer pIp,fServiceCallBack pfscb,int dwTimeOut,Pointer dwUserData);
 
     /**
      * @brief 设置实时预览帧信息回调
-     * @param cbFrameInfo 接口输入参数， 参考回调函数定义 {@link com.netsdk.lib.NetSDKLib.fFrameInfoCallBackEx}
+     * @param cbFrameInfo 接口输入参数， 参考回调函数定义 {@link com.netsdk.lib.FFrameInfoCallBackEx}
      */
     public boolean CLIENT_SetRealFrameInfoCallBack(LLong lRealHandle,fFrameInfoCallBackEx cbFrameInfo,Pointer dwUser);
 

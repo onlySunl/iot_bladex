@@ -2,7 +2,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.fSearchDevicesCBEx;
+import org.springblade.modules.iot.dahua.lib.FSearchDevicesCBEx;
 import com.sun.jna.Pointer;
 
 public class NET_IN_STARTSERACH_DEVICE extends SdkStructure {
@@ -27,9 +27,9 @@ public class NET_IN_STARTSERACH_DEVICE extends SdkStructure {
 	    */
     public int              emSendType;
     /**
-     * TTLV设备信息回调函数,参见回调函数定义 {@link NetSDKLib.fSearchDevicesCBTTLV}
+     * TTLV设备信息回调函数,参见回调函数定义 {@link FSearchDevicesCBTTLV}
     */
-    public NetSDKLib.fSearchDevicesCBTTLV cbSearchDevicesTTLV;
+    public FSearchDevicesCBTTLV cbSearchDevicesTTLV;
 
 	   public NET_IN_STARTSERACH_DEVICE()
 	    {

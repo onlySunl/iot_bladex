@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 public class NET_ISCSI_TARGET extends SdkStructure {
     public int              dwSize;

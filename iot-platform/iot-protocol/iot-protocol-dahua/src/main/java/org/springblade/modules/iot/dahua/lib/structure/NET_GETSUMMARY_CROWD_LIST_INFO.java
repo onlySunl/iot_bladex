@@ -12,7 +12,7 @@ public class NET_GETSUMMARY_CROWD_LIST_INFO extends SdkStructure {
     /**
      *  拥挤人群中心点坐标
      */
-    public NetSDKLib.NET_POINT stuCenter;
+    public NET_POINT stuCenter;
     /**
      *  半径
      */

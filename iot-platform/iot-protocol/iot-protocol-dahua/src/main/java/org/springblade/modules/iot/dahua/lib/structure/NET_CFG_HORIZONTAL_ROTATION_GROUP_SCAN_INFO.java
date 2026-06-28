@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * 云台水平旋转组扫描配置 NET_EM_CFG_PTZ_HORIZONTAL_ROTATION_SCAN
 */

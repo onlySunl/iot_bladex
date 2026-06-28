@@ -14,7 +14,7 @@ public class NET_IN_DOFIND_FACERECONGNITION_EX extends SdkStructure {
     /**
      * 查询句柄
      */
-    public NetSDKLib.LLong  lFindHandle;
+    public LLong  lFindHandle;
     /**
      * 查询起始序号
      */

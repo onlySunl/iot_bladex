@@ -32,7 +32,7 @@ public class NET_IN_FACE_RECOGNITION_DETECT_MULTI_FACE_INFO extends SdkStructure
      */
     public int              nBufferLen;
     /**
-     * 目标类型 {@link NetSDKLib.EM_OBJECT_TYPE}
+     * 目标类型 {@link EM_OBJECT_TYPE}
      */
     public int              emDetectObjType;
     /**

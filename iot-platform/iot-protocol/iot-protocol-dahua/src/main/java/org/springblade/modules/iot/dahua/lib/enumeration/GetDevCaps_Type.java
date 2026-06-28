@@ -12,7 +12,7 @@ import com.sun.jna.Pointer;
 
 /**
  * @author 47081
- * @description 设备能力类型,对应 {@link NetSDKLib#CLIENT_GetDevCaps(NetSDKLib.LLong, int, Pointer, Pointer,
+ * @description 设备能力类型,对应 {@link NetSDKLib#CLIENT_GetDevCaps(LLong, int, Pointer, Pointer,
  *     int)}的nType参数 {@see}注解为暂未实现的封装 {@link}注解对应已有实现封装
  * @date 2021/4/12
  * @version 1.0
@@ -29,13 +29,13 @@ public enum GetDevCaps_Type {
   /** pInBuf=NET_IN_VIDEO_DETECT_CAPS, pOutBuf=NET_OUT_VIDEO_DETECT_CAPS */
     NET_VIDEO_DETECT_CAPS(0x05, "获取视频检测输入能力集"),
   /**
-   * pInBuf对应{@link NetSDKLib.NET_IN_THERMO_GETCAPS}, pOutBuf对应{@link
-   * NetSDKLib.NET_OUT_THERMO_GETCAPS}
+   * pInBuf对应{@link NET_IN_THERMO_GETCAPS}, pOutBuf对应{@link
+   * NET_OUT_THERMO_GETCAPS}
    */
     NET_THERMO_GRAPHY_CAPS(0x06, "热成像摄像头属性能力"),
   /**
-   * pInBuf对应{@link NetSDKLib.NET_IN_RADIOMETRY_GETCAPS}, pOutBuf对应{@link
-   * NetSDKLib.NET_OUT_RADIOMETRY_GETCAPS}
+   * pInBuf对应{@link NET_IN_RADIOMETRY_GETCAPS}, pOutBuf对应{@link
+   * NET_OUT_RADIOMETRY_GETCAPS}
    */
     NET_RADIOMETRY_CAPS(0x07, "热成像测温全局配置能力"),
   /** pInBuf = NET_IN_POS_GETCAPS,pOutBuf = NET_OUT_POS_GETCAPS */

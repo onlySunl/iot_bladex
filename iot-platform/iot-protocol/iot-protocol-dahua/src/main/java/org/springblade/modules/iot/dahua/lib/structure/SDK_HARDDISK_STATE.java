@@ -13,6 +13,6 @@ public class SDK_HARDDISK_STATE extends SdkStructure {
   /** 个数 */
     public int              dwDiskNum;
   /** 硬盘或分区信息 */
-    public NetSDKLib.NET_DEV_DISKSTATE[] stDisks = (NetSDKLib.NET_DEV_DISKSTATE[]) new NetSDKLib.NET_DEV_DISKSTATE().toArray(256);
+    public NET_DEV_DISKSTATE[] stDisks = (NET_DEV_DISKSTATE[]) new NET_DEV_DISKSTATE().toArray(256);
 }
 

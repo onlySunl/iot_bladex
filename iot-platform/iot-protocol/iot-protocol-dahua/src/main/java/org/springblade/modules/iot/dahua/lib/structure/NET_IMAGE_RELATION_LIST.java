@@ -25,7 +25,7 @@ public class NET_IMAGE_RELATION_LIST extends SdkStructure {
 	/**
 	 * 目标数据
 	 */
-    public NetSDKLib.NET_FACE_DATA stuFaceData = new NetSDKLib.NET_FACE_DATA();
+    public NET_FACE_DATA stuFaceData = new NET_FACE_DATA();
 	/**
 	 * 人体属性
 	 */
@@ -33,7 +33,7 @@ public class NET_IMAGE_RELATION_LIST extends SdkStructure {
 	/**
 	 * 非机动车信息
 	 */
-    public NetSDKLib.VA_OBJECT_NONMOTOR stuNonMotor = new NetSDKLib.VA_OBJECT_NONMOTOR();
+    public VA_OBJECT_NONMOTOR stuNonMotor = new VA_OBJECT_NONMOTOR();
 	/**
 	 * 特征版本号
 	 */
@@ -49,7 +49,7 @@ public class NET_IMAGE_RELATION_LIST extends SdkStructure {
 	/**
 	 * 矩形区域
 	 */
-    public NetSDKLib.DH_POINT[] stuRectPoint = new NetSDKLib.DH_POINT[2];
+    public DH_POINT[] stuRectPoint = new DH_POINT[2];
 	/**
 	 * 机动车属性
 	 */
@@ -61,7 +61,7 @@ public class NET_IMAGE_RELATION_LIST extends SdkStructure {
 
 	public NET_IMAGE_RELATION_LIST() {
 		for (int i = 0; i < stuRectPoint.length; i++) {
-			stuRectPoint[i] = new NetSDKLib.DH_POINT();
+			stuRectPoint[i] = new DH_POINT();
 		}
 	}
 }

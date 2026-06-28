@@ -36,11 +36,11 @@ public class NET_IN_CREATE_TRANSMIT_TUNNEL extends SdkStructure {
 /**
  * /< 隧道超时2分钟断线回调
  */
-    public NetSDKLib.fTransmitDisConnectCallBack cbDisConnectCallBack;
+    public FTransmitDisConnectCallBack cbDisConnectCallBack;
 /**
  * /< 隧道断线回调
  */
-    public NetSDKLib.fSubBizDisConnectCallBack cbDisConnectCallBackEx;
+    public FSubBizDisConnectCallBack cbDisConnectCallBackEx;
 /** 
 /< 用户数据
 */

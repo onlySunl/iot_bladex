@@ -34,13 +34,13 @@ public class NET_MSG_OBJECT_SUPPLEMENT extends SdkStructure {
     */
     public byte[]           szUUID = new byte[64];
     /**
-     * 修改时间，指的是平台最近一次修改注册库人员信息的时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 修改时间，指的是平台最近一次修改注册库人员信息的时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuModifyTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuModifyTime = new NET_TIME();
     /**
-     * 注册库入库时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 注册库入库时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuRegisterStorageTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuRegisterStorageTime = new NET_TIME();
     /**
      * 车辆朝向,0：车辆朝向未知,1：正面,2：背面,3：侧面
     */

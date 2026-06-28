@@ -15,9 +15,9 @@ public class NET_OBJECT_FAVORITES_LIBRARY_COLLECT_DATA_OBJECT extends SdkStructu
     */
     public int              nObjectType;
     /**
-     * 目标上报时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 目标上报时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuObjectTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuObjectTime = new NET_TIME();
     /**
      * 目标缩略图URL
     */

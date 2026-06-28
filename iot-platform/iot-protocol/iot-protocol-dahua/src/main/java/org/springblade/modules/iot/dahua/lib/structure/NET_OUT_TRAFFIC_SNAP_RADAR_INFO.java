@@ -2,7 +2,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_POINT;
+import org.springblade.modules.iot.dahua.lib.NET_POINT;
 
 /**
  * @author 251823

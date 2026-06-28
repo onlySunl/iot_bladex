@@ -23,15 +23,15 @@ public class DEV_EVENT_CONVEYER_BELT_BULK_INFO extends SdkStructure
     */
     public double           PTS;
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX UTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX UTC = new NET_TIME_EX();
     /**
      * 规则编号,用于标示哪个规则触发的事件，缺省时默认为0
     */
     public int              nRuleID;
     /**
-     * 智能事件所属大类,参见枚举定义 {@link NetSDKLib.EM_CLASS_TYPE}
+     * 智能事件所属大类,参见枚举定义 {@link EM_CLASS_TYPE}
     */
     public int              emClassType;
     /**
@@ -39,9 +39,9 @@ public class DEV_EVENT_CONVEYER_BELT_BULK_INFO extends SdkStructure
     */
     public int              nDetectLineNum;
     /**
-     * 规则检测线,参见结构体定义 {@link NetSDKLib.NET_POINT}
+     * 规则检测线,参见结构体定义 {@link NET_POINT}
     */
-    public NetSDKLib.NET_POINT[] stuDetectLine = new NetSDKLib.NET_POINT[20];
+    public NET_POINT[] stuDetectLine = new NET_POINT[20];
     /**
      * 事件ID
     */
@@ -51,9 +51,9 @@ public class DEV_EVENT_CONVEYER_BELT_BULK_INFO extends SdkStructure
     */
     public int              nDetectRegionNum;
     /**
-     * 规则检测区域,参见结构体定义 {@link NetSDKLib.NET_POINT}
+     * 规则检测区域,参见结构体定义 {@link NET_POINT}
     */
-    public NetSDKLib.NET_POINT[] stuDetectRegion = new NetSDKLib.NET_POINT[20];
+    public NET_POINT[] stuDetectRegion = new NET_POINT[20];
     /**
      * 大块物占比值, 尺寸大于SizeFilterThreshold  / 10* ComparetLine表示的传送带平均宽度 的物体被认为是大块异物取值[2-8]
     */
@@ -63,13 +63,13 @@ public class DEV_EVENT_CONVEYER_BELT_BULK_INFO extends SdkStructure
     */
     public int              nObjectNum;
     /**
-     * 检测到的物体信息,参见结构体定义 {@link NetSDKLib.NET_MSG_OBJECT}
+     * 检测到的物体信息,参见结构体定义 {@link NET_MSG_OBJECT}
     */
-    public NetSDKLib.NET_MSG_OBJECT[] stuObjects = new NetSDKLib.NET_MSG_OBJECT[20];
+    public NET_MSG_OBJECT[] stuObjects = new NET_MSG_OBJECT[20];
     /**
-     * 全景广角图信息,参见结构体定义 {@link NetSDKLib.SCENE_IMAGE_INFO_EX}
+     * 全景广角图信息,参见结构体定义 {@link SCENE_IMAGE_INFO_EX}
     */
-    public NetSDKLib.SCENE_IMAGE_INFO_EX stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO_EX();
+    public SCENE_IMAGE_INFO_EX stuSceneImage = new SCENE_IMAGE_INFO_EX();
     /**
      * 皮带实际物理宽度,范围[0-1000],单位cm
     */
@@ -85,13 +85,13 @@ public class DEV_EVENT_CONVEYER_BELT_BULK_INFO extends SdkStructure
 
     public DEV_EVENT_CONVEYER_BELT_BULK_INFO() {
         for(int i = 0; i < stuDetectLine.length; i++){
-            stuDetectLine[i] = new NetSDKLib.NET_POINT();
+            stuDetectLine[i] = new NET_POINT();
         }
         for(int i = 0; i < stuDetectRegion.length; i++){
-            stuDetectRegion[i] = new NetSDKLib.NET_POINT();
+            stuDetectRegion[i] = new NET_POINT();
         }
         for(int i = 0; i < stuObjects.length; i++){
-            stuObjects[i] = new NetSDKLib.NET_MSG_OBJECT();
+            stuObjects[i] = new NET_MSG_OBJECT();
         }
     }
 }

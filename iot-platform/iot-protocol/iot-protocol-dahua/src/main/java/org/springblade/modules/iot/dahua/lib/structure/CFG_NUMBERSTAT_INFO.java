@@ -28,7 +28,7 @@ public class CFG_NUMBERSTAT_INFO extends SdkStructure {
 	/**
 	 * 相应物体类型列表
 	 */
-    public MaxNameByteArrInfo[] szObjectTypes = (MaxNameByteArrInfo[])new MaxNameByteArrInfo().toArray(NetSDKLib.MAX_OBJECT_LIST_SIZE);
+    public MaxNameByteArrInfo[] szObjectTypes = (MaxNameByteArrInfo[])new MaxNameByteArrInfo().toArray(MAX_OBJECT_LIST_SIZE);
 	/**
 	 * 数量上限 单位：个，1~65535
 	 */
@@ -44,15 +44,15 @@ public class CFG_NUMBERSTAT_INFO extends SdkStructure {
 	/**
 	 * 检测区
 	 */
-    public NetSDKLib.CFG_POLYGON[] stuDetectRegion = new NetSDKLib.CFG_POLYGON[20];
+    public CFG_POLYGON[] stuDetectRegion = new CFG_POLYGON[20];
 	/**
 	 * 报警联动
 	 */
-    public NetSDKLib.CFG_ALARM_MSG_HANDLE stuEventHandler = new NetSDKLib.CFG_ALARM_MSG_HANDLE();
+    public CFG_ALARM_MSG_HANDLE stuEventHandler = new CFG_ALARM_MSG_HANDLE();
 	/**
 	 * 事件响应时间段
 	 */
-    public NetSDKLib.TIME_SECTION_WEEK_DAY_10[] stuTimeSection = (NetSDKLib.TIME_SECTION_WEEK_DAY_10[])new NetSDKLib.TIME_SECTION_WEEK_DAY_10().toArray(NetSDKLib.WEEK_DAY_NUM);
+    public TIME_SECTION_WEEK_DAY_10[] stuTimeSection = (TIME_SECTION_WEEK_DAY_10[])new TIME_SECTION_WEEK_DAY_10().toArray(WEEK_DAY_NUM);
 	/**
 	 * 云台预置点编号 0~65535
 	 */
@@ -65,7 +65,7 @@ public class CFG_NUMBERSTAT_INFO extends SdkStructure {
 	/**
 	 * 正常运动方向, 按照此方向行驶是正向，反过来是逆行 只对出入口类型有效。第一个点是起点，第二个点是终点，点的坐标归一化到[0,8191]区间。
 	 */
-    public NetSDKLib.CFG_POLYGON[] stDirection = new NetSDKLib.CFG_POLYGON[2];
+    public CFG_POLYGON[] stDirection = new CFG_POLYGON[2];
 	/**
 	 * 记录周期，单位：分钟，1~10
 	 */
@@ -97,7 +97,7 @@ public class CFG_NUMBERSTAT_INFO extends SdkStructure {
 	/**
 	 * 离开检测线坐标
 	 */
-    public NetSDKLib.CFG_POLYLINE[] stuDetectLine = new NetSDKLib.CFG_POLYLINE[20];
+    public CFG_POLYLINE[] stuDetectLine = new CFG_POLYLINE[20];
 	/**
 	 * 停留超时时间
 	 */
@@ -105,11 +105,11 @@ public class CFG_NUMBERSTAT_INFO extends SdkStructure {
 	/**
 	 * 前端视频分析联动
 	 */
-    public NetSDKLib.CFG_ALARM_MSG_HANDLE stuRemoteEventHandler = new NetSDKLib.CFG_ALARM_MSG_HANDLE();
+    public CFG_ALARM_MSG_HANDLE stuRemoteEventHandler = new CFG_ALARM_MSG_HANDLE();
 	/**
 	 * 前端视频分析联动响应时间段
 	 */
-    public NetSDKLib.TIME_SECTION_WEEK_DAY_10[] stuRemoteTimeSection = (NetSDKLib.TIME_SECTION_WEEK_DAY_10[])new NetSDKLib.TIME_SECTION_WEEK_DAY_10().toArray(NetSDKLib.WEEK_DAY_NUM);
+    public TIME_SECTION_WEEK_DAY_10[] stuRemoteTimeSection = (TIME_SECTION_WEEK_DAY_10[])new TIME_SECTION_WEEK_DAY_10().toArray(WEEK_DAY_NUM);
     /**
      * 人数去重策略配置,参见结构体定义 {@link CFG_DUPLICATE_REMOVE_INFO}
     */
@@ -121,19 +121,19 @@ public class CFG_NUMBERSTAT_INFO extends SdkStructure {
 
 	public CFG_NUMBERSTAT_INFO() {
 		for (int i = 0; i < stuDetectRegion.length; i++) {
-			stuDetectRegion[i] = new NetSDKLib.CFG_POLYGON();
+			stuDetectRegion[i] = new CFG_POLYGON();
 		}
 		for (int i = 0; i < stuTimeSection.length; i++) {
-			stuTimeSection[i] = new NetSDKLib.TIME_SECTION_WEEK_DAY_10();
+			stuTimeSection[i] = new TIME_SECTION_WEEK_DAY_10();
 		}
 		for (int i = 0; i < stDirection.length; i++) {
-			stDirection[i] = new NetSDKLib.CFG_POLYGON();
+			stDirection[i] = new CFG_POLYGON();
 		}
 		for (int i = 0; i < stuDetectLine.length; i++) {
-			stuDetectLine[i] = new NetSDKLib.CFG_POLYLINE();
+			stuDetectLine[i] = new CFG_POLYLINE();
 		}
 		for (int i = 0; i < stuRemoteTimeSection.length; i++) {
-			stuRemoteTimeSection[i] = new NetSDKLib.TIME_SECTION_WEEK_DAY_10();
+			stuRemoteTimeSection[i] = new TIME_SECTION_WEEK_DAY_10();
 		}
 	}
 }

@@ -3,7 +3,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.CUSTOM_TITLE_LEN;
+import static org.springblade.modules.iot.dahua.lib.CUSTOM_TITLE_LEN;
 
 /**
  * 自定义的标题信息
@@ -28,7 +28,7 @@ public class NET_USER_DEF_TITLE_INFO extends SdkStructure {
     /**
      * 区域, 坐标取值[0~8191], 仅使用left和top值, 点(left,top)应和(right,bottom)设置成同样的点
      */
-    public NetSDKLib.NET_RECT stuRect;
+    public NET_RECT stuRect;
     /**
      * 前景色
      */
@@ -38,7 +38,7 @@ public class NET_USER_DEF_TITLE_INFO extends SdkStructure {
      */
     public NET_COLOR_RGBA   stuBackColor;
     /**
-     * 文本对齐方式 枚举值 {@link NetSDKLib.EM_TITLE_TEXT_ALIGNTYPE}
+     * 文本对齐方式 枚举值 {@link EM_TITLE_TEXT_ALIGNTYPE}
      */
     public int              emTextAlign;
     /**

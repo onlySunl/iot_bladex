@@ -23,9 +23,9 @@ public class ALARM_TRAFFIC_CAR_PASSING_INFO extends SdkStructure
     */
     public int              nEventID;
     /**
-     * 事件发生的时间，设备本地时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间，设备本地时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 事件发生时间，表示毫秒
     */

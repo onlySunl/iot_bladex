@@ -12,11 +12,11 @@ public class CFG_CHANNEL_TIME_SECTION extends SdkStructure {
 	/**
 	 * 存储时间段
 	 */
-    public NetSDKLib.CFG_TIME_SECTION[] stuTimeSection = new NetSDKLib.CFG_TIME_SECTION[7 * 2];
+    public CFG_TIME_SECTION[] stuTimeSection = new CFG_TIME_SECTION[7 * 2];
 
 	public CFG_CHANNEL_TIME_SECTION() {
 		for (int i = 0; i < stuTimeSection.length; i++) {
-			stuTimeSection[i] = new NetSDKLib.CFG_TIME_SECTION();
+			stuTimeSection[i] = new CFG_TIME_SECTION();
 		}
 	}
 }

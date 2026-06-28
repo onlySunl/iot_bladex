@@ -23,7 +23,7 @@ public class NET_IN_ATTACH_RADAR_RFIDCARD_INFO extends SdkStructure {
     /**
      * 雷达RFIDCard信息回调
      */
-    public NetSDKLib.fRadarRFIDCardInfoCallBack cbRFIDCardInfo;
+    public FRadarRFIDCardInfoCallBack cbRFIDCardInfo;
     /**
      * 用户数据
      */

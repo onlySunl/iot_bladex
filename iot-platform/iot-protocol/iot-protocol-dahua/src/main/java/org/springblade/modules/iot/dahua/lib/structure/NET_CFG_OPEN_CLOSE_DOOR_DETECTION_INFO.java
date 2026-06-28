@@ -27,9 +27,9 @@ public class NET_CFG_OPEN_CLOSE_DOOR_DETECTION_INFO extends SdkStructure
     */
     public BYTE_ARRAY_128[] szObjectTypes = new BYTE_ARRAY_128[16];
     /**
-     * 报警联动,参见结构体定义 {@link NetSDKLib.NET_ALARM_MSG_HANDLE}
+     * 报警联动,参见结构体定义 {@link NET_ALARM_MSG_HANDLE}
     */
-    public NetSDKLib.NET_ALARM_MSG_HANDLE stuEventHandler = new NetSDKLib.NET_ALARM_MSG_HANDLE();
+    public NET_ALARM_MSG_HANDLE stuEventHandler = new NET_ALARM_MSG_HANDLE();
     /**
      * 云台预置点编号  0~65535
     */

@@ -33,7 +33,7 @@ public class DEV_EVENT_HELMET_DETECTION_INFO extends SdkStructure {
      */
     public NET_TIME_EX      UTC = new NET_TIME_EX();
     /**
-     * 智能事件所属大类,{@link NetSDKLib.EM_CLASS_TYPE}
+     * 智能事件所属大类,{@link EM_CLASS_TYPE}
      */
     public int              emClassType;
     /**
@@ -51,7 +51,7 @@ public class DEV_EVENT_HELMET_DETECTION_INFO extends SdkStructure {
     /**
      * 事件对应文件信息
      */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo = new NetSDKLib.NET_EVENT_FILE_INFO();
+    public NET_EVENT_FILE_INFO stuFileInfo = new NET_EVENT_FILE_INFO();
     /**
      * 触发事件类型，{@link EM_HELMET_EVENT_TYPE}
      */
@@ -59,10 +59,10 @@ public class DEV_EVENT_HELMET_DETECTION_INFO extends SdkStructure {
     /**
      * 人体图片
      */
-    public NetSDKLib.HUMAN_IMAGE_INFO stuHumanImage = new NetSDKLib.HUMAN_IMAGE_INFO();
+    public HUMAN_IMAGE_INFO stuHumanImage = new HUMAN_IMAGE_INFO();
     /**
      * 全景广角图
      */
-    public NetSDKLib.SCENE_IMAGE_INFO stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO();
+    public SCENE_IMAGE_INFO stuSceneImage = new SCENE_IMAGE_INFO();
 }
 

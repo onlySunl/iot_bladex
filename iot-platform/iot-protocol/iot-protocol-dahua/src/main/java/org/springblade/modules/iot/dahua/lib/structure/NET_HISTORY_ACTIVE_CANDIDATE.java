@@ -19,9 +19,9 @@ public class NET_HISTORY_ACTIVE_CANDIDATE extends SdkStructure
     */
     public NET_HISTORY_PERSON_INFO stuHistoryPerson = new NET_HISTORY_PERSON_INFO();
     /**
-     * 查询人员出现的时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 查询人员出现的时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuTime = new NET_TIME();
     /**
      * 目标全景图,参见结构体定义 {@link NET_FACE_IMAGE_INFO}
     */
@@ -31,9 +31,9 @@ public class NET_HISTORY_ACTIVE_CANDIDATE extends SdkStructure
     */
     public byte[]           szChannelString = new byte[32];
     /**
-     * 历史库中人员出现的时间(UTC时间格式),参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 历史库中人员出现的时间(UTC时间格式),参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuTimeRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuTimeRealUTC = new NET_TIME();
     /**
      * 事件类型
     */

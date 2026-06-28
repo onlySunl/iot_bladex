@@ -11,9 +11,9 @@ public class NET_CFG_FORBID_OPEN extends SdkStructure
     */
     public int              bEnable;
     /**
-     * 禁开模式执行时间段,参见结构体定义 {@link NetSDKLib.NET_CFG_TIME_SCHEDULE}
+     * 禁开模式执行时间段,参见结构体定义 {@link NET_CFG_TIME_SCHEDULE}
     */
-    public NetSDKLib.NET_CFG_TIME_SCHEDULE stuTimeShecule = new NetSDKLib.NET_CFG_TIME_SCHEDULE();
+    public NET_CFG_TIME_SCHEDULE stuTimeShecule = new NET_CFG_TIME_SCHEDULE();
     /**
      * 禁开提醒,参见结构体定义 {@link NET_FORBID_NOTICE_INFO}
     */

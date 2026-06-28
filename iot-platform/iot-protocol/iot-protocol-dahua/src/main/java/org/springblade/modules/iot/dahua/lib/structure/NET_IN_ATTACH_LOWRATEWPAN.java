@@ -14,7 +14,7 @@ public class NET_IN_ATTACH_LOWRATEWPAN extends SdkStructure {
 	/**
 	 * 对码数据回调
 	 */
-    public NetSDKLib.fAttachLowRateWPANCB cbAttachLowRateWPANCB;
+    public FAttachLowRateWPANCB cbAttachLowRateWPANCB;
 	/**
 	 * 用户数据
 	 */

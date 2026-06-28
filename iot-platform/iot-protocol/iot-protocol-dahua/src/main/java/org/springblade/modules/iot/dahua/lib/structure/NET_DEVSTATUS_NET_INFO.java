@@ -4,7 +4,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_GATEWAY_MAX_SIM_NUM;
+import static org.springblade.modules.iot.dahua.lib.NET_GATEWAY_MAX_SIM_NUM;
 
 /** 
 * @author 291189

@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * 门禁的AB互锁功能, 多个门通道，只有其他B通道都关闭，唯一的A通道才打开
 */

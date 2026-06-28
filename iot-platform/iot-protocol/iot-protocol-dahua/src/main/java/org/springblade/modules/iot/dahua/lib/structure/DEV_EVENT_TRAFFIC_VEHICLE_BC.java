@@ -1,11 +1,11 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.SIZE_OF_POINTER;
+import static org.springblade.modules.iot.dahua.lib.NetSDKConstants.POINTERSIZE;
 
 /** 
 * @author 291189
@@ -41,11 +41,11 @@ public class DEV_EVENT_TRAFFIC_VEHICLE_BC extends SdkStructure {
 /** 
 车牌信息
 */
-    public NetSDKLib.DH_MSG_OBJECT stuObject = new NetSDKLib.DH_MSG_OBJECT();
+    public DH_MSG_OBJECT stuObject = new DH_MSG_OBJECT();
 /** 
 车身信息
 */
-    public	NetSDKLib.DH_MSG_OBJECT stuVehicle = new NetSDKLib.DH_MSG_OBJECT();
+    public	DH_MSG_OBJECT stuVehicle = new DH_MSG_OBJECT();
 /** 
 交通车辆信息
 */
@@ -73,11 +73,11 @@ public class DEV_EVENT_TRAFFIC_VEHICLE_BC extends SdkStructure {
 /** 
 公共信息
 */
-    public NetSDKLib.EVENT_COMM_INFO stCommInfo = new NetSDKLib.EVENT_COMM_INFO();
+    public EVENT_COMM_INFO stCommInfo = new EVENT_COMM_INFO();
 /** 
 事件对应文件信息
 */
-    public NetSDKLib.NET_EVENT_FILE_INFO stFileInfo = new NetSDKLib.NET_EVENT_FILE_INFO();
+    public NET_EVENT_FILE_INFO stFileInfo = new NET_EVENT_FILE_INFO();
 /** 
 图片信息数组, refer to {@link NET_IMAGE_INFO_EX3}
 */

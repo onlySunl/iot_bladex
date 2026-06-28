@@ -3,8 +3,8 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_DEVICE_NAME_LEN;
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_TSCHE_DAY_NUM;
+import static org.springblade.modules.iot.dahua.lib.NET_DEVICE_NAME_LEN;
+import static org.springblade.modules.iot.dahua.lib.NET_TSCHE_DAY_NUM;
 
 /**
  * 电视墙预案时间表

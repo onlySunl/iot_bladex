@@ -19,9 +19,9 @@ public class NET_GENERAL_ATTITUDE_DETECTION_OBJECT extends SdkStructure
     */
     public byte[]           szAttitudeType = new byte[16];
     /**
-     * 包围盒,参见结构体定义 {@link NetSDKLib.NET_RECT}
+     * 包围盒,参见结构体定义 {@link NET_RECT}
     */
-    public NetSDKLib.NET_RECT BoundingBox = new NetSDKLib.NET_RECT();
+    public NET_RECT BoundingBox = new NET_RECT();
     /**
      * 智能物体全局唯一物体标识
     */

@@ -3,7 +3,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_CITIZENIDCARD_SEX_TYPE;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.*;
+
 
 /**
  * 普通报警事件 -> 人证比对事件

@@ -37,7 +37,7 @@ public class DEV_EVENT_DISTANCE_DETECTION_INFO extends SdkStructure {
     /**
      * 检测到的物体
      */
-    public NetSDKLib.DH_MSG_OBJECT stuObject;
+    public DH_MSG_OBJECT stuObject;
     /**
      * 检测区域顶点数
      */
@@ -45,11 +45,11 @@ public class DEV_EVENT_DISTANCE_DETECTION_INFO extends SdkStructure {
     /**
      * #define DH_MAX_DETECT_REGION_NUM 20 // 规则检测区域最大顶点数
      */
-    public NetSDKLib.NET_POINT stuDetectRegion[] = new NetSDKLib.NET_POINT[20];
+    public NET_POINT stuDetectRegion[] = new NET_POINT[20];
     /**
      * 智能事件公共信息;
      */
-    public NetSDKLib.EVENT_INTELLI_COMM_INFO stuIntelliCommInfo;
+    public EVENT_INTELLI_COMM_INFO stuIntelliCommInfo;
     /**
      * 事件关联ID。应用场景是同一个物体或者同一张图片做不同分析，产生的多个事件的SourceID相同
      * 缺省时为空字符串，表示无此信息

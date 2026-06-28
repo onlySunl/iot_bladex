@@ -16,7 +16,7 @@ public class NET_OUT_FIND_REC_BAK_RST_TASK extends SdkStructure {
      */
     public int              dwSize;
     /**
-     *  任务数组,由用户申请内存，大小为sizeof{@link NetSDKLib.NET_REC_BAK_RST_TASK}*nMaxCount
+     *  任务数组,由用户申请内存，大小为sizeof{@link NET_REC_BAK_RST_TASK}*nMaxCount
      */
     public Pointer          pTasks;
     /**

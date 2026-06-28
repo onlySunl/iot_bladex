@@ -16,7 +16,7 @@ public class CFG_SUPPORTED_COMP extends SdkStructure {
 	/**
 	 * 场景组合项下支持的场景列表
 	 */
-    public StringByteArrSixteen[] szSupportedData = (StringByteArrSixteen[])new StringByteArrSixteen().toArray(NetSDKLib.MAX_SUPPORTED_COMP_DATA);
+    public StringByteArrSixteen[] szSupportedData = (StringByteArrSixteen[])new StringByteArrSixteen().toArray(MAX_SUPPORTED_COMP_DATA);
 
 	 public CFG_SUPPORTED_COMP() {
 		 for (int i = 0; i < szSupportedData.length; i++) {

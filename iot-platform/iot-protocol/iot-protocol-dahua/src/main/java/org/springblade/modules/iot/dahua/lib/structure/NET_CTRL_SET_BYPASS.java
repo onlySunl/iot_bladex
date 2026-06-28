@@ -19,7 +19,7 @@ public class NET_CTRL_SET_BYPASS extends SdkStructure {
      */
     public Pointer          szDevPwd;
 	/**
-     * 通道状态,参考枚举 { @link org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_BYPASS_MODE}
+     * 通道状态,参考枚举 { @link org.springblade.modules.iot.dahua.lib.NET_BYPASS_MODE}
      */
     public int              emMode;
     /**

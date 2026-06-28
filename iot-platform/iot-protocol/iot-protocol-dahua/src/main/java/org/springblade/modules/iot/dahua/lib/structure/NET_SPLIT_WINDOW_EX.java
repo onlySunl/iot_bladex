@@ -21,9 +21,9 @@ public class NET_SPLIT_WINDOW_EX extends SdkStructure
     */
     public byte[]           szControlID = new byte[128];
     /**
-     * 窗口区域, 自由分割模式下有效,参见结构体定义 {@link NetSDKLib.NET_RECT}
+     * 窗口区域, 自由分割模式下有效,参见结构体定义 {@link NET_RECT}
     */
-    public NetSDKLib.NET_RECT stuRect = new NetSDKLib.NET_RECT();
+    public NET_RECT stuRect = new NET_RECT();
     /**
      * 坐标是否满足直通条件
     */
@@ -65,7 +65,7 @@ public class NET_SPLIT_WINDOW_EX extends SdkStructure
     */
     public int              nRetOSDNum;
     /**
-     * OSD信息指针，用户申请内存,参见结构体定义 {@link NetSDKLib.NET_SPLIT_OSD}
+     * OSD信息指针，用户申请内存,参见结构体定义 {@link NET_SPLIT_OSD}
     */
     public Pointer          pstuOSD;
 

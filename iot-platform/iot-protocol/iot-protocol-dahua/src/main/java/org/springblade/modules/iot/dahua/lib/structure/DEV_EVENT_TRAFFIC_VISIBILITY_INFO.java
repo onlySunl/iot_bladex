@@ -41,11 +41,11 @@ public class DEV_EVENT_TRAFFIC_VISIBILITY_INFO extends SdkStructure {
     /**
      * 事件对应文件信息
      */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo = new NetSDKLib.NET_EVENT_FILE_INFO();
+    public NET_EVENT_FILE_INFO stuFileInfo = new NET_EVENT_FILE_INFO();
     /**
      * 检测到的车牌信息
      */
-    public NetSDKLib.NET_MSG_OBJECT stuObject = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuObject = new NET_MSG_OBJECT();
     /**
      * 触发类型 {@link org.springblade.modules.iot.dahua.lib.enumeration.EM_TRIGGER_TYPE}
      */
@@ -53,7 +53,7 @@ public class DEV_EVENT_TRAFFIC_VISIBILITY_INFO extends SdkStructure {
     /**
      * 公共信息
      */
-    public NetSDKLib.EVENT_COMM_INFO stuCommInfo = new NetSDKLib.EVENT_COMM_INFO();
+    public EVENT_COMM_INFO stuCommInfo = new EVENT_COMM_INFO();
     /**
      * 能见程度（表示距离范围）单位：米
      */

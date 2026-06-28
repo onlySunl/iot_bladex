@@ -27,17 +27,17 @@ public class NET_DEV_EVENT_CONVEYOR_BELT_STATUS_INFO extends SdkStructure
     */
     public byte[]           szClass = new byte[16];
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 事件编号
     */
     public int              nEventID;
     /**
-     * 检测区,参见结构体定义 {@link NetSDKLib.NET_POINT}
+     * 检测区,参见结构体定义 {@link NET_POINT}
     */
-    public NetSDKLib.NET_POINT[] stuDetectRegion = new NetSDKLib.NET_POINT[20];
+    public NET_POINT[] stuDetectRegion = new NET_POINT[20];
     /**
      * 检测区个数
     */
@@ -77,7 +77,7 @@ public class NET_DEV_EVENT_CONVEYOR_BELT_STATUS_INFO extends SdkStructure
 
     public NET_DEV_EVENT_CONVEYOR_BELT_STATUS_INFO() {
         for(int i = 0; i < stuDetectRegion.length; i++){
-            stuDetectRegion[i] = new NetSDKLib.NET_POINT();
+            stuDetectRegion[i] = new NET_POINT();
         }
     }
 }

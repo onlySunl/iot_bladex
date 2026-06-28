@@ -4,7 +4,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.CFG_COMMON_STRING_32;
+import static org.springblade.modules.iot.dahua.lib.CFG_COMMON_STRING_32;
 import static org.springblade.modules.iot.dahua.lib.constant.SDKStructureFieldLenth.MAX_PROTOCOL_NAME_LEN;
 
 /**

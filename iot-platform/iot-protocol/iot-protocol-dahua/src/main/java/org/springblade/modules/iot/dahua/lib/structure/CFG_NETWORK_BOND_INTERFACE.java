@@ -1,7 +1,6 @@
  package org.springblade.modules.iot.dahua.lib.structure;
 
 
- import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  /**
   * @author 291189
   * @description  绑定虚拟网口

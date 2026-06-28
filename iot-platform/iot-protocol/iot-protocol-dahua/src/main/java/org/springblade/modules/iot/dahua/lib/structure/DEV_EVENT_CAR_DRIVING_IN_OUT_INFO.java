@@ -32,15 +32,15 @@ public class DEV_EVENT_CAR_DRIVING_IN_OUT_INFO extends SdkStructure {
     /**
      * 车牌信息
      */
-    public NetSDKLib.DH_MSG_OBJECT stuObject;
+    public DH_MSG_OBJECT stuObject;
     /**
      * 车身信息
      */
-    public NetSDKLib.DH_MSG_OBJECT stuVehicle;
+    public DH_MSG_OBJECT stuVehicle;
     /**
      * 事件对应文件信息
      */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo;
+    public NET_EVENT_FILE_INFO stuFileInfo;
     /**
      * 表示抓拍序号,如3-2-1/0,1表示抓拍正常结束,0表示抓拍异常结束
      */
@@ -56,11 +56,11 @@ public class DEV_EVENT_CAR_DRIVING_IN_OUT_INFO extends SdkStructure {
     /**
      * 大图信息
      */
-    public NetSDKLib.NET_EVENT_IMAGE_OFFSET_INFO stuGlobalScene;
+    public NET_EVENT_IMAGE_OFFSET_INFO stuGlobalScene;
     /**
      * 车位抠图信息
      */
-    public NetSDKLib.NET_EVENT_IMAGE_OFFSET_INFO stuParkingImage;
+    public NET_EVENT_IMAGE_OFFSET_INFO stuParkingImage;
     /**
      * 车位(地磁)编号
      */

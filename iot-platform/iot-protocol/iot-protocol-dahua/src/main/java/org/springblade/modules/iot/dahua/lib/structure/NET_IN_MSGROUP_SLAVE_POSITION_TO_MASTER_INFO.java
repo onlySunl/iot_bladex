@@ -24,7 +24,7 @@ public class NET_IN_MSGROUP_SLAVE_POSITION_TO_MASTER_INFO extends SdkStructure {
 	/**
 	 * 物体在从机视频上的位置, 8192坐标系
 	 */
-    public NetSDKLib.NET_RECT stuRect = new NetSDKLib.NET_RECT();
+    public NET_RECT stuRect = new NET_RECT();
 
 	public NET_IN_MSGROUP_SLAVE_POSITION_TO_MASTER_INFO() {
 		this.dwSize = this.size();

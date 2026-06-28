@@ -11,7 +11,7 @@ public class NET_LINK_CLASS_TYPE extends SdkStructure
     */
     public int              nChannel;
     /**
-     * 待级联的业务大类,参见枚举定义 {@link NetSDKLib.EM_SCENE_CLASS_TYPE}
+     * 待级联的业务大类,参见枚举定义 {@link EM_SCENE_CLASS_TYPE}
     */
     public int              emClassType;
     /**

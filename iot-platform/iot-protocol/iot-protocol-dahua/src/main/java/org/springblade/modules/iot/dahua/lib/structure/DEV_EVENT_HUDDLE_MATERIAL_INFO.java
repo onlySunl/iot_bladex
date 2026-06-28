@@ -1,10 +1,10 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.EVENT_INTELLI_COMM_INFO;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_MSG_OBJECT;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_POINT;
+
+
+import org.springblade.modules.iot.dahua.lib.EVENT_INTELLI_COMM_INFO;
+import org.springblade.modules.iot.dahua.lib.NET_MSG_OBJECT;
+import org.springblade.modules.iot.dahua.lib.NET_POINT;
 import com.sun.jna.Pointer;
 
 /**
@@ -24,7 +24,7 @@ public class DEV_EVENT_HUDDLE_MATERIAL_INFO extends SdkStructure {
 	/**
 	 * 事件名称
 	 */
-    public byte[]           szName = new byte[NetSDKLib.NET_COMMON_STRING_128];
+    public byte[]           szName = new byte[NET_COMMON_STRING_128];
 	/**
 	 * 时间戳(单位是毫秒)
 	 */
@@ -40,11 +40,11 @@ public class DEV_EVENT_HUDDLE_MATERIAL_INFO extends SdkStructure {
 	/**
 	 * 事件对应文件信息
 	 */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo;
+    public NET_EVENT_FILE_INFO stuFileInfo;
 	/**
 	 * 规则检测区域
 	 */
-    public NET_POINT[]      DetectRegion = new NET_POINT[NetSDKLib.NET_MAX_DETECT_REGION_NUM];
+    public NET_POINT[]      DetectRegion = new NET_POINT[NET_MAX_DETECT_REGION_NUM];
 	/**
 	 * 规则检测区域顶点数
 	 */
@@ -52,7 +52,7 @@ public class DEV_EVENT_HUDDLE_MATERIAL_INFO extends SdkStructure {
 	/**
 	 * 检测到的物体
 	 */
-    public NET_MSG_OBJECT[] stuObjects = new NET_MSG_OBJECT[NetSDKLib.HDBJ_MAX_OBJECTS_NUM];
+    public NET_MSG_OBJECT[] stuObjects = new NET_MSG_OBJECT[HDBJ_MAX_OBJECTS_NUM];
 	/**
 	 * 检测到的物体个数
 	 */
@@ -64,7 +64,7 @@ public class DEV_EVENT_HUDDLE_MATERIAL_INFO extends SdkStructure {
 	/**
 	 * 事件触发的预置名称
 	 */
-    public byte[]           szPresetName = new byte[NetSDKLib.NET_COMMON_STRING_64];
+    public byte[]           szPresetName = new byte[NET_COMMON_STRING_64];
 	/**
 	 * 违法持续时长，单位：秒，缺省值0表示无意义
 	 */
@@ -72,7 +72,7 @@ public class DEV_EVENT_HUDDLE_MATERIAL_INFO extends SdkStructure {
 	/**
 	 * 事件关联ID,同一个物体或图片生成多个事件时SourceID相同
 	 */
-    public byte[]           szSourceID = new byte[NetSDKLib.NET_COMMON_STRING_32];
+    public byte[]           szSourceID = new byte[NET_COMMON_STRING_32];
 	/**
 	 * 抓图标志(按位),具体见NET_RESERVED_COMMON
 	 */
@@ -80,7 +80,7 @@ public class DEV_EVENT_HUDDLE_MATERIAL_INFO extends SdkStructure {
 	/**
 	 * 全景图图片信息,事件前2~5s抓图
 	 */
-    public NetSDKLib.SCENE_IMAGE_INFO_EX stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO_EX();
+    public SCENE_IMAGE_INFO_EX stuSceneImage = new SCENE_IMAGE_INFO_EX();
 	/**
 	 * 图片信息数组,指针对应NET_IMAGE_INFO_EX2数组
 	 */
@@ -124,7 +124,7 @@ public class DEV_EVENT_HUDDLE_MATERIAL_INFO extends SdkStructure {
 	/**
 	 * 保留字节,留待扩展
 	 */
-    public byte[]           byReserved = new byte[3232-NetSDKLib.SIZE_OF_POINTER*3];
+    public byte[]           byReserved = new byte[3232-NetSDKConstants.POINTERSIZE*3];
 
 	public DEV_EVENT_HUDDLE_MATERIAL_INFO() {
 		for (int i = 0; i < stuObjects.length; ++i) {

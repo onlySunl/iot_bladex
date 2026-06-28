@@ -20,6 +20,6 @@ public class CFG_MOTION_WINDOW extends SdkStructure {
   /** 灵敏度，取值[0, 100] */
     public int              nSensitive;
   /** 动检窗口区域, 坐标位置取值[0, 8192) */
-    public NetSDKLib.CFG_RECT stuWindow;
+    public CFG_RECT stuWindow;
 }
 

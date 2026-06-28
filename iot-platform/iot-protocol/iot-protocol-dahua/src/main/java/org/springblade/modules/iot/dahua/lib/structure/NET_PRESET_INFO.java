@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 /**
  * 预置点主动巡视具体信息
@@ -26,7 +26,7 @@ public class NET_PRESET_INFO extends SdkStructure
     /**
      * 预留字节
     */
-    public byte[]           szReserved = new byte[252-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           szReserved = new byte[252-NetSDKConstants.POINTERSIZE];
 
     public NET_PRESET_INFO() {
     }

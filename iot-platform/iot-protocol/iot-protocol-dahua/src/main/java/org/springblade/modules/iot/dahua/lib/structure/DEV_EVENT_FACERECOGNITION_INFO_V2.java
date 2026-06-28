@@ -20,21 +20,21 @@ public class DEV_EVENT_FACERECOGNITION_INFO_V2 extends SdkStructure
     */
     public int              nEventID;
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX UTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX UTC = new NET_TIME_EX();
     /**
      * 当前人脸匹配到的候选对象数量
     */
     public int              nCandidateNum;
     /**
-     * 当前人脸匹配到的候选对象信息,参见结构体定义 {@link NetSDKLib.CANDIDATE_INFOEX}
+     * 当前人脸匹配到的候选对象信息,参见结构体定义 {@link CANDIDATE_INFOEX}
     */
     public Pointer          pstuCandidates;
     /**
-     * 检测到的物体,参见结构体定义 {@link NetSDKLib.NET_MSG_OBJECT}
+     * 检测到的物体,参见结构体定义 {@link NET_MSG_OBJECT}
     */
-    public NetSDKLib.NET_MSG_OBJECT stuObject = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuObject = new NET_MSG_OBJECT();
     /**
      * 保留字节
     */

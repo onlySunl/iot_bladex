@@ -30,7 +30,7 @@ public class NET_IN_DOWNLOAD extends SdkStructure {
 	/**
 	 * / 回放进度回调函数
 	 */
-    public NetSDKLib.fDownLoadPosCallBack cbDownLoadPos;
+    public FDownLoadPosCallBack cbDownLoadPos;
 	/**
 	 * / 回放进度回调函数自定义数据
 	 */
@@ -38,7 +38,7 @@ public class NET_IN_DOWNLOAD extends SdkStructure {
 	/**
 	 * / 回放数据回调函数
 	 */
-    public NetSDKLib.fDataCallBack fDownLoadDataCallBack;
+    public fDataCallBack fDownLoadDataCallBack;
 	/**
 	 * / 回放数据回调函数自定义数据
 	 */

@@ -14,8 +14,8 @@ public class OBJECT_RELATED_INFO extends SdkStructure {
     public int              nObjectID;                            // 物体ID
     public int              nRelativeID;                          // 相关物体ID
     public byte[]           szObjectType = new byte[128];         // 物体类型,如"HumanFace"
-    public NetSDKLib.NET_RECT stuBoundingBox = new NetSDKLib.NET_RECT(); // 物体包围盒，坐标[0, 8191]
-    public NetSDKLib.NET_RECT stuOriginalBoundingBox = new NetSDKLib.NET_RECT(); // 原始物体包围盒，坐标[0, 8191]
+    public NET_RECT stuBoundingBox = new NET_RECT(); // 物体包围盒，坐标[0, 8191]
+    public NET_RECT stuOriginalBoundingBox = new NET_RECT(); // 原始物体包围盒，坐标[0, 8191]
     public byte[]           byReserved = new byte[1024];          // 预留字段
 
     @Override

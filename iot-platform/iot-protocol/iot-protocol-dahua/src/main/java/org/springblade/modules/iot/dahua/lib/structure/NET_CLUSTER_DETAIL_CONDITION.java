@@ -54,25 +54,25 @@ public class NET_CLUSTER_DETAIL_CONDITION extends SdkStructure {
     */
     public int              bRealUTC;
     /**
-     * 查询起始时间, 标准UTC时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 查询起始时间, 标准UTC时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuStartRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuStartRealUTC = new NET_TIME();
     /**
-     * 查询结束时间, 标准UTC时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 查询结束时间, 标准UTC时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuEndRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuEndRealUTC = new NET_TIME();
     /**
      * 是否使用带时区偏差的UTC事件
     */
     public int              bUTC;
     /**
-     * 查询起始时间, 带时区偏差的UTC时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 查询起始时间, 带时区偏差的UTC时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuStartUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuStartUTC = new NET_TIME();
     /**
-     * 查询结束时间, 带时区偏差的UTC时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 查询结束时间, 带时区偏差的UTC时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuEndUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuEndUTC = new NET_TIME();
 	/**
 	 * 保留字节
 	 */

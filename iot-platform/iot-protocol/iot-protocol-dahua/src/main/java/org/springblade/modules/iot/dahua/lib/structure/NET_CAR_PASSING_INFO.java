@@ -35,9 +35,9 @@ public class NET_CAR_PASSING_INFO extends SdkStructure
     */
     public int              emMoveState;
     /**
-     * 车辆进出时间，设备本地时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 车辆进出时间，设备本地时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuTime = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuTime = new NET_TIME_EX();
     /**
      * 自定义车道号
     */

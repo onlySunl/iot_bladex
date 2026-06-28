@@ -20,9 +20,9 @@ public class NET_DEV_EVENT_TRAPPED_IN_LIFT_DETECTION_INFO extends SdkStructure
     */
     public NET_EVENT_INFO_EXTEND stuEventInfoEx = new NET_EVENT_INFO_EXTEND();
     /**
-     * 事件发生时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 智能事件规则编号
     */
@@ -88,13 +88,13 @@ public class NET_DEV_EVENT_TRAPPED_IN_LIFT_DETECTION_INFO extends SdkStructure
     */
     public int              nObjectsNum;
     /**
-     * 检测目标的物体信息,参见结构体定义 {@link NetSDKLib.NET_MSG_OBJECT}
+     * 检测目标的物体信息,参见结构体定义 {@link NET_MSG_OBJECT}
     */
     public Pointer          pstuObjects;
     /**
-     * 全景图,参见结构体定义 {@link NetSDKLib.SCENE_IMAGE_INFO}
+     * 全景图,参见结构体定义 {@link SCENE_IMAGE_INFO}
     */
-    public NetSDKLib.SCENE_IMAGE_INFO stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO();
+    public SCENE_IMAGE_INFO stuSceneImage = new SCENE_IMAGE_INFO();
     /**
      * 预留字节
     */

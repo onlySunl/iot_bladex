@@ -31,9 +31,9 @@ public class DEV_EVENT_LEAKAGE_DETECTION_INFO extends SdkStructure
     */
     public double           dbPTS;
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 事件ID
     */
@@ -43,17 +43,17 @@ public class DEV_EVENT_LEAKAGE_DETECTION_INFO extends SdkStructure
     */
     public int              nObjectCount;
     /**
-     * 检测目标的物体信息,参见结构体定义 {@link NetSDKLib.NET_MSG_OBJECT_EX2}
+     * 检测目标的物体信息,参见结构体定义 {@link NET_MSG_OBJECT_EX2}
     */
-    public NetSDKLib.NET_MSG_OBJECT_EX2[] stuObjects = new NetSDKLib.NET_MSG_OBJECT_EX2[128];
+    public NET_MSG_OBJECT_EX2[] stuObjects = new NET_MSG_OBJECT_EX2[128];
     /**
      * 渗漏实际占比，单位:%，取值范围[0, 100]
     */
     public float            fRatio;
     /**
-     * 全景图,参见结构体定义 {@link NetSDKLib.SCENE_IMAGE_INFO_EX}
+     * 全景图,参见结构体定义 {@link SCENE_IMAGE_INFO_EX}
     */
-    public NetSDKLib.SCENE_IMAGE_INFO_EX stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO_EX();
+    public SCENE_IMAGE_INFO_EX stuSceneImage = new SCENE_IMAGE_INFO_EX();
     /**
      * 图片信息数组,参见结构体定义 {@link NET_IMAGE_INFO_EX2}
     */
@@ -69,7 +69,7 @@ public class DEV_EVENT_LEAKAGE_DETECTION_INFO extends SdkStructure
 
     public DEV_EVENT_LEAKAGE_DETECTION_INFO() {
         for(int i = 0; i < stuObjects.length; i++){
-            stuObjects[i] = new NetSDKLib.NET_MSG_OBJECT_EX2();
+            stuObjects[i] = new NET_MSG_OBJECT_EX2();
         }
         for(int i = 0; i < stuImageInfo.length; i++){
             stuImageInfo[i] = new NET_IMAGE_INFO_EX2();

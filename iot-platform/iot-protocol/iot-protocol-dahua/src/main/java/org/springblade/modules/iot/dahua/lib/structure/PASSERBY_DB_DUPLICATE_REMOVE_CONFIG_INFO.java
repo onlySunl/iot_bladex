@@ -16,7 +16,7 @@ public class PASSERBY_DB_DUPLICATE_REMOVE_CONFIG_INFO extends SdkStructure {
   /** 路人库去重策略类型,对应枚举{@link EM_PASSERBY_DB_DUPLICATE_REMOVE_TYPE} */
     public int              emDuplicateRemoveType;
   /** 时间段间隔(emDuplicateRemoveType 为 EM_DUPLICATE_REMOVE_TYPE_TIME_SLOT有效) */
-    public NetSDKLib.NET_TSECT[] stuTimeSection = (NetSDKLib.NET_TSECT[]) new NetSDKLib.NET_TSECT().toArray(8 * 6);
+    public NET_TSECT[] stuTimeSection = (NET_TSECT[]) new NET_TSECT().toArray(8 * 6);
   /** 时间间隔，单位分钟（emDuplicateRemoveType 为 EM_DUPLICATE_REMOVE_TYPE_TIME有效） */
     public int              dwInterval;
   /** 字节保留 */

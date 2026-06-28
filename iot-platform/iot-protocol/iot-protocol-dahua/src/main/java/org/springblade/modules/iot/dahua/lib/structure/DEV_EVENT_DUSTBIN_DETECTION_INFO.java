@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 /**
  * 事件类型 EVENT_IVS_DUSTBIN_DETECTION (垃圾桶检测事件)对应的数据块描述信息
@@ -44,9 +44,9 @@ public class DEV_EVENT_DUSTBIN_DETECTION_INFO extends SdkStructure
     */
     public double           dbPTS;
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 事件ID
     */
@@ -56,13 +56,13 @@ public class DEV_EVENT_DUSTBIN_DETECTION_INFO extends SdkStructure
     */
     public int              nObjectNum;
     /**
-     * 表示检测到的物体信息,参见结构体定义 {@link NetSDKLib.NET_MSG_OBJECT_EX2}
+     * 表示检测到的物体信息,参见结构体定义 {@link NET_MSG_OBJECT_EX2}
     */
-    public NetSDKLib.NET_MSG_OBJECT_EX2[] stuObjects = new NetSDKLib.NET_MSG_OBJECT_EX2[64];
+    public NET_MSG_OBJECT_EX2[] stuObjects = new NET_MSG_OBJECT_EX2[64];
     /**
-     * 检测区,参见结构体定义 {@link NetSDKLib.NET_POINT}
+     * 检测区,参见结构体定义 {@link NET_POINT}
     */
-    public NetSDKLib.NET_POINT[] stuDetectRegion = new NetSDKLib.NET_POINT[20];
+    public NET_POINT[] stuDetectRegion = new NET_POINT[20];
     /**
      * 检测区个数
     */
@@ -94,14 +94,14 @@ public class DEV_EVENT_DUSTBIN_DETECTION_INFO extends SdkStructure
     /**
      * 预留字节
     */
-    public byte[]           szReserved = new byte[1024-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           szReserved = new byte[1024-NetSDKConstants.POINTERSIZE];
 
     public DEV_EVENT_DUSTBIN_DETECTION_INFO() {
         for(int i = 0; i < stuObjects.length; i++){
-            stuObjects[i] = new NetSDKLib.NET_MSG_OBJECT_EX2();
+            stuObjects[i] = new NET_MSG_OBJECT_EX2();
         }
         for(int i = 0; i < stuDetectRegion.length; i++){
-            stuDetectRegion[i] = new NetSDKLib.NET_POINT();
+            stuDetectRegion[i] = new NET_POINT();
         }
     }
 }

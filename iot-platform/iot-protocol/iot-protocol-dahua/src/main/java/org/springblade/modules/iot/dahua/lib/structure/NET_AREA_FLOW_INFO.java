@@ -19,9 +19,9 @@ public class NET_AREA_FLOW_INFO extends SdkStructure
     */
     public byte[]           szReserved1 = new byte[4];
     /**
-     * 对应的UTC时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 对应的UTC时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 保留字节
     */

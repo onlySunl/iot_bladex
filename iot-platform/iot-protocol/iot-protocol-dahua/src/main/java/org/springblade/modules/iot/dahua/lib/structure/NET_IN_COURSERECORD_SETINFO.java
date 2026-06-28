@@ -3,7 +3,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.MAX_COURSE_LOGIC_CHANNEL;
+import static org.springblade.modules.iot.dahua.lib.MAX_COURSE_LOGIC_CHANNEL;
 
 /**
  * 设置指定教室的录像信息入参  {@link NetSDKLib#CLIENT_OperateCourseRecordManager}

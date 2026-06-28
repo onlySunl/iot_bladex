@@ -21,7 +21,7 @@ public class DH_IN_SPLIT_SET_RECT extends SdkStructure {
 	/**
 	 * 窗口位置, 0~8191
 	 */
-    public NetSDKLib.DH_RECT stuRect = new NetSDKLib.DH_RECT();
+    public DH_RECT stuRect = new DH_RECT();
 	/**
 	 * 坐标是否满足直通条件, 直通是指拼接屏方式下,此窗口区域正好为物理屏区域
 	 */

@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /**
@@ -41,7 +41,7 @@ public class DEV_EVENT_TRAFFIC_VEHICLE_IN_EMERGENCY_LANE_INFO extends SdkStructu
     /**
      * 检测到的物体
      */
-    public NetSDKLib.DH_MSG_OBJECT stuObject = new NetSDKLib.DH_MSG_OBJECT();
+    public DH_MSG_OBJECT stuObject = new DH_MSG_OBJECT();
     /**
      * 字节对齐
      */
@@ -49,7 +49,7 @@ public class DEV_EVENT_TRAFFIC_VEHICLE_IN_EMERGENCY_LANE_INFO extends SdkStructu
     /**
      * 车身信息
      */
-    public NetSDKLib.DH_MSG_OBJECT stuVehicle = new NetSDKLib.DH_MSG_OBJECT();
+    public DH_MSG_OBJECT stuVehicle = new DH_MSG_OBJECT();
     /**
      * 交通车辆信息
      */
@@ -61,7 +61,7 @@ public class DEV_EVENT_TRAFFIC_VEHICLE_IN_EMERGENCY_LANE_INFO extends SdkStructu
     /**
      * 非机动车对象
      */
-    public NetSDKLib.VA_OBJECT_NONMOTOR stuNonMotor = new NetSDKLib.VA_OBJECT_NONMOTOR();
+    public VA_OBJECT_NONMOTOR stuNonMotor = new VA_OBJECT_NONMOTOR();
     /**
      * 表示抓拍序号,如3,2,1,1表示抓拍结束,0表示异常结束
      */
@@ -69,11 +69,11 @@ public class DEV_EVENT_TRAFFIC_VEHICLE_IN_EMERGENCY_LANE_INFO extends SdkStructu
     /**
      * 事件对应文件信息
      */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo = new NetSDKLib.NET_EVENT_FILE_INFO();
+    public NET_EVENT_FILE_INFO stuFileInfo = new NET_EVENT_FILE_INFO();
     /**
      * 公共信息
      */
-    public NetSDKLib.EVENT_COMM_INFO stuCommInfo = new NetSDKLib.EVENT_COMM_INFO();
+    public EVENT_COMM_INFO stuCommInfo = new EVENT_COMM_INFO();
     /**
      * 图片信息数组,参见结构体定义 {@link NET_IMAGE_INFO_EX3}
     */
@@ -83,13 +83,13 @@ public class DEV_EVENT_TRAFFIC_VEHICLE_IN_EMERGENCY_LANE_INFO extends SdkStructu
     */
     public int              nImageInfoNum;
     /**
-     * 全景图,参见结构体定义 {@link NetSDKLib.SCENE_IMAGE_INFO_EX}
+     * 全景图,参见结构体定义 {@link SCENE_IMAGE_INFO_EX}
     */
     public Pointer          pstuSceneImage;
     /**
      * 预留字段
      */
-    public byte[]           byReserved = new byte[1020-2*NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           byReserved = new byte[1020-2*NetSDKConstants.POINTERSIZE];
 
     public DEV_EVENT_TRAFFIC_VEHICLE_IN_EMERGENCY_LANE_INFO() {
     }

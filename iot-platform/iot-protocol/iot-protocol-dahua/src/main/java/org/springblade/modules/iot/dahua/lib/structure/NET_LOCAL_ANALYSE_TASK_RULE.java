@@ -7,7 +7,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 public class NET_LOCAL_ANALYSE_TASK_RULE extends SdkStructure
 {
     /**
-     * 分析大类类型,参见枚举定义 {@link NetSDKLib.EM_SCENE_CLASS_TYPE}
+     * 分析大类类型,参见枚举定义 {@link EM_SCENE_CLASS_TYPE}
     */
     public int              emClassType;
     /**
@@ -19,7 +19,7 @@ public class NET_LOCAL_ANALYSE_TASK_RULE extends SdkStructure
     */
     public int              nObjectTypesCount;
     /**
-     * 检测的物体类型列表,参见枚举定义 {@link NetSDKLib.EM_ANALYSE_OBJECT_TYPE}
+     * 检测的物体类型列表,参见枚举定义 {@link EM_ANALYSE_OBJECT_TYPE}
     */
     public int[]            emObjectTypes = new int[16];
     /**

@@ -9,7 +9,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  * @author ： 260611
  * @since ： Created in 2021/10/19 20:21
  */
-public class EM_STANDARD_VEHICLE_TYPE extends NetSDKLib.SdkStructure {
+public class EM_STANDARD_VEHICLE_TYPE extends SdkStructure {
     /**
      *  未知
      */

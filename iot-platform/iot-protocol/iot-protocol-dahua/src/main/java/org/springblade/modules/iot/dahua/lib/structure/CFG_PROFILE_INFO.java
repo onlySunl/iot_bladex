@@ -24,7 +24,7 @@ public class CFG_PROFILE_INFO extends SdkStructure {
 	/**
 	 * 串口地址
 	 */
-    public NetSDKLib.CFG_COMMADDR_INFO stuCommAddr = new NetSDKLib.CFG_COMMADDR_INFO();
+    public CFG_COMMADDR_INFO stuCommAddr = new CFG_COMMADDR_INFO();
 
 	public CFG_PROFILE_INFO() {
 	}

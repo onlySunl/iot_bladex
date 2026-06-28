@@ -13,9 +13,9 @@ public class NET_IN_ATTACH_DBGINFO extends SdkStructure
     */
     public int              emLevel;
     /**
-     * 回调,参见回调函数定义 {@link NetSDKLib.fDebugInfoCallBack}
+     * 回调,参见回调函数定义 {@link FDebugInfoCallBack}
     */
-    public NetSDKLib.fDebugInfoCallBack pCallBack;
+    public FDebugInfoCallBack pCallBack;
     /**
      * 用户数据
     */

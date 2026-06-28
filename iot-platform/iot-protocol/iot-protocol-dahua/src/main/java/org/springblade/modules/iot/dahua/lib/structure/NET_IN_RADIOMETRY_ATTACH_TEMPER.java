@@ -16,9 +16,9 @@ public class NET_IN_RADIOMETRY_ATTACH_TEMPER extends SdkStructure
     */
     public int              nChannel;
     /**
-     * 状态回调函数指针,参见回调函数定义 {@link NetSDKLib.fRadiometryAttachTemperCB}
+     * 状态回调函数指针,参见回调函数定义 {@link FRadiometryAttachTemperCB}
     */
-    public NetSDKLib.fRadiometryAttachTemperCB cbNotify;
+    public FRadiometryAttachTemperCB cbNotify;
     /**
      * 用户数据
     */

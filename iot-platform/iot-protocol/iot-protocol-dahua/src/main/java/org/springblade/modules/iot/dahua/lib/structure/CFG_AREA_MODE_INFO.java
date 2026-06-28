@@ -24,7 +24,7 @@ public class CFG_AREA_MODE_INFO extends SdkStructure {
 	/**
 	 * 区域坐标
 	 */
-    public NetSDKLib.CFG_POLYGON[] stuArea = new NetSDKLib.CFG_POLYGON[20];
+    public CFG_POLYGON[] stuArea = new CFG_POLYGON[20];
 	/**
 	 * 车位类型: 0:未知, 1:小车车位, 2:大车车位, 3:危化品车位, 4:货车车位, 5:小客车车位, 6:大客车车位
 	 */
@@ -36,7 +36,7 @@ public class CFG_AREA_MODE_INFO extends SdkStructure {
 
 	public CFG_AREA_MODE_INFO() {
 		for (int i = 0; i < stuArea.length; i++) {
-			stuArea[i] = new NetSDKLib.CFG_POLYGON();
+			stuArea[i] = new CFG_POLYGON();
 		}
 	}
 }

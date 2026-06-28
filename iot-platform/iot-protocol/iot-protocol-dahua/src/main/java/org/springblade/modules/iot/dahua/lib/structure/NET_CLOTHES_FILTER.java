@@ -7,7 +7,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 public class NET_CLOTHES_FILTER extends SdkStructure
 {
     /**
-     * 衣服颜色,参见枚举定义 {@link NetSDKLib.EM_CLOTHES_COLOR}
+     * 衣服颜色,参见枚举定义 {@link EM_CLOTHES_COLOR}
     */
     public int[]            emColors = new int[16];
     /**
@@ -15,7 +15,7 @@ public class NET_CLOTHES_FILTER extends SdkStructure
     */
     public int              nColorsCount;
     /**
-     * 衣服状态,参见枚举定义 {@link NetSDKLib.EM_WORKCLOTHES_STATE}
+     * 衣服状态,参见枚举定义 {@link EM_WORKCLOTHES_STATE}
     */
     public int[]            emStates = new int[8];
     /**

@@ -9,7 +9,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  * @author ： 260611
  * @since ： Created in 2021/10/19 20:21
  */
-public class EM_CARD_PROVINCE extends NetSDKLib.SdkStructure {
+public class EM_CARD_PROVINCE extends SdkStructure {
     /**
      *  解析出错，未知省份
      */

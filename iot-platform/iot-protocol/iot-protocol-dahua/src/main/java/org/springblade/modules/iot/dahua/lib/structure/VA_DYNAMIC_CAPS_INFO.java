@@ -10,7 +10,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  */
 public class VA_DYNAMIC_CAPS_INFO extends SdkStructure {
 	/**
-	 * 支持的场景类型,参考{ @link NetSDKLib.EM_SCENE_TYPE}
+	 * 支持的场景类型,参考{ @link EM_SCENE_TYPE}
 	 */
     public int[]            emSceneType = new int[32];
 	/**

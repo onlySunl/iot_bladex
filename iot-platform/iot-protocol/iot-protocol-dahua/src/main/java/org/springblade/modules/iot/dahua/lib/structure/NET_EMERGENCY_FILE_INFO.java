@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 /**
  * 文件信息
@@ -32,25 +32,25 @@ public class NET_EMERGENCY_FILE_INFO extends SdkStructure
     */
     public byte[]           szFilePath = new byte[260];
     /**
-     * 文件开始时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 文件开始时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stStartTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stStartTime = new NET_TIME();
     /**
-     * 文件结束时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 文件结束时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stEndTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stEndTime = new NET_TIME();
     /**
      * 文件长度
     */
     public int              nLength;
     /**
-     * UTC开始时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * UTC开始时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuStartTimeRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuStartTimeRealUTC = new NET_TIME();
     /**
-     * UTC结束时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * UTC结束时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuEndTimeRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuEndTimeRealUTC = new NET_TIME();
     /**
      * 录像标志数组,参见枚举定义 {@link org.springblade.modules.iot.dahua.lib.enumeration.EM_MOBILE_ENFORCE_FLAGS}
     */
@@ -66,7 +66,7 @@ public class NET_EMERGENCY_FILE_INFO extends SdkStructure
     /**
      * 保留字节
     */
-    public byte[]           byReserved = new byte[128-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           byReserved = new byte[128-NetSDKConstants.POINTERSIZE];
 
     public NET_EMERGENCY_FILE_INFO() {
     }

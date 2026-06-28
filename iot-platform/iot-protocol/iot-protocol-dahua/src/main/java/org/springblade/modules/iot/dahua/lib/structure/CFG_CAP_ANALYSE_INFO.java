@@ -16,7 +16,7 @@ public class CFG_CAP_ANALYSE_INFO extends SdkStructure {
 	/**
 	 * 支持的场景列表
 	 */
-    public MaxNameByteArrInfo[] szSceneName = (MaxNameByteArrInfo[])new MaxNameByteArrInfo().toArray(NetSDKLib.MAX_SCENE_LIST_SIZE);
+    public MaxNameByteArrInfo[] szSceneName = (MaxNameByteArrInfo[])new MaxNameByteArrInfo().toArray(MAX_SCENE_LIST_SIZE);
 	/**
 	 * 每通道支持最大分析模块数
 	 */
@@ -28,7 +28,7 @@ public class CFG_CAP_ANALYSE_INFO extends SdkStructure {
 	/**
 	 * 支持的检测物体类型列表
 	 */
-    public MaxNameByteArrInfo[] szObjectTypeName = (MaxNameByteArrInfo[])new MaxNameByteArrInfo().toArray(NetSDKLib.MAX_OBJECT_LIST_SIZE);
+    public MaxNameByteArrInfo[] szObjectTypeName = (MaxNameByteArrInfo[])new MaxNameByteArrInfo().toArray(MAX_OBJECT_LIST_SIZE);
 	/**
 	 * 每通道支持最大规则条数
 	 */
@@ -40,7 +40,7 @@ public class CFG_CAP_ANALYSE_INFO extends SdkStructure {
 	/**
 	 * 支持的事件类型规则列表，事件类型，详见dhnetsdk.h中"智能分析事件类型"
 	 */
-    public int[]            dwRulesType = new int[NetSDKLib.MAX_RULE_LIST_SIZE];
+    public int[]            dwRulesType = new int[MAX_RULE_LIST_SIZE];
 	/**
 	 * 支持的最大标尺个数
 	 */
@@ -92,7 +92,7 @@ public class CFG_CAP_ANALYSE_INFO extends SdkStructure {
 	/**
 	 * 支持的特殊检测区属性
 	 */
-    public int[]            nSupportedSpecialDetectPropertys = new int[NetSDKLib.EM_SEPCIALREGION_PROPERTY_TYPE.EM_SEPCIALREGION_PROPERTY_TYPE_NUM];
+    public int[]            nSupportedSpecialDetectPropertys = new int[EM_SEPCIALREGION_PROPERTY_TYPE.EM_SEPCIALREGION_PROPERTY_TYPE_NUM];
 	/**
 	 * 支持的视频通道类型选择   第0位为1表示支持数字类型,第1位为1表示支持模拟类型,第2为1表示支持混合(数字和模拟)
 	 */
@@ -112,7 +112,7 @@ public class CFG_CAP_ANALYSE_INFO extends SdkStructure {
 	/**
 	 * 支持的场景组合项列表
 	 */
-    public CFG_SUPPORTED_COMP[] stuSupportedComp = (CFG_SUPPORTED_COMP[])new CFG_SUPPORTED_COMP().toArray(NetSDKLib.MAX_SUPPORTED_COMP_SIZE);
+    public CFG_SUPPORTED_COMP[] stuSupportedComp = (CFG_SUPPORTED_COMP[])new CFG_SUPPORTED_COMP().toArray(MAX_SUPPORTED_COMP_SIZE);
 	/**
 	 * 0 Module/Rule配置均要设置(默认，智能服务器), 1 仅Rule配置要设置(IPC/xVR)
 	 */
@@ -128,7 +128,7 @@ public class CFG_CAP_ANALYSE_INFO extends SdkStructure {
 	/**
 	 * 实际返回客流量统计场景PD个数
 	 */
-    public CFG_NUMBERSTAT_MULT_INFO[] stuNumberStatMult = (CFG_NUMBERSTAT_MULT_INFO[])new CFG_NUMBERSTAT_MULT_INFO().toArray(NetSDKLib.MAX_NUMBER_STAT_MAULT_NUM);
+    public CFG_NUMBERSTAT_MULT_INFO[] stuNumberStatMult = (CFG_NUMBERSTAT_MULT_INFO[])new CFG_NUMBERSTAT_MULT_INFO().toArray(MAX_NUMBER_STAT_MAULT_NUM);
 	/**
 	 * 全能力集，表示视频通道能力 full可以认为是不变的
 	 */

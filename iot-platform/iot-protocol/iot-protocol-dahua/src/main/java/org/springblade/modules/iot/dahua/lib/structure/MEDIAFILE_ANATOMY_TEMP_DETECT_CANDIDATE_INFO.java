@@ -15,7 +15,7 @@ public class MEDIAFILE_ANATOMY_TEMP_DETECT_CANDIDATE_INFO extends SdkStructure {
     /**
      *  人信息 
      */
-    public NetSDKLib.FACERECOGNITION_PERSON_INFOEX stuPersonInfo;
+    public FACERECOGNITION_PERSON_INFOEX stuPersonInfo;
     /**
      *  预留字段
      */

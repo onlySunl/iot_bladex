@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 /**
  * 事件类型 EVENT_IVS_MULTI_MAN_NUM_DETECTION (讯问会见室人数报警事件)对应的数据块描述信息
@@ -32,17 +32,17 @@ public class NET_DEV_EVENT_MULTI_MAN_NUM_DETECTION_INFO extends SdkStructure
     */
     public double           dbPTS;
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 实际有效目标检测信息个数
     */
     public int              nObjectsRealNum;
     /**
-     * 检测目标的物体信息,参见结构体定义 {@link NetSDKLib.NET_MSG_OBJECT}
+     * 检测目标的物体信息,参见结构体定义 {@link NET_MSG_OBJECT}
     */
-    public NetSDKLib.NET_MSG_OBJECT[] stuObjects = new NetSDKLib.NET_MSG_OBJECT[128];
+    public NET_MSG_OBJECT[] stuObjects = new NET_MSG_OBJECT[128];
     /**
      * 检测区域信息,参见结构体定义 {@link NET_DETECT_REGION_INFO_EX}
     */
@@ -54,11 +54,11 @@ public class NET_DEV_EVENT_MULTI_MAN_NUM_DETECTION_INFO extends SdkStructure
     /**
      * 预留字节
     */
-    public byte[]           szReserved = new byte[1020-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           szReserved = new byte[1020-NetSDKConstants.POINTERSIZE];
 
     public NET_DEV_EVENT_MULTI_MAN_NUM_DETECTION_INFO() {
         for(int i = 0; i < stuObjects.length; i++){
-            stuObjects[i] = new NetSDKLib.NET_MSG_OBJECT();
+            stuObjects[i] = new NET_MSG_OBJECT();
         }
     }
 }

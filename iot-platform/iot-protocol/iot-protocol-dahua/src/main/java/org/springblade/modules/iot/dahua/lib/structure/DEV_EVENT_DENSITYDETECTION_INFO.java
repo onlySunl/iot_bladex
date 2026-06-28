@@ -1,11 +1,11 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.DH_MSG_OBJECT;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.DH_POINT;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.EVENT_INTELLI_COMM_INFO;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_EVENT_FILE_INFO;
+
+
+import org.springblade.modules.iot.dahua.lib.DH_MSG_OBJECT;
+import org.springblade.modules.iot.dahua.lib.DH_POINT;
+import org.springblade.modules.iot.dahua.lib.EVENT_INTELLI_COMM_INFO;
+import org.springblade.modules.iot.dahua.lib.NET_EVENT_FILE_INFO;
 import com.sun.jna.Pointer;
 
 /**
@@ -61,6 +61,6 @@ public class DEV_EVENT_DENSITYDETECTION_INFO extends SdkStructure {
   /**图片信息个数 */
     public int              nImageInfoNum;
   /** 保留字节,留待扩展. */
-    public byte[]           bReserved = new byte[608-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           bReserved = new byte[608-NetSDKConstants.POINTERSIZE];
 }
 

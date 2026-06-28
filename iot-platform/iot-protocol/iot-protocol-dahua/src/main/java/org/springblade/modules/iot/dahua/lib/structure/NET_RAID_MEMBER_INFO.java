@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 public class NET_RAID_MEMBER_INFO extends SdkStructure {
     public int              dwSize;

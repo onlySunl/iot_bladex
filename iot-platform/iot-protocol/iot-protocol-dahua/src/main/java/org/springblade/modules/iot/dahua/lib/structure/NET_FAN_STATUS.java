@@ -3,7 +3,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_MAX_FAN_NUM;
+import static org.springblade.modules.iot.dahua.lib.NET_MAX_FAN_NUM;
 
 /**
  * className：NET_FAN_STATUS

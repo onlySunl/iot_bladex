@@ -11,7 +11,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  */
 public class NET_CUSTOM_PROJECTS_INFO extends SdkStructure {
   /** GPS位置信息 */
-    public NetSDKLib.NET_GPS_INFO stuGPSInfo;
+    public NET_GPS_INFO stuGPSInfo;
   /** 人脸比对事件触发对应球机信息 */
     public NET_FACECOMPARISON_PTZ_INFO stuFaceComparisonPTZInfo;
   /** 人脸比对时车牌信息 */

@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.dahua.lib.structure.customize;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import org.springblade.modules.iot.dahua.lib.Utils;
 import org.springblade.modules.iot.dahua.lib.structure.NET_TIME;
 

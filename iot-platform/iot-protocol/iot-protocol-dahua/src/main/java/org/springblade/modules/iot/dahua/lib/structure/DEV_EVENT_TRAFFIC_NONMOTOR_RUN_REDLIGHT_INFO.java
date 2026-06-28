@@ -44,19 +44,19 @@ public class DEV_EVENT_TRAFFIC_NONMOTOR_RUN_REDLIGHT_INFO extends SdkStructure {
     /**
      *  非机动车
      */
-    public NetSDKLib.VA_OBJECT_NONMOTOR stuNonMotor;
+    public VA_OBJECT_NONMOTOR stuNonMotor;
     /**
      *  公共信息
      */
-    public NetSDKLib.EVENT_COMM_INFO stCommInfo;
+    public EVENT_COMM_INFO stCommInfo;
     /**
      *  事件对应文件信息
      */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo;
+    public NET_EVENT_FILE_INFO stuFileInfo;
     /**
      *  对应图片的分辨率
      */
-    public NetSDKLib.NET_RESOLUTION_INFO stuResolution;
+    public NET_RESOLUTION_INFO stuResolution;
     /**
      *  预留字段 
      */

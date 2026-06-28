@@ -13,8 +13,8 @@ import java.util.Arrays;
  * @version 1.0
  * @description 广告禁用时段配置
  * 对应的枚举值{@link NET_EM_CFG_OPERATE_TYPE#NET_EM_CFG_FORBIDDEN_ADVERT_PLAY}
- * * 调用的接口 {@link NetSDKLib#CLIENT_GetConfig(NetSDKLib.LLong, int, int, Pointer, int, int, Pointer)}和
- * * {@link NetSDKLib#CLIENT_SetConfig(NetSDKLib.LLong, int, int, Pointer, int, int, IntByReference, Pointer)}
+ * * 调用的接口 {@link NetSDKLib#CLIENT_GetConfig(LLong, int, int, Pointer, int, int, Pointer)}和
+ * * {@link NetSDKLib#CLIENT_SetConfig(LLong, int, int, Pointer, int, int, IntByReference, Pointer)}
  * @date 2020/9/10
  */
 public class NET_CFG_FORBIDDEN_ADVERT_PLAY extends SdkStructure {

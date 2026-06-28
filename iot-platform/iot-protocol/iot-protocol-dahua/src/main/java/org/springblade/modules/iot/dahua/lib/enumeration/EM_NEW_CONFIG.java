@@ -7,99 +7,99 @@ import com.sun.jna.ptr.IntByReference;
 /**
  * @author 47081
  * @version 1.0
- * @description 配置命令 对应接口{@link NetSDKLib#CLIENT_GetNewDevConfig(NetSDKLib.LLong, String, int,
- *     byte[], int, IntByReference, int)} {@link NetSDKLib#CLIENT_SetNewDevConfig(NetSDKLib.LLong,
+ * @description 配置命令 对应接口{@link NetSDKLib#CLIENT_GetNewDevConfig(LLong, String, int,
+ *     byte[], int, IntByReference, int)} {@link NetSDKLib#CLIENT_SetNewDevConfig(LLong,
  *     String, int, byte[], int, IntByReference, IntByReference, int)}
  * @date 2020/11/9
  */
 public enum EM_NEW_CONFIG {
   /** 动态检测报警配置(对应 {@link CFG_MOTION_INFO}) */
     CFG_CMD_MOTIONDETECT("MotionDetect"),
-  /** 视频编码物件配置(对应 {@link NetSDKLib.NET_CFG_VideoWidget} ) */
+  /** 视频编码物件配置(对应 {@link NET_CFG_VideoWidget} ) */
     CFG_CMD_VIDEOWIDGET("VideoWidget"),
-  /** 视频分析全局配置(对应{@link NetSDKLib.CFG_ANALYSEGLOBAL_INFO}) */
+  /** 视频分析全局配置(对应{@link CFG_ANALYSEGLOBAL_INFO}) */
     CFG_CMD_ANALYSEGLOBAL("VideoAnalyseGlobal"),
-  /** 物体的检测模块配置(对应 {@link NetSDKLib.CFG_ANALYSEMODULES_INFO}) */
+  /** 物体的检测模块配置(对应 {@link CFG_ANALYSEMODULES_INFO}) */
     CFG_CMD_ANALYSEMODULE("VideoAnalyseModule"),
-  /** 视频分析规则配置(对应 {@link NetSDKLib.CFG_ANALYSERULES_INFO}) */
+  /** 视频分析规则配置(对应 {@link CFG_ANALYSERULES_INFO}) */
     CFG_CMD_ANALYSERULE("VideoAnalyseRule"),
-  /** 视频输入前端选项(对应{@link NetSDKLib.CFG_VIDEO_IN_OPTIONS}) */
+  /** 视频输入前端选项(对应{@link CFG_VIDEO_IN_OPTIONS}) */
     CFG_CMD_VIDEOINOPTIONS("VideoInOptions"),
-  /** 雨刷模式相关配置(对应{@link NetSDKLib.CFG_RAINBRUSHMODE_INFO}数组) */
+  /** 雨刷模式相关配置(对应{@link CFG_RAINBRUSHMODE_INFO}数组) */
     CFG_CMD_RAINBRUSHMODE("RainBrushMode"),
-  /** 雨刷配置(对应{@link NetSDKLib.CFG_RAINBRUSH_INFO}) */
+  /** 雨刷配置(对应{@link CFG_RAINBRUSH_INFO}) */
     CFG_CMD_RAINBRUSH("RainBrush"),
-  /** 图像通道属性配置(对应{@link NetSDKLib.CFG_ENCODE_INFO}) */
+  /** 图像通道属性配置(对应{@link CFG_ENCODE_INFO}) */
     CFG_CMD_ENCODE("Encode"),
-  /** 云台通道变倍配置(对应{@link NetSDKLib.CFG_VIDEO_IN_ZOOM}) */
+  /** 云台通道变倍配置(对应{@link CFG_VIDEO_IN_ZOOM}) */
     CFG_CMD_VIDEO_IN_ZOOM("VideoInZoom"),
-  /** 远程设备信息(对应 {@link NetSDKLib.AV_CFG_RemoteDevice} 数组), 通道无关) */
+  /** 远程设备信息(对应 {@link AV_CFG_RemoteDevice} 数组), 通道无关) */
     CFG_CMD_REMOTEDEVICE("RemoteDevice"),
-  /** 视频分析资源配置(对应 {@link NetSDKLib.CFG_ANALYSESOURCE_INFO}) */
+  /** 视频分析资源配置(对应 {@link CFG_ANALYSESOURCE_INFO}) */
     CFG_CMD_ANALYSESOURCE("VideoAnalyseSource"),
-  /** 智能交通全局配置({@link NetSDKLib.CFG_TRAFFICGLOBAL_INFO}) */
+  /** 智能交通全局配置({@link CFG_TRAFFICGLOBAL_INFO}) */
     CFG_CMD_TRAFFICGLOBAL("TrafficGlobal"),
-  /** 录像模式(对应 {@link NetSDKLib.AV_CFG_RecordMode} ) */
+  /** 录像模式(对应 {@link AV_CFG_RecordMode} ) */
     CFG_CMD_RECORDMODE("RecordMode"),
-  /** 警灯配置(对应 {@link NetSDKLib.CFG_ALARMLAMP_INFO}) */
+  /** 警灯配置(对应 {@link CFG_ALARMLAMP_INFO}) */
     CFG_CMD_ALARMLAMP("AlarmLamp"),
-  /** 报警输出通道配置(对应 {@link NetSDKLib.CFG_ALARMOUT_INFO} ) */
+  /** 报警输出通道配置(对应 {@link CFG_ALARMOUT_INFO} ) */
     CFG_CMD_ALARMOUT("AlarmOut"),
-  /** 智能交通抓拍(对应 {@link NetSDKLib.CFG_TRAFFICSNAPSHOT_INFO} ) */
+  /** 智能交通抓拍(对应 {@link CFG_TRAFFICSNAPSHOT_INFO} ) */
     CFG_CMD_INTELLECTIVETRAFFIC("TrafficSnapshot"),
-  /** 智能交通抓拍( {@link NetSDKLib.CFG_TRAFFICSNAPSHOT_NEW_INFO} ) */
+  /** 智能交通抓拍( {@link CFG_TRAFFICSNAPSHOT_NEW_INFO} ) */
     CFG_CMD_TRAFFICSNAPSHOT_MULTI("TrafficSnapshotNew"),
-  /** 时间同步服务器(对应 {@link NetSDKLib.CFG_NTP_INFO} ) */
+  /** 时间同步服务器(对应 {@link CFG_NTP_INFO} ) */
     CFG_CMD_NTP("NTP"),
   /** 外部输入报警配置(对应 CFG_ALARMIN_INFO) */
     CFG_CMD_ALARMINPUT("Alarm"),
-  /** 网络协议配置(对应 {@link NetSDKLib.CFG_DVRIP_INFO}) */
+  /** 网络协议配置(对应 {@link CFG_DVRIP_INFO}) */
     CFG_CMD_DVRIP("DVRIP"),
-  /** 网络配置(对应 {@link NetSDKLib.CFG_NETWORK_INFO}) */
+  /** 网络配置(对应 {@link CFG_NETWORK_INFO}) */
     CFG_CMD_NETWORK("Network"),
-  /** 电视墙配置(对应 {@link NetSDKLib.AV_CFG_MonitorWall} 数组), 通道无关) */
+  /** 电视墙配置(对应 {@link AV_CFG_MonitorWall} 数组), 通道无关) */
     CFG_CMD_MONITORWALL("MonitorWall"),
-  /** RTMP配置(对应 {@link NetSDKLib.CFG_RTMP_INFO}) */
+  /** RTMP配置(对应 {@link CFG_RTMP_INFO}) */
     CFG_CMD_RTMP("RTMP"),
-  /** 门禁事件配置(对应 {@link NetSDKLib.CFG_ACCESS_EVENT_INFO} 数组) */
+  /** 门禁事件配置(对应 {@link CFG_ACCESS_EVENT_INFO} 数组) */
     CFG_CMD_ACCESS_EVENT("AccessControl"),
-  /** 门禁刷卡时间段(对应 {@link NetSDKLib.CFG_ACCESS_TIMESCHEDULE_INFO}) */
+  /** 门禁刷卡时间段(对应 {@link CFG_ACCESS_TIMESCHEDULE_INFO}) */
     CFG_CMD_ACCESSTIMESCHEDULE("AccessTimeSchedule"),
-  /** 普通配置 (对应 {@link NetSDKLib.CFG_DEV_DISPOSITION_INFO}) */
+  /** 普通配置 (对应 {@link CFG_DEV_DISPOSITION_INFO}) */
     CFG_CMD_DEV_GENERRAL("General"),
-  /** 视频诊断参数表({@link NetSDKLib.CFG_VIDEODIAGNOSIS_PROFILE}) */
+  /** 视频诊断参数表({@link CFG_VIDEODIAGNOSIS_PROFILE}) */
     CFG_CMD_VIDEODIAGNOSIS_PROFILE("VideoDiagnosisProfile"),
-  /** 视频诊断任务表({@link NetSDKLib.CFG_VIDEODIAGNOSIS_TASK}) */
+  /** 视频诊断任务表({@link CFG_VIDEODIAGNOSIS_TASK}) */
     CFG_CMD_VIDEODIAGNOSIS_TASK("VideoDiagnosisTask"),
-  /** 视频诊断任务表({@link NetSDKLib.CFG_VIDEODIAGNOSIS_TASK}) */
+  /** 视频诊断任务表({@link CFG_VIDEODIAGNOSIS_TASK}) */
     CFG_CMD_VIDEODIAGNOSIS_TASK_ONE("VideoDiagnosisTask.x"),
-  /** 视频诊断计划表({@link NetSDKLib.CFG_VIDEODIAGNOSIS_PROJECT}) */
+  /** 视频诊断计划表({@link CFG_VIDEODIAGNOSIS_PROJECT}) */
     CFG_CMD_VIDEODIAGNOSIS_PROJECT("VideoDiagnosisProject"),
-  /** 热成像摄像头属性配置({@link NetSDKLib.CFG_THERMOGRAPHY_INFO}) */
+  /** 热成像摄像头属性配置({@link CFG_THERMOGRAPHY_INFO}) */
     CFG_CMD_THERMO_GRAPHY("ThermographyOptions"),
-  /** 热成像测温规则配置(对应 {@link NetSDKLib.CFG_RADIOMETRY_RULE_INFO}) */
+  /** 热成像测温规则配置(对应 {@link CFG_RADIOMETRY_RULE_INFO}) */
     CFG_CMD_THERMOMETRY_RULE("ThermometryRule"),
-  /** 温度统计配置({@link NetSDKLib.CFG_TEMP_STATISTICS_INFO}) */
+  /** 温度统计配置({@link CFG_TEMP_STATISTICS_INFO}) */
     CFG_CMD_TEMP_STATISTICS("TemperatureStatistics"),
-  /** 热成像测温全局配置({@link NetSDKLib.CFG_THERMOMETRY_INFO}) */
+  /** 热成像测温全局配置({@link CFG_THERMOMETRY_INFO}) */
     CFG_CMD_THERMOMETRY("HeatImagingThermometry"),
-  /** 通道录像组状态(对应 {@link NetSDKLib.CFG_DEVRECORDGROUP_INFO}) */
+  /** 通道录像组状态(对应 {@link CFG_DEVRECORDGROUP_INFO}) */
     CFG_CMD_DEVRECORDGROUP("DevRecordGroup"),
-  /** 存储组信息(对应 {@link NetSDKLib.AV_CFG_StorageGroup}数组), 通道无关) */
+  /** 存储组信息(对应 {@link AV_CFG_StorageGroup}数组), 通道无关) */
     CFG_CMD_STORAGEGROUP("StorageGroup"),
-  /** 云台巡航路径配置(对应 {@link NetSDKLib.CFG_PTZTOUR_INFO}) */
+  /** 云台巡航路径配置(对应 {@link CFG_PTZTOUR_INFO}) */
     CFG_CMD_PTZTOUR("PtzTour"),
-  /** 云台预置点配置(对应结构 {@link NetSDKLib.PTZ_PRESET_INFO}) */
+  /** 云台预置点配置(对应结构 {@link PTZ_PRESET_INFO}) */
     CFG_CMD_PTZ_PRESET("PtzPreset"),
-  /** 输入通道配置(对应 {@link NetSDKLib.CFG_VIDEO_IN_INFO}) */
+  /** 输入通道配置(对应 {@link CFG_VIDEO_IN_INFO}) */
     CFG_CMD_VIDEOIN("VideoIn"),
-  /** 通道名称(对应 {@link NetSDKLib.AV_CFG_ChannelName}) */
+  /** 通道名称(对应 {@link AV_CFG_ChannelName}) */
     CFG_CMD_CHANNELTITLE("ChannelTitle"),
-  /** 设备通过Wifi模块扫描周围无线设备配置({@link NetSDKLib.CFG_WIFI_SEARCH_INFO}) */
+  /** 设备通过Wifi模块扫描周围无线设备配置({@link CFG_WIFI_SEARCH_INFO}) */
     CFG_CMD_WIFI_SEARCH("AroudWifiSearch"),
-  /** 定时录像配置(对应 {@link NetSDKLib.CFG_RECORD_INFO}) */
+  /** 定时录像配置(对应 {@link CFG_RECORD_INFO}) */
     CFG_CMD_RECORD("Record"),
-  /** 检测采集设备配置({@link NetSDKLib.CFG_SCADA_DEV_INFO}) */
+  /** 检测采集设备配置({@link CFG_SCADA_DEV_INFO}) */
     CFG_CMD_SCADA_DEV("SCADADev"),
   /** 告警屏蔽规则( CFG_ALARM_SHIELD_RULE_INFO) */
     CFG_CMD_ALARM_SHIELD_RULE("AlarmShieldRule"),
@@ -117,7 +117,7 @@ public enum EM_NEW_CONFIG {
     CFG_CMD_LIGHT("Light"),
   /** 灯光设置(CFG_LIGHTING_INFO) */
     CFG_CMD_LIGHTING("Lighting"),
-  /** 合成通道配置(对应 {@link NetSDKLib.CFG_COMPOSE_CHANNEL}) */
+  /** 合成通道配置(对应 {@link CFG_COMPOSE_CHANNEL}) */
     CFG_CMD_COMPOSE_CHANNEL("ComposeChannel"),
   /** 审讯画中画(对应 CFG_PICINPIC_INFO)改为数组方式，兼容以前单个配置，根据长度区分 */
     CFG_CMD_PICINPIC("PicInPic"),

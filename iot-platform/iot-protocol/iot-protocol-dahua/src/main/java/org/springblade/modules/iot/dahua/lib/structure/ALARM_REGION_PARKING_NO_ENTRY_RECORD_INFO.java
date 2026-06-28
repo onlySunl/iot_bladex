@@ -7,8 +7,8 @@ import com.sun.jna.Pointer;
 
 /**
  * 事件类型 {@link NetSDKLib#NET_ALARM_REGION_PARKING_NO_ENTRY_RECORD}(区间车位停车,检测到车辆驶出区域时没有匹配到入场信息)
- * 调用的接口{@link NetSDKLib#CLIENT_RealLoadPictureEx(NetSDKLib.LLong, int, int, int, Callback, Pointer, Pointer)}
- * 使用的回调{@link NetSDKLib.fAnalyzerDataCallBack}
+ * 调用的接口{@link NetSDKLib#CLIENT_RealLoadPictureEx(LLong, int, int, int, Callback, Pointer, Pointer)}
+ * 使用的回调{@link FAnalyzerDataCallBack}
  *
  * @author ： 47040
  * @since ： Created in 2020/8/19 15:00

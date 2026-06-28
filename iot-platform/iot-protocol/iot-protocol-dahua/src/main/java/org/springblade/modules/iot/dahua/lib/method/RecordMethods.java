@@ -16,7 +16,6 @@ import java.util.List;
  */
 public interface RecordMethods extends NetSDKLib {
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import org.springblade.modules.iot.dahua.lib.structure.*;
 import org.springblade.modules.iot.dahua.lib.enumeration.*;
 import org.springblade.modules.iot.dahua.lib.constant.NetSDKConstants;
