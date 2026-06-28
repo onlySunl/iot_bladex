@@ -142,62 +142,8 @@ public class Utils {
         return checking;
     }
 
-    public static class LLong extends IntegerType {
-        private static final long serialVersionUID = 1L;
-
-        /**
-         * Size of a native long, in bytes.
-         */
-        public static int size;
-
-        static {
-            size = Native.LONG_SIZE;
-            if (Utils.getOsPrefix().toLowerCase().equals("linux-amd64")
-                    || Utils.getOsPrefix().toLowerCase().equals("win32-amd64")
-                    || Utils.getOsPrefix().toLowerCase().equals("mac-64")) {
-                size = 8;
-            } else if (Utils.getOsPrefix().toLowerCase().equals("linux-i386")
-                    || Utils.getOsPrefix().toLowerCase().equals("win32-x86")) {
-                size = 4;
-            }
-        }
-
-        /**
-         * Create a zero-valued LLong.
-         */
-        public LLong() {
-            this(0);
-        }
-
-        /**
-         * Create a LLong with the given value.
-         */
-        public LLong(long value) {
-            super(size, value);
-        }
     }
 
-    public static class SdkStructure extends Structure {
-        @Override
-        protected List<String> getFieldOrder() {
-            List<String> fieldOrderList = new ArrayList<String>();
-            for (Class<?> cls = getClass();
-                 !cls.equals(NetSDKLib.SdkStructure.class);
-                 cls = cls.getSuperclass()) {
-                Field[] fields = cls.getDeclaredFields();
-                int modifiers;
-                for (Field field : fields) {
-                    modifiers = field.getModifiers();
-                    if (Modifier.isStatic(modifiers) || !Modifier.isPublic(modifiers)) {
-                        continue;
-                    }
-                    fieldOrderList.add(field.getName());
-                }
-            }
-            //            System.out.println(fieldOrderList);
-
-            return fieldOrderList;
-        }
     }
 
     // 获取当前时间
