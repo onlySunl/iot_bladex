@@ -6,8 +6,8 @@ import org.springblade.modules.iot.dahua.lib.structure.*;
 import com.sun.jna.Pointer;
 
 /**
- * 视频统计热图回调
+ * 添加设备回调
  */
-public interface fVideoStatHeatMapCallBack extends Callback {
-    void invoke(LLong lLoginID, int nChannel, NET_VIDEOSTAT_SUMMARY pstStatInfo, Pointer dwUser);
+public interface fAddDeviceCallBack extends Callback {
+    void invoke(LLong lLoginID, Pointer pBuf, int dwBufLen, Pointer dwUser);
 }

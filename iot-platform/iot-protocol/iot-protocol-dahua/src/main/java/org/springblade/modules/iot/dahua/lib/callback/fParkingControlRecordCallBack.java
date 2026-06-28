@@ -6,8 +6,8 @@ import org.springblade.modules.iot.dahua.lib.structure.*;
 import com.sun.jna.Pointer;
 
 /**
- * 视频统计热图回调
+ * 停车场控制记录回调
  */
-public interface fVideoStatHeatMapCallBack extends Callback {
-    void invoke(LLong lLoginID, int nChannel, NET_VIDEOSTAT_SUMMARY pstStatInfo, Pointer dwUser);
+public interface fParkingControlRecordCallBack extends Callback {
+    void invoke(LLong lLoginID, NET_PARKING_CONTROL_RECORD pRecordInfo, int dwBufLen, Pointer dwUser);
 }

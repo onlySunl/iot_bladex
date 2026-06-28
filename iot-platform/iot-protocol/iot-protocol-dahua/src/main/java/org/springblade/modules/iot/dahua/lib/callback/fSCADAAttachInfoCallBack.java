@@ -6,8 +6,8 @@ import org.springblade.modules.iot.dahua.lib.structure.*;
 import com.sun.jna.Pointer;
 
 /**
- * 视频统计热图回调
+ * SCADA订阅回调
  */
-public interface fVideoStatHeatMapCallBack extends Callback {
-    void invoke(LLong lLoginID, int nChannel, NET_VIDEOSTAT_SUMMARY pstStatInfo, Pointer dwUser);
+public interface fSCADAAttachInfoCallBack extends Callback {
+    void invoke(LLong lAttachHandle, NET_SCADA_NOTIFY_POINT_INFO_LIST pInfo, int dwBufLen, Pointer dwUser);
 }
