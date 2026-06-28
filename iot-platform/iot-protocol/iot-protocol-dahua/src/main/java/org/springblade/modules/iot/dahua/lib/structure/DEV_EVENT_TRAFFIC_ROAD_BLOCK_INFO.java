@@ -11,7 +11,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.EVENT_COMM_INFO;
 import org.springblade.modules.iot.dahua.lib.NET_EVENT_FILE_INFO;
 import org.springblade.modules.iot.dahua.lib.NET_RECT;
-import org.springblade.modules.iot.dahua.lib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 import com.sun.jna.Pointer;
 
 public class DEV_EVENT_TRAFFIC_ROAD_BLOCK_INFO extends SdkStructure {

@@ -5,7 +5,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.EVENT_COMM_INFO;
 import org.springblade.modules.iot.dahua.lib.NET_EVENT_FILE_INFO;
 import org.springblade.modules.iot.dahua.lib.NET_RECT;
-import org.springblade.modules.iot.dahua.lib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 import com.sun.jna.Pointer;
 
 /**

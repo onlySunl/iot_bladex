@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 /**
  * @author 119178
  * @description 公安视频图像信息应用系统接入配置(对应枚举值 {@link NET_EM_CFG_OPERATE_TYPE})
