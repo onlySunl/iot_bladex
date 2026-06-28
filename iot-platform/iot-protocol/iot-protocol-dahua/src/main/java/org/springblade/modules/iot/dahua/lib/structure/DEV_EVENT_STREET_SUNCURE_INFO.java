@@ -1,4 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
+import org.springblade.modules.iot.dahua.lib.constant.NET_COMMON_STRING_64;
+import org.springblade.modules.iot.dahua.lib.constant.NET_COMMON_STRING_256;
+import org.springblade.modules.iot.dahua.lib.constant.NET_COMMON_STRING_32;
 
 
 

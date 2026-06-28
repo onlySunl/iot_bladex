@@ -1,7 +1,10 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.enumeration.EM_MASK_STATE_TYPE;
 
+import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.constant.NET_COMMON_STRING_64;
+import org.springblade.modules.iot.dahua.lib.constant.NET_COMMON_STRING_256;
+import org.springblade.modules.iot.dahua.lib.constant.NET_COMMON_STRING_32;
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_CITIZENIDCARD_SEX_TYPE;
 
 

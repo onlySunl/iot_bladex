@@ -1,8 +1,9 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+import org.springblade.modules.iot.dahua.lib.constant.NET_COMMON_STRING_64;
+import org.springblade.modules.iot.dahua.lib.constant.NET_COMMON_STRING_256;
+import org.springblade.modules.iot.dahua.lib.constant.NET_COMMON_STRING_32;
 import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import org.springblade.modules.iot.dahua.lib.EVENT_INTELLI_COMM_INFO;
 import org.springblade.modules.iot.dahua.lib.NET_MSG_OBJECT;
 import org.springblade.modules.iot.dahua.lib.NET_POINT;
