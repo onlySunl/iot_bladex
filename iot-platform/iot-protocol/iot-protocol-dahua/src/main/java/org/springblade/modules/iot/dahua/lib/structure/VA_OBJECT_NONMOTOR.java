@@ -1,17 +1,11 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.SdkStructure;
 import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
- * @author 251823
- * @description 非机动车目标信息
- * @date 2021/08/30
+ * 非机动车目标信息
  */
 public class VA_OBJECT_NONMOTOR extends SdkStructure {
-    /**
-     * 目标ID
-     */
     public int              nObjectId;
     /**
      * 候选目标数量

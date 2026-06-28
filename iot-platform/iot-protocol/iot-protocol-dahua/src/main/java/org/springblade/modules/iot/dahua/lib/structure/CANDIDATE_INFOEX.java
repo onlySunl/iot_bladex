@@ -1,17 +1,11 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.SdkStructure;
 import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
 /**
- * @author 251823
- * @description 候选目标信息扩展
- * @date 2021/08/30
+ * 候选目标信息扩展
  */
 public class CANDIDATE_INFOEX extends SdkStructure {
-    /**
-     * 候选目标类别,参见枚举定义
-     */
     public int              emClassType;
     /**
      * 候选目标颜色,参见枚举定义

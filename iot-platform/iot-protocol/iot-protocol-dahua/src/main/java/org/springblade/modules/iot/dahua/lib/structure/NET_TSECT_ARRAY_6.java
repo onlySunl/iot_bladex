@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
 import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+import org.springblade.modules.iot.dahua.lib.structure.NET_TSECT;
 
 public class NET_TSECT_ARRAY_6 extends SdkStructure {
     /**

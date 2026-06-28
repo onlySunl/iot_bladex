@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
 import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+public class CFG_CHANNEL_TIME_SECTION extends SdkStructure {
 
 /**
  * @author 251823

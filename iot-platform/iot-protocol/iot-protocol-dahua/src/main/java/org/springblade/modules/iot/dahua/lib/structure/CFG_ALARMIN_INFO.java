@@ -1,42 +1,16 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-
-import org.springblade.modules.iot.dahua.lib.CFG_ALARM_MSG_HANDLE;
-import org.springblade.modules.iot.dahua.lib.CFG_TIME_SECTION;
 import org.springblade.modules.iot.dahua.lib.method.SdkStructure;
 
-
 /**
- * @author 421657
- * @description 外部报警配置
- * @origin autoTool
- * @date 2023/11/01 20:42:35
+ * 外部报警配置
  */
 public class CFG_ALARMIN_INFO extends SdkStructure {
-    /**
-     * / 报警通道号(0开始)
-     */
     public int              nChannelID;
-    /**
-     * / 使能开关
-     */
     public int              bEnable;
-    /**
-     * / 报警通道名称
-     */
     public byte[]           szChnName = new byte[64];
-    /**
-     * / 报警器类型，0：常闭，1：常开
-     */
     public int              nAlarmType;
-    /**
-     * / 报警联动
-     */
     public CFG_ALARM_MSG_HANDLE stuEventHandler = new CFG_ALARM_MSG_HANDLE();
-    /**
-     * / 事件响应时间段，时间段获取和设置以此成员为准，忽略 stuEventHandler 中的 stuTimeSection
-     */
     public CFG_TIME_SECTION[] stuTimeSection = new CFG_TIME_SECTION[7 * 6];
     /**
      * /
