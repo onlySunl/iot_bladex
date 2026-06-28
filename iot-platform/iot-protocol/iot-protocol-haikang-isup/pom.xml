@@ -6,24 +6,88 @@
 
     <parent>
         <groupId>org.springblade</groupId>
-        <artifactId>iot-protocol</artifactId>
-        <version>4.2.0.RELEASE</version>
+        <artifactId>iot-platform</artifactId>
+        <version>${blade.version}</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>iot-protocol-haikang-isup</artifactId>
     <packaging>jar</packaging>
-    <description>海康ISUP协议</description>
+
+    <name>iot-protocol-haikang-isup</name>
+    <description>海康ISUP协议模块</description>
 
     <dependencies>
+        <!-- Spring Blade 公共模块 -->
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-common</artifactId>
-            <version>4.2.0.RELEASE</version>
+            <artifactId>blade-common</artifactId>
         </dependency>
+
+        <!-- Spring Blade Boot -->
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-api-haikang-isup</artifactId>
-            <version>4.2.0.RELEASE</version>
+            <artifactId>blade-boot</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!-- JNA -->
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>5.12.1</version>
+        </dependency>
+
+        <!-- JNA Platform -->
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+            <version>5.12.1</version>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Knife4j -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi2-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
