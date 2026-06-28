@@ -2,15 +2,22 @@ package org.springblade.modules.iot.dahua.lib.method;
 
 import com.sun.jna.*;
 import com.sun.jna.ptr.*;
+import com.sun.jna.win32.*;
+import com.sun.jna.platform.win32.*;
+import com.sun.jna.platform.win32.WinDef.*;
+import com.sun.jna.platform.win32.WinNT.*;
+import com.sun.jna.platform.win32.Kernel32Lib;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.Utils.LLong;
+import org.springblade.modules.iot.dahua.lib.structure.*;
+import org.springblade.modules.iot.dahua.lib.enumeration.*;
+import org.springblade.modules.iot.dahua.lib.constant.NetSDKConstants;
+import org.springblade.modules.iot.dahua.lib.Utils;
+import org.springblade.modules.iot.dahua.lib.LastError;
 
-/**
- * NetSDK 方法定义 - AlarmMethods.java
  */
 public interface AlarmMethods {
 
-    public LLong CLIENT_ParkingControlStartFind(LLong lLoginID, NET_IN_PARKING_CONTROL_START_FIND_PARAM pInParam, NET_OUT_PARKING_CONTROL_START_FIND_PARAM pOutParam, int waittime);
+    public LLong CLIENT_ParkingControlStartFind(LLong lLoginID,NET_IN_PARKING_CONTROL_START_FIND_PARAM pInParam,NET_OUT_PARKING_CONTROL_START_FIND_PARAM pOutParam,int waittime);
 
     // 获取过车记录
     public boolean CLIENT_ParkingControlDoFind(LLong lFindeHandle,NET_IN_PARKING_CONTROL_DO_FIND_PARAM pInParam,NET_OUT_PARKING_CONTROL_DO_FIND_PARAM pOutParam,int waittime);

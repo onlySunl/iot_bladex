@@ -2,17 +2,24 @@ package org.springblade.modules.iot.dahua.lib.method;
 
 import com.sun.jna.*;
 import com.sun.jna.ptr.*;
+import com.sun.jna.win32.*;
+import com.sun.jna.platform.win32.*;
+import com.sun.jna.platform.win32.WinDef.*;
+import com.sun.jna.platform.win32.WinNT.*;
+import com.sun.jna.platform.win32.Kernel32Lib;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.Utils.LLong;
+import org.springblade.modules.iot.dahua.lib.structure.*;
+import org.springblade.modules.iot.dahua.lib.enumeration.*;
+import org.springblade.modules.iot.dahua.lib.constant.NetSDKConstants;
+import org.springblade.modules.iot.dahua.lib.Utils;
+import org.springblade.modules.iot.dahua.lib.LastError;
 
-/**
- * NetSDK 方法定义 - PTZMethods.java
  */
 public interface PTZMethods {
 
 
     //获取人脸信息
-    public boolean CLIENT_DoFindFaceInfo(LLong lFindHandle, NET_IN_FACEINFO_DO_FIND pstIn, NET_OUT_FACEINFO_DO_FIND pstOut, int nWaitTime);
+    public boolean CLIENT_DoFindFaceInfo(LLong lFindHandle,NET_IN_FACEINFO_DO_FIND pstIn,NET_OUT_FACEINFO_DO_FIND pstOut,int nWaitTime);
 
     //停止查询人脸信息
     public boolean CLIENT_StopFindFaceInfo(LLong lFindHandle);
@@ -214,4 +221,5 @@ public interface PTZMethods {
      * 									视频诊断功能接口														 *												 												     *
      * 视频诊断参数表配置 CFG_CMD_VIDEODIAGNOSIS_PROFILE														 *
      * 视频诊断任务表配置 CFG_CMD_VIDEODIAGNOSIS_TASK_ONE						 								 *
+     */
 }
