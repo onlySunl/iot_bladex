@@ -2,6 +2,7 @@ package org.springblade.modules.iot.dahua.lib.callback;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import org.springblade.modules.iot.dahua.lib.ToolKits;
+import org.springblade.modules.iot.dahua.lib.method.LLong;
 import org.springblade.modules.iot.dahua.lib.structure.NET_CB_REDIRECT_SERVER_CALLBACK_INFO;
 import org.springblade.modules.iot.dahua.lib.structure.NET_IN_START_REDIRECT_SERVICE;
 import com.sun.jna.Callback;
@@ -22,7 +23,7 @@ public interface fRedirectServerCallBackEx extends Callback {
    *     否则回调中接收到的dwUser可能乱码，甚至导致程序崩溃
    * @return
    */
-  default int callback(NetSDKLib.LLong lDevHandle, Pointer pInParam, Pointer dwUserData) {
+  default int callback(LLong lDevHandle, Pointer pInParam, Pointer dwUserData) {
     NET_CB_REDIRECT_SERVER_CALLBACK_INFO info = new NET_CB_REDIRECT_SERVER_CALLBACK_INFO();
     ToolKits.GetPointerDataToStruct(pInParam, 0, info);
     dealWithData(lDevHandle.longValue(), info, dwUserData);

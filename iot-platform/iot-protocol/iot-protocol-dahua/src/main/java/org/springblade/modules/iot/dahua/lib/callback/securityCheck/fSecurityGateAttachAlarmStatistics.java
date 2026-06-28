@@ -3,6 +3,7 @@ package org.springblade.modules.iot.dahua.lib.callback.securityCheck;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import com.sun.jna.Callback;
 import com.sun.jna.Pointer;
+import org.springblade.modules.iot.dahua.lib.method.LLong;
 
 /**
  * @author 291189
@@ -18,7 +19,7 @@ public interface fSecurityGateAttachAlarmStatistics extends Callback{
      * @param dwUser 用户数据
      */
     void invoke(
-            NetSDKLib.LLong lAttachHandle,
+            LLong lAttachHandle,
             Pointer pInfo,
             Pointer dwUser);
 

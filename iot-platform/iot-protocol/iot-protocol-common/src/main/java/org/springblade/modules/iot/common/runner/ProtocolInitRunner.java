@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @AllArgsConstructor
-@Order(AppConstant.ORDER_PROTOCOL)
+@Order(1)
 public class ProtocolInitRunner implements ApplicationRunner {
 
 	/**

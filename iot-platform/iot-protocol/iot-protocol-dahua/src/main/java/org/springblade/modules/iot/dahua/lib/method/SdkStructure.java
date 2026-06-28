@@ -1,7 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.method;
 
 import com.sun.jna.Structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -13,7 +12,7 @@ public class SdkStructure extends Structure {
     protected List<String> getFieldOrder() {
         List<String> fieldOrderList = new ArrayList<String>();
         for (Class<?> cls = getClass();
-             !cls.equals(NetSDKLib.SdkStructure.class);
+             !cls.equals(SdkStructure.class);
              cls = cls.getSuperclass()) {
             Field[] fields = cls.getDeclaredFields();
             int modifiers;

@@ -1,9 +1,8 @@
 package org.springblade.modules.iot.dahua.lib;
 
-import org.springblade.modules.iot.dahua.lib.enumeration.*;
-import org.springblade.modules.iot.dahua.lib.structure.*;
 import com.sun.jna.*;
 import com.sun.jna.ptr.IntByReference;
+import org.springblade.modules.iot.dahua.lib.method.LLong;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -30,7 +29,7 @@ public interface NetSDKLib extends Library {
      * @param pInParam 接口输入参数， 参考结构体定义 NET_IN_RADIOMETRY_GET_CUR_TEMPER_ALL_INFO
      * @param pOutParam 接口输出参数， 参考结构体定义 NET_OUT_RADIOMETRY_GET_CUR_TEMPER_ALL_INFO
      */
-    public boolean CLIENT_RadiometryGetCurTemperAll(LLong lLoginID,Pointer pInParam,Pointer pOutParam,int nWaitTime);
+    public boolean CLIENT_RadiometryGetCurTemperAll(LLong lLoginID, Pointer pInParam, Pointer pOutParam, int nWaitTime);
 
     /**
      * @brief 获取测温项温度的参数值
