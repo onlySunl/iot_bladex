@@ -16,7 +16,6 @@ import java.util.List;
  */
 public interface InitLoginMethods extends NetSDKLib {
 
-import com.sun.jna.platform.win32.Kernel32Lib;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import org.springblade.modules.iot.dahua.lib.structure.*;
 import org.springblade.modules.iot.dahua.lib.enumeration.*;
