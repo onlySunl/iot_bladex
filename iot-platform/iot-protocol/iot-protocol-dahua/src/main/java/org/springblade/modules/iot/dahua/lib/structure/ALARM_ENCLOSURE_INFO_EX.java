@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /**
@@ -101,7 +101,7 @@ public class ALARM_ENCLOSURE_INFO_EX extends SdkStructure {
 	/**
 	 * 保留
 	 */
-    public byte[]           szReserved = new byte[508 - NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           szReserved = new byte[508 - NetSDKConstants.POINTERSIZE];
 
 	public ALARM_ENCLOSURE_INFO_EX() {
 	}

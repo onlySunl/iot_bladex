@@ -20,7 +20,7 @@ public class NET_VIDEOTALK_SIGNLIGHT_INFO extends SdkStructure {
 	/**
 	 * 抓拍时间段
 	 * */	
-    public NetSDKLib.NET_TSECT[] stuTimeSection = new NetSDKLib.NET_TSECT[6];
+    public NET_TSECT[] stuTimeSection = new NET_TSECT[6];
 	/**
 	 * 预留字节
 	 * */
@@ -28,7 +28,7 @@ public class NET_VIDEOTALK_SIGNLIGHT_INFO extends SdkStructure {
 
 	public NET_VIDEOTALK_SIGNLIGHT_INFO() {
         for (int i = 0; i < stuTimeSection.length; i++) {
-        	stuTimeSection[i] = new NetSDKLib.NET_TSECT();
+        	stuTimeSection[i] = new NET_TSECT();
         }
     }		
 }

@@ -23,45 +23,45 @@ public class DEV_EVENT_CROSSFENCEDETECTION_INFO extends SdkStructure
     */
     public double           PTS;
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX UTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX UTC = new NET_TIME_EX();
     /**
      * 事件ID
     */
     public int              nEventID;
     /**
-     * 检测到的物体,参见结构体定义 {@link NetSDKLib.NET_MSG_OBJECT}
+     * 检测到的物体,参见结构体定义 {@link NET_MSG_OBJECT}
     */
-    public NetSDKLib.NET_MSG_OBJECT stuObject = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuObject = new NET_MSG_OBJECT();
     /**
      * 围栏上边线顶点数
     */
     public int              nUpstairsLinePointNumber;
     /**
-     * 围栏上边线信息,参见结构体定义 {@link NetSDKLib.NET_POINT}
+     * 围栏上边线信息,参见结构体定义 {@link NET_POINT}
     */
-    public NetSDKLib.NET_POINT[] stuUpstairsLine = new NetSDKLib.NET_POINT[20];
+    public NET_POINT[] stuUpstairsLine = new NET_POINT[20];
     /**
      * 围栏下边线顶点数
     */
     public int              nDownstairsLinePointNumber;
     /**
-     * 围栏下边线信息,参见结构体定义 {@link NetSDKLib.NET_POINT}
+     * 围栏下边线信息,参见结构体定义 {@link NET_POINT}
     */
-    public NetSDKLib.NET_POINT[] stuDownstairsLine = new NetSDKLib.NET_POINT[20];
+    public NET_POINT[] stuDownstairsLine = new NET_POINT[20];
     /**
      * 物体运动轨迹顶点数
     */
     public int              nTrackLineNum;
     /**
-     * 物体运动轨迹,参见结构体定义 {@link NetSDKLib.NET_POINT}
+     * 物体运动轨迹,参见结构体定义 {@link NET_POINT}
     */
-    public NetSDKLib.NET_POINT[] TrackLine = new NetSDKLib.NET_POINT[20];
+    public NET_POINT[] TrackLine = new NET_POINT[20];
     /**
-     * 事件对应文件信息,参见结构体定义 {@link NetSDKLib.NET_EVENT_FILE_INFO}
+     * 事件对应文件信息,参见结构体定义 {@link NET_EVENT_FILE_INFO}
     */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo = new NetSDKLib.NET_EVENT_FILE_INFO();
+    public NET_EVENT_FILE_INFO stuFileInfo = new NET_EVENT_FILE_INFO();
     /**
      * 事件动作,0表示脉冲事件,1表示持续性事件开始,2表示持续性事件结束;
     */
@@ -92,9 +92,9 @@ public class DEV_EVENT_CROSSFENCEDETECTION_INFO extends SdkStructure
     */
     public int              nOccurrenceCount;
     /**
-     * 智能事件公共信息,参见结构体定义 {@link NetSDKLib.EVENT_INTELLI_COMM_INFO}
+     * 智能事件公共信息,参见结构体定义 {@link EVENT_INTELLI_COMM_INFO}
     */
-    public NetSDKLib.EVENT_INTELLI_COMM_INFO stuIntelliCommInfo = new NetSDKLib.EVENT_INTELLI_COMM_INFO();
+    public EVENT_INTELLI_COMM_INFO stuIntelliCommInfo = new EVENT_INTELLI_COMM_INFO();
     /**
      * 图片信息数组,参见结构体定义 {@link NET_IMAGE_INFO_EX2}
     */
@@ -114,13 +114,13 @@ public class DEV_EVENT_CROSSFENCEDETECTION_INFO extends SdkStructure
 
     public DEV_EVENT_CROSSFENCEDETECTION_INFO() {
         for(int i = 0; i < stuUpstairsLine.length; i++){
-            stuUpstairsLine[i] = new NetSDKLib.NET_POINT();
+            stuUpstairsLine[i] = new NET_POINT();
         }
         for(int i = 0; i < stuDownstairsLine.length; i++){
-            stuDownstairsLine[i] = new NetSDKLib.NET_POINT();
+            stuDownstairsLine[i] = new NET_POINT();
         }
         for(int i = 0; i < TrackLine.length; i++){
-            TrackLine[i] = new NetSDKLib.NET_POINT();
+            TrackLine[i] = new NET_POINT();
         }
         for(int i = 0; i < stuImageInfo.length; i++){
             stuImageInfo[i] = new NET_IMAGE_INFO_EX2();

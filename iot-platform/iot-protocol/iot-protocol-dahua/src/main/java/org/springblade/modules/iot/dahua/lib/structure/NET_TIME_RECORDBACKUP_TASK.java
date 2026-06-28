@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.SdkStructure;
 
 public class NET_TIME_RECORDBACKUP_TASK extends SdkStructure {
     public int              nChannelCount;                        // 通道有效个数

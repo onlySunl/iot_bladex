@@ -29,7 +29,7 @@ public class NET_VAOBJECT_ANIMAL_INFO extends SdkStructure {
 /** 
 物体截图
 */
-    public NetSDKLib.SCENE_IMAGE_INFO_EX stuImageData = new NetSDKLib.SCENE_IMAGE_INFO_EX();
+    public SCENE_IMAGE_INFO_EX stuImageData = new SCENE_IMAGE_INFO_EX();
 /** 
 预留字节
 */

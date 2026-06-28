@@ -12,8 +12,8 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 public class MEDIAFILE_SMART_KITCHEN_CLOTHES_DETECTION_PARAM extends SdkStructure {
     public int              dwSize;                               // 结构体大小
     public 	int             nChannelID;                           // 通道号从0开始,-1表示查询所有通道
-    public 	NetSDKLib.NET_TIME stuBeginTime;                      // 开始时间
-    public 	NetSDKLib.NET_TIME stuEndTime;                        // 结束时间
+    public 	NET_TIME stuBeginTime;                      // 开始时间
+    public 	NET_TIME stuEndTime;                        // 结束时间
     public  NET_SMART_KITCHEN_CLOTHES_CHEF_MASK stuChefMask = new NET_SMART_KITCHEN_CLOTHES_CHEF_MASK(); // 口罩相关属性状态信息
     public  NET_SMART_KITCHEN_CLOTHES_CHEF_HAT stuChefHat = new NET_SMART_KITCHEN_CLOTHES_CHEF_HAT(); // 厨师帽相关属性状态信息
     public 	NET_SMART_KITCHEN_CLOTHES_CHEF_CLOTHES stuChefClothes = new NET_SMART_KITCHEN_CLOTHES_CHEF_CLOTHES(); // 厨师服相关属性状态信息

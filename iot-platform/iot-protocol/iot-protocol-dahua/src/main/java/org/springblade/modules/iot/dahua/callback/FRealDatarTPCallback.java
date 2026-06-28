@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.callback;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.LLong;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.fRealDataCallBackEx;
+import org.springblade.modules.iot.dahua.lib.LLong;
+import org.springblade.modules.iot.dahua.lib.FRealDataCallBackEx;
 import com.sun.jna.Pointer;
 import lombok.extern.slf4j.Slf4j;
 

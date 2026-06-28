@@ -11,7 +11,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 */
 public class NET_REMOTE_STREAM_INFO extends SdkStructure {
 /** 
-视频流协议类型 {@link NetSDKLib.EM_STREAM_PROTOCOL_TYPE}
+视频流协议类型 {@link EM_STREAM_PROTOCOL_TYPE}
 */
     public			int            emStreamProtocolType;
 /** 

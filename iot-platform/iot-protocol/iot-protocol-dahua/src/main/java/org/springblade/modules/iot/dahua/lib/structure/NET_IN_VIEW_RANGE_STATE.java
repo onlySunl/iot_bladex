@@ -19,7 +19,7 @@ public class NET_IN_VIEW_RANGE_STATE extends SdkStructure {
 	/**
 	 * 状态回调函数
 	 */
-    public NetSDKLib.fViewRangeStateCallBack cbViewRange;
+    public FViewRangeStateCallBack cbViewRange;
 	/**
 	 * 用户数据
 	 */

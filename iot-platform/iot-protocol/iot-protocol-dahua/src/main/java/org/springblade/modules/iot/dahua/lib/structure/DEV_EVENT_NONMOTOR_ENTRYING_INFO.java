@@ -22,8 +22,8 @@ public class DEV_EVENT_NONMOTOR_ENTRYING_INFO extends SdkStructure {
     public 	int             nSequence;                            // 视频帧序号
     public  int             emClassType;                          // 智能事件所属大类
     public 	int             nObjectNum;                           // 目标个数
-    public  NetSDKLib.VA_OBJECT_NONMOTOR[] stuObjects = new NetSDKLib.VA_OBJECT_NONMOTOR[8]; // 非机动车目标
-    public  NetSDKLib.SCENE_IMAGE_INFO_EX stuSceneImage;          // 全景广角图
+    public  VA_OBJECT_NONMOTOR[] stuObjects = new VA_OBJECT_NONMOTOR[8]; // 非机动车目标
+    public  SCENE_IMAGE_INFO_EX stuSceneImage;          // 全景广角图
     public NET_IMAGE_INFO_EX2 stuImageInfo[] = (NET_IMAGE_INFO_EX2[])new NET_IMAGE_INFO_EX2().toArray(32); //图片信息数组
     public int              nImageInfoNum;                        //图片信息个数
     public byte             byReserved[] = new byte[1024];        //预留字节

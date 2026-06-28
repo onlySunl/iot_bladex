@@ -22,7 +22,7 @@ public class CFG_VIDEOIN_BACKLIGHT_BASE extends SdkStructure {
 /** 
 背光补偿区域，当emBacklightMode == EM_BACKLIGHT_REGION时有效
 */
-    public NetSDKLib.CFG_RECT stuBacklightRegion = new NetSDKLib.CFG_RECT();
+    public CFG_RECT stuBacklightRegion = new CFG_RECT();
 /** 
 宽动态值，emMode == EM_BACKLIGHT_WIDEDYNAMIC时有效
 */

@@ -31,9 +31,9 @@ public class CFG_IVS_VEHICLEANALYSE_INFO extends SdkStructure
     */
     public int              nPtzPresetId;
     /**
-     * 报警联动,参见结构体定义 {@link NetSDKLib.CFG_ALARM_MSG_HANDLE}
+     * 报警联动,参见结构体定义 {@link CFG_ALARM_MSG_HANDLE}
     */
-    public NetSDKLib.CFG_ALARM_MSG_HANDLE stuEventHandler = new NetSDKLib.CFG_ALARM_MSG_HANDLE();
+    public CFG_ALARM_MSG_HANDLE stuEventHandler = new CFG_ALARM_MSG_HANDLE();
     /**
      * 事件响应时间段,参见结构体定义 {@link org.springblade.modules.iot.dahua.lib.structure.CFG_TIME_SECTION}
     */
@@ -43,17 +43,17 @@ public class CFG_IVS_VEHICLEANALYSE_INFO extends SdkStructure
     */
     public int              nDetectRegionPoint;
     /**
-     * 警戒区,参见结构体定义 {@link NetSDKLib.CFG_POLYGON}
+     * 警戒区,参见结构体定义 {@link CFG_POLYGON}
     */
-    public NetSDKLib.CFG_POLYGON[] stuDetectRegion = new NetSDKLib.CFG_POLYGON[20];
+    public CFG_POLYGON[] stuDetectRegion = new CFG_POLYGON[20];
     /**
      * 规则特定的尺寸过滤器是否有效
     */
     public int              bSizeFileter;
     /**
-     * 规则特定的尺寸过滤器,参见结构体定义 {@link NetSDKLib.CFG_SIZEFILTER_INFO}
+     * 规则特定的尺寸过滤器,参见结构体定义 {@link CFG_SIZEFILTER_INFO}
     */
-    public NetSDKLib.CFG_SIZEFILTER_INFO stuSizeFileter = new NetSDKLib.CFG_SIZEFILTER_INFO();
+    public CFG_SIZEFILTER_INFO stuSizeFileter = new CFG_SIZEFILTER_INFO();
 
     public CFG_IVS_VEHICLEANALYSE_INFO() {
         for(int i = 0; i < szObjectTypes.length; i++){
@@ -63,7 +63,7 @@ public class CFG_IVS_VEHICLEANALYSE_INFO extends SdkStructure
             stuTimeSection[i] = new CFG_TIME_SECTION_ARRAY_10();
         }
         for(int i = 0; i < stuDetectRegion.length; i++){
-            stuDetectRegion[i] = new NetSDKLib.CFG_POLYGON();
+            stuDetectRegion[i] = new CFG_POLYGON();
         }
     }
 }

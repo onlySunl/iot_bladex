@@ -18,7 +18,7 @@ public class NET_IN_ATTACH_SCADA_DATA_INFO extends SdkStructure {
     /**
      * 回调函数, 设备传回的遥测数据
      */
-    public NetSDKLib.fNotifySCADAData cbfNotifySCADAData;
+    public FNotifySCADAData cbfNotifySCADAData;
     /**
      * 用户自定义参数
      */

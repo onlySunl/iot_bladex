@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.POINTCOORDINATE;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.POINTCOORDINATE;
+import org.springblade.modules.iot.dahua.lib.SdkStructure;
 
 /**
  * 事件类型 EVENT_IVS_RIOTERDETECTION (人群聚集) 对应的规则配置

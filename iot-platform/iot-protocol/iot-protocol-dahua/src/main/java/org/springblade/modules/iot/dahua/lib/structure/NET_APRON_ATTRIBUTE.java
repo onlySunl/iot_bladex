@@ -1,7 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_COMPLIANCE_STATE;
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_WEARING_STATE;
 

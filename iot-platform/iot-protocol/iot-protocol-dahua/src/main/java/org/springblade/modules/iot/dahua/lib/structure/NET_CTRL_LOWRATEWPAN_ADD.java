@@ -13,7 +13,7 @@ public class NET_CTRL_LOWRATEWPAN_ADD extends SdkStructure {
 	/**
 	 * 对码数据
 	 */
-    public NetSDKLib.NET_CODEID_INFO stuCodeIDInfo = new NetSDKLib.NET_CODEID_INFO();
+    public NET_CODEID_INFO stuCodeIDInfo = new NET_CODEID_INFO();
 
 	public NET_CTRL_LOWRATEWPAN_ADD() {
 		this.dwSize = this.size();

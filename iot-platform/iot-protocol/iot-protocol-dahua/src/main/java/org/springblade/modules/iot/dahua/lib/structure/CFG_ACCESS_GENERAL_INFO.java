@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 import java.util.Arrays;
@@ -170,7 +170,7 @@ public class CFG_ACCESS_GENERAL_INFO extends SdkStructure {
     */
     public Pointer          pstuABLockInfoEx;
   /** 保留字节 */
-    public byte[]           szReserved = new byte[696-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           szReserved = new byte[696-NetSDKConstants.POINTERSIZE];
 
   @Override
   public String toString() {

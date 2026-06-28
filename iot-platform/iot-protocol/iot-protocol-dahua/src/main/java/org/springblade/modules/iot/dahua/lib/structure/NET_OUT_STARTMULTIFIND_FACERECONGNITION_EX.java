@@ -20,7 +20,7 @@ public class NET_OUT_STARTMULTIFIND_FACERECONGNITION_EX extends SdkStructure {
     /**
      * 查询句柄
      */
-    public NetSDKLib.LLong  lFindHandle;
+    public LLong  lFindHandle;
     /**
      * 获取到的查询令牌
      */

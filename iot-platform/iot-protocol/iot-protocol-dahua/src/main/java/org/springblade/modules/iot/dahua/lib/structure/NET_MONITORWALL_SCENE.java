@@ -17,9 +17,9 @@ public class NET_MONITORWALL_SCENE extends SdkStructure
     */
     public byte[]           szControlID = new byte[128];
     /**
-     * 电视墙配置,参见结构体定义 {@link NetSDKLib.NET_MONITORWALL}
+     * 电视墙配置,参见结构体定义 {@link NET_MONITORWALL}
     */
-    public NetSDKLib.NET_MONITORWALL stuMonitorWall = new NetSDKLib.NET_MONITORWALL();
+    public NET_MONITORWALL stuMonitorWall = new NET_MONITORWALL();
     /**
      * 拼接屏场景信息数组, 用户分配内存,大小为sizeof(DH_SPLIT_SCENE)*nMaxSplitSceneCount,参见结构体定义 {@link NET_SPLIT_SCENE}
     */

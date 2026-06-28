@@ -15,11 +15,11 @@ public class NET_RADIOMETRY_CURRENTHOTCOLDSPOT_INFO extends SdkStructure {
 /** 
 热点坐标，范围：【0~8191】
 */
-    public NetSDKLib.NET_POINT stuHotPoint = new NetSDKLib.NET_POINT();
+    public NET_POINT stuHotPoint = new NET_POINT();
 /** 
 冷点坐标，范围：【0~8191】
 */
-    public NetSDKLib.NET_POINT stuColdPoint = new NetSDKLib.NET_POINT();
+    public NET_POINT stuColdPoint = new NET_POINT();
 /** 
 热点温度值（最高的温度）
 */

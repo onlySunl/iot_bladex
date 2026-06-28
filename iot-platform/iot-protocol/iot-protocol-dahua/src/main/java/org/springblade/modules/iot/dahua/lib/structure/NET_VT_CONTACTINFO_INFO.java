@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /**
@@ -95,7 +95,7 @@ public class NET_VT_CONTACTINFO_INFO extends SdkStructure {
     /**
      * /保留字段
      */
-    public byte[]           szResvered = new byte[256 - NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           szResvered = new byte[256 - NetSDKConstants.POINTERSIZE];
 
     public NET_VT_CONTACTINFO_INFO() {
     }

@@ -9,7 +9,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  * @author ： 260611
  * @since ： Created in 2021/10/19 20:21
  */
-public class EM_TRAFFICCAR_MOVE_DIRECTION extends NetSDKLib.SdkStructure {
+public class EM_TRAFFICCAR_MOVE_DIRECTION extends SdkStructure {
     /**
      *  未知的
      */

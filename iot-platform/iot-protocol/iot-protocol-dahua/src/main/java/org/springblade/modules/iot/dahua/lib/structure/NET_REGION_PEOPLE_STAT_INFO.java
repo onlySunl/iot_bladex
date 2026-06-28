@@ -24,7 +24,7 @@ public class NET_REGION_PEOPLE_STAT_INFO extends SdkStructure {
     /**
      *  区域顶点坐标
      */
-    public NetSDKLib.NET_POINT[] stuRegionPoint = (NetSDKLib.NET_POINT[]) new NetSDKLib.NET_POINT().toArray(20);
+    public NET_POINT[] stuRegionPoint = (NET_POINT[]) new NET_POINT().toArray(20);
     /**
      *  区域内人数
      */

@@ -27,7 +27,7 @@ public class NET_MW_GET_WINDOW_INFO extends SdkStructure
     */
     public int              nFrame;
     /**
-     * 分辨率,参见枚举定义 {@link NetSDKLib.CAPTURE_SIZE}
+     * 分辨率,参见枚举定义 {@link CAPTURE_SIZE}
     */
     public int              emResolution;
     /**

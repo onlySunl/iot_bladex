@@ -13,7 +13,7 @@ public class NET_IN_FIND_SEEK_NEXT_RECORD_PARAM extends SdkStructure
     /**
      * 查询句柄
     */
-    public NetSDKLib.LLong  lFindeHandle;
+    public LLong  lFindeHandle;
     /**
      * 每次查询的条数
     */

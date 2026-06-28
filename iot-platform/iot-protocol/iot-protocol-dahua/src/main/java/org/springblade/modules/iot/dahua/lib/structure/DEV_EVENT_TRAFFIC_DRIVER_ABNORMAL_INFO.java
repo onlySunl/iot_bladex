@@ -16,7 +16,7 @@ public class DEV_EVENT_TRAFFIC_DRIVER_ABNORMAL_INFO extends SdkStructure {
 /** 事件动作, 0表示脉冲事件, 1表示持续性事件开始, 2表示持续性事件结束*/
     public			int            nAction;
 /** GPS信息*/
-    public NetSDKLib.NET_GPS_STATUS_INFO stuGPSStatusInfo = new NetSDKLib.NET_GPS_STATUS_INFO();
+    public NET_GPS_STATUS_INFO stuGPSStatusInfo = new NET_GPS_STATUS_INFO();
 /** 事件发生的时间*/
     public			NET_TIME_EX    UTC = new NET_TIME_EX();
 /** 违章关联视频FTP上传路径*/

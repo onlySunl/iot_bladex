@@ -12,9 +12,9 @@ public class NET_IN_XRAY_ATTACH_UNPACKING extends SdkStructure
     */
     public int              dwSize;
     /**
-     * 开包检查结果回调,参见回调函数定义 {@link NetSDKLib.fXRayUnpackingResult}
+     * 开包检查结果回调,参见回调函数定义 {@link FXRayUnpackingResult}
     */
-    public NetSDKLib.fXRayUnpackingResult cbNotify;
+    public FXRayUnpackingResult cbNotify;
     /**
      * 用户信息
     */

@@ -36,13 +36,13 @@ public class NET_IN_ADD_LOCAL_ANALYSE_TASK extends SdkStructure
     */
     public Pointer          pstuRule;
     /**
-     * 录像开始时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 录像开始时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuStartTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuStartTime = new NET_TIME();
     /**
-     * 录像结束时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 录像结束时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuEndTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuEndTime = new NET_TIME();
     /**
      * 录像文件路径
     */

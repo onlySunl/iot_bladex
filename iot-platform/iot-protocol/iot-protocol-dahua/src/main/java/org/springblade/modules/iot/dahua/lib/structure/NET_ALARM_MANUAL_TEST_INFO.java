@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /**
@@ -67,9 +67,9 @@ public class NET_ALARM_MANUAL_TEST_INFO extends SdkStructure {
     */
     public int              nFileType;
     /**
-     * 事件发生的UTC时间，不带时区,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的UTC时间，不带时区,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuRealUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuRealUTC = new NET_TIME_EX();
     /**
      * RealUTC 是否有效，bRealUTC 为 TRUE 时，用 stuRealUTC，否则 stuRealUTC 字段无效(用原事件结构体中的 事件发生时间/事件触发时间(UTC) 字段)
     */
@@ -85,7 +85,7 @@ public class NET_ALARM_MANUAL_TEST_INFO extends SdkStructure {
 	/**
 	 保留字节
 	 */
-    public			byte[]         szReserved = new byte[180-2*NetSDKLib.SIZE_OF_POINTER];
+    public			byte[]         szReserved = new byte[180-2*NetSDKConstants.POINTERSIZE];
 
 	public			NET_ALARM_MANUAL_TEST_INFO(){
 	}

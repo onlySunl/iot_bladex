@@ -15,9 +15,9 @@ public class NET_OBJECT_FAVORITES_LIBRARY_RECORDS extends SdkStructure
     */
     public int              nChannel;
     /**
-     * 收藏时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 收藏时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuCollectTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuCollectTime = new NET_TIME();
     /**
      * 目标类型
     */

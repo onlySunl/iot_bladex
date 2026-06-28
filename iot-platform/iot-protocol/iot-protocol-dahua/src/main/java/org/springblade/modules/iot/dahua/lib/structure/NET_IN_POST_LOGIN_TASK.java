@@ -36,7 +36,7 @@ public class NET_IN_POST_LOGIN_TASK extends SdkStructure
     */
     public Pointer          szPwd;
     /**
-     * 登录方式，目前只支持 EM_LOGIN_SPEC_CAP_TCP、, EM_LOGIN_SPEC_CAP_MAIN_CONN_ONLY、EM_LOGIN_SPEC_CAP_P2P,参见枚举定义 {@link NetSDKLib.EM_LOGIN_SPAC_CAP_TYPE}
+     * 登录方式，目前只支持 EM_LOGIN_SPEC_CAP_TCP、, EM_LOGIN_SPEC_CAP_MAIN_CONN_ONLY、EM_LOGIN_SPEC_CAP_P2P,参见枚举定义 {@link EM_LOGIN_SPAC_CAP_TYPE}
     */
     public int              emSpecCap;
     /**
@@ -44,9 +44,9 @@ public class NET_IN_POST_LOGIN_TASK extends SdkStructure
     */
     public int              emConfigType;
     /**
-     * 登陆结果回调,参见回调函数定义 {@link NetSDKLib.fPostLoginTask}
+     * 登陆结果回调,参见回调函数定义 {@link FPostLoginTask}
     */
-    public NetSDKLib.fPostLoginTask cbLogin;
+    public FPostLoginTask cbLogin;
     /**
      * 回调用户参数
     */
@@ -56,7 +56,7 @@ public class NET_IN_POST_LOGIN_TASK extends SdkStructure
     */
     public int              bHighLevelSecurity;
     /**
-     * 登录的TLS模式，目前仅支持EM_LOGIN_SPEC_CAP_TCP模式下的 tls登陆(TLS加密优先使用该选项),参见枚举定义 {@link NetSDKLib.EM_LOGIN_TLS_TYPE}
+     * 登录的TLS模式，目前仅支持EM_LOGIN_SPEC_CAP_TCP模式下的 tls登陆(TLS加密优先使用该选项),参见枚举定义 {@link EM_LOGIN_TLS_TYPE}
     */
     public int              emTLSCap;
     /**

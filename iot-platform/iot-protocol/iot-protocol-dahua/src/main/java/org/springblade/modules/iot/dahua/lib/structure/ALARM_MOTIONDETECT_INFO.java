@@ -16,9 +16,9 @@ public class ALARM_MOTIONDETECT_INFO extends SdkStructure
     */
     public double           PTS;
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX UTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX UTC = new NET_TIME_EX();
     /**
      * 事件ID
     */
@@ -52,9 +52,9 @@ public class ALARM_MOTIONDETECT_INFO extends SdkStructure
     */
     public NET_EVENT_INFO_EXTEND stuEventInfoEx = new NET_EVENT_INFO_EXTEND();
     /**
-     * GPS信息,参见结构体定义 {@link NetSDKLib.NET_GPS_STATUS_INFO}
+     * GPS信息,参见结构体定义 {@link NET_GPS_STATUS_INFO}
     */
-    public NetSDKLib.NET_GPS_STATUS_INFO stuGPSStatusInfo = new NetSDKLib.NET_GPS_STATUS_INFO();
+    public NET_GPS_STATUS_INFO stuGPSStatusInfo = new NET_GPS_STATUS_INFO();
 
     public ALARM_MOTIONDETECT_INFO() {
         this.dwSize = this.size();

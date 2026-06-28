@@ -16,9 +16,9 @@ public class NET_IN_ATTACH_RESULT_FINDHISTORY_BYPIC extends SdkStructure
     */
     public int              nToken;
     /**
-     * 订阅历史库以图搜图回调函数,参见回调函数定义 {@link NetSDKLib.fResultOfFindHistory}
+     * 订阅历史库以图搜图回调函数,参见回调函数定义 {@link FResultOfFindHistory}
     */
-    public NetSDKLib.fResultOfFindHistory cbResultOfFindHistory;
+    public FResultOfFindHistory cbResultOfFindHistory;
     /**
      * 用户数据
     */

@@ -3,7 +3,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_MAX_RAID_DEVICE_NAME;
+import static org.springblade.modules.iot.dahua.lib.NET_MAX_RAID_DEVICE_NAME;
 
 /**
  * className：ALARM_RAID_INFO_EX

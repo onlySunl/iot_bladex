@@ -3,7 +3,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.MAX_PREVIEW_CHANNEL_NUM;
+import static org.springblade.modules.iot.dahua.lib.MAX_PREVIEW_CHANNEL_NUM;
 
 /**
  * 设置逻辑通道号和真实通道号的绑定关系入参 ，对应接口 {@link NetSDKLib#CLIENT_SetBlindRealChannel}

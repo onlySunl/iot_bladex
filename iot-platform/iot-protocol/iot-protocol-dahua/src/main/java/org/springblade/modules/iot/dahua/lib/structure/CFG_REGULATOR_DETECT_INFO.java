@@ -21,7 +21,7 @@ public class CFG_REGULATOR_DETECT_INFO extends SdkStructure {
 /** 
 报警联动
 */
-    public NetSDKLib.CFG_ALARM_MSG_HANDLE stuEventHandler = new NetSDKLib.CFG_ALARM_MSG_HANDLE();
+    public CFG_ALARM_MSG_HANDLE stuEventHandler = new CFG_ALARM_MSG_HANDLE();
 
 public CFG_REGULATOR_DETECT_INFO(){
 }

@@ -7,8 +7,8 @@ import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
 
 /**
- * 配置枚举值列表 对应接口: 获取配置 {@link NetSDKLib#CLIENT_GetConfig(NetSDKLib.LLong, int, int, Pointer, int,
- * int, Pointer)} 下发配置 {@link NetSDKLib#CLIENT_SetConfig(NetSDKLib.LLong, int, int, Pointer, int,
+ * 配置枚举值列表 对应接口: 获取配置 {@link NetSDKLib#CLIENT_GetConfig(LLong, int, int, Pointer, int,
+ * int, Pointer)} 下发配置 {@link NetSDKLib#CLIENT_SetConfig(LLong, int, int, Pointer, int,
  * int, IntByReference, Pointer)}
  */
 public class NET_EM_CFG_OPERATE_TYPE {

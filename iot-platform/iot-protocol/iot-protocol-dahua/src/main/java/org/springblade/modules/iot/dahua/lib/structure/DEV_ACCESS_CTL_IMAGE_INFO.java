@@ -11,7 +11,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 */
 public class DEV_ACCESS_CTL_IMAGE_INFO extends SdkStructure {
 /** 
-图片类型  {@link NetSDKLib.EM_ACCESS_CTL_IMAGE_TYPE}
+图片类型  {@link EM_ACCESS_CTL_IMAGE_TYPE}
 */
     public			int            emType;
 /** 

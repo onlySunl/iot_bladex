@@ -9,7 +9,7 @@ public class NET_SPLIT_TOUR_SOURCE extends SdkStructure
 {
     public int              dwSize;
     /**
-     * 显示源数组, 用户分配内存,大小为sizeof(DH_SPLIT_SOURCE)*nMaxSrcCount,参见结构体定义 {@link NetSDKLib.NET_SPLIT_SOURCE}
+     * 显示源数组, 用户分配内存,大小为sizeof(DH_SPLIT_SOURCE)*nMaxSrcCount,参见结构体定义 {@link NET_SPLIT_SOURCE}
     */
     public Pointer          pstuSrcs;
     /**

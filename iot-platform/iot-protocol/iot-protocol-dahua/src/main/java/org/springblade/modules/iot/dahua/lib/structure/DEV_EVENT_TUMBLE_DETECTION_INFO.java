@@ -58,7 +58,7 @@ public class DEV_EVENT_TUMBLE_DETECTION_INFO extends SdkStructure {
 	/**
 	 * 物体包围盒
 	 */
-    public NetSDKLib.NET_RECT stuBoundingBox;
+    public NET_RECT stuBoundingBox;
 	/**
 	 * 智能物体全局唯一物体标识 有效数据位21位，包含’\0’ 前2位%d%d:01-视频片段, 02-图片, 03-文件, 99-其他
 	 * 中间14位YYYYMMDDhhmmss:年月日时分秒 后5位%u%u%u%u%u：物体ID，如00001
@@ -67,7 +67,7 @@ public class DEV_EVENT_TUMBLE_DETECTION_INFO extends SdkStructure {
 	/**
 	 * 全景广角图
 	 */
-    public NetSDKLib.SCENE_IMAGE_INFO stuSceneImage;
+    public SCENE_IMAGE_INFO stuSceneImage;
 	/**
 	 * 图片信息数组,结构体NET_IMAGE_INFO_EX2数组指针
 	 */

@@ -17,7 +17,7 @@ public class NET_FACERECOGNITION_PERSON_INFOEX2 extends SdkStructure {
     /**
      * 人员信息扩展
      */
-    public NetSDKLib.FACERECOGNITION_PERSON_INFOEX stPersonInfoEx = new NetSDKLib.FACERECOGNITION_PERSON_INFOEX();
+    public FACERECOGNITION_PERSON_INFOEX stPersonInfoEx = new FACERECOGNITION_PERSON_INFOEX();
     /**
      * 目标图片数据信息的个数, 最大值为48
      */

@@ -39,13 +39,13 @@ public class NET_OBJECT_MEDIA_FILE_INFOS extends SdkStructure
     */
     public int[]            nEvents = new int[256];
     /**
-     * 文件的UTC开始时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 文件的UTC开始时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuStartTimeRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuStartTimeRealUTC = new NET_TIME();
     /**
-     * 文件的UTC结束时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 文件的UTC结束时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuEndTimeRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuEndTimeRealUTC = new NET_TIME();
     /**
      * UTC时间偏移，文件中的本地时间相对于UTC时间的偏移量，单位秒
     */

@@ -40,11 +40,11 @@ public class DEV_EVENT_TRAFFIC_CARDISTANCESHORT_INFO extends SdkStructure {
     /**
      * 车牌信息
      */
-    public NetSDKLib.DH_MSG_OBJECT stuObject;
+    public DH_MSG_OBJECT stuObject;
     /**
      * 车身信息
      */
-    public NetSDKLib.DH_MSG_OBJECT stuVehicle;
+    public DH_MSG_OBJECT stuVehicle;
     /**
      * 车道号
      */
@@ -56,11 +56,11 @@ public class DEV_EVENT_TRAFFIC_CARDISTANCESHORT_INFO extends SdkStructure {
     /**
      * 车辆信息
      */
-    public NetSDKLib.DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO stTrafficCar;
+    public DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO stTrafficCar;
     /**
      * 事件对应文件信息
      */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo;
+    public NET_EVENT_FILE_INFO stuFileInfo;
     /**
      * 保留字节
      */
@@ -68,6 +68,6 @@ public class DEV_EVENT_TRAFFIC_CARDISTANCESHORT_INFO extends SdkStructure {
     /**
      * 公共信息
      */
-    public NetSDKLib.EVENT_COMM_INFO stCommInfo;
+    public EVENT_COMM_INFO stCommInfo;
 }
 

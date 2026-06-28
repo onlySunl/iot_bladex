@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import org.springblade.modules.iot.dahua.lib.constant.SDK_ALARM_Ex_TYPE;
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_SOLARCELL_SYSTEM_FAULT_TYPE;
 

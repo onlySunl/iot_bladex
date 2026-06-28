@@ -20,7 +20,7 @@ public class SCENE_SUPPORT_RULE extends SdkStructure {
 	/**
 	 * 支持的检测物体类型列表
 	 */
-    public MaxNameByteArrInfo[] szObjectTypeName = (MaxNameByteArrInfo[]) new MaxNameByteArrInfo().toArray(NetSDKLib.MAX_OBJECT_LIST_SIZE);
+    public MaxNameByteArrInfo[] szObjectTypeName = (MaxNameByteArrInfo[]) new MaxNameByteArrInfo().toArray(MAX_OBJECT_LIST_SIZE);
 	/**
 	 * 支持的检测物体动作个数
 	 */
@@ -28,7 +28,7 @@ public class SCENE_SUPPORT_RULE extends SdkStructure {
 	/**
 	 * 支持的检测物体动作列表
 	 */
-    public MaxNameByteArrInfo[] szSupportedActions = (MaxNameByteArrInfo[]) new MaxNameByteArrInfo().toArray(NetSDKLib.MAX_ACTION_LIST_SIZE);
+    public MaxNameByteArrInfo[] szSupportedActions = (MaxNameByteArrInfo[]) new MaxNameByteArrInfo().toArray(MAX_ACTION_LIST_SIZE);
 	/**
 	 * 支持的检测类型个数
 	 */
@@ -36,7 +36,7 @@ public class SCENE_SUPPORT_RULE extends SdkStructure {
 	/**
 	 * 支持的检测类型列表
 	 */
-    public MaxNameByteArrInfo[] szSupportedDetectTypes = (MaxNameByteArrInfo[]) new MaxNameByteArrInfo().toArray(NetSDKLib.MAX_ACTION_LIST_SIZE);
+    public MaxNameByteArrInfo[] szSupportedDetectTypes = (MaxNameByteArrInfo[]) new MaxNameByteArrInfo().toArray(MAX_ACTION_LIST_SIZE);
 	/**
 	 * 支持的目标检测类型个数
 	 */
@@ -44,7 +44,7 @@ public class SCENE_SUPPORT_RULE extends SdkStructure {
 	/**
 	 * 支持的目标检测类型列表
 	 */
-    public MaxNameByteArrInfo[] szSupportFaceTypes = (MaxNameByteArrInfo[]) new MaxNameByteArrInfo().toArray(NetSDKLib.MAX_HUMANFACE_LIST_SIZE);
+    public MaxNameByteArrInfo[] szSupportFaceTypes = (MaxNameByteArrInfo[]) new MaxNameByteArrInfo().toArray(MAX_HUMANFACE_LIST_SIZE);
 	/**
 	 * 是否支持触发报警位置
 	 */
@@ -64,7 +64,7 @@ public class SCENE_SUPPORT_RULE extends SdkStructure {
 	/**
 	 * 支持的人脸属性类型列表 参考EM_FACEFEATURE_TYPE
 	 */
-    public int[]            emFeatureList = new int[NetSDKLib.MAX_FEATURE_LIST_SIZE];
+    public int[]            emFeatureList = new int[MAX_FEATURE_LIST_SIZE];
 	/**
 	 * 支持规则的最大个数
 	 */

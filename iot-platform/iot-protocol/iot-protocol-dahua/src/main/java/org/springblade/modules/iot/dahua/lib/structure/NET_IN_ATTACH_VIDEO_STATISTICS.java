@@ -21,7 +21,7 @@ public class NET_IN_ATTACH_VIDEO_STATISTICS extends SdkStructure {
 	/**
 	 * 用户回调函数
 	 */
-    public NetSDKLib.fVideoStatisticsInfoCallBack cbCallBack;
+    public FVideoStatisticsInfoCallBack cbCallBack;
 	/**
 	 * 用户数据
 	 */

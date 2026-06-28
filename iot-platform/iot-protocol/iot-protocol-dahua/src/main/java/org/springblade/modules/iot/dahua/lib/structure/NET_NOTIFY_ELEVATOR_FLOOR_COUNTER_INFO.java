@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 /**
  * 多维度电梯感知信息信息
@@ -47,7 +47,7 @@ public class NET_NOTIFY_ELEVATOR_FLOOR_COUNTER_INFO extends SdkStructure
     /**
      * 保留字段
     */
-    public byte[]           szResvered = new byte[1020-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           szResvered = new byte[1020-NetSDKConstants.POINTERSIZE];
 
     public NET_NOTIFY_ELEVATOR_FLOOR_COUNTER_INFO() {
     }

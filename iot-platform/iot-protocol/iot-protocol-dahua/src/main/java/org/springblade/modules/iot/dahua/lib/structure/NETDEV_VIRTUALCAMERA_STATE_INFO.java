@@ -17,7 +17,7 @@ public class NETDEV_VIRTUALCAMERA_STATE_INFO extends SdkStructure {
      */
     public int              nChannelID;
     /**
-     * 连接状态 {@link NetSDKLib.CONNECT_STATE}
+     * 连接状态 {@link CONNECT_STATE}
      */
     public int              emConnectState;
     /**

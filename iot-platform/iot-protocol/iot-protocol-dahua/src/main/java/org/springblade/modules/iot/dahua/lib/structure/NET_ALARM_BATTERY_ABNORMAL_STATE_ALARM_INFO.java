@@ -19,17 +19,17 @@ public class NET_ALARM_BATTERY_ABNORMAL_STATE_ALARM_INFO extends SdkStructure
     */
     public NET_EVENT_INFO_EXTEND stuEventInfoEx = new NET_EVENT_INFO_EXTEND();
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 监测项类型："State"：状态
     */
     public byte[]           szName = new byte[128];
     /**
-     * GPS信息,参见结构体定义 {@link NetSDKLib.NET_GPS_STATUS_INFO}
+     * GPS信息,参见结构体定义 {@link NET_GPS_STATUS_INFO}
     */
-    public NetSDKLib.NET_GPS_STATUS_INFO stuGPSStatusInfo = new NetSDKLib.NET_GPS_STATUS_INFO();
+    public NET_GPS_STATUS_INFO stuGPSStatusInfo = new NET_GPS_STATUS_INFO();
     /**
      * 返回正常状态范围： [0,1]
     */

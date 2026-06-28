@@ -16,9 +16,9 @@ public class NET_IN_ATTACH_DOCK_EVENTS extends SdkStructure
     */
     public byte[]           szReserved = new byte[4];
     /**
-     * 任务状态回调函数,参见回调函数定义 {@link NetSDKLib.fUAVDockEvents}
+     * 任务状态回调函数,参见回调函数定义 {@link FUAVDockEvents}
     */
-    public NetSDKLib.fUAVDockEvents cbNotify;
+    public FUAVDockEvents cbNotify;
     /**
      * 用户信息
     */

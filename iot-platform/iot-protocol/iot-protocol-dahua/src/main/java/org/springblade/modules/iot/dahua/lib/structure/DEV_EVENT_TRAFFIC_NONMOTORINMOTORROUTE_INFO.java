@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /**
@@ -17,7 +17,7 @@ public class DEV_EVENT_TRAFFIC_NONMOTORINMOTORROUTE_INFO extends SdkStructure {
     /**
      *  事件名称
      */
-    public byte[]           szName = new byte[NetSDKLib.NET_EVENT_NAME_LEN];
+    public byte[]           szName = new byte[NET_EVENT_NAME_LEN];
     /**
      *  事件动作,0表示脉冲事件,1表示持续性事件开始,2表示持续性事件结束;
      */
@@ -41,19 +41,19 @@ public class DEV_EVENT_TRAFFIC_NONMOTORINMOTORROUTE_INFO extends SdkStructure {
     /**
      *  事件对应文件信息
      */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo;
+    public NET_EVENT_FILE_INFO stuFileInfo;
     /**
      *  交通车辆信息
      */
-    public NetSDKLib.DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO stTrafficCar;
+    public DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO stTrafficCar;
     /**
      *  检测到的物体
      */
-    public NetSDKLib.NET_MSG_OBJECT stuObject;
+    public NET_MSG_OBJECT stuObject;
     /**
      *  车身信息 
      */
-    public NetSDKLib.NET_MSG_OBJECT stuVehicle;
+    public NET_MSG_OBJECT stuVehicle;
     /**
      *  抓图标志(按位),具体见NET_RESERVED_COMMON 
      */
@@ -61,11 +61,11 @@ public class DEV_EVENT_TRAFFIC_NONMOTORINMOTORROUTE_INFO extends SdkStructure {
     /**
      *  对应图片的分辨率
      */
-    public NetSDKLib.NET_RESOLUTION_INFO stuResolution;
+    public NET_RESOLUTION_INFO stuResolution;
     /**
      *  报警对应的原始录像文件信息
      */
-    public byte[]           szRecordFile = new byte[NetSDKLib.NET_COMMON_STRING_128];
+    public byte[]           szRecordFile = new byte[NET_COMMON_STRING_128];
     /**
      *  对应车道号
      */
@@ -77,7 +77,7 @@ public class DEV_EVENT_TRAFFIC_NONMOTORINMOTORROUTE_INFO extends SdkStructure {
     /**
      *  公共信息
      */
-    public NetSDKLib.EVENT_COMM_INFO stCommInfo;
+    public EVENT_COMM_INFO stCommInfo;
     /**
      *  是否有非机动车对象
      */
@@ -85,7 +85,7 @@ public class DEV_EVENT_TRAFFIC_NONMOTORINMOTORROUTE_INFO extends SdkStructure {
     /**
      *  非机动车对象
      */
-    public NetSDKLib.VA_OBJECT_NONMOTOR stuNonMotor;
+    public VA_OBJECT_NONMOTOR stuNonMotor;
     /**
      * 图片信息数组,参见结构体定义 {@link NET_IMAGE_INFO_EX3}
     */
@@ -101,6 +101,6 @@ public class DEV_EVENT_TRAFFIC_NONMOTORINMOTORROUTE_INFO extends SdkStructure {
     /**
      *  保留字节,留待扩展.
      */
-    public byte[]           bReserved = new byte[3028-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           bReserved = new byte[3028-NetSDKConstants.POINTERSIZE];
 }
 

@@ -12,6 +12,6 @@ public class StringByteArrSixteen extends SdkStructure {
 	/**
 	 * 二维数组内字符串对应字节数组
 	 */
-    public byte[]           data = new byte[NetSDKLib.CFG_COMMON_STRING_16];
+    public byte[]           data = new byte[CFG_COMMON_STRING_16];
 }
 

@@ -2,8 +2,8 @@ package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_TIME_EX;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.*;
+import org.springblade.modules.iot.dahua.lib.NET_TIME_EX;
+
 import com.sun.jna.Pointer;
 
 /**
@@ -24,11 +24,11 @@ public class DEV_EVENT_FACERECOGNITION_INFO_V1 extends SdkStructure {
     public byte[]           byReserved1 = new byte[2];            // 对齐
     public int              bGlobalScenePic;                      // 全景图是否存在, 类型为BOOL, 取值为0或者1
     public NET_PIC_INFO     stuGlobalScenePicInfo;                // 全景图片信息
-    public byte[]           szSnapDevAddress = new byte[NetSDKLib.MAX_PATH]; // 抓拍当前人脸的设备地址,如：滨康路37号
+    public byte[]           szSnapDevAddress = new byte[MAX_PATH]; // 抓拍当前人脸的设备地址,如：滨康路37号
     public int              nOccurrenceCount;                     // 事件触发累计次数， 类型为unsigned int
     public EVENT_INTELLI_COMM_INFO stuIntelliCommInfo;            // 智能事件公共信息
     public NET_FACE_DATA    stuFaceData;                          // 人脸数据
-    public byte[]           szUID = new byte[NetSDKLib.NET_COMMON_STRING_32]; // 抓拍人员写入数据库的唯一标识符
+    public byte[]           szUID = new byte[NET_COMMON_STRING_32]; // 抓拍人员写入数据库的唯一标识符
     public NET_FEATURE_VECTOR stuFeatureVector;                   // 特征值信息
     public byte[]           szFeatureVersion = new byte[32];      // 特征值算法版本
     public int              emFaceDetectStatus;                   // 人脸在摄像机画面中的状态,详见EM_FACE_DETECT_STATUS

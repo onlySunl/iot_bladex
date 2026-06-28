@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 /**
  * 事件类型 EVENT_IVS_UNBROKEN_TRASHBAG(垃圾袋未破袋检测事件)对应的数据块描述信息
@@ -44,9 +44,9 @@ public class NET_DEV_EVENT_UNBROKEN_TRASHBAG_INFO extends SdkStructure
     */
     public double           dbPTS;
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 事件时间毫秒数
     */
@@ -72,13 +72,13 @@ public class NET_DEV_EVENT_UNBROKEN_TRASHBAG_INFO extends SdkStructure
     */
     public int              nDetectRegionNum;
     /**
-     * 检测区,参见结构体定义 {@link NetSDKLib.NET_POINT}
+     * 检测区,参见结构体定义 {@link NET_POINT}
     */
-    public NetSDKLib.NET_POINT[] stuDetectRegion = new NetSDKLib.NET_POINT[20];
+    public NET_POINT[] stuDetectRegion = new NET_POINT[20];
     /**
-     * 检测目标的物体信息,参见结构体定义 {@link NetSDKLib.NET_MSG_OBJECT}
+     * 检测目标的物体信息,参见结构体定义 {@link NET_MSG_OBJECT}
     */
-    public NetSDKLib.NET_MSG_OBJECT[] stuObjects = new NetSDKLib.NET_MSG_OBJECT[64];
+    public NET_MSG_OBJECT[] stuObjects = new NET_MSG_OBJECT[64];
     /**
      * 事件关联ID 应用场景是同一个物体或者同一张图片做不同分析，产生的多个事件的SourceID相同, 格式：类型+时间+序列号，其中类型2位，时间14位，序列号5位
     */
@@ -106,14 +106,14 @@ public class NET_DEV_EVENT_UNBROKEN_TRASHBAG_INFO extends SdkStructure
     /**
      * 预留字节
     */
-    public byte[]           szReserved = new byte[508-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           szReserved = new byte[508-NetSDKConstants.POINTERSIZE];
 
     public NET_DEV_EVENT_UNBROKEN_TRASHBAG_INFO() {
         for(int i = 0; i < stuDetectRegion.length; i++){
-            stuDetectRegion[i] = new NetSDKLib.NET_POINT();
+            stuDetectRegion[i] = new NET_POINT();
         }
         for(int i = 0; i < stuObjects.length; i++){
-            stuObjects[i] = new NetSDKLib.NET_MSG_OBJECT();
+            stuObjects[i] = new NET_MSG_OBJECT();
         }
     }
 }

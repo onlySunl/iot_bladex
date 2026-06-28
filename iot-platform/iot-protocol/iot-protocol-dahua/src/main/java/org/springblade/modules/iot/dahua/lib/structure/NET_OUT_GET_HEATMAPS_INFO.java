@@ -15,7 +15,7 @@ public class NET_OUT_GET_HEATMAPS_INFO extends SdkStructure {
     /**
      *  元数据
      */
-    public NetSDKLib.NET_RADIOMETRY_METADATA stMetaData;
+    public NET_RADIOMETRY_METADATA stMetaData;
     /**
      *  热图数据缓存区 pbDataBuf 的大小, 由用户指定
      */

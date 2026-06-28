@@ -37,7 +37,7 @@ public class DEV_EVENT_ALARM_ANALOGALRM_INFO extends SdkStructure {
     /**
      * 事件对应文件信息
      */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo = new NetSDKLib.NET_EVENT_FILE_INFO();
+    public NET_EVENT_FILE_INFO stuFileInfo = new NET_EVENT_FILE_INFO();
     /**
      * 模拟量报警通道号
      */
@@ -69,7 +69,7 @@ public class DEV_EVENT_ALARM_ANALOGALRM_INFO extends SdkStructure {
      */
     public byte             bEventAction;
     /**
-     * 传感器数值单位 {@link NetSDKLib.NET_TEMPERATURE_UNIT}
+     * 传感器数值单位 {@link NET_TEMPERATURE_UNIT}
      */
     public int              emTemperatureUnit;
     /**

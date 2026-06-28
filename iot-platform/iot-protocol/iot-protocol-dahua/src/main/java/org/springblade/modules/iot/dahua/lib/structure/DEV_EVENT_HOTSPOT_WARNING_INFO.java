@@ -32,7 +32,7 @@ public class DEV_EVENT_HOTSPOT_WARNING_INFO extends SdkStructure {
 	/**
 	 * 事件对应文件信息
 	 */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo = new NetSDKLib.NET_EVENT_FILE_INFO();
+    public NET_EVENT_FILE_INFO stuFileInfo = new NET_EVENT_FILE_INFO();
 	/**
 	 * 事件ID
 	 */
@@ -40,13 +40,13 @@ public class DEV_EVENT_HOTSPOT_WARNING_INFO extends SdkStructure {
 	/**
 	 * 热点的坐标,坐标值 0~8191
 	 */
-    public NetSDKLib.DH_POINT stuPoint = new NetSDKLib.DH_POINT();
+    public DH_POINT stuPoint = new DH_POINT();
 	/**
 	 * 热点温度值
 	 */
     public float            fHotSpotValue;
 	/**
-	 * 温度单位(当前配置的温度单位),{@link NetSDKLib.NET_TEMPERATURE_UNIT}
+	 * 温度单位(当前配置的温度单位),{@link NET_TEMPERATURE_UNIT}
 	 */
     public int              nTemperatureUnit;
     /**

@@ -11,6 +11,6 @@ public class MaxSceneSupTypeByteArrInfo extends SdkStructure {
 	/**
 	 * 二维数组内字符串对应字节数组
 	 */
-    public byte[]           sceneSupType = new byte[NetSDKLib.MAX_SCENE_SUBTYPE_LEN];
+    public byte[]           sceneSupType = new byte[MAX_SCENE_SUBTYPE_LEN];
 }
 

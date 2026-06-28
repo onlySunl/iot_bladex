@@ -2,7 +2,7 @@ package org.springblade.modules.iot.dahua.lib.structure.customize;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.*;
+
 
 /**
  * 船只绊线入侵事件结构体
@@ -10,7 +10,7 @@ import static org.springblade.modules.iot.dahua.lib.NetSDKLib.*;
  * ERR210428143 水面预警事件 专用结构体
  * <p>
  * 注意: 其他项目不要使用, 通用的停车检测事件结构体见:
- * {@link NetSDKLib.DEV_EVENT_CROSSLINE_INFO}
+ * {@link DEV_EVENT_CROSSLINE_INFO}
  *
  * @author 47040
  * @since Created in 2021/5/13 19:03

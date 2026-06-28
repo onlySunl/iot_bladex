@@ -12,7 +12,7 @@ public class NET_COMPOSITECHANNELMODE_WINDOWS extends SdkStructure {
     /**
      * 窗口坐标, 采用8192坐标体系
      */
-    public NetSDKLib.DH_RECT stRect;
+    public DH_RECT stRect;
     /**
      * 逻辑通道号, 为-1表示此窗口没有绑定通道
      */

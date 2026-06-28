@@ -4,8 +4,8 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import org.springblade.modules.iot.dahua.lib.enumeration.NET_EM_SHAPE_TYPE;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.MAX_COMMON_STRING_64;
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_MAX_POLYGON_NUM;
+import static org.springblade.modules.iot.dahua.lib.MAX_COMMON_STRING_64;
+import static org.springblade.modules.iot.dahua.lib.NET_MAX_POLYGON_NUM;
 
 /**
  * PTZ景物点信息
@@ -53,7 +53,7 @@ public class POINTINFOS extends SdkStructure {
     /**
      * 景物的轮廓,每个点依次表示轮廓顶点坐标
      */
-    public NetSDKLib.DH_POINT[] stuPolygon = new NetSDKLib.DH_POINT[NET_MAX_POLYGON_NUM];
+    public DH_POINT[] stuPolygon = new DH_POINT[NET_MAX_POLYGON_NUM];
     /**
      * 返回的景物轮廓顶点个数
      */
@@ -65,7 +65,7 @@ public class POINTINFOS extends SdkStructure {
 
     public POINTINFOS() {
         for (int i = 0; i < stuPolygon.length; i++) {
-            stuPolygon[i] = new NetSDKLib.DH_POINT();
+            stuPolygon[i] = new DH_POINT();
         }
     }
 }

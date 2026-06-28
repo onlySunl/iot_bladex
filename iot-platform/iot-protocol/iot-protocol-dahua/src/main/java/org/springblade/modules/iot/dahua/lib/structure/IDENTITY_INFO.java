@@ -12,7 +12,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 public class IDENTITY_INFO extends SdkStructure {
  /** 法定姓名*/
     public			byte[]         szCitizenName = new byte[128];
- /** 性别 ,参考枚举{@link NetSDKLib.EM_SEX_TYPE } */
+ /** 性别 ,参考枚举{@link EM_SEX_TYPE } */
     public			int            emSex;
  /** 证件号18位*/
     public			byte[]         szCitizenIDNo = new byte[20];

@@ -25,7 +25,7 @@ public class NET_PUSH_PICTURE_BYRULE_INFO extends SdkStructure {
 /** 
 分析规则信息
 */
-    public NetSDKLib.NET_ANALYSE_RULE stuRuleInfo = new NetSDKLib.NET_ANALYSE_RULE();
+    public NET_ANALYSE_RULE stuRuleInfo = new NET_ANALYSE_RULE();
 /** 
 用户定义数据，通过client.notifyTaskResult回调中”UserDefineData”字段带回
 */

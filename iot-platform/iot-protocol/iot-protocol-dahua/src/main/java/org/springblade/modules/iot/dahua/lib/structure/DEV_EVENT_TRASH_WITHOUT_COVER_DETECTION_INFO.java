@@ -32,7 +32,7 @@ public class DEV_EVENT_TRASH_WITHOUT_COVER_DETECTION_INFO extends SdkStructure {
 	 */
     public NET_TIME_EX      UTC = new NET_TIME_EX();
 	/**
-	 * / 智能事件所属大类 {@link NetSDKLib.EM_SCENE_CLASS_TYPE}
+	 * / 智能事件所属大类 {@link EM_SCENE_CLASS_TYPE}
 	 */
     public int              emClassType;
 	/**
@@ -70,11 +70,11 @@ public class DEV_EVENT_TRASH_WITHOUT_COVER_DETECTION_INFO extends SdkStructure {
 	/**
 	 * / 检测到的物体
 	 */
-    public NetSDKLib.DH_MSG_OBJECT[] stuObjects = new NetSDKLib.DH_MSG_OBJECT[128];
+    public DH_MSG_OBJECT[] stuObjects = new DH_MSG_OBJECT[128];
 	/**
 	 * / 全景广角图
 	 */
-    public NetSDKLib.SCENE_IMAGE_INFO_EX stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO_EX();
+    public SCENE_IMAGE_INFO_EX stuSceneImage = new SCENE_IMAGE_INFO_EX();
 	/**
 	 * / 图片信息数组
 	 */
@@ -90,7 +90,7 @@ public class DEV_EVENT_TRASH_WITHOUT_COVER_DETECTION_INFO extends SdkStructure {
 
 	public DEV_EVENT_TRASH_WITHOUT_COVER_DETECTION_INFO() {
 		for (int i = 0; i < stuObjects.length; i++) {
-			stuObjects[i] = new NetSDKLib.DH_MSG_OBJECT();
+			stuObjects[i] = new DH_MSG_OBJECT();
 		}
 		for (int i = 0; i < stuImageInfo.length; i++) {
 			stuImageInfo[i] = new NET_IMAGE_INFO_EX2();

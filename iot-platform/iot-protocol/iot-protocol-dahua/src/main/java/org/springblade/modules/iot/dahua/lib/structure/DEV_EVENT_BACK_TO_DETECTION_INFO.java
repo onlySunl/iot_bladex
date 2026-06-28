@@ -19,13 +19,13 @@ public class DEV_EVENT_BACK_TO_DETECTION_INFO extends SdkStructure
     */
     public byte[]           szName = new byte[128];
     /**
-     * 智能事件所属大类,参见枚举定义 {@link NetSDKLib.EM_CLASS_TYPE}
+     * 智能事件所属大类,参见枚举定义 {@link EM_CLASS_TYPE}
     */
     public int              emClassType;
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX UTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX UTC = new NET_TIME_EX();
     /**
      * 时间戳(单位是毫秒)
     */

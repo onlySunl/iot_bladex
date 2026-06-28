@@ -40,11 +40,11 @@ public class DEV_EVENT_FIRE_EXTINGUISHER_DETECTION_INFO extends SdkStructure {
     /**
      *  检测到的物体
      */
-    public NetSDKLib.NET_MSG_OBJECT stuObject;
+    public NET_MSG_OBJECT stuObject;
     /**
      *  全景广角图
      */
-    public NetSDKLib.SCENE_IMAGE_INFO_EX stuSceneImage;
+    public SCENE_IMAGE_INFO_EX stuSceneImage;
     /**
      *  目标区域内物体计数信息
      */

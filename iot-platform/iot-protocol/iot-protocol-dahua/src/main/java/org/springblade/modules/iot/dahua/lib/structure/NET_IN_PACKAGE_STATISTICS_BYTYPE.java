@@ -10,7 +10,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  */
 public class NET_IN_PACKAGE_STATISTICS_BYTYPE extends SdkStructure {
     /**
-     *  危险物等级,参考枚举{@link NetSDKLib.EM_INSIDE_OBJECT_TYPE }
+     *  危险物等级,参考枚举{@link EM_INSIDE_OBJECT_TYPE }
      */
     public int              emType;                               // 危险物类型
     public int              nCount;                               // 危险物数量

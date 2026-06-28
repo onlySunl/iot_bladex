@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 public class NET_POINT_EX_ARRAY_20 extends SdkStructure {
     /**

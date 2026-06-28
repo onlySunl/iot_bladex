@@ -19,9 +19,9 @@ public class CFG_DETAIL_DRIVEASSISTANT_INFO extends SdkStructure {
   /** 车头到相机的距离 0-5000mm 单位mm */
     public int              nCamToCarHead;
     /**
-     * 车道中心点,参见结构体定义 {@link NetSDKLib.CFG_POLYGON}
+     * 车道中心点,参见结构体定义 {@link CFG_POLYGON}
     */
-    public NetSDKLib.CFG_POLYGON stuCenterPoint = new NetSDKLib.CFG_POLYGON();
+    public CFG_POLYGON stuCenterPoint = new CFG_POLYGON();
   /** 保留 */
     public byte[]           byReserved = new byte[48];
 }

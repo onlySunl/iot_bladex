@@ -7,9 +7,9 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 public class NET_RADIOMETRY_QUERY_INFO extends SdkStructure
 {
     /**
-     * 记录时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 记录时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuTime = new NET_TIME();
     /**
      * 预置点编号
     */
@@ -27,15 +27,15 @@ public class NET_RADIOMETRY_QUERY_INFO extends SdkStructure
     */
     public byte[]           szName = new byte[64];
     /**
-     * 查询测温点坐标,参见结构体定义 {@link NetSDKLib.NET_POINT}
+     * 查询测温点坐标,参见结构体定义 {@link NET_POINT}
     */
-    public NetSDKLib.NET_POINT[] stuCoordinate = new NetSDKLib.NET_POINT[8];
+    public NET_POINT[] stuCoordinate = new NET_POINT[8];
     /**
      * 通道号
     */
     public int              nChannel;
     /**
-     * 温度单位,参见枚举定义 {@link NetSDKLib.NET_TEMPERATURE_UNIT}
+     * 温度单位,参见枚举定义 {@link NET_TEMPERATURE_UNIT}
     */
     public int              emTemperatureUnit;
     /**
@@ -49,7 +49,7 @@ public class NET_RADIOMETRY_QUERY_INFO extends SdkStructure
 
     public NET_RADIOMETRY_QUERY_INFO() {
         for(int i = 0; i < stuCoordinate.length; i++){
-            stuCoordinate[i] = new NetSDKLib.NET_POINT();
+            stuCoordinate[i] = new NET_POINT();
         }
     }
 }

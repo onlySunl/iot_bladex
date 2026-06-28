@@ -6,8 +6,8 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  * @date 2021/3/11
  */
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.EM_FOG_LEVEL;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.EM_FOG_LEVEL;
+import org.springblade.modules.iot.dahua.lib.SdkStructure;
 
 public class NET_FOG_DETECTION_RULE_INFO extends SdkStructure {
 	/**

@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /**
@@ -33,9 +33,9 @@ public class NET_RADAR_NOTIFY_ALARMPOINTINFO extends SdkStructure {
      */
     public NET_RADAR_RULE_INFO[] stuRuleInfo = (NET_RADAR_RULE_INFO[]) new NET_RADAR_RULE_INFO().toArray(10);
     /**
-     * 雷达设备识别到目标上报的时间，时间是标准UTC时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 雷达设备识别到目标上报的时间，时间是标准UTC时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuRealUTC = new NET_TIME();
     /**
      * 雷达报警点的数量扩展
     */
@@ -47,6 +47,6 @@ public class NET_RADAR_NOTIFY_ALARMPOINTINFO extends SdkStructure {
     /**
      *  保留字节
      */
-    public byte[]           byReserved = new byte[268-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           byReserved = new byte[268-NetSDKConstants.POINTERSIZE];
 }
 

@@ -2,7 +2,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.fPTZStatusProcCallBack;
+import org.springblade.modules.iot.dahua.lib.FPTZStatusProcCallBack;
 
 /**
  * @author 251823

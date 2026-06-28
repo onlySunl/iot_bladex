@@ -19,9 +19,9 @@ public class ALARM_NONMOTOR_ENTRYING_INFO extends SdkStructure
     */
     public double           dbPTS;
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuTime = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuTime = new NET_TIME_EX();
     /**
      * 事件ID
     */
@@ -35,9 +35,9 @@ public class ALARM_NONMOTOR_ENTRYING_INFO extends SdkStructure
     */
     public int              nObjectNum;
     /**
-     * 非机动车目标,参见结构体定义 {@link NetSDKLib.VA_OBJECT_NONMOTOR}
+     * 非机动车目标,参见结构体定义 {@link VA_OBJECT_NONMOTOR}
     */
-    public NetSDKLib.VA_OBJECT_NONMOTOR[] stuObjects = new NetSDKLib.VA_OBJECT_NONMOTOR[8];
+    public VA_OBJECT_NONMOTOR[] stuObjects = new VA_OBJECT_NONMOTOR[8];
     /**
      * 预留字段
     */
@@ -45,7 +45,7 @@ public class ALARM_NONMOTOR_ENTRYING_INFO extends SdkStructure
 
     public ALARM_NONMOTOR_ENTRYING_INFO() {
         for(int i = 0; i < stuObjects.length; i++){
-            stuObjects[i] = new NetSDKLib.VA_OBJECT_NONMOTOR();
+            stuObjects[i] = new VA_OBJECT_NONMOTOR();
         }
     }
 }

@@ -18,11 +18,11 @@ public class NET_RESOLUTION_INFO_ARRAY extends SdkStructure {
      * 有效长度由 {@link NET_STREAM_CFG_CAPS#nIndivResolutionNums} 决定
      * 其下标与 {@link NET_STREAM_CFG_CAPS#stuIndivResolutionTypes} 第一维数组精确匹配
      */
-    public NetSDKLib.NET_RESOLUTION_INFO[] stuIndivResolutions = new NetSDKLib.NET_RESOLUTION_INFO[CFG_MAX_CAPTURE_SIZE_NUM];
+    public NET_RESOLUTION_INFO[] stuIndivResolutions = new NET_RESOLUTION_INFO[CFG_MAX_CAPTURE_SIZE_NUM];
 
     public NET_RESOLUTION_INFO_ARRAY() {
         for (int i = 0; i < stuIndivResolutions.length; i++) {
-            stuIndivResolutions[i] = new NetSDKLib.NET_RESOLUTION_INFO();
+            stuIndivResolutions[i] = new NET_RESOLUTION_INFO();
         }
     }
 }

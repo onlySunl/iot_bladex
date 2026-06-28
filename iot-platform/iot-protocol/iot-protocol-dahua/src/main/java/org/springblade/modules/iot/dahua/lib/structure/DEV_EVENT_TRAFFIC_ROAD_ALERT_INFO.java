@@ -38,15 +38,15 @@ public class DEV_EVENT_TRAFFIC_ROAD_ALERT_INFO extends SdkStructure {
     /**
      * 车牌信息
      */
-    public NetSDKLib.DH_MSG_OBJECT stuObject;
+    public DH_MSG_OBJECT stuObject;
     /**
      * 车身信息
      */
-    public NetSDKLib.DH_MSG_OBJECT stuVehicle;
+    public DH_MSG_OBJECT stuVehicle;
     /**
      * 交通车辆信息
      */
-    public NetSDKLib.DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO stTrafficCar;
+    public DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO stTrafficCar;
     /**
      * 事件组ID，同一辆车抓拍过程内GroupID相同
      */
@@ -66,11 +66,11 @@ public class DEV_EVENT_TRAFFIC_ROAD_ALERT_INFO extends SdkStructure {
     /**
      * 公共信息
      */
-    public NetSDKLib.EVENT_COMM_INFO stCommInfo;
+    public EVENT_COMM_INFO stCommInfo;
     /**
      * 事件对应文件信息
      */
-    public NetSDKLib.NET_EVENT_FILE_INFO stFileInfo;
+    public NET_EVENT_FILE_INFO stFileInfo;
     /**
      * 表示抓拍序号,如3,2,1. 1表示抓拍结束,0表示异常结束
      */

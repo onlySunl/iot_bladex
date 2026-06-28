@@ -15,13 +15,13 @@ public class MEDIAFILE_SMOKE_FIRE_INFO extends SdkStructure
     */
     public int              nChannelID;
     /**
-     * 开始时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 开始时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuBeginTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuBeginTime = new NET_TIME();
     /**
-     * 结束时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 结束时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuEndTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuEndTime = new NET_TIME();
     /**
      * 文件路径
     */
@@ -51,13 +51,13 @@ public class MEDIAFILE_SMOKE_FIRE_INFO extends SdkStructure
     */
     public int              bRealUTC;
     /**
-     * UTC开始时间(标准UTC时间), 与stuEndTimeRealUTC配对使用,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * UTC开始时间(标准UTC时间), 与stuEndTimeRealUTC配对使用,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuStartTimeRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuStartTimeRealUTC = new NET_TIME();
     /**
-     * UTC结束时间(标准UTC时间), 与stuStartTimeRealUTC配对使用,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * UTC结束时间(标准UTC时间), 与stuStartTimeRealUTC配对使用,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuEndTimeRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuEndTimeRealUTC = new NET_TIME();
 
     public MEDIAFILE_SMOKE_FIRE_INFO() {
         this.dwSize = this.size();

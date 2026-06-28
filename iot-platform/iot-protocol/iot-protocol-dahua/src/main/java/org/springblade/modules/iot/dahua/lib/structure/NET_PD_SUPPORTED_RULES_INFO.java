@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 /**
  * 支持大类业务字段
@@ -31,7 +31,7 @@ public class NET_PD_SUPPORTED_RULES_INFO extends SdkStructure
     /**
      * 保留字节
     */
-    public byte[]           szReserved = new byte[1012-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           szReserved = new byte[1012-NetSDKConstants.POINTERSIZE];
 
     public NET_PD_SUPPORTED_RULES_INFO() {
         for(int i = 0; i < szNormal.length; i++){

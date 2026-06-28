@@ -38,7 +38,7 @@ public class NET_ENCODE_VIDEO_INFO extends SdkStructure {
      */
     public int              nHeight;
     /**
-     * 码流控制模式 枚举值 {@link NetSDKLib.NET_EM_BITRATE_CONTROL}
+     * 码流控制模式 枚举值 {@link NET_EM_BITRATE_CONTROL}
      */
     public int              emBitRateControl;
     /**

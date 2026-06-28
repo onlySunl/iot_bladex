@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import com.sun.jna.Pointer;
 /**
  * CLIENT_QueryDevInfo , NET_QUERY_DEV_STORAGE_INFOS_SP接口输出参数

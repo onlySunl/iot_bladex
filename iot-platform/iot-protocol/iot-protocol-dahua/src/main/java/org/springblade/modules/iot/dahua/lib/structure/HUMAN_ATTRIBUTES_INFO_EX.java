@@ -32,7 +32,7 @@ public class HUMAN_ATTRIBUTES_INFO_EX extends SdkStructure {
      */
     public int              emExtRecordSource;
     /**
-     * 帽子颜色,参见枚举定义 {@link NetSDKLib.EM_CLOTHES_COLOR}
+     * 帽子颜色,参见枚举定义 {@link EM_CLOTHES_COLOR}
     */
     public int              emCapColor;
     /**
@@ -52,7 +52,7 @@ public class HUMAN_ATTRIBUTES_INFO_EX extends SdkStructure {
     */
     public int              bIsRelatedFace;
     /**
-     * 上衣款式,参见枚举定义 {@link NetSDKLib.EM_COAT_TYPE}
+     * 上衣款式,参见枚举定义 {@link EM_COAT_TYPE}
     */
     public int              emCoatStyle;
     /**
@@ -60,7 +60,7 @@ public class HUMAN_ATTRIBUTES_INFO_EX extends SdkStructure {
     */
     public int              emShoesType;
     /**
-     * 鞋子颜色,参见枚举定义 {@link NetSDKLib.EM_CLOTHES_COLOR}
+     * 鞋子颜色,参见枚举定义 {@link EM_CLOTHES_COLOR}
     */
     public int              emShoesColor;
     /**

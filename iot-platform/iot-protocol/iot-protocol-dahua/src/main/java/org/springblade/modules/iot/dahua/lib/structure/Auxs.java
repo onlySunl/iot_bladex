@@ -5,7 +5,6 @@ package org.springblade.modules.iot.dahua.lib.structure;/**
  * @version 1.0
  */
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import static org.springblade.modules.iot.dahua.lib.constant.SDKStructureFieldLenth.CFG_COMMON_STRING_32;
 

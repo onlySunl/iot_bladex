@@ -22,7 +22,7 @@ public class NET_IN_TALK_SEND_DATA_FILE extends SdkStructure {
     /**
      *  音频文件发送进度
      */
-    public NetSDKLib.fTalkSendPosCallBack cbSendPos;
+    public FTalkSendPosCallBack cbSendPos;
     /**
      *  用户参数
      */

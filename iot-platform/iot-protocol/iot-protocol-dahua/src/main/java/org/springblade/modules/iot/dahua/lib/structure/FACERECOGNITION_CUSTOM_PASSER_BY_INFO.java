@@ -15,13 +15,13 @@ public class FACERECOGNITION_CUSTOM_PASSER_BY_INFO extends SdkStructure
     */
     public int              nStoragePresetID;
     /**
-     * 入库时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 入库时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuStorageTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuStorageTime = new NET_TIME();
     /**
-     * 最近出现时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 最近出现时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuLastAppearTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuLastAppearTime = new NET_TIME();
     /**
      * 最近出现地点对应的通道号
     */

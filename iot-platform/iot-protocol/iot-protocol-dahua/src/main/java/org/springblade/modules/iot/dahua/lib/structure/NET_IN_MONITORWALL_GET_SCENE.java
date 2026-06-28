@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * CLIENT_MonitorWallGetScene接口输入参数(获取电视墙场景)
 */

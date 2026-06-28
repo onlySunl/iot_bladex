@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * NET_CFG_PARK_SPACE_VOICE_BROADCAST_INFO 停车场语音播报配置
 */

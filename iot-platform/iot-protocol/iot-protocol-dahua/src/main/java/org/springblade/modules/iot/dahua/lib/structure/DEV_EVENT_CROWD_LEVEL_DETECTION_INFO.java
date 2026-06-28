@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /**
@@ -46,7 +46,7 @@ public class DEV_EVENT_CROWD_LEVEL_DETECTION_INFO extends SdkStructure {
 	/**
 	 * 规则区域
 	 */
-    public NetSDKLib.NET_POINT[] stuDetectRegion = new NetSDKLib.NET_POINT[20];
+    public NET_POINT[] stuDetectRegion = new NET_POINT[20];
 	/**
 	 * 规则区域个数
 	 */
@@ -90,11 +90,11 @@ public class DEV_EVENT_CROWD_LEVEL_DETECTION_INFO extends SdkStructure {
 	/**
 	 * 预留字节
 	 */
-    public byte[]           szReserved = new byte[1020 - NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           szReserved = new byte[1020 - NetSDKConstants.POINTERSIZE];
 
 	public DEV_EVENT_CROWD_LEVEL_DETECTION_INFO() {
 		for (int i = 0; i < stuDetectRegion.length; i++) {
-			stuDetectRegion[i] = new NetSDKLib.NET_POINT();
+			stuDetectRegion[i] = new NET_POINT();
 		}
 	}
 }

@@ -24,7 +24,7 @@ public class CFG_INTELLI_SHELF_INFO extends SdkStructure {
 	/**
 	 * 相应物体类型列表
 	 */
-    public MaxNameByteArrInfo[] szObjectTypes = (MaxNameByteArrInfo[])new MaxNameByteArrInfo().toArray(NetSDKLib.MAX_OBJECT_LIST_SIZE);
+    public MaxNameByteArrInfo[] szObjectTypes = (MaxNameByteArrInfo[])new MaxNameByteArrInfo().toArray(MAX_OBJECT_LIST_SIZE);
 	/**
 	 * 云台预置点编号 0~65535
 	 */
@@ -32,11 +32,11 @@ public class CFG_INTELLI_SHELF_INFO extends SdkStructure {
 	/**
 	 * 报警联动
 	 */
-    public NetSDKLib.CFG_ALARM_MSG_HANDLE stuEventHandler = new NetSDKLib.CFG_ALARM_MSG_HANDLE();
+    public CFG_ALARM_MSG_HANDLE stuEventHandler = new CFG_ALARM_MSG_HANDLE();
 	/**
 	 * 事件响应时间段
 	 */
-    public NetSDKLib.TIME_SECTION_WEEK_DAY_10[] stuTimeSection = (NetSDKLib.TIME_SECTION_WEEK_DAY_10[])new NetSDKLib.TIME_SECTION_WEEK_DAY_10().toArray(NetSDKLib.WEEK_DAY_NUM);
+    public TIME_SECTION_WEEK_DAY_10[] stuTimeSection = (TIME_SECTION_WEEK_DAY_10[])new TIME_SECTION_WEEK_DAY_10().toArray(WEEK_DAY_NUM);
 	/**
 	 * 检测区顶点数
 	 */
@@ -44,7 +44,7 @@ public class CFG_INTELLI_SHELF_INFO extends SdkStructure {
 	/**
 	 * 检测区
 	 */
-    public NetSDKLib.CFG_POLYGON[] stuDetectRegion = new NetSDKLib.CFG_POLYGON[20];
+    public CFG_POLYGON[] stuDetectRegion = new CFG_POLYGON[20];
 	/**
 	 * 货架上货物百分比低于阈值则报警, 0表示不报警
 	 */
@@ -60,10 +60,10 @@ public class CFG_INTELLI_SHELF_INFO extends SdkStructure {
 
 	public CFG_INTELLI_SHELF_INFO() {
 		for (int i = 0; i < stuTimeSection.length; i++) {
-			stuTimeSection[i] = new NetSDKLib.TIME_SECTION_WEEK_DAY_10();
+			stuTimeSection[i] = new TIME_SECTION_WEEK_DAY_10();
 		}
 		for (int i = 0; i < stuDetectRegion.length; i++) {
-			stuDetectRegion[i] = new NetSDKLib.CFG_POLYGON();
+			stuDetectRegion[i] = new CFG_POLYGON();
 		}
 	}
 }

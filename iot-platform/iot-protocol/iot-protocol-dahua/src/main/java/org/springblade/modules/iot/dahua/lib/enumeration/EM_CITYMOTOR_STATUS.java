@@ -9,7 +9,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  * @author ： 260611
  * @since ： Created in 2021/10/19 20:00
  */
-public class EM_CITYMOTOR_STATUS extends NetSDKLib.SdkStructure {
+public class EM_CITYMOTOR_STATUS extends SdkStructure {
     /**
      *  未知
      */

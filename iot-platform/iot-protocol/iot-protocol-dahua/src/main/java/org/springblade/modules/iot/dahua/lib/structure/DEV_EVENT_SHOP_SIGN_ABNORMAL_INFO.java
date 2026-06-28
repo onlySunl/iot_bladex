@@ -44,13 +44,13 @@ public class DEV_EVENT_SHOP_SIGN_ABNORMAL_INFO extends SdkStructure {
     public short            nRuleID;
     /**
      * 智能事件所属大类,对应枚举
-     * {@link NetSDKLib.EM_CLASS_TYPE}
+     * {@link EM_CLASS_TYPE}
      */
     public int              emClassType;
     /**
      * 事件对应文件信息
      */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo;
+    public NET_EVENT_FILE_INFO stuFileInfo;
     /**
      * 检测区域顶点数
      */
@@ -58,7 +58,7 @@ public class DEV_EVENT_SHOP_SIGN_ABNORMAL_INFO extends SdkStructure {
     /**
      * 检测区域
      */
-    public NetSDKLib.DH_POINT[] stuDetectRegion = (NetSDKLib.DH_POINT[]) new NetSDKLib.DH_POINT().toArray(DH_MAX_DETECT_REGION_NUM);
+    public DH_POINT[] stuDetectRegion = (DH_POINT[]) new DH_POINT().toArray(DH_MAX_DETECT_REGION_NUM);
     /**
      * 检测到的物体个数
      */
@@ -66,7 +66,7 @@ public class DEV_EVENT_SHOP_SIGN_ABNORMAL_INFO extends SdkStructure {
     /**
      * 检测到的物体
      */
-    public NetSDKLib.DH_MSG_OBJECT[] stuObjects = (NetSDKLib.DH_MSG_OBJECT[]) new NetSDKLib.DH_MSG_OBJECT().toArray(HDBJ_MAX_OBJECTS_NUM);
+    public DH_MSG_OBJECT[] stuObjects = (DH_MSG_OBJECT[]) new DH_MSG_OBJECT().toArray(HDBJ_MAX_OBJECTS_NUM);
     /**
      * 事件触发的预置点号，从1开始
      */

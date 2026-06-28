@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.SdkStructure;
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_VSP_GAVI_PLATFORM_CODE;
 import com.sun.jna.Pointer;
 /**

@@ -20,7 +20,7 @@ public class NET_IN_MSGROUP_LOCATE_INFO extends SdkStructure {
 	/**
 	 * 主机坐标
 	 */
-    public NetSDKLib.DH_POINT stuPoint = new NetSDKLib.DH_POINT();
+    public DH_POINT stuPoint = new DH_POINT();
 	/**
 	 * 鱼眼圆心坐标与半径, 依次为[横坐标, 纵坐标, 半径]
 	 */

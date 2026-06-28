@@ -3,7 +3,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.MAX_NAME_LEN;
+import static org.springblade.modules.iot.dahua.lib.MAX_NAME_LEN;
 import static org.springblade.modules.iot.dahua.lib.constant.SDKStructureFieldLenth.*;
 
 /**
@@ -24,15 +24,15 @@ public class CFG_HIGH_TOSS_DETECT_INFO extends SdkStructure {
   /** 云台预置点编号 0~65535 */
     public int              nPtzPresetId;
   /** 报警联动 */
-    public NetSDKLib.CFG_ALARM_MSG_HANDLE stuEventHandler;
+    public CFG_ALARM_MSG_HANDLE stuEventHandler;
   /** 事件响应时间段 */
-    public NetSDKLib.CFG_TIME_SECTION[] stuTimeSection = (NetSDKLib.CFG_TIME_SECTION[])new NetSDKLib.CFG_TIME_SECTION().toArray(WEEK_DAY_NUM * MAX_REC_TSECT_EX);
+    public CFG_TIME_SECTION[] stuTimeSection = (CFG_TIME_SECTION[])new CFG_TIME_SECTION().toArray(WEEK_DAY_NUM * MAX_REC_TSECT_EX);
   /** 检测区顶点数 */
     public int              nDetectRegionPoint;
   /** 检测区 */
-    public NetSDKLib.CFG_POLYGON[] stuDetectRegion = (NetSDKLib.CFG_POLYGON[]) new NetSDKLib.CFG_POLYGON().toArray(20);
+    public CFG_POLYGON[] stuDetectRegion = (CFG_POLYGON[]) new CFG_POLYGON().toArray(20);
   /** 规则特定的尺寸过滤器，为提高规则判断精度 */
-    public NetSDKLib.CFG_SIZEFILTER_INFO stuSizeFilter;
+    public CFG_SIZEFILTER_INFO stuSizeFilter;
   /** 尺寸过滤器使能 */
     public int              bSizeFilterEnable;
   /** 灵敏度,越高越容易检测, 取值1-10，默认值5 */

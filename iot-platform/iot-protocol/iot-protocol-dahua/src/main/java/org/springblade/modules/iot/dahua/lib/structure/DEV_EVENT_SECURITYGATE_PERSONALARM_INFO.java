@@ -25,7 +25,7 @@ public class DEV_EVENT_SECURITYGATE_PERSONALARM_INFO extends SdkStructure {
     public int              emAlarmLevel;                         // 报警级别
     public int              nChannelIn;                           // 关联进入通道
     public int              ChannelOut;                           // 关联离开通道
-    public NetSDKLib.NET_INTELLIGENCE_IMAGE_INFO stuImageInfo = new NetSDKLib.NET_INTELLIGENCE_IMAGE_INFO(); // 人脸图片信息
+    public NET_INTELLIGENCE_IMAGE_INFO stuImageInfo = new NET_INTELLIGENCE_IMAGE_INFO(); // 人脸图片信息
     public int              nAlarmPositionNum;                    // 报警位置个数
 	/**
 	 * 报警位置,参考枚举{@link org.springblade.modules.iot.dahua.lib.enumeration.EM_SECURITYGATE_ALARM_POSITION }

@@ -45,7 +45,7 @@ public class DEV_EVENT_SLEEP_DETECT_INFO extends SdkStructure {
 	/**
 	 * 事件对应文件信息
 	 */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo;
+    public NET_EVENT_FILE_INFO stuFileInfo;
 	/**
 	 * 事件触发的预置点号,从1开始
 	 */
@@ -57,7 +57,7 @@ public class DEV_EVENT_SLEEP_DETECT_INFO extends SdkStructure {
 	/**
 	 * 检测区域,[0,8191]
 	 */
-    public NetSDKLib.NET_POINT[] stuDetectRegion = (NetSDKLib.NET_POINT[]) new NetSDKLib.NET_POINT().toArray(20);
+    public NET_POINT[] stuDetectRegion = (NET_POINT[]) new NET_POINT().toArray(20);
 	/**
 	 * 检测到的物体个数
 	 */
@@ -65,7 +65,7 @@ public class DEV_EVENT_SLEEP_DETECT_INFO extends SdkStructure {
 	/**
 	 * 检测到的物体
 	 */
-    public NetSDKLib.NET_MSG_OBJECT[] stuObjects = (NetSDKLib.NET_MSG_OBJECT[]) new NetSDKLib.NET_MSG_OBJECT().toArray(128);
+    public NET_MSG_OBJECT[] stuObjects = (NET_MSG_OBJECT[]) new NET_MSG_OBJECT().toArray(128);
 	/**
 	 * stuSceneImage 是否有效
 	 */
@@ -73,7 +73,7 @@ public class DEV_EVENT_SLEEP_DETECT_INFO extends SdkStructure {
 	/**
 	 * 全景广角图
 	 */
-    public NetSDKLib.SCENE_IMAGE_INFO_EX stuSceneImage;
+    public SCENE_IMAGE_INFO_EX stuSceneImage;
 	/**
 	 * 规则个数
 	 */

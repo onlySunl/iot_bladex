@@ -29,11 +29,11 @@ public class CFG_DRIVE_ACIONANAYLSE_INFO extends SdkStructure {
     /**
      * 报警联动
      */
-    public NetSDKLib.CFG_ALARM_MSG_HANDLE stuEventHandler = new NetSDKLib.CFG_ALARM_MSG_HANDLE();
+    public CFG_ALARM_MSG_HANDLE stuEventHandler = new CFG_ALARM_MSG_HANDLE();
     /**
      * 事件响应时间段
      */
-    public NetSDKLib.CFG_TIME_SECTION[] stuTimeSection = new NetSDKLib.CFG_TIME_SECTION[7 * 10];
+    public CFG_TIME_SECTION[] stuTimeSection = new CFG_TIME_SECTION[7 * 10];
     /**
      * 云台预置点编号  0~65535
      */
@@ -106,7 +106,7 @@ public class CFG_DRIVE_ACIONANAYLSE_INFO extends SdkStructure {
 
     public CFG_DRIVE_ACIONANAYLSE_INFO() {
         for (int i = 0; i < stuTimeSection.length; i++) {
-            stuTimeSection[i] = new NetSDKLib.CFG_TIME_SECTION();
+            stuTimeSection[i] = new CFG_TIME_SECTION();
         }
     }
 }

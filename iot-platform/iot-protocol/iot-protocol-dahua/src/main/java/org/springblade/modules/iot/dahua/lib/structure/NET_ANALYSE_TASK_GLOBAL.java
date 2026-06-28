@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.SdkStructure;
+
+
+import org.springblade.modules.iot.dahua.lib.SdkStructure;
 import com.sun.jna.Pointer;
 /**
  * @description 任务全局配置
@@ -37,7 +37,7 @@ public class NET_ANALYSE_TASK_GLOBAL extends SdkStructure {
 	/**
 	 * 保留字节
 	 */
-    public	byte[]           byReserved = new byte[1016-NetSDKLib.SIZE_OF_POINTER];
+    public	byte[]           byReserved = new byte[1016-NetSDKConstants.POINTERSIZE];
 
 	public  NET_ANALYSE_TASK_GLOBAL(){
 		for(int i=0;i<stuLanes.length;i++){

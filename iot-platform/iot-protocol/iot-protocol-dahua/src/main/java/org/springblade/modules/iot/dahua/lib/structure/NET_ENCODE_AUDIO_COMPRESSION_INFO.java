@@ -14,7 +14,7 @@ public class NET_ENCODE_AUDIO_COMPRESSION_INFO extends SdkStructure {
     public int              bAudioEnable;                         // 音频使能
     /** 参考{@link org.springblade.modules.iot.dahua.lib.enumeration.NET_EM_FORMAT_TYPE}*/
     public int              emFormatType;                         // 码流类型,设置和获取时都需要设置值
-    /** 参考{@link NetSDKLib.NET_EM_AUDIO_FORMAT} */
+    /** 参考{@link NET_EM_AUDIO_FORMAT} */
     public   int            emCompression;                        // 音频压缩模式
 
     public NET_ENCODE_AUDIO_COMPRESSION_INFO( ) {

@@ -27,9 +27,9 @@ public class NET_CFG_DOOR_STATE_DETECTION_INFO extends SdkStructure
     */
     public BYTE_ARRAY_128[] szObjectTypes = new BYTE_ARRAY_128[16];
     /**
-     * 报警联动,参见结构体定义 {@link NetSDKLib.NET_ALARM_MSG_HANDLE}
+     * 报警联动,参见结构体定义 {@link NET_ALARM_MSG_HANDLE}
     */
-    public NetSDKLib.NET_ALARM_MSG_HANDLE stuEventHandler = new NetSDKLib.NET_ALARM_MSG_HANDLE();
+    public NET_ALARM_MSG_HANDLE stuEventHandler = new NET_ALARM_MSG_HANDLE();
     /**
      * 云台预置点编号  0~65535
     */
@@ -95,13 +95,13 @@ public class NET_CFG_DOOR_STATE_DETECTION_INFO extends SdkStructure
     */
     public int              nLongTime;
     /**
-     * 门状态的报警指定时间段，在指定时间段开门或关门为异常，产生报警,参见结构体定义 {@link NetSDKLib.NET_CFG_TIME_SCHEDULE}
+     * 门状态的报警指定时间段，在指定时间段开门或关门为异常，产生报警,参见结构体定义 {@link NET_CFG_TIME_SCHEDULE}
     */
-    public NetSDKLib.NET_CFG_TIME_SCHEDULE stuDSTimeSection = new NetSDKLib.NET_CFG_TIME_SCHEDULE();
+    public NET_CFG_TIME_SCHEDULE stuDSTimeSection = new NET_CFG_TIME_SCHEDULE();
     /**
-     * 开门状态的报警指定时间段，在指定时间段开门达到LongTime，产生报警,参见结构体定义 {@link NetSDKLib.NET_CFG_TIME_SCHEDULE}
+     * 开门状态的报警指定时间段，在指定时间段开门达到LongTime，产生报警,参见结构体定义 {@link NET_CFG_TIME_SCHEDULE}
     */
-    public NetSDKLib.NET_CFG_TIME_SCHEDULE stuODTimeSection = new NetSDKLib.NET_CFG_TIME_SCHEDULE();
+    public NET_CFG_TIME_SCHEDULE stuODTimeSection = new NET_CFG_TIME_SCHEDULE();
     /**
      * 保留字节
     */

@@ -22,7 +22,7 @@ public class NET_IN_ATTACH_TRAFFIC_FLOW_STAT_REAL_FLOW extends SdkStructure {
 	/**
 	 * 回调函数
 	 */
-    public NetSDKLib.fVehicleInOutAnalyseProc cbVehicleInOutAnalyseProc;
+    public FVehicleInOutAnalyseProc cbVehicleInOutAnalyseProc;
 	/**
 	 * 用户信息
 	 */

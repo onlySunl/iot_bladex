@@ -29,7 +29,7 @@ public class NET_IN_DOWNLOAD_MULTI_FILE extends SdkStructure {
     /**
      * 进度回调函数
      */
-    public NetSDKLib.fMultiFileDownLoadPosCB cbPosCallBack;
+    public FMultiFileDownLoadPosCB cbPosCallBack;
     /**
      * 用户数据
      */

@@ -12,7 +12,7 @@ import com.sun.jna.ptr.IntByReference;
  * @author 47081
  * @version 1.0
  * @description 能力集命令枚举, 对应接口
- * {@link NetSDKLib#CLIENT_QueryNewSystemInfo(NetSDKLib.LLong, String, int, byte[], int, IntByReference, int)}
+ * {@link NetSDKLib#CLIENT_QueryNewSystemInfo(LLong, String, int, byte[], int, IntByReference, int)}
  * @date 2020/11/9
  */
 public enum EM_NEW_QUERY_SYSTEM_INFO {

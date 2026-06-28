@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /**
@@ -62,7 +62,7 @@ public class NET_DEV_EVENT_WADING_DETECTION_INFO extends SdkStructure {
 	/**
 	 * 检测到的物体信息
 	 */
-    public NetSDKLib.DH_MSG_OBJECT[] stuObjects = new NetSDKLib.DH_MSG_OBJECT[32];
+    public DH_MSG_OBJECT[] stuObjects = new DH_MSG_OBJECT[32];
 	/**
 	 * 检测区域
 	 */
@@ -82,11 +82,11 @@ public class NET_DEV_EVENT_WADING_DETECTION_INFO extends SdkStructure {
 	/**
 	 * 预留字节
 	 */
-    public byte[]           szReserved = new byte[1016-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           szReserved = new byte[1016-NetSDKConstants.POINTERSIZE];
 
 	public NET_DEV_EVENT_WADING_DETECTION_INFO() {
 		for (int i = 0; i < stuObjects.length; i++) {
-			stuObjects[i] = new NetSDKLib.DH_MSG_OBJECT();
+			stuObjects[i] = new DH_MSG_OBJECT();
 		}
 		for (int i = 0; i < stuDetectRegion.length; i++) {
 			stuDetectRegion[i] = new NET_POINT_EX();

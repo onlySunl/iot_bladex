@@ -21,17 +21,17 @@ public class NET_IN_STARTMULTIFIND_FACERECONGNITION_EX extends SdkStructure {
      */
     public int              nChannelCount;
     /**
-     * 搜索的目标类型 {@link NetSDKLib.EM_OBJECT_TYPE}
+     * 搜索的目标类型 {@link EM_OBJECT_TYPE}
      */
     public int              emObjectType;
     /**
      * 人脸匹配选项
      */
-    public NetSDKLib.NET_FACE_MATCH_OPTIONS stMatchOptions = new NetSDKLib.NET_FACE_MATCH_OPTIONS();
+    public NET_FACE_MATCH_OPTIONS stMatchOptions = new NET_FACE_MATCH_OPTIONS();
     /**
      * 查询过滤条件
      */
-    public NetSDKLib.NET_FACE_FILTER_CONDTION stFilterInfo = new NetSDKLib.NET_FACE_FILTER_CONDTION();
+    public NET_FACE_FILTER_CONDTION stFilterInfo = new NET_FACE_FILTER_CONDTION();
     /**
      * 缓冲地址
      */

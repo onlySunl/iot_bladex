@@ -13,13 +13,13 @@ public class NET_OFFLINE_VIDEO_FILE_INFO extends SdkStructure
     */
     public int              dwSize;
     /**
-     * 智能任务启动规则,参见枚举定义 {@link NetSDKLib.EM_ANALYSE_TASK_START_RULE}
+     * 智能任务启动规则,参见枚举定义 {@link EM_ANALYSE_TASK_START_RULE}
     */
     public int              emStartRule;
     /**
-     * 分析规则信息,参见结构体定义 {@link NetSDKLib.NET_ANALYSE_RULE}
+     * 分析规则信息,参见结构体定义 {@link NET_ANALYSE_RULE}
     */
-    public NetSDKLib.NET_ANALYSE_RULE stuRuleInfo = new NetSDKLib.NET_ANALYSE_RULE();
+    public NET_ANALYSE_RULE stuRuleInfo = new NET_ANALYSE_RULE();
     /**
      * 远程文件访问协议类型,参见枚举定义 {@link org.springblade.modules.iot.dahua.lib.enumeration.EM_REMOTE_FILE_PROTOCOL_TYPE}
     */

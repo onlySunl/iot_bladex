@@ -14,7 +14,7 @@ import java.nio.ByteOrder;
  * 大华设备回放数据回调类
  */
 @Slf4j
-public class FPlayBackDataCallBack implements NetSDKLib.fDataCallBack {
+public class FPlayBackDataCallBack implements fDataCallBack {
     private final String host;
     private final String ssrc;
     private final int rtpPort;
@@ -59,7 +59,7 @@ public class FPlayBackDataCallBack implements NetSDKLib.fDataCallBack {
     }
 
     @Override
-    public int invoke(NetSDKLib.LLong lRealHandle, int dwDataType, Pointer pBuffer, int dwBufSize, Pointer dwUser) {
+    public int invoke(LLong lRealHandle, int dwDataType, Pointer pBuffer, int dwBufSize, Pointer dwUser) {
         if (udpSocket == null || targetAddress == null || udpSocket.isClosed()) {
             return 0;
         }

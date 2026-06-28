@@ -23,11 +23,11 @@ public class ALARM_RAIN_FALL_MSG_INFO extends SdkStructure
     */
     public byte[]           szName = new byte[128];
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuTime = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuTime = new NET_TIME_EX();
     /**
-     * 智能事件所属大类,参见枚举定义 {@link NetSDKLib.EM_SCENE_CLASS_TYPE}
+     * 智能事件所属大类,参见枚举定义 {@link EM_SCENE_CLASS_TYPE}
     */
     public int              emClassType;
     /**

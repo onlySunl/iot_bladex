@@ -27,7 +27,7 @@ public class NET_VEHICLE_OBJECT extends SdkStructure {
      */
     public byte[]           szObjectType = new byte[16];
     /**
-     * 物体类型中的子类别 {@link NetSDKLib.EM_CATEGORY_TYPE}
+     * 物体类型中的子类别 {@link EM_CATEGORY_TYPE}
      */
     public int              emSubObject;
     /**
@@ -79,7 +79,7 @@ public class NET_VEHICLE_OBJECT extends SdkStructure {
      */
     public int              emCarType;
     /**
-     * 车辆驶入驶出虚拟线圈的状态 {@link NetSDKLib.NET_FLOWSTAT_DIRECTION}
+     * 车辆驶入驶出虚拟线圈的状态 {@link NET_FLOWSTAT_DIRECTION}
      */
     public int              emVirtualCoilDirection;
     /**

@@ -11,13 +11,13 @@ public class NET_IN_START_FIND_OBJECT_MEDIA_FIND extends SdkStructure
     */
     public int              dwSize;
     /**
-     * 收藏的开始时间点,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 收藏的开始时间点,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuStartTimeRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuStartTimeRealUTC = new NET_TIME();
     /**
-     * 收藏的结束时间点,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 收藏的结束时间点,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuEndTimeRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuEndTimeRealUTC = new NET_TIME();
     /**
      * 通道号,从0开始
     */

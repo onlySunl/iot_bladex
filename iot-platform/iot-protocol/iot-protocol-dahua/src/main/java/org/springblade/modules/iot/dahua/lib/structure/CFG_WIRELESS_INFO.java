@@ -48,7 +48,7 @@ public class CFG_WIRELESS_INFO extends SdkStructure {
 	/**
 	 * 拨号时间段
 	 */
-    public NetSDKLib.TIME_SECTION_WEEK_DAY_6[] stuTimeSection = new NetSDKLib.TIME_SECTION_WEEK_DAY_6[7];
+    public TIME_SECTION_WEEK_DAY_6[] stuTimeSection = new TIME_SECTION_WEEK_DAY_6[7];
 	/**
 	 * 鉴权模式 {@link org.springblade.modules.iot.dahua.lib.enumeration.EM_CFG_AUTHMODE}
 	 */
@@ -84,7 +84,7 @@ public class CFG_WIRELESS_INFO extends SdkStructure {
 
 	public CFG_WIRELESS_INFO() {
 		for (int i = 0; i < stuTimeSection.length; i++) {
-			stuTimeSection[i] = new NetSDKLib.TIME_SECTION_WEEK_DAY_6();
+			stuTimeSection[i] = new TIME_SECTION_WEEK_DAY_6();
 		}
 	}
 }

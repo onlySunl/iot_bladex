@@ -1,7 +1,6 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 /** 
 单片机兼容cpu卡和ic卡功能切换  对应枚举 NET_EM_CFG_CARD_MNG

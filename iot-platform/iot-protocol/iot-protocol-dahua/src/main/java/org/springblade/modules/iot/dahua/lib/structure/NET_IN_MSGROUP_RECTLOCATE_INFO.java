@@ -20,7 +20,7 @@ public class NET_IN_MSGROUP_RECTLOCATE_INFO extends SdkStructure {
 	/**
 	 * 选定的矩形框坐标
 	 */
-    public NetSDKLib.NET_RECT stuRect = new NetSDKLib.NET_RECT();
+    public NET_RECT stuRect = new NET_RECT();
 	/**
 	 * 框选的方向, 0-从左上到右下, 表示放大; 1-从右下到左上，表示缩小
 	 */

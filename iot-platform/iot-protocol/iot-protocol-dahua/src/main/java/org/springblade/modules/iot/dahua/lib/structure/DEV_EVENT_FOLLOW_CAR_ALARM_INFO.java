@@ -20,7 +20,7 @@ public class DEV_EVENT_FOLLOW_CAR_ALARM_INFO extends SdkStructure {
 	/**
 	 * 事件发生的时间
 	 */
-    public NetSDKLib.NET_TIME_EX UTC;
+    public NET_TIME_EX UTC;
 	/**
 	 * 跟车图片信息个数
 	 */
@@ -36,7 +36,7 @@ public class DEV_EVENT_FOLLOW_CAR_ALARM_INFO extends SdkStructure {
 	/**
 	 * 交通车辆信息
 	 */
-    public NetSDKLib.DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO stTrafficCar;
+    public DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO stTrafficCar;
 	/**
 	 * 保留字节
 	 */

@@ -23,9 +23,9 @@ public class NET_DEV_EVENT_AUDIO_MUTATION_INFO extends SdkStructure
     */
     public byte[]           szName = new byte[32];
     /**
-     * 开始时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 开始时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuStartTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuStartTime = new NET_TIME();
     /**
      * 事件的确认ID
     */
@@ -39,9 +39,9 @@ public class NET_DEV_EVENT_AUDIO_MUTATION_INFO extends SdkStructure
     */
     public double           dbPTS;
     /**
-     * 事件发生时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 事件编号
     */

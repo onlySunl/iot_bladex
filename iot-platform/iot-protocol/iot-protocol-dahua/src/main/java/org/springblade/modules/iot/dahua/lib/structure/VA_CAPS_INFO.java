@@ -11,7 +11,7 @@ public class VA_CAPS_INFO extends SdkStructure {
 	/**
 	 * 支持的场景列表
 	 */
-    public byte[]           szSceneName = new byte[NetSDKLib.MAX_SCENE_LIST_SIZE*NetSDKLib.MAX_NAME_LEN]; //TODO
+    public byte[]           szSceneName = new byte[MAX_SCENE_LIST_SIZE*MAX_NAME_LEN]; //TODO
 	/**
 	 * 支持的场景个数
 	 */

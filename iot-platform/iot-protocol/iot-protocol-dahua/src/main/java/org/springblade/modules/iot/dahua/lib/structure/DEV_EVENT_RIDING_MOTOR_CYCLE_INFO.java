@@ -60,11 +60,11 @@ public class DEV_EVENT_RIDING_MOTOR_CYCLE_INFO extends SdkStructure {
     /**
      *  表示检测到的物体信息
      */
-    public NetSDKLib.NET_MSG_OBJECT_EX2[] stuObjects = (NetSDKLib.NET_MSG_OBJECT_EX2[]) new NetSDKLib.NET_MSG_OBJECT_EX2().toArray(64);
+    public NET_MSG_OBJECT_EX2[] stuObjects = (NET_MSG_OBJECT_EX2[]) new NET_MSG_OBJECT_EX2().toArray(64);
     /**
      *  全景广角图，仅IndexInData字段有效
      */
-    public NetSDKLib.SCENE_IMAGE_INFO stuSceneImage;
+    public SCENE_IMAGE_INFO stuSceneImage;
     /**
      *  预留字节
      */

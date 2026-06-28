@@ -58,11 +58,11 @@ CountInGroup一个事件组内应有的抓拍张数
 /** 
 车辆信息
 */
-    public NetSDKLib.NET_MSG_OBJECT stuVehicle = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuVehicle = new NET_MSG_OBJECT();
 /** 
 车牌信息
 */
-    public NetSDKLib.NET_MSG_OBJECT stuObject = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuObject = new NET_MSG_OBJECT();
 /** 
 表示交通车辆的数据库记录
 */
@@ -70,11 +70,11 @@ CountInGroup一个事件组内应有的抓拍张数
 /** 
 公共信息
 */
-    public NetSDKLib.EVENT_COMM_INFO stuCommInfo = new NetSDKLib.EVENT_COMM_INFO();
+    public EVENT_COMM_INFO stuCommInfo = new EVENT_COMM_INFO();
 /** 
 非机动车信息
 */
-    public NetSDKLib.VA_OBJECT_NONMOTOR stuNonMotor = new NetSDKLib.VA_OBJECT_NONMOTOR();
+    public VA_OBJECT_NONMOTOR stuNonMotor = new VA_OBJECT_NONMOTOR();
 /** 
 是否有非机动车对象
 */

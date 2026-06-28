@@ -19,9 +19,9 @@ public class NET_ALARM_UPLOAD_FS_RECOGNITION_INFO extends SdkStructure
     */
     public NET_EVENT_INFO_EXTEND stuEventInfoEx = new NET_EVENT_INFO_EXTEND();
     /**
-     * 事件发生的时间,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 事件编号
     */
@@ -31,13 +31,13 @@ public class NET_ALARM_UPLOAD_FS_RECOGNITION_INFO extends SdkStructure
     */
     public NET_ALARM_UPLOAD_FS_DATA stuFaceData = new NET_ALARM_UPLOAD_FS_DATA();
     /**
-     * 检测到的物体,参见结构体定义 {@link NetSDKLib.NET_MSG_OBJECT_EX2}
+     * 检测到的物体,参见结构体定义 {@link NET_MSG_OBJECT_EX2}
     */
-    public NetSDKLib.NET_MSG_OBJECT_EX2 stuObject = new NetSDKLib.NET_MSG_OBJECT_EX2();
+    public NET_MSG_OBJECT_EX2 stuObject = new NET_MSG_OBJECT_EX2();
     /**
-     * 当前目标匹配到的候选对象信息,参见结构体定义 {@link NetSDKLib.CANDIDATE_INFO}
+     * 当前目标匹配到的候选对象信息,参见结构体定义 {@link CANDIDATE_INFO}
     */
-    public NetSDKLib.CANDIDATE_INFO[] stuCandidates = new NetSDKLib.CANDIDATE_INFO[50];
+    public CANDIDATE_INFO[] stuCandidates = new CANDIDATE_INFO[50];
     /**
      * 候选对象信息有效个数
     */
@@ -57,7 +57,7 @@ public class NET_ALARM_UPLOAD_FS_RECOGNITION_INFO extends SdkStructure
 
     public NET_ALARM_UPLOAD_FS_RECOGNITION_INFO() {
         for(int i = 0; i < stuCandidates.length; i++){
-            stuCandidates[i] = new NetSDKLib.CANDIDATE_INFO();
+            stuCandidates[i] = new CANDIDATE_INFO();
         }
     }
 }

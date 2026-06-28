@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 /**
  * className：NET_PERSON_FEATURE_VALUE_INFO description：人员特征信息 author：251589 createTime：2020/12/28

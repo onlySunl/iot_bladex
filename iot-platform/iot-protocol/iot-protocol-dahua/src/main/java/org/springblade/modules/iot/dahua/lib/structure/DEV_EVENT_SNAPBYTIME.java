@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /**
@@ -74,7 +74,7 @@ public class DEV_EVENT_SNAPBYTIME extends SdkStructure {
 	/**
 	 * null
 	 */
-    public byte[]           szReversed = new byte[744 - NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           szReversed = new byte[744 - NetSDKConstants.POINTERSIZE];
 
 	public DEV_EVENT_SNAPBYTIME() {
 		for (int i = 0; i < stuDataList.length; i++) {

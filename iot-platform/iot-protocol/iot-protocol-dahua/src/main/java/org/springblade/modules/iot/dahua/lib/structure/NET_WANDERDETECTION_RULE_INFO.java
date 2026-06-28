@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.POINTCOORDINATE;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.POINTCOORDINATE;
+import org.springblade.modules.iot.dahua.lib.SdkStructure;
 
 /** 事件类型 EVENT_IVS_WANDERDETECTION( 徘徊事件)对应的规则配置 */
 public class NET_WANDERDETECTION_RULE_INFO extends SdkStructure {

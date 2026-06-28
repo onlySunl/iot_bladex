@@ -20,9 +20,9 @@ public class NET_CAMERA_GROUP_INFO extends SdkStructure
     */
     public Pointer          pCameras;
     /**
-     * 远程设备信息, szDeviceID 没有值时有效,参见结构体定义 {@link NetSDKLib.NET_REMOTE_DEVICE}
+     * 远程设备信息, szDeviceID 没有值时有效,参见结构体定义 {@link NET_REMOTE_DEVICE}
     */
-    public NetSDKLib.NET_REMOTE_DEVICE stuRemoteDevice = new NetSDKLib.NET_REMOTE_DEVICE();
+    public NET_REMOTE_DEVICE stuRemoteDevice = new NET_REMOTE_DEVICE();
     /**
      * 保留字节
     */

@@ -11,13 +11,13 @@ public class NET_IN_START_FIND_OBJECT_FAVORITES_LIBRARY extends SdkStructure
     */
     public int              dwSize;
     /**
-     * 收藏的开始时间点,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 收藏的开始时间点,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuCollectBegin = new NetSDKLib.NET_TIME();
+    public NET_TIME stuCollectBegin = new NET_TIME();
     /**
-     * 收藏的结束时间点,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 收藏的结束时间点,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuCollectEnd = new NetSDKLib.NET_TIME();
+    public NET_TIME stuCollectEnd = new NET_TIME();
     /**
      * 目标类型列表个数
     */

@@ -8,7 +8,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  */
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.CFG_COMMON_STRING_64;
+import static org.springblade.modules.iot.dahua.lib.CFG_COMMON_STRING_64;
 import static org.springblade.modules.iot.dahua.lib.constant.SDKStructureFieldLenth.MAX_MOTION_ROW;
 
 /**

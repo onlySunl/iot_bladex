@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.DH_POINT;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.DH_POINT;
+import org.springblade.modules.iot.dahua.lib.SdkStructure;
 /**
  * @description 标定区域
  * @author 119178

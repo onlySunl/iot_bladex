@@ -20,7 +20,7 @@ public class NET_OUT_GET_ALARMMODE extends SdkStructure {
     /**
      *  布撤防信息
      */
-    public NET_ARMMODE_INFO[] stuArmMode = (NET_ARMMODE_INFO[]) new NET_ARMMODE_INFO().toArray(NetSDKLib.MAX_AREA_NUMBER);
+    public NET_ARMMODE_INFO[] stuArmMode = (NET_ARMMODE_INFO[]) new NET_ARMMODE_INFO().toArray(MAX_AREA_NUMBER);
     /**
      *  布撤防状态个数扩展 超过8个请使用这个字段
      */
@@ -28,7 +28,7 @@ public class NET_OUT_GET_ALARMMODE extends SdkStructure {
     /**
      *  布撤防信息
      */
-    public NET_ARMMODE_INFO[] stuArmModeEx = (NET_ARMMODE_INFO[]) new NET_ARMMODE_INFO().toArray(NetSDKLib.MAX_AREA_NUMBER_EX);
+    public NET_ARMMODE_INFO[] stuArmModeEx = (NET_ARMMODE_INFO[]) new NET_ARMMODE_INFO().toArray(MAX_AREA_NUMBER_EX);
 
     public NET_OUT_GET_ALARMMODE(){
         this.dwSize = this.size();

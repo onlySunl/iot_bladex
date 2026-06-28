@@ -2,9 +2,9 @@ package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.CFG_ALARM_MSG_HANDLE;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.CFG_TIME_SECTION;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.CFG_ALARM_MSG_HANDLE;
+import org.springblade.modules.iot.dahua.lib.CFG_TIME_SECTION;
+import org.springblade.modules.iot.dahua.lib.SdkStructure;
 
 
 /**

@@ -1,5 +1,4 @@
  package org.springblade.modules.iot.dahua.lib.structure;
- import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
  /**LED屏幕配置  */
 public class NET_CFG_VSP_LXSJ_LEDCONFIG extends SdkStructure {

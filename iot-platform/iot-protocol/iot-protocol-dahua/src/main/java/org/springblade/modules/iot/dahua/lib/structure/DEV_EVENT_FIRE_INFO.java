@@ -2,7 +2,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_POINT;
+import org.springblade.modules.iot.dahua.lib.NET_POINT;
 import com.sun.jna.Pointer;
 
 /**
@@ -30,7 +30,7 @@ public class DEV_EVENT_FIRE_INFO extends SdkStructure {
 	/**
 	 * 事件发生的时间
 	 * */
-    public NetSDKLib.NET_TIME_EX UTC;
+    public NET_TIME_EX UTC;
 	/**
 	 * 事件ID
 	 * */
@@ -38,11 +38,11 @@ public class DEV_EVENT_FIRE_INFO extends SdkStructure {
 	/**
 	 * 检测到的物体
 	 * */
-    public NetSDKLib.NET_MSG_OBJECT stuObject;
+    public NET_MSG_OBJECT stuObject;
 	/**
 	 * 事件对应文件信息
 	 * */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo;
+    public NET_EVENT_FILE_INFO stuFileInfo;
 	/**
 	 * 事件动作,0表示脉冲事件,1表示持续性事件开始,2表示持续性事件结束
 	 * */
@@ -62,7 +62,7 @@ public class DEV_EVENT_FIRE_INFO extends SdkStructure {
 	/**
 	 * 规则检测区域
 	 * */
-    public NET_POINT[]      DetectRegion = (NET_POINT[]) new NET_POINT().toArray(NetSDKLib.NET_MAX_DETECT_REGION_NUM);
+    public NET_POINT[]      DetectRegion = (NET_POINT[]) new NET_POINT().toArray(NET_MAX_DETECT_REGION_NUM);
 	/**
 	 * 抓图标志(按位),具体见NET_RESERVED_COMMON
 	 * */
@@ -74,7 +74,7 @@ public class DEV_EVENT_FIRE_INFO extends SdkStructure {
 	/**
 	 * 事件源设备唯一标识,字段不存在或者为空表示本地设备
 	 * */
-    public byte[]           szSourceDevice = new byte[NetSDKLib.MAX_PATH];
+    public byte[]           szSourceDevice = new byte[MAX_PATH];
 	/**
 	 * 事件触发累计次数, unsigned int 类型
 	 * */
@@ -82,7 +82,7 @@ public class DEV_EVENT_FIRE_INFO extends SdkStructure {
 	/**
 	 * 智能事件公共信息
 	 * */
-    public NetSDKLib.EVENT_INTELLI_COMM_INFO stuIntelliCommInfo;
+    public EVENT_INTELLI_COMM_INFO stuIntelliCommInfo;
 	/**
 	 * stuSceneImage 是否有效
 	 * */
@@ -90,11 +90,11 @@ public class DEV_EVENT_FIRE_INFO extends SdkStructure {
 	/**
 	 * 全景广角图 
 	 * */
-    public NetSDKLib.SCENE_IMAGE_INFO_EX stuSceneImage;
+    public SCENE_IMAGE_INFO_EX stuSceneImage;
 	/**
 	 * 车身信息
 	 * */
-    public NetSDKLib.NET_MSG_OBJECT stuVehicle;
+    public NET_MSG_OBJECT stuVehicle;
 	/**
 	 * 触发类型,参考EM_TRIGGER_TYPE
 	 * */
@@ -118,11 +118,11 @@ public class DEV_EVENT_FIRE_INFO extends SdkStructure {
 	/**
 	 * 交通车辆信息
 	 * */
-    public NetSDKLib.DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO stTrafficCar;
+    public DEV_EVENT_TRAFFIC_TRAFFICCAR_INFO stTrafficCar;
 	/**
 	 * 公共信息 
 	 * */
-    public NetSDKLib.EVENT_COMM_INFO stuCommInfo;
+    public EVENT_COMM_INFO stuCommInfo;
 	/**
 	 * 图片信息数组  ,结构体NET_IMAGE_INFO_EX2数组指针  
 	 * */

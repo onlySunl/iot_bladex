@@ -14,7 +14,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 public interface fNotifyPopulationStatisticsInfo extends Callback {
 
     void invoke(
-            NetSDKLib.LLong lPopulationStatisticsHandle,
+            LLong lPopulationStatisticsHandle,
             Pointer pstuPopulationStatisticsInfos,
             Pointer dwUser);
     //typedef int (CALLBACK *fNotifyPopulationStatisticsInfo)(LLONG lPopulationStatisticsHandle, NET_POPULATION_STATISTICS_INFO* pstuPopulationStatisticsInfos, LDWORD dwUser);

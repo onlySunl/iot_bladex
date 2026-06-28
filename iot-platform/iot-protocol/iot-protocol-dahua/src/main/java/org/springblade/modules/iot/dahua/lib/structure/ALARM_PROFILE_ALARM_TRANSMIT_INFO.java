@@ -16,11 +16,11 @@ public class ALARM_PROFILE_ALARM_TRANSMIT_INFO extends SdkStructure
     */
     public int              nAction;
     /**
-     * 事件发生时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 事件发生时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuTime = new NET_TIME();
     /**
-     * 传感器类型,参见枚举定义 {@link NetSDKLib.NET_SENSE_METHOD}
+     * 传感器类型,参见枚举定义 {@link NET_SENSE_METHOD}
     */
     public int              emSenseMethod;
     /**
@@ -40,9 +40,9 @@ public class ALARM_PROFILE_ALARM_TRANSMIT_INFO extends SdkStructure
     */
     public int              bRealUTC;
     /**
-     * 事件发生的时间（标准UTC）,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生的时间（标准UTC）,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX RealUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX RealUTC = new NET_TIME_EX();
     /**
      * 设备编号
     */

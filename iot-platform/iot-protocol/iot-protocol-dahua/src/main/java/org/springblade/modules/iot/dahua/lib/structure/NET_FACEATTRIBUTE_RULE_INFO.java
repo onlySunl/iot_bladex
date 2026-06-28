@@ -11,9 +11,9 @@ public class NET_FACEATTRIBUTE_RULE_INFO extends SdkStructure
     */
     public int              nDetectRegionPoint;
     /**
-     * 检测区域,参见结构体定义 {@link NetSDKLib.POINTCOORDINATE}
+     * 检测区域,参见结构体定义 {@link POINTCOORDINATE}
     */
-    public NetSDKLib.POINTCOORDINATE[] stuDetectRegion = new NetSDKLib.POINTCOORDINATE[20];
+    public POINTCOORDINATE[] stuDetectRegion = new POINTCOORDINATE[20];
     /**
      * 最短持续时间	单位：秒，0~65535
     */
@@ -43,7 +43,7 @@ public class NET_FACEATTRIBUTE_RULE_INFO extends SdkStructure
     */
     public int              nFaceFeatureNum;
     /**
-     * 需检测的目标属性,参见枚举定义 {@link NetSDKLib.NET_EM_FACEFEATURE_TYPE}
+     * 需检测的目标属性,参见枚举定义 {@link NET_EM_FACEFEATURE_TYPE}
     */
     public int[]            emFaceFeatureType = new int[32];
     /**
@@ -53,7 +53,7 @@ public class NET_FACEATTRIBUTE_RULE_INFO extends SdkStructure
 
     public NET_FACEATTRIBUTE_RULE_INFO() {
         for(int i = 0; i < stuDetectRegion.length; i++){
-            stuDetectRegion[i] = new NetSDKLib.POINTCOORDINATE();
+            stuDetectRegion[i] = new POINTCOORDINATE();
         }
     }
 }

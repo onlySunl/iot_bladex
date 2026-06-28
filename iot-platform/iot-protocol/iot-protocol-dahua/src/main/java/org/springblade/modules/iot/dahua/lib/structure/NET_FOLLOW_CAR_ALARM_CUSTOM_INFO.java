@@ -11,7 +11,7 @@ public class NET_FOLLOW_CAR_ALARM_CUSTOM_INFO extends SdkStructure {
 	/**
 	 * GPS信息
 	 */
-    public NetSDKLib.NET_GPS_STATUS_INFO stuGPS;
+    public NET_GPS_STATUS_INFO stuGPS;
 	/**
 	 * 保留字节
 	 */

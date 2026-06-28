@@ -11,7 +11,7 @@ public class NET_HISTORY_PERSON_INFO extends SdkStructure
     */
     public byte[]           szUID = new byte[32];
     /**
-     * 性别,参见枚举定义 {@link NetSDKLib.EM_SEX_TYPE}
+     * 性别,参见枚举定义 {@link EM_SEX_TYPE}
     */
     public int              emSexType;
     /**
@@ -19,7 +19,7 @@ public class NET_HISTORY_PERSON_INFO extends SdkStructure
     */
     public int              nAge;
     /**
-     * 表情,参见枚举定义 {@link NetSDKLib.EM_DEV_EVENT_FACEDETECT_FEATURE_TYPE}
+     * 表情,参见枚举定义 {@link EM_DEV_EVENT_FACEDETECT_FEATURE_TYPE}
     */
     public int              emEmotion;
     /**
@@ -32,19 +32,19 @@ public class NET_HISTORY_PERSON_INFO extends SdkStructure
     public int              emGlassesType;
     public byte[]           szReserved1 = new byte[4];
     /**
-     * 眼睛状态,参见枚举定义 {@link NetSDKLib.EM_EYE_STATE_TYPE}
+     * 眼睛状态,参见枚举定义 {@link EM_EYE_STATE_TYPE}
     */
     public int              emEye;
     /**
-     * 嘴巴状态,参见枚举定义 {@link NetSDKLib.EM_MOUTH_STATE_TYPE}
+     * 嘴巴状态,参见枚举定义 {@link EM_MOUTH_STATE_TYPE}
     */
     public int              emMouth;
     /**
-     * 口罩状态,参见枚举定义 {@link NetSDKLib.EM_MASK_STATE_TYPE}
+     * 口罩状态,参见枚举定义 {@link EM_MASK_STATE_TYPE}
     */
     public int              emMask;
     /**
-     * 胡子状态,参见枚举定义 {@link NetSDKLib.EM_BEARD_STATE_TYPE}
+     * 胡子状态,参见枚举定义 {@link EM_BEARD_STATE_TYPE}
     */
     public int              emBeard;
     /**

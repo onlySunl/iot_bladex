@@ -19,9 +19,9 @@ public class NET_VIDEOSTAT_SEATING_RATE_DETECTION extends SdkStructure
     */
     public double           dbPTS;
     /**
-     * 事件发生时间，带时区偏差的UTC时间，单位秒,参见结构体定义 {@link NetSDKLib.NET_TIME_EX}
+     * 事件发生时间，带时区偏差的UTC时间，单位秒,参见结构体定义 {@link NET_TIME_EX}
     */
-    public NetSDKLib.NET_TIME_EX stuUTC = new NetSDKLib.NET_TIME_EX();
+    public NET_TIME_EX stuUTC = new NET_TIME_EX();
     /**
      * 事件编号，用来唯一标志一个事件
     */

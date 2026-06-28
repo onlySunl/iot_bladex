@@ -57,7 +57,7 @@ public class DEV_EVENT_OBJECT_NUM_DETECTION_INFO extends SdkStructure {
 /** 
 全景广角图(仅nIndexInData, nOffSet, nLength字段有效)
 */
-    public NetSDKLib.SCENE_IMAGE_INFO_EX stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO_EX();
+    public SCENE_IMAGE_INFO_EX stuSceneImage = new SCENE_IMAGE_INFO_EX();
 /** 
 预留字节
 */

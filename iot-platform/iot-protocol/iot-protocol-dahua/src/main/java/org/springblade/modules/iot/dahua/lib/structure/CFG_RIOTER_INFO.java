@@ -43,13 +43,13 @@ public class CFG_RIOTER_INFO extends SdkStructure
     */
     public int              nDetectRegionPoint;
     /**
-     * 检测区域,参见结构体定义 {@link NetSDKLib.CFG_POLYGON}
+     * 检测区域,参见结构体定义 {@link CFG_POLYGON}
     */
-    public NetSDKLib.CFG_POLYGON[] stuDetectRegion = new NetSDKLib.CFG_POLYGON[20];
+    public CFG_POLYGON[] stuDetectRegion = new CFG_POLYGON[20];
     /**
-     * 报警联动,参见结构体定义 {@link NetSDKLib.CFG_ALARM_MSG_HANDLE}
+     * 报警联动,参见结构体定义 {@link CFG_ALARM_MSG_HANDLE}
     */
-    public NetSDKLib.CFG_ALARM_MSG_HANDLE stuEventHandler = new NetSDKLib.CFG_ALARM_MSG_HANDLE();
+    public CFG_ALARM_MSG_HANDLE stuEventHandler = new CFG_ALARM_MSG_HANDLE();
     /**
      * 事件响应时间段,参见结构体定义 {@link org.springblade.modules.iot.dahua.lib.structure.CFG_TIME_SECTION}
     */
@@ -63,9 +63,9 @@ public class CFG_RIOTER_INFO extends SdkStructure
     */
     public int              nReportInterval;
     /**
-     * 最小聚集区域矩形框，分别对应矩形框的左上和右下点，矩形框的实际面积表示触发报警的最小人群聚集面积,参见结构体定义 {@link NetSDKLib.CFG_POLYGON}
+     * 最小聚集区域矩形框，分别对应矩形框的左上和右下点，矩形框的实际面积表示触发报警的最小人群聚集面积,参见结构体定义 {@link CFG_POLYGON}
     */
-    public NetSDKLib.CFG_POLYGON[] stuMinDetectRect = new NetSDKLib.CFG_POLYGON[2];
+    public CFG_POLYGON[] stuMinDetectRect = new CFG_POLYGON[2];
     /**
      * 跟踪持续时间,0秒:一直跟踪,1~300秒:跟踪持续时间
     */
@@ -124,13 +124,13 @@ public class CFG_RIOTER_INFO extends SdkStructure
             szObjectTypes[i] = new BYTE_ARRAY_128();
         }
         for(int i = 0; i < stuDetectRegion.length; i++){
-            stuDetectRegion[i] = new NetSDKLib.CFG_POLYGON();
+            stuDetectRegion[i] = new CFG_POLYGON();
         }
         for(int i = 0; i < stuTimeSection.length; i++){
             stuTimeSection[i] = new CFG_TIME_SECTION_ARRAY_10();
         }
         for(int i = 0; i < stuMinDetectRect.length; i++){
-            stuMinDetectRect[i] = new NetSDKLib.CFG_POLYGON();
+            stuMinDetectRect[i] = new CFG_POLYGON();
         }
         for(int i = 0; i < stuExcludeRegions.length; i++){
             stuExcludeRegions[i] = new NET_EXCLUDE_REGION_INFO();

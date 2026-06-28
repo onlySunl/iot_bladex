@@ -7,9 +7,9 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 public class NET_EVENT_WHOLE_FACE_INFO extends SdkStructure
 {
     /**
-     * 目标在抓拍图片中的角度信息, nPitch:抬头低头的俯仰角, nYaw左右转头的偏航角, nRoll头在平面内左偏右偏的翻滚角, 角度值取值范围[-90,90], 三个角度值都为999表示此角度信息无效,参见结构体定义 {@link NetSDKLib.NET_EULER_ANGLE}
+     * 目标在抓拍图片中的角度信息, nPitch:抬头低头的俯仰角, nYaw左右转头的偏航角, nRoll头在平面内左偏右偏的翻滚角, 角度值取值范围[-90,90], 三个角度值都为999表示此角度信息无效,参见结构体定义 {@link NET_EULER_ANGLE}
     */
-    public NetSDKLib.NET_EULER_ANGLE stuFaceCaptureAngle = new NetSDKLib.NET_EULER_ANGLE();
+    public NET_EULER_ANGLE stuFaceCaptureAngle = new NET_EULER_ANGLE();
     /**
      * 目标抓拍角度范围(角度最小值,最大值),  三个角度依次分别是Pitch抬头低头,仰俯角;yaw是左右转头,偏航角;Roll是头在平面内左偏右偏，翻滚角,参见结构体定义 {@link NET_ANGEL_RANGE}
     */

@@ -183,9 +183,9 @@ public class NET_MATRIX_CARDS_INFO extends SdkStructure
     */
     public byte[]           szVersion = new byte[32];
     /**
-     * 子卡版本编译时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 子卡版本编译时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuBuildTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuBuildTime = new NET_TIME();
     /**
      * Biso版本信息
     */

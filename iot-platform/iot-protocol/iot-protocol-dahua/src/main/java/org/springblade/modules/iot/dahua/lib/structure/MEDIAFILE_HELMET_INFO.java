@@ -7,11 +7,11 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 public class MEDIAFILE_HELMET_INFO extends SdkStructure
 {
     /**
-     * 安全帽颜色,参见枚举定义 {@link NetSDKLib.EM_CLOTHES_COLOR}
+     * 安全帽颜色,参见枚举定义 {@link EM_CLOTHES_COLOR}
     */
     public int              emColor;
     /**
-     * 安全帽状态,参见枚举定义 {@link NetSDKLib.EM_WORK_HELMET_STATE}
+     * 安全帽状态,参见枚举定义 {@link EM_WORK_HELMET_STATE}
     */
     public int              emState;
     /**

@@ -16,9 +16,9 @@ public class NET_IN_ATTACH_TALK_STATE extends SdkStructure
     */
     public int              nChnId;
     /**
-     * 回调函数,有对讲状态时,回调给上层,参见回调函数定义 {@link NetSDKLib.fNotifyTalkState}
+     * 回调函数,有对讲状态时,回调给上层,参见回调函数定义 {@link FNotifyTalkState}
     */
-    public NetSDKLib.fNotifyTalkState cbCallBack;
+    public FNotifyTalkState cbCallBack;
     /**
      * 用户自定义参数
     */

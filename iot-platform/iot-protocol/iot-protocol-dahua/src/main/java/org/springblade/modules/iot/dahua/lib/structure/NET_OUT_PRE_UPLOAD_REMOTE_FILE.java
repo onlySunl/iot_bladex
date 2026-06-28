@@ -6,7 +6,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * @author 47081
  * @version 1.0
- * @description {@link NetSDKLib#CLIENT_PreUploadRemoteFile(NetSDKLib.LLong, NET_IN_PRE_UPLOAD_REMOTE_FILE, NET_OUT_PRE_UPLOAD_REMOTE_FILE, int)} 接口输出参数(设置文件长度)
+ * @description {@link NetSDKLib#CLIENT_PreUploadRemoteFile(LLong, NET_IN_PRE_UPLOAD_REMOTE_FILE, NET_OUT_PRE_UPLOAD_REMOTE_FILE, int)} 接口输出参数(设置文件长度)
  * @date 2020/6/10
  */
 public class NET_OUT_PRE_UPLOAD_REMOTE_FILE extends SdkStructure {

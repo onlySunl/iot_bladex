@@ -80,13 +80,13 @@ public class NET_DEV_EVENT_OBJECT_DISAPPEAR_DETECTION_INFO extends SdkStructure 
      */
     public int              nObjectCount;
     /**
-     * 检测目标的物体信息,{@link NetSDKLib.DH_MSG_OBJECT}
+     * 检测目标的物体信息,{@link DH_MSG_OBJECT}
      */
     public Pointer          pstuObjects;
     /**
      * 全景图
      */
-    public NetSDKLib.SCENE_IMAGE_INFO stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO();
+    public SCENE_IMAGE_INFO stuSceneImage = new SCENE_IMAGE_INFO();
     /**
      * 预留字节
      */

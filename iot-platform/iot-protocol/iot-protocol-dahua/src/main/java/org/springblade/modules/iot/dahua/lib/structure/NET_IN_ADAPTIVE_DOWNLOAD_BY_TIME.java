@@ -22,7 +22,7 @@ public class NET_IN_ADAPTIVE_DOWNLOAD_BY_TIME extends SdkStructure {
 	 */
     public int              nChannelID;
 	/**
-	 * 录像类型枚举值 {@link NetSDKLib.EM_QUERY_RECORD_TYPE}
+	 * 录像类型枚举值 {@link EM_QUERY_RECORD_TYPE}
 	 */
     public int              emRecordType;
 	/**
@@ -32,15 +32,15 @@ public class NET_IN_ADAPTIVE_DOWNLOAD_BY_TIME extends SdkStructure {
 	/**
 	 * 开始时间
 	 */
-    public NetSDKLib.NET_TIME stStartTime;
+    public NET_TIME stStartTime;
 	/**
 	 * 结束时间
 	 */
-    public NetSDKLib.NET_TIME stStopTime;
+    public NET_TIME stStopTime;
 	/**
 	 * 进度回调
 	 */
-    public NetSDKLib.fTimeDownLoadPosCallBack cbDownLoadPos;
+    public FTimeDownLoadPosCallBack cbDownLoadPos;
 	/**
 	 * 进度回调用户信息
 	 */
@@ -48,7 +48,7 @@ public class NET_IN_ADAPTIVE_DOWNLOAD_BY_TIME extends SdkStructure {
 	/**
 	 * 数据回调
 	 */
-    public NetSDKLib.fDataCallBack fDownLoadDataCallBack;
+    public fDataCallBack fDownLoadDataCallBack;
 	/**
 	 * 回调的数据类型 枚举值 {@link EM_REAL_DATA_TYPE}
 	 */
@@ -77,11 +77,11 @@ public class NET_IN_ADAPTIVE_DOWNLOAD_BY_TIME extends SdkStructure {
 	/**
 	 * 进度回调的扩展(若使用标准UTC时间进行下载，则使用该回调)
 	 */
-    public NetSDKLib.fTimeDownLoadPosCallBackEx cbDownLoadPosEx;
+    public FTimeDownLoadPosCallBackEx cbDownLoadPosEx;
 	/**
 	 * VK信息回调
 	 */
-    public NetSDKLib.fVKInfoCallBack pVKInfoCallBack;
+    public FVKInfoCallBack pVKInfoCallBack;
 	/**
 	 * VK信息回调用户信息
 	 */

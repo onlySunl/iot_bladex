@@ -19,7 +19,7 @@ public class NET_OUT_DOWNLOAD_MULTI_FILE extends SdkStructure {
     /**
      * 下载句柄
      */
-    public NetSDKLib.LLong  lDownLoadHandle;
+    public LLong  lDownLoadHandle;
 
     public NET_OUT_DOWNLOAD_MULTI_FILE() {
         dwSize = this.size();

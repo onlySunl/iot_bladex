@@ -59,7 +59,7 @@ public class DEV_EVENT_SEWAGE_DETECTION_INFO extends SdkStructure {
 /** 
 检测区域
 */
-    public			NetSDKLib.DH_POINT[] stuDetectRegion = (NetSDKLib.DH_POINT[])new NetSDKLib.DH_POINT().toArray(20);
+    public			DH_POINT[] stuDetectRegion = (DH_POINT[])new DH_POINT().toArray(20);
 /** 
 事件触发的预置点号，从1开始, 没有该字段，表示预置点未知
 */
@@ -67,11 +67,11 @@ public class DEV_EVENT_SEWAGE_DETECTION_INFO extends SdkStructure {
 /** 
 原始图
 */
-    public NetSDKLib.NET_INTELLIGENCE_IMAGE_INFO stuOriginalImage = new NetSDKLib.NET_INTELLIGENCE_IMAGE_INFO();
+    public NET_INTELLIGENCE_IMAGE_INFO stuOriginalImage = new NET_INTELLIGENCE_IMAGE_INFO();
 /** 
 球机变到最小倍下的抓图
 */
-    public NetSDKLib.NET_INTELLIGENCE_IMAGE_INFO stuSceneImage = new NetSDKLib.NET_INTELLIGENCE_IMAGE_INFO();
+    public NET_INTELLIGENCE_IMAGE_INFO stuSceneImage = new NET_INTELLIGENCE_IMAGE_INFO();
 /** 
 保留字节
 */

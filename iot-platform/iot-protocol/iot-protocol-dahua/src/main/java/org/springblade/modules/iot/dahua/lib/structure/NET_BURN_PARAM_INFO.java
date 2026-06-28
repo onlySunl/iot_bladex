@@ -21,11 +21,11 @@ public class NET_BURN_PARAM_INFO extends SdkStructure {
      */
     public int[]            nChannels = new int[64];
     /**
-     * 刻录模式,对应枚举{@link NetSDKLib.NET_BURN_MODE}
+     * 刻录模式,对应枚举{@link NET_BURN_MODE}
      */
     public int              emMode;
     /**
-     * 刻录格式,对应枚举{@link NetSDKLib.NET_BURN_RECORD_PACK}
+     * 刻录格式,对应枚举{@link NET_BURN_RECORD_PACK}
      */
     public int              emFormat;
     /**

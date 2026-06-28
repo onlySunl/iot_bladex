@@ -6,7 +6,7 @@ import org.springblade.modules.iot.dahua.lib.enumeration.GetDevCaps_Type;
 import org.springblade.modules.iot.dahua.lib.enumeration.REC_TYPE;
 import org.springblade.modules.iot.dahua.lib.enumeration.SNAP_TYPE;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_N_ENCODE_AUX;
+import static org.springblade.modules.iot.dahua.lib.NET_N_ENCODE_AUX;
 
 /**
  * 获取设备编码配置对应能力输出参数

@@ -31,13 +31,13 @@ public class DEV_EVENT_HEAT_IMAGING_TEMPER_INFO extends SdkStructure {
 	 */
     public float            fTemperatureValue;
 	/**
-	 * 温度单位(当前配置的温度单位) {@link NetSDKLib.NET_TEMPERATURE_UNIT }
+	 * 温度单位(当前配置的温度单位) {@link NET_TEMPERATURE_UNIT }
 	 */
     public int              emTemperatureUnit;
 	/**
 	 * 报警点的坐标 相对坐标体系,取值均为0~8191
 	 */
-    public NetSDKLib.NET_POINT stCoordinate = new NetSDKLib.NET_POINT();
+    public NET_POINT stCoordinate = new NET_POINT();
 	/**
 	 * 预置点
 	 */
@@ -53,7 +53,7 @@ public class DEV_EVENT_HEAT_IMAGING_TEMPER_INFO extends SdkStructure {
 	/**
 	 * 报警坐标, 其类型可以是点，线或多边形。替换stCoordinate字段
 	 */
-    public NetSDKLib.NET_POLY_POINTS stuAlarmCoordinates = new NetSDKLib.NET_POLY_POINTS();
+    public NET_POLY_POINTS stuAlarmCoordinates = new NET_POLY_POINTS();
 	/**
 	 * szNameEx 是否有效，为TRUE时，使用szNameEx字段
 	 */

@@ -11,6 +11,6 @@ public class ObjectPath extends SdkStructure {
 	/**
 	 *  路径字节数组
 	 */
-    public byte[]           objectPath = new byte[NetSDKLib.MAX_PATH];
+    public byte[]           objectPath = new byte[MAX_PATH];
 }
 

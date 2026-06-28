@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * CLIENT_SetTourSource 接口输出参数(设置窗口轮巡显示源)
 */

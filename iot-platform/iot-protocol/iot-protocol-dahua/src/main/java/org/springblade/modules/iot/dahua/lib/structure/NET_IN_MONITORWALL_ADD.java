@@ -8,9 +8,9 @@ public class NET_IN_MONITORWALL_ADD extends SdkStructure
 {
     public int              dwSize;
     /**
-     * 电视墙信息,参见结构体定义 {@link NetSDKLib.NET_MONITORWALL}
+     * 电视墙信息,参见结构体定义 {@link NET_MONITORWALL}
     */
-    public NetSDKLib.NET_MONITORWALL stuMonitorWall = new NetSDKLib.NET_MONITORWALL();
+    public NET_MONITORWALL stuMonitorWall = new NET_MONITORWALL();
 
     public NET_IN_MONITORWALL_ADD() {
         this.dwSize = this.size();

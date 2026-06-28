@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /**
@@ -69,11 +69,11 @@ public class NET_EVENT_TRAFFIC_OCCUPYING_THEPATH_INFO extends SdkStructure {
 	/**
 	 * 车牌信息
 	 */
-    public NetSDKLib.NET_MSG_OBJECT stuObject = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuObject = new NET_MSG_OBJECT();
 	/**
 	 * 车身信息
 	 */
-    public NetSDKLib.NET_MSG_OBJECT stuVehicle = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuVehicle = new NET_MSG_OBJECT();
 	/**
 	 * 交通车辆信息
 	 */
@@ -81,11 +81,11 @@ public class NET_EVENT_TRAFFIC_OCCUPYING_THEPATH_INFO extends SdkStructure {
 	/**
 	 * 公共信息
 	 */
-    public NetSDKLib.EVENT_COMM_INFO stuCommInfo = new NetSDKLib.EVENT_COMM_INFO();
+    public EVENT_COMM_INFO stuCommInfo = new EVENT_COMM_INFO();
 	/**
 	 * 事件对应文件信息
 	 */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo = new NetSDKLib.NET_EVENT_FILE_INFO();
+    public NET_EVENT_FILE_INFO stuFileInfo = new NET_EVENT_FILE_INFO();
 	/**
 	 * 抓图标志(按位),具体见NET_RESERVED_COMMON
 	 */
@@ -95,13 +95,13 @@ public class NET_EVENT_TRAFFIC_OCCUPYING_THEPATH_INFO extends SdkStructure {
 	 */
     public int              nSpeed;
     /**
-     * 全景图,参见结构体定义 {@link NetSDKLib.SCENE_IMAGE_INFO_EX}
+     * 全景图,参见结构体定义 {@link SCENE_IMAGE_INFO_EX}
     */
     public Pointer          pstuSceneImage;
 	/**
 	 * 预留字节
 	 */
-    public byte[]           szReserved = new byte[1020-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           szReserved = new byte[1020-NetSDKConstants.POINTERSIZE];
 
 	public NET_EVENT_TRAFFIC_OCCUPYING_THEPATH_INFO() {
 	}

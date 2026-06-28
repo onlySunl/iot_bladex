@@ -9,14 +9,14 @@ import org.springblade.modules.iot.dahua.lib.structure.POSTION;
  * ERR210428143 重型云台 水面预警事件 专用结构体
  * <p>
  * 注意: 其他项目不要使用, 通用的停车检测事件结构体见:
- * {@link NetSDKLib.EVENT_INTELLI_COMM_INFO}
+ * {@link EVENT_INTELLI_COMM_INFO}
  *
  * @author 47040
  * @since Created in 2021/5/13 23:17
  */
 public class EVENT_INTELLI_COMM_INFO extends SdkStructure {
     /**
-     * 智能事件所属大类 取值为 {@link NetSDKLib.EM_CLASS_TYPE } 中的值
+     * 智能事件所属大类 取值为 {@link EM_CLASS_TYPE } 中的值
      */
     public int emClassType;
     /**

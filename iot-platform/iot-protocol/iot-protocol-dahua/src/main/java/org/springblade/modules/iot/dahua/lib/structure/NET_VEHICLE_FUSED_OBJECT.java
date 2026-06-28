@@ -16,7 +16,7 @@ public class NET_VEHICLE_FUSED_OBJECT extends SdkStructure {
      */
     public int              nObjectID;
     /**
-     * 物体类型 {@link NetSDKLib.EM_ANALYSE_OBJECT_TYPE}
+     * 物体类型 {@link EM_ANALYSE_OBJECT_TYPE}
      */
     public int              emObjectType;
     /**
@@ -30,15 +30,15 @@ public class NET_VEHICLE_FUSED_OBJECT extends SdkStructure {
     /**
      * 车牌信息
      */
-    public NetSDKLib.NET_MSG_OBJECT stuPlate = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuPlate = new NET_MSG_OBJECT();
     /**
      * 机动车信息
      */
-    public NetSDKLib.NET_MSG_OBJECT stuVehicle = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuVehicle = new NET_MSG_OBJECT();
     /**
      * 非机动车信息
      */
-    public NetSDKLib.VA_OBJECT_NONMOTOR stuNonMotor = new NetSDKLib.VA_OBJECT_NONMOTOR();
+    public VA_OBJECT_NONMOTOR stuNonMotor = new VA_OBJECT_NONMOTOR();
     /**
      * 车道ID
      */

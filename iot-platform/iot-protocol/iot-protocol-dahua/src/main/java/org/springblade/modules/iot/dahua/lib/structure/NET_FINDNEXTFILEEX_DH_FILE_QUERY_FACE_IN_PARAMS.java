@@ -13,7 +13,7 @@ public class NET_FINDNEXTFILEEX_DH_FILE_QUERY_FACE_IN_PARAMS extends SdkStructur
     /**
      * 查找句柄
     */
-    public NetSDKLib.LLong  lFindHandle;
+    public LLong  lFindHandle;
     /**
      * 查找数量
     */

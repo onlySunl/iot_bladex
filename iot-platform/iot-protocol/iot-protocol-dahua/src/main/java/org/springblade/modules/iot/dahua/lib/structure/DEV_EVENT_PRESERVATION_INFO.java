@@ -37,11 +37,11 @@ public class DEV_EVENT_PRESERVATION_INFO extends SdkStructure {
 /** 
 检测到的物体
 */
-    public NetSDKLib.DH_MSG_OBJECT stuObject = new NetSDKLib.DH_MSG_OBJECT();
+    public DH_MSG_OBJECT stuObject = new DH_MSG_OBJECT();
 /** 
 事件对应文件信息
 */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo = new NetSDKLib.NET_EVENT_FILE_INFO();
+    public NET_EVENT_FILE_INFO stuFileInfo = new NET_EVENT_FILE_INFO();
 /** 
 事件动作,0表示脉冲事件,1表示持续性事件开始,2表示持续性事件结束;
 */
@@ -61,7 +61,7 @@ public class DEV_EVENT_PRESERVATION_INFO extends SdkStructure {
 /** 
 规则检测区域
 */
-    public			NetSDKLib.DH_POINT[] DetectRegion = (NetSDKLib.DH_POINT[])new NetSDKLib.DH_POINT().toArray(20);
+    public			DH_POINT[] DetectRegion = (DH_POINT[])new DH_POINT().toArray(20);
 /** 
 抓图标志(按位),具体见NET_RESERVED_COMMON
 */
@@ -81,11 +81,11 @@ public class DEV_EVENT_PRESERVATION_INFO extends SdkStructure {
 /** 
 智能事件公共信息
 */
-    public NetSDKLib.EVENT_INTELLI_COMM_INFO stuIntelliCommInfo = new NetSDKLib.EVENT_INTELLI_COMM_INFO();
+    public EVENT_INTELLI_COMM_INFO stuIntelliCommInfo = new EVENT_INTELLI_COMM_INFO();
 /** 
 广角图
 */
-    public NetSDKLib.SCENE_IMAGE_INFO stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO();
+    public SCENE_IMAGE_INFO stuSceneImage = new SCENE_IMAGE_INFO();
 /** 
 检测目标物体的个数
 */
@@ -93,7 +93,7 @@ public class DEV_EVENT_PRESERVATION_INFO extends SdkStructure {
 /** 
 表示检测到的物体信息 有Objects, 以Objects为准，无Objects, 以Object为准，为兼容老的客户端，有Objects的，Object也要填数据
 */
-    public			NetSDKLib.NET_MSG_OBJECT_EX2[] stuObjects = (NetSDKLib.NET_MSG_OBJECT_EX2[])new NetSDKLib.NET_MSG_OBJECT_EX2().toArray(128);
+    public			NET_MSG_OBJECT_EX2[] stuObjects = (NET_MSG_OBJECT_EX2[])new NET_MSG_OBJECT_EX2().toArray(128);
 /** 
 保留字节,留待扩展.
 */

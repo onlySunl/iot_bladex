@@ -19,7 +19,7 @@ public class NET_IN_ATTACH_TRAFFICLIGHT_INFO extends SdkStructure {
     /**
      *  回调函数
      */
-    public NetSDKLib.fTrafficLightState cbState;
+    public FTrafficLightState cbState;
     /**
      *  用户信息
      */

@@ -12,7 +12,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  */
 public class NET_INSIDE_OBJECT extends SdkStructure {
     /**
-     *  物品危险等级 {@link NetSDKLib.EM_DANGER_GRADE_TYPE }
+     *  物品危险等级 {@link EM_DANGER_GRADE_TYPE }
      */
     public int              emDangerGrade;
     /**
@@ -26,7 +26,7 @@ public class NET_INSIDE_OBJECT extends SdkStructure {
     /**
      *  包围盒
      */
-    public NetSDKLib.NET_RECT stuBoundingBox = new NetSDKLib.NET_RECT();
+    public NET_RECT stuBoundingBox = new NET_RECT();
     /**
      * 自定义物品类型，emObjType为 EM_INSIDE_OBJECT_UNKNOWN 时使用
      */

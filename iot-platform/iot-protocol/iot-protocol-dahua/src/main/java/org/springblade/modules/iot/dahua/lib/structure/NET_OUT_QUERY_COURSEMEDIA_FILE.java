@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 /**
  * 查询课程视频信息出参 {@link NetSDKLib#CLIENT_DoQueryCourseMediaFile}

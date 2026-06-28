@@ -33,7 +33,7 @@ public class DEV_ALRAM_SCENECHANGE_INFO extends SdkStructure {
 	/**
 	 * / 事件对应文件信息
 	 */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo = new NetSDKLib.NET_EVENT_FILE_INFO();
+    public NET_EVENT_FILE_INFO stuFileInfo = new NET_EVENT_FILE_INFO();
 	/**
 	 * / 图片的序号, 同一时间内(精确到秒)可能有多张图片, 从0开始
 	 */

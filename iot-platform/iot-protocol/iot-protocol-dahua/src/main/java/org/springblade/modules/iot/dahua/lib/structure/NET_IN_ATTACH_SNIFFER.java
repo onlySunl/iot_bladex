@@ -9,9 +9,9 @@ public class NET_IN_ATTACH_SNIFFER extends SdkStructure
 {
     public int              dwSize;
     /**
-     * 回调函数,参见回调函数定义 {@link NetSDKLib.fAttachSniffer}
+     * 回调函数,参见回调函数定义 {@link FAttachSniffer}
     */
-    public NetSDKLib.fAttachSniffer cbSniffer;
+    public FAttachSniffer cbSniffer;
     /**
      * 用户信息
     */

@@ -13,7 +13,7 @@ public class CFG_LINK_CLASS_TYPE extends SdkStructure {
 	 */
     public int              nChannel;
 	/**
-	 * 待级联的业务大类,参考{ @link NetSDKLib.EM_SCENE_TYPE}
+	 * 待级联的业务大类,参考{ @link EM_SCENE_TYPE}
 	 */
     public int              emClassType;
 	/**

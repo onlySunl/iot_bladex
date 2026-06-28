@@ -19,7 +19,7 @@ public class NET_IN_ATTACH_HYGROTHERMOGRAPH extends SdkStructure {
 /** 
 / 回调函数,通知温湿度信息
 */
-    public			NetSDKLib.fNotifyHygrothermograph cbNotifyHygrothermograph;
+    public			FNotifyHygrothermograph cbNotifyHygrothermograph;
 /** 
 / 用户自定义参数
 */

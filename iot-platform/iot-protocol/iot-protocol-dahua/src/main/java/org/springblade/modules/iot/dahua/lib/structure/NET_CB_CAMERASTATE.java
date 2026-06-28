@@ -5,7 +5,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 /**
  * 设备状态回调结果
- * {@link NetSDKLib.fCameraStateCallBack}
+ * {@link FCameraStateCallBack}
  *
  * @author ： 47040
  * @since ： Created in 2021/1/15 14:14
@@ -21,7 +21,7 @@ public class NET_CB_CAMERASTATE extends SdkStructure {
     public int              nChannel;
     /**
      * 连接状态
-     * {@link NetSDKLib.CONNECT_STATE emConnectState}
+     * {@link CONNECT_STATE emConnectState}
      */
     public int              emConnectState;
 

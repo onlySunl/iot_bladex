@@ -11,14 +11,14 @@ import com.sun.jna.ptr.IntByReference;
 
 import java.util.Arrays;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.MAX_REC_TSECT;
+import static org.springblade.modules.iot.dahua.lib.MAX_REC_TSECT;
 import static org.springblade.modules.iot.dahua.lib.constant.SDKStructureFieldLenth.*;
 
 /**
  * @author 47081
  * @description 动态监测报警配置,对应接口 {@link
- *     NetSDKLib#CLIENT_GetNewDevConfig(NetSDKLib.LLong, String, int, byte[], int,
- *     IntByReference, int)}和{@link NetSDKLib#CLIENT_SetNewDevConfig(NetSDKLib.LLong, String, int,
+ *     NetSDKLib#CLIENT_GetNewDevConfig(LLong, String, int, byte[], int,
+ *     IntByReference, int)}和{@link NetSDKLib#CLIENT_SetNewDevConfig(LLong, String, int,
  *     byte[], int, IntByReference, IntByReference, int)}
  * @date 2021/4/9
  * @version 1.0
@@ -37,9 +37,9 @@ public class CFG_MOTION_INFO extends SdkStructure {
   /** 一代检测区域，最多32*32块区域 */
     public BYTE_32[]        byRegion = new BYTE_32[MAX_MOTION_ROW];
   /** 报警联动 */
-    public NetSDKLib.CFG_ALARM_MSG_HANDLE stuEventHandler = new NetSDKLib.CFG_ALARM_MSG_HANDLE();
+    public CFG_ALARM_MSG_HANDLE stuEventHandler = new CFG_ALARM_MSG_HANDLE();
   /** 事件响应时间段，时间段获取和设置以此成员为准，忽略 stuEventHandler 中的stuTimeSection */
-    public NetSDKLib.CFG_TIME_SECTION[] stuTimeSection = new NetSDKLib.CFG_TIME_SECTION[WEEK_DAY_NUM * MAX_REC_TSECT];
+    public CFG_TIME_SECTION[] stuTimeSection = new CFG_TIME_SECTION[WEEK_DAY_NUM * MAX_REC_TSECT];
   /** 0, 1, 由能力集确定, 只读, 等于1时以下字段有效 */
     public int              nVersion;
   /** 只读，决定nSenseLevel是否有效 */
@@ -65,9 +65,9 @@ public class CFG_MOTION_INFO extends SdkStructure {
   /** 三代动态检测区域 */
     public CFG_DETECT_REGION[] stuRegion = new CFG_DETECT_REGION[MAX_MOTION_WINDOW];
   /** 前端动态检测联动 */
-    public NetSDKLib.CFG_ALARM_MSG_HANDLE stuRemoteEventHandler = new NetSDKLib.CFG_ALARM_MSG_HANDLE();
+    public CFG_ALARM_MSG_HANDLE stuRemoteEventHandler = new CFG_ALARM_MSG_HANDLE();
   /** 前端动态检测联动, 事件响应时间段，时间段获取和设置以此成员为准，忽略 stuRemoteEventHandler中的stuTimeSection */
-    public NetSDKLib.CFG_TIME_SECTION[] stuRemoteTimeSection = new NetSDKLib.CFG_TIME_SECTION[WEEK_DAY_NUM * MAX_REC_TSECT];
+    public CFG_TIME_SECTION[] stuRemoteTimeSection = new CFG_TIME_SECTION[WEEK_DAY_NUM * MAX_REC_TSECT];
 
   @Override
   public String toString() {
@@ -104,7 +104,7 @@ public class CFG_MOTION_INFO extends SdkStructure {
 
 
             for(int i=0;i<stuTimeSection.length;i++){
-              stuTimeSection[i]=new  NetSDKLib.CFG_TIME_SECTION();
+              stuTimeSection[i]=new  CFG_TIME_SECTION();
             }
 
             for(int i=0;i<stuWindows.length;i++){
@@ -115,7 +115,7 @@ public class CFG_MOTION_INFO extends SdkStructure {
               stuRegion[i]= new  CFG_DETECT_REGION();
             }
             for(int i=0;i<stuRemoteTimeSection.length;i++){
-              stuRemoteTimeSection[i]=new NetSDKLib.CFG_TIME_SECTION();
+              stuRemoteTimeSection[i]=new CFG_TIME_SECTION();
             }
 
       }

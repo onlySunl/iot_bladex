@@ -15,13 +15,13 @@ public class MEDIAFILE_IVS_EVENT_INFO extends SdkStructure
     */
     public int              nChannelID;
     /**
-     * 起始时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 起始时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuStartTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuStartTime = new NET_TIME();
     /**
-     * 结束时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 结束时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuEndTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuEndTime = new NET_TIME();
     /**
      * 文件路径
     */
@@ -59,7 +59,7 @@ public class MEDIAFILE_IVS_EVENT_INFO extends SdkStructure
     */
     public int              nEventCount;
     /**
-     * 录像或抓图文件标志, 不设置标志表示查询所有文件,参见枚举定义 {@link NetSDKLib.EM_RECORD_SNAP_FLAG_TYPE}
+     * 录像或抓图文件标志, 不设置标志表示查询所有文件,参见枚举定义 {@link EM_RECORD_SNAP_FLAG_TYPE}
     */
     public int[]            emFalgLists = new int[128];
     /**
@@ -71,7 +71,7 @@ public class MEDIAFILE_IVS_EVENT_INFO extends SdkStructure
     */
     public int              nRuleType;
     /**
-     * 事件动作,参见枚举定义 {@link NetSDKLib.NET_CROSSREGION_ACTION_INFO}
+     * 事件动作,参见枚举定义 {@link NET_CROSSREGION_ACTION_INFO}
     */
     public int              emAction;
     /**
@@ -87,21 +87,21 @@ public class MEDIAFILE_IVS_EVENT_INFO extends SdkStructure
     */
     public NET_EVENT_IMAGE_INFO stuEventImageInfo = new NET_EVENT_IMAGE_INFO();
     /**
-     * 物体型心(不是包围盒中心), 0-8191相对坐标, 相对于小图,参见结构体定义 {@link NetSDKLib.NET_POINT}
+     * 物体型心(不是包围盒中心), 0-8191相对坐标, 相对于小图,参见结构体定义 {@link NET_POINT}
     */
-    public NetSDKLib.NET_POINT stuObjCenter = new NetSDKLib.NET_POINT();
+    public NET_POINT stuObjCenter = new NET_POINT();
     /**
      * 为TRUE表示仅stuStartTimeRealUTC和stuEndTimeRealUTC有效(仅使用stuStartTimeRealUTC和stuEndTimeRealUTC), 为FALSE表示仅stuStartTime和stuEndTime有效(仅使用stuStartTime和stuEndTime)
     */
     public int              bRealUTC;
     /**
-     * UTC开始时间(标准UTC时间), 与stuEndTimeRealUTC配对使用,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * UTC开始时间(标准UTC时间), 与stuEndTimeRealUTC配对使用,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuStartTimeRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuStartTimeRealUTC = new NET_TIME();
     /**
-     * UTC结束时间(标准UTC时间), 与stuStartTimeRealUTC配对使用,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * UTC结束时间(标准UTC时间), 与stuStartTimeRealUTC配对使用,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuEndTimeRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuEndTimeRealUTC = new NET_TIME();
 
     public MEDIAFILE_IVS_EVENT_INFO() {
         this.dwSize = this.size();

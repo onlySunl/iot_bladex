@@ -3,8 +3,8 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_COMMON_STRING_128;
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_MAX_WINDOWS_NUMBER;
+import static org.springblade.modules.iot.dahua.lib.NET_COMMON_STRING_128;
+import static org.springblade.modules.iot.dahua.lib.NET_MAX_WINDOWS_NUMBER;
 
 /**
  * 录播主机模式信息

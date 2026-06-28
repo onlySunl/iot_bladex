@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * 视频编码物件配置(对应结构体 CFG_VIDEO_WIDGET2_INFO)
 */

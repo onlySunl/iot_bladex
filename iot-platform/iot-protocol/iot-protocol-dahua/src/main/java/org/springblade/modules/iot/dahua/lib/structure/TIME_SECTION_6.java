@@ -8,6 +8,6 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  * @date 2022/10/14 13:53:01
  */
 public class TIME_SECTION_6 extends SdkStructure {
-    public NetSDKLib.NET_TSECT[] timeSection = new NetSDKLib.NET_TSECT[NetSDKLib.NET_N_REC_TSECT];
+    public NET_TSECT[] timeSection = new NET_TSECT[NET_N_REC_TSECT];
 }
 

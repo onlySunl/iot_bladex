@@ -9,7 +9,7 @@ import com.sun.jna.Pointer;
  * @author 47081
  * @version 1.0
  * @description 智能分析事件类型
- * 对应接口{@link NetSDKLib#CLIENT_RealLoadPictureEx(NetSDKLib.LLong, int, int, int, Callback, Pointer, Pointer)}
+ * 对应接口{@link NetSDKLib#CLIENT_RealLoadPictureEx(LLong, int, int, int, Callback, Pointer, Pointer)}
  * @date 2020/10/14
  */
 public enum EM_EVENT_IVS_TYPE {
@@ -19,12 +19,12 @@ public enum EM_EVENT_IVS_TYPE {
     EVENT_IVS_ALL(0x00000001, "所有事件"),
     /**
      * 警戒线事件
-     * 对应结构体{@link NetSDKLib.DEV_EVENT_CROSSLINE_INFO}
+     * 对应结构体{@link DEV_EVENT_CROSSLINE_INFO}
      */
     EVENT_IVS_CROSSLINEDETECTION(0x00000002, "警戒线事件"),
     /**
      * 警戒区事件
-     * 对应 {@link NetSDKLib.DEV_EVENT_CROSSREGION_INFO}
+     * 对应 {@link DEV_EVENT_CROSSREGION_INFO}
      */
     EVENT_IVS_CROSSREGIONDETECTION(0x00000003, "警戒区事件"),
     /**
@@ -34,17 +34,17 @@ public enum EM_EVENT_IVS_TYPE {
     EVENT_IVS_PASTEDETECTION(0x00000004, "贴条事件"),
     /**
      * 物品遗留事件
-     * (对应 {@link NetSDKLib.DEV_EVENT_LEFT_INFO})
+     * (对应 {@link DEV_EVENT_LEFT_INFO})
      */
     EVENT_IVS_LEFTDETECTION(0x00000005, "物品遗留事件"),
     /**
      * 停留事件
-     * (对应 {@link NetSDKLib.DEV_EVENT_STAY_INFO})
+     * (对应 {@link DEV_EVENT_STAY_INFO})
      */
     EVENT_IVS_STAYDETECTION(0x00000006, "停留事件"),
     /**
      * 徘徊事件
-     * (对应 {@link NetSDKLib.DEV_EVENT_WANDER_INFO})
+     * (对应 {@link DEV_EVENT_WANDER_INFO})
      */
     EVENT_IVS_WANDERDETECTION(0x00000007, "徘徊事件"),
     /**
@@ -53,7 +53,7 @@ public enum EM_EVENT_IVS_TYPE {
      */
     EVENT_IVS_PRESERVATION(0x00000008, "物品保全事件"),
     /**
-     * (对应 {@link NetSDKLib.DEV_EVENT_MOVE_INFO})
+     * (对应 {@link DEV_EVENT_MOVE_INFO})
      */
     EVENT_IVS_MOVEDETECTION(0x00000009, "移动事件"),
     /**
@@ -61,7 +61,7 @@ public enum EM_EVENT_IVS_TYPE {
      */
     EVENT_IVS_TAILDETECTION(0x0000000A, "尾随事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_RIOTERL_INFO}
+     * {@link DEV_EVENT_RIOTERL_INFO}
      */
     EVENT_IVS_RIOTERDETECTION(0x0000000B, "聚众事件"),
     /**
@@ -73,7 +73,7 @@ public enum EM_EVENT_IVS_TYPE {
      */
     EVENT_IVS_SMOKEDETECTION(0x0000000D, "烟雾报警事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_FIGHT_INFO}
+     * {@link DEV_EVENT_FIGHT_INFO}
      */
     EVENT_IVS_FIGHTDETECTION(0x0000000E, "斗殴事件"),
     /**
@@ -87,7 +87,7 @@ public enum EM_EVENT_IVS_TYPE {
     EVENT_IVS_CAMERACOVERDDETECTION(0x00000011, "摄像头覆盖事件(保留)"),
     EVENT_IVS_CAMERAMOVEDDETECTION(0x00000012, "摄像头移动事件(保留)"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_VIDEOABNORMALDETECTION_INFO}
+     * {@link DEV_EVENT_VIDEOABNORMALDETECTION_INFO}
      */
     EVENT_IVS_VIDEOABNORMALDETECTION(0x00000013, "视频异常事件"),
     EVENT_IVS_VIDEOBADDETECTION(0x00000014, "视频损坏事件(保留)"),
@@ -102,11 +102,11 @@ public enum EM_EVENT_IVS_TYPE {
      */
     EVENT_IVS_TRAFFICACCIDENT(0x00000016, "交通事故事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFICJUNCTION_INFO}
+     * {@link DEV_EVENT_TRAFFICJUNCTION_INFO}
      */
     EVENT_IVS_TRAFFICJUNCTION(0x00000017, "交通路口事件----老规则"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFICGATE_INFO}
+     * {@link DEV_EVENT_TRAFFICGATE_INFO}
      */
     EVENT_IVS_TRAFFICGATE(0x00000018, "交通卡口事件----老规则"),
     /**
@@ -114,11 +114,11 @@ public enum EM_EVENT_IVS_TYPE {
      */
     EVENT_TRAFFICSNAPSHOT(0x00000019, "交通抓拍事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_FACEDETECT_INFO}
+     * {@link DEV_EVENT_FACEDETECT_INFO}
      */
     EVENT_IVS_FACEDETECT(0x0000001A, "目标检测事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFICJAM_INFO}
+     * {@link DEV_EVENT_TRAFFICJAM_INFO}
      */
     EVENT_IVS_TRAFFICJAM(0x0000001B, "交通拥堵事件"),
     /**
@@ -126,51 +126,51 @@ public enum EM_EVENT_IVS_TYPE {
      */
     EVENT_IVS_TRAFFIC_NONMOTORINMOTORROUTE(0x0000001C, "非机动车占机动车车道事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_RUNREDLIGHT_INFO}
+     * {@link DEV_EVENT_TRAFFIC_RUNREDLIGHT_INFO}
      */
     EVENT_IVS_TRAFFIC_RUNREDLIGHT(0x00000100, "交通违章-闯红灯事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_OVERLINE_INFO}
+     * {@link DEV_EVENT_TRAFFIC_OVERLINE_INFO}
      */
     EVENT_IVS_TRAFFIC_OVERLINE(0x00000101, "交通违章-压车道线事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_RETROGRADE_INFO}
+     * {@link DEV_EVENT_TRAFFIC_RETROGRADE_INFO}
      */
     EVENT_IVS_TRAFFIC_RETROGRADE(0x00000102, "交通违章-逆行事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_TURNLEFT_INFO}
+     * {@link DEV_EVENT_TRAFFIC_TURNLEFT_INFO}
      */
     EVENT_IVS_TRAFFIC_TURNLEFT(0x00000103, "交通违章-违章左转"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_TURNRIGHT_INFO}
+     * {@link DEV_EVENT_TRAFFIC_TURNRIGHT_INFO}
      */
     EVENT_IVS_TRAFFIC_TURNRIGHT(0x00000104, "交通违章-违章右转"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_UTURN_INFO}
+     * {@link DEV_EVENT_TRAFFIC_UTURN_INFO}
      */
     EVENT_IVS_TRAFFIC_UTURN(0x00000105, "交通违章-违章掉头"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_OVERSPEED_INFO}
+     * {@link DEV_EVENT_TRAFFIC_OVERSPEED_INFO}
      */
     EVENT_IVS_TRAFFIC_OVERSPEED(0x00000106, "交通违章-超速"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_UNDERSPEED_INFO}
+     * {@link DEV_EVENT_TRAFFIC_UNDERSPEED_INFO}
      */
     EVENT_IVS_TRAFFIC_UNDERSPEED(0x00000107, "交通违章-低速"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_PARKING_INFO}
+     * {@link DEV_EVENT_TRAFFIC_PARKING_INFO}
      */
     EVENT_IVS_TRAFFIC_PARKING(0x00000108, "交通违章-违章停车"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_WRONGROUTE_INFO}
+     * {@link DEV_EVENT_TRAFFIC_WRONGROUTE_INFO}
      */
     EVENT_IVS_TRAFFIC_WRONGROUTE(0x00000109, "交通违章-不按车道行驶"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_CROSSLANE_INFO}
+     * {@link DEV_EVENT_TRAFFIC_CROSSLANE_INFO}
      */
     EVENT_IVS_TRAFFIC_CROSSLANE(0x0000010A, "交通违章-违章变道"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_OVERYELLOWLINE_INFO}
+     * {@link DEV_EVENT_TRAFFIC_OVERYELLOWLINE_INFO}
      */
     EVENT_IVS_TRAFFIC_OVERYELLOWLINE(0x0000010B, "交通违章-压黄线"),
     /**
@@ -178,11 +178,11 @@ public enum EM_EVENT_IVS_TYPE {
      */
     EVENT_IVS_TRAFFIC_DRIVINGONSHOULDER(0x0000010C, "交通违章-路肩行驶事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_YELLOWPLATEINLANE_INFO}
+     * {@link DEV_EVENT_TRAFFIC_YELLOWPLATEINLANE_INFO}
      */
     EVENT_IVS_TRAFFIC_YELLOWPLATEINLANE(0x0000010E, "交通违章-黄牌车占道事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_PEDESTRAINPRIORITY_INFO}
+     * {@link DEV_EVENT_TRAFFIC_PEDESTRAINPRIORITY_INFO}
      */
     EVENT_IVS_TRAFFIC_PEDESTRAINPRIORITY(0x0000010F, "交通违章-礼让行人/斑马线行人优先事件"),
     /**
@@ -194,15 +194,15 @@ public enum EM_EVENT_IVS_TYPE {
      */
     EVENT_IVS_ELECTROSPARKDETECTION(0x00000110, "电火花事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_NOPASSING_INFO}
+     * {@link DEV_EVENT_TRAFFIC_NOPASSING_INFO}
      */
     EVENT_IVS_TRAFFIC_NOPASSING(0x00000111, "交通违章-禁止通行事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_ABNORMALRUNDETECTION_INFO}
+     * {@link DEV_EVENT_ABNORMALRUNDETECTION_INFO}
      */
     EVENT_IVS_ABNORMALRUNDETECTION(0x00000112, "异常奔跑事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_RETROGRADEDETECTION_INFO}
+     * {@link DEV_EVENT_RETROGRADEDETECTION_INFO}
      */
     EVENT_IVS_RETROGRADEDETECTION(0x00000113, "人员逆行事件"),
     /**
@@ -210,23 +210,23 @@ public enum EM_EVENT_IVS_TYPE {
      */
     EVENT_IVS_INREGIONDETECTION(0x00000114, "区域内检测事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TAKENAWAYDETECTION_INFO}
+     * {@link DEV_EVENT_TAKENAWAYDETECTION_INFO}
      */
     EVENT_IVS_TAKENAWAYDETECTION(0x00000115, "物品搬移事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_PARKINGDETECTION_INFO}
+     * {@link DEV_EVENT_PARKINGDETECTION_INFO}
      */
     EVENT_IVS_PARKINGDETECTION(0x00000116, "非法停车事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_FACERECOGNITION_INFO}
+     * {@link DEV_EVENT_FACERECOGNITION_INFO}
      */
     EVENT_IVS_FACERECOGNITION(0x00000117, "目标识别事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_MANUALSNAP_INFO}
+     * {@link DEV_EVENT_TRAFFIC_MANUALSNAP_INFO}
      */
     EVENT_IVS_TRAFFIC_MANUALSNAP(0x00000118, "交通手动抓拍事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_FLOW_STATE}
+     * {@link DEV_EVENT_TRAFFIC_FLOW_STATE}
      */
     EVENT_IVS_TRAFFIC_FLOWSTATE(0x00000119, "交通流量统计事件"),
     /**
@@ -234,23 +234,23 @@ public enum EM_EVENT_IVS_TYPE {
      */
     EVENT_IVS_TRAFFIC_STAY(0x0000011A, "交通滞留事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_VEHICLEINROUTE_INFO}
+     * {@link DEV_EVENT_TRAFFIC_VEHICLEINROUTE_INFO}
      */
     EVENT_IVS_TRAFFIC_VEHICLEINROUTE(0x0000011B, "有车占道事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_ALARM_INFO}
+     * {@link DEV_EVENT_ALARM_INFO}
      */
     EVENT_ALARM_MOTIONDETECT(0x0000011C, "视频移动侦测事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_ALARM_INFO}
+     * {@link DEV_EVENT_ALARM_INFO}
      */
     EVENT_ALARM_LOCALALARM(0x0000011D, "外部报警事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_PSRISEDETECTION_INFO}
+     * {@link DEV_EVENT_PSRISEDETECTION_INFO}
      */
     EVENT_IVS_PSRISEDETECTION(0x0000011E, "囚犯起身事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFICJUNCTION_INFO}
+     * {@link DEV_EVENT_TRAFFICJUNCTION_INFO}
      */
     EVENT_IVS_TRAFFIC_TOLLGATE(0x00000120, "交通违章-卡口事件----新规则"),
     /**
@@ -258,8 +258,8 @@ public enum EM_EVENT_IVS_TYPE {
      */
     EVENT_IVS_DENSITYDETECTION(0x00000121, "人员密集度检测"),
     /**
-     * {@link NetSDKLib.NET_VIDEODIAGNOSIS_COMMON_INFO}
-     * {@link NetSDKLib.NET_REAL_DIAGNOSIS_RESULT}
+     * {@link NET_VIDEODIAGNOSIS_COMMON_INFO}
+     * {@link NET_REAL_DIAGNOSIS_RESULT}
      */
     EVENT_IVS_VIDEODIAGNOSIS(0x00000122, "视频诊断结果事件"),
     /**
@@ -267,47 +267,47 @@ public enum EM_EVENT_IVS_TYPE {
      */
     EVENT_IVS_QUEUEDETECTION(0x00000123, "排队检测报警事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_VEHICLEINBUSROUTE_INFO}
+     * {@link DEV_EVENT_TRAFFIC_VEHICLEINBUSROUTE_INFO}
      */
     EVENT_IVS_TRAFFIC_VEHICLEINBUSROUTE(0x00000124, "占用公交车道事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_IVS_TRAFFIC_BACKING_INFO}
+     * {@link DEV_EVENT_IVS_TRAFFIC_BACKING_INFO}
      */
     EVENT_IVS_TRAFFIC_BACKING(0x00000125, "违章倒车事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_IVS_AUDIO_ABNORMALDETECTION_INFO}
+     * {@link DEV_EVENT_IVS_AUDIO_ABNORMALDETECTION_INFO}
      */
     EVENT_IVS_AUDIO_ABNORMALDETECTION(0x00000126, "声音异常检测"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_RUNYELLOWLIGHT_INFO}
+     * {@link DEV_EVENT_TRAFFIC_RUNYELLOWLIGHT_INFO}
      */
     EVENT_IVS_TRAFFIC_RUNYELLOWLIGHT(0x00000127, "交通违章-闯黄灯事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_IVS_CLIMB_INFO}
+     * {@link DEV_EVENT_IVS_CLIMB_INFO}
      */
     EVENT_IVS_CLIMBDETECTION(0x00000128, "攀高检测事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_IVS_LEAVE_INFO}
+     * {@link DEV_EVENT_IVS_LEAVE_INFO}
      */
     EVENT_IVS_LEAVEDETECTION(0x00000129, "离岗检测事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_PARKINGONYELLOWBOX_INFO}
+     * {@link DEV_EVENT_TRAFFIC_PARKINGONYELLOWBOX_INFO}
      */
     EVENT_IVS_TRAFFIC_PARKINGONYELLOWBOX(0x0000012A, "黄网格线抓拍事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_PARKINGSPACEPARKING_INFO}
+     * {@link DEV_EVENT_TRAFFIC_PARKINGSPACEPARKING_INFO}
      */
     EVENT_IVS_TRAFFIC_PARKINGSPACEPARKING(0x0000012B, "车位有车事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_PARKINGSPACENOPARKING_INFO}
+     * {@link DEV_EVENT_TRAFFIC_PARKINGSPACENOPARKING_INFO}
      */
     EVENT_IVS_TRAFFIC_PARKINGSPACENOPARKING(0x0000012C, "车位无车事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_PEDESTRAIN_INFO}
+     * {@link DEV_EVENT_TRAFFIC_PEDESTRAIN_INFO}
      */
     EVENT_IVS_TRAFFIC_PEDESTRAIN(0x0000012D, "交通行人事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_THROW_INFO}
+     * {@link DEV_EVENT_TRAFFIC_THROW_INFO}
      */
     EVENT_IVS_TRAFFIC_THROW(0x0000012E, "交通抛洒物品事件"),
     /**
@@ -340,19 +340,19 @@ public enum EM_EVENT_IVS_TYPE {
      */
     EVENT_IVS_TRAFFIC_RESTRICTED_PLATE(0x00000136, "受限车牌事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_OVERSTOPLINE}
+     * {@link DEV_EVENT_TRAFFIC_OVERSTOPLINE}
      */
     EVENT_IVS_TRAFFIC_OVERSTOPLINE(0x00000137, "压停止线事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_WITHOUT_SAFEBELT}
+     * {@link DEV_EVENT_TRAFFIC_WITHOUT_SAFEBELT}
      */
     EVENT_IVS_TRAFFIC_WITHOUT_SAFEBELT(0x00000138, "交通未系安全带事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_DRIVER_SMOKING}
+     * {@link DEV_EVENT_TRAFFIC_DRIVER_SMOKING}
      */
     EVENT_IVS_TRAFFIC_DRIVER_SMOKING(0x00000139, "驾驶员抽烟事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_DRIVER_CALLING}
+     * {@link DEV_EVENT_TRAFFIC_DRIVER_CALLING}
      */
     EVENT_IVS_TRAFFIC_DRIVER_CALLING(0x0000013A, "驾驶员打电话事件"),
     /**
@@ -360,7 +360,7 @@ public enum EM_EVENT_IVS_TYPE {
      */
     EVENT_IVS_TRAFFIC_PEDESTRAINRUNREDLIGHT(0x0000013B, "行人闯红灯事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_TRAFFIC_PASSNOTINORDER_INFO}
+     * {@link DEV_EVENT_TRAFFIC_PASSNOTINORDER_INFO}
      */
     EVENT_IVS_TRAFFIC_PASSNOTINORDER(0x0000013C, "未按规定依次通行"),
     EVENT_IVS_OBJECT_DETECTION(0x00000141, "物体特征检测事件"),
@@ -371,7 +371,7 @@ public enum EM_EVENT_IVS_TYPE {
     EVENT_IVS_CROSSLINEDETECTION_EX(0x00000151, "警戒线扩展事件"),
     EVENT_ALARM_COMMON(0x00000152, "普通录像"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_ALARM_VIDEOBLIND}
+     * {@link DEV_EVENT_ALARM_VIDEOBLIND}
      */
     EVENT_ALARM_VIDEOBLIND(0x00000153, "视频遮挡事件"),
     EVENT_ALARM_VIDEOLOSS(0x00000154, "视频丢失事件"),
@@ -458,11 +458,11 @@ public enum EM_EVENT_IVS_TYPE {
     EVENT_IVS_VEHICLEANALYSE(0x00000202, "车辆特征检测分析"),// (对应DEV_EVENT_VEHICLEANALYSE)
     EVENT_IVS_FLOWRATE(0x00000203, "流量使用情况事件"),// (对应 DEV_EVENT_FLOWRATE_INFO)
     /**
-     * {@link NetSDKLib.DEV_EVENT_ACCESS_CTL_INFO}
+     * {@link DEV_EVENT_ACCESS_CTL_INFO}
      */
     EVENT_IVS_ACCESS_CTL(0x00000204, "门禁事件"),
     /**
-     * {@link NetSDKLib.DEV_EVENT_SNAPMANUAL}
+     * {@link DEV_EVENT_SNAPMANUAL}
      */
     EVENT_IVS_SNAPMANUAL(0x00000205, "SnapManual事件"),
     EVENT_IVS_TRAFFIC_ELETAGINFO(0x00000206, "RFID电子车牌标签事件"),// (对应 DEV_EVENT_TRAFFIC_ELETAGINFO_INFO)
@@ -506,7 +506,7 @@ public enum EM_EVENT_IVS_TYPE {
     EVENT_IVS_CROWDDETECTION(0x0000022C, "人群密度检测事件"),// (对应结构体 DEV_EVENT_CROWD_DETECTION_INFO)
     EVENT_IVS_TRAFFIC_CARDISTANCESHORT(0x0000022D, "车间距过小报警事件"),// (对应 DEV_EVENT_TRAFFIC_CARDISTANCESHORT_INFO)
     /**
-     * {@link NetSDKLib.DEV_EVENT_PEDESTRIAN_JUNCTION_INFO}
+     * {@link DEV_EVENT_PEDESTRIAN_JUNCTION_INFO}
      */
     EVENT_IVS_PEDESTRIAN_JUNCTION(0x00000230, "行人卡口事件"),
     EVENT_IVS_VEHICLE_RECOGNITION(0x00000231, "车牌对比事件"),// (对应 DEV_EVENT_VEHICLE_RECOGNITION_INFO)

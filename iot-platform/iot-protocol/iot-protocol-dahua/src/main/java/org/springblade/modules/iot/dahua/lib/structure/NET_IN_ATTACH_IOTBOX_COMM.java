@@ -12,9 +12,9 @@ public class NET_IN_ATTACH_IOTBOX_COMM extends SdkStructure
     */
     public int              dwSize;
     /**
-     * 回调函数,参见回调函数定义 {@link NetSDKLib.fNotifyIotboxRealdata}
+     * 回调函数,参见回调函数定义 {@link FNotifyIotboxRealdata}
     */
-    public NetSDKLib.fNotifyIotboxRealdata cbNotifyIotboxRealdata;
+    public FNotifyIotboxRealdata cbNotifyIotboxRealdata;
     /**
      * 用户自定义参数
     */

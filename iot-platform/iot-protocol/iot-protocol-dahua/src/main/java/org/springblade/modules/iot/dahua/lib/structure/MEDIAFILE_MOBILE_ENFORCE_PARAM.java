@@ -7,7 +7,7 @@ import org.springblade.modules.iot.dahua.lib.enumeration.EM_MOBILE_ENFORCE_UPLOA
 /**
  * 采集站和手持终端文件信息查询条件 入参
  * 接口 {@link NetSDKLib#CLIENT_FindFileEx}
- * 枚举 {@link NetSDKLib.EM_FILE_QUERY_TYPE#NET_FILE_QUERY_MOBILE_ENFORCE}
+ * 枚举 {@link EM_FILE_QUERY_TYPE#NET_FILE_QUERY_MOBILE_ENFORCE}
  *
  * @author 47040
  * @since Created at 2021/5/31 10:07
@@ -58,13 +58,13 @@ public class MEDIAFILE_MOBILE_ENFORCE_PARAM extends SdkStructure {
     */
     public BYTE_ARRAY_128[] szRegistID = new BYTE_ARRAY_128[256];
     /**
-     * 采集开始时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 采集开始时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuCollectStartTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuCollectStartTime = new NET_TIME();
     /**
-     * 采集结束时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 采集结束时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuCollectEndTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuCollectEndTime = new NET_TIME();
     /**
      * 是否使用采集时间, 为TRUE表示stuCollectStartTime/stuCollectEndTime或stuCollectStartTimeRealUTC/stuCollectEndTimeRealUTC有效，为FALSE表示无效
     */
@@ -74,27 +74,27 @@ public class MEDIAFILE_MOBILE_ENFORCE_PARAM extends SdkStructure {
     */
     public int              bOnlySupportRealUTC;
     /**
-     * UTC开始时间(标准UTC时间), 与stuEndTimeRealUTC配对使用，与(stuBeginTime, stuEndTime)互斥,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * UTC开始时间(标准UTC时间), 与stuEndTimeRealUTC配对使用，与(stuBeginTime, stuEndTime)互斥,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuStartTimeRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuStartTimeRealUTC = new NET_TIME();
     /**
-     * UTC结束时间(标准UTC时间), 与stuStartTimeRealUTC配对使用，与(stuStartTime, stuEndTime)互斥,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * UTC结束时间(标准UTC时间), 与stuStartTimeRealUTC配对使用，与(stuStartTime, stuEndTime)互斥,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuEndTimeRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuEndTimeRealUTC = new NET_TIME();
     /**
-     * 采集UTC开始时间(标准UTC时间), 文件的采集时间是一个时间点；如果stuCollectStartTimeRealUTC和stuCollectEndTimeRealUTC同时存在时，则按采集时间段查询,stuStartTimeRealUTC和stuEndTimeRealUTC无效,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 采集UTC开始时间(标准UTC时间), 文件的采集时间是一个时间点；如果stuCollectStartTimeRealUTC和stuCollectEndTimeRealUTC同时存在时，则按采集时间段查询,stuStartTimeRealUTC和stuEndTimeRealUTC无效,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuCollectStartTimeRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuCollectStartTimeRealUTC = new NET_TIME();
     /**
-     * 采集UTC结束时间(标准UTC时间), 文件的采集时间是一个时间点；如果stuCollectStartTimeRealUTC和stuCollectEndTimeRealUTC同时存在时，则按采集时间段查询,stuStartTimeRealUTC和stuEndTimeRealUTC无效,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 采集UTC结束时间(标准UTC时间), 文件的采集时间是一个时间点；如果stuCollectStartTimeRealUTC和stuCollectEndTimeRealUTC同时存在时，则按采集时间段查询,stuStartTimeRealUTC和stuEndTimeRealUTC无效,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuCollectEndTimeRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuCollectEndTimeRealUTC = new NET_TIME();
     /**
      * 是否使用采集UTC时间, 为TRUE表示下发stuCollectStartTimeRealUTC和stuCollectEndTimeRealUTC, 为FALSE表示下发stuCollectStartTimestuCollectEndTime
     */
     public int              bUserCollectTimeRealUTC;
     /**
-     * 录像或抓图文件标志, 不设置标志表示查询所有文件,参见枚举定义 {@link NetSDKLib.EM_RECORD_SNAP_FLAG_TYPE}
+     * 录像或抓图文件标志, 不设置标志表示查询所有文件,参见枚举定义 {@link EM_RECORD_SNAP_FLAG_TYPE}
     */
     public int[]            emFlagLists = new int[128];
     /**

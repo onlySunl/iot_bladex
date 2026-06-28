@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 /**
  * 获取锁定状态入参 {@link NetSDKLib#CLIENT_OperateCourseCompositeChannel}

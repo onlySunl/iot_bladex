@@ -3,7 +3,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.HDBJ_MAX_OBJECTS_NUM;
+import static org.springblade.modules.iot.dahua.lib.HDBJ_MAX_OBJECTS_NUM;
 import static org.springblade.modules.iot.dahua.lib.constant.SDKStructureFieldLenth.SDK_MAX_DETECT_REGION_NUM;
 
 /**
@@ -49,7 +49,7 @@ public class DEV_EVENT_SHOP_WINDOW_POST_INFO extends SdkStructure {
     /**
      * 事件对应文件信息
      */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo;
+    public NET_EVENT_FILE_INFO stuFileInfo;
     /**
      * 检测区域顶点数
      */
@@ -57,7 +57,7 @@ public class DEV_EVENT_SHOP_WINDOW_POST_INFO extends SdkStructure {
     /**
      * 检测区域
      */
-    public NetSDKLib.NET_POINT[] stuDetectRegion = (NetSDKLib.NET_POINT[]) new NetSDKLib.NET_POINT().toArray(SDK_MAX_DETECT_REGION_NUM);
+    public NET_POINT[] stuDetectRegion = (NET_POINT[]) new NET_POINT().toArray(SDK_MAX_DETECT_REGION_NUM);
     /**
      * 检测到的物体个数
      */
@@ -65,7 +65,7 @@ public class DEV_EVENT_SHOP_WINDOW_POST_INFO extends SdkStructure {
     /**
      * 检测到的物体
      */
-    public NetSDKLib.NET_MSG_OBJECT[] stuObjects = (NetSDKLib.NET_MSG_OBJECT[]) new NetSDKLib.NET_MSG_OBJECT().toArray(HDBJ_MAX_OBJECTS_NUM);
+    public NET_MSG_OBJECT[] stuObjects = (NET_MSG_OBJECT[]) new NET_MSG_OBJECT().toArray(HDBJ_MAX_OBJECTS_NUM);
     /**
      * 事件触发的预置点号，从1开始
      */

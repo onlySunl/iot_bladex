@@ -9,7 +9,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  * @author ： 260611
  * @since ： Created in 2021/10/19 19:49
  */
-public class EM_FIRE_LANE_MOVE_STATE extends NetSDKLib.SdkStructure {
+public class EM_FIRE_LANE_MOVE_STATE extends SdkStructure {
     /**
      *  未知
      */

@@ -19,7 +19,7 @@ public interface fVideoStatHeatMapCallBack extends Callback {
    * @param dwUser 用户数据
    */
   void invoke(
-      NetSDKLib.LLong lAttachHandle,
+      LLong lAttachHandle,
       Pointer pBuf,
       Pointer pBinData,
       int dwBinDataLen,

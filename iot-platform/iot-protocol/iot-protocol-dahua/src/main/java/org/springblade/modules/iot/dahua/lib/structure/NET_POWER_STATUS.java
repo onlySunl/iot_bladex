@@ -3,8 +3,8 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_MAX_BATTERY_NUM;
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_MAX_POWER_NUM;
+import static org.springblade.modules.iot.dahua.lib.NET_MAX_BATTERY_NUM;
+import static org.springblade.modules.iot.dahua.lib.NET_MAX_POWER_NUM;
 
 /**
  * className：NET_POWER_STATUS

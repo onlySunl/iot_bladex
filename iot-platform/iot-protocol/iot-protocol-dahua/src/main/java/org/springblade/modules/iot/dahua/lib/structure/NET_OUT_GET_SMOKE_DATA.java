@@ -18,7 +18,7 @@ public class NET_OUT_GET_SMOKE_DATA extends SdkStructure {
 	 */
     public float            ftemperatureData;
 	/**
-	 * 温度单位 ，参考 NetSDKLib.NET_TEMPERATURE_UNIT
+	 * 温度单位 ，参考 NET_TEMPERATURE_UNIT
 	 */
     public int              emTemperatureUnit;
 	/**

@@ -45,11 +45,11 @@ public class NET_DEV_EVENT_REGION_PROPORTION_DETECTION_INFO extends SdkStructure
     /**
      * / 物体信息列表
      */
-    public NetSDKLib.NET_MSG_OBJECT[] stuObjects = new NetSDKLib.NET_MSG_OBJECT[32];
+    public NET_MSG_OBJECT[] stuObjects = new NET_MSG_OBJECT[32];
     /**
      * / 全景图
      */
-    public NetSDKLib.SCENE_IMAGE_INFO_EX stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO_EX();
+    public SCENE_IMAGE_INFO_EX stuSceneImage = new SCENE_IMAGE_INFO_EX();
     /**
      * / 实际占比，取值0~100
      */
@@ -65,7 +65,7 @@ public class NET_DEV_EVENT_REGION_PROPORTION_DETECTION_INFO extends SdkStructure
 
     public NET_DEV_EVENT_REGION_PROPORTION_DETECTION_INFO() {
         for (int i = 0; i < stuObjects.length; i++) {
-            stuObjects[i] = new NetSDKLib.NET_MSG_OBJECT();
+            stuObjects[i] = new NET_MSG_OBJECT();
         }
     }
 }

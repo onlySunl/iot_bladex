@@ -1,10 +1,10 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.SIZE_OF_POINTER;
+import static org.springblade.modules.iot.dahua.lib.NetSDKConstants.POINTERSIZE;
 
 /**
  * @author 260611
@@ -52,11 +52,11 @@ public class NET_DEV_EVENT_DROP_DETECTION_INFO extends SdkStructure {
 	/**
 	 * 检测目标的物体信息
 	 */
-    public NetSDKLib.DH_MSG_OBJECT[] stuObjects = new NetSDKLib.DH_MSG_OBJECT[128];
+    public DH_MSG_OBJECT[] stuObjects = new DH_MSG_OBJECT[128];
 	/**
 	 * 全景广角图，仅 nIndexInData字段有效
 	 */
-    public NetSDKLib.SCENE_IMAGE_INFO stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO();
+    public SCENE_IMAGE_INFO stuSceneImage = new SCENE_IMAGE_INFO();
 	/**
 	 * 图片信息数组, refer to {@link NET_IMAGE_INFO_EX2}
 	 */
@@ -72,7 +72,7 @@ public class NET_DEV_EVENT_DROP_DETECTION_INFO extends SdkStructure {
 
 	public NET_DEV_EVENT_DROP_DETECTION_INFO() {
 		for (int i = 0; i < stuObjects.length; i++) {
-			stuObjects[i] = new NetSDKLib.DH_MSG_OBJECT();
+			stuObjects[i] = new DH_MSG_OBJECT();
 		}
 	}
 }

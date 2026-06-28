@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import org.springblade.modules.iot.dahua.lib.enumeration.CFG_EM_PREVIEW_MODE;
 
 import static org.springblade.modules.iot.dahua.lib.constant.SDKStructureFieldLenth.CFG_MAX_PREVIEW_MODE_SPLIT_TYPE_NUM;

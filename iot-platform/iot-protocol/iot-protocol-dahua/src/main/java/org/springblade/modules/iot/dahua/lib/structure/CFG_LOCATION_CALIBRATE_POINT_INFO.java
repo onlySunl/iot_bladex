@@ -16,7 +16,7 @@ public class CFG_LOCATION_CALIBRATE_POINT_INFO extends SdkStructure {
 	/**
 	 * 标定点名称
 	 */
-    public byte[]           szName = new byte[NetSDKLib.CFG_COMMON_STRING_128];
+    public byte[]           szName = new byte[CFG_COMMON_STRING_128];
 	/**
 	 * 使能
 	 */

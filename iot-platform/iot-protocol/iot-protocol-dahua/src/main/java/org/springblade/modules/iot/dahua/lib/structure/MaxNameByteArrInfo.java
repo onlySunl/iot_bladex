@@ -12,6 +12,6 @@ public class MaxNameByteArrInfo extends SdkStructure {
 	/**
 	 * 二维数组内字符串对应字节数组
 	 */
-    public byte[]           name = new byte[NetSDKLib.MAX_NAME_LEN];
+    public byte[]           name = new byte[MAX_NAME_LEN];
 }
 

@@ -3,7 +3,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_DEVICE_NAME_LEN;
+import static org.springblade.modules.iot.dahua.lib.NET_DEVICE_NAME_LEN;
 
 /**
  * className：NET_FAN_INFO

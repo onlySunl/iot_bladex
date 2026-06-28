@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.MAN_NUM_LIST_INFO;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.SdkStructure;
+import org.springblade.modules.iot.dahua.lib.MAN_NUM_LIST_INFO;
+import org.springblade.modules.iot.dahua.lib.SdkStructure;
 /**
  * @description 立体视觉区域内人数统计报警
  * @author 119178

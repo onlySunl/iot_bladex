@@ -15,9 +15,9 @@ public class NET_OUT_GET_SOFTWAREVERSION_INFO extends SdkStructure
     */
     public byte[]           szVersion = new byte[64];
     /**
-     * 日期,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 日期,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuBuildDate = new NetSDKLib.NET_TIME();
+    public NET_TIME stuBuildDate = new NET_TIME();
     /**
      * web软件信息
     */

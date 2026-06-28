@@ -39,13 +39,13 @@ public class NET_OBJECT_EVENTS_INFO extends SdkStructure
     */
     public long             nUTCEventTime;
     /**
-     * 物体进入画面时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 物体进入画面时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuEnterTimeRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuEnterTimeRealUTC = new NET_TIME();
     /**
-     * 物体离开画面时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 物体离开画面时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuLeaveTimeRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuLeaveTimeRealUTC = new NET_TIME();
     /**
      * 关联记录编号
     */

@@ -22,7 +22,7 @@ public class NET_IN_ATTACH_CUSTOM_SNAP_INFO extends SdkStructure {
 /** 
 自定义定时抓图订阅回调函数
 */
-    public			NetSDKLib.fAttachCustomSnapInfo cbCustomSnapInfo;
+    public			FAttachCustomSnapInfo cbCustomSnapInfo;
 /** 
 用户数据
 */

@@ -17,7 +17,7 @@ public class NET_SPLIT_SCENE extends SdkStructure
     */
     public byte[]           szControlID = new byte[128];
     /**
-     * 分割模式,参见枚举定义 {@link NetSDKLib.NET_SPLIT_MODE}
+     * 分割模式,参见枚举定义 {@link NET_SPLIT_MODE}
     */
     public int              emSplitMode;
     /**

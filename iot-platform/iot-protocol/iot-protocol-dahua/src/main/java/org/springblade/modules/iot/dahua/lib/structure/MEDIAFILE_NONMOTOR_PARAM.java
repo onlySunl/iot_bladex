@@ -15,13 +15,13 @@ public class MEDIAFILE_NONMOTOR_PARAM extends SdkStructure
     */
     public int              nChannel;
     /**
-     * 开始时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 开始时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stStartTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stStartTime = new NET_TIME();
     /**
-     * 结束时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 结束时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stEndTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stEndTime = new NET_TIME();
     /**
      * 骑车人数最小值
     */
@@ -47,13 +47,13 @@ public class MEDIAFILE_NONMOTOR_PARAM extends SdkStructure
     */
     public int              bOnlySupportRealUTC;
     /**
-     * UTC开始时间(标准UTC时间), 与stuEndTimeRealUTC配对使用，与(stuStartTime, stuEndTime)互斥,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * UTC开始时间(标准UTC时间), 与stuEndTimeRealUTC配对使用，与(stuStartTime, stuEndTime)互斥,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuStartTimeRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuStartTimeRealUTC = new NET_TIME();
     /**
-     * UTC结束时间(标准UTC时间), 与stuStartTimeRealUTC配对使用，与(stuStartTime, stuEndTime)互斥,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * UTC结束时间(标准UTC时间), 与stuStartTimeRealUTC配对使用，与(stuStartTime, stuEndTime)互斥,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuEndTimeRealUTC = new NetSDKLib.NET_TIME();
+    public NET_TIME stuEndTimeRealUTC = new NET_TIME();
     /**
      * 骑车人数, 255表示查未知
     */
@@ -79,7 +79,7 @@ public class MEDIAFILE_NONMOTOR_PARAM extends SdkStructure
     */
     public int              nUpperBodyColorNum;
     /**
-     * 车上人员帽子状态,参见枚举定义 {@link NetSDKLib.EM_HAS_HAT}
+     * 车上人员帽子状态,参见枚举定义 {@link EM_HAS_HAT}
     */
     public int              emHasHat;
     /**

@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /**
@@ -89,7 +89,7 @@ public class DEV_EVENT_DIALRECOGNITION_INFO extends SdkStructure {
 	/**
 	 * 预留字节
 	 */
-    public byte[]           szReserved = new byte[828-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           szReserved = new byte[828-NetSDKConstants.POINTERSIZE];
 
 	public DEV_EVENT_DIALRECOGNITION_INFO() {
 		for (int i = 0; i < stuImgaeInfo.length; i++) {

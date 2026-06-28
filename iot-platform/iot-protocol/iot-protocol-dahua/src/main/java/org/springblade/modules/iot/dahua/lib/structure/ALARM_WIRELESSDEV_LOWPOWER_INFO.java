@@ -10,7 +10,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  */
 public class ALARM_WIRELESSDEV_LOWPOWER_INFO extends SdkStructure {
 	/**
-	 * 是否为低电量true低电量,false 电量正常,unknown未知 {@link NetSDKLib.NET_THREE_STATUS_BOOL}
+	 * 是否为低电量true低电量,false 电量正常,unknown未知 {@link NET_THREE_STATUS_BOOL}
 	 */
     public int              emResult;
 	/**

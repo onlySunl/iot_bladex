@@ -20,7 +20,7 @@ public class NET_IN_START_SUBLINK_LISTEN_SERVER extends SdkStructure {
 /** 
 /< 子连接监听服务回调函数
 */
-    public			NetSDKLib.fSubLinkServiceCallBack cbSubLinkServiceCallBack;
+    public			FSubLinkServiceCallBack cbSubLinkServiceCallBack;
 /** 
 /< 用户数据 LDWORD
 */

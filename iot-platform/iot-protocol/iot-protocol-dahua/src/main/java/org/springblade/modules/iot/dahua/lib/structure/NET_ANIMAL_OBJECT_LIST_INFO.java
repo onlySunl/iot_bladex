@@ -16,7 +16,7 @@ public class NET_ANIMAL_OBJECT_LIST_INFO extends SdkStructure {
     /**
      *  目标中心点
      */
-    public NetSDKLib.NET_POINT stuPoint;
+    public NET_POINT stuPoint;
     /**
      *  目标ID
      */

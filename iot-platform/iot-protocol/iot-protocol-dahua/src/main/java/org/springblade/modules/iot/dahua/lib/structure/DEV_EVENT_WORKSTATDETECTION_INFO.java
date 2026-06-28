@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_WORKACTION_STATE;
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_WORKSTATDETECTION_TYPE;
 import com.sun.jna.Pointer;
@@ -38,7 +38,7 @@ public class DEV_EVENT_WORKSTATDETECTION_INFO extends SdkStructure {
 	 */
     public int              nEventID;
 	/**
-	 * 智能事件所属大类,{@link NetSDKLib.EM_CLASS_TYPE}
+	 * 智能事件所属大类,{@link EM_CLASS_TYPE}
 	 */
     public int              emClassType;
 	/**
@@ -60,7 +60,7 @@ public class DEV_EVENT_WORKSTATDETECTION_INFO extends SdkStructure {
 	/**
 	 * 全景大图信息
 	 */
-    public NetSDKLib.SCENE_IMAGE_INFO stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO();
+    public SCENE_IMAGE_INFO stuSceneImage = new SCENE_IMAGE_INFO();
 	/**
 	 * 报警规则类型,{@link EM_WORKSTATDETECTION_TYPE}
 	 */
@@ -76,6 +76,6 @@ public class DEV_EVENT_WORKSTATDETECTION_INFO extends SdkStructure {
 	/**
 	 * 预留字节
 	 */
-    public byte[]           byReserved = new byte[1016 - NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           byReserved = new byte[1016 - NetSDKConstants.POINTERSIZE];
 }
 

@@ -19,7 +19,7 @@ public class NET_BLACK_WHITE_DETECTIONRESULT extends SdkStructure {
 */
     public			int            nValue;
 /** 
-检测结果状态 {@link NetSDKLib.NET_STATE_TYPE}
+检测结果状态 {@link NET_STATE_TYPE}
 */
     public			int            emState;
 /** 

@@ -13,7 +13,7 @@ public class NET_CANDIDATE_INFOEX2 extends SdkStructure {
     /**
      * 当前人脸匹配到的候选对象信息扩展
      */
-    public NetSDKLib.CANDIDATE_INFOEX stuCandidatesEx = new NetSDKLib.CANDIDATE_INFOEX();
+    public CANDIDATE_INFOEX stuCandidatesEx = new CANDIDATE_INFOEX();
     /**
      * 以图搜图业务,输入图片的相似度,万分比 1~10000
      */

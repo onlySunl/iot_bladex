@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * EM_RPC_NETAPP_TYPE_GET_MOBILE_RSSI 出参
 */

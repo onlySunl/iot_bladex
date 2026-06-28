@@ -59,7 +59,7 @@ IndexInGroup一个事件组内的抓拍序号，从1开始
 /** 
 检测目标的物体信息
 */
-    public			NetSDKLib.NET_MSG_OBJECT_EX2[] stuObjects = new NetSDKLib.NET_MSG_OBJECT_EX2[100];
+    public			NET_MSG_OBJECT_EX2[] stuObjects = new NET_MSG_OBJECT_EX2[100];
 /** 
 检测区个数
 */
@@ -67,7 +67,7 @@ IndexInGroup一个事件组内的抓拍序号，从1开始
 /** 
 表示配置的规则区域
 */
-    public			NetSDKLib.NET_POINT[] stuDetectRegion = (NetSDKLib.NET_POINT[])new NetSDKLib.NET_POINT().toArray(20);
+    public			NET_POINT[] stuDetectRegion = (NET_POINT[])new NET_POINT().toArray(20);
 /** 
 事件触发的预置点号，从1开始
 */
@@ -75,7 +75,7 @@ IndexInGroup一个事件组内的抓拍序号，从1开始
 /** 
 全景广角图
 */
-    public NetSDKLib.SCENE_IMAGE_INFO_EX stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO_EX();
+    public SCENE_IMAGE_INFO_EX stuSceneImage = new SCENE_IMAGE_INFO_EX();
 /** 
 预留字节
 */
@@ -84,7 +84,7 @@ IndexInGroup一个事件组内的抓拍序号，从1开始
         public DEV_EVENT_FISHING_DETECTION_INFO(){
 
             for(int i=0;i<stuObjects.length;i++){
-                stuObjects[i]=new NetSDKLib.NET_MSG_OBJECT_EX2();
+                stuObjects[i]=new NET_MSG_OBJECT_EX2();
             }
 
         }

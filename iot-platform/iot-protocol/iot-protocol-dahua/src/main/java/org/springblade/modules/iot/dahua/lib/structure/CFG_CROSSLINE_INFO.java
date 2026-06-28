@@ -12,7 +12,7 @@ public class CFG_CROSSLINE_INFO extends SdkStructure {
 	 /**
      *  规则名称,不同规则不能重名
      */
-    public byte[]           szRuleName = new byte[NetSDKLib.MAX_NAME_LEN];
+    public byte[]           szRuleName = new byte[MAX_NAME_LEN];
     /**
      *  规则使能
      */
@@ -32,7 +32,7 @@ public class CFG_CROSSLINE_INFO extends SdkStructure {
     /**
      *  相应物体类型列表
      */
-    public MaxNameByteArrInfo[] szObjectTypes = (MaxNameByteArrInfo[])new MaxNameByteArrInfo().toArray(NetSDKLib.MAX_OBJECT_LIST_SIZE);
+    public MaxNameByteArrInfo[] szObjectTypes = (MaxNameByteArrInfo[])new MaxNameByteArrInfo().toArray(MAX_OBJECT_LIST_SIZE);
     /**
      *  检测方向:0:由左至右;1:由右至左;2:两者都可以
      */
@@ -44,15 +44,15 @@ public class CFG_CROSSLINE_INFO extends SdkStructure {
     /**
      *  警戒线
      */
-    public NetSDKLib.CFG_POLYLINE[] stuDetectLine = (NetSDKLib.CFG_POLYLINE[]) new NetSDKLib.CFG_POLYLINE().toArray(NetSDKLib.MAX_POLYLINE_NUM);
+    public CFG_POLYLINE[] stuDetectLine = (CFG_POLYLINE[]) new CFG_POLYLINE().toArray(MAX_POLYLINE_NUM);
     /**
      *  报警联动
      */
-    public NetSDKLib.CFG_ALARM_MSG_HANDLE stuEventHandler;
+    public CFG_ALARM_MSG_HANDLE stuEventHandler;
     /**
      *  事件响应时间段
      */
-    public NetSDKLib.TIME_SECTION_WEEK_DAY_10[] stuTimeSectionWeekDay = (NetSDKLib.TIME_SECTION_WEEK_DAY_10[])new NetSDKLib.TIME_SECTION_WEEK_DAY_10().toArray(NetSDKLib.WEEK_DAY_NUM);
+    public TIME_SECTION_WEEK_DAY_10[] stuTimeSectionWeekDay = (TIME_SECTION_WEEK_DAY_10[])new TIME_SECTION_WEEK_DAY_10().toArray(WEEK_DAY_NUM);
     /**
      *  stuTimeSection字段是否禁用，默认FALSE：不禁用，TRUE：禁用，用户控制
      */
@@ -68,7 +68,7 @@ public class CFG_CROSSLINE_INFO extends SdkStructure {
     /**
      *  规则特定的尺寸过滤器
      */
-    public NetSDKLib.CFG_SIZEFILTER_INFO stuSizeFileter;
+    public CFG_SIZEFILTER_INFO stuSizeFileter;
     /**
      *  触发报警位置数
      */
@@ -96,11 +96,11 @@ public class CFG_CROSSLINE_INFO extends SdkStructure {
     /**
      *  前端视频分析联动
      */
-    public NetSDKLib.CFG_ALARM_MSG_HANDLE stuRemoteEventHandler;
+    public CFG_ALARM_MSG_HANDLE stuRemoteEventHandler;
     /**
      *  前端视频分析联动响应时间段
      */
-    public NetSDKLib.TIME_SECTION_WEEK_DAY_10[] stuRemoteTimeSection = (NetSDKLib.TIME_SECTION_WEEK_DAY_10[])new NetSDKLib.TIME_SECTION_WEEK_DAY_10().toArray(NetSDKLib.WEEK_DAY_NUM);
+    public TIME_SECTION_WEEK_DAY_10[] stuRemoteTimeSection = (TIME_SECTION_WEEK_DAY_10[])new TIME_SECTION_WEEK_DAY_10().toArray(WEEK_DAY_NUM);
     /**
      *  stuRemoteTimeSection字段是否禁用, 默认FALSE：不禁用, TRUE：禁用, 用户控制
      */

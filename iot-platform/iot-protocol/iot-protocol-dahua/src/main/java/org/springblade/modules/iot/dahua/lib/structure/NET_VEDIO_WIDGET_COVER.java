@@ -46,7 +46,7 @@ public class NET_VEDIO_WIDGET_COVER extends SdkStructure {
     /**
      * 区域, 坐标取值0~8191
      */
-    public NetSDKLib.NET_RECT stuRect;
+    public NET_RECT stuRect;
     /**
      * 保留字节
      */

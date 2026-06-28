@@ -41,7 +41,7 @@ public class NET_OSD_CFG_TEMPERATURE extends SdkStructure {
     /**
      * 区域
      */
-    public NetSDKLib.NET_RECT stuRect;
+    public NET_RECT stuRect;
     /**
      * 温度单位的类型 枚举值{@link EM_TEMPERATURE_UNIT_EX}
      */

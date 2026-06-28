@@ -37,7 +37,7 @@ public class DEV_EVENT_TRUCKNOTCLEAN_FOR_PRMA_INFO extends SdkStructure {
 /** 
 事件对应文件信息
 */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo = new NetSDKLib.NET_EVENT_FILE_INFO();
+    public NET_EVENT_FILE_INFO stuFileInfo = new NET_EVENT_FILE_INFO();
 /** 
 智能事件所属大类 {@link org.springblade.modules.iot.dahua.lib.enumeration.EM_CLASS_TYPE}
 */
@@ -49,7 +49,7 @@ public class DEV_EVENT_TRUCKNOTCLEAN_FOR_PRMA_INFO extends SdkStructure {
 /** 
 检测到的车牌信息
 */
-    public NetSDKLib.NET_MSG_OBJECT stuObject = new NetSDKLib.NET_MSG_OBJECT();
+    public NET_MSG_OBJECT stuObject = new NET_MSG_OBJECT();
 /** 
 stuSceneImage 是否有效
 */
@@ -57,7 +57,7 @@ stuSceneImage 是否有效
 /** 
 全景广角图
 */
-    public NetSDKLib.SCENE_IMAGE_INFO_EX stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO_EX();
+    public SCENE_IMAGE_INFO_EX stuSceneImage = new SCENE_IMAGE_INFO_EX();
 /** 
 保留字节
 */

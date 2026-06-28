@@ -20,9 +20,9 @@ public class NET_IN_GET_IVSEVENT_DETAIL_INFO extends SdkStructure
     */
     public int[]            nId = new int[128];
     /**
-     * 回调函数,参见回调函数定义 {@link NetSDKLib.fNotifyIVSEventDetail}
+     * 回调函数,参见回调函数定义 {@link FNotifyIVSEventDetail}
     */
-    public NetSDKLib.fNotifyIVSEventDetail cbNotifyIVSEventDetail;
+    public FNotifyIVSEventDetail cbNotifyIVSEventDetail;
     /**
      * 用户自定义参数
     */

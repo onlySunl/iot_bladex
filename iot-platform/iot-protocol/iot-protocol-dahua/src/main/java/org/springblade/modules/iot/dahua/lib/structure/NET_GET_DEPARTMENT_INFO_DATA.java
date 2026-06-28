@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * NET_GET_DEPARTMENT_INFO_DATA 执法人部门列表信息
 */

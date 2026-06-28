@@ -35,7 +35,7 @@ public class DEV_EVENT_ANYTHING_DETECT_INFO extends SdkStructure {
      */
     public int              nEventID;
     /**
-     *  智能事件所属大类 {@link NetSDKLib.EM_CLASS_TYPE}
+     *  智能事件所属大类 {@link EM_CLASS_TYPE}
      */
     public int              emClassType;
     /**
@@ -49,11 +49,11 @@ public class DEV_EVENT_ANYTHING_DETECT_INFO extends SdkStructure {
     /**
      *  事件对应文件信息
      */
-    public NetSDKLib.NET_EVENT_FILE_INFO stuFileInfo;
+    public NET_EVENT_FILE_INFO stuFileInfo;
     /**
      *  全景广角图
      */
-    public NetSDKLib.SCENE_IMAGE_INFO_EX stuSceneImage;
+    public SCENE_IMAGE_INFO_EX stuSceneImage;
     /**
      *  检测到的物体个数
      */

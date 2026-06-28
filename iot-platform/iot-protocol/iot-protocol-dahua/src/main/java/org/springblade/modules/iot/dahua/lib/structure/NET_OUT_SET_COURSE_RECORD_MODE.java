@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 /**
  * 设置录像模式出参，对应接口{@link NetSDKLib#CLIENT_SetCourseRecordMode }

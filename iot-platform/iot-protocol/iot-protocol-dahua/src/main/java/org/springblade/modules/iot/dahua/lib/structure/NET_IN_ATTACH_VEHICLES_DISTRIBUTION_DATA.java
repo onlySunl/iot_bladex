@@ -27,7 +27,7 @@ public class NET_IN_ATTACH_VEHICLES_DISTRIBUTION_DATA extends SdkStructure {
 /** 
 回调函数
 */
-    public			NetSDKLib.fNotifyVehiclesDistributionData cbNotifySnapData;
+    public			FNotifyVehiclesDistributionData cbNotifySnapData;
 /** 
 用户自定义参数
 */

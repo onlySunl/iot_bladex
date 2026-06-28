@@ -1,11 +1,11 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_PERSON_FEATURE_ERRCODE;
 import com.sun.jna.Pointer;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.*;
+
 
 /**
  * className：FACERECOGNITION_PERSON_INFOEX description： 人员信息扩展结构体 author：251589
@@ -141,6 +141,6 @@ public class FACERECOGNITION_PERSON_INFOEX extends SdkStructure {
     */
     public int              bPersonFeatureValue;
   /** 保留字节 */
-    public byte[]           byReserved = new byte[120-NetSDKLib.SIZE_OF_POINTER*4];
+    public byte[]           byReserved = new byte[120-NetSDKConstants.POINTERSIZE*4];
 }
 

@@ -52,7 +52,7 @@ public class NET_RECORDBACKUP_REMOTE_TASK extends SdkStructure {
      */
     public int              emFileType;
     /**
-     * 视频码流 枚举值 {@link NetSDKLib.NET_STREAM_TYPE}
+     * 视频码流 枚举值 {@link NET_STREAM_TYPE}
      */
     public int              emStreamType;
     /**

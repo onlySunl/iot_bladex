@@ -16,9 +16,9 @@ public class NET_IN_ATTACH_DOCK_INFO extends SdkStructure
     */
     public byte[]           szReserved = new byte[4];
     /**
-     * 任务状态回调函数,参见回调函数定义 {@link NetSDKLib.fUAVDockInfo}
+     * 任务状态回调函数,参见回调函数定义 {@link FUAVDockInfo}
     */
-    public NetSDKLib.fUAVDockInfo cbNotify;
+    public FUAVDockInfo cbNotify;
     /**
      * 用户信息
     */

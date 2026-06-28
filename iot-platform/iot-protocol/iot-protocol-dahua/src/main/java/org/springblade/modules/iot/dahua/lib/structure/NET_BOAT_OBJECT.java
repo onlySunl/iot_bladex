@@ -36,11 +36,11 @@ public class NET_BOAT_OBJECT extends SdkStructure {
 	/**
 	 * 矩形范围,点的坐标归一化到[0,8191]区间
 	 */
-    public NetSDKLib.NET_RECT stuBoundingBox = new NetSDKLib.NET_RECT();
+    public NET_RECT stuBoundingBox = new NET_RECT();
 	/**
 	 * 包围盒(绝对坐标)
 	 */
-    public NetSDKLib.NET_RECT stuOriginalBoundingBox = new NetSDKLib.NET_RECT();
+    public NET_RECT stuOriginalBoundingBox = new NET_RECT();
 	/**
 	 * 行驶方向 {@link org.springblade.modules.iot.dahua.lib.enumeration.EM_BOAT_DIRECTION}
 	 */

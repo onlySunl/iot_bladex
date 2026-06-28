@@ -14,11 +14,11 @@ public class NET_POINT_INFO extends SdkStructure {
     /**
      *  主相机标定点
      */
-    public NetSDKLib.DH_POINT stuMasterPoint = new NetSDKLib.DH_POINT();
+    public DH_POINT stuMasterPoint = new DH_POINT();
     /**
      *  从相机(球机)标定点
      */
-    public NetSDKLib.DH_POINT stuSlavePoint = new NetSDKLib.DH_POINT();
+    public DH_POINT stuSlavePoint = new DH_POINT();
     /**
      *  保留字段
      */

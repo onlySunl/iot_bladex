@@ -54,11 +54,11 @@ public class DEV_EVENT_FIRE_LINE_DETECTION_INFO extends SdkStructure {
     /**
      * / 检测到的物体
      */
-    public NetSDKLib.NET_MSG_OBJECT[] stuObjects = new NetSDKLib.NET_MSG_OBJECT[32];
+    public NET_MSG_OBJECT[] stuObjects = new NET_MSG_OBJECT[32];
     /**
      * / 全景广角图
      */
-    public NetSDKLib.SCENE_IMAGE_INFO stuSceneImage = new NetSDKLib.SCENE_IMAGE_INFO();
+    public SCENE_IMAGE_INFO stuSceneImage = new SCENE_IMAGE_INFO();
     /**
      * / 保留字节
      */
@@ -66,7 +66,7 @@ public class DEV_EVENT_FIRE_LINE_DETECTION_INFO extends SdkStructure {
 
     public DEV_EVENT_FIRE_LINE_DETECTION_INFO() {
         for (int i = 0; i < stuObjects.length; i++) {
-            stuObjects[i] = new NetSDKLib.NET_MSG_OBJECT();
+            stuObjects[i] = new NET_MSG_OBJECT();
         }
     }
 }

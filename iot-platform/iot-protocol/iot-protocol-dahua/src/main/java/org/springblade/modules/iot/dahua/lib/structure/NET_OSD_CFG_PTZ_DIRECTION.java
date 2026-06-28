@@ -40,7 +40,7 @@ public class NET_OSD_CFG_PTZ_DIRECTION extends SdkStructure {
     /**
      * 区域
      */
-    public NetSDKLib.NET_RECT stuRect;
+    public NET_RECT stuRect;
 
     public NET_OSD_CFG_PTZ_DIRECTION() {
         dwSize = this.size();

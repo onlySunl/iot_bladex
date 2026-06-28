@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+
+
 import com.sun.jna.Pointer;
 
 /**
@@ -51,7 +51,7 @@ public class ALARM_AREAARM_MODECHANGE_INFO extends SdkStructure {
 	/**
 	 * 保留扩展字节
 	 */
-    public byte[]           byReserved = new byte[1020-NetSDKLib.SIZE_OF_POINTER];
+    public byte[]           byReserved = new byte[1020-NetSDKConstants.POINTERSIZE];
 
 	public ALARM_AREAARM_MODECHANGE_INFO() {
 	}

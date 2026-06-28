@@ -10,7 +10,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  */
 public class NET_AUDIO_DECODE_FORMAT extends SdkStructure {
 	/**
-	 * 音频编码格式   NetSDKLib.NET_EM_AUDIO_FORMAT
+	 * 音频编码格式   NET_EM_AUDIO_FORMAT
 	 * */
     public int              emCompression;
 	/**

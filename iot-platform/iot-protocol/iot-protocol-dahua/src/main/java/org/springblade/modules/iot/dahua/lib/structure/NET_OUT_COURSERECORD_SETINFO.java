@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 /**
  * 设置指定教室的录像信息出参 {@link NetSDKLib#CLIENT_OperateCourseRecordManager}

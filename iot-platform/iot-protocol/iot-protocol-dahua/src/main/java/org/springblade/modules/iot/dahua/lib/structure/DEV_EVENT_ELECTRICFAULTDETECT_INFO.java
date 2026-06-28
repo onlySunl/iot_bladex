@@ -113,7 +113,7 @@ public class DEV_EVENT_ELECTRICFAULTDETECT_INFO extends SdkStructure {
 /** 
 大图
 */
-    public NetSDKLib.SCENE_IMAGE_INFO stuSceneImageInfo = new NetSDKLib.SCENE_IMAGE_INFO();
+    public SCENE_IMAGE_INFO stuSceneImageInfo = new SCENE_IMAGE_INFO();
 /** 
 绝缘子检测结果
 */

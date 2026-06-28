@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_EVENT_IVS;
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_EVENT_IVS_TYPE;
 

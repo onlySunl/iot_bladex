@@ -15,13 +15,13 @@ public class FACERECOGNITION_PERSON_INFOEX2 extends SdkStructure
     */
     public byte[]           szReserved1 = new byte[4];
     /**
-     * 人员预约开始时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 人员预约开始时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuAppointmentStartTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuAppointmentStartTime = new NET_TIME();
     /**
-     * 人员预约结束时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 人员预约结束时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuAppointmentEndTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuAppointmentEndTime = new NET_TIME();
     /**
      * 允许到达楼层, 已废弃, 建议使用szAllowFloorsEx
     */
@@ -43,13 +43,13 @@ public class FACERECOGNITION_PERSON_INFOEX2 extends SdkStructure
     */
     public int              bUseRegisterStorageTime;
     /**
-     * 平台最近一次修改注册库人员信息的时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 平台最近一次修改注册库人员信息的时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuModifyTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuModifyTime = new NET_TIME();
     /**
-     * 注册库入库时间,参见结构体定义 {@link NetSDKLib.NET_TIME}
+     * 注册库入库时间,参见结构体定义 {@link NET_TIME}
     */
-    public NetSDKLib.NET_TIME stuRegisterStorageTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuRegisterStorageTime = new NET_TIME();
     /**
      * 允许到达楼层
     */

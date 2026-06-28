@@ -38,7 +38,7 @@ public class NET_IN_ATTACH_VIDEOSTAT_STREAM extends SdkStructure {
 	/**
 	 * 统计通道数据回调
 	 */
-    public NetSDKLib.fVideoStatStreamCallBack cbVideoStatStream;
+    public FVideoStatStreamCallBack cbVideoStatStream;
 	/**
 	 * 用户数据
 	 */

@@ -24,7 +24,7 @@ public class NET_IN_ATTACH_SECONDARY_ANALYSE_RESULT extends SdkStructure
     */
     public int              nEventCount;
     /**
-     * 需要订阅的事件,参见枚举定义 {@link NetSDKLib.EM_ANALYSE_EVENT_TYPE}
+     * 需要订阅的事件,参见枚举定义 {@link EM_ANALYSE_EVENT_TYPE}
     */
     public int[]            emEventType = new int[32];
     /**
@@ -32,9 +32,9 @@ public class NET_IN_ATTACH_SECONDARY_ANALYSE_RESULT extends SdkStructure
     */
     public int              bNeedPicData;
     /**
-     * 二次录像分析实时结果订阅函数,参见回调函数定义 {@link NetSDKLib.fAnalyseResultCallBack}
+     * 二次录像分析实时结果订阅函数,参见回调函数定义 {@link FAnalyseResultCallBack}
     */
-    public NetSDKLib.fAnalyseResultCallBack cbAnalyseResult;
+    public FAnalyseResultCallBack cbAnalyseResult;
     /**
      * 用户数据
     */

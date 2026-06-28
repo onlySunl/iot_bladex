@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.dahua.lib.structure;
 
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import static org.springblade.modules.iot.dahua.lib.constant.SDKStructureFieldLenth.MAX_CHANNEL_ID_LEN;
 

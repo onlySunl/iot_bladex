@@ -10,7 +10,7 @@ public class NET_POST_LOGIN_TASK extends SdkStructure
     /**
      * 登录句柄
     */
-    public NetSDKLib.LLong  lLoginID;
+    public LLong  lLoginID;
     /**
      * 设备IP
     */
@@ -24,9 +24,9 @@ public class NET_POST_LOGIN_TASK extends SdkStructure
     */
     public int              bOnline;
     /**
-     * 设备信息扩展,参见结构体定义 {@link NetSDKLib.NET_DEVICEINFO_Ex}
+     * 设备信息扩展,参见结构体定义 {@link NET_DEVICEINFO_Ex}
     */
-    public NetSDKLib.NET_DEVICEINFO_Ex stuDeviceInfo = new NetSDKLib.NET_DEVICEINFO_Ex();
+    public NET_DEVICEINFO_Ex stuDeviceInfo = new NET_DEVICEINFO_Ex();
     /**
      * 当登陆失败时（bOnline为FALSE），nError 的错误码含义说明参考 CLIENT_Login 中的 error 说明，同时，当nError为 LOGIN_TYPE_DEVICE_NOT_SUPPORT 时，表示设备不支持此种登录方式
     */

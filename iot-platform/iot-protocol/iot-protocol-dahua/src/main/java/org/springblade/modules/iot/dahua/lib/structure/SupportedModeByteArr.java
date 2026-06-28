@@ -12,6 +12,6 @@ public class SupportedModeByteArr extends SdkStructure {
 	/**
 	 *  网络模式字符串对应字节数组
 	 */
-    public byte[]           supportedModeByteArr = new byte[NetSDKLib.NET_MAX_MODE_LEN];
+    public byte[]           supportedModeByteArr = new byte[NET_MAX_MODE_LEN];
 }
 

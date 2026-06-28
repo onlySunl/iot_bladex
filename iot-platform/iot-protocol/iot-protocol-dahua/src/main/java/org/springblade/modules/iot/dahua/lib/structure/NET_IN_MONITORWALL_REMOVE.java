@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.dahua.lib.structure;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 /**
  * CLIENT_OperateMonitorWall接口输入参数=>NET_MONITORWALL_OPERATE_REMOVE
 */

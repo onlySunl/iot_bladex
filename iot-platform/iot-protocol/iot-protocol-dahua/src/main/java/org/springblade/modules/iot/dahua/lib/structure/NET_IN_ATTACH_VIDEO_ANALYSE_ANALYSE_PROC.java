@@ -22,7 +22,7 @@ public class NET_IN_ATTACH_VIDEO_ANALYSE_ANALYSE_PROC extends SdkStructure {
     /**
      * 回调函数
      */
-    public NetSDKLib.fVideoAnalyseAnalyseProc cbVideoAnalyseAnalyseProc;
+    public FVideoAnalyseAnalyseProc cbVideoAnalyseAnalyseProc;
     /**
      * 用户信息
      */

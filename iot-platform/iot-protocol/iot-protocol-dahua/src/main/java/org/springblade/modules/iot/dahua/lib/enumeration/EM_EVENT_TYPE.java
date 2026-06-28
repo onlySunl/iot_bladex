@@ -119,7 +119,7 @@ public enum EM_EVENT_TYPE {
      */
     EVENT_IVS_FACEDETECT(0x0000001A, "目标检测事件"),
     /**
-     * 交通拥堵事件,{@link NetSDKLib.DEV_EVENT_TRAFFICJAM_INFO}
+     * 交通拥堵事件,{@link DEV_EVENT_TRAFFICJAM_INFO}
      */
     EVENT_IVS_TRAFFICJAM(0x0000001B, "交通拥堵事件"),
     /**

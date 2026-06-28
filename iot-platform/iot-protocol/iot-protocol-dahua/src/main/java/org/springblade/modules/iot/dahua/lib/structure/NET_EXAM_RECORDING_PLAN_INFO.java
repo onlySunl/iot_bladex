@@ -29,11 +29,11 @@ public class NET_EXAM_RECORDING_PLAN_INFO extends SdkStructure {
 /** 
 开始时间
 */
-    public NetSDKLib.NET_TIME stuStartTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuStartTime = new NET_TIME();
 /** 
 结束时间
 */
-    public NetSDKLib.NET_TIME stuEndTime = new NetSDKLib.NET_TIME();
+    public NET_TIME stuEndTime = new NET_TIME();
 /** 
 保留字节
 */

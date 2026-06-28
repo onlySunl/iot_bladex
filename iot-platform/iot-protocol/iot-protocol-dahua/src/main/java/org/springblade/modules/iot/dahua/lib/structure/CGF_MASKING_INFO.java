@@ -2,7 +2,7 @@ package org.springblade.modules.iot.dahua.lib.structure;
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 
 import org.springblade.modules.iot.dahua.lib.NetSDKLib;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib.NET_CFG_Color;
+import org.springblade.modules.iot.dahua.lib.NET_CFG_Color;
 
 /**
  * @author 251823
@@ -33,7 +33,7 @@ public class CGF_MASKING_INFO extends SdkStructure {
     /**
      *  多边形顶点坐标,坐标取值0~8192
      */
-    public NetSDKLib.CFG_POLYGON[] stuPolygon = (NetSDKLib.CFG_POLYGON[]) new NetSDKLib.CFG_POLYGON().toArray(NetSDKLib.MAX_POLYGON_NUM);
+    public CFG_POLYGON[] stuPolygon = (CFG_POLYGON[]) new CFG_POLYGON().toArray(MAX_POLYGON_NUM);
     /**
      *  遮挡块色
      */
@@ -49,7 +49,7 @@ public class CGF_MASKING_INFO extends SdkStructure {
 
 	public CGF_MASKING_INFO() {
 		for (int i = 0; i < stuPolygon.length; i++) {
-			stuPolygon[i] = new NetSDKLib.CFG_POLYGON();
+			stuPolygon[i] = new CFG_POLYGON();
 		}
 	}
 }

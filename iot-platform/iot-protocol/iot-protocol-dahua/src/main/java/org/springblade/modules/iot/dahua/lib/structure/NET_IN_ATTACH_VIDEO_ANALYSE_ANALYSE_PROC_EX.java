@@ -16,9 +16,9 @@ public class NET_IN_ATTACH_VIDEO_ANALYSE_ANALYSE_PROC_EX extends SdkStructure
     */
     public int              nChannelId;
     /**
-     * 回调函数,参见回调函数定义 {@link NetSDKLib.fVideoAnalyseAnalyseProcEx}
+     * 回调函数,参见回调函数定义 {@link FVideoAnalyseAnalyseProcEx}
     */
-    public NetSDKLib.fVideoAnalyseAnalyseProcEx cbVideoAnalyseAnalyseProcEx;
+    public FVideoAnalyseAnalyseProcEx cbVideoAnalyseAnalyseProcEx;
     /**
      * 用户信息
     */

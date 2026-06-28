@@ -17,7 +17,7 @@ public class DISKCTRL_PARAM extends SdkStructure {
   /** 操作类型, 0 - 清除数据,1 - 设为读写盘, 2 - 设为只读盘,3 - 设为冗余盘, 4 - 恢复错误, 5 - 设为快照盘,7 - 弹出SD卡（对SD卡操作有效） */
     public int              ctrlType;                             //
   /** 磁盘信息, 由于磁盘顺序可能改变导致下标不准, 用来代替下标 */
-    public NetSDKLib.NET_DEV_DISKSTATE stuDisk;
+    public NET_DEV_DISKSTATE stuDisk;
 
   public DISKCTRL_PARAM() {
     this.dwSize = this.size();

@@ -9,7 +9,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
  * @author ： 260611
  * @since ： Created in 2021/10/19 20:18
  */
-public class EM_CFG_CHEF_CLOTHES_COLORS extends NetSDKLib.SdkStructure {
+public class EM_CFG_CHEF_CLOTHES_COLORS extends SdkStructure {
     /**
      *  未知
      */

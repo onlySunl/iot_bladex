@@ -4,7 +4,7 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_CAPTURE_PROCESS_END_TYPE;
 import org.springblade.modules.iot.dahua.lib.enumeration.EM_TRIGGER_TYPE;
 
-import static org.springblade.modules.iot.dahua.lib.NetSDKLib.*;
+
 
 /**
  * 船只的绊线入侵事件信息
@@ -12,7 +12,7 @@ import static org.springblade.modules.iot.dahua.lib.NetSDKLib.*;
  * ERR210428143 水面预警事件 专用结构体
  * <p>
  * 注意: 其他项目不要使用, 通用的绊线入侵事件结构体见:
- * {@link NetSDKLib.DEV_EVENT_CROSSREGION_INFO}
+ * {@link DEV_EVENT_CROSSREGION_INFO}
  *
  * @author 47040
  * @since Created in 2021/5/13 17:35

@@ -7,27 +7,27 @@ import org.springblade.modules.iot.dahua.lib.NetSDKLib;
 public class NET_HISTORY_HUMAN_INFO extends SdkStructure
 {
     /**
-     * 上衣颜色,参见枚举定义 {@link NetSDKLib.EM_CLOTHES_COLOR}
+     * 上衣颜色,参见枚举定义 {@link EM_CLOTHES_COLOR}
     */
     public int              emCoatColor;
     /**
-     * 上衣类型,参见枚举定义 {@link NetSDKLib.EM_COAT_TYPE}
+     * 上衣类型,参见枚举定义 {@link EM_COAT_TYPE}
     */
     public int              emCoatType;
     /**
-     * 裤子颜色,参见枚举定义 {@link NetSDKLib.EM_CLOTHES_COLOR}
+     * 裤子颜色,参见枚举定义 {@link EM_CLOTHES_COLOR}
     */
     public int              emTrousersColor;
     /**
-     * 裤子类型,参见枚举定义 {@link NetSDKLib.EM_TROUSERS_TYPE}
+     * 裤子类型,参见枚举定义 {@link EM_TROUSERS_TYPE}
     */
     public int              emTrousersType;
     /**
-     * 是否戴帽子,参见枚举定义 {@link NetSDKLib.EM_HAS_HAT}
+     * 是否戴帽子,参见枚举定义 {@link EM_HAS_HAT}
     */
     public int              emHasHat;
     /**
-     * 是否带包,参见枚举定义 {@link NetSDKLib.EM_HAS_BAG}
+     * 是否带包,参见枚举定义 {@link EM_HAS_BAG}
     */
     public int              emHasBag;
     /**
@@ -39,31 +39,31 @@ public class NET_HISTORY_HUMAN_INFO extends SdkStructure
     */
     public int              nAge;
     /**
-     * 性别,参见枚举定义 {@link NetSDKLib.EM_SEX_TYPE}
+     * 性别,参见枚举定义 {@link EM_SEX_TYPE}
     */
     public int              emSex;
     /**
-     * 角度,参见枚举定义 {@link NetSDKLib.EM_ANGLE_TYPE}
+     * 角度,参见枚举定义 {@link EM_ANGLE_TYPE}
     */
     public int              emAngle;
     /**
-     * 是否打伞,参见枚举定义 {@link NetSDKLib.EM_HAS_UMBRELLA}
+     * 是否打伞,参见枚举定义 {@link EM_HAS_UMBRELLA}
     */
     public int              emHasUmbrella;
     /**
-     * 包类型,参见枚举定义 {@link NetSDKLib.EM_BAG_TYPE}
+     * 包类型,参见枚举定义 {@link EM_BAG_TYPE}
     */
     public int              emBag;
     /**
-     * 上半身衣服图案,参见枚举定义 {@link NetSDKLib.EM_CLOTHES_PATTERN}
+     * 上半身衣服图案,参见枚举定义 {@link EM_CLOTHES_PATTERN}
     */
     public int              emUpperPattern;
     /**
-     * 头发样式,参见枚举定义 {@link NetSDKLib.EM_HAIR_STYLE}
+     * 头发样式,参见枚举定义 {@link EM_HAIR_STYLE}
     */
     public int              emHairStyle;
     /**
-     * 帽类型,参见枚举定义 {@link NetSDKLib.EM_CAP_TYPE}
+     * 帽类型,参见枚举定义 {@link EM_CAP_TYPE}
     */
     public int              emCap;
     /**
