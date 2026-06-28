@@ -142,10 +142,6 @@ public class Utils {
         return checking;
     }
 
-    }
-
-    }
-
     // 获取当前时间
     public static String getDate() {
         SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
