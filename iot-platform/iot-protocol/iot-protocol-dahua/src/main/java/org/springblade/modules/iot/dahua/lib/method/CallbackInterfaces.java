@@ -1,11 +1,21 @@
 package org.springblade.modules.iot.dahua.lib.method;
 
+import org.springblade.modules.iot.dahua.lib.enumeration.*;
+import org.springblade.modules.iot.dahua.lib.structure.*;
 import com.sun.jna.*;
-import org.springblade.modules.iot.dahua.lib.NetSDKLib;
+import com.sun.jna.ptr.IntByReference;
+
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
- * NetSDK 回调接口定义
+ * NetSDK 方法定义
  */
+public interface CallbackInterfaces extends NetSDKLib {
+
 public interface CallbackInterfaces {
 
     public interface fDisConnect extends Callback {
