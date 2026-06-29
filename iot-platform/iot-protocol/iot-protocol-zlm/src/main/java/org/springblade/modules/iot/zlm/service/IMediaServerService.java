@@ -104,7 +104,7 @@ public interface IMediaServerService {
      * @param authority     鉴权
      * @return
      */
-    StreamInfo getStreamInfoByAppAndStreamWithCheck(String app, String stream, String mediaServerId, String addr, boolean authority);
+    StreamInfo getStreamInfoByAppAndStreamWithCheck(String app, String stream, Long mediaServerId, String addr, boolean authority);
 
     /**
      * 根据应用名和流ID获取播放地址, 只是地址拼接

@@ -5,7 +5,7 @@ import org.springblade.modules.iot.domain.MediaInfo;
 import org.springblade.modules.iot.domain.ZlmMediaServer;
 import org.springblade.modules.iot.zlm.config.UserSetting;
 import org.springblade.modules.iot.zlm.constants.VideoManagerConstants;
-import org.springblade.modules.iot.domain.StreamAuthorityInfo;
+import org.springblade.modules.iot.zlm.domain.StreamAuthorityInfo;
 import org.springblade.modules.iot.zlm.service.IRedisCatchStorage;
 import org.springblade.modules.iot.zlm.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +45,7 @@ public class RedisCatchStorageImpl implements IRedisCatchStorage {
     }
 
     @Override
-    public void removeStream(String mediaServerId, String type, String app, String streamId) {
+    public void removeStream(Long mediaServerId, String type, String app, String streamId) {
         String key = VideoManagerConstants.ZLM_SERVER_STREAM_PREFIX + userSetting.getServerId() + "_" + type.toUpperCase() + "_"  + app + "_" + streamId + "_" + mediaServerId;
         redisTemplate.delete(key);
     }
@@ -59,7 +59,7 @@ public class RedisCatchStorageImpl implements IRedisCatchStorage {
      * @return
      */
     @Override
-    public MediaInfo getStreamInfo(String app, String streamId, String mediaServerId) {
+    public MediaInfo getStreamInfo(String app, String streamId, Long mediaServerId) {
         String scanKey = VideoManagerConstants.ZLM_SERVER_STREAM_PREFIX  + userSetting.getServerId() + "_*_" + app + "_" + streamId + "_" + mediaServerId;
 
         MediaInfo result = null;
@@ -127,7 +127,7 @@ public class RedisCatchStorageImpl implements IRedisCatchStorage {
      * @param id
      */
     @Override
-    public void removePushListItem(String app, String stream, String id) {
+    public void removePushListItem(String app, String stream, Long id) {
         String key = VideoManagerConstants.PUSH_STREAM_LIST + app + "_" + stream;
         MediaInfo param = (MediaInfo)redisTemplate.opsForValue().get(key);
         if (param != null) {

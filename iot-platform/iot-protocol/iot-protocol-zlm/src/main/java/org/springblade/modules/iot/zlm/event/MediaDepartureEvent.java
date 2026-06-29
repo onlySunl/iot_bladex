@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.zlm.event;
 
 import org.springblade.modules.iot.domain.ZlmMediaServer;
-import org.springblade.modules.iot.zlm.hook.OnStreamChangedHookParam;
+import org.springblade.modules.iot.hook.OnStreamChangedHookParam;
 
 /**
  * 流离开事件

@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.zlm.service.impl;
 
 
+import cn.hutool.http.HttpStatus;
 import org.springblade.modules.iot.domain.QsDevice;
 import org.springblade.modules.iot.domain.StreamInfo;
 import org.springblade.modules.iot.zlm.service.ErrorCallback;
@@ -31,7 +32,7 @@ public class SourcePlayServiceImpl implements ISourcePlayService {
             mediaServerService.play(device, record, callback);
         } catch (Exception e) {
             log.error("[点播失败] {}({})", device.getDeviceName(), device.getId(), e);
-            callback.run(HttpStatus.ERROR, "播放失败", null);
+            callback.run(HttpStatus.HTTP_BAD_REQUEST, "播放失败", null);
         }
     }
 }

@@ -8,6 +8,7 @@ import org.springblade.modules.iot.zlm.service.IMediaServerService;
 import org.springblade.modules.iot.zlm.service.ISourcePlayService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 /**
@@ -31,7 +32,7 @@ public class SourcePlayServiceImpl implements ISourcePlayService {
             mediaServerService.play(device, record, callback);
         } catch (Exception e) {
             log.error("[点播失败] {}({})", device.getDeviceName(), device.getId(), e);
-            callback.run(HttpStatus.ERROR, "播放失败", null);
+            callback.run(HttpStatus.BAD_REQUEST.value(), "播放失败", null);
         }
     }
 }

@@ -25,7 +25,7 @@ public class RtpServerParam {
 
     private String streamMode;
 
-    private String mediaServerId;
+    private Long mediaServerId;
 
     private String app;
 

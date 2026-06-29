@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.zlm.hook;
 
-import org.springblade.modules.iot.zlm.hook.HookParam;
+import org.springblade.modules.iot.hook.HookParam;
 
 /**
  * zlm hook事件中的on_rtp_server_timeout事件的参数

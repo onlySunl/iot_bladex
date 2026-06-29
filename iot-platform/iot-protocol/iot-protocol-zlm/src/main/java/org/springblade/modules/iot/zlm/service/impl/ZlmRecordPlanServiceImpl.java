@@ -6,9 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.common.constants.Constants;
 import org.springblade.modules.iot.common.constants.SecurityConstants;
-import org.springblade.modules.iot.domain.QsDevice;
-import org.springblade.modules.iot.domain.StreamInfo;
+import org.springblade.modules.iot.common.enums.LiveStreamType;
+import org.springblade.modules.iot.domain.*;
 import org.springblade.modules.iot.service.RemoteQsDeviceService;
+import org.springblade.modules.iot.utils.DateUtil;
 import org.springblade.modules.iot.zlm.common.InviteErrorCode;
 import org.springblade.modules.iot.zlm.event.MediaDepartureEvent;
 import org.springblade.modules.iot.zlm.mapper.ZlmRecordPlanItemMapper;
@@ -18,6 +19,7 @@ import org.springblade.modules.iot.zlm.service.IMediaServerService;
 import org.springblade.modules.iot.zlm.service.IZlmRecordPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
+import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -172,7 +174,6 @@ public class ZlmRecordPlanServiceImpl implements IZlmRecordPlanService {
      */
     @Override
     public int updateZlmRecordPlan(ZlmRecordPlan zlmRecordPlan) {
-        zlmRecordPlan.setUpdateTime(DateUtils.getNowDate());
         zlmRecordPlanItemMapper.cleanItems(zlmRecordPlan.getId());
         if (zlmRecordPlan.getPlanItemList() != null && !zlmRecordPlan.getPlanItemList().isEmpty()) {
             List<ZlmRecordPlanItem> planItemList = new ArrayList<>();
@@ -203,7 +204,7 @@ public class ZlmRecordPlanServiceImpl implements IZlmRecordPlanService {
         for (Long id : ids) {
             zlmRecordPlanItemMapper.cleanItems(id);
             R<Void> r = remoteQsDeviceService.cleanRecordPlanId(id, SecurityConstants.INNER);
-            if (r.getCode() != HttpStatus.SUCCESS) {
+            if (r.getCode() != HttpStatus.OK.value()) {
                 throw new RuntimeException("删除录像计划失败");
             }
         }
@@ -237,7 +238,7 @@ public class ZlmRecordPlanServiceImpl implements IZlmRecordPlanService {
             if (!startDeviceIdList.isEmpty()) {
                 // 获取所有的关联的设备
                 R<List<QsDevice>> r = remoteQsDeviceService.queryByIds(startDeviceIdList, SecurityConstants.INNER);
-                if (r.getCode() != HttpStatus.SUCCESS) {
+                if (r.getCode() != HttpStatus.OK.value()) {
                     throw new RuntimeException("根据设备id集合查询设备信息失败");
                 }
                 List<QsDevice> deviceList = r.getData();
@@ -288,7 +289,7 @@ public class ZlmRecordPlanServiceImpl implements IZlmRecordPlanService {
                 MediaInfo mediaInfo = mediaServerService.getMediaInfo(streamInfo.getMediaServer(), streamInfo.getApp(), streamInfo.getStream());
                 if (mediaInfo.getReaderCount() == null || mediaInfo.getReaderCount() == 0) {
                     R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
-                    if (r.getCode() != HttpStatus.SUCCESS) {
+                    if (r.getCode() != HttpStatus.OK.value()) {
                         throw new RuntimeException("根据设备id查询设备信息失败");
                     }
 
@@ -368,8 +369,6 @@ public class ZlmRecordPlanServiceImpl implements IZlmRecordPlanService {
      */
     @Override
     public int updateZlmRecordPlanStatus(ZlmRecordPlan zlmRecordPlan) {
-        zlmRecordPlan.setUpdateBy(SecurityUtils.getUsername());
-        zlmRecordPlan.setUpdateTime(DateUtils.getNowDate());
         return zlmRecordPlanMapper.updateZlmRecordPlan(zlmRecordPlan);
     }
 }

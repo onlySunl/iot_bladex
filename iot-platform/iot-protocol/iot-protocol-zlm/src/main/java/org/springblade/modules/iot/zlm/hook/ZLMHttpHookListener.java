@@ -2,10 +2,10 @@ package org.springblade.modules.iot.zlm.hook;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import org.springblade.modules.iot.zlm.config.ZLMServerConfig;
+import org.springblade.modules.iot.config.ZLMServerConfig;
+import org.springblade.modules.iot.hook.OnStreamChangedHookParam;
+import org.springblade.modules.iot.utils.MediaServerUtils;
 import org.springblade.modules.iot.domain.ZlmMediaServer;
-import org.springblade.modules.iot.zlm.hook.OnStreamChangedHookParam;
-import org.springblade.modules.iot.zlm.utils.MediaServerUtils;
 import org.springblade.modules.iot.zlm.config.UserSetting;
 import org.springblade.modules.iot.zlm.event.MediaArrivalEvent;
 import org.springblade.modules.iot.zlm.event.MediaDepartureEvent;
@@ -91,7 +91,7 @@ public class ZLMHttpHookListener {
         log.info("[ZLM HOOK] 推流鉴权：{}->{}->{}/{}", param.getMediaServerId(), param.getSchema(), param.getApp(), param.getStream());
         JSONObject json = (JSONObject) JSON.toJSON(param);
 
-        String mediaServerId = json.getString("mediaServerId");
+        Long mediaServerId = json.getLong("mediaServerId");
         ZlmMediaServer mediaServer = mediaServerService.getOne(mediaServerId);
         if (mediaServer == null) {
             HookResultForOnPublish fail = HookResultForOnPublish.Fail();

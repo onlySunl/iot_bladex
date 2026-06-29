@@ -1,29 +1,22 @@
 package org.springblade.modules.iot.zlm.impl;
 
-import org.springblade.common.core.constant.Constant;
-import org.springblade.core.secure.utils.SecureUtil;
-import org.springblade.core.secure.utils.SecureUtil;
-import org.springblade.core.tool.api.Result;
-import org.springblade.core.tool.api.ResultFactory;
-import org.springblade.modules.iot.gb28181.service.IGb28181Service;
-import org.springblade.modules.iot.domain.Device;
-import org.springblade.modules.iot.jt1078.service.IJt1078Service;
-import org.springblade.modules.iot.domain.Jt1078Device;
-import org.springblade.modules.iot.qs.service.IQsDeviceService;
-import org.springblade.modules.iot.domain.QsDevice;
-import org.springblade.modules.iot.domain.RTPServerParam;
-import org.springblade.modules.iot.domain.StreamPullPlay;
-import org.springblade.modules.iot.domain.ZlmMediaServer;
-import org.springblade.modules.iot.zlm.utils.MediaServerUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.common.constants.Constants;
+import org.springblade.modules.iot.common.constants.SecurityConstants;
+import org.springblade.modules.iot.domain.*;
+import org.springblade.modules.iot.service.RemoteGb28181Service;
+import org.springblade.modules.iot.service.RemoteJt1078Service;
+import org.springblade.modules.iot.service.RemoteQsDeviceService;
+import org.springblade.modules.iot.utils.MediaServerUtils;
 import org.springblade.modules.iot.zlm.common.InviteSessionType;
 import org.springblade.modules.iot.zlm.config.UserSetting;
-import org.springblade.modules.iot.domain.StreamAuthorityInfo;
+import org.springblade.modules.iot.zlm.domain.StreamAuthorityInfo;
 import org.springblade.modules.iot.zlm.hook.ResultForOnPublish;
 import org.springblade.modules.iot.zlm.service.IInviteStreamService;
 import org.springblade.modules.iot.zlm.service.IMediaServerService;
 import org.springblade.modules.iot.zlm.service.IMediaService;
 import org.springblade.modules.iot.zlm.service.IRedisCatchStorage;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -56,7 +49,7 @@ public class MediaServiceImpl implements IMediaService {
     private RemoteJt1078Service remoteJt1078Service;
 
     @Override
-    public boolean closeStreamOnNoneReader(String mediaServerId, String app, String stream, String schema) {
+    public boolean closeStreamOnNoneReader(Long mediaServerId, String app, String stream, String schema) {
 
         R<QsDevice> r = remoteQsDeviceService.getQsDeviceStream(stream, SecurityConstants.INNER);
         if (r.getCode() != Constants.SUCCESS) {

@@ -6,7 +6,7 @@ import org.springblade.modules.iot.zlm.common.InviteSessionStatus;
 import org.springblade.modules.iot.zlm.common.InviteSessionType;
 import org.springblade.modules.iot.zlm.config.UserSetting;
 import org.springblade.modules.iot.zlm.constants.VideoManagerConstants;
-import org.springblade.modules.iot.domain.InviteInfo;
+import org.springblade.modules.iot.zlm.domain.InviteInfo;
 import org.springblade.modules.iot.zlm.service.ErrorCallback;
 import org.springblade.modules.iot.zlm.service.IInviteStreamService;
 import lombok.extern.slf4j.Slf4j;

@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 public class MediaConfig {
 
     @Value("${media.id}")
-    private String id;
+    private Long id;
 
     @Value("${media.ip}")
     private String ip;
@@ -183,13 +183,13 @@ public class MediaConfig {
         mediaServer.setRecordAssistPort(recordAssistPort);
         mediaServer.setHookAliveInterval(10f);
         mediaServer.setRecordDay(recordDay);
-        mediaServer.setStatus("OFFLINE");
+        mediaServer.setStatus(0);
         mediaServer.setType(type);
         if (recordPath != null) {
             mediaServer.setRecordPath(recordPath);
         }
-        mediaServer.setCreateTime(DateUtils.getNowDate());
-        mediaServer.setUpdateTime(DateUtils.getNowDate());
+        mediaServer.setCreateTime(DateUtil.date());
+        mediaServer.setUpdateTime(DateUtil.date());
 
         return mediaServer;
     }

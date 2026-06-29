@@ -50,7 +50,7 @@ public class MediaServiceImpl implements IMediaService {
     private RemoteJt1078Service remoteJt1078Service;
 
     @Override
-    public boolean closeStreamOnNoneReader(String mediaServerId, String app, String stream, String schema) {
+    public boolean closeStreamOnNoneReader(Long mediaServerId, String app, String stream, String schema) {
 
         R<QsDevice> r = remoteQsDeviceService.getQsDeviceStream(stream, SecurityConstants.INNER);
         if (r.getCode() != Constants.SUCCESS) {

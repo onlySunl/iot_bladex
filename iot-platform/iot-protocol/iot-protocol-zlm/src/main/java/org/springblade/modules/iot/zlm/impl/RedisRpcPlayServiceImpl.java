@@ -1,7 +1,6 @@
 package org.springblade.modules.iot.zlm.impl;
 
 import com.alibaba.fastjson2.JSON;
-import com.alibaba.nacos.api.model.v2.ErrorCode;
 import org.springblade.modules.iot.domain.DownloadFileInfo;
 import org.springblade.modules.iot.zlm.config.RedisRpcConfig;
 import org.springblade.modules.iot.zlm.config.UserSetting;
@@ -10,6 +9,7 @@ import org.springblade.modules.iot.zlm.domain.redis.RedisRpcResponse;
 import org.springblade.modules.iot.zlm.service.IRedisRpcPlayService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
@@ -42,7 +42,7 @@ public class RedisRpcPlayServiceImpl implements IRedisRpcPlayService {
     public DownloadFileInfo getRecordPlayUrl(String serverId, Long recordId) {
         RedisRpcRequest request = buildRequest("cloudRecord/play", recordId);
         RedisRpcResponse response = redisRpcConfig.request(request, userSetting.getPlayTimeout(), TimeUnit.SECONDS);
-        if (response != null && response.getStatusCode() == ErrorCode.SUCCESS.getCode()) {
+        if (response != null && response.getStatusCode() == HttpStatus.OK.value()) {
             return JSON.parseObject(response.getBody().toString(), DownloadFileInfo.class);
         }
         return null;

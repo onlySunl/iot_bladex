@@ -2,7 +2,7 @@ package org.springblade.modules.iot.zlm.hook;
 
 import org.springblade.modules.iot.domain.MediaInfo;
 import org.springblade.modules.iot.domain.ZlmMediaServer;
-import org.springblade.modules.iot.domain.RecordInfo;
+import org.springblade.modules.iot.zlm.domain.RecordInfo;
 import org.springblade.modules.iot.zlm.event.MediaArrivalEvent;
 import org.springblade.modules.iot.zlm.event.MediaEvent;
 import org.springblade.modules.iot.zlm.mediaServer.MediaPublishEvent;

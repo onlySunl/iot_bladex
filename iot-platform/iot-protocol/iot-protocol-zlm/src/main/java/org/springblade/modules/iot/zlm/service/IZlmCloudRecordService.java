@@ -90,7 +90,7 @@ public interface IZlmCloudRecordService {
      * @param speed         播放速度
      * @param schema        播放协议
      */
-    void setRecordSpeed(String mediaServerId, String app, String stream, Integer speed, String schema);
+    void setRecordSpeed(Long mediaServerId, String app, String stream, Integer speed, String schema);
 
     /**
      * 定位录像播放到制定位置
@@ -101,5 +101,5 @@ public interface IZlmCloudRecordService {
      * @param stamp          要定位的时间位置，从录像开始的时间算起
      * @param schema        播放协议
      */
-    void seekRecord(String mediaServerId, String app, String stream, Double stamp, String schema);
+    void seekRecord(Long mediaServerId, String app, String stream, Double stamp, String schema);
 }

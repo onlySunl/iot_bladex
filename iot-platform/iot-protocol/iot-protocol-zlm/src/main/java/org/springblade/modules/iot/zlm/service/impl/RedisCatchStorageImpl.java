@@ -59,7 +59,7 @@ public class RedisCatchStorageImpl implements IRedisCatchStorage {
      * @return
      */
     @Override
-    public MediaInfo getStreamInfo(String app, String streamId, String mediaServerId) {
+    public MediaInfo getStreamInfo(String app, String streamId, Long mediaServerId) {
         String scanKey = VideoManagerConstants.ZLM_SERVER_STREAM_PREFIX  + userSetting.getServerId() + "_*_" + app + "_" + streamId + "_" + mediaServerId;
 
         MediaInfo result = null;
@@ -127,7 +127,7 @@ public class RedisCatchStorageImpl implements IRedisCatchStorage {
      * @param id
      */
     @Override
-    public void removePushListItem(String app, String stream, String id) {
+    public void removePushListItem(String app, String stream, Long id) {
         String key = VideoManagerConstants.PUSH_STREAM_LIST + app + "_" + stream;
         MediaInfo param = (MediaInfo)redisTemplate.opsForValue().get(key);
         if (param != null) {

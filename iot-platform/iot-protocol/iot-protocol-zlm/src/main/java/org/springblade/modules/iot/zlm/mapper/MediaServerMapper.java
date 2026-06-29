@@ -33,7 +33,7 @@ public interface MediaServerMapper {
      * @param serverId
      * @return
      */
-    ZlmMediaServer queryOne(@Param("id") String id, @Param("serverId") String serverId);
+    ZlmMediaServer queryOne(@Param("id") Long id, @Param("serverId") String serverId);
 
     /**
      * 添加媒体服务器
@@ -57,7 +57,7 @@ public interface MediaServerMapper {
      * @param id
      * @param serverId
      */
-    void delOne(@Param("id") String id, @Param("serverId") String serverId);
+    void delOne(@Param("id") Long id, @Param("serverId") String serverId);
 
     /**
      * 查询所有媒体服务器
@@ -73,7 +73,7 @@ public interface MediaServerMapper {
      * @param id
      * @return
      */
-    ZlmMediaServer getOne(String id);
+    ZlmMediaServer getOne(Long id);
 
     /**
      * 获取所有在线的媒体服务器

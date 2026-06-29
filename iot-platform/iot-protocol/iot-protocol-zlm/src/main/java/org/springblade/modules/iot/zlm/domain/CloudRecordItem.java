@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.zlm.domain;
 
-import org.springblade.modules.iot.zlm.utils.MediaServerUtils;
+import org.springblade.core.tool.utils.Func;
+import org.springblade.modules.iot.utils.MediaServerUtils;
 import org.springblade.modules.iot.zlm.mediaServer.MediaRecordMp4Event;
 import org.springblade.modules.iot.zlm.mediaServer.MediaRecordProcessEvent;
 import lombok.Data;
@@ -45,7 +46,7 @@ public class CloudRecordItem {
     /**
      * ZLM Id
      */
-    private String mediaServerId;
+    private Long mediaServerId;
 
     /**
      * 文件名称

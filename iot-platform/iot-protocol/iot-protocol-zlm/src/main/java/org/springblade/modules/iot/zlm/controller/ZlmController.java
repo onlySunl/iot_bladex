@@ -1,39 +1,30 @@
 package org.springblade.modules.iot.zlm.controller;
 
 import com.alibaba.fastjson2.JSONObject;
-import org.springblade.common.core.constant.Constant;
-import org.springblade.core.secure.utils.SecureUtil;
-import org.springblade.core.secure.utils.SecureUtil;
-import org.springblade.core.tool.api.Result;
-import org.springblade.core.tool.api.ResultFactory;
-
-import cn.hutool.core.util.StrUtil;
-import org.springblade.core.tool.api.Result;
-import org.springblade.core.tool.api.ResultFactory;
-import org.springblade.modules.iot.gb28181.service.IGb28181Service;
-import org.springblade.modules.iot.domain.Device;
-import org.springblade.modules.iot.domain.DeviceChannel;
-import org.springblade.modules.iot.jt1078.service.IJt1078Service;
-import org.springblade.modules.iot.domain.Jt1078Device;
-import org.springblade.modules.iot.onvif.service.IOnvifService;
-import org.springblade.modules.iot.qs.service.IQsDeviceService;
-import org.springblade.modules.iot.domain.QsDevice;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.common.constants.Constants;
+import org.springblade.modules.iot.common.constants.SecurityConstants;
+import org.springblade.modules.iot.common.enums.LiveStreamType;
 import org.springblade.modules.iot.domain.*;
+import org.springblade.modules.iot.service.RemoteGb28181Service;
+import org.springblade.modules.iot.service.RemoteJt1078Service;
+import org.springblade.modules.iot.service.RemoteOnvifService;
+import org.springblade.modules.iot.service.RemoteQsDeviceService;
 import org.springblade.modules.iot.zlm.common.InviteErrorCode;
 import org.springblade.modules.iot.zlm.common.InviteSessionType;
 import org.springblade.modules.iot.zlm.config.UserSetting;
-import org.springblade.modules.iot.domain.Snap;
 import org.springblade.modules.iot.zlm.mediaServer.MediaServerChangeEvent;
 import org.springblade.modules.iot.zlm.service.ErrorCallback;
 import org.springblade.modules.iot.zlm.service.IInviteStreamService;
 import org.springblade.modules.iot.zlm.service.IMediaServerService;
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 
@@ -92,7 +83,7 @@ public class ZlmController {
 
         ErrorCallback<StreamInfo> callback = (code, msg, streamInfo) -> {
             if (code == InviteErrorCode.SUCCESS.getCode()) {
-                R<StreamContent> r = R.ok();
+                R<StreamContent> r = R.success();
                 if (streamInfo != null) {
                     if (userSetting.getUseSourceIpAsStreamIp()) {
                         streamInfo = streamInfo.clone();//深拷贝
@@ -166,7 +157,7 @@ public class ZlmController {
         // 回调处理
         ErrorCallback<StreamInfo> callback = (code, msg, streamInfo) -> {
             if (code == InviteErrorCode.SUCCESS.getCode()) {
-                R<StreamContent> r = R.ok();
+                R<StreamContent> r = R.success();
                 if (streamInfo != null) {
                     if (userSetting.getUseSourceIpAsStreamIp()) {
                         streamInfo = streamInfo.clone();//深拷贝
@@ -258,7 +249,7 @@ public class ZlmController {
 
         ErrorCallback<StreamInfo> callback = (code, msg, streamInfo) -> {
             if (code == InviteErrorCode.SUCCESS.getCode()) {
-                R<StreamContent> r = R.ok();
+                R<StreamContent> r = R.success();
                 if (streamInfo != null) {
                     if (userSetting.getUseSourceIpAsStreamIp()) {
                         streamInfo = streamInfo.clone();//深拷贝
@@ -335,7 +326,7 @@ public class ZlmController {
 
         ErrorCallback<StreamInfo> callback = (code, msg, streamInfo) -> {
             if (code == InviteErrorCode.SUCCESS.getCode()) {
-                R<StreamContent> r = R.ok();
+                R<StreamContent> r = R.success();
                 if (streamInfo != null) {
                     if (userSetting.getUseSourceIpAsStreamIp()) {
                         streamInfo = streamInfo.clone();//深拷贝
@@ -428,7 +419,7 @@ public class ZlmController {
 
         ErrorCallback<StreamInfo> callback = (code, msg, streamInfo) -> {
             if (code == InviteErrorCode.SUCCESS.getCode()) {
-                R<StreamContent> r = R.ok();
+                R<StreamContent> r = R.success();
                 if (streamInfo != null) {
                     if (userSetting.getUseSourceIpAsStreamIp()) {
                         streamInfo = streamInfo.clone();//深拷贝
@@ -635,7 +626,7 @@ public class ZlmController {
                     }
                     streamInfo.changeStreamIp(host);
                 }
-                R<StreamContent> success = R.ok(new StreamContent(streamInfo));
+                R<StreamContent> success = R.success(new StreamContent(streamInfo));
                 result.setResult(success);
             } else {
                 // 处理失败情况
@@ -710,7 +701,7 @@ public class ZlmController {
 
         ErrorCallback<StreamInfo> callback = (code, msg, streamInfo) -> {
             if (code == InviteErrorCode.SUCCESS.getCode()) {
-                R<StreamContent> r = R.ok();
+                R<StreamContent> r = R.success();
                 if (streamInfo != null) {
                     if (userSetting.getUseSourceIpAsStreamIp()) {
                         streamInfo = streamInfo.clone();//深拷贝
@@ -811,7 +802,7 @@ public class ZlmController {
 
         ErrorCallback<StreamInfo> callback = (code, msg, streamInfo) -> {
             if (code == InviteErrorCode.SUCCESS.getCode()) {
-                R<StreamContent> r = R.ok();
+                R<StreamContent> r = R.success();
                 if (streamInfo != null) {
                     if (userSetting.getUseSourceIpAsStreamIp()) {
                         streamInfo = streamInfo.clone();
@@ -1007,7 +998,7 @@ public class ZlmController {
 
         ErrorCallback<StreamInfo> callback = (code, msg, streamInfo) -> {
             if (code == InviteErrorCode.SUCCESS.getCode()) {
-                R<StreamContent> r = R.ok();
+                R<StreamContent> r = R.success();
                 if (streamInfo != null) {
                     if (userSetting.getUseSourceIpAsStreamIp()) {
                         streamInfo = streamInfo.clone(); // 深拷贝
@@ -1124,7 +1115,7 @@ public class ZlmController {
         result.onTimeout(() -> {
             log.info("[jt1078 点播等待超时] deviceId：{}", id);
             // 释放rtpserver
-            R<StreamContent> wvpResult = R.fail();
+            R<StreamContent> wvpResult = R.fail("");
             wvpResult.setMsg("点播超时");
             result.setResult(wvpResult);
 
@@ -1134,7 +1125,7 @@ public class ZlmController {
 
         ErrorCallback<StreamInfo> callback = (code, msg, streamInfo) -> {
             if (code == InviteErrorCode.SUCCESS.getCode()) {
-                R<StreamContent> r = R.ok();
+                R<StreamContent> r = R.success();
                 if (streamInfo != null) {
                     if (userSetting.getUseSourceIpAsStreamIp()) {
                         streamInfo = streamInfo.clone(); // 深拷贝
@@ -1221,7 +1212,7 @@ public class ZlmController {
             throw new RuntimeException("无可用的流媒体服务器");
         }
         String filePath = mediaServerService.snapOnPlay(mediaServer, app, stream);
-        return R.ok(filePath);
+        return R.success(filePath);
     }
 
     /**
@@ -1238,7 +1229,7 @@ public class ZlmController {
             throw new RuntimeException("无可用的流媒体服务器");
         }
         String filePath = mediaServerService.snap(mediaServer, app, stream);
-        return R.ok(filePath);
+        return R.success(filePath);
     }
 
 }

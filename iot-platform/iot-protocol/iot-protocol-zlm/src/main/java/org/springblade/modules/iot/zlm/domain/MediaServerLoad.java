@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class MediaServerLoad {
 
-    private String id;
+    private Long id;
 
     private Object threadsLoad;
 

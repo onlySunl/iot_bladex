@@ -1,15 +1,11 @@
 package org.springblade.modules.iot.zlm.impl;
 
-import com.alibaba.nacos.api.model.v2.ErrorCode;
-import cn.hutool.core.date.DateUtil;
-import org.springblade.modules.iot.domain.DownloadFileInfo;
-import org.springblade.modules.iot.domain.StreamInfo;
-import org.springblade.modules.iot.domain.ZlmCloudRecord;
-import org.springblade.modules.iot.domain.ZlmMediaServer;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.modules.iot.domain.*;
 import org.springblade.modules.iot.zlm.common.InviteErrorCode;
 import org.springblade.modules.iot.zlm.config.UserSetting;
-import org.springblade.modules.iot.domain.CloudRecordUrl;
-import org.springblade.modules.iot.domain.RecordInfo;
+import org.springblade.modules.iot.zlm.domain.CloudRecordUrl;
+import org.springblade.modules.iot.zlm.domain.RecordInfo;
 import org.springblade.modules.iot.zlm.domain.dto.ZLMResult;
 import org.springblade.modules.iot.zlm.hook.Hook;
 import org.springblade.modules.iot.zlm.hook.HookSubscribe;
@@ -18,9 +14,9 @@ import org.springblade.modules.iot.zlm.mapper.ZlmCloudRecordMapper;
 import org.springblade.modules.iot.zlm.service.*;
 import org.springblade.modules.iot.zlm.utils.DateUtil;
 import org.springblade.modules.iot.zlm.utils.ZLMRESTfulUtils;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -106,7 +102,6 @@ public class ZlmCloudRecordServiceImpl implements IZlmCloudRecordService {
      */
     @Override
     public int insertZlmCloudRecord(ZlmCloudRecord zlmCloudRecord) {
-        zlmCloudRecord.setCreateTime(DateUtils.getNowDate());
         return zlmCloudRecordMapper.insertZlmCloudRecord(zlmCloudRecord);
     }
 
@@ -118,7 +113,6 @@ public class ZlmCloudRecordServiceImpl implements IZlmCloudRecordService {
      */
     @Override
     public int updateZlmCloudRecord(ZlmCloudRecord zlmCloudRecord) {
-        zlmCloudRecord.setUpdateTime(DateUtils.getNowDate());
         return zlmCloudRecordMapper.updateZlmCloudRecord(zlmCloudRecord);
     }
 
@@ -289,7 +283,7 @@ public class ZlmCloudRecordServiceImpl implements IZlmCloudRecordService {
      * @param schema        播放协议
      */
     @Override
-    public void setRecordSpeed(String mediaServerId, String app, String stream, Integer speed, String schema) {
+    public void setRecordSpeed(Long mediaServerId, String app, String stream, Integer speed, String schema) {
         ZlmMediaServer mediaServer = mediaServerService.getOne(mediaServerId);
         if (mediaServer == null) {
             throw new RuntimeException("媒体节点不存在： " + mediaServerId);
@@ -307,7 +301,7 @@ public class ZlmCloudRecordServiceImpl implements IZlmCloudRecordService {
      * @param schema        播放协议
      */
     @Override
-    public void seekRecord(String mediaServerId, String app, String stream, Double stamp, String schema) {
+    public void seekRecord(Long mediaServerId, String app, String stream, Double stamp, String schema) {
         ZlmMediaServer mediaServer = mediaServerService.getOne(mediaServerId);
         if (mediaServer == null) {
             throw new RuntimeException("媒体节点不存在： " + mediaServerId);
@@ -351,7 +345,7 @@ public class ZlmCloudRecordServiceImpl implements IZlmCloudRecordService {
 
         StreamInfo streamData = mediaServerService.getStreamInfoByAppAndStreamWithCheck(app, zlmCloudRecord.getStream(), mediaServer.getId(), null, false);
         if (streamData != null) {
-            callback.run(ErrorCode.SUCCESS.getCode(), ErrorCode.SUCCESS.getMsg(), streamData);
+            callback.run(HttpStatus.OK.value(),  HttpStatus.OK.getReasonPhrase(), streamData);
             return;
         }
 
@@ -359,7 +353,7 @@ public class ZlmCloudRecordServiceImpl implements IZlmCloudRecordService {
         subscribe.addSubscribe(hook, (hookData) -> {
             StreamInfo streamInfo = mediaServerService.getStreamInfoByAppAndStream(mediaServer, app, zlmCloudRecord.getStream(), hookData.getMediaInfo());
             if (callback != null) {
-                callback.run(ErrorCode.SUCCESS.getCode(), ErrorCode.SUCCESS.getMsg(), streamInfo);
+                callback.run(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), streamInfo);
             }
         });
 

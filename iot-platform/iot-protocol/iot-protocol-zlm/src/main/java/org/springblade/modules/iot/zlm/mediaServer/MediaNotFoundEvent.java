@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.zlm.mediaServer;
 
 import org.springblade.modules.iot.domain.ZlmMediaServer;
-import org.springblade.modules.iot.zlm.hook.ABLHookParam;
+import org.springblade.modules.iot.hook.ABLHookParam;
 import org.springblade.modules.iot.zlm.event.MediaEvent;
 import org.springblade.modules.iot.zlm.hook.OnStreamNotFoundHookParam;
 

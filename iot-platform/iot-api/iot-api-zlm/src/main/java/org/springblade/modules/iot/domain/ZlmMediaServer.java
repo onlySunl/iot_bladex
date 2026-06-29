@@ -7,6 +7,7 @@ import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import com.tangzc.mpe.autotable.annotation.Table;
 
 
+import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 import org.springblade.modules.iot.config.ZLMServerConfig;
 import lombok.Data;

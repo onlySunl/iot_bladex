@@ -2,7 +2,7 @@ package org.springblade.modules.iot.zlm.manager;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import org.springblade.modules.iot.zlm.config.ZLMServerConfig;
+import org.springblade.modules.iot.config.ZLMServerConfig;
 import org.springblade.modules.iot.domain.ZlmMediaServer;
 import org.springblade.modules.iot.zlm.config.DynamicTask;
 import org.springblade.modules.iot.zlm.domain.dto.ZLMResult;
@@ -206,7 +206,7 @@ public class ZLMMediaServerStatusManager {
         offlineZlmTimeMap.remove(mediaServerItem.getId());
         if (!"ON".equals(mediaServerItem.getStatus())) {
             log.info("[ZLM-连接成功] ID：{}, 地址： {}:{}", mediaServerItem.getId(), mediaServerItem.getIp(), mediaServerItem.getHttpPort());
-            mediaServerItem.setStatus("ON");
+            mediaServerItem.setStatus(0);
             mediaServerItem.setHookAliveInterval(10F);
             // 发送上线通知
             eventPublisher.mediaServerOnlineEventPublish(mediaServerItem);
@@ -230,7 +230,7 @@ public class ZLMMediaServerStatusManager {
         String key = "zlm-keepalive-" + mediaServerItem.getId();
         dynamicTask.startDelay(key, ()->{
             log.warn("[ZLM-心跳超时] ID：{}", mediaServerItem.getId());
-            mediaServerItem.setStatus("OFFLINE");
+            mediaServerItem.setStatus(0);
             offlineZlmPrimaryMap.put(mediaServerItem.getId(), mediaServerItem);
             offlineZlmTimeMap.put(mediaServerItem.getId(), System.currentTimeMillis());
             // 发送离线通知

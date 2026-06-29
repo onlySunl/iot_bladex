@@ -67,5 +67,5 @@ public interface ZlmCloudRecordMapper {
      * @param mediaServerId
      * @return
      */
-    List<ZlmCloudRecord> queryCloudRecordListForDelete(@Param("endTimeStamp") Long endTimeStamp, @Param("mediaServerId") String mediaServerId);
+    List<ZlmCloudRecord> queryCloudRecordListForDelete(@Param("endTimeStamp") Long endTimeStamp, @Param("mediaServerId") Long mediaServerId);
 }

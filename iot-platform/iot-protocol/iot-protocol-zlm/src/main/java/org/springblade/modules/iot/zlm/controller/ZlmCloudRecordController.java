@@ -252,7 +252,7 @@ public class ZlmCloudRecordController extends BaseController {
      */
     @GetMapping("/seek")
     public AjaxResult seekRecord(
-            @RequestParam(required = true) String mediaServerId,
+            @RequestParam(required = true) Long mediaServerId,
             @RequestParam(required = true) String app,
             @RequestParam(required = true) String stream,
             @RequestParam(required = true) Double stamp,

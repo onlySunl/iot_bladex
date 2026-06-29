@@ -5,14 +5,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.DateUtil;
+import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.iot.common.constants.Constants;
 import org.springblade.modules.iot.common.constants.SecurityConstants;
+import org.springblade.modules.iot.common.domain.RtpServerParam;
 import org.springblade.modules.iot.common.enums.LiveStreamType;
 import org.springblade.modules.iot.domain.*;
 import org.springblade.modules.iot.haikangisup.RemoteHaiKangIsupService;
 import org.springblade.modules.iot.hook.OriginType;
 import org.springblade.modules.iot.service.*;
 import org.springblade.modules.iot.zlm.common.InviteErrorCode;
+import org.springblade.modules.iot.zlm.common.InviteSessionStatus;
 import org.springblade.modules.iot.zlm.common.InviteSessionType;
 import org.springblade.modules.iot.zlm.config.DynamicTask;
 import org.springblade.modules.iot.zlm.config.MediaConfig;
@@ -36,6 +39,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -683,7 +687,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
 
         // 设置流超时的定时任务
         String timeOutTaskKey = UUID.randomUUID().toString();
-        Hook rtpHook = Hook.getInstance(HookType.on_media_arrival, streamPullPlay.getApp(), streamPullPlay.getStream(), mediaServer.getId());
+        Hook rtpHook = Hook.getInstance(HookType.on_media_arrival, streamPullPlay.getApp(), streamPullPlay.getStream(), Func.toStr(mediaServer.getId()));
         dynamicTask.startDelay(timeOutTaskKey, () -> {
             log.info("[拉流代理] 收流超时，app：{}，stream: {}", streamPullPlay.getApp(), streamPullPlay.getStream());
             // 收流超时
@@ -818,7 +822,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         if (streamPullPlay.isPlayback()) {
             // 回放流清空回放相关字段
             qsDevice.setPlaybackStreamKey("");
-            qsDevice.setPlaybackMediaServerId(null;
+            qsDevice.setPlaybackMediaServerId(null);
             qsDevice.setPlaybackStreamStatus("0");
         } else {
             // 普通流清空实时流相关字段
@@ -1301,7 +1305,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         QsDevice device = r.getData();
 
         // 区分实时播放和回放，获取对应的mediaServerId和streamKey
-        String mediaServerId;
+        Long mediaServerId;
         String streamKey;
         if (rtpServerParam.isPlayback()) {
             mediaServerId = device.getPlaybackMediaServerId();
@@ -1352,7 +1356,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
             
             if (inviteInfo.getSsrcInfo() != null) {
                 // 从inviteInfo中获取正确的mediaServerId
-                String correctMediaServerId = inviteInfo.getMediaServerId() != null ? inviteInfo.getMediaServerId() : mediaServerId;
+                Long correctMediaServerId = inviteInfo.getMediaServerId() != null ? inviteInfo.getMediaServerId() : mediaServerId;
                 ssrcFactory.releaseSsrc(correctMediaServerId, inviteInfo.getSsrcInfo().getSsrc());
                 log.info("[停止RTP播放] 释放SSRC成功，deviceId: {}, ssrc: {}, mediaServerId: {}", device.getId(), inviteInfo.getSsrcInfo().getSsrc(), correctMediaServerId);
             }
@@ -1374,12 +1378,12 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         if (rtpServerParam.isPlayback()) {
             // 停止回放：清空回放相关字段
             qsDevice.setPlaybackStreamKey("");
-            qsDevice.setPlaybackMediaServerId("");
+            qsDevice.setPlaybackMediaServerId(null);
             qsDevice.setPlaybackStreamStatus("0");
         } else {
             // 停止实时播放：清空实时播放相关字段
             qsDevice.setStreamKey("");
-            qsDevice.setMediaServerId("");
+            qsDevice.setMediaServerId(null);
             qsDevice.setStreamStatus("0");
         }
         
@@ -1474,7 +1478,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         QsDevice device = r.getData();
         
         // 优先使用回放字段
-        String mediaServerId = device.getPlaybackMediaServerId() != null ? device.getPlaybackMediaServerId() : device.getMediaServerId();
+        Long mediaServerId = device.getPlaybackMediaServerId() != null ? device.getPlaybackMediaServerId() : device.getMediaServerId();
         String streamKey = device.getPlaybackStreamKey() != null ? device.getPlaybackStreamKey() : device.getStreamKey();
         
         // 根据设备类型推断 app
@@ -1974,11 +1978,11 @@ public class MediaServerServiceImpl  implements IMediaServerService {
             
             if (type == InviteSessionType.PLAY) {
                 qsDeviceUpdate.setStreamKey("");
-                qsDeviceUpdate.setMediaServerId("");
+                qsDeviceUpdate.setMediaServerId(null);
                 qsDeviceUpdate.setStreamStatus("0");
             } else if (type == InviteSessionType.PLAYBACK) {
                 qsDeviceUpdate.setPlaybackStreamKey("");
-                qsDeviceUpdate.setPlaybackMediaServerId("");
+                qsDeviceUpdate.setPlaybackMediaServerId(null);
                 qsDeviceUpdate.setPlaybackStreamStatus("0");
             }
             
@@ -2020,11 +2024,11 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         
         if (inviteInfo.getType() == InviteSessionType.PLAY) {
             qsDeviceUpdate.setStreamKey("");
-            qsDeviceUpdate.setMediaServerId("");
+            qsDeviceUpdate.setMediaServerId(null);
             qsDeviceUpdate.setStreamStatus("0");
         } else if (inviteInfo.getType() == InviteSessionType.PLAYBACK) {
             qsDeviceUpdate.setPlaybackStreamKey("");
-            qsDeviceUpdate.setPlaybackMediaServerId("");
+            qsDeviceUpdate.setPlaybackMediaServerId(null);
             qsDeviceUpdate.setPlaybackStreamStatus("0");
         }
         
@@ -2126,11 +2130,11 @@ public class MediaServerServiceImpl  implements IMediaServerService {
             
             if (type == InviteSessionType.PLAY) {
                 qsDeviceUpdate.setStreamKey("");
-                qsDeviceUpdate.setMediaServerId("");
+                qsDeviceUpdate.setMediaServerId(null);
                 qsDeviceUpdate.setStreamStatus("0");
             } else if (type == InviteSessionType.PLAYBACK) {
                 qsDeviceUpdate.setPlaybackStreamKey("");
-                qsDeviceUpdate.setPlaybackMediaServerId("");
+                qsDeviceUpdate.setPlaybackMediaServerId(null);
                 qsDeviceUpdate.setPlaybackStreamStatus("0");
             }
             
@@ -2169,11 +2173,11 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         
         if (inviteInfo.getType() == InviteSessionType.PLAY) {
             qsDeviceUpdate.setStreamKey("");
-            qsDeviceUpdate.setMediaServerId("");
+            qsDeviceUpdate.setMediaServerId(null);
             qsDeviceUpdate.setStreamStatus("0");
         } else if (inviteInfo.getType() == InviteSessionType.PLAYBACK) {
             qsDeviceUpdate.setPlaybackStreamKey("");
-            qsDeviceUpdate.setPlaybackMediaServerId("");
+            qsDeviceUpdate.setPlaybackMediaServerId(null);
             qsDeviceUpdate.setPlaybackStreamStatus("0");
         }
         
@@ -2711,7 +2715,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         subscribe.addSubscribe(hook, (hookData) -> {
             StreamInfo streamInfo = getStreamInfoByAppAndStream(mediaServer, app, stream, hookData.getMediaInfo());
             if (callback != null) {
-                callback.run(ErrorCode.SUCCESS.getCode(), ErrorCode.SUCCESS.getMsg(), streamInfo);
+                callback.run(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), streamInfo);
 
                 QsDevice qsDevice = new QsDevice();
                 qsDevice.setId(id);

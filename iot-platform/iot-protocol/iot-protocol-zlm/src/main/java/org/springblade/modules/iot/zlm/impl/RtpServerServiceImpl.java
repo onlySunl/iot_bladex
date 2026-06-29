@@ -4,8 +4,9 @@ import org.springblade.modules.iot.domain.RTPServerParam;
 import org.springblade.modules.iot.zlm.common.InviteErrorCode;
 import org.springblade.modules.iot.zlm.config.DynamicTask;
 import org.springblade.modules.iot.zlm.config.UserSetting;
-import org.springblade.modules.iot.domain.OpenRTPServerResult;
-import org.springblade.modules.iot.domain.SSRCInfo;
+
+import org.springblade.modules.iot.zlm.domain.OpenRTPServerResult;
+import org.springblade.modules.iot.zlm.domain.SSRCInfo;
 import org.springblade.modules.iot.zlm.hook.Hook;
 import org.springblade.modules.iot.zlm.hook.HookSubscribe;
 import org.springblade.modules.iot.zlm.hook.HookType;

@@ -35,7 +35,7 @@ public class SSRCFactory {
     private UserSetting userSetting;
 
 
-    public void initMediaServerSSRC(String mediaServerId, Set<String> usedSet) {
+    public void initMediaServerSSRC(Long mediaServerId, Set<String> usedSet) {
         String redisKey = SSRC_INFO_KEY + userSetting.getServerId() + "_" + mediaServerId;
         List<String> ssrcList = new ArrayList<>();
         for (int i = 1; i < MAX_STREAM_COUNT; i++) {
@@ -56,14 +56,14 @@ public class SSRCFactory {
      *
      * @return ssrc
      */
-    public String getPlaySsrc(String mediaServerId) {
+    public String getPlaySsrc(Long mediaServerId) {
         return "0" + getSN(mediaServerId);
     }
 
     /**
      * 获取录像回放的SSRC值,第一位固定为1
      */
-    public String getPlayBackSsrc(String mediaServerId) {
+    public String getPlayBackSsrc(Long mediaServerId) {
         return "1" + getSN(mediaServerId);
     }
 
@@ -72,7 +72,7 @@ public class SSRCFactory {
      *
      * @param ssrc 需要重置的ssrc
      */
-    public void releaseSsrc(String mediaServerId, String ssrc) {
+    public void releaseSsrc(Long mediaServerId, String ssrc) {
         if (ssrc == null) {
             return;
         }
@@ -84,7 +84,7 @@ public class SSRCFactory {
     /**
      * 获取后四位数SN,随机数
      */
-    private String getSN(String mediaServerId) {
+    private String getSN(Long mediaServerId) {
         String redisKey = SSRC_INFO_KEY + userSetting.getServerId() + "_" + mediaServerId;
         Long size = redisTemplate.opsForSet().size(redisKey);
         if (size == null || size == 0) {
@@ -101,7 +101,7 @@ public class SSRCFactory {
      *
      * @param mediaServerId 流媒体服务ID
      */
-    public void reset(String mediaServerId) {
+    public void reset(Long mediaServerId) {
         this.initMediaServerSSRC(mediaServerId, null);
     }
 
@@ -110,7 +110,7 @@ public class SSRCFactory {
      *
      * @param mediaServerId 流媒体服务ID
      */
-    public boolean hasMediaServerSSRC(String mediaServerId) {
+    public boolean hasMediaServerSSRC(Long mediaServerId) {
         String redisKey = SSRC_INFO_KEY + userSetting.getServerId() + "_" + mediaServerId;
         return Boolean.TRUE.equals(redisTemplate.hasKey(redisKey));
     }
