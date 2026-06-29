@@ -1,12 +1,11 @@
 package org.springblade.modules.iot.zlm.controller;
 
-import org.springblade.core.launch.controller.AbstractBladeController;
-import org.springblade.core.tool.api.Result;
-import org.springblade.core.tool.api.ResultFactory;
-import org.springblade.modules.iot.domain.ZlmMediaServer;
-import org.springblade.modules.iot.domain.MediaServerLoad;
-import org.springblade.modules.iot.zlm.service.IMediaServerService;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.domain.ZlmMediaServer;
+import org.springblade.modules.iot.zlm.domain.MediaServerLoad;
+import org.springblade.modules.iot.zlm.service.IMediaServerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +23,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/server")
-public class ZlmServerController extends BaseController {
+public class ZlmServerController extends BladeController {
 
     @Autowired
     private IMediaServerService mediaServerService;
@@ -35,16 +34,16 @@ public class ZlmServerController extends BaseController {
      * @return
      */
     @GetMapping(value = "/media_server/load")
-    public AjaxResult getMediaLoad() {
+    public R getMediaLoad() {
         List<MediaServerLoad> result = new ArrayList<>();
         List<ZlmMediaServer> allOnline = mediaServerService.getAllOnlineMediaServe();
         if (allOnline.isEmpty()) {
-            return success(result);
+            return R.data(result);
         } else {
             for (ZlmMediaServer mediaServerItem : allOnline) {
                 result.add(mediaServerService.getLoad(mediaServerItem));
             }
         }
-        return success(result);
+        return R.data(result);
     }
 }

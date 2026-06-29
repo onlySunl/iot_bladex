@@ -33,17 +33,17 @@ public class RemoteZlmFallbackFactory implements FallbackFactory<RemoteZlmServic
 
         return new RemoteZlmService() {
             @Override
-            public R<Void> releaseSsrc(String mediaServerId, String ssrc, String inner) {
+            public R<Void> releaseSsrc(Long mediaServerId, String ssrc, String inner) {
                 return R.fail("zlm接口服务调用失败，releaseSsrc:" + throwable.getMessage());
             }
 
             @Override
-            public R<Void> closeRTPServer(String mediaServerId, RtpServerParam rtpServer, String inner) {
+            public R<Void> closeRTPServer(Long mediaServerId, RtpServerParam rtpServer, String inner) {
                 return R.fail("zlm接口服务调用失败，closeRTPServer:" + throwable.getMessage());
             }
 
             @Override
-            public R<Boolean> connectRtpServer(String mediaServerId, String address, int port, String stream, String inner) {
+            public R<Boolean> connectRtpServer(Long mediaServerId, String address, int port, String stream, String inner) {
                 return R.fail("zlm接口服务调用失败，connectRtpServer:" + throwable.getMessage());
             }
 

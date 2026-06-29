@@ -1,12 +1,11 @@
 package org.springblade.modules.iot.zlm.api;
 
-import org.springblade.core.tool.api.Result;
-import org.springblade.core.tool.api.ResultFactory;
-import org.springblade.core.launch.controller.AbstractBladeController;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.domain.ZlmCloudRecord;
 import org.springblade.modules.iot.zlm.config.UserSetting;
 import org.springblade.modules.iot.zlm.service.IZlmCloudRecordService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +20,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/api/cloudRecord")
-public class ZlmCloudRecordApiController extends BaseController {
+public class ZlmCloudRecordApiController extends BladeController {
     @Autowired
     private IZlmCloudRecordService zlmCloudRecordService;
 
@@ -35,7 +34,7 @@ public class ZlmCloudRecordApiController extends BaseController {
     @GetMapping("/task")
     public R<Void> task() {
         zlmCloudRecordService.task();
-        return R.ok();
+        return R.success();
     }
 
     /**
@@ -48,6 +47,6 @@ public class ZlmCloudRecordApiController extends BaseController {
     public R<List<ZlmCloudRecord>> selectZlmCloudRecordList(@RequestBody ZlmCloudRecord zlmCloudRecord) {
         log.info("[云端录像] 查询云端录像列表, zlmCloudRecord: {}", zlmCloudRecord);
         List<ZlmCloudRecord> list = zlmCloudRecordService.selectZlmCloudRecordList(zlmCloudRecord);
-        return R.ok(list);
+        return R.data(list);
     }
 }

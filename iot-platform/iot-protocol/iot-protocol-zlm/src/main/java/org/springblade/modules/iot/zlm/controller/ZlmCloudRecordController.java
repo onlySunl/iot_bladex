@@ -1,26 +1,21 @@
 package org.springblade.modules.iot.zlm.controller;
 
-import org.springblade.core.tool.api.Result;
-import org.springblade.core.tool.api.ResultFactory;
-import org.springblade.core.launch.controller.AbstractBladeController;
-import org.springblade.core.tool.api.Result;
-import org.springblade.core.tool.api.ResultFactory;
-import org.springblade.core.mp.support.ConditionEntity;
-
-
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
+import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.domain.StreamContent;
 import org.springblade.modules.iot.domain.StreamInfo;
 import org.springblade.modules.iot.domain.ZlmCloudRecord;
 import org.springblade.modules.iot.zlm.common.InviteErrorCode;
 import org.springblade.modules.iot.zlm.config.UserSetting;
-import org.springblade.modules.iot.domain.CloudRecordUrl;
+import org.springblade.modules.iot.zlm.domain.CloudRecordUrl;
 import org.springblade.modules.iot.zlm.service.ErrorCallback;
 import org.springblade.modules.iot.zlm.service.IZlmCloudRecordService;
 import org.springblade.modules.iot.zlm.utils.HttpUtils;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -43,7 +38,7 @@ import java.util.zip.ZipOutputStream;
 @Slf4j
 @RestController
 @RequestMapping("/cloudRecord")
-public class ZlmCloudRecordController extends BaseController {
+public class ZlmCloudRecordController extends BladeController {
     @Autowired
     private IZlmCloudRecordService zlmCloudRecordService;
 
@@ -54,37 +49,35 @@ public class ZlmCloudRecordController extends BaseController {
      * 查询云端录像列表（分页）
      */
     @GetMapping("/list")
-    public TableDataInfo list(ZlmCloudRecord zlmCloudRecord) {
-        startPage();
+    public R list(ZlmCloudRecord zlmCloudRecord) {
         List<ZlmCloudRecord> list = zlmCloudRecordService.selectZlmCloudRecordList(zlmCloudRecord);
-        return getDataTable(list);
+        return R.data(list);
     }
 
     /**
      * 查询云端录像列表（不分页）
      */
     @GetMapping("/allList")
-    public AjaxResult allList(ZlmCloudRecord zlmCloudRecord) {
+    public R allList(ZlmCloudRecord zlmCloudRecord) {
         List<ZlmCloudRecord> list = zlmCloudRecordService.selectZlmCloudRecordList(zlmCloudRecord);
-        return success(list);
+        return R.data(list);
     }
 
     /**
      * 获取云端录像详细信息
      */
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id) {
-        return success(zlmCloudRecordService.selectZlmCloudRecordById(id));
+    public R getInfo(@PathVariable("id") Long id) {
+        return R.data(zlmCloudRecordService.selectZlmCloudRecordById(id));
     }
 
     /**
      * 删除云端录像
      */
-    @Log(title = "云端录像", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids) {
+    public R remove(@PathVariable Long[] ids) {
         zlmCloudRecordService.deleteZlmCloudRecordByIds(ids);
-        return success();
+        return R.success();
     }
 
     /**
@@ -99,7 +92,7 @@ public class ZlmCloudRecordController extends BaseController {
 
         result.onTimeout(() -> {
             log.info("[加载录像文件超时] id={}", id);
-            R<StreamContent> wvpResult = R.fail();
+            R<StreamContent> wvpResult = R.fail("");
             wvpResult.setMsg("加载录像文件超时");
             result.setResult(wvpResult);
         });
@@ -150,9 +143,9 @@ public class ZlmCloudRecordController extends BaseController {
      * @return
      */
     @GetMapping("/closeStreams/{id}")
-    public AjaxResult closeStreams(@PathVariable Long id) {
+    public R closeStreams(@PathVariable Long id) {
         zlmCloudRecordService.closeStreams(id);
-        return AjaxResult.success();
+        return R.success();
     }
 
     /**
@@ -226,8 +219,8 @@ public class ZlmCloudRecordController extends BaseController {
      * @param schema        播放协议
      */
     @GetMapping("/speed")
-    public AjaxResult setRecordSpeed(
-            @RequestParam(required = true) String mediaServerId,
+    public R setRecordSpeed(
+            @RequestParam(required = true) Long mediaServerId,
             @RequestParam(required = true) String app,
             @RequestParam(required = true) String stream,
             @RequestParam(required = true) Integer speed,
@@ -238,7 +231,7 @@ public class ZlmCloudRecordController extends BaseController {
         }
 
         zlmCloudRecordService.setRecordSpeed(mediaServerId, app, stream, speed, schema);
-        return AjaxResult.success();
+        return R.success();
     }
 
     /**
@@ -251,7 +244,7 @@ public class ZlmCloudRecordController extends BaseController {
      * @param schema        播放协议
      */
     @GetMapping("/seek")
-    public AjaxResult seekRecord(
+    public R seekRecord(
             @RequestParam(required = true) Long mediaServerId,
             @RequestParam(required = true) String app,
             @RequestParam(required = true) String stream,
@@ -262,6 +255,6 @@ public class ZlmCloudRecordController extends BaseController {
             schema = "ts";
         }
         zlmCloudRecordService.seekRecord(mediaServerId, app, stream, stamp, schema);
-        return AjaxResult.success();
+        return R.success();
     }
 }

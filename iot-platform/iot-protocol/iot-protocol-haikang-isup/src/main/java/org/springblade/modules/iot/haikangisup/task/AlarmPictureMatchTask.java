@@ -1,11 +1,12 @@
 package org.springblade.modules.iot.haikangisup.task;
 
-import com.ruoyi.common.core.constant.SecurityConstants;
-import com.ruoyi.common.core.domain.R;
-import com.ruoyi.haikang.isup.config.HaikangIsupConfig;
-import com.ruoyi.qs.api.RemoteQsDeviceAlarmService;
-import com.ruoyi.qs.api.domain.QsDeviceAlarm;
+
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.common.constants.SecurityConstants;
+import org.springblade.modules.iot.domain.QsDeviceAlarm;
+import org.springblade.modules.iot.haikangisup.config.HaikangIsupConfig;
+import org.springblade.modules.iot.service.RemoteQsDeviceAlarmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;

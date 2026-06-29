@@ -5,8 +5,6 @@ import org.springblade.modules.iot.domain.StreamContent;
 import org.springblade.modules.iot.domain.ZlmMediaServer;
 import org.springblade.modules.iot.hook.OnStreamArriveABLHookParam;
 import org.springblade.modules.iot.hook.OnStreamChangedHookParam;
-import org.springblade.modules.iot.zlm.hook.OnStreamArriveABLHookParam;
-import org.springblade.modules.iot.zlm.hook.OnStreamChangedHookParam;
 import lombok.Getter;
 import lombok.Setter;
 

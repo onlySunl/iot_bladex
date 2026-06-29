@@ -1,12 +1,7 @@
 package org.springblade.modules.iot.zlm.controller;
 
-import org.springblade.core.launch.controller.AbstractBladeController;
-import org.springblade.core.tool.api.Result;
-import org.springblade.core.tool.api.ResultFactory;
-import org.springblade.core.mp.support.ConditionEntity;
-
-
-import org.springblade.core.secure.utils.SecureUtil;
+import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.domain.ZlmRecordPlan;
 import org.springblade.modules.iot.zlm.service.IZlmRecordPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +17,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/recordPlan")
-public class ZlmRecordPlanController extends BaseController {
+public class ZlmRecordPlanController extends BladeController {
     @Autowired
     private IZlmRecordPlanService zlmRecordPlanService;
 
@@ -30,57 +25,51 @@ public class ZlmRecordPlanController extends BaseController {
      * 查询录像计划列表
      */
     @GetMapping("/list")
-    public TableDataInfo list(ZlmRecordPlan zlmRecordPlan) {
-        startPage();
+    public R list(ZlmRecordPlan zlmRecordPlan) {
         List<ZlmRecordPlan> list = zlmRecordPlanService.selectZlmRecordPlanList(zlmRecordPlan);
-        return getDataTable(list);
+        return R.data(list);
     }
 
     /**
      * 获取录像计划详细信息
      */
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id) {
-        return success(zlmRecordPlanService.selectZlmRecordPlanById(id));
+    public R getInfo(@PathVariable("id") Long id) {
+        return R.data(zlmRecordPlanService.selectZlmRecordPlanById(id));
     }
 
     /**
      * 新增录像计划
      */
-    @Log(title = "录像计划", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody ZlmRecordPlan zlmRecordPlan) {
+    public R add(@RequestBody ZlmRecordPlan zlmRecordPlan) {
         if (zlmRecordPlan.getPlanItemList() == null || zlmRecordPlan.getPlanItemList().isEmpty()) {
             throw new RuntimeException("添加录制计划时，录制计划不可为空");
         }
-        return toAjax(zlmRecordPlanService.insertZlmRecordPlan(zlmRecordPlan));
+        return R.data(zlmRecordPlanService.insertZlmRecordPlan(zlmRecordPlan));
     }
 
     /**
      * 修改录像计划
      */
-    @Log(title = "录像计划", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody ZlmRecordPlan zlmRecordPlan) {
-        return toAjax(zlmRecordPlanService.updateZlmRecordPlan(zlmRecordPlan));
+    public R edit(@RequestBody ZlmRecordPlan zlmRecordPlan) {
+        return R.data(zlmRecordPlanService.updateZlmRecordPlan(zlmRecordPlan));
     }
 
     /**
      * 删除录像计划
      */
-    @Log(title = "录像计划", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids) {
-        return toAjax(zlmRecordPlanService.deleteZlmRecordPlanByIds(ids));
+    public R remove(@PathVariable Long[] ids) {
+        return R.data(zlmRecordPlanService.deleteZlmRecordPlanByIds(ids));
     }
 
     /**
      * 状态修改
      */
-    @Log(title = "录像计划", businessType = BusinessType.UPDATE)
     @PutMapping("/changeStatus")
-    public AjaxResult changeStatus(@RequestBody ZlmRecordPlan zlmRecordPlan) {
-        zlmRecordPlan.setUpdateBy(SecurityUtils.getUsername());
-        return toAjax(zlmRecordPlanService.updateZlmRecordPlanStatus(zlmRecordPlan));
+    public R changeStatus(@RequestBody ZlmRecordPlan zlmRecordPlan) {
+        return R.data(zlmRecordPlanService.updateZlmRecordPlanStatus(zlmRecordPlan));
     }
 }

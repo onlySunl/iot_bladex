@@ -1,29 +1,21 @@
 package org.springblade.modules.iot.zlm.api;
 
-import org.springblade.common.core.constant.Constant;
-import org.springblade.core.secure.utils.SecureUtil;
-import org.springblade.core.secure.utils.SecureUtil;
-import org.springblade.core.tool.api.Result;
-import org.springblade.core.tool.api.ResultFactory;
-
-
-import cn.hutool.core.util.StrUtil;
-import org.springblade.modules.iot.gb28181.service.IGb28181Service;
-import org.springblade.modules.iot.domain.Device;
-import cn.hutool.core.date.DateUtil;
-import org.springblade.modules.iot.jt1078.service.IJt1078Service;
-import org.springblade.modules.iot.onvif.service.IOnvifService;
-import org.springblade.modules.iot.qs.service.IQsDeviceService;
-import org.springblade.modules.iot.domain.QsDevice;
-import org.springblade.modules.iot.zlm.service.IZlmCloudRecordService;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.tool.api.R;
+import org.springblade.core.tool.utils.StringUtil;
+import org.springblade.modules.iot.common.constants.Constants;
+import org.springblade.modules.iot.common.constants.SecurityConstants;
+import org.springblade.modules.iot.common.domain.RtpServerParam;
+import org.springblade.modules.iot.common.enums.LiveStreamType;
 import org.springblade.modules.iot.domain.*;
+import org.springblade.modules.iot.service.*;
 import org.springblade.modules.iot.zlm.common.InviteSessionType;
 import org.springblade.modules.iot.zlm.service.ErrorCallback;
 import org.springblade.modules.iot.zlm.service.IDevicePlayService;
 import org.springblade.modules.iot.zlm.service.IMediaServerService;
 import org.springblade.modules.iot.zlm.service.IZlmCloudRecordService;
 import org.springblade.modules.iot.zlm.session.SSRCFactory;
-import lombok.extern.slf4j.Slf4j;
+import org.springblade.modules.iot.zlm.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,9 +64,9 @@ public class ZlmApiController {
     private SSRCFactory ssrcFactory;
 
     @DeleteMapping("/sessionManagerPut/{mediaServerId}/{ssrc}")
-    R<Void> releaseSsrc(@PathVariable String mediaServerId, @PathVariable String ssrc) {
+    R<Void> releaseSsrc(@PathVariable Long mediaServerId, @PathVariable String ssrc) {
         ssrcFactory.releaseSsrc(mediaServerId, ssrc);
-        return R.ok();
+        return R.success();
     }
 
     /**
@@ -84,10 +76,10 @@ public class ZlmApiController {
      * @param rtpServer
      */
     @PostMapping("/closeRTPServer/{mediaServerId}")
-    R<Void> closeRTPServer(@PathVariable String mediaServerId, @RequestBody RtpServerParam rtpServer) {
+    R<Void> closeRTPServer(@PathVariable Long mediaServerId, @RequestBody RtpServerParam rtpServer) {
         ZlmMediaServer mediaServer = mediaServerService.getOneFromDatabase(mediaServerId);
         mediaServerService.closeRTPServer(mediaServer, rtpServer.getStream());
-        return R.ok();
+        return R.success();
     }
 
     /**
@@ -100,10 +92,10 @@ public class ZlmApiController {
      * @return
      */
     @PostMapping("/connectRtpServer/{mediaServerId}")
-    R<Boolean> connectRtpServer(@PathVariable String mediaServerId, @RequestParam String address, @RequestParam int port, @RequestParam String stream) {
+    R<Boolean> connectRtpServer(@PathVariable Long mediaServerId, @RequestParam String address, @RequestParam int port, @RequestParam String stream) {
         ZlmMediaServer mediaServer = mediaServerService.getOneFromDatabase(mediaServerId);
         Boolean b = mediaServerService.connectRtpServer(mediaServer, address, port, stream);
-        return R.ok(b);
+        return R.success();
     }
 
     /**
@@ -114,9 +106,9 @@ public class ZlmApiController {
      * @return
      */
     @PostMapping("/startSendRtp/{mediaServerId}")
-    R<?> startSendRtp(@PathVariable String mediaServerId, @RequestBody Map<String, Object> param) {
+    R<?> startSendRtp(@PathVariable Long mediaServerId, @RequestBody Map<String, Object> param) {
         ZlmMediaServer mediaServer = mediaServerService.getOneFromDatabase(mediaServerId);
-        return R.ok(mediaServerService.startSendRtp(mediaServer, param));
+        return R.data(mediaServerService.startSendRtp(mediaServer, param));
     }
 
     /**
@@ -127,9 +119,9 @@ public class ZlmApiController {
      * @return
      */
     @PostMapping("/stopSendRtp/{mediaServerId}")
-    R<?> stopSendRtp(@PathVariable String mediaServerId, @RequestBody Map<String, Object> param) {
+    R<?> stopSendRtp(@PathVariable Long mediaServerId, @RequestBody Map<String, Object> param) {
         ZlmMediaServer mediaServer = mediaServerService.getOneFromDatabase(mediaServerId);
-        return R.ok(mediaServerService.stopSendRtp(mediaServer, param));
+        return R.data(mediaServerService.stopSendRtp(mediaServer, param));
     }
 
     /**
@@ -140,7 +132,7 @@ public class ZlmApiController {
     @GetMapping("/getDefaultMediaServer")
     R<ZlmMediaServer> getDefaultMediaServer() {
         ZlmMediaServer mediaServer = mediaServerService.getDefaultMediaServer();
-        return R.ok(mediaServer);
+        return R.data(mediaServer);
     }
 
     /**
@@ -150,9 +142,9 @@ public class ZlmApiController {
      * @return
      */
     @GetMapping("/getOneFromDatabase/{id}")
-    R<ZlmMediaServer> getOneFromDatabase(@PathVariable String id) {
+    R<ZlmMediaServer> getOneFromDatabase(@PathVariable Long id) {
         ZlmMediaServer mediaServer = mediaServerService.getOneFromDatabase(id);
-        return R.ok(mediaServer);
+        return R.data(mediaServer);
     }
 
     /**
@@ -216,7 +208,7 @@ public class ZlmApiController {
             return R.fail("处理失败: " + e.getMessage());
         }
 
-        return R.ok();
+        return R.success();
     }
 
     /**
@@ -458,7 +450,7 @@ public class ZlmApiController {
                         }
                     }
                     
-                    if (StringUtils.isEmpty(recordingToken) || StringUtils.isEmpty(trackToken)) {
+                    if (StringUtil.isEmpty(recordingToken) || StringUtil.isEmpty(trackToken)) {
                         log.error("[ONVIF设备回放] 未找到recordingToken或trackToken");
                         return R.fail("未找到ONVIF录像文件");
                     }
@@ -473,7 +465,7 @@ public class ZlmApiController {
                             SecurityConstants.INNER
                     );
                     
-                    if (replayUriResult.getCode() != Constants.SUCCESS || StringUtils.isEmpty(replayUriResult.getData())) {
+                    if (replayUriResult.getCode() != Constants.SUCCESS || StringUtil.isEmpty(replayUriResult.getData())) {
                         log.error("[ONVIF获取回放地址失败]");
                         return R.fail("ONVIF获取回放地址失败");
                     }
@@ -636,13 +628,13 @@ public class ZlmApiController {
                     log.info("[JT1078设备回放] 设备ID: {}, startTime: {}, endTime: {}", qsDevice.getId(), startTimeStr, endTimeStr);
 
                     // 检查JT1078设备手机号
-                    if (StringUtils.isEmpty(qsDevice.getJtMobileNo())) {
+                    if (StringUtil.isEmpty(qsDevice.getJtMobileNo())) {
                         log.error("[JT1078设备回放] 设备手机号为空，设备ID:{}", qsDevice.getId());
                         return R.fail("JT1078设备手机号为空");
                     }
 
                     // 获取JT1078设备信息
-                    R<com.ruoyi.jt1078.api.domain.Jt1078Device> deviceR = remoteJt1078Service.getDeviceByMobileNo(qsDevice.getJtMobileNo(), SecurityConstants.INNER);
+                    R<Jt1078Device> deviceR = remoteJt1078Service.getDeviceByMobileNo(qsDevice.getJtMobileNo(), SecurityConstants.INNER);
                     if (deviceR.getCode() != Constants.SUCCESS) {
                         log.error("[JT1078获取设备信息失败] mobileNo:{}", qsDevice.getJtMobileNo());
                         return R.fail("JT1078获取设备信息失败");
@@ -694,7 +686,7 @@ public class ZlmApiController {
             return R.fail("处理失败: " + e.getMessage());
         }
 
-        return R.ok();
+        return R.success();
     }
 
     /**
@@ -730,15 +722,15 @@ public class ZlmApiController {
 
                 Device gbDevice = deviceResult.getData();
                 mediaServerService.stopGb28181Play(InviteSessionType.PLAYBACK, qsDevice, gbDevice, stream);
-                
+
             } else if (LiveStreamType.ONVIF.getCode().equals(deviceType)) {
-                
+
                 log.info("[停止ONVIF设备回放] deviceId: {}, deviceType: {}, stream: {}", deviceId, deviceType, stream);
-                
-                String mediaServerId = qsDevice.getPlaybackMediaServerId();
+
+                Long mediaServerId = qsDevice.getPlaybackMediaServerId();
                 if (mediaServerId == null) {
                     log.warn("[停止ONVIF设备回放] 未找到回放媒体服务器ID");
-                    return R.ok();
+                    return R.success();
                 }
 
                 ZlmMediaServer mediaServer = mediaServerService.getOneFromDatabase(mediaServerId);
@@ -747,7 +739,7 @@ public class ZlmApiController {
                     return R.fail("获取媒体服务器信息失败");
                 }
 
-                com.ruoyi.zlm.api.domain.StreamPullPlay streamPullPlay = new com.ruoyi.zlm.api.domain.StreamPullPlay();
+                StreamPullPlay streamPullPlay = new StreamPullPlay();
                 streamPullPlay.setDeviceId(deviceId);
                 streamPullPlay.setStreamKey(stream);
                 streamPullPlay.setMediaServerId(mediaServerId);
@@ -773,7 +765,7 @@ public class ZlmApiController {
                 
                 log.info("[停止SDK设备回放] deviceId: {}, deviceType: {}", deviceId, deviceType);
                 
-                com.ruoyi.zlm.api.domain.RTPServerParam rtpServerParam = new com.ruoyi.zlm.api.domain.RTPServerParam();
+                RTPServerParam rtpServerParam = new RTPServerParam();
                 rtpServerParam.setId(deviceId);
                 rtpServerParam.setType(deviceType);
                 rtpServerParam.setPlayback(true);
@@ -786,7 +778,7 @@ public class ZlmApiController {
                 log.info("[停止JT1078设备回放] deviceId: {}, jtMobileNo: {}", deviceId, qsDevice.getJtMobileNo());
 
                 // 获取JT1078设备信息
-                R<com.ruoyi.jt1078.api.domain.Jt1078Device> deviceR = remoteJt1078Service.getDeviceByMobileNo(qsDevice.getJtMobileNo(), SecurityConstants.INNER);
+                R<Jt1078Device> deviceR = remoteJt1078Service.getDeviceByMobileNo(qsDevice.getJtMobileNo(), SecurityConstants.INNER);
                 if (deviceR.getCode() != Constants.SUCCESS || deviceR.getData() == null) {
                     log.warn("[停止JT1078设备回放] 获取JT1078设备信息失败");
                     return R.fail("获取JT1078设备信息失败");
@@ -798,7 +790,7 @@ public class ZlmApiController {
                 log.info("[停止上级平台回放] 不支持的设备类型: {}", deviceType);
             }
 
-            return R.ok();
+            return R.success();
         } catch (Exception e) {
             log.error("[停止上级平台回放异常] error: ", e);
             return R.fail("停止回放失败: " + e.getMessage());

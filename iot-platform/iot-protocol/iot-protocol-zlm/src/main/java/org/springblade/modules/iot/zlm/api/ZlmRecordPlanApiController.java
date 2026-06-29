@@ -1,9 +1,8 @@
 package org.springblade.modules.iot.zlm.api;
 
-import org.springblade.core.tool.api.Result;
-import org.springblade.core.tool.api.ResultFactory;
-import org.springblade.modules.iot.zlm.service.IZlmRecordPlanService;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.zlm.service.IZlmRecordPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +31,6 @@ public class ZlmRecordPlanApiController {
     @GetMapping("/task")
     public R<Void> task() {
         zlmRecordPlanService.task();
-        return R.ok();
+        return R.success();
     }
 }

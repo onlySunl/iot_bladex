@@ -1,12 +1,13 @@
 package org.springblade.modules.iot.haikangisup.runner;
 
-import com.ruoyi.haikang.isup.config.HaikangIsupConfig;
-import com.ruoyi.haikang.isup.service.haikang.alarm.AlarmService;
-import com.ruoyi.haikang.isup.service.haikang.cms.CmsService;
-import com.ruoyi.haikang.isup.service.haikang.ss.SsService;
-import com.ruoyi.haikang.isup.service.haikang.stream.StreamService;
+;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.modules.iot.haikangisup.config.HaikangIsupConfig;
+import org.springblade.modules.iot.haikangisup.haikang.alarm.AlarmService;
+import org.springblade.modules.iot.haikangisup.haikang.cms.CmsService;
+import org.springblade.modules.iot.haikangisup.haikang.ss.SsService;
+import org.springblade.modules.iot.haikangisup.haikang.stream.StreamService;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

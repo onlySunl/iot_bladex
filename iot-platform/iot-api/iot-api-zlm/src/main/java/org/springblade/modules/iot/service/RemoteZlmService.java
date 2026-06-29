@@ -30,7 +30,7 @@ import java.util.Map;
 public interface RemoteZlmService {
 
     @DeleteMapping("/api/zlm/sessionManagerPut/{mediaServerId}/{ssrc}")
-    R<Void> releaseSsrc(@PathVariable String mediaServerId, @PathVariable String ssrc, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<Void> releaseSsrc(@PathVariable Long mediaServerId, @PathVariable String ssrc, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
 
     /**
      * 关闭rtp服务
@@ -40,7 +40,7 @@ public interface RemoteZlmService {
      * @param inner
      */
     @PostMapping("/api/zlm/closeRTPServer/{mediaServerId}")
-    R<Void> closeRTPServer(@PathVariable String mediaServerId, @RequestBody RtpServerParam rtpServer, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<Void> closeRTPServer(@PathVariable Long mediaServerId, @RequestBody RtpServerParam rtpServer, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
 
     /**
      * 连接rtp服务
@@ -53,7 +53,7 @@ public interface RemoteZlmService {
      * @return
      */
     @PostMapping("/api/zlm/connectRtpServer/{mediaServerId}")
-    R<Boolean> connectRtpServer(@PathVariable String mediaServerId, @RequestParam String address, @RequestParam int port, @RequestParam String stream, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<Boolean> connectRtpServer(@PathVariable Long mediaServerId, @RequestParam String address, @RequestParam int port, @RequestParam String stream, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
 
     /**
      * 开始发送RTP流到指定地址

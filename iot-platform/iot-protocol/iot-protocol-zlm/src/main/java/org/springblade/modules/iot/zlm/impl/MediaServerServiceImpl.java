@@ -555,7 +555,7 @@ public class MediaServerServiceImpl implements IMediaServerService {
      */
     @Override
     public void delete(ZlmMediaServer zlmMediaServer) {
-        mediaServerMapper.delOne(Func.toStr(zlmMediaServer.getId()), userSetting.getServerId());
+        mediaServerMapper.delOne(zlmMediaServer.getId(), userSetting.getServerId());
 
         // 发送节点移除通知
         MediaServerDeleteEvent event = new MediaServerDeleteEvent(this);

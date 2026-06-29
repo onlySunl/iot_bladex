@@ -1,5 +1,6 @@
 package org.springblade.modules.iot.zlm.impl;
 
+import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.iot.domain.RTPServerParam;
 import org.springblade.modules.iot.zlm.common.InviteErrorCode;
 import org.springblade.modules.iot.zlm.config.DynamicTask;
@@ -93,7 +94,7 @@ public class RtpServerServiceImpl implements IReceiveRtpServerService {
         OpenRTPServerResult openRTPServerResult = new OpenRTPServerResult();
         openRTPServerResult.setSsrcInfo(ssrcInfo);
 
-        Hook rtpHook = Hook.getInstance(HookType.on_media_arrival, ssrcInfo.getApp(), rtpServerParam.getStreamId(), rtpServerParam.getMediaServer().getId());
+        Hook rtpHook = Hook.getInstance(HookType.on_media_arrival, ssrcInfo.getApp(), rtpServerParam.getStreamId(), Func.toStr(rtpServerParam.getMediaServer().getId()));
 
 
         dynamicTask.startDelay(timeOutTaskKey, () -> {

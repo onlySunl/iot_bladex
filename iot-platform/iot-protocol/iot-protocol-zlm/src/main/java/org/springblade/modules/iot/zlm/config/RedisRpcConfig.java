@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
@@ -131,7 +132,7 @@ public class RedisRpcConfig implements MessageListener {
                 if (method == null) {
                     // 回复404结果
                     RedisRpcResponse response = request.getResponse();
-                    response.setStatusCode(HttpStatus.NOT_FOUND);
+                    response.setStatusCode(HttpStatus.NOT_FOUND.value());
                     sendResponse(response);
                     return;
                 }
@@ -143,7 +144,7 @@ public class RedisRpcConfig implements MessageListener {
                 if (method == null) {
                     // 回复404结果
                     RedisRpcResponse response = request.getResponse();
-                    response.setStatusCode(HttpStatus.NOT_FOUND);
+                    response.setStatusCode(HttpStatus.NOT_FOUND.value());
                     sendResponse(response);
                     return;
                 }
@@ -155,7 +156,7 @@ public class RedisRpcConfig implements MessageListener {
         } catch (Exception e) {
             log.error("[redis-rpc ] 处理请求失败 ", e);
             RedisRpcResponse response = request.getResponse();
-            response.setStatusCode(HttpStatus.ERROR);
+            response.setStatusCode(HttpStatus.BAD_REQUEST.value());
             sendResponse(response);
         }
     }
@@ -192,7 +193,7 @@ public class RedisRpcConfig implements MessageListener {
         } catch (InterruptedException e) {
             log.warn("[redis rpc timeout] uri: {}, sn: {}", request.getUri(), request.getSn(), e);
             RedisRpcResponse redisRpcResponse = new RedisRpcResponse();
-            redisRpcResponse.setStatusCode(HttpStatus.NOT_FOUND);
+            redisRpcResponse.setStatusCode(HttpStatus.NOT_FOUND.value());
             return redisRpcResponse;
         } finally {
             this.unsubscribe(request.getSn());

@@ -15,6 +15,7 @@ import org.springblade.modules.iot.service.RemoteQsDeviceService;
 import org.springblade.modules.iot.zlm.common.InviteErrorCode;
 import org.springblade.modules.iot.zlm.common.InviteSessionType;
 import org.springblade.modules.iot.zlm.config.UserSetting;
+import org.springblade.modules.iot.zlm.domain.Snap;
 import org.springblade.modules.iot.zlm.mediaServer.MediaServerChangeEvent;
 import org.springblade.modules.iot.zlm.service.ErrorCallback;
 import org.springblade.modules.iot.zlm.service.IInviteStreamService;
@@ -195,9 +196,9 @@ public class ZlmController {
      * @return
      */
     @PostMapping("/stopStreamPullPlay")
-    public AjaxResult stopStreamPullPlay(@RequestBody StreamPullPlay streamPullPlay) {
+    public R stopStreamPullPlay(@RequestBody StreamPullPlay streamPullPlay) {
         mediaServerService.stopStreamPullPlay(streamPullPlay);
-        return AjaxResult.success();
+        return R.success();
     }
 
     /**
@@ -207,13 +208,13 @@ public class ZlmController {
      * @return
      */
     @PostMapping("/getSnap")
-    public AjaxResult getSnap(@RequestBody Snap snap) {
+    public R getSnap(@RequestBody Snap snap) {
         ZlmMediaServer mediaServer = mediaServerService.getMediaServerForMinimumLoad(null);
         if (mediaServer == null) {
             throw new RuntimeException("无可用的流媒体服务器");
         }
         String filePath = mediaServerService.getSnap(mediaServer, snap);
-        return AjaxResult.success(filePath);
+        return R.success(filePath);
     }
 
     /**
@@ -239,7 +240,7 @@ public class ZlmController {
 
         result.onTimeout(() -> {
             log.info("[rtp播放等待超时] app：{}, stream：{}", rtpServerParam.getApp(), rtpServerParam.getStreamId());
-            R<StreamContent> wvpResult = R.fail();
+            R<StreamContent> wvpResult = R.fail("");
             wvpResult.setMsg("rtp播放超时");
             result.setResult(wvpResult);
 
@@ -316,7 +317,7 @@ public class ZlmController {
 
         result.onTimeout(() -> {
             log.info("[设备录像回放等待超时] type={}, app={}, streamId={}", typeDesc, rtpServerParam.getApp(), rtpServerParam.getStreamId());
-            R<StreamContent> wvpResult = R.fail();
+            R<StreamContent> wvpResult = R.fail("");
             wvpResult.setMsg(typeDesc + "录像回放超时");
             result.setResult(wvpResult);
 
@@ -365,7 +366,7 @@ public class ZlmController {
      * @return
      */
     @PostMapping("/stopRtpPlay")
-    public AjaxResult stopRtpPlay(@RequestBody RTPServerParam rtpServerParam) {
+    public R stopRtpPlay(@RequestBody RTPServerParam rtpServerParam) {
         log.info("停止rtp播放： id：{}", rtpServerParam.getId());
         if (!(LiveStreamType.HIK_SDK.getCode().equals(rtpServerParam.getType())
                 || LiveStreamType.HIK_ISUP.getCode().equals(rtpServerParam.getType())
@@ -375,7 +376,7 @@ public class ZlmController {
             throw new RuntimeException("不支持的播放类型");
         }
         mediaServerService.stopRtpPlay(rtpServerParam);
-        return AjaxResult.success();
+        return R.success();
     }
 
     /**
@@ -385,7 +386,7 @@ public class ZlmController {
      * @return
      */
     @PostMapping("/stopRtpPlayback")
-    public AjaxResult stopRtpPlayback(@RequestBody RTPServerParam rtpServerParam) {
+    public R stopRtpPlayback(@RequestBody RTPServerParam rtpServerParam) {
         log.info("停止设备录像回放：type={}, id={}", rtpServerParam.getType(), rtpServerParam.getId());
         // 验证支持的类型
         if (!(LiveStreamType.HIK_SDK.getCode().equals(rtpServerParam.getType())
@@ -397,7 +398,7 @@ public class ZlmController {
         // 标记为回放
         rtpServerParam.setPlayback(true);
         mediaServerService.stopRtpPlay(rtpServerParam);
-        return AjaxResult.success();
+        return R.success();
     }
 
     /**
@@ -412,7 +413,7 @@ public class ZlmController {
 
         result.onTimeout(() -> {
             log.info("[加载录像文件超时] id={}", id);
-            R<StreamContent> wvpResult = R.fail();
+            R<StreamContent> wvpResult = R.fail("");
             wvpResult.setMsg("加载录像文件超时");
             result.setResult(wvpResult);
         });
@@ -457,9 +458,9 @@ public class ZlmController {
      * @return
      */
     @GetMapping("/closeStreams/{id}")
-    public AjaxResult closeStreams(@PathVariable Long id) {
+    public R closeStreams(@PathVariable Long id) {
         mediaServerService.closeStreams(id);
-        return AjaxResult.success();
+        return R.success();
     }
 
     /**
@@ -468,9 +469,9 @@ public class ZlmController {
      * @return
      */
     @GetMapping(value = "/list")
-    public AjaxResult getMediaServerList() {
+    public R getMediaServerList() {
         List<ZlmMediaServer> list = mediaServerService.getAll();
-        return AjaxResult.success(list);
+        return R.data(list);
     }
 
     /**
@@ -479,13 +480,13 @@ public class ZlmController {
      * @param id 流媒体ID
      */
     @DeleteMapping(value = "/delete")
-    public AjaxResult deleteMediaServer(@RequestParam String id) {
+    public R deleteMediaServer(@RequestParam Long id) {
         ZlmMediaServer mediaServer = mediaServerService.getOne(id);
         if (mediaServer == null) {
             throw new RuntimeException("流媒体不存在");
         }
         mediaServerService.delete(mediaServer);
-        return AjaxResult.success();
+        return R.success();
     }
 
     /**
@@ -494,7 +495,7 @@ public class ZlmController {
      * @param mediaServer 流媒体信息
      */
     @PostMapping(value = "/save")
-    public AjaxResult saveMediaServer(@RequestBody ZlmMediaServer mediaServer) {
+    public R saveMediaServer(@RequestBody ZlmMediaServer mediaServer) {
         ZlmMediaServer mediaServerItemInDatabase = mediaServerService.getOneFromDatabase(mediaServer.getId());
 
         if (mediaServerItemInDatabase != null) {
@@ -507,7 +508,7 @@ public class ZlmController {
             applicationEventPublisher.publishEvent(event);
         }
 
-        return AjaxResult.success();
+        return R.success();
     }
 
     /**
@@ -520,9 +521,9 @@ public class ZlmController {
      * @return
      */
     @GetMapping(value = "/check")
-    public AjaxResult checkMediaServer(@RequestParam String ip, @RequestParam int port, @RequestParam String secret, @RequestParam String type) {
+    public R checkMediaServer(@RequestParam String ip, @RequestParam int port, @RequestParam String secret, @RequestParam String type) {
         ZlmMediaServer mediaServer = mediaServerService.checkMediaServer(ip, port, secret, type);
-        return AjaxResult.success(mediaServer);
+        return R.data(mediaServer);
     }
 
     /**
@@ -532,9 +533,9 @@ public class ZlmController {
      * @return
      */
     @GetMapping(value = "/one/{id}")
-    public AjaxResult getMediaServer(@PathVariable String id) {
+    public R getMediaServer(@PathVariable Long id) {
         ZlmMediaServer mediaServer = mediaServerService.getOne(id);
-        return AjaxResult.success(mediaServer);
+        return R.data(mediaServer);
     }
 
     /**
@@ -546,15 +547,15 @@ public class ZlmController {
      * @return
      */
     @GetMapping(value = "/media_info")
-    public AjaxResult getMediaInfo(@RequestParam String app, @RequestParam String stream, @RequestParam String mediaServerId) {
+    public R getMediaInfo(@RequestParam String app, @RequestParam String stream, @RequestParam Long mediaServerId) {
         Assert.hasText(app, "app参数不能为空");
         Assert.hasText(stream, "stream参数不能为空");
-        Assert.hasText(mediaServerId, "mediaServerId参数不能为空");
+        Assert.notNull(mediaServerId, "mediaServerId参数不能为空");
         ZlmMediaServer mediaServer = mediaServerService.getOne(mediaServerId);
         if (mediaServer == null) {
             throw new RuntimeException("流媒体不存在");
         }
-        return AjaxResult.success(mediaServerService.getMediaInfo(mediaServer, app, stream));
+        return R.data(mediaServerService.getMediaInfo(mediaServer, app, stream));
     }
 
     /**
@@ -564,13 +565,13 @@ public class ZlmController {
      * @return
      */
     @GetMapping(value = "/restartServer/{mediaServerId}")
-    public AjaxResult restartServer(@PathVariable String mediaServerId) {
+    public R restartServer(@PathVariable Long mediaServerId) {
         ZlmMediaServer mediaServer = mediaServerService.getOne(mediaServerId);
         if (mediaServer == null) {
             throw new RuntimeException("流媒体不存在");
         }
         mediaServerService.restartServer(mediaServer);
-        return AjaxResult.success();
+        return R.success();
     }
 
     /**
@@ -579,8 +580,8 @@ public class ZlmController {
      * @return
      */
     @GetMapping(value = "/getAllOnlineMediaServe")
-    public AjaxResult getAllOnlineMediaServe() {
-        return AjaxResult.success(mediaServerService.getAllOnlineMediaServe());
+    public R getAllOnlineMediaServe() {
+        return R.data(mediaServerService.getAllOnlineMediaServe());
     }
 
     /**
@@ -589,11 +590,11 @@ public class ZlmController {
      * @return
      */
     @GetMapping(value = "/getStreamPushAddress/{id}")
-    public AjaxResult getStreamPushAddress(@PathVariable Long id, String callId) {
+    public R getStreamPushAddress(@PathVariable Long id, String callId) {
         if (StringUtils.isEmpty(callId)) {
-            return AjaxResult.error("callId不能是空");
+            return R.fail("callId不能是空");
         }
-        return AjaxResult.success(mediaServerService.getStreamPushAddress(id, callId));
+        return R.data(mediaServerService.getStreamPushAddress(id, callId));
     }
 
     /**
@@ -626,7 +627,7 @@ public class ZlmController {
                     }
                     streamInfo.changeStreamIp(host);
                 }
-                R<StreamContent> success = R.success(new StreamContent(streamInfo));
+                R<StreamContent> success = R.data(new StreamContent(streamInfo));
                 result.setResult(success);
             } else {
                 // 处理失败情况
@@ -691,7 +692,7 @@ public class ZlmController {
         result.onTimeout(() -> {
             log.info("[点播等待超时] gbDeviceId：{}, gbChannelId：{}, ", qsDevice.getGbDeviceId(), qsDevice.getGbChannelId());
             // 释放rtpserver
-            R<StreamContent> wvpResult = R.fail();
+            R<StreamContent> wvpResult = R.fail("");
             wvpResult.setMsg("点播超时");
             result.setResult(wvpResult);
 
@@ -792,7 +793,7 @@ public class ZlmController {
 
         result.onTimeout(() -> {
             log.info("[回放等待超时] gbDeviceId={}, gbChannelId={}", qsDevice.getGbDeviceId(), qsDevice.getGbChannelId());
-            R<StreamContent> wvpResult = R.fail();
+            R<StreamContent> wvpResult = R.fail("");
             wvpResult.setMsg("回放超时");
             result.setResult(wvpResult);
 
@@ -842,7 +843,7 @@ public class ZlmController {
      * @return
      */
     @GetMapping("/stopGb28181Play/{id}")
-    public AjaxResult stopGb28181Play(@PathVariable Long id) {
+    public R stopGb28181Play(@PathVariable Long id) {
 
         log.info("[gb28181 停止点播] id：{} ", id);
         Assert.notNull(id, "设备id");
@@ -884,7 +885,7 @@ public class ZlmController {
         JSONObject json = new JSONObject();
         json.put("deviceId", qsDevice.getGbDeviceId());
         json.put("channelId", qsDevice.getGbChannelId());
-        return AjaxResult.success(json);
+        return R.data(json);
     }
 
     /**
@@ -894,7 +895,7 @@ public class ZlmController {
      * @return
      */
     @GetMapping("/stopGb28181Playback/{id}")
-    public AjaxResult stopGb28181Playback(@PathVariable Long id) {
+    public R stopGb28181Playback(@PathVariable Long id) {
 
         log.info("[gb28181 停止回放] id={}", id);
         Assert.notNull(id, "设备id");
@@ -936,7 +937,7 @@ public class ZlmController {
         JSONObject json = new JSONObject();
         json.put("deviceId", qsDevice.getGbDeviceId());
         json.put("channelId", qsDevice.getGbChannelId());
-        return AjaxResult.success(json);
+        return R.data(json);
     }
 
     /**
@@ -988,7 +989,7 @@ public class ZlmController {
         result.onTimeout(() -> {
             log.info("[jt1078 回放等待超时] deviceId：{}", id);
             // 释放rtpserver
-            R<StreamContent> wvpResult = R.fail();
+            R<StreamContent> wvpResult = R.fail("");
             wvpResult.setMsg("回放超时");
             result.setResult(wvpResult);
 
@@ -1037,7 +1038,7 @@ public class ZlmController {
      * @return
      */
     @GetMapping("/stopJt1078Playback/{id}")
-    public AjaxResult stopJt1078Playback(@PathVariable Long id) {
+    public R stopJt1078Playback(@PathVariable Long id) {
         log.info("[jt1078 停止回放] id={}", id);
         Assert.notNull(id, "设备id");
 
@@ -1068,7 +1069,7 @@ public class ZlmController {
         JSONObject json = new JSONObject();
         json.put("deviceId", id);
         json.put("jtMobileNo", qsDevice.getJtMobileNo());
-        return AjaxResult.success(json);
+        return R.data(json);
     }
 
     /**
@@ -1164,7 +1165,7 @@ public class ZlmController {
      * @return
      */
     @GetMapping("/stopJt1078Play/{id}")
-    public AjaxResult stopJt1078Play(@PathVariable Long id) {
+    public R stopJt1078Play(@PathVariable Long id) {
         log.info("[jt1078 停止点播] id：{} ", id);
         Assert.notNull(id, "设备id");
 
@@ -1195,7 +1196,7 @@ public class ZlmController {
         JSONObject json = new JSONObject();
         json.put("deviceId", id);
         json.put("jtMobileNo", qsDevice.getJtMobileNo());
-        return AjaxResult.success(json);
+        return R.data(json);
     }
 
     /**
