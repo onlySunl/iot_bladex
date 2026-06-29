@@ -1,9 +1,6 @@
 package org.springblade.modules.iot.zlm.service;
 
-import org.springblade.modules.iot.gb28181.api.domain.Device;
-import org.springblade.modules.iot.jt1078.api.domain.Jt1078Device;
-import org.springblade.modules.iot.qs.api.domain.QsDevice;
-import org.springblade.modules.iot.zlm.api.domain.*;
+import org.springblade.modules.iot.domain.*;
 import org.springblade.modules.iot.zlm.common.InviteSessionType;
 import org.springblade.modules.iot.zlm.domain.MediaServerLoad;
 import org.springblade.modules.iot.zlm.domain.RecordInfo;
@@ -64,7 +61,7 @@ public interface IMediaServerService {
      * @param id
      * @return
      */
-    ZlmMediaServer getOneFromDatabase(String id);
+    ZlmMediaServer getOneFromDatabase(Long id);
 
     /**
      * 从数据库中获取指定id的媒体服务器
@@ -72,7 +69,7 @@ public interface IMediaServerService {
      * @param id
      * @return
      */
-    ZlmMediaServer getOne(String id);
+    ZlmMediaServer getOne(Long id);
 
     /**
      * 获取所有在线媒体服务器

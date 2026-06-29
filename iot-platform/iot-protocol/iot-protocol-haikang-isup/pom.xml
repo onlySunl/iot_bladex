@@ -6,74 +6,87 @@
 
     <parent>
         <groupId>org.springblade</groupId>
-        <artifactId>iot-platform</artifactId>
-        <version>${blade.version}</version>
-        <relativePath>../../pom.xml</relativePath>
+        <artifactId>iot-protocol</artifactId>
+        <version>4.2.0.RELEASE</version>
     </parent>
-
     <artifactId>iot-protocol-haikang-isup</artifactId>
     <packaging>jar</packaging>
 
     <name>iot-protocol-haikang-isup</name>
     <description>海康ISUP协议模块</description>
-
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <module.name>iot.protocol.haikang.isup</module.name>
+    </properties>
     <dependencies>
-        <!-- Spring Blade 公共模块 -->
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-common</artifactId>
-        </dependency>
-
-        <!-- Spring Blade Boot -->
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-boot</artifactId>
-        </dependency>
-
-        <!-- Spring Boot Web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <!-- Spring Boot Redis -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-
-        <!-- JNA -->
-        <dependency>
-            <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna</artifactId>
-            <version>5.12.1</version>
-        </dependency>
-
-        <!-- JNA Platform -->
-        <dependency>
-            <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna-platform</artifactId>
-            <version>5.12.1</version>
-        </dependency>
-
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-
-        <!-- Knife4j -->
         <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-openapi2-spring-boot-starter</artifactId>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>4.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>4.0.2</version>
         </dependency>
 
-        <!-- Test -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>com.github.cbyzzy</groupId>
+            <artifactId>Examples</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/jar/examples.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/jar/jna.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-qs</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-zlm</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-haikang-isup</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-haikang-isup</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>4.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>4.0.2</version>
         </dependency>
     </dependencies>
 

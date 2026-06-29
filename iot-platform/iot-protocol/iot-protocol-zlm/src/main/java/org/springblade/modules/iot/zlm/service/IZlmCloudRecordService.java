@@ -1,7 +1,8 @@
 package org.springblade.modules.iot.zlm.service;
 
-import org.springblade.modules.iot.zlm.api.domain.StreamInfo;
-import org.springblade.modules.iot.zlm.api.domain.ZlmCloudRecord;
+
+import org.springblade.modules.iot.domain.StreamInfo;
+import org.springblade.modules.iot.domain.ZlmCloudRecord;
 import org.springblade.modules.iot.zlm.domain.CloudRecordUrl;
 
 import java.util.List;

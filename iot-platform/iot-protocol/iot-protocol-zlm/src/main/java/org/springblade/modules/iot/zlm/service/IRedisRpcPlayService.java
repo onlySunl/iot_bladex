@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.zlm.service;
 
-import org.springblade.modules.iot.zlm.api.domain.DownloadFileInfo;
+import com.ruoyi.zlm.api.domain.DownloadFileInfo;
 
 /**
  * @FileName IRedisRpcPlayService

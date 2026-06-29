@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.zlm.service;
 
-import org.springblade.modules.iot.zlm.api.domain.ZlmMediaServer;
+
+import org.springblade.modules.iot.domain.ZlmMediaServer;
 import org.springblade.modules.iot.zlm.hook.ResultForOnPublish;
 
 /**
@@ -8,7 +9,7 @@ import org.springblade.modules.iot.zlm.hook.ResultForOnPublish;
  */
 public interface IMediaService {
 
-    boolean closeStreamOnNoneReader(String mediaServerId, String app, String stream, String schema);
+    boolean closeStreamOnNoneReader(Long mediaServerId, String app, String stream, String schema);
 
     ResultForOnPublish authenticatePublish(ZlmMediaServer mediaServer, String app, String stream, String params);
 }

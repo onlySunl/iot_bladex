@@ -1,11 +1,11 @@
 package org.springblade.modules.iot.zlm.service.impl;
 
-import org.springblade.modules.iot.common.core.constant.HttpStatus;
-import org.springblade.modules.iot.qs.api.domain.QsDevice;
-import org.springblade.modules.iot.zlm.api.domain.StreamInfo;
-import org.springblade.modules.iot.zlm.service.ErrorCallback;
-import org.springblade.modules.iot.zlm.service.IMediaServerService;
-import org.springblade.modules.iot.zlm.service.ISourcePlayService;
+import com.ruoyi.common.core.constant.HttpStatus;
+import com.ruoyi.qs.api.domain.QsDevice;
+import com.ruoyi.zlm.api.domain.StreamInfo;
+import com.ruoyi.zlm.service.ErrorCallback;
+import com.ruoyi.zlm.service.IMediaServerService;
+import com.ruoyi.zlm.service.ISourcePlayService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

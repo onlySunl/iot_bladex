@@ -1,10 +1,10 @@
 package org.springblade.modules.iot.zlm.controller;
 
-import org.springblade.modules.iot.common.core.web.controller.BaseController;
-import org.springblade.modules.iot.common.core.web.domain.AjaxResult;
-import org.springblade.modules.iot.zlm.api.domain.ZlmMediaServer;
-import org.springblade.modules.iot.zlm.domain.MediaServerLoad;
-import org.springblade.modules.iot.zlm.service.IMediaServerService;
+import com.ruoyi.common.core.web.controller.BaseController;
+import com.ruoyi.common.core.web.domain.AjaxResult;
+import com.ruoyi.zlm.api.domain.ZlmMediaServer;
+import com.ruoyi.zlm.domain.MediaServerLoad;
+import com.ruoyi.zlm.service.IMediaServerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.zlm.service;
 
-import org.springblade.modules.iot.zlm.api.domain.RTPServerParam;
+
+import org.springblade.modules.iot.domain.RTPServerParam;
 import org.springblade.modules.iot.zlm.domain.OpenRTPServerResult;
 import org.springblade.modules.iot.zlm.domain.SSRCInfo;
 

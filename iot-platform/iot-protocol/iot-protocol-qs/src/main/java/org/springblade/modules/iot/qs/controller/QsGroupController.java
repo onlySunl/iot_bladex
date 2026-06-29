@@ -1,12 +1,13 @@
 package org.springblade.modules.iot.qs.controller;
 
-import org.springblade.modules.iot.common.core.web.controller.BaseController;
-import org.springblade.modules.iot.common.core.web.domain.AjaxResult;
-import org.springblade.modules.iot.common.core.web.page.TableDataInfo;
-import org.springblade.modules.iot.qs.api.domain.QsGroup;
-import org.springblade.modules.iot.qs.api.domain.QsGroupTree;
-import org.springblade.modules.iot.qs.service.IQsGroupService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.domain.QsGroup;
+import org.springblade.modules.iot.domain.QsGroupTree;
+import org.springblade.modules.iot.qs.service.IQsGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
@@ -25,7 +26,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/group")
-public class QsGroupController extends BaseController {
+public class QsGroupController extends BladeController {
     @Autowired
     private IQsGroupService qsGroupService;
 
@@ -35,9 +36,9 @@ public class QsGroupController extends BaseController {
      * @param group 分组信息
      */
     @PostMapping("/add")
-    public AjaxResult add(@RequestBody QsGroup group) {
+    public R add(@RequestBody QsGroup group) {
         qsGroupService.add(group);
-        return success();
+        return R.success();
     }
 
     /**
@@ -46,9 +47,9 @@ public class QsGroupController extends BaseController {
      * @param group 分组信息
      */
     @PostMapping("/update")
-    public AjaxResult update(@RequestBody QsGroup group) {
+    public R update(@RequestBody QsGroup group) {
         qsGroupService.update(group);
-        return success();
+        return R.success();
     }
 
     /**
@@ -57,13 +58,13 @@ public class QsGroupController extends BaseController {
      * @param id 分组id
      */
     @DeleteMapping("/delete/{id}")
-    public AjaxResult delete(@PathVariable Integer id) {
+    public R delete(@PathVariable Long id) {
         Assert.notNull(id, "分组id（deviceId）不需要存在");
         boolean result = qsGroupService.delete(id);
         if (!result) {
             throw new RuntimeException("移除失败");
         }
-        return success();
+        return R.success();
     }
 
     /**
@@ -75,12 +76,12 @@ public class QsGroupController extends BaseController {
      * @return
      */
     @GetMapping("/tree/list")
-    public AjaxResult queryForTree(@RequestParam(required = false) String query, @RequestParam(required = false) Integer parent, @RequestParam(required = false) Boolean hasDevice) {
+    public R queryForTree(@RequestParam(required = false) String query, @RequestParam(required = false) Long parent, @RequestParam(required = false) Boolean hasDevice) {
         if (ObjectUtils.isEmpty(query)) {
             query = null;
         }
         List<QsGroupTree> list = qsGroupService.queryForTree(query, parent, hasDevice);
-        return success(list);
+        return R.data(list);
     }
 
     /**
@@ -89,9 +90,9 @@ public class QsGroupController extends BaseController {
      * @return
      */
     @GetMapping("/device/list")
-    public AjaxResult queryForDevice() {
+    public R queryForDevice() {
         List<QsGroupTree> list = qsGroupService.queryForDevice();
-        return success(list);
+        return R.data(list);
     }
 
     /**
@@ -101,9 +102,8 @@ public class QsGroupController extends BaseController {
      * @return
      */
     @GetMapping("/tree/query")
-    public TableDataInfo queryTree(String query) {
-        startPage();
+    public IPage<List<QsGroup>> queryTree(String query) {
         List<QsGroup> list = qsGroupService.queryList(query);
-        return getDataTable(list);
+        return new Page<>();
     }
 }

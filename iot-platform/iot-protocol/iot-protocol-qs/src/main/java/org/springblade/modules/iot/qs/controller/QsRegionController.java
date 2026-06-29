@@ -1,14 +1,14 @@
 package org.springblade.modules.iot.qs.controller;
 
-import org.springblade.modules.iot.common.core.web.controller.BaseController;
-import org.springblade.modules.iot.common.core.web.domain.AjaxResult;
-import org.springblade.modules.iot.common.core.web.page.TableDataInfo;
-import org.springblade.modules.iot.common.log.annotation.Log;
-import org.springblade.modules.iot.common.log.enums.BusinessType;
-import org.springblade.modules.iot.qs.api.domain.QsRegion;
-import org.springblade.modules.iot.qs.api.domain.QsRegionTree;
-import org.springblade.modules.iot.qs.service.IQsRegionService;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.domain.QsRegion;
+import org.springblade.modules.iot.domain.QsRegionTree;
+import org.springblade.modules.iot.qs.service.IQsRegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
@@ -27,7 +27,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/region")
-public class QsRegionController extends BaseController {
+public class QsRegionController extends BladeController {
 
     @Autowired
     private IQsRegionService qsRegionService;
@@ -37,11 +37,10 @@ public class QsRegionController extends BaseController {
      *
      * @param region 区域信息
      */
-    @Log(title = "区域管理", businessType = BusinessType.INSERT)
     @PostMapping("/add")
-    public AjaxResult add(@RequestBody QsRegion region) {
+    public R add(@RequestBody QsRegion region) {
         qsRegionService.add(region);
-        return AjaxResult.success();
+        return R.success();
     }
 
     /**
@@ -49,11 +48,10 @@ public class QsRegionController extends BaseController {
      *
      * @param region
      */
-    @Log(title = "区域管理", businessType = BusinessType.UPDATE)
     @PostMapping("/update")
-    public AjaxResult update(@RequestBody QsRegion region) {
+    public R update(@RequestBody QsRegion region) {
         qsRegionService.update(region);
-        return AjaxResult.success();
+        return R.success();
     }
 
     /**
@@ -61,15 +59,14 @@ public class QsRegionController extends BaseController {
      *
      * @param id 区域ID
      */
-    @Log(title = "区域管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/delete/{id}")
-    public AjaxResult delete(@PathVariable Integer id) {
+    public R delete(@PathVariable Long id) {
         Assert.notNull(id, "区域ID需要存在");
         boolean result = qsRegionService.deleteByDeviceId(id);
         if (!result) {
             throw new RuntimeException("移除失败");
         }
-        return AjaxResult.success();
+        return R.success();
     }
 
     /**
@@ -80,9 +77,9 @@ public class QsRegionController extends BaseController {
      * @return
      */
     @GetMapping("/tree/list")
-    public AjaxResult queryForTree(@RequestParam(required = false) Integer parent, @RequestParam(required = false) Boolean hasDevice) {
+    public R queryForTree(@RequestParam(required = false) Long parent, @RequestParam(required = false) Boolean hasDevice) {
         List<QsRegionTree> list = qsRegionService.queryForTree(parent, hasDevice);
-        return success(list);
+        return R.data(list);
     }
 
     /**
@@ -91,9 +88,9 @@ public class QsRegionController extends BaseController {
      * @return
      */
     @GetMapping("/device/list")
-    public AjaxResult queryForDevice() {
+    public R queryForDevice() {
         List<QsRegionTree> list = qsRegionService.queryForDevice();
-        return success(list);
+        return R.data(list);
     }
 
     /**
@@ -104,10 +101,9 @@ public class QsRegionController extends BaseController {
      */
 
     @GetMapping("/tree/query")
-    public TableDataInfo queryTree(Integer pageNum, Integer pageSize, String query) {
-        startPage();
+    public IPage<List<QsRegion>> queryTree(Integer pageNum, Integer pageSize, String query) {
         List<QsRegion> list = qsRegionService.queryList(pageNum, pageSize, query);
-        return getDataTable(list);
+        return new Page<>();
     }
 
     /**
@@ -117,11 +113,11 @@ public class QsRegionController extends BaseController {
      * @return
      */
     @GetMapping("/base/child/list")
-    public AjaxResult getAllChild(@RequestParam(required = false) String parent) {
+    public R getAllChild(@RequestParam(required = false) String parent) {
         if (ObjectUtils.isEmpty(parent)) {
             parent = null;
         }
         List<QsRegion> list = qsRegionService.getAllChild(parent);
-        return success(list);
+        return R.data(list);
     }
 }

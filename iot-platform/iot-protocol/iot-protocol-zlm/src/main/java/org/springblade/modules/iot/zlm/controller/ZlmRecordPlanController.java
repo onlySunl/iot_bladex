@@ -1,14 +1,13 @@
 package org.springblade.modules.iot.zlm.controller;
 
-import org.springblade.modules.iot.common.core.web.controller.BaseController;
-import org.springblade.modules.iot.common.core.web.domain.AjaxResult;
-import org.springblade.modules.iot.common.core.web.page.TableDataInfo;
-import org.springblade.modules.iot.common.log.annotation.Log;
-import org.springblade.modules.iot.common.log.enums.BusinessType;
-import org.springblade.modules.iot.common.security.annotation.RequiresPermissions;
-import org.springblade.modules.iot.common.security.utils.SecurityUtils;
-import org.springblade.modules.iot.zlm.domain.ZlmRecordPlan;
-import org.springblade.modules.iot.zlm.service.IZlmRecordPlanService;
+import com.ruoyi.common.core.web.controller.BaseController;
+import com.ruoyi.common.core.web.domain.AjaxResult;
+import com.ruoyi.common.core.web.page.TableDataInfo;
+import com.ruoyi.common.log.annotation.Log;
+import com.ruoyi.common.log.enums.BusinessType;
+import com.ruoyi.common.security.utils.SecurityUtils;
+import com.ruoyi.zlm.domain.ZlmRecordPlan;
+import com.ruoyi.zlm.service.IZlmRecordPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

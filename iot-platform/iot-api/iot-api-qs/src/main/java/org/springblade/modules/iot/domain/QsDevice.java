@@ -138,7 +138,7 @@ public class QsDevice extends CustomBaseEntity {
     /** 当前拉流使用的流媒体服务ID */
     @TableField(value = "media_serverId")
     @AutoColumn(comment = "当前拉流使用的流媒体服务ID", length = 100, defaultValueType = DefaultValueEnum.EMPTY_STRING)
-    private String mediaServerId;
+    private Long mediaServerId;
 
     /** 拉流代理时zlm返回的key，用于停止拉流代理 */
     @TableField(value = "stream_key")
@@ -254,7 +254,7 @@ public class QsDevice extends CustomBaseEntity {
     /** 回放使用的流媒体服务ID */
     @TableField(value = "playback_media_server_id")
     @AutoColumn(comment = "回放使用的流媒体服务ID", length = 100, defaultValueType = DefaultValueEnum.EMPTY_STRING)
-    private String playbackMediaServerId;
+    private Long playbackMediaServerId;
 
     /** 回放时zlm返回的key，用于停止回放 */
     @TableField(value = "playback_stream_key")

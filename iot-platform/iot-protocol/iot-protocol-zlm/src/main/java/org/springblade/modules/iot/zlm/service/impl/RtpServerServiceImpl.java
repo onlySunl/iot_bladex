@@ -1,6 +1,8 @@
 package org.springblade.modules.iot.zlm.service.impl;
 
-import org.springblade.modules.iot.zlm.api.domain.RTPServerParam;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.modules.iot.domain.RTPServerParam;
 import org.springblade.modules.iot.zlm.common.InviteErrorCode;
 import org.springblade.modules.iot.zlm.config.DynamicTask;
 import org.springblade.modules.iot.zlm.config.UserSetting;
@@ -13,7 +15,6 @@ import org.springblade.modules.iot.zlm.service.ErrorCallback;
 import org.springblade.modules.iot.zlm.service.IMediaServerService;
 import org.springblade.modules.iot.zlm.service.IReceiveRtpServerService;
 import org.springblade.modules.iot.zlm.session.SSRCFactory;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;

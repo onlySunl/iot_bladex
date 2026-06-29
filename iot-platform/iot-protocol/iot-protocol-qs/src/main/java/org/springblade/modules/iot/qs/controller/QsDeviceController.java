@@ -1,17 +1,15 @@
 package org.springblade.modules.iot.qs.controller;
 
-import org.springblade.modules.iot.common.core.web.controller.BaseController;
-import org.springblade.modules.iot.common.core.web.domain.AjaxResult;
-import org.springblade.modules.iot.common.core.web.page.TableDataInfo;
-import org.springblade.modules.iot.common.log.annotation.Log;
-import org.springblade.modules.iot.common.log.enums.BusinessType;
-import org.springblade.modules.iot.common.security.annotation.RequiresPermissions;
-import org.springblade.modules.iot.common.security.utils.SecurityUtils;
-import org.springblade.modules.iot.qs.api.domain.QsDevice;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.domain.QsDevice;
 import org.springblade.modules.iot.qs.domain.*;
 import org.springblade.modules.iot.qs.service.IQsDeviceService;
 import org.springblade.modules.iot.qs.utils.VideoSnapshotUtil;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.Assert;
@@ -29,7 +27,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/device")
-public class QsDeviceController extends BaseController {
+public class QsDeviceController extends BladeController {
     @Autowired
     private IQsDeviceService qsDeviceService;
 
@@ -49,75 +47,67 @@ public class QsDeviceController extends BaseController {
      * 查询视频监控设备列表
      */
     @GetMapping("/list")
-    public TableDataInfo list(QsDevice qsDevice) {
-        startPage();
+    public IPage<List<QsDevice>> list(QsDevice qsDevice) {
         List<QsDevice> list = qsDeviceService.selectQsDeviceList(qsDevice);
-        return getDataTable(list);
+        return new Page<>();
     }
 
     /**
      * 根据行政区域获取视频监控设备列表
      */
     @GetMapping("/queryListByCivilCode")
-    public TableDataInfo queryListByCivilCode(QsDevice qsDevice) {
-        startPage();
+    public IPage<List<QsDevice>> queryListByCivilCode(QsDevice qsDevice) {
         List<QsDevice> list = qsDeviceService.queryListByCivilCode(qsDevice);
-        return getDataTable(list);
+        return new Page<>();
     }
 
     /**
      * 获取视频监控设备详细信息
      */
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id) {
-        return success(qsDeviceService.selectQsDeviceById(id));
+    public R getInfo(@PathVariable("id") Long id) {
+        return R.data(qsDeviceService.selectQsDeviceById(id));
     }
 
     /**
      * 新增视频监控设备
      */
-    @Log(title = "视频监控设备", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody QsDevice qsDevice) {
-        return toAjax(qsDeviceService.insertQsDevice(qsDevice));
+    public R add(@RequestBody QsDevice qsDevice) {
+        return R.data(qsDeviceService.insertQsDevice(qsDevice));
     }
 
     /**
      * 修改视频监控设备
      */
-    @Log(title = "视频监控设备", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody QsDevice qsDevice) {
-        return toAjax(qsDeviceService.updateQsDevice(qsDevice));
+    public R edit(@RequestBody QsDevice qsDevice) {
+        return R.data(qsDeviceService.updateQsDevice(qsDevice));
     }
 
     /**
      * 删除视频监控设备
      */
-    @Log(title = "视频监控设备", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids) {
-        return toAjax(qsDeviceService.deleteQsDeviceByIds(ids));
+    public R remove(@PathVariable Long[] ids) {
+        return R.data(qsDeviceService.deleteQsDeviceByIds(ids));
     }
 
     /**
      * 状态修改
      */
-    @Log(title = "视频监控设备", businessType = BusinessType.UPDATE)
     @PutMapping("/changeStatus")
-    public AjaxResult changeStatus(@RequestBody QsDevice qsDevice) {
-        qsDevice.setUpdateBy(SecurityUtils.getUsername());
-        return toAjax(qsDeviceService.updateQsDeviceStatus(qsDevice));
+    public R changeStatus(@RequestBody QsDevice qsDevice) {
+        return R.data(qsDeviceService.updateQsDeviceStatus(qsDevice));
     }
 
     /**
      * 获取计划记录对应的视频监控设备
      */
     @GetMapping("/listPlanRecord")
-    public TableDataInfo listPlanRecordQsDevice(QsDevice qsDevice) {
-        startPage();
+    public IPage<List<QsDevice>> listPlanRecordQsDevice(QsDevice qsDevice) {
         List<QsDevice> list = qsDeviceService.listPlanRecordQsDevice(qsDevice);
-        return getDataTable(list);
+        return new Page<>();
     }
 
     /**
@@ -127,14 +117,14 @@ public class QsDeviceController extends BaseController {
      * @return
      */
     @PostMapping("/link")
-    public AjaxResult link(@RequestBody RecordPlanParam param) {
+    public R link(@RequestBody RecordPlanParam param) {
         if (param.getAllLink() != null) {
             if (param.getAllLink()) {
                 qsDeviceService.linkAll(param.getPlanId());
             } else {
                 qsDeviceService.cleanAll(param.getPlanId());
             }
-            return success();
+            return R.success();
         }
 
         if (param.getDeviceIds() == null) {
@@ -143,7 +133,7 @@ public class QsDeviceController extends BaseController {
 
         qsDeviceService.link(param.getDeviceIds(), param.getPlanId());
 
-        return success();
+        return R.success();
     }
 
 
@@ -153,11 +143,11 @@ public class QsDeviceController extends BaseController {
      * @param param
      */
     @PostMapping("/region/add")
-    public AjaxResult addChannelToRegion(@RequestBody DeviceToRegionParam param) {
+    public R addChannelToRegion(@RequestBody DeviceToRegionParam param) {
         Assert.notEmpty(param.getDeviceIds(), "设备ID不可为空");
         Assert.hasLength(param.getCivilCode(), "未添加行政区划");
         qsDeviceService.addDeviceToRegion(param.getCivilCode(), param.getDeviceIds());
-        return success();
+        return R.success();
     }
 
     /**
@@ -166,10 +156,10 @@ public class QsDeviceController extends BaseController {
      * @param param
      */
     @PostMapping("/region/delete")
-    public AjaxResult deleteDeviceToRegion(@RequestBody DeviceToRegionParam param) {
+    public R deleteDeviceToRegion(@RequestBody DeviceToRegionParam param) {
         Assert.isTrue(!param.getDeviceIds().isEmpty() || !ObjectUtils.isEmpty(param.getCivilCode()), "参数异常");
         qsDeviceService.deleteDeviceToRegion(param.getCivilCode(), param.getDeviceIds());
-        return success();
+        return R.success();
     }
 
 
@@ -177,10 +167,9 @@ public class QsDeviceController extends BaseController {
      * 存在行政区划但无法挂载的设备列表
      */
     @GetMapping("/civilCode/unusual/list")
-    public TableDataInfo queryListByCivilCodeForUnusual(QsDevice qsDevice) {
-        startPage();
+    public IPage<List<QsDevice>> queryListByCivilCodeForUnusual(QsDevice qsDevice) {
         List<QsDevice> list = qsDeviceService.queryListByCivilCodeForUnusual(qsDevice);
-        return getDataTable(list);
+        return new Page<>();
     }
 
     /**
@@ -189,9 +178,9 @@ public class QsDeviceController extends BaseController {
      * @param param
      */
     @PostMapping("/civilCode/unusual/clear")
-    public AjaxResult clearDeviceCivilCode(@RequestBody DeviceToRegionParam param) {
+    public R clearDeviceCivilCode(@RequestBody DeviceToRegionParam param) {
         qsDeviceService.clearDeviceCivilCode(param.getAll(), param.getDeviceIds());
-        return success();
+        return R.success();
     }
 
     /**
@@ -200,9 +189,9 @@ public class QsDeviceController extends BaseController {
      * @return
      */
     @GetMapping("/network/identification/list")
-    public AjaxResult getNetworkIdentificationTypeList() {
+    public R getNetworkIdentificationTypeList() {
         List<NetworkIdentificationType> list = qsDeviceService.getNetworkIdentificationTypeList();
-        return success(list);
+        return R.success();
     }
 
     /**
@@ -211,9 +200,9 @@ public class QsDeviceController extends BaseController {
      * @return
      */
     @GetMapping("/type/list")
-    public AjaxResult getDeviceTypeList() {
+    public R getDeviceTypeList() {
         List<DeviceType> list = qsDeviceService.getDeviceTypeList();
-        return success(list);
+        return R.data(list);
     }
 
     /**
@@ -222,19 +211,18 @@ public class QsDeviceController extends BaseController {
      * @return
      */
     @GetMapping("/industry/list")
-    public AjaxResult getIndustryCodeList() {
+    public R getIndustryCodeList() {
         List<IndustryCodeType> list = qsDeviceService.getIndustryCodeList();
-        return success(list);
+        return R.data(list);
     }
 
     /**
      * 获取关联业务分组设备列表
      */
     @GetMapping("/parent/list")
-    public TableDataInfo queryListByParentId(QsDevice qsDevice) {
-        startPage();
+    public IPage<List<QsDevice>> queryListByParentId(QsDevice qsDevice) {
         List<QsDevice> list = qsDeviceService.queryListByParentId(qsDevice);
-        return getDataTable(list);
+        return new Page<>();
     }
 
     /**
@@ -243,12 +231,12 @@ public class QsDeviceController extends BaseController {
      * @param param
      */
     @PostMapping("/group/add")
-    public AjaxResult addChannelToGroup(@RequestBody DeviceToGroupParam param) {
+    public R addChannelToGroup(@RequestBody DeviceToGroupParam param) {
         Assert.notEmpty(param.getDeviceIds(), "设备ID不可为空");
         Assert.hasLength(param.getParentId(), "未添加上级分组编号");
         Assert.hasLength(param.getBusinessGroup(), "未添加业务分组");
         qsDeviceService.addChannelToGroup(param.getParentId(), param.getBusinessGroup(), param.getDeviceIds());
-        return success();
+        return R.success();
     }
 
     /**
@@ -257,20 +245,19 @@ public class QsDeviceController extends BaseController {
      * @param param
      */
     @PostMapping("/group/delete")
-    public AjaxResult deleteDeviceToGroup(@RequestBody DeviceToGroupParam param) {
+    public R deleteDeviceToGroup(@RequestBody DeviceToGroupParam param) {
         Assert.isTrue(!param.getDeviceIds().isEmpty() || (!ObjectUtils.isEmpty(param.getParentId()) && !ObjectUtils.isEmpty(param.getBusinessGroup())), "参数异常");
         qsDeviceService.deleteDeviceToGroup(param.getParentId(), param.getBusinessGroup(), param.getDeviceIds());
-        return success();
+        return R.success();
     }
 
     /**
      * 存在父节点编号但无法挂载的设备列表
      */
     @GetMapping("/parent/unusual/list")
-    public TableDataInfo queryListByParentForUnusual(QsDevice qsDevice) {
-        startPage();
+    public IPage<List<QsDevice>> queryListByParentForUnusual(QsDevice qsDevice) {
         List<QsDevice> list = qsDeviceService.queryListByParentForUnusual(qsDevice);
-        return getDataTable(list);
+        return new Page<>();
     }
 
     /**
@@ -279,26 +266,24 @@ public class QsDeviceController extends BaseController {
      * @param param
      */
     @PostMapping("/parent/unusual/clear")
-    public AjaxResult clearDeviceParent(@RequestBody DeviceToGroupParam param) {
+    public R clearDeviceParent(@RequestBody DeviceToGroupParam param) {
         qsDeviceService.clearDeviceParent(param.getAll(), param.getDeviceIds());
-        return success();
+        return R.success();
     }
 
     /**
      * 获取本地mp4截图
      */
-    @RequiresPermissions("qs:device:edit")
-    @Log(title = "视频监控设备", businessType = BusinessType.UPDATE)
     @PutMapping("/getVideoSnapshot/{id}")
-    public AjaxResult getVideoSnapshot(@PathVariable("id") Long id) {
+    public R getVideoSnapshot(@PathVariable("id") Long id) {
         QsDevice device = qsDeviceService.selectQsDeviceById(id);
 
         if (device == null) {
-            return error("设备不存在");
+            return R.fail("设备不存在");
         }
 
         if (device.getLiveAddress() == null || device.getLiveAddress().isEmpty()) {
-            return error("设备直播地址为空");
+            return R.fail("设备直播地址为空");
         }
 
         try {
@@ -319,10 +304,10 @@ public class QsDeviceController extends BaseController {
             qsDeviceService.updateQsDevice(qsDevice);
         } catch (Exception e) {
             log.error("[获取视频截图失败] 设备ID: {}, 错误: {}", id, e.getMessage());
-            return error("获取视频截图失败: " + e.getMessage());
+            return R.fail("获取视频截图失败: " + e.getMessage());
         }
 
-        return success();
+        return R.success();
     }
 
     /**
@@ -333,11 +318,11 @@ public class QsDeviceController extends BaseController {
      * @param controlSpeed 控制速度
      * @return 结果
      */
-    @Log(title = "云台控制", businessType = BusinessType.OTHER)
+
     @GetMapping("/startPtz/{id}")
-    public AjaxResult startPtz(@PathVariable Long id, @RequestParam String direction, @RequestParam Integer controlSpeed) {
+    public R startPtz(@PathVariable Long id, @RequestParam String direction, @RequestParam Integer controlSpeed) {
         qsDeviceService.startPtz(id, direction, controlSpeed);
-        return AjaxResult.success();
+        return R.success();
     }
 
     /**
@@ -348,11 +333,11 @@ public class QsDeviceController extends BaseController {
      * @param controlSpeed 控制速度
      * @return 结果
      */
-    @Log(title = "云台控制", businessType = BusinessType.OTHER)
+
     @GetMapping("/endPtz/{id}")
-    public AjaxResult endPtz(@PathVariable Long id, @RequestParam String direction, @RequestParam Integer controlSpeed) {
+    public R endPtz(@PathVariable Long id, @RequestParam String direction, @RequestParam Integer controlSpeed) {
         qsDeviceService.endPtz(id, direction, controlSpeed);
-        return AjaxResult.success();
+        return R.success();
     }
 
     /**
@@ -362,11 +347,11 @@ public class QsDeviceController extends BaseController {
      * @param channelId 通道id
      * @return 预置点列表
      */
-    @Log(title = "预置点控制", businessType = BusinessType.OTHER)
+
     @GetMapping("/preset/list/{id}")
-    public AjaxResult getPresetList(@PathVariable Long id, @RequestParam(required = false) Integer channelId) {
+    public R getPresetList(@PathVariable Long id, @RequestParam(required = false) Integer channelId) {
         List<Preset> presetList = qsDeviceService.getPresetList(id, channelId);
-        return AjaxResult.success(presetList);
+        return R.data(presetList);
     }
 
     /**
@@ -378,11 +363,10 @@ public class QsDeviceController extends BaseController {
      * @param presetName  预置点名称
      * @return 结果
      */
-    @Log(title = "预置点控制", businessType = BusinessType.OTHER)
     @GetMapping("/preset/set/{id}")
-    public AjaxResult setPreset(@PathVariable Long id, @RequestParam(required = false) Integer channelId, @RequestParam Integer presetIndex, @RequestParam(required = false) String presetName) {
+    public R setPreset(@PathVariable Long id, @RequestParam(required = false) Integer channelId, @RequestParam Integer presetIndex, @RequestParam(required = false) String presetName) {
         qsDeviceService.setPreset(id, channelId, presetIndex, presetName);
-        return AjaxResult.success();
+        return R.success();
     }
 
     /**
@@ -394,11 +378,11 @@ public class QsDeviceController extends BaseController {
      * @param speed       速度
      * @return 结果
      */
-    @Log(title = "预置点控制", businessType = BusinessType.OTHER)
+
     @GetMapping("/preset/goto/{id}")
-    public AjaxResult gotoPreset(@PathVariable Long id, @RequestParam(required = false) Integer channelId, @RequestParam Integer presetIndex, @RequestParam(required = false) Integer speed) {
+    public R gotoPreset(@PathVariable Long id, @RequestParam(required = false) Integer channelId, @RequestParam Integer presetIndex, @RequestParam(required = false) Integer speed) {
         qsDeviceService.gotoPreset(id, channelId, presetIndex, speed);
-        return AjaxResult.success();
+        return R.success();
     }
 
     /**
@@ -409,11 +393,11 @@ public class QsDeviceController extends BaseController {
      * @param presetIndex 预置点索引
      * @return 结果
      */
-    @Log(title = "预置点控制", businessType = BusinessType.OTHER)
+
     @GetMapping("/preset/delete/{id}")
-    public AjaxResult deletePreset(@PathVariable Long id, @RequestParam(required = false) Integer channelId, @RequestParam Integer presetIndex) {
+    public R deletePreset(@PathVariable Long id, @RequestParam(required = false) Integer channelId, @RequestParam Integer presetIndex) {
         qsDeviceService.deletePreset(id, channelId, presetIndex);
-        return AjaxResult.success();
+        return R.success();
     }
 
     /**
@@ -424,11 +408,11 @@ public class QsDeviceController extends BaseController {
      * @param isOn      true-开, false-关
      * @return 结果
      */
-    @Log(title = "灯光控制", businessType = BusinessType.OTHER)
+
     @GetMapping("/light/{id}")
-    public AjaxResult controlLight(@PathVariable Long id, @RequestParam(required = false) Integer channelId, @RequestParam Boolean isOn) {
+    public R controlLight(@PathVariable Long id, @RequestParam(required = false) Integer channelId, @RequestParam Boolean isOn) {
         qsDeviceService.controlLight(id, channelId, isOn);
-        return AjaxResult.success();
+        return R.success();
     }
 
     /**
@@ -439,11 +423,11 @@ public class QsDeviceController extends BaseController {
      * @param isOn      true-开, false-关
      * @return 结果
      */
-    @Log(title = "雨刷控制", businessType = BusinessType.OTHER)
+
     @GetMapping("/wiper/{id}")
-    public AjaxResult controlWiper(@PathVariable Long id, @RequestParam(required = false) Integer channelId, @RequestParam Boolean isOn) {
+    public R controlWiper(@PathVariable Long id, @RequestParam(required = false) Integer channelId, @RequestParam Boolean isOn) {
         qsDeviceService.controlWiper(id, channelId, isOn);
-        return AjaxResult.success();
+        return R.success();
     }
 
     /**

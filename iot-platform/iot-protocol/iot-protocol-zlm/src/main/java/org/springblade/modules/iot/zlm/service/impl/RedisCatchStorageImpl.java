@@ -1,14 +1,14 @@
 package org.springblade.modules.iot.zlm.service.impl;
 
 import com.alibaba.fastjson2.JSON;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.modules.iot.domain.MediaInfo;
+import org.springblade.modules.iot.domain.ZlmMediaServer;
 import org.springblade.modules.iot.zlm.config.UserSetting;
 import org.springblade.modules.iot.zlm.constants.VideoManagerConstants;
-import org.springblade.modules.iot.zlm.api.domain.MediaInfo;
 import org.springblade.modules.iot.zlm.domain.StreamAuthorityInfo;
-import org.springblade.modules.iot.zlm.api.domain.ZlmMediaServer;
 import org.springblade.modules.iot.zlm.service.IRedisCatchStorage;
 import org.springblade.modules.iot.zlm.utils.RedisUtil;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -45,7 +45,7 @@ public class RedisCatchStorageImpl implements IRedisCatchStorage {
     }
 
     @Override
-    public void removeStream(String mediaServerId, String type, String app, String streamId) {
+    public void removeStream(Long mediaServerId, String type, String app, String streamId) {
         String key = VideoManagerConstants.ZLM_SERVER_STREAM_PREFIX + userSetting.getServerId() + "_" + type.toUpperCase() + "_"  + app + "_" + streamId + "_" + mediaServerId;
         redisTemplate.delete(key);
     }

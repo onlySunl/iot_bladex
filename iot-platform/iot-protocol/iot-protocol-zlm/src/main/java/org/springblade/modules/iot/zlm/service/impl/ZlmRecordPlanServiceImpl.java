@@ -1,28 +1,21 @@
 package org.springblade.modules.iot.zlm.service.impl;
 
 import com.google.common.base.Joiner;
-import org.springblade.modules.iot.common.core.constant.HttpStatus;
-import org.springblade.modules.iot.common.core.constant.SecurityConstants;
-import org.springblade.modules.iot.common.core.domain.R;
-import org.springblade.modules.iot.common.core.enums.LiveStreamType;
-import org.springblade.modules.iot.common.core.utils.DateUtils;
-import org.springblade.modules.iot.common.security.utils.SecurityUtils;
-import org.springblade.modules.iot.qs.api.RemoteQsDeviceService;
-import org.springblade.modules.iot.qs.api.domain.QsDevice;
-import org.springblade.modules.iot.zlm.api.domain.MediaInfo;
-import org.springblade.modules.iot.zlm.api.domain.RTPServerParam;
-import org.springblade.modules.iot.zlm.api.domain.StreamInfo;
-import org.springblade.modules.iot.zlm.api.domain.StreamPullPlay;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.common.constants.Constants;
+import org.springblade.modules.iot.common.constants.SecurityConstants;
+import org.springblade.modules.iot.domain.QsDevice;
+import org.springblade.modules.iot.domain.StreamInfo;
+import org.springblade.modules.iot.service.RemoteQsDeviceService;
 import org.springblade.modules.iot.zlm.common.InviteErrorCode;
-import org.springblade.modules.iot.zlm.domain.ZlmRecordPlan;
-import org.springblade.modules.iot.zlm.domain.ZlmRecordPlanItem;
 import org.springblade.modules.iot.zlm.event.MediaDepartureEvent;
 import org.springblade.modules.iot.zlm.mapper.ZlmRecordPlanItemMapper;
 import org.springblade.modules.iot.zlm.mapper.ZlmRecordPlanMapper;
 import org.springblade.modules.iot.zlm.service.IDevicePlayService;
 import org.springblade.modules.iot.zlm.service.IMediaServerService;
 import org.springblade.modules.iot.zlm.service.IZlmRecordPlanService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
@@ -73,7 +66,7 @@ public class ZlmRecordPlanServiceImpl implements IZlmRecordPlanService {
         }
         // 重新拉起
         R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
-        if (r.getCode() != HttpStatus.SUCCESS) {
+        if (r.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("根据设备id查询设备信息失败");
         }
 
@@ -144,7 +137,7 @@ public class ZlmRecordPlanServiceImpl implements IZlmRecordPlanService {
         List<ZlmRecordPlan> zlmRecordPlans = zlmRecordPlanMapper.selectZlmRecordPlanList(zlmRecordPlan);
         for (ZlmRecordPlan recordPlan : zlmRecordPlans) {
             R<Integer> r = remoteQsDeviceService.countRecordPlanDevice(recordPlan.getId(), SecurityConstants.INNER);
-            if (r.getCode() != HttpStatus.SUCCESS) {
+            if (r.getCode() != Constants.SUCCESS) {
                 throw new RuntimeException("删除录像计划失败");
             }
             recordPlan.setChannelCount(r.getData());
@@ -161,7 +154,6 @@ public class ZlmRecordPlanServiceImpl implements IZlmRecordPlanService {
      */
     @Override
     public int insertZlmRecordPlan(ZlmRecordPlan zlmRecordPlan) {
-        zlmRecordPlan.setCreateTime(DateUtils.getNowDate());
         int i = zlmRecordPlanMapper.insertZlmRecordPlan(zlmRecordPlan);
         if (zlmRecordPlan.getId() > 0 && !zlmRecordPlan.getPlanItemList().isEmpty()) {
             for (ZlmRecordPlanItem recordPlanItem : zlmRecordPlan.getPlanItemList()) {

@@ -9,5 +9,5 @@ import lombok.Data;
  */
 @Data
 public class HookParam {
-    private String mediaServerId;
+    private Long mediaServerId;
 }

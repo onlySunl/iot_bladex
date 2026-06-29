@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.zlm.domain;
 
-import org.springblade.modules.iot.zlm.hook.HookData;
+import com.ruoyi.zlm.hook.HookData;
 import lombok.Data;
 
 @Data

@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.qs.config;
 
-import org.springblade.modules.iot.qs.api.common.CivilCodePo;
-import org.springblade.modules.iot.qs.api.utils.CivilCodeUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.modules.iot.common.CivilCodePo;
+import org.springblade.modules.iot.utils.CivilCodeUtil;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;

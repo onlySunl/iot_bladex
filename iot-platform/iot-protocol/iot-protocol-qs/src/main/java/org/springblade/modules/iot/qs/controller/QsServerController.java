@@ -1,12 +1,13 @@
 package org.springblade.modules.iot.qs.controller;
 
-import org.springblade.modules.iot.common.core.web.controller.BaseController;
-import org.springblade.modules.iot.common.core.web.domain.AjaxResult;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.qs.common.SystemAllInfo;
 import org.springblade.modules.iot.qs.domain.DeviceStats;
 import org.springblade.modules.iot.qs.service.IQsDeviceService;
 import org.springblade.modules.iot.qs.service.IRedisCatchStorageService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/server")
-public class QsServerController extends BaseController {
+public class QsServerController extends BladeController {
 
     @Autowired
     private IRedisCatchStorageService redisCatchStorageService;
@@ -37,9 +38,9 @@ public class QsServerController extends BaseController {
      * @return
      */
     @GetMapping(value = "/system/info")
-    public AjaxResult getSystemInfo() {
+    public R getSystemInfo() {
         SystemAllInfo systemAllInfo = redisCatchStorageService.getSystemInfo();
-        return success(systemAllInfo);
+        return R.data(systemAllInfo);
     }
 
     /**
@@ -48,9 +49,9 @@ public class QsServerController extends BaseController {
      * @return
      */
     @GetMapping(value = "/system/deviceStatist")
-    public AjaxResult getDeviceStatistics() {
+    public R getDeviceStatistics() {
         DeviceStats deviceStats = qsDeviceService.getDeviceStatistics();
-        return success(deviceStats);
+        return R.data(deviceStats);
     }
 
 }

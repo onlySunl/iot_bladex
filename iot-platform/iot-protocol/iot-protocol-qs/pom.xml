@@ -13,7 +13,12 @@
     <artifactId>iot-protocol-qs</artifactId>
     <packaging>jar</packaging>
     <description>QS设备协议</description>
-
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <module.name>iot.protocol.qs</module.name>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>
@@ -24,6 +29,67 @@
             <groupId>org.springblade</groupId>
             <artifactId>iot-api-qs</artifactId>
             <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-haikang</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-dahua</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-onvif</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-jt1078</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-haikang-isup</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-gb28181</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-zlm</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-protocol-common</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- 获取系统信息 -->
+        <dependency>
+            <groupId>com.github.oshi</groupId>
+            <artifactId>oshi-core</artifactId>
+            <version>6.6.5</version>
+        </dependency>
+        <!--JavaCV相关依赖-->
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>javacv</artifactId>
+            <version>1.5.10</version>
         </dependency>
     </dependencies>
 </project>

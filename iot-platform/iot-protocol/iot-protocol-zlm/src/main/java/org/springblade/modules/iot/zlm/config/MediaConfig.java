@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.zlm.config;
 
-import org.springblade.modules.iot.common.core.utils.DateUtils;
-import org.springblade.modules.iot.zlm.api.domain.ZlmMediaServer;
+import com.ruoyi.common.core.utils.DateUtils;
+import com.ruoyi.zlm.api.domain.ZlmMediaServer;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

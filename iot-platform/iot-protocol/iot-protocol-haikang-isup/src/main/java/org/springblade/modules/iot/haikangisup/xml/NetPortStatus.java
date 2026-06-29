@@ -1,14 +1,13 @@
 package org.springblade.modules.iot.haikangisup.xml;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import lombok.Data;
-import jakarta.xml.bind.annotation.*;
 
-/**
- * 网络端口状态信息
- */
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
 public class NetPortStatus {
-	private String portNo;
-	private String status;
+    private Integer id;
+    private String netPortDescription; // ctrl / data1 / data2
+    private String linkStatus;         // connected / disconnected
 }

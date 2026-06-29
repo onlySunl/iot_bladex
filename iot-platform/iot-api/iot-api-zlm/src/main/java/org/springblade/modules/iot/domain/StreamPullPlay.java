@@ -61,7 +61,7 @@ public class StreamPullPlay implements Serializable{
     private int timeOut;
 
     /** 当前拉流使用的流媒体服务ID */
-    private String mediaServerId;
+    private Long mediaServerId;
 
     /** 拉流代理时zlm返回的key，用于停止拉流代理 */
     private String streamKey;

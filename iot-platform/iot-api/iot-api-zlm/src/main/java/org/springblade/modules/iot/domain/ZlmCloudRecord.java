@@ -58,7 +58,7 @@ public class ZlmCloudRecord extends CustomBaseEntity {
     /** ZLM Id */
     @TableField(value = "media_server_id")
     @AutoColumn(comment = "ZLM Id", length = 50, defaultValueType = DefaultValueEnum.EMPTY_STRING)
-    private String mediaServerId;
+    private Long mediaServerId;
 
     /** 所属服务ID */
     @TableField(value = "server_id")

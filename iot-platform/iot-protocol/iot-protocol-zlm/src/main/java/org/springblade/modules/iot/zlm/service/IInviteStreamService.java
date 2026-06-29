@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.zlm.service;
 
-import org.springblade.modules.iot.zlm.api.domain.StreamInfo;
+import org.springblade.modules.iot.domain.StreamInfo;
 import org.springblade.modules.iot.zlm.common.InviteSessionType;
 import org.springblade.modules.iot.zlm.domain.InviteInfo;
 

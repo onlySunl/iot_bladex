@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.zlm.domain;
 
-import org.springblade.modules.iot.zlm.mediaServer.MediaRecordMp4Event;
-import org.springblade.modules.iot.zlm.mediaServer.MediaRecordProcessEvent;
-import org.springblade.modules.iot.zlm.api.utils.MediaServerUtils;
+import com.ruoyi.zlm.api.utils.MediaServerUtils;
+import com.ruoyi.zlm.mediaServer.MediaRecordMp4Event;
+import com.ruoyi.zlm.mediaServer.MediaRecordProcessEvent;
 import lombok.Data;
 
 import java.util.Map;

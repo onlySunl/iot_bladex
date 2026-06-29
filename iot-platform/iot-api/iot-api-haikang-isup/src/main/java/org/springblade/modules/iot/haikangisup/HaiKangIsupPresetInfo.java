@@ -1,6 +1,8 @@
 package org.springblade.modules.iot.haikangisup;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 
 import java.io.Serializable;
 
@@ -9,7 +11,8 @@ import java.io.Serializable;
  *
  * @author fengcheng
  */
-@Data
+@Builder
+@Getter
 public class HaiKangIsupPresetInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -28,4 +31,7 @@ public class HaiKangIsupPresetInfo implements Serializable {
 	 * 是否有效
 	 */
 	private boolean valid;
+
+
+
 }

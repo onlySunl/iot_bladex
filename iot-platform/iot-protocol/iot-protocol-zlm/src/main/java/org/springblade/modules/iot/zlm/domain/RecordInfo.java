@@ -1,9 +1,9 @@
 package org.springblade.modules.iot.zlm.domain;
 
-import org.springblade.modules.iot.zlm.api.domain.ZlmCloudRecord;
-import org.springblade.modules.iot.zlm.hook.OnRecordMp4ABLHookParam;
-import org.springblade.modules.iot.zlm.hook.OnRecordMp4HookParam;
-import org.springblade.modules.iot.zlm.utils.DateUtil;
+import com.ruoyi.zlm.api.domain.ZlmCloudRecord;
+import com.ruoyi.zlm.hook.OnRecordMp4ABLHookParam;
+import com.ruoyi.zlm.hook.OnRecordMp4HookParam;
+import com.ruoyi.zlm.utils.DateUtil;
 import lombok.Data;
 
 @Data

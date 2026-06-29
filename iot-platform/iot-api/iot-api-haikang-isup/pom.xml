@@ -6,10 +6,9 @@
 
     <parent>
         <groupId>org.springblade</groupId>
-        <artifactId>bladex</artifactId>
+        <artifactId>iot-api</artifactId>
         <version>4.2.0.RELEASE</version>
     </parent>
-
     <artifactId>iot-api-haikang-isup</artifactId>
 
     <description>
@@ -19,11 +18,14 @@
     <dependencies>
 
         <!-- BladeX Common Core -->
+
+
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>blade-common</artifactId>
+            <artifactId>iot-common</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
         </dependency>
-
     </dependencies>
 
 </project>

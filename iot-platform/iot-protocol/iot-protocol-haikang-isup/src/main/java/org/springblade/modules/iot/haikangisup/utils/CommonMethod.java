@@ -1,65 +1,84 @@
 package org.springblade.modules.iot.haikangisup.utils;
 
+import com.sun.jna.Pointer;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
 
-/**
- * 公共方法工具类2
- */
 public class CommonMethod {
+    public static void WriteBuffToPointer(byte[] byData, Pointer pInBuffer) {
+        pInBuffer.write(0, byData, 0, byData.length);
+    }
 
-	/**
-	 * 获取当前时间字符串
-	 *
-	 * @return 时间字符串
-	 */
-	public static String getCurrentTimeStr() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		return sdf.format(new Date());
-	}
+    public static String byteToString(byte[] bytes) {
+        if (null == bytes || bytes.length == 0) {
+            return "";
+        }
+        int iLengthOfBytes = 0;
+        for (byte st : bytes) {
+            if (st != 0) {
+                iLengthOfBytes++;
+            } else
+                break;
+        }
+        String strContent = "";
+        try {
+            strContent = new String(bytes, 0, iLengthOfBytes, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return strContent;
+    }
 
-	/**
-	 * 格式化日期
-	 *
-	 * @param date 日期对象
-	 * @return 格式化后的字符串
-	 */
-	public static String formatDate(Date date) {
-		if (date == null) {
-			return "";
-		}
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		return sdf.format(date);
-	}
+    public static byte[] UTF8toGBK(byte[] utf8Bytes) {
+        String utf8Str = new String(utf8Bytes, StandardCharsets.UTF_8);
+        byte[] gbkBytes = utf8Str.getBytes(Charset.forName("GBK"));
+        return gbkBytes;
+    }
 
-	/**
-	 * 格式化日期
-	 *
-	 * @param timestamp 时间戳
-	 * @return 格式化后的字符串
-	 */
-	public static String formatDate(long timestamp) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		return sdf.format(new Date(timestamp));
-	}
+    public static String UTF8toGBKStr(byte[] utf8Bytes) {
+        return new String(UTF8toGBK(utf8Bytes), Charset.forName("GBK"));
+    }
 
-	/**
-	 * 字符串是否为空
-	 *
-	 * @param str 字符串
-	 * @return 是否为空
-	 */
-	public static boolean isEmpty(String str) {
-		return str == null || str.trim().isEmpty();
-	}
+    public static String getResFileAbsPath(String filePath) {
+        if (filePath == null) {
+            throw new RuntimeException("filePath null error!");
+        }
+        return System.getProperty("user.dir") + "\\resources\\" + filePath;
+    }
 
-	/**
-	 * 字符串是否不为空
-	 *
-	 * @param str 字符串
-	 * @return 是否不为空
-	 */
-	public static boolean isNotEmpty(String str) {
-		return !isEmpty(str);
-	}
+    public static String getConsoleInput(String inputTip) {
+        System.out.println(inputTip);
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
+
+    public static void outputToFile(String fileName, String postFix, String fileContent) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss_SSS");
+
+        String folder = System.getProperty("user.dir") + "\\outputFiles\\event\\";
+        File directory = new File(folder);
+        if (!directory.exists()) {
+            boolean created = directory.mkdirs();
+            if (!created) {
+                System.out.println(folder + "_文件夹创建失败！");
+            }
+        }
+
+        String filePath = folder + fileName + "_" + format.format(new Date()) + postFix;
+        try {
+            FileOutputStream fos = new FileOutputStream(filePath);
+            fos.write(fileContent.getBytes());
+            fos.close();
+        } catch (IOException e) {
+            System.out.println("输出到文件出现异常：" + e.getMessage());
+        }
+    }
 }

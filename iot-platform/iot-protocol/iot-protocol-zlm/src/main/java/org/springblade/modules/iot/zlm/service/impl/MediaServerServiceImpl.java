@@ -1,26 +1,18 @@
 package org.springblade.modules.iot.zlm.service.impl;
 
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.nacos.api.model.v2.ErrorCode;
-import org.springblade.modules.iot.common.core.constant.Constants;
-import org.springblade.modules.iot.common.core.constant.SecurityConstants;
-import org.springblade.modules.iot.common.core.domain.R;
-import org.springblade.modules.iot.common.core.domain.RtpServerParam;
-import org.springblade.modules.iot.common.core.enums.LiveStreamType;
-import org.springblade.modules.iot.common.core.utils.DateUtils;
-import org.springblade.modules.iot.dahua.api.RemoteDaHuaService;
-import org.springblade.modules.iot.gb28181.api.RemoteGb28181Service;
-import org.springblade.modules.iot.gb28181.api.domain.Device;
-import org.springblade.modules.iot.jt1078.api.RemoteJt1078Service;
-import org.springblade.modules.iot.jt1078.api.domain.Jt1078Device;
-import org.springblade.modules.iot.haikang.api.RemoteHaiKangService;
-import org.springblade.modules.iot.haikang.isup.api.RemoteHaiKangIsupService;
-import org.springblade.modules.iot.qs.api.RemoteQsDeviceService;
-import org.springblade.modules.iot.qs.api.domain.QsDevice;
-import org.springblade.modules.iot.zlm.api.domain.*;
-import org.springblade.modules.iot.zlm.api.hook.OriginType;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
+import org.springblade.core.tool.api.R;
+import org.springblade.core.tool.utils.DateUtil;
+import org.springblade.modules.iot.common.constants.Constants;
+import org.springblade.modules.iot.common.constants.SecurityConstants;
+import org.springblade.modules.iot.common.enums.LiveStreamType;
+import org.springblade.modules.iot.domain.*;
+import org.springblade.modules.iot.haikangisup.RemoteHaiKangIsupService;
+import org.springblade.modules.iot.hook.OriginType;
+import org.springblade.modules.iot.service.*;
 import org.springblade.modules.iot.zlm.common.InviteErrorCode;
-import org.springblade.modules.iot.zlm.common.InviteSessionStatus;
 import org.springblade.modules.iot.zlm.common.InviteSessionType;
 import org.springblade.modules.iot.zlm.config.DynamicTask;
 import org.springblade.modules.iot.zlm.config.MediaConfig;
@@ -38,8 +30,6 @@ import org.springblade.modules.iot.zlm.mediaServer.*;
 import org.springblade.modules.iot.zlm.service.*;
 import org.springblade.modules.iot.zlm.session.SSRCFactory;
 import org.springblade.modules.iot.zlm.utils.ZLMRESTfulUtils;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
@@ -64,7 +54,7 @@ import java.util.*;
  **/
 @Slf4j
 @Service
-public class MediaServerServiceImpl implements IMediaServerService {
+public class MediaServerServiceImpl  implements IMediaServerService {
 
     @Autowired
     private MediaServerMapper mediaServerMapper;
@@ -204,7 +194,7 @@ public class MediaServerServiceImpl implements IMediaServerService {
             device.setMediaServerId(mediaInfo.getMediaServer().getId());
             device.setDeviceName("推流设备_" + event.getApp() + "_" + event.getStream());
             device.setType(LiveStreamType.PUSH.getCode());
-            device.setStatus("ENABLE");
+            device.setStatus(1);
             device.setStreamStatus("1");
             device.setStreamKey(event.getApp() + "_" + event.getStream());
             device.setDeviceCode(event.getStream());
@@ -325,12 +315,12 @@ public class MediaServerServiceImpl implements IMediaServerService {
             if (isPlayback) {
                 // 回放流离开，清空回放相关字段
                 qsDevice.setPlaybackStreamKey("");
-                qsDevice.setPlaybackMediaServerId("");
+                qsDevice.setPlaybackMediaServerId(null);
                 qsDevice.setPlaybackStreamStatus("0");
             } else {
                 // 实时流离开，清空实时相关字段
                 qsDevice.setStreamKey("");
-                qsDevice.setMediaServerId("");
+                qsDevice.setMediaServerId(null);
                 qsDevice.setStreamStatus("0");
             }
             
@@ -392,11 +382,11 @@ public class MediaServerServiceImpl implements IMediaServerService {
         if (isPlayback) {
             // 回放流离开，清空回放相关字段
             device.setPlaybackStreamKey("");
-            device.setPlaybackMediaServerId("");
+            device.setPlaybackMediaServerId(null);
             device.setPlaybackStreamStatus("0");
         } else {
             // 实时流离开，清空实时相关字段
-            device.setMediaServerId("");
+            device.setMediaServerId(null);
             device.setStreamKey("");
             device.setStreamStatus("0");
         }
@@ -487,7 +477,7 @@ public class MediaServerServiceImpl implements IMediaServerService {
         zlmCloudRecordService.insertZlmCloudRecord(zlmCloudRecord);
     }
 
-    public void addCount(String mediaServerId) {
+    public void addCount(Long mediaServerId) {
         if (mediaServerId == null) {
             return;
         }
@@ -496,7 +486,7 @@ public class MediaServerServiceImpl implements IMediaServerService {
 
     }
 
-    public void removeCount(String mediaServerId) {
+    public void removeCount(Long mediaServerId) {
         String key = VideoManagerConstants.ONLINE_MEDIA_SERVERS_PREFIX + userSetting.getServerId();
         redisTemplate.opsForZSet().incrementScore(key, mediaServerId, -1);
     }
@@ -518,8 +508,8 @@ public class MediaServerServiceImpl implements IMediaServerService {
      */
     @Override
     public int add(ZlmMediaServer zlmMediaServer) {
-        zlmMediaServer.setCreateTime(DateUtils.getNowDate());
-        zlmMediaServer.setUpdateTime(DateUtils.getNowDate());
+        zlmMediaServer.setCreateTime(DateUtil.now());
+        zlmMediaServer.setUpdateTime(DateUtil.now());
         if (zlmMediaServer.getHookAliveInterval() == null || zlmMediaServer.getHookAliveInterval() == 0F) {
             zlmMediaServer.setHookAliveInterval(10F);
         }
@@ -585,7 +575,7 @@ public class MediaServerServiceImpl implements IMediaServerService {
      * @return
      */
     @Override
-    public ZlmMediaServer getOneFromDatabase(String id) {
+    public ZlmMediaServer getOneFromDatabase(Long id) {
         return mediaServerMapper.queryOne(id, userSetting.getServerId());
     }
 
@@ -596,7 +586,7 @@ public class MediaServerServiceImpl implements IMediaServerService {
      * @return
      */
     @Override
-    public ZlmMediaServer getOne(String id) {
+    public ZlmMediaServer getOne(Long id) {
         return mediaServerMapper.getOne(id);
     }
 
@@ -628,14 +618,14 @@ public class MediaServerServiceImpl implements IMediaServerService {
 
         // 获取分数最低的，及并发最低的
         Set<Object> objects = redisTemplate.opsForZSet().range(key, 0, -1);
-        ArrayList<Object> mediaServerObjectS = new ArrayList<>(objects);
+        ArrayList<Long> mediaServerObjectS = new ArrayList<>();
         ZlmMediaServer mediaServer = null;
         if (hasAssist == null) {
-            String mediaServerId = (String) mediaServerObjectS.get(0);
+            Long mediaServerId = (Long) mediaServerObjectS.get(0);
             mediaServer = getOne(mediaServerId);
         } else if (hasAssist) {
-            for (Object mediaServerObject : mediaServerObjectS) {
-                String mediaServerId = (String) mediaServerObject;
+            for (Long mediaServerObject : mediaServerObjectS) {
+                Long mediaServerId = mediaServerObject;
                 ZlmMediaServer serverItem = getOne(mediaServerId);
                 if (serverItem.getRecordAssistPort() > 0) {
                     mediaServer = serverItem;
@@ -643,8 +633,8 @@ public class MediaServerServiceImpl implements IMediaServerService {
                 }
             }
         } else if (!hasAssist) {
-            for (Object mediaServerObject : mediaServerObjectS) {
-                String mediaServerId = (String) mediaServerObject;
+            for (Long mediaServerObject : mediaServerObjectS) {
+                Long mediaServerId = mediaServerObject;
                 ZlmMediaServer serverItem = getOne(mediaServerId);
                 if (serverItem.getRecordAssistPort() == 0) {
                     mediaServer = serverItem;
@@ -767,7 +757,7 @@ public class MediaServerServiceImpl implements IMediaServerService {
      * @return
      */
     @Override
-    public StreamInfo getStreamInfoByAppAndStreamWithCheck(String app, String stream, String mediaServerId, String addr, boolean authority) {
+    public StreamInfo getStreamInfoByAppAndStreamWithCheck(String app, String stream, Long mediaServerId, String addr, boolean authority) {
         if (mediaServerId == null) {
             mediaServerId = mediaConfig.getId();
         }
@@ -813,7 +803,7 @@ public class MediaServerServiceImpl implements IMediaServerService {
      */
     @Override
     public void stopStreamPullPlay(StreamPullPlay streamPullPlay) {
-        String mediaServerId = streamPullPlay.getMediaServerId();
+        Long mediaServerId = streamPullPlay.getMediaServerId();
         Assert.notNull(mediaServerId, "代理节点不存在");
 
         ZlmMediaServer mediaServer = getOne(mediaServerId);
@@ -828,12 +818,12 @@ public class MediaServerServiceImpl implements IMediaServerService {
         if (streamPullPlay.isPlayback()) {
             // 回放流清空回放相关字段
             qsDevice.setPlaybackStreamKey("");
-            qsDevice.setPlaybackMediaServerId("");
+            qsDevice.setPlaybackMediaServerId(null;
             qsDevice.setPlaybackStreamStatus("0");
         } else {
             // 普通流清空实时流相关字段
             qsDevice.setStreamKey("");
-            qsDevice.setMediaServerId("");
+            qsDevice.setMediaServerId(null);
             qsDevice.setStreamStatus("0");
         }
         R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDevice, SecurityConstants.INNER);

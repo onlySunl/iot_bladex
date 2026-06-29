@@ -27,6 +27,7 @@ public class RTPServerParam implements Serializable {
     private boolean reUsePort;
     private String ssrc;
     private String type;
+    private Long id;
 
     /**
      * tcp模式，0时为不启用tcp监听，1时为启用tcp监听，2时为tcp主动连接模式

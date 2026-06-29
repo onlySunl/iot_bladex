@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.zlm.service;
 
-import org.springblade.modules.iot.zlm.api.domain.*;
+
+import org.springblade.modules.iot.domain.*;
 import org.springblade.modules.iot.zlm.common.CommonCallback;
 import org.springblade.modules.iot.zlm.domain.RecordInfo;
 import org.springblade.modules.iot.zlm.domain.dto.ZLMResult;

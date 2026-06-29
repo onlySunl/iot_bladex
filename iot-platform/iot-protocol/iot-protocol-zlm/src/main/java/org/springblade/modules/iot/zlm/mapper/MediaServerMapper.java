@@ -1,13 +1,94 @@
 package org.springblade.modules.iot.zlm.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.springblade.modules.iot.domain.MediaServer;
+import com.ruoyi.zlm.api.domain.ZlmMediaServer;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
- * MediaServer Mapper接口
+ * 媒体服务器Mapper接口
  *
- * @author BladeX
- */
-public interface MediaServerMapper extends BaseMapper<MediaServer> {
+ * @FileName MediaServerMapper
+ * @Description
+ * @Author fengcheng
+ * @date 2026-03-31
+ **/
+@Mapper
+@Repository
+public interface MediaServerMapper {
 
+    /**
+     * 获取默认的媒体服务器
+     *
+     * @return
+     */
+    ZlmMediaServer queryDefault(String serverId);
+
+    /**
+     * 根据id和serverId查询
+     *
+     * @param id
+     * @param serverId
+     * @return
+     */
+    ZlmMediaServer queryOne(@Param("id") String id, @Param("serverId") String serverId);
+
+    /**
+     * 添加媒体服务器
+     *
+     * @param zlmMediaServer
+     * @return
+     */
+    int add(ZlmMediaServer zlmMediaServer);
+
+    /**
+     * 修改媒体服务器
+     *
+     * @param zlmMediaServer
+     * @return
+     */
+    int update(ZlmMediaServer zlmMediaServer);
+
+    /**
+     * 删除媒体服务器
+     *
+     * @param id
+     * @param serverId
+     */
+    void delOne(@Param("id") String id, @Param("serverId") String serverId);
+
+    /**
+     * 查询所有媒体服务器
+     *
+     * @param serverId
+     * @return
+     */
+    List<ZlmMediaServer> queryAll(String serverId);
+
+    /**
+     * 从数据库中获取指定id的媒体服务器
+     *
+     * @param id
+     * @return
+     */
+    ZlmMediaServer getOne(String id);
+
+    /**
+     * 获取所有在线的媒体服务器
+     *
+     * @return
+     */
+    List<ZlmMediaServer> getAllOnlineMediaServe();
+
+    /**
+     * 根据ip和端口查询
+     *
+     * @param ip
+     * @param port
+     * @param serverId
+     * @return
+     */
+    ZlmMediaServer queryOneByHostAndPort(@Param("ip") String ip,@Param("port") int port,@Param("serverId") String serverId);
 }

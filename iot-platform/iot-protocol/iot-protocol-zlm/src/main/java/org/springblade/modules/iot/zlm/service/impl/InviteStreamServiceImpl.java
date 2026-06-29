@@ -1,14 +1,14 @@
 package org.springblade.modules.iot.zlm.service.impl;
 
 import com.alibaba.fastjson2.JSON;
-import org.springblade.modules.iot.zlm.api.domain.StreamInfo;
-import org.springblade.modules.iot.zlm.common.InviteSessionStatus;
-import org.springblade.modules.iot.zlm.common.InviteSessionType;
-import org.springblade.modules.iot.zlm.config.UserSetting;
-import org.springblade.modules.iot.zlm.constants.VideoManagerConstants;
-import org.springblade.modules.iot.zlm.domain.InviteInfo;
-import org.springblade.modules.iot.zlm.service.ErrorCallback;
-import org.springblade.modules.iot.zlm.service.IInviteStreamService;
+import com.ruoyi.zlm.api.domain.StreamInfo;
+import com.ruoyi.zlm.common.InviteSessionStatus;
+import com.ruoyi.zlm.common.InviteSessionType;
+import com.ruoyi.zlm.config.UserSetting;
+import com.ruoyi.zlm.constants.VideoManagerConstants;
+import com.ruoyi.zlm.domain.InviteInfo;
+import com.ruoyi.zlm.service.ErrorCallback;
+import com.ruoyi.zlm.service.IInviteStreamService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.Cursor;

@@ -13,7 +13,12 @@
     <artifactId>iot-protocol-zlm</artifactId>
     <packaging>jar</packaging>
     <description>ZLM流媒体协议</description>
-
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <module.name>iot.zml</module.name>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>
@@ -24,6 +29,42 @@
             <groupId>org.springblade</groupId>
             <artifactId>iot-api-zlm</artifactId>
             <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-onvif</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-jt1078</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-haikang</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-haikang-isup</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-dahua</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-protocol-common</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

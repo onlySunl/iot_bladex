@@ -1,7 +1,8 @@
 package org.springblade.modules.iot.zlm.service;
 
-import org.springblade.modules.iot.zlm.api.domain.MediaInfo;
-import org.springblade.modules.iot.zlm.api.domain.ZlmMediaServer;
+
+import org.springblade.modules.iot.domain.MediaInfo;
+import org.springblade.modules.iot.domain.ZlmMediaServer;
 import org.springblade.modules.iot.zlm.domain.StreamAuthorityInfo;
 
 public interface IRedisCatchStorage {
@@ -22,7 +23,7 @@ public interface IRedisCatchStorage {
      * @param app
      * @param streamId
      */
-    void removeStream(String mediaServerId, String type, String app, String streamId);
+    void removeStream(Long mediaServerId, String type, String app, String streamId);
 
     /**
      * 获取流信息
@@ -32,7 +33,7 @@ public interface IRedisCatchStorage {
      * @param mediaServerId
      * @return
      */
-    MediaInfo getStreamInfo(String app, String streamId, String mediaServerId);
+    MediaInfo getStreamInfo(String app, String streamId, Long mediaServerId);
 
     /**
      * 获取推流的鉴权信息
@@ -76,5 +77,5 @@ public interface IRedisCatchStorage {
      * @param stream
      * @param id
      */
-    void removePushListItem(String app, String stream, String id);
+    void removePushListItem(String app, String stream, Long id);
 }

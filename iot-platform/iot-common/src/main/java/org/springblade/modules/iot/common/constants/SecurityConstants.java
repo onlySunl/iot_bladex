@@ -2,11 +2,10 @@ package org.springblade.modules.iot.common.constants;
 
 /**
  * 权限相关通用常量
- * 
+ *
  * @author ruoyi
  */
-public class SecurityConstants
-{
+public class SecurityConstants {
     /**
      * 用户ID字段
      */

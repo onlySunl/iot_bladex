@@ -1,13 +1,13 @@
 package org.springblade.modules.iot.zlm.config;
 
 import com.alibaba.fastjson2.JSON;
-import org.springblade.modules.iot.common.core.constant.HttpStatus;
-import org.springblade.modules.iot.zlm.common.CommonCallback;
-import org.springblade.modules.iot.zlm.domain.dto.RpcController;
-import org.springblade.modules.iot.zlm.domain.redis.RedisRpcClassHandler;
-import org.springblade.modules.iot.zlm.domain.redis.RedisRpcMessage;
-import org.springblade.modules.iot.zlm.domain.redis.RedisRpcRequest;
-import org.springblade.modules.iot.zlm.domain.redis.RedisRpcResponse;
+import com.ruoyi.common.core.constant.HttpStatus;
+import com.ruoyi.zlm.common.CommonCallback;
+import com.ruoyi.zlm.domain.dto.RpcController;
+import com.ruoyi.zlm.domain.redis.RedisRpcClassHandler;
+import com.ruoyi.zlm.domain.redis.RedisRpcMessage;
+import com.ruoyi.zlm.domain.redis.RedisRpcRequest;
+import com.ruoyi.zlm.domain.redis.RedisRpcResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -54,7 +54,7 @@ public class RedisRpcConfig implements MessageListener {
 
 //    @Override
 //    public void run(String... args) throws Exception {
-//        List<Class<?>> classList = ClassUtil.getClassList("org.springblade.modules.iot.wvp.service.redisMsg.control", RedisRpcController.class);
+//        List<Class<?>> classList = ClassUtil.getClassList("com.ruoyi.wvp.service.redisMsg.control", RedisRpcController.class);
 //        for (Class<?> handlerClass : classList) {
 //            String controllerPath = handlerClass.getAnnotation(RedisRpcController.class).value();
 //            Object bean = ClassUtil.getBean(controllerPath, handlerClass);

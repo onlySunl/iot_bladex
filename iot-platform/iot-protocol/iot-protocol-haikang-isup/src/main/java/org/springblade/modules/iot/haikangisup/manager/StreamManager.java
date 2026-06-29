@@ -1,35 +1,38 @@
 package org.springblade.modules.iot.haikangisup.manager;
 
+
+import org.springblade.modules.iot.common.domain.RtpServerParam;
+import org.springblade.modules.iot.haikangisup.handler.PlaybackStreamHandler;
+import org.springblade.modules.iot.haikangisup.handler.PreviewStreamHandler;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 
-/**
- * 流管理器
- */
 public class StreamManager {
-	public static Map<Integer, Object> luserIdAndRtpServerParamMap = new ConcurrentHashMap<>();
-	public static Map<Integer, Integer> userIDandSessionMap = new ConcurrentHashMap<>();
-	public static Map<Integer, Integer> previewHandSAndSessionIDandMap = new ConcurrentHashMap<>();
-	public static Map<Integer, Integer> sessionIDAndPreviewHandleMap = new ConcurrentHashMap<>();
-	public static Map<Integer, Object> sessionIDAndPreviewStreamHandlerMap = new ConcurrentHashMap<>();
-	public static Map<String, Object> streamKeyAndRtpServerParamMap = new ConcurrentHashMap<>();
-	public static Map<String, Integer> streamKeyAndSessionIDMap = new ConcurrentHashMap<>();
-	public static Map<String, Integer> streamKeyAndLuserIdMap = new ConcurrentHashMap<>();
+    // 全部使用 ConcurrentHashMap 保证线程安全
+    public static Map<Integer, RtpServerParam> luserIdAndRtpServerParamMap = new ConcurrentHashMap<>();
+    public static Map<Integer, Integer> userIDandSessionMap = new ConcurrentHashMap<>();
+    public static Map<Integer, Integer> previewHandSAndSessionIDandMap = new ConcurrentHashMap<>();
+    public static Map<Integer, Integer> sessionIDAndPreviewHandleMap = new ConcurrentHashMap<>();
+    public static Map<Integer, PreviewStreamHandler> sessionIDAndPreviewStreamHandlerMap = new ConcurrentHashMap<>();
+    public static Map<String, RtpServerParam> streamKeyAndRtpServerParamMap = new ConcurrentHashMap<>();
+    public static Map<String, Integer> streamKeyAndSessionIDMap = new ConcurrentHashMap<>();
+    public static Map<String, Integer> streamKeyAndLuserIdMap = new ConcurrentHashMap<>();
 
-	// 回放相关
-	public static Map<String, CountDownLatch> playbackKeyAndLatchMap = new ConcurrentHashMap<>();
-	public static Map<String, Object> playbackKeyAndRtpServerParamMap = new ConcurrentHashMap<>();
-	public static Map<String, Integer> playbackKeyAndSessionIDMap = new ConcurrentHashMap<>();
-	public static Map<String, Integer> playbackKeyAndPlaybackHandleMap = new ConcurrentHashMap<>();
-	public static Map<String, Integer> playbackKeyAndLuserIdMap = new ConcurrentHashMap<>();
-	public static Map<Integer, Object> sessionIDAndPlaybackStreamHandlerMap = new ConcurrentHashMap<>();
-	public static Map<Integer, Integer> playbackHandSAndSessionIDandMap = new ConcurrentHashMap<>();
-	public static Map<Integer, Integer> sessionIDAndPlaybackHandleMap = new ConcurrentHashMap<>();
-	public static Map<Integer, Object> luserIdAndPlaybackRtpServerParamMap = new ConcurrentHashMap<>();
-
-	// 下载相关
-	public static Map<Integer, String> playbackUserIDandTypeMap = new ConcurrentHashMap<>();
-	public static Map<Integer, String> playbackUserIDandFilePathMap = new ConcurrentHashMap<>();
-	public static Map<Integer, String> sessionIDandDownloadKeyMap = new ConcurrentHashMap<>();
+    // 回放相关的映射
+    public static Map<String, CountDownLatch> playbackKeyAndLatchMap = new ConcurrentHashMap<>();
+    public static Map<String, RtpServerParam> playbackKeyAndRtpServerParamMap = new ConcurrentHashMap<>();
+    public static Map<String, Integer> playbackKeyAndSessionIDMap = new ConcurrentHashMap<>();
+    public static Map<String, Integer> playbackKeyAndPlaybackHandleMap = new ConcurrentHashMap<>();
+    public static Map<String, Integer> playbackKeyAndLuserIdMap = new ConcurrentHashMap<>();
+    public static Map<Integer, PlaybackStreamHandler> sessionIDAndPlaybackStreamHandlerMap = new ConcurrentHashMap<>();
+    public static Map<Integer, Integer> playbackHandSAndSessionIDandMap = new ConcurrentHashMap<>();
+    public static Map<Integer, Integer> sessionIDAndPlaybackHandleMap = new ConcurrentHashMap<>();
+    public static Map<Integer, RtpServerParam> luserIdAndPlaybackRtpServerParamMap = new ConcurrentHashMap<>();
+    
+    // 下载相关的映射
+    public static Map<Integer, String> playbackUserIDandTypeMap = new ConcurrentHashMap<>();
+    public static Map<Integer, String> playbackUserIDandFilePathMap = new ConcurrentHashMap<>();
+    public static Map<Integer, String> sessionIDandDownloadKeyMap = new ConcurrentHashMap<>();
 }

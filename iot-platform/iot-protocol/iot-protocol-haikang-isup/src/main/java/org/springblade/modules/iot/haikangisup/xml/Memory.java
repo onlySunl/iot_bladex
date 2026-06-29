@@ -1,13 +1,13 @@
 package org.springblade.modules.iot.haikangisup.xml;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import lombok.Data;
-import jakarta.xml.bind.annotation.*;
 
-/**
- * 内存信息
- */
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Memory {
-	private Integer memoryUtilization;
+    private String memoryDescription;
+    private Float memoryUsage;      // 已用内存 (MB)
+    private Float memoryAvailable;  // 可用内存 (MB)
 }

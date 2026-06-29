@@ -25,10 +25,6 @@ import java.util.List;
 public class QsDeviceAlarm extends CustomBaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** 主键ID */
-    @TableField(value = "id")
-    @AutoColumn(comment = "主键ID", length = 20)
-    private Long id;
 
     /** 设备ID */
     @TableField(value = "device_id")
@@ -95,10 +91,7 @@ public class QsDeviceAlarm extends CustomBaseEntity {
     @AutoColumn(comment = "处理时间", defaultValueType = DefaultValueEnum.NULL)
     private Date handleTime;
 
-    /** 备注 */
-    @TableField(value = "remark")
-    @AutoColumn(comment = "备注", length = 500, defaultValueType = DefaultValueEnum.NULL)
-    private String remark;
+
 
     /**
      * 批量处理用的id数组（非数据库字段）

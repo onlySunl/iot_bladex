@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.zlm.domain.redis;
 
-import org.springblade.modules.iot.zlm.domain.dto.RpcController;
+import com.ruoyi.zlm.domain.dto.RpcController;
 import lombok.Data;
 
 import java.lang.reflect.Method;

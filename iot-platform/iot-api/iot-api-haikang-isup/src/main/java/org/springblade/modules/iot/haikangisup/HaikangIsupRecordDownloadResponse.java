@@ -14,28 +14,34 @@ public class HaikangIsupRecordDownloadResponse implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * 下载ID
-	 */
-	private Long downloadId;
 
 	/**
-	 * 下载状态：0-成功，1-失败
+	 * 是否成功
 	 */
-	private int status;
+	private Boolean success;
 
 	/**
-	 * 下载进度 (0-100)
+	 * 下载文件路径
 	 */
-	private int progress;
+	private String filePath;
+
+	/**
+	 * 下载文件URL
+	 */
+	private String fileUrl;
+
+	/**
+	 * 文件大小（字节）
+	 */
+	private Long fileSize;
 
 	/**
 	 * 错误信息
 	 */
-	private String errorMsg;
+	private String errorMessage;
 
 	/**
-	 * 保存的文件路径
+	 * 下载进度（0-100）
 	 */
-	private String filePath;
+	private Integer progress;
 }

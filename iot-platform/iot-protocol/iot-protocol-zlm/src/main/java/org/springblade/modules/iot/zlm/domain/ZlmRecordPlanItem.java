@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.zlm.domain;
 
-import org.springblade.modules.iot.common.core.web.domain.BaseEntity;
+import com.ruoyi.common.core.web.domain.BaseEntity;
 import lombok.Data;
 
 /**

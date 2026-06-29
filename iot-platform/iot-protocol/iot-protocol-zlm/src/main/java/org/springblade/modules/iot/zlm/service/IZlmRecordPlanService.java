@@ -1,7 +1,8 @@
 package org.springblade.modules.iot.zlm.service;
 
+import com.ruoyi.zlm.domain.ZlmRecordPlan;
+
 import java.util.List;
-import org.springblade.modules.iot.zlm.domain.ZlmRecordPlan;
 
 /**
  * 录像计划Service接口

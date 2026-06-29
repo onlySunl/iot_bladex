@@ -1,21 +1,18 @@
 package org.springblade.modules.iot.qs.controller;
 
-import org.springblade.modules.iot.common.core.constant.SecurityConstants;
-import org.springblade.modules.iot.common.core.domain.R;
-import org.springblade.modules.iot.common.core.utils.poi.ExcelUtil;
-import org.springblade.modules.iot.common.core.web.controller.BaseController;
-import org.springblade.modules.iot.common.core.web.domain.AjaxResult;
-import org.springblade.modules.iot.common.core.web.page.TableDataInfo;
-import org.springblade.modules.iot.common.log.annotation.Log;
-import org.springblade.modules.iot.common.log.enums.BusinessType;
-import org.springblade.modules.iot.common.security.annotation.RequiresPermissions;
-import org.springblade.modules.iot.qs.api.RemoteQsDeviceService;
-import org.springblade.modules.iot.qs.api.domain.QsDevice;
-import org.springblade.modules.iot.qs.api.domain.QsDeviceSnapshot;
-import org.springblade.modules.iot.qs.service.IQsDeviceSnapshotService;
-import org.springblade.modules.iot.zlm.api.RemoteZlmService;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.common.constants.SecurityConstants;
+import org.springblade.modules.iot.domain.QsDevice;
+import org.springblade.modules.iot.domain.QsDeviceSnapshot;
+import org.springblade.modules.iot.qs.service.IQsDeviceSnapshotService;
+import org.springblade.modules.iot.service.RemoteQsDeviceService;
+import org.springblade.modules.iot.service.RemoteZlmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +30,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/snapshot")
-public class QsDeviceSnapshotController extends BaseController {
+public class QsDeviceSnapshotController extends BladeController {
     @Autowired
     private IQsDeviceSnapshotService qsDeviceSnapshotService;
 
@@ -49,63 +46,53 @@ public class QsDeviceSnapshotController extends BaseController {
     /**
      * 查询设备抓图列表
      */
-    @RequiresPermissions("qs:snapshot:list")
     @GetMapping("/list")
-    public TableDataInfo list(QsDeviceSnapshot qsDeviceSnapshot) {
-        startPage();
+    public IPage<List<QsDeviceSnapshot>> list(QsDeviceSnapshot qsDeviceSnapshot) {
+
         List<QsDeviceSnapshot> list = qsDeviceSnapshotService.selectQsDeviceSnapshotList(qsDeviceSnapshot);
-        return getDataTable(list);
+        return new Page<>();
     }
 
     /**
      * 导出设备抓图列表
      */
-    @RequiresPermissions("qs:snapshot:export")
-    @Log(title = "设备抓图", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, QsDeviceSnapshot qsDeviceSnapshot) {
         List<QsDeviceSnapshot> list = qsDeviceSnapshotService.selectQsDeviceSnapshotList(qsDeviceSnapshot);
-        ExcelUtil<QsDeviceSnapshot> util = new ExcelUtil<QsDeviceSnapshot>(QsDeviceSnapshot.class);
-        util.exportExcel(response, list, "设备抓图数据");
+        //ExcelUtil<QsDeviceSnapshot> util = new ExcelUtil<QsDeviceSnapshot>(QsDeviceSnapshot.class);
+        //util.exportExcel(response, list, "设备抓图数据");
     }
 
     /**
      * 获取设备抓图详细信息
      */
-    @RequiresPermissions("qs:snapshot:query")
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id) {
-        return success(qsDeviceSnapshotService.selectQsDeviceSnapshotById(id));
+    public R getInfo(@PathVariable("id") Long id) {
+        return R.data(qsDeviceSnapshotService.selectQsDeviceSnapshotById(id));
     }
 
     /**
      * 新增设备抓图
      */
-    @RequiresPermissions("qs:snapshot:add")
-    @Log(title = "设备抓图", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody QsDeviceSnapshot qsDeviceSnapshot) {
-        return toAjax(qsDeviceSnapshotService.insertQsDeviceSnapshot(qsDeviceSnapshot));
+    public R add(@RequestBody QsDeviceSnapshot qsDeviceSnapshot) {
+        return R.data(qsDeviceSnapshotService.insertQsDeviceSnapshot(qsDeviceSnapshot));
     }
 
     /**
      * 修改设备抓图
      */
-    @RequiresPermissions("qs:snapshot:edit")
-    @Log(title = "设备抓图", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody QsDeviceSnapshot qsDeviceSnapshot) {
-        return toAjax(qsDeviceSnapshotService.updateQsDeviceSnapshot(qsDeviceSnapshot));
+    public R edit(@RequestBody QsDeviceSnapshot qsDeviceSnapshot) {
+        return R.data(qsDeviceSnapshotService.updateQsDeviceSnapshot(qsDeviceSnapshot));
     }
 
     /**
      * 删除设备抓图
      */
-    @RequiresPermissions("qs:snapshot:remove")
-    @Log(title = "设备抓图", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids) {
-        return toAjax(qsDeviceSnapshotService.deleteQsDeviceSnapshotByIds(ids));
+    public R remove(@PathVariable Long[] ids) {
+        return R.data(qsDeviceSnapshotService.deleteQsDeviceSnapshotByIds(ids));
     }
 
     /**
@@ -117,10 +104,8 @@ public class QsDeviceSnapshotController extends BaseController {
      * @param snapshotType 抓图类型
      * @return 抓图结果
      */
-    @RequiresPermissions("qs:snapshot:add")
-    @Log(title = "设备抓图", businessType = BusinessType.INSERT)
     @PostMapping("/captureFromStream")
-    public AjaxResult captureFromStream(
+    public R captureFromStream(
             @RequestParam Long deviceId,
             @RequestParam String app,
             @RequestParam String stream,
@@ -131,17 +116,17 @@ public class QsDeviceSnapshotController extends BaseController {
 
             // 获取设备信息
             R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
-            if (R.isError(deviceR) || deviceR.getData() == null) {
+            if (R.isNotSuccess(deviceR) || deviceR.getData() == null) {
                 log.error("获取设备信息失败，deviceId: {}", deviceId);
-                return error("获取设备信息失败");
+                return fail("获取设备信息失败");
             }
             QsDevice device = deviceR.getData();
 
             // 调用ZLM服务抓图
             R<String> snapR = remoteZlmService.snap(app, stream, SecurityConstants.INNER);
-            if (R.isError(snapR) || snapR.getData() == null) {
+            if (R.isNotSuccess(snapR) || snapR.getData() == null) {
                 log.error("抓图失败，deviceId: {}", deviceId);
-                return error("抓图失败");
+                return fail("抓图失败");
             }
             String fileUrl = snapR.getData();
             log.info("抓图成功，fileUrl: {}", fileUrl);
@@ -171,15 +156,15 @@ public class QsDeviceSnapshotController extends BaseController {
             int result = qsDeviceSnapshotService.insertQsDeviceSnapshot(snapshot);
             if (result > 0) {
                 log.info("抓图记录保存成功，snapshotId: {}", snapshot.getId());
-                return success(snapshot);
+                return R.data(snapshot);
             } else {
                 log.error("保存抓图记录失败");
-                return error("保存抓图记录失败");
+                return R.fail("保存抓图记录失败");
             }
 
         } catch (Exception e) {
             log.error("从流中抓图异常", e);
-            return error("抓图异常：" + e.getMessage());
+            return R.fail("抓图异常：" + e.getMessage());
         }
     }
 }
