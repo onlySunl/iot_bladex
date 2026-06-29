@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.zlm.mediaServer;
 
-import com.ruoyi.zlm.api.domain.ZlmMediaServer;
-import com.ruoyi.zlm.hook.OnStreamNotFoundHookParam;
+import org.springblade.modules.iot.domain.ZlmMediaServer;
+import org.springblade.modules.iot.zlm.hook.OnStreamNotFoundHookParam;
 import org.springframework.context.ApplicationEvent;
 
 /**

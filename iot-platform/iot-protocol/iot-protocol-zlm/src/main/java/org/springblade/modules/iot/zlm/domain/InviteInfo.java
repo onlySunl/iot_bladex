@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.zlm.domain;
 
-import com.ruoyi.zlm.api.domain.StreamInfo;
-import com.ruoyi.zlm.common.InviteSessionStatus;
-import com.ruoyi.zlm.common.InviteSessionType;
+import org.springblade.modules.iot.domain.StreamInfo;
+import org.springblade.modules.iot.zlm.common.InviteSessionStatus;
+import org.springblade.modules.iot.zlm.common.InviteSessionType;
 import lombok.Data;
 
 /**

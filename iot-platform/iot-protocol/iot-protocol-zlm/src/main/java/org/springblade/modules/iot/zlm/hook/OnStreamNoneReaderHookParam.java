@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.zlm.hook;
 
-import com.ruoyi.zlm.api.hook.HookParam;
+import org.springblade.modules.iot.zlm.hook.HookParam;
 
 public class OnStreamNoneReaderHookParam extends HookParam {
 

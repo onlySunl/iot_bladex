@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.zlm.service;
 
-import com.ruoyi.zlm.domain.ZlmRecordPlanItem;
+import org.springblade.modules.iot.domain.ZlmRecordPlanItem;
 
 import java.util.List;
 

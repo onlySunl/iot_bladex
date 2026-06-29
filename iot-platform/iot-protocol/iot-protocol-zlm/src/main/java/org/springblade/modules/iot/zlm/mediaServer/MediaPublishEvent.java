@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.zlm.mediaServer;
 
-import com.ruoyi.zlm.api.domain.ZlmMediaServer;
-import com.ruoyi.zlm.event.MediaEvent;
-import com.ruoyi.zlm.hook.OnPublishHookParam;
+import org.springblade.modules.iot.domain.ZlmMediaServer;
+import org.springblade.modules.iot.zlm.event.MediaEvent;
+import org.springblade.modules.iot.zlm.hook.OnPublishHookParam;
 
 /**
  * 推流鉴权事件

@@ -1,9 +1,9 @@
 package org.springblade.modules.iot.zlm.mediaServer;
 
-import com.ruoyi.zlm.api.domain.ZlmMediaServer;
-import com.ruoyi.zlm.domain.RecordInfo;
-import com.ruoyi.zlm.event.MediaEvent;
-import com.ruoyi.zlm.hook.OnRecordMp4HookParam;
+import org.springblade.modules.iot.domain.ZlmMediaServer;
+import org.springblade.modules.iot.domain.RecordInfo;
+import org.springblade.modules.iot.zlm.event.MediaEvent;
+import org.springblade.modules.iot.zlm.hook.OnRecordMp4HookParam;
 
 /**
  * 录像文件生成事件

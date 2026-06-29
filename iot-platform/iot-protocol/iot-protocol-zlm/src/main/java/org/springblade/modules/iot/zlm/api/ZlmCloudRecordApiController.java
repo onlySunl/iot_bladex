@@ -1,10 +1,11 @@
 package org.springblade.modules.iot.zlm.api;
 
-import com.ruoyi.common.core.domain.R;
-import com.ruoyi.common.core.web.controller.BaseController;
-import com.ruoyi.zlm.api.domain.ZlmCloudRecord;
-import com.ruoyi.zlm.config.UserSetting;
-import com.ruoyi.zlm.service.IZlmCloudRecordService;
+import org.springblade.core.tool.api.Result;
+import org.springblade.core.tool.api.ResultFactory;
+import org.springblade.core.launch.controller.AbstractBladeController;
+import org.springblade.modules.iot.domain.ZlmCloudRecord;
+import org.springblade.modules.iot.zlm.config.UserSetting;
+import org.springblade.modules.iot.zlm.service.IZlmCloudRecordService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

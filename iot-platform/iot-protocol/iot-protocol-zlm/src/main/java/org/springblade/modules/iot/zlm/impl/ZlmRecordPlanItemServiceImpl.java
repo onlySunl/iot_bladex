@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.zlm.impl;
 
-import com.ruoyi.zlm.domain.ZlmRecordPlanItem;
-import com.ruoyi.zlm.mapper.ZlmRecordPlanItemMapper;
-import com.ruoyi.zlm.service.IZlmRecordPlanItemService;
+import org.springblade.modules.iot.domain.ZlmRecordPlanItem;
+import org.springblade.modules.iot.zlm.mapper.ZlmRecordPlanItemMapper;
+import org.springblade.modules.iot.zlm.service.IZlmRecordPlanItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

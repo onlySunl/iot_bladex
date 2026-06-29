@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.zlm.mediaServer;
 
-import com.ruoyi.zlm.api.domain.ZlmMediaServer;
-import com.ruoyi.zlm.api.hook.OnStreamChangedHookParam;
-import com.ruoyi.zlm.event.MediaEvent;
+import org.springblade.modules.iot.domain.ZlmMediaServer;
+import org.springblade.modules.iot.zlm.hook.OnStreamChangedHookParam;
+import org.springblade.modules.iot.zlm.event.MediaEvent;
 
 /**
  * RtpServer收流超时事件

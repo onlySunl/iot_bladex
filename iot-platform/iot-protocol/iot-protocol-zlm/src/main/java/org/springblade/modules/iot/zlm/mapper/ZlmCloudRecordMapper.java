@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.zlm.mapper;
 
-import com.ruoyi.zlm.api.domain.ZlmCloudRecord;
+import org.springblade.modules.iot.domain.ZlmCloudRecord;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

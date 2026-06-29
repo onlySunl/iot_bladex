@@ -1,10 +1,10 @@
 package org.springblade.modules.iot.zlm.runner;
 
-import com.ruoyi.zlm.api.domain.ZlmMediaServer;
-import com.ruoyi.zlm.config.MediaConfig;
-import com.ruoyi.zlm.config.UserSetting;
-import com.ruoyi.zlm.mediaServer.MediaServerChangeEvent;
-import com.ruoyi.zlm.service.IMediaServerService;
+import org.springblade.modules.iot.domain.ZlmMediaServer;
+import org.springblade.modules.iot.zlm.config.MediaConfig;
+import org.springblade.modules.iot.zlm.config.UserSetting;
+import org.springblade.modules.iot.zlm.mediaServer.MediaServerChangeEvent;
+import org.springblade.modules.iot.zlm.service.IMediaServerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

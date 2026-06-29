@@ -1,10 +1,10 @@
 package org.springblade.modules.iot.zlm.hook;
 
-import com.ruoyi.zlm.event.MediaArrivalEvent;
-import com.ruoyi.zlm.event.MediaDepartureEvent;
-import com.ruoyi.zlm.event.MediaEvent;
-import com.ruoyi.zlm.mediaServer.MediaPublishEvent;
-import com.ruoyi.zlm.mediaServer.MediaRecordMp4Event;
+import org.springblade.modules.iot.zlm.event.MediaArrivalEvent;
+import org.springblade.modules.iot.zlm.event.MediaDepartureEvent;
+import org.springblade.modules.iot.zlm.event.MediaEvent;
+import org.springblade.modules.iot.zlm.mediaServer.MediaPublishEvent;
+import org.springblade.modules.iot.zlm.mediaServer.MediaRecordMp4Event;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;

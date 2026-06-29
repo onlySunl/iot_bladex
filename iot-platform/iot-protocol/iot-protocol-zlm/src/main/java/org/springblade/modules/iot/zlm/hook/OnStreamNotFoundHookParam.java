@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.zlm.hook;
 
-import com.ruoyi.zlm.api.hook.HookParam;
+import org.springblade.modules.iot.zlm.hook.HookParam;
 
 /**
  * zlm hook事件中的on_stream_not_found事件的参数

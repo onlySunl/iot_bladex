@@ -1,12 +1,12 @@
 package org.springblade.modules.iot.zlm.hook;
 
-import com.ruoyi.zlm.api.domain.MediaInfo;
-import com.ruoyi.zlm.api.domain.ZlmMediaServer;
-import com.ruoyi.zlm.domain.RecordInfo;
-import com.ruoyi.zlm.event.MediaArrivalEvent;
-import com.ruoyi.zlm.event.MediaEvent;
-import com.ruoyi.zlm.mediaServer.MediaPublishEvent;
-import com.ruoyi.zlm.mediaServer.MediaRecordMp4Event;
+import org.springblade.modules.iot.domain.MediaInfo;
+import org.springblade.modules.iot.domain.ZlmMediaServer;
+import org.springblade.modules.iot.domain.RecordInfo;
+import org.springblade.modules.iot.zlm.event.MediaArrivalEvent;
+import org.springblade.modules.iot.zlm.event.MediaEvent;
+import org.springblade.modules.iot.zlm.mediaServer.MediaPublishEvent;
+import org.springblade.modules.iot.zlm.mediaServer.MediaRecordMp4Event;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

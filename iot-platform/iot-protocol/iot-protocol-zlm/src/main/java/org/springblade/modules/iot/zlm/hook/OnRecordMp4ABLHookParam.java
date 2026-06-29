@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.zlm.hook;
 
-import com.ruoyi.zlm.api.hook.ABLHookParam;
+import org.springblade.modules.iot.zlm.hook.ABLHookParam;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.zlm.mediaServer;
 
-import com.ruoyi.zlm.api.domain.ZlmMediaServer;
+import org.springblade.modules.iot.domain.ZlmMediaServer;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.ApplicationEvent;

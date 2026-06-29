@@ -1,13 +1,13 @@
 package org.springblade.modules.iot.zlm.impl;
 
 import com.alibaba.fastjson2.JSON;
-import com.ruoyi.zlm.api.domain.MediaInfo;
-import com.ruoyi.zlm.api.domain.ZlmMediaServer;
-import com.ruoyi.zlm.config.UserSetting;
-import com.ruoyi.zlm.constants.VideoManagerConstants;
-import com.ruoyi.zlm.domain.StreamAuthorityInfo;
-import com.ruoyi.zlm.service.IRedisCatchStorage;
-import com.ruoyi.zlm.utils.RedisUtil;
+import org.springblade.modules.iot.domain.MediaInfo;
+import org.springblade.modules.iot.domain.ZlmMediaServer;
+import org.springblade.modules.iot.zlm.config.UserSetting;
+import org.springblade.modules.iot.zlm.constants.VideoManagerConstants;
+import org.springblade.modules.iot.domain.StreamAuthorityInfo;
+import org.springblade.modules.iot.zlm.service.IRedisCatchStorage;
+import org.springblade.modules.iot.zlm.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

@@ -2,12 +2,12 @@ package org.springblade.modules.iot.zlm.impl;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.nacos.api.model.v2.ErrorCode;
-import com.ruoyi.zlm.api.domain.DownloadFileInfo;
-import com.ruoyi.zlm.config.RedisRpcConfig;
-import com.ruoyi.zlm.config.UserSetting;
-import com.ruoyi.zlm.domain.redis.RedisRpcRequest;
-import com.ruoyi.zlm.domain.redis.RedisRpcResponse;
-import com.ruoyi.zlm.service.IRedisRpcPlayService;
+import org.springblade.modules.iot.domain.DownloadFileInfo;
+import org.springblade.modules.iot.zlm.config.RedisRpcConfig;
+import org.springblade.modules.iot.zlm.config.UserSetting;
+import org.springblade.modules.iot.zlm.domain.redis.RedisRpcRequest;
+import org.springblade.modules.iot.zlm.domain.redis.RedisRpcResponse;
+import org.springblade.modules.iot.zlm.service.IRedisRpcPlayService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

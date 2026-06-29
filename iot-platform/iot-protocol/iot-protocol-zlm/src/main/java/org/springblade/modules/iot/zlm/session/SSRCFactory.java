@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.zlm.session;
 
-import com.ruoyi.zlm.config.UserSetting;
+import org.springblade.modules.iot.zlm.config.UserSetting;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;

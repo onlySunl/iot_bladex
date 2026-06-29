@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.zlm.domain.dto;
 
 
-import com.ruoyi.zlm.config.RedisRpcConfig;
-import com.ruoyi.zlm.domain.redis.RedisRpcClassHandler;
+import org.springblade.modules.iot.zlm.config.RedisRpcConfig;
+import org.springblade.modules.iot.zlm.domain.redis.RedisRpcClassHandler;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.zlm.mediaServer;
 
-import com.ruoyi.zlm.event.MediaEvent;
+import org.springblade.modules.iot.zlm.event.MediaEvent;
 
 /**
  * 录像文件进度通知事件

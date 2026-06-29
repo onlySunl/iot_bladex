@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.zlm.domain;
 
-import com.ruoyi.zlm.event.MediaArrivalEvent;
+import org.springblade.modules.iot.zlm.event.MediaArrivalEvent;
 
 /**
  * 流的鉴权信息

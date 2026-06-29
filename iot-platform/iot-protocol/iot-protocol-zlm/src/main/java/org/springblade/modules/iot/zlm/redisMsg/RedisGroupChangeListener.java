@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.zlm.redisMsg;
 
-import com.ruoyi.zlm.constants.VideoManagerConstants;
+import org.springblade.modules.iot.zlm.constants.VideoManagerConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;

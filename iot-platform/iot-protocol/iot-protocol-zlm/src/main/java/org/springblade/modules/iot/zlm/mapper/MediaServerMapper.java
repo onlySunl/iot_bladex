@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.zlm.mapper;
 
-import com.ruoyi.zlm.api.domain.ZlmMediaServer;
+import org.springblade.modules.iot.domain.ZlmMediaServer;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

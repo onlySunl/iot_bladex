@@ -1,10 +1,10 @@
 package org.springblade.modules.iot.zlm.event;
 
-import com.ruoyi.zlm.api.domain.MediaInfo;
-import com.ruoyi.zlm.api.domain.StreamContent;
-import com.ruoyi.zlm.api.domain.ZlmMediaServer;
-import com.ruoyi.zlm.api.hook.OnStreamArriveABLHookParam;
-import com.ruoyi.zlm.api.hook.OnStreamChangedHookParam;
+import org.springblade.modules.iot.domain.MediaInfo;
+import org.springblade.modules.iot.domain.StreamContent;
+import org.springblade.modules.iot.domain.ZlmMediaServer;
+import org.springblade.modules.iot.zlm.hook.OnStreamArriveABLHookParam;
+import org.springblade.modules.iot.zlm.hook.OnStreamChangedHookParam;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.zlm.config;
 
 
-import com.ruoyi.zlm.constants.VideoManagerConstants;
-import com.ruoyi.zlm.redisMsg.*;
+import org.springblade.modules.iot.zlm.constants.VideoManagerConstants;
+import org.springblade.modules.iot.zlm.redisMsg.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
