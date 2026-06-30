@@ -37,7 +37,6 @@ import org.springblade.core.log.utils.LogAbstractUtil;
 import org.springblade.core.tool.jackson.JsonUtil;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
-import org.springframework.scheduling.annotation.Async;
 
 import java.util.Map;
 
@@ -52,7 +51,6 @@ public class ErrorLogListener {
 	private final ServerInfo serverInfo;
 	private final BladeProperties bladeProperties;
 
-	@Async
 	@Order
 	@EventListener(ErrorLogEvent.class)
 	public void saveErrorLog(ErrorLogEvent event) {
