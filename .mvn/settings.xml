@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+    <mirrors>
+        <!-- Override the default HTTP blocker to allow HTTP repositories -->
+        <mirror>
+            <id>maven-default-http-blocker-override</id>
+            <mirrorOf>external:http:*</mirrorOf>
+            <name>Override HTTP blocker to allow private repository</name>
+            <url>http://0.0.0.0/</url>
+            <blocked>false</blocked>
+        </mirror>
+    </mirrors>
+
+    <profiles>
+        <profile>
+            <id>allow-http-repos</id>
+            <repositories>
+                <repository>
+                    <id>maven-releases</id>
+                    <url>http://140.143.155.241:18085/repository/maven-releases/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+
+    <activeProfiles>
+        <activeProfile>allow-http-repos</activeProfile>
+    </activeProfiles>
+
+</settings>
