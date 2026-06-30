@@ -403,6 +403,14 @@
             <id>maven-releases</id>
             <name>sunlin Release Repository</name>
             <url>http://140.143.155.241:18085/repository/maven-releases/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
         </repository>
     </repositories>
 
