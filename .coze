@@ -8,5 +8,9 @@ project_type = "backend"
 [preview]
 preview_enable = "disabled"
 
+[deploy]
+build = ["mvn", "clean", "package", "-DskipTests"]
+run = ["java", "-jar", "blade-server/target/blade-server.jar"]
+
 [subprojects]
 path = ["."]
