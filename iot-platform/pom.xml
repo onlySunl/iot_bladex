@@ -15,9 +15,7 @@
     <modules>
         <module>iot-common</module>
         <module>iot-api</module>
-        <module>iot-biz</module>
         <module>iot-protocol</module>
-        <module>iot-service</module>
     </modules>
     <version>4.2.0.RELEASE</version>
     <properties>
