@@ -4,6 +4,10 @@ import com.sun.jna.Callback;
 import com.sun.jna.Library;
 import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
+import org.springblade.modules.iot.haikangisup.haikang.HIKSDKStructure;
+
+import java.util.Arrays;
+import java.util.List;
 
 public interface HCISUPAlarm extends Library {
 
@@ -50,11 +54,16 @@ public interface HCISUPAlarm extends Library {
     public static final int ALARM_TYPE_HD_TIMING_STATUS = 705;
     public static final int ALARM_TYPE_RECORD_ABNORMAL = 706;
 
-    public static class NET_EHOME_IPADDRESS extends Structure {
+    public static class NET_EHOME_IPADDRESS extends HIKSDKStructure {
         public byte[] byRes = new byte[2];
         public byte[] szIP = new byte[128];
         public short wPort;
-
+        // 重写 getFieldOrder()，返回字段名列表（顺序必须和字段声明一致）
+        @Override
+        protected List<String> getFieldOrder() {
+            // 字段名需和类中声明的完全一致，顺序也必须匹配
+            return Arrays.asList("byRes", "szIP", "wPort");
+        }
     }
 
     public static class BYTE_ARRAY extends Structure {

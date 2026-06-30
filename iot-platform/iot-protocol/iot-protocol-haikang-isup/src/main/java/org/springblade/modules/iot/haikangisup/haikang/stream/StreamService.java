@@ -45,11 +45,11 @@ public class StreamService {
                     if (OsSelect.isWindows())
                     //win系统加载库路径
                     {
-                        strDllPath = System.getProperty("user.dir") + "\\ruoyi-modules\\ruoyi-haikang-isup\\lib\\win\\HCISUPStream.dll";
+                        strDllPath = System.getProperty("user.dir") + "\\iot-platform\\iot-protocol\\iot-protocol-haikang-isup\\lib\\win\\HCISUPStream.dll";
                     } else if (OsSelect.isLinux())
                     //Linux系统加载库路径
                     {
-                        strDllPath = System.getProperty("user.dir") + "/ruoyi-modules/ruoyi-haikang-isup/lib/linux/libHCISUPStream.so";
+                        strDllPath = System.getProperty("user.dir") + "/iot-platform/iot-protocol/iot-protocol-haikang-isup/lib/linux/libHCISUPStream.so";
                     }
                     hCEhomeStream = (HCISUPStream) Native.loadLibrary(strDllPath, HCISUPStream.class);
                 } catch (Exception ex) {
@@ -70,14 +70,14 @@ public class StreamService {
         }
         if (OsSelect.isWindows()) {
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCrypto = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCrypto = System.getProperty("user.dir") + "\\ruoyi-modules\\ruoyi-haikang-isup\\lib\\win\\libeay32.dll"; //Linux版本是libcrypto.so库文件的路径
+            String strPathCrypto = System.getProperty("user.dir") + "\\iot-platform\\iot-protocol\\iot-protocol-haikang-isup\\lib\\win\\libeay32.dll"; //Linux版本是libcrypto.so库文件的路径
             System.arraycopy(strPathCrypto.getBytes(), 0, ptrByteArrayCrypto.byValue, 0, strPathCrypto.length());
             ptrByteArrayCrypto.write();
             if (!hCEhomeStream.NET_ESTREAM_SetSDKInitCfg(0, ptrByteArrayCrypto.getPointer())) {
                 log.error("NET_ESTREAM_SetSDKInitCfg 0 失败，错误:" + hCEhomeStream.NET_ESTREAM_GetLastError());
             }
             HCISUPCMS.BYTE_ARRAY ptrByteArraySsl = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathSsl = System.getProperty("user.dir") + "\\ruoyi-modules\\ruoyi-haikang-isup\\lib\\win\\ssleay32.dll";    //Linux版本是libssl.so库文件的路径
+            String strPathSsl = System.getProperty("user.dir") + "\\iot-platform\\iot-protocol\\iot-protocol-haikang-isup\\lib\\win\\ssleay32.dll";    //Linux版本是libssl.so库文件的路径
             System.arraycopy(strPathSsl.getBytes(), 0, ptrByteArraySsl.byValue, 0, strPathSsl.length());
             ptrByteArraySsl.write();
             if (!hCEhomeStream.NET_ESTREAM_SetSDKInitCfg(1, ptrByteArraySsl.getPointer())) {
@@ -87,7 +87,7 @@ public class StreamService {
             hCEhomeStream.NET_ESTREAM_Init();
             //设置HCAapSDKCom组件库文件夹所在路径
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCom = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCom = System.getProperty("user.dir") + "\\ruoyi-modules\\ruoyi-haikang-isup\\lib\\win\\HCAapSDKCom";      //只支持绝对路径，建议使用英文路径
+            String strPathCom = System.getProperty("user.dir") + "\\iot-platform\\iot-protocol\\iot-protocol-haikang-isup\\lib\\win\\HCAapSDKCom";      //只支持绝对路径，建议使用英文路径
             System.arraycopy(strPathCom.getBytes(), 0, ptrByteArrayCom.byValue, 0, strPathCom.length());
             ptrByteArrayCom.write();
             if (!hCEhomeStream.NET_ESTREAM_SetSDKLocalCfg(5, ptrByteArrayCom.getPointer())) {
@@ -96,11 +96,11 @@ public class StreamService {
 
             Stream_StartListen();
 
-            hCEhomeStream.NET_ESTREAM_SetLogToFile(3, System.getProperty("user.dir") + "/ruoyi-haikang-isup/EHomeSDKLog", false);
+            hCEhomeStream.NET_ESTREAM_SetLogToFile(3, System.getProperty("user.dir") + "/haikang-isup/EHomeSDKLog", false);
         } else if (OsSelect.isLinux()) {
             //设置libcrypto.so所在路径
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCrypto = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCrypto = System.getProperty("user.dir") + "/ruoyi-modules/ruoyi-haikang-isup/lib/linux/libcrypto.so"; //Linux版本是libcrypto.so库文件的路径
+            String strPathCrypto = System.getProperty("user.dir") + "/iot-platform/iot-protocol/iot-protocol-haikang-isup/lib/linux/libcrypto.so"; //Linux版本是libcrypto.so库文件的路径
             System.arraycopy(strPathCrypto.getBytes(), 0, ptrByteArrayCrypto.byValue, 0, strPathCrypto.length());
             ptrByteArrayCrypto.write();
             if (!hCEhomeStream.NET_ESTREAM_SetSDKInitCfg(0, ptrByteArrayCrypto.getPointer())) {
@@ -108,7 +108,7 @@ public class StreamService {
             }
             //设置libssl.so所在路径
             HCISUPCMS.BYTE_ARRAY ptrByteArraySsl = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathSsl = System.getProperty("user.dir") + "/ruoyi-modules/ruoyi-haikang-isup/lib/linux/libssl.so";    //Linux版本是libssl.so库文件的路径
+            String strPathSsl = System.getProperty("user.dir") + "/iot-platform/iot-protocol/iot-protocol-haikang-isup/lib/linux/libssl.so";    //Linux版本是libssl.so库文件的路径
             System.arraycopy(strPathSsl.getBytes(), 0, ptrByteArraySsl.byValue, 0, strPathSsl.length());
             ptrByteArraySsl.write();
             if (!hCEhomeStream.NET_ESTREAM_SetSDKInitCfg(1, ptrByteArraySsl.getPointer())) {
@@ -117,7 +117,7 @@ public class StreamService {
             hCEhomeStream.NET_ESTREAM_Init();
             //设置HCAapSDKCom组件库文件夹所在路径
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCom = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCom = System.getProperty("user.dir") + "/ruoyi-modules/ruoyi-haikang-isup/lib/linux/HCAapSDKCom/";      //只支持绝对路径，建议使用英文路径
+            String strPathCom = System.getProperty("user.dir") + "/iot-platform/iot-protocol/iot-protocol-haikang-isup/lib/linux/HCAapSDKCom/";      //只支持绝对路径，建议使用英文路径
             System.arraycopy(strPathCom.getBytes(), 0, ptrByteArrayCom.byValue, 0, strPathCom.length());
             ptrByteArrayCom.write();
             if (!hCEhomeStream.NET_ESTREAM_SetSDKLocalCfg(5, ptrByteArrayCom.getPointer())) {
@@ -125,7 +125,7 @@ public class StreamService {
             }
 
             Stream_StartListen();
-            hCEhomeStream.NET_ESTREAM_SetLogToFile(3, System.getProperty("user.dir") + "/ruoyi-isup/EHomeSDKLog", false);
+            hCEhomeStream.NET_ESTREAM_SetLogToFile(3, System.getProperty("user.dir") + "/haikang-isup/EHomeSDKLog", false);
         }
     }
 

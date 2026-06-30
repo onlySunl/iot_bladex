@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@RequestMapping("/device")
+@RequestMapping("/device/haik")
 public class QsDeviceController extends BladeController {
     @Autowired
     private IQsDeviceService qsDeviceService;

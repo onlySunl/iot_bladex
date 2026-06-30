@@ -2,7 +2,9 @@ package org.springblade.modules.iot.haikangisup.callBack;
 
 import com.sun.jna.Native;
 import com.sun.jna.Pointer;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.redis.cache.BladeRedis;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.SpringUtil;
 import org.springblade.modules.iot.common.constants.SecurityConstants;
@@ -26,9 +28,9 @@ import java.util.concurrent.TimeUnit;
 public class EHomeMsgCallBack implements HCISUPAlarm.EHomeMsgCallBack {
 
     private final HaikangIsupConfig haikangIsupConfig;
-    
-    @Autowired
-    private RedisTemplate redisTemplate;
+
+    @Resource
+    private BladeRedis bladeRedis;
 
     public EHomeMsgCallBack(HaikangIsupConfig haikangIsupConfig) {
         this.haikangIsupConfig = haikangIsupConfig;
@@ -353,18 +355,18 @@ public class EHomeMsgCallBack implements HCISUPAlarm.EHomeMsgCallBack {
                 // 1. 用原始设备ID
                 if (deviceId != null && !deviceId.isEmpty()) {
                     String redisKey1 = "isup_alarm_pic_list:" + deviceId;
-                    redisTemplate.opsForList().leftPush(redisKey1, alarmId);
-                    redisTemplate.opsForList().trim(redisKey1, 0, 19); // 增加容量
-                    redisTemplate.expire(redisKey1, 30, TimeUnit.MINUTES); // 延长过期时间
+                    bladeRedis.getRedisTemplate().opsForList().leftPush(redisKey1, alarmId);
+                    bladeRedis.getRedisTemplate().opsForList().trim(redisKey1, 0, 19); // 增加容量
+                    bladeRedis.getRedisTemplate().expire(redisKey1, 30, TimeUnit.MINUTES); // 延长过期时间
                     log.info("已将报警ID存入Redis(设备ID), key: {}, alarmId: {}", redisKey1, alarmId);
                 }
                 
                 // 2. 用设备Code（带haikang_isup_前缀的）
                 if (qsDevice.getDeviceCode() != null && !qsDevice.getDeviceCode().isEmpty()) {
                     String redisKey2 = "isup_alarm_pic_list:" + qsDevice.getDeviceCode();
-                    redisTemplate.opsForList().leftPush(redisKey2, alarmId);
-                    redisTemplate.opsForList().trim(redisKey2, 0, 19);
-                    redisTemplate.expire(redisKey2, 30, TimeUnit.MINUTES);
+                    bladeRedis.getRedisTemplate().opsForList().leftPush(redisKey2, alarmId);
+                    bladeRedis.getRedisTemplate().opsForList().trim(redisKey2, 0, 19);
+                    bladeRedis.getRedisTemplate().expire(redisKey2, 30, TimeUnit.MINUTES);
                     log.info("已将报警ID存入Redis(设备Code), key: {}, alarmId: {}", redisKey2, alarmId);
                 }
                 
@@ -372,17 +374,17 @@ public class EHomeMsgCallBack implements HCISUPAlarm.EHomeMsgCallBack {
                 if (qsDevice.getDeviceCode() != null && qsDevice.getDeviceCode().startsWith("haikang_isup_")) {
                     String simpleCode = qsDevice.getDeviceCode().replace("haikang_isup_", "");
                     String redisKey3 = "isup_alarm_pic_list:" + simpleCode;
-                    redisTemplate.opsForList().leftPush(redisKey3, alarmId);
-                    redisTemplate.opsForList().trim(redisKey3, 0, 19);
-                    redisTemplate.expire(redisKey3, 30, TimeUnit.MINUTES);
+                    bladeRedis.getRedisTemplate().opsForList().leftPush(redisKey3, alarmId);
+                    bladeRedis.getRedisTemplate().opsForList().trim(redisKey3, 0, 19);
+                    bladeRedis.getRedisTemplate().expire(redisKey3, 30, TimeUnit.MINUTES);
                     log.info("已将报警ID存入Redis(简化设备Code), key: {}, alarmId: {}", redisKey3, alarmId);
                 }
                 
                 // 4. 保存全局key，作为最后的备选
                 String globalKey = "isup_alarm_pic_list:global";
-                redisTemplate.opsForList().leftPush(globalKey, alarmId);
-                redisTemplate.opsForList().trim(globalKey, 0, 49); // 全局key容量更大
-                redisTemplate.expire(globalKey, 30, TimeUnit.MINUTES);
+                bladeRedis.getRedisTemplate().opsForList().leftPush(globalKey, alarmId);
+                bladeRedis.getRedisTemplate().opsForList().trim(globalKey, 0, 49); // 全局key容量更大
+                bladeRedis.getRedisTemplate().expire(globalKey, 30, TimeUnit.MINUTES);
                 log.info("已将报警ID存入Redis(全局), key: {}, alarmId: {}", globalKey, alarmId);
             }
         } catch (Exception e) {

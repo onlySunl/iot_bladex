@@ -2,7 +2,9 @@ package org.springblade.modules.iot.haikangisup.callBack;
 
 
 import com.sun.jna.Pointer;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.redis.cache.BladeRedis;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.StringUtil;
 import org.springblade.modules.iot.common.constants.SecurityConstants;
@@ -27,8 +29,8 @@ import java.util.HashMap;
 @Slf4j
 public class PSS_Storage_Callback implements HCISUPSS.EHomeSSStorageCallBack {
 
-    @Autowired
-    private RedisTemplate redisTemplate;
+    @Resource
+    private BladeRedis bladeRedis;
 
     @Autowired
     private RemoteQsDeviceService remoteQsDeviceService;
@@ -53,7 +55,7 @@ public class PSS_Storage_Callback implements HCISUPSS.EHomeSSStorageCallBack {
         String handleKey = "IsupApiPicByCloud";
         
         // 获取任务信息
-        HashMap<String, Object> map = (HashMap<String, Object>) redisTemplate.opsForValue().get(handleKey);
+        HashMap<String, Object> map = (HashMap<String, Object>) bladeRedis.getRedisTemplate().opsForValue().get(handleKey);
         
         Long deviceId = null;
         Integer channelId = null;
@@ -150,7 +152,7 @@ public class PSS_Storage_Callback implements HCISUPSS.EHomeSSStorageCallBack {
             }
             
             // 清理任务
-            redisTemplate.delete(handleKey);
+            bladeRedis.getRedisTemplate().delete(handleKey);
         } else if (!isManualSnapshot && fileUrl != null) {
             // 报警图片：直接存入Redis，由定时任务负责匹配
             log.info("报警图片，存入Redis等待定时任务匹配...");
@@ -243,17 +245,17 @@ public class PSS_Storage_Callback implements HCISUPSS.EHomeSSStorageCallBack {
 
             // 存入全局图片队列
             String picQueueKey = "isup_alarm_pic_queue:global";
-            redisTemplate.opsForList().leftPush(picQueueKey, picInfo);
-            redisTemplate.opsForList().trim(picQueueKey, 0, 99);
-            redisTemplate.expire(picQueueKey, 30, java.util.concurrent.TimeUnit.MINUTES);
+            bladeRedis.getRedisTemplate().opsForList().leftPush(picQueueKey, picInfo);
+            bladeRedis.getRedisTemplate().opsForList().trim(picQueueKey, 0, 99);
+            bladeRedis.getRedisTemplate().expire(picQueueKey, 30, java.util.concurrent.TimeUnit.MINUTES);
             log.info("图片信息已存入全局队列, key:{}, fileUrl:{}", picQueueKey, fileUrl);
 
             // 如果有设备ID，也存入设备特定队列
             if (deviceId != null && !deviceId.isEmpty()) {
                 String devicePicKey = "isup_alarm_pic_queue:" + deviceId;
-                redisTemplate.opsForList().leftPush(devicePicKey, picInfo);
-                redisTemplate.opsForList().trim(devicePicKey, 0, 49);
-                redisTemplate.expire(devicePicKey, 30, java.util.concurrent.TimeUnit.MINUTES);
+                bladeRedis.getRedisTemplate().opsForList().leftPush(devicePicKey, picInfo);
+                bladeRedis.getRedisTemplate().opsForList().trim(devicePicKey, 0, 49);
+                bladeRedis.getRedisTemplate().expire(devicePicKey, 30, java.util.concurrent.TimeUnit.MINUTES);
                 log.info("图片信息已存入设备队列, key:{}, fileUrl:{}", devicePicKey, fileUrl);
             }
         } catch (Exception e) {

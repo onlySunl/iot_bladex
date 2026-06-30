@@ -37,7 +37,7 @@ public class SsService {
                 String strDllPath = "";
                 try {
                     if (OsSelect.isWindows()) {
-                        strDllPath = System.getProperty("user.dir") + "\\ruoyi-modules\\ruoyi-haikang-isup\\lib\\win\\HCISUPSS.dll";
+                        strDllPath = System.getProperty("user.dir") + "\\iot-platform\\iot-protocol\\iot-protocol-haikang-isup\\lib\\win\\HCISUPSS.dll";
                     } else if (OsSelect.isLinux()) {
                         strDllPath = System.getProperty("user.dir") + "/ruoyi-modules/ruoyi-haikang-isup/lib/linux/libHCISUPSS.so";
                     }
@@ -59,21 +59,21 @@ public class SsService {
             }
         }
         if (OsSelect.isWindows()) {
-            String strPathCrypto = System.getProperty("user.dir") + "\\ruoyi-modules\\ruoyi-haikang-isup\\lib\\win\\libeay32.dll";
+            String strPathCrypto = System.getProperty("user.dir") + "\\iot-platform\\iot-protocol\\iot-protocol-haikang-isup\\lib\\win\\libeay32.dll";
             int iPathCryptoLen = strPathCrypto.getBytes().length;
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCrypto = new HCISUPCMS.BYTE_ARRAY(iPathCryptoLen + 1);
             System.arraycopy(strPathCrypto.getBytes(), 0, ptrByteArrayCrypto.byValue, 0, iPathCryptoLen);
             ptrByteArrayCrypto.write();
             hCEhomeSS.NET_ESS_SetSDKInitCfg(4, ptrByteArrayCrypto.getPointer());
 
-            String strPathSsl = System.getProperty("user.dir") + "\\ruoyi-modules\\ruoyi-haikang-isup\\lib\\win\\ssleay32.dll";
+            String strPathSsl = System.getProperty("user.dir") + "\\iot-platform\\iot-protocol\\iot-protocol-haikang-isup\\lib\\win\\ssleay32.dll";
             int iPathSslLen = strPathSsl.getBytes().length;
             HCISUPCMS.BYTE_ARRAY ptrByteArraySsl = new HCISUPCMS.BYTE_ARRAY(iPathSslLen + 1);
             System.arraycopy(strPathSsl.getBytes(), 0, ptrByteArraySsl.byValue, 0, iPathSslLen);
             ptrByteArraySsl.write();
             hCEhomeSS.NET_ESS_SetSDKInitCfg(5, ptrByteArraySsl.getPointer());
 
-            String strPathSqlite = System.getProperty("user.dir") + "\\ruoyi-modules\\ruoyi-haikang-isup\\lib\\win\\sqlite3.dll";
+            String strPathSqlite = System.getProperty("user.dir") + "\\iot-platform\\iot-protocol\\iot-protocol-haikang-isup\\lib\\win\\sqlite3.dll";
             int iPathSqliteLen = strPathSqlite.getBytes().length;
             HCISUPCMS.BYTE_ARRAY ptrByteArraySqlite = new HCISUPCMS.BYTE_ARRAY(iPathSqliteLen + 1);
             System.arraycopy(strPathSqlite.getBytes(), 0, ptrByteArraySqlite.byValue, 0, iPathSqliteLen);
@@ -94,19 +94,19 @@ public class SsService {
             }
         } else if (OsSelect.isLinux()) {
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCrypto = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCrypto = System.getProperty("user.dir") + "/ruoyi-modules/ruoyi-haikang-isup/lib/linux/libcrypto.so";
+            String strPathCrypto = System.getProperty("user.dir") + "/iot-platform/iot-protocol/iot-protocol-haikang-isup/lib/linux/libcrypto.so";
             System.arraycopy(strPathCrypto.getBytes(), 0, ptrByteArrayCrypto.byValue, 0, strPathCrypto.length());
             ptrByteArrayCrypto.write();
             hCEhomeSS.NET_ESS_SetSDKInitCfg(4, ptrByteArrayCrypto.getPointer());
 
             HCISUPCMS.BYTE_ARRAY ptrByteArraySsl = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathSsl = System.getProperty("user.dir") + "/ruoyi-modules/ruoyi-haikang-isup/lib/linux/libssl.so";
+            String strPathSsl = System.getProperty("user.dir") + "/iot-platform/iot-protocol/iot-protocol-haikang-isup/lib/linux/libssl.so";
             System.arraycopy(strPathSsl.getBytes(), 0, ptrByteArraySsl.byValue, 0, strPathSsl.length());
             ptrByteArraySsl.write();
             hCEhomeSS.NET_ESS_SetSDKInitCfg(5, ptrByteArraySsl.getPointer());
 
             HCISUPCMS.BYTE_ARRAY ptrByteArraysplite = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathsplite = System.getProperty("user.dir") + "/ruoyi-modules/ruoyi-haikang-isup/lib/linux/libsqlite3.so";
+            String strPathsplite = System.getProperty("user.dir") + "/iot-platform/iot-protocol/iot-protocol-haikang-isup/lib/linux/libsqlite3.so";
             System.arraycopy(strPathsplite.getBytes(), 0, ptrByteArraysplite.byValue, 0, strPathsplite.length());
             ptrByteArraysplite.write();
             hCEhomeSS.NET_ESS_SetSDKInitCfg(6, ptrByteArraysplite.getPointer());
@@ -124,7 +124,7 @@ public class SsService {
                 log.error("NET_ESS_SetSDKInitCfg失败，错误码：" + hCEhomeSS.NET_ESS_GetLastError());
             }
         }
-        boolean logToFile = hCEhomeSS.NET_ESS_SetLogToFile(3, System.getProperty("user.dir") + "/ruoyi-modules/ruoyi-haikang-isup/EHomeSDKLog", false);
+        boolean logToFile = hCEhomeSS.NET_ESS_SetLogToFile(3, System.getProperty("user.dir") + "/haikang-isup/EHomeSDKLog", false);
     }
 
     public void startSsListen() {

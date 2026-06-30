@@ -32,9 +32,9 @@ public class AlarmService {
                 String strDllPath = "";
                 try {
                     if (OsSelect.isWindows()) {
-                        strDllPath = System.getProperty("user.dir") + "\\ruoyi-modules\\ruoyi-haikang-isup\\lib\\win\\HCISUPAlarm.dll";
+                        strDllPath = System.getProperty("user.dir") + "\\iot-platform\\iot-protocol\\iot-protocol-haikang-isup\\lib\\win\\HCISUPAlarm.dll";
                     } else if (OsSelect.isLinux()) {
-                        strDllPath = System.getProperty("user.dir") + "/ruoyi-modules/ruoyi-haikang-isup/lib/linux/libHCISUPAlarm.so";
+                        strDllPath = System.getProperty("user.dir") + "/iot-platform/iot-protocol/iot-protocol-haikang-isup/lib/linux/libHCISUPAlarm.so";
                     }
                     hcEHomeAlarm = (HCISUPAlarm) Native.loadLibrary(strDllPath, HCISUPAlarm.class);
                 } catch (Exception ex) {
@@ -55,13 +55,13 @@ public class AlarmService {
         }
         if (OsSelect.isWindows()) {
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCrypto = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCrypto = System.getProperty("user.dir") + "\\ruoyi-modules\\ruoyi-haikang-isup\\lib\\win\\libeay32.dll";
+            String strPathCrypto = System.getProperty("user.dir") + "\\iot-platform\\iot-protocol\\iot-protocol-haikang-isup\\lib\\win\\libeay32.dll";
             System.arraycopy(strPathCrypto.getBytes(), 0, ptrByteArrayCrypto.byValue, 0, strPathCrypto.length());
             ptrByteArrayCrypto.write();
             hcEHomeAlarm.NET_EALARM_SetSDKInitCfg(0, ptrByteArrayCrypto.getPointer());
 
             HCISUPCMS.BYTE_ARRAY ptrByteArraySsl = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathSsl = System.getProperty("user.dir") + "\\ruoyi-modules\\ruoyi-haikang-isup\\lib\\win\\ssleay32.dll";
+            String strPathSsl = System.getProperty("user.dir") + "\\iot-platform\\iot-protocol\\iot-protocol-haikang-isup\\lib\\win\\ssleay32.dll";
             System.arraycopy(strPathSsl.getBytes(), 0, ptrByteArraySsl.byValue, 0, strPathSsl.length());
             ptrByteArraySsl.write();
             hcEHomeAlarm.NET_EALARM_SetSDKInitCfg(1, ptrByteArraySsl.getPointer());
@@ -72,19 +72,19 @@ public class AlarmService {
             }
 
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCom = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCom = System.getProperty("user.dir") + "\\ruoyi-modules\\ruoyi-haikang-isup\\lib\\win\\HCAapSDKCom";
+            String strPathCom = System.getProperty("user.dir") + "\\iot-platform\\iot-protocol\\iot-protocol-haikang-isup\\lib\\win\\HCAapSDKCom";
             System.arraycopy(strPathCom.getBytes(), 0, ptrByteArrayCom.byValue, 0, strPathCom.length());
             ptrByteArrayCom.write();
             hcEHomeAlarm.NET_EALARM_SetSDKLocalCfg(5, ptrByteArrayCom.getPointer());
         } else if (OsSelect.isLinux()) {
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCrypto = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCrypto = System.getProperty("user.dir") + "/ruoyi-modules/ruoyi-haikang-isup/lib/linux/libcrypto.so";
+            String strPathCrypto = System.getProperty("user.dir") + "/iot-platform/iot-protocol/iot-protocol-haikang-isup/lib/linux/libcrypto.so";
             System.arraycopy(strPathCrypto.getBytes(), 0, ptrByteArrayCrypto.byValue, 0, strPathCrypto.length());
             ptrByteArrayCrypto.write();
             hcEHomeAlarm.NET_EALARM_SetSDKInitCfg(0, ptrByteArrayCrypto.getPointer());
 
             HCISUPCMS.BYTE_ARRAY ptrByteArraySsl = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathSsl = System.getProperty("user.dir") + "/ruoyi-modules/ruoyi-haikang-isup/lib/linux/libssl.so";
+            String strPathSsl = System.getProperty("user.dir") + "/iot-platform/iot-protocol/iot-protocol-haikang-isup/lib/linux/libssl.so";
             System.arraycopy(strPathSsl.getBytes(), 0, ptrByteArraySsl.byValue, 0, strPathSsl.length());
             ptrByteArraySsl.write();
             hcEHomeAlarm.NET_EALARM_SetSDKInitCfg(1, ptrByteArraySsl.getPointer());
@@ -95,13 +95,13 @@ public class AlarmService {
             }
 
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCom = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCom = System.getProperty("user.dir") + "/ruoyi-modules/ruoyi-haikang-isup/lib/linux/HCAapSDKCom/";
+            String strPathCom = System.getProperty("user.dir") + "/iot-platform/iot-protocol/iot-protocol-haikang-isup/lib/linux/HCAapSDKCom/";
             System.arraycopy(strPathCom.getBytes(), 0, ptrByteArrayCom.byValue, 0, strPathCom.length());
             ptrByteArrayCom.write();
             hcEHomeAlarm.NET_EALARM_SetSDKLocalCfg(5, ptrByteArrayCom.getPointer());
         }
 
-        boolean logToFile = hcEHomeAlarm.NET_EALARM_SetLogToFile(3, System.getProperty("user.dir") + "/ruoyi-modules/ruoyi-haikang-isup/EHomeSDKLog", false);
+        boolean logToFile = hcEHomeAlarm.NET_EALARM_SetLogToFile(3, System.getProperty("user.dir") + "/haikang-isup/EHomeSDKLog", false);
     }
 
     public void startAlarmListen() {

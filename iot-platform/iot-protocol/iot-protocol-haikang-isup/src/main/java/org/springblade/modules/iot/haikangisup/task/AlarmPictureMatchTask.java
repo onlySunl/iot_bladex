@@ -1,7 +1,9 @@
 package org.springblade.modules.iot.haikangisup.task;
 
 
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.redis.cache.BladeRedis;
 import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.common.constants.SecurityConstants;
 import org.springblade.modules.iot.domain.QsDeviceAlarm;
@@ -23,8 +25,8 @@ import java.util.Set;
 @Component
 public class AlarmPictureMatchTask {
 
-    @Autowired
-    private RedisTemplate redisTemplate;
+    @Resource
+    private BladeRedis bladeRedis;
 
     @Autowired
     private RemoteQsDeviceAlarmService remoteQsDeviceAlarmService;
@@ -44,7 +46,7 @@ public class AlarmPictureMatchTask {
             }
 
             // 获取所有isup_alarm_pic_list开头的key（报警ID列表）
-            Set<String> alarmKeys = redisTemplate.keys("isup_alarm_pic_list:*");
+            Set<String> alarmKeys = bladeRedis.getRedisTemplate().keys("isup_alarm_pic_list:*");
             if (alarmKeys == null || alarmKeys.isEmpty()) {
                 return;
             }
@@ -71,13 +73,13 @@ public class AlarmPictureMatchTask {
         try {
             // 检查该设备是否有图片队列
             String picKey = "isup_alarm_pic_queue:" + deviceId;
-            Long picSize = redisTemplate.opsForList().size(picKey);
+            Long picSize = bladeRedis.getRedisTemplate().opsForList().size(picKey);
             if (picSize == null || picSize == 0) {
                 return;
             }
 
             // 检查是否有未匹配的报警
-            Long alarmSize = redisTemplate.opsForList().size(alarmKey);
+            Long alarmSize = bladeRedis.getRedisTemplate().opsForList().size(alarmKey);
             if (alarmSize == null || alarmSize == 0) {
                 return;
             }
@@ -95,14 +97,14 @@ public class AlarmPictureMatchTask {
     private void matchWithGlobalQueue(Set<String> alarmKeys) {
         try {
             String globalPicKey = "isup_alarm_pic_queue:global";
-            Long picSize = redisTemplate.opsForList().size(globalPicKey);
+            Long picSize = bladeRedis.getRedisTemplate().opsForList().size(globalPicKey);
             if (picSize == null || picSize == 0) {
                 return;
             }
 
             // 遍历所有报警队列，尝试用全局图片匹配
             for (String alarmKey : alarmKeys) {
-                Long alarmSize = redisTemplate.opsForList().size(alarmKey);
+                Long alarmSize = bladeRedis.getRedisTemplate().opsForList().size(alarmKey);
                 if (alarmSize != null && alarmSize > 0) {
                     matchOne(alarmKey, globalPicKey);
                 }
@@ -118,7 +120,7 @@ public class AlarmPictureMatchTask {
     private void matchOne(String alarmKey, String picKey) {
         try {
             // 从右边取出最新的一个报警ID
-            Long alarmId = (Long) redisTemplate.opsForList().rightPop(alarmKey);
+            Long alarmId = (Long) bladeRedis.getRedisTemplate().opsForList().rightPop(alarmKey);
             if (alarmId == null) {
                 return;
             }
@@ -131,18 +133,18 @@ public class AlarmPictureMatchTask {
             }
 
             // 从右边取出最新的一张图片
-            HashMap<String, Object> picInfo = (HashMap<String, Object>) redisTemplate.opsForList().rightPop(picKey);
+            HashMap<String, Object> picInfo = (HashMap<String, Object>) bladeRedis.getRedisTemplate().opsForList().rightPop(picKey);
             if (picInfo == null) {
                 // 没有图片了，把报警ID放回去
-                redisTemplate.opsForList().rightPush(alarmKey, alarmId);
+                bladeRedis.getRedisTemplate().opsForList().rightPush(alarmKey, alarmId);
                 return;
             }
 
             String fileUrl = (String) picInfo.get("fileUrl");
             if (fileUrl == null || fileUrl.isEmpty()) {
                 // 图片URL为空，把报警ID和图片信息都放回去
-                redisTemplate.opsForList().rightPush(alarmKey, alarmId);
-                redisTemplate.opsForList().rightPush(picKey, picInfo);
+                bladeRedis.getRedisTemplate().opsForList().rightPush(alarmKey, alarmId);
+                bladeRedis.getRedisTemplate().opsForList().rightPush(picKey, picInfo);
                 return;
             }
 
@@ -150,8 +152,8 @@ public class AlarmPictureMatchTask {
             boolean success = updateAlarmWithImage(alarmId, fileUrl);
             if (!success) {
                 // 更新失败，把报警ID和图片信息都放回去
-                redisTemplate.opsForList().rightPush(alarmKey, alarmId);
-                redisTemplate.opsForList().rightPush(picKey, picInfo);
+                bladeRedis.getRedisTemplate().opsForList().rightPush(alarmKey, alarmId);
+                bladeRedis.getRedisTemplate().opsForList().rightPush(picKey, picInfo);
                 log.warn("更新报警图片失败，已放回, alarmId:{}, fileUrl:{}", alarmId, fileUrl);
             } else {
                 log.info("报警图片匹配成功, alarmId:{}, fileUrl:{}", alarmId, fileUrl);

@@ -51,11 +51,11 @@ public class CmsService {
                     if (OsSelect.isWindows())
                     //win系统加载库路径(路径不要带中文)
                     {
-                        strDllPath = System.getProperty("user.dir") + "\\ruoyi-modules\\ruoyi-haikang-isup\\lib\\win\\HCISUPCMS.dll";
+                        strDllPath = System.getProperty("user.dir") + "\\iot-platform\\iot-protocol\\iot-protocol-haikang-isup\\lib\\win\\HCISUPCMS.dll";
                     } else if (OsSelect.isLinux())
                     //Linux系统加载库路径(路径不要带中文)
                     {
-                        strDllPath = System.getProperty("user.dir") + "/ruoyi-modules/ruoyi-haikang-isup/lib/linux/libHCISUPCMS.so";
+                        strDllPath = System.getProperty("user.dir") + "/iot-platform/iot-protocol/iot-protocol-haikang-isup/lib/linux/libHCISUPCMS.so";
                     }
                     hCEhomeCMS = (HCISUPCMS) Native.loadLibrary(strDllPath, HCISUPCMS.class);
                 } catch (Exception ex) {
@@ -82,14 +82,14 @@ public class CmsService {
         }
         if (OsSelect.isWindows()) {
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCrypto = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCrypto = System.getProperty("user.dir") + "\\ruoyi-modules\\ruoyi-haikang-isup\\lib\\win\\libeay32.dll"; //Linux版本是libcrypto.so库文件的路径
+            String strPathCrypto = System.getProperty("user.dir") + "\\iot-platform\\iot-protocol\\iot-protocol-haikang-isup\\lib\\win\\libeay32.dll"; //Linux版本是libcrypto.so库文件的路径
             System.arraycopy(strPathCrypto.getBytes(), 0, ptrByteArrayCrypto.byValue, 0, strPathCrypto.length());
             ptrByteArrayCrypto.write();
             hCEhomeCMS.NET_ECMS_SetSDKInitCfg(0, ptrByteArrayCrypto.getPointer());
 
             //设置libssl.so所在路径
             HCISUPCMS.BYTE_ARRAY ptrByteArraySsl = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathSsl = System.getProperty("user.dir") + "\\ruoyi-modules\\ruoyi-haikang-isup\\lib\\win\\ssleay32.dll";    //Linux版本是libssl.so库文件的路径
+            String strPathSsl = System.getProperty("user.dir") + "\\iot-platform\\iot-protocol\\iot-protocol-haikang-isup\\lib\\win\\ssleay32.dll";    //Linux版本是libssl.so库文件的路径
             System.arraycopy(strPathSsl.getBytes(), 0, ptrByteArraySsl.byValue, 0, strPathSsl.length());
             ptrByteArraySsl.write();
             hCEhomeCMS.NET_ECMS_SetSDKInitCfg(1, ptrByteArraySsl.getPointer());
@@ -97,20 +97,20 @@ public class CmsService {
             boolean binit = hCEhomeCMS.NET_ECMS_Init();
             //设置HCAapSDKCom组件库文件夹所在路径
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCom = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCom = System.getProperty("user.dir") + "\\ruoyi-modules\\ruoyi-haikang-isup\\lib\\win\\HCAapSDKCom";        //只支持绝对路径，建议使用英文路径
+            String strPathCom = System.getProperty("user.dir") + "\\iot-platform\\iot-protocol\\iot-protocol-haikang-isup\\lib\\win\\HCAapSDKCom";        //只支持绝对路径，建议使用英文路径
             System.arraycopy(strPathCom.getBytes(), 0, ptrByteArrayCom.byValue, 0, strPathCom.length());
             ptrByteArrayCom.write();
             hCEhomeCMS.NET_ECMS_SetSDKLocalCfg(5, ptrByteArrayCom.getPointer());
         } else if (OsSelect.isLinux()) {
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCrypto = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCrypto = System.getProperty("user.dir") + "/ruoyi-modules/ruoyi-haikang-isup/lib/linux/libcrypto.so"; //Linux版本是libcrypto.so库文件的路径
+            String strPathCrypto = System.getProperty("user.dir") + "/iot-platform/iot-protocol/iot-protocol-haikang-isup/lib/linux/libcrypto.so"; //Linux版本是libcrypto.so库文件的路径
             System.arraycopy(strPathCrypto.getBytes(), 0, ptrByteArrayCrypto.byValue, 0, strPathCrypto.length());
             ptrByteArrayCrypto.write();
             hCEhomeCMS.NET_ECMS_SetSDKInitCfg(0, ptrByteArrayCrypto.getPointer());
 
             //设置libssl.so所在路径
             HCISUPCMS.BYTE_ARRAY ptrByteArraySsl = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathSsl = System.getProperty("user.dir") + "/ruoyi-modules/ruoyi-haikang-isup/lib/linux/libssl.so";    //Linux版本是libssl.so库文件的路径
+            String strPathSsl = System.getProperty("user.dir") + "/iot-platform/iot-protocol/iot-protocol-haikang-isup/lib/linux/libssl.so";    //Linux版本是libssl.so库文件的路径
             System.arraycopy(strPathSsl.getBytes(), 0, ptrByteArraySsl.byValue, 0, strPathSsl.length());
             ptrByteArraySsl.write();
             hCEhomeCMS.NET_ECMS_SetSDKInitCfg(1, ptrByteArraySsl.getPointer());
@@ -118,13 +118,13 @@ public class CmsService {
             boolean binit = hCEhomeCMS.NET_ECMS_Init();
             //设置HCAapSDKCom组件库文件夹所在路径
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCom = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCom = System.getProperty("user.dir") + "/ruoyi-modules/ruoyi-haikang-isup/lib/linux/HCAapSDKCom/";        //只支持绝对路径，建议使用英文路径
+            String strPathCom = System.getProperty("user.dir") + "/iot-platform/iot-protocol/iot-protocol-haikang-isup/lib/linux/HCAapSDKCom/";        //只支持绝对路径，建议使用英文路径
             System.arraycopy(strPathCom.getBytes(), 0, ptrByteArrayCom.byValue, 0, strPathCom.length());
             ptrByteArrayCom.write();
             hCEhomeCMS.NET_ECMS_SetSDKLocalCfg(5, ptrByteArrayCom.getPointer());
 
         }
-        hCEhomeCMS.NET_ECMS_SetLogToFile(3, System.getProperty("user.dir") + "/ruoyi-haikang-isup/EHomeSDKLog", false);
+        hCEhomeCMS.NET_ECMS_SetLogToFile(3, System.getProperty("user.dir") + "/haikang-isup/EHomeSDKLog", false);
     }
 
     public void startCmsListen() {

@@ -160,6 +160,22 @@ media:
     # [可选] 国标级联在此范围内选择端口发送媒体流,
     send-port-range: 30000,30500 # 端口范围
 
+# [根据业务需求配置]
+user-settings:
+  # 点播/录像回放 等待超时时间,单位：毫秒
+  play-timeout: 180000
+  # [可选] 自动点播， 使用固定流地址进行播放时，如果未点播则自动进行点播, 需要rtp.enable=true
+  auto-apply-play: true
+  # 推流直播是否录制
+  record-push-live: true
+  # 国标是否录制
+  record-sip: true
+  # 国标点播 按需拉流, true：有人观看拉流，无人观看释放， false：拉起后不自动释放
+  stream-on-demand: false
+  # 是否返回Date属性，true：不返回，避免摄像头通过该参数自动校时，false：返回，摄像头可能会根据该时间校时
+  disable-date-header: false
+  # 是否开启sql日志
+  sql-log: false
 
 # 监控端点暴露配置
 management:
