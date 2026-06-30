@@ -2,7 +2,9 @@ package org.springblade.modules.iot.service.impl;
 
 
 import cn.hutool.core.date.DateUtil;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.redis.cache.BladeRedis;
 import org.springblade.modules.iot.common.SystemAllInfo;
 import org.springblade.modules.iot.common.VideoManagerConstants;
 import org.springblade.modules.iot.service.IRedisCatchStorageService;
@@ -24,9 +26,8 @@ import java.util.Map;
 @Slf4j
 @Component
 public class RedisCatchStorageServiceImpl implements IRedisCatchStorageService {
-
-    @Autowired
-    private RedisTemplate<Object, Object> redisTemplate;
+    @Resource
+    private  BladeRedis bladeRedis;
 
     /**
      * 获取系统信息
@@ -40,11 +41,11 @@ public class RedisCatchStorageServiceImpl implements IRedisCatchStorageService {
         String netKey = VideoManagerConstants.SYSTEM_INFO_NET_PREFIX;
         String diskKey = VideoManagerConstants.SYSTEM_INFO_DISK_PREFIX;
         SystemAllInfo systemAllInfo = new SystemAllInfo();
-        systemAllInfo.setCpu(redisTemplate.opsForList().range(cpuKey, 0, -1));
-        systemAllInfo.setMem(redisTemplate.opsForList().range(memKey, 0, -1));
-        systemAllInfo.setNet(redisTemplate.opsForList().range(netKey, 0, -1));
+        systemAllInfo.setCpu(bladeRedis.getRedisTemplate().opsForList().range(cpuKey, 0, -1));
+        systemAllInfo.setMem(bladeRedis.getRedisTemplate().opsForList().range(memKey, 0, -1));
+        systemAllInfo.setNet(bladeRedis.getRedisTemplate().opsForList().range(netKey, 0, -1));
 
-        systemAllInfo.setDisk(redisTemplate.opsForValue().get(diskKey));
+        systemAllInfo.setDisk(bladeRedis.getRedisTemplate().opsForValue().get(diskKey));
         systemAllInfo.setNetTotal(SystemInfoUtils.getNetworkTotal());
         return systemAllInfo;
     }
@@ -55,12 +56,12 @@ public class RedisCatchStorageServiceImpl implements IRedisCatchStorageService {
         Map<String, String> infoMap = new HashMap<>();
         infoMap.put("time", DateUtil.now());
         infoMap.put("data", String.valueOf(cpuInfo));
-        redisTemplate.opsForList().rightPush(key, infoMap);
+        bladeRedis.getRedisTemplate().opsForList().rightPush(key, infoMap);
         // 每秒一个，最多只存30个
-        Long size = redisTemplate.opsForList().size(key);
+        Long size = bladeRedis.getRedisTemplate().opsForList().size(key);
         if (size != null && size >= 30) {
             for (int i = 0; i < size - 30; i++) {
-                redisTemplate.opsForList().leftPop(key);
+                bladeRedis.getRedisTemplate().opsForList().leftPop(key);
             }
         }
     }
@@ -71,12 +72,12 @@ public class RedisCatchStorageServiceImpl implements IRedisCatchStorageService {
         Map<String, String> infoMap = new HashMap<>();
         infoMap.put("time", DateUtil.now());
         infoMap.put("data", String.valueOf(memInfo));
-        redisTemplate.opsForList().rightPush(key, infoMap);
+        bladeRedis.getRedisTemplate().opsForList().rightPush(key, infoMap);
         // 每秒一个，最多只存30个
-        Long size = redisTemplate.opsForList().size(key);
+        Long size = bladeRedis.getRedisTemplate().opsForList().size(key);
         if (size != null && size >= 30) {
             for (int i = 0; i < size - 30; i++) {
-                redisTemplate.opsForList().leftPop(key);
+                bladeRedis.getRedisTemplate().opsForList().leftPop(key);
             }
         }
     }
@@ -89,12 +90,12 @@ public class RedisCatchStorageServiceImpl implements IRedisCatchStorageService {
         for (String netKey : networkInterfaces.keySet()) {
             infoMap.put(netKey, networkInterfaces.get(netKey));
         }
-        redisTemplate.opsForList().rightPush(key, infoMap);
+        bladeRedis.getRedisTemplate().opsForList().rightPush(key, infoMap);
         // 每秒一个，最多只存30个
-        Long size = redisTemplate.opsForList().size(key);
+        Long size = bladeRedis.getRedisTemplate().opsForList().size(key);
         if (size != null && size >= 30) {
             for (int i = 0; i < size - 30; i++) {
-                redisTemplate.opsForList().leftPop(key);
+                bladeRedis.getRedisTemplate().opsForList().leftPop(key);
             }
         }
     }
@@ -102,6 +103,6 @@ public class RedisCatchStorageServiceImpl implements IRedisCatchStorageService {
     @Override
     public void addDiskInfo(List<Map<String, Object>> diskInfo) {
         String key = VideoManagerConstants.SYSTEM_INFO_DISK_PREFIX;
-        redisTemplate.opsForValue().set(key, diskInfo);
+        bladeRedis.getRedisTemplate().opsForValue().set(key, diskInfo);
     }
 }

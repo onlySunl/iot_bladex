@@ -86,11 +86,21 @@
             <artifactId>iot-protocol-haikang-isup</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
-       <!-- <dependency>
-            <groupId>cn.snowsoft.iot</groupId>
-            <artifactId>iot-biz</artifactId>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-protocol-zlm</artifactId>
             <version>4.2.0.RELEASE</version>
-        </dependency>-->
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-protocol-qs</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-protocol-haikang-isup</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${bladex.project.id}</finalName>
@@ -115,10 +125,10 @@
                         <finalName>${project.build.finalName}</finalName>
                         <excludes>
                             <!-- 打包的 jar 中排除 lombok -->
-                            <exclude>
+                            <ex0clude>
                                 <groupId>org.projectlombok</groupId>
                                 <artifactId>lombok</artifactId>
-                            </exclude>
+                            </ex0clude>
                         </excludes>
                     </configuration>
                     <executions>

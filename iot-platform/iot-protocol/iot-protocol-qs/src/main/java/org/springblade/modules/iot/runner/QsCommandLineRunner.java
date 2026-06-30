@@ -2,7 +2,6 @@ package org.springblade.modules.iot.runner;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springblade.modules.iot.service.IQsDeviceService;
-import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -17,16 +16,10 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 @Slf4j
-public class QsCommandLineRunner implements CommandLineRunner, DisposableBean {
+public class QsCommandLineRunner implements CommandLineRunner {
 
     @Autowired
     private IQsDeviceService qsDeviceService;
-
-
-    @Override
-    public void destroy() throws Exception {
-
-    }
 
     @Override
     public void run(String... args) throws Exception {

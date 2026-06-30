@@ -26,7 +26,7 @@ import java.util.List;
  * @date 2026-03-28
  **/
 @FeignClient(contextId = "remoteHaiKangService",
-        value = ServiceNameConstants.HAIKANG_SERVICE,
+        value = ServiceNameConstants.HAIKANG_ISUP_SERVICE,
         fallbackFactory = RemoteHaiKangFallbackFactory.class,
         url=ServiceNameConstants.SERVICE_URL
 )

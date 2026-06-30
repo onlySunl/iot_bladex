@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.haikangisup.haikang;
 
 import org.springblade.modules.iot.common.domain.RtpServerParam;
-import org.springblade.modules.iot.haikangisup.*;
+import org.springblade.modules.iot.domain.*;
 
 import java.io.IOException;
 import java.util.ArrayList;

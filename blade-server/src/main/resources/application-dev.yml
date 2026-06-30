@@ -56,4 +56,114 @@ powerjob:
     server-address: 140.143.155.241:7700
 
 
+file:
+  domain: http://192.168.3.188:9300
+  path: D:/ruoyi/uploadPath
+  prefix: /statics
 
+
+haikang-isup:
+  cmsServer:
+    # 注册服务器监听地址(服务器本地地址)
+    ip: 192.168.3.188
+    port: 7660
+
+  dasServer:
+    # DAS地址（此处的IP和端口与设备网页端设置的平台IP地址和端口一致）
+    ip: 192.168.3.188
+    port: 7660
+
+  smsServer:
+    # 取流服务器地址端口（公网对接填入公网地址和端口）
+    ip: 192.168.3.188
+    port: 7665
+    # 取流服务器监听地址端口(服务器本地地址)
+    listenIp: 192.168.3.188
+    listenPort: 7665
+
+  smsBackServer:
+    # 回放流媒体服务器地址端口（公网对接填入公网地址和端口）
+    ip: 192.168.3.188
+    port: 8000
+    # 取流服务器监听地址端口(服务器本地地址)
+    listenIp: 192.168.3.188
+    listenPort: 8000
+
+  voiceSmsServer:
+    # 语音流媒体服务器地址端口（公网对接填入公网地址和端口）
+    ip: 192.168.3.188
+    port: 7500
+    # 语音流媒体服务器监听地址端口(服务器本地地址)
+    listenIp: 192.168.3.188
+    listenPort: 7500
+
+  alarmServer:
+    # 报警服务器地址（公网对接填入公网地址和端口）
+    ip: 192.168.3.188
+    tcpPort: 8003
+    udpPort: 8002
+    #
+    alarmStorage: false
+    # 报警服务器类型：
+    # 0-只支持UDP协议上报
+    # 1-支持UDP、TCP两种协议上报（ISUP4.0）
+    # 2-MQTT(ISUP5.0) (MQTT复用TCP的端口)
+    type: 2
+    # 报警服务器监听地址端口
+    listenIp: 192.168.3.188
+    listenTcpPort: 7663
+    listenUdpPort: 7662
+
+  picServer:
+    # 图片存储服务器地址：IUSP5.0版本接入端口建议固定为6011
+    ip: 192.168.3.188
+    port: 6011
+    # 图片存储服务器类型：
+    # 0-Tomcat
+    # 1-VRB
+    # 2-云存储
+    # 3-KMS
+    # 4-ISUP5.0
+    type: 2
+    # 图片存储服务器监听地址端口
+    listenIp: 192.168.3.188
+    listenPort: 6011
+
+  # ISUP5.0登录秘钥
+  isupKey: lim161128
+
+  # 报警服务器打印事件模式
+  # file=事件保存到文件中
+  # console=事件打印在控制台上
+  eventInfoPrintType: console
+
+#zlm 默认服务器配置
+media:
+  id: 10006010111
+  # [必须修改] zlm服务器的内网IP
+  ip: 140.143.155.241
+  # [必须修改] zlm服务器的http.port
+  http-port: 8092
+  http-ssl-port: 443
+  # [可选] zlm服务器的hook所使用的IP, 默认使用sip.ip
+  hook-ip: 140.143.155.241
+  # [必选选] zlm服务器的hook.admin_params=secret
+  secret: ssURrUNq5qd8mOETzkW0dwfflQc9fCF1
+  # # [可选] 录像文件存储路径
+  # record-path: F:/zml/record
+  # [可选] 录像保存时间,单位是天
+  record-day: 3
+  # 启用多端口模式, 多端口模式使用端口区分每路流，兼容性更好。 单端口使用流的ssrc区分， 点播超时建议使用多端口测试
+  rtp:
+    # [可选] 在此范围内选择端口用于媒体流传输, 必须提前在zlm上配置该属性，不然自动配置此属性可能不成功
+    port-range: 30500,40500 # 端口范围
+    # [可选] 国标级联在此范围内选择端口发送媒体流,
+    send-port-range: 30000,30500 # 端口范围
+
+
+# 监控端点暴露配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

@@ -1,10 +1,12 @@
-package org.springblade.modules.iot.haikangisup;
+package org.springblade.modules.iot.service;
 
-import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.common.constants.SecurityConstants;
 import org.springblade.modules.iot.common.constants.ServiceNameConstants;
 import org.springblade.modules.iot.common.domain.RtpServerParam;
+import org.springblade.modules.iot.domain.HaiKangIsupDeviceInfo;
+import org.springblade.modules.iot.domain.HaiKangIsupPresetInfo;
+import org.springblade.modules.iot.factory.RemoteHaiKangIsupFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +19,7 @@ import java.util.List;
  *
  * @author fengcheng
  */
-@FeignClient(contextId = "remoteHaiKangIsupService", value = ServiceNameConstants.HAIKANG_SERVICE)
+@FeignClient(contextId = "remoteHaiKangIsupService", value = ServiceNameConstants.HAIKANG_SERVICE,fallbackFactory = RemoteHaiKangIsupFallbackFactory.class)
 public interface RemoteHaiKangIsupService {
 
 

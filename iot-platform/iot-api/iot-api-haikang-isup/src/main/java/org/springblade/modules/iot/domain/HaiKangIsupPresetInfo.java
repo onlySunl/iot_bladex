@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.haikangisup;
+package org.springblade.modules.iot.domain;
 
 import lombok.Builder;
 import lombok.Data;

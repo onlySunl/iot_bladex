@@ -11,7 +11,7 @@ import org.springblade.modules.iot.common.constants.SecurityConstants;
 import org.springblade.modules.iot.common.domain.RtpServerParam;
 import org.springblade.modules.iot.common.enums.LiveStreamType;
 import org.springblade.modules.iot.domain.*;
-import org.springblade.modules.iot.haikangisup.RemoteHaiKangIsupService;
+import org.springblade.modules.iot.service.RemoteHaiKangIsupService;
 import org.springblade.modules.iot.hook.OriginType;
 import org.springblade.modules.iot.service.*;
 import org.springblade.modules.iot.zlm.common.InviteErrorCode;

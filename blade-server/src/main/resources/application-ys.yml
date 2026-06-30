@@ -47,3 +47,103 @@ auto-table:
   mode: update
   model-package: org.springblade.kaoyan.pojo.entity
   strict-extends: false
+
+
+# spring配置
+spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: 123456
+    datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/ry-cloud?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+      username: root
+      password: haoxin
+
+# mybatis配置
+mybatis:
+  # 搜索指定包别名
+  typeAliasesPackage: com.ruoyi.haikang.isup.**.domain
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath:mapper/**/*.xml
+
+
+# springdoc配置
+springdoc:
+  gatewayUrl: http://localhost:8080/${spring.application.name}
+  api-docs:
+    # 是否开启接口文档
+    enabled: true
+  info:
+    # 标题
+    title: '海康isup生成接口文档'
+    # 描述
+    description: '海康isup生成接口描述'
+    # 作者信息
+    contact:
+      name: RuoYi
+      url: https://ruoyi.vip
+
+
+
+spring:
+  autoconfigure:
+    exclude: com.alibaba.druid.spring.boot3.autoconfigure.DruidDataSourceAutoConfigure
+
+# feign 配置
+feign:
+  sentinel:
+    enabled: true
+  okhttp:
+    enabled: true
+  httpclient:
+    enabled: false
+  client:
+    config:
+      default:
+        connectTimeout: 10000
+        readTimeout: 10000
+  compression:
+    request:
+      enabled: true
+      min-request-size: 8192
+    response:
+      enabled: true
+
+# 本地文件上传
+file:
+  domain: http://127.0.0.1:9300
+  path: D:/ruoyi/uploadPath
+  prefix: /statics
+
+#zlm 默认服务器配置
+media:
+  id: hxkj_zlm
+  # [必须修改] zlm服务器的内网IP
+  ip: 192.168.1.200
+  # [必须修改] zlm服务器的http.port
+  http-port: 8092
+  http-ssl-port: 443
+  # [可选] zlm服务器的hook所使用的IP, 默认使用sip.ip
+  hook-ip: 192.168.1.200
+  # [必选选] zlm服务器的hook.admin_params=secret
+  secret: hxkj_zlm
+  # # [可选] 录像文件存储路径
+  # record-path: F:/zml/record
+  # [可选] 录像保存时间,单位是天
+  record-day: 3
+  # 启用多端口模式, 多端口模式使用端口区分每路流，兼容性更好。 单端口使用流的ssrc区分， 点播超时建议使用多端口测试
+  rtp:
+    # [可选] 在此范围内选择端口用于媒体流传输, 必须提前在zlm上配置该属性，不然自动配置此属性可能不成功
+    port-range: 30500,40500 # 端口范围
+    # [可选] 国标级联在此范围内选择端口发送媒体流,
+    send-port-range: 30000,30500 # 端口范围
+
+# 暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

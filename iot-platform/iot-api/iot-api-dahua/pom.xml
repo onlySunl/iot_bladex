@@ -22,6 +22,11 @@
             <artifactId>iot-common</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
+        <!-- 原生Feign，无需SpringCloud -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-openfeign-core</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
