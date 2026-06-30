@@ -15,6 +15,10 @@ public class ExecutorConfig {
         executor.setQueueCapacity(200);
         executor.setKeepAliveSeconds(60);
         executor.setThreadNamePrefix("stream-async-");
+        // 设置线程池关闭时等待任务完成
+        executor.setWaitForTasksToCompleteOnShutdown(true);
+        // 设置等待时间（秒）
+        executor.setAwaitTerminationSeconds(60);
         executor.initialize();
         return executor;
     }

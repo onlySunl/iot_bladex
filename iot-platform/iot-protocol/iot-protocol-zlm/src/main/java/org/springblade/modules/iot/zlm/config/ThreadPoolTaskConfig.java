@@ -60,6 +60,10 @@ public class ThreadPoolTaskConfig {
         // 线程池对拒绝任务的处理策略
         // CallerRunsPolicy：由调用线程（提交任务的线程）处理该任务
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+        // 设置线程池关闭时等待任务完成
+        executor.setWaitForTasksToCompleteOnShutdown(true);
+        // 设置等待时间（秒）
+        executor.setAwaitTerminationSeconds(60);
         // 初始化
         executor.initialize();
         return executor;
