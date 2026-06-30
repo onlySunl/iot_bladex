@@ -50,9 +50,9 @@ spring:
 # mybatis
 mybatis-plus:
   # XML 映射文件路径
-  mapper-locations: classpath:org/springblade/**/mapper/*Mapper.xml
+  mapper-locations: classpath:org/springblade/modules/iot/**/mapper/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: org.springblade.**.entity,cn.snowsoft.**.pojo.entity
+  typeAliasesPackage: org.springblade.**.entity,org.springblade.modules.iot.domain
   #typeEnumsPackage: org.springblade.dashboard.entity.enums
   global-config:
     # 关闭MP3.0自带的banner
@@ -312,7 +312,7 @@ auto-table:
   show-banner: true
   mode: update
   auto-drop-column: true
-  model-package: cn.snowsoft.**.entity
+  model-package: org.springblade.modules.iot.domain
   strict-extends: true
   index-prefix: IDX_
   super-insert-position: after

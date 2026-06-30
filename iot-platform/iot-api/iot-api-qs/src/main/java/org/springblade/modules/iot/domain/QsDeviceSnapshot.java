@@ -25,10 +25,6 @@ import java.util.Date;
 public class QsDeviceSnapshot extends CustomBaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** 主键ID */
-    @TableField(value = "id")
-    @AutoColumn(comment = "主键ID", length = 20)
-    private Long id;
 
     /** 关联设备ID */
     @TableField(value = "device_id")

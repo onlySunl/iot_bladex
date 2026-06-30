@@ -22,10 +22,6 @@ import lombok.EqualsAndHashCode;
 public class Gb28181Platform extends CustomBaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** 主键ID */
-    @TableField(value = "id")
-    @AutoColumn(comment = "主键ID", length = 20)
-    private Long id;
 
     /** 是否启用：0-禁用，1-启用 */
     @TableField(value = "enable")
@@ -132,10 +128,6 @@ public class Gb28181Platform extends CustomBaseEntity {
     @AutoColumn(comment = "是否启用RTCP", length = 1, defaultValueType = DefaultValueEnum.NULL)
     private Integer rtcp;
 
-    /** 状态：0-离线，1-在线 */
-    @TableField(value = "status")
-    @AutoColumn(comment = "状态", length = 1, defaultValueType = DefaultValueEnum.NULL)
-    private Integer status;
 
     /** 目录分组 */
     @TableField(value = "catalog_group")

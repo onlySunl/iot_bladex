@@ -24,10 +24,7 @@ import java.util.Date;
 public class QsRegion extends CustomBaseEntity implements Comparable<QsRegion> {
     private static final long serialVersionUID = 1L;
 
-    /** 主键ID */
-    @TableField(value = "id")
-    @AutoColumn(comment = "主键ID", length = 20)
-    private Long id;
+
 
     /** 区域国标编号 */
     @TableField(value = "device_id")

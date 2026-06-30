@@ -29,7 +29,7 @@
         <!-- 大华设备协议 -->
         <!--<module>iot-protocol-dahua</module>-->
         <!-- ONVIF协议 -->
-        <module>iot-protocol-onvif</module>
+       <!-- <module>iot-protocol-onvif</module>-->
         <!-- JT1078部标协议 -->
        <!-- <module>iot-protocol-jt1078</module>-->
     </modules>

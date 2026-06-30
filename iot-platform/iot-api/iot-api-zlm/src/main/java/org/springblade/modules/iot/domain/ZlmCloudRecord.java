@@ -25,10 +25,6 @@ import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 public class ZlmCloudRecord extends CustomBaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** 主键ID */
-    @TableField(value = "id")
-    @AutoColumn(comment = "主键ID", length = 20)
-    private Long id;
 
     /** 应用名 */
     @TableField(value = "app")
@@ -57,7 +53,7 @@ public class ZlmCloudRecord extends CustomBaseEntity {
 
     /** ZLM Id */
     @TableField(value = "media_server_id")
-    @AutoColumn(comment = "ZLM Id", length = 50, defaultValueType = DefaultValueEnum.EMPTY_STRING)
+    @AutoColumn(comment = "ZLM Id", length = 50, defaultValueType = DefaultValueEnum.NULL)
     private Long mediaServerId;
 
     /** 所属服务ID */
@@ -92,7 +88,7 @@ public class ZlmCloudRecord extends CustomBaseEntity {
 
     /** 文件时长 */
     @TableField(value = "time_len")
-    @AutoColumn(comment = "文件时长", length = 20, defaultValueType = DefaultValueEnum.NULL)
+    @AutoColumn(comment = "文件时长", length = 5,decimalLength = 2,defaultValueType = DefaultValueEnum.NULL)
     private Double timeLen;
 
     /** 查询开始时间（非数据库字段） */

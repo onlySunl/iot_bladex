@@ -68,7 +68,7 @@ public class QsDeviceAlarm extends CustomBaseEntity {
 
     /** 告警内容 */
     @TableField(value = "alarm_content")
-    @AutoColumn(comment = "告警内容", length = 65535, defaultValueType = DefaultValueEnum.NULL)
+    @AutoColumn(comment = "告警内容", type = "text", defaultValueType = DefaultValueEnum.NULL)
     private String alarmContent;
 
     /** 告警图片URL */

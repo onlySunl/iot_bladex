@@ -24,10 +24,6 @@ import java.math.BigDecimal;
 public class QsDevice extends CustomBaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** 主键ID */
-    @TableField(value = "id")
-    @AutoColumn(comment = "主键ID", length = 20)
-    private Long id;
 
     /** 设备唯一标识 */
     @TableField(value = "device_code")
@@ -137,7 +133,7 @@ public class QsDevice extends CustomBaseEntity {
 
     /** 当前拉流使用的流媒体服务ID */
     @TableField(value = "media_serverId")
-    @AutoColumn(comment = "当前拉流使用的流媒体服务ID", length = 100, defaultValueType = DefaultValueEnum.EMPTY_STRING)
+    @AutoColumn(comment = "当前拉流使用的流媒体服务ID", length = 100, defaultValueType = DefaultValueEnum.NULL)
     private Long mediaServerId;
 
     /** 拉流代理时zlm返回的key，用于停止拉流代理 */
@@ -253,7 +249,7 @@ public class QsDevice extends CustomBaseEntity {
 
     /** 回放使用的流媒体服务ID */
     @TableField(value = "playback_media_server_id")
-    @AutoColumn(comment = "回放使用的流媒体服务ID", length = 100, defaultValueType = DefaultValueEnum.EMPTY_STRING)
+    @AutoColumn(comment = "回放使用的流媒体服务ID", length = 100, defaultValueType = DefaultValueEnum.NULL)
     private Long playbackMediaServerId;
 
     /** 回放时zlm返回的key，用于停止回放 */
@@ -348,12 +344,12 @@ public class QsDevice extends CustomBaseEntity {
 
     /** 国标-经度 WGS-84坐标系 */
     @TableField(value = "gb_longitude_double")
-    @AutoColumn(comment = "国标-经度", length = 20, defaultValueType = DefaultValueEnum.NULL)
+    @AutoColumn(comment = "国标-经度", length = 20,decimalLength = 4,defaultValueType = DefaultValueEnum.NULL)
     private Double gbLongitudeDouble;
 
     /** 国标-纬度 WGS-84坐标系 */
     @TableField(value = "gb_latitude_double")
-    @AutoColumn(comment = "国标-纬度", length = 20, defaultValueType = DefaultValueEnum.NULL)
+    @AutoColumn(comment = "国标-纬度", length = 20,decimalLength = 4,defaultValueType = DefaultValueEnum.NULL)
     private Double gbLatitudeDouble;
 
     /** 国标-摄像机位置类型扩展 */
@@ -403,17 +399,17 @@ public class QsDevice extends CustomBaseEntity {
 
     /** GPS高度 */
     @TableField(value = "gps_altitude")
-    @AutoColumn(comment = "GPS高度", length = 20, defaultValueType = DefaultValueEnum.NULL)
+    @AutoColumn(comment = "GPS高度", length = 10,decimalLength = 2, defaultValueType = DefaultValueEnum.NULL)
     private Double gpsAltitude;
 
     /** GPS速度 */
     @TableField(value = "gps_speed")
-    @AutoColumn(comment = "GPS速度", length = 20, defaultValueType = DefaultValueEnum.NULL)
+    @AutoColumn(comment = "GPS速度", length = 10, decimalLength = 2,defaultValueType = DefaultValueEnum.NULL)
     private Double gpsSpeed;
 
     /** GPS方向 */
     @TableField(value = "gps_direction")
-    @AutoColumn(comment = "GPS方向", length = 20, defaultValueType = DefaultValueEnum.NULL)
+    @AutoColumn(comment = "GPS方向", length = 10, decimalLength = 4, defaultValueType = DefaultValueEnum.NULL)
     private Double gpsDirection;
 
     /** GPS更新时间 */

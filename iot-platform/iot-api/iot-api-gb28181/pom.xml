@@ -22,12 +22,6 @@
             <artifactId>iot-common</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-api-qs</artifactId>
-            <version>4.2.0.RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
         <!-- xml解析库 -->
         <dependency>
             <groupId>org.dom4j</groupId>

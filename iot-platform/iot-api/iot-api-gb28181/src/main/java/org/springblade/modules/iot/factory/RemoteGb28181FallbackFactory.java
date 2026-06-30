@@ -30,6 +30,26 @@ public class RemoteGb28181FallbackFactory implements FallbackFactory<RemoteGb281
         log.error("gb28181服务调用失败:{}", throwable.getMessage());
         return new RemoteGb28181Service() {
             @Override
+            public R<List<Gb28181Platform>> selectPlatformList(Gb28181Platform platform, String source) {
+                return null;
+            }
+
+            @Override
+            public R<Gb28181Platform> selectPlatformById(Long id, String source) {
+                return null;
+            }
+
+            @Override
+            public R<List<Gb28181PlatformChannel>> selectPlatformChannelList(Gb28181PlatformChannel channel, String source) {
+                return null;
+            }
+
+            @Override
+            public R<Boolean> updatePlatform(Gb28181Platform platform, String source) {
+                return null;
+            }
+
+            @Override
             public R<Device> getDeviceByDeviceId(String gbDeviceId, String inner) {
                 return R.fail("gb28181 根据设备id获取设备失败:" + throwable.getMessage());
             }

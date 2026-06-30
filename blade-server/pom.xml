@@ -31,16 +31,61 @@
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>cn.snowsoft.iot</groupId>
+            <groupId>org.springblade</groupId>
             <artifactId>iot-common</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>cn.snowsoft.iot</groupId>
-            <artifactId>iot-api</artifactId>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-dahua</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-gb28181</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-haikang</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-haikang-isup</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-jt1078</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-onvif</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-qs</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-zlm</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-protocol-qs</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-protocol-haikang-isup</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
        <!-- <dependency>
             <groupId>cn.snowsoft.iot</groupId>
             <artifactId>iot-biz</artifactId>

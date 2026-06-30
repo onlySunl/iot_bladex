@@ -30,6 +30,46 @@ public interface RemoteGb28181Service {
 
 
     /**
+     * 查询启用的平台列表
+     *
+     * @param platform 平台查询条件
+     * @param source   请求来源
+     * @return
+     */
+    @PostMapping("/api/gb28181/platform/list")
+    R<List<Gb28181Platform>> selectPlatformList(@RequestBody Gb28181Platform platform, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+
+    /**
+     * 根据ID查询平台
+     *
+     * @param id     平台ID
+     * @param source 请求来源
+     * @return
+     */
+    @GetMapping("/api/gb28181/platform/{id}")
+    R<Gb28181Platform> selectPlatformById(@PathVariable Long id, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+
+    /**
+     * 查询平台通道列表
+     *
+     * @param channel 通道查询条件
+     * @param source  请求来源
+     * @return
+     */
+    @PostMapping("/api/gb28181/platformChannel/list")
+    R<List<Gb28181PlatformChannel>> selectPlatformChannelList(@RequestBody Gb28181PlatformChannel channel, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+
+    /**
+     * 更新平台
+     *
+     * @param platform 平台信息
+     * @param source   请求来源
+     * @return
+     */
+    @PutMapping("/api/gb28181/platform")
+    R<Boolean> updatePlatform(@RequestBody Gb28181Platform platform, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+
+    /**
      * 根据设备id获取设备
      *
      * @param gbDeviceId
