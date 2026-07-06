@@ -30,12 +30,12 @@ public class RemoteZlmCloudRecordFallbackFactory implements FallbackFactory<Remo
 
         return new RemoteZlmCloudRecordService(){
             @Override
-            public R<Void> task(String inner) {
+            public R<Void> task() {
                 return R.fail("zlm接口云端定时查询待删除的录像文件接口失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<List<ZlmCloudRecord>> selectZlmCloudRecordList(ZlmCloudRecord zlmCloudRecord, String inner) {
+            public R<List<ZlmCloudRecord>> selectZlmCloudRecordList(ZlmCloudRecord zlmCloudRecord) {
                 return R.fail("zlm接口云端查询录像列表接口失败:" + throwable.getMessage());
             }
         };

@@ -115,7 +115,7 @@ public class QsDeviceSnapshotController extends BladeController {
             log.info("开始从流中抓图，deviceId: {}, app: {}, stream: {}", deviceId, app, stream);
 
             // 获取设备信息
-            R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (R.isNotSuccess(deviceR) || deviceR.getData() == null) {
                 log.error("获取设备信息失败，deviceId: {}", deviceId);
                 return fail("获取设备信息失败");
@@ -123,7 +123,7 @@ public class QsDeviceSnapshotController extends BladeController {
             QsDevice device = deviceR.getData();
 
             // 调用ZLM服务抓图
-            R<String> snapR = remoteZlmService.snap(app, stream, SecurityConstants.INNER);
+            R<String> snapR = remoteZlmService.snap(app, stream);
             if (R.isNotSuccess(snapR) || snapR.getData() == null) {
                 log.error("抓图失败，deviceId: {}", deviceId);
                 return fail("抓图失败");

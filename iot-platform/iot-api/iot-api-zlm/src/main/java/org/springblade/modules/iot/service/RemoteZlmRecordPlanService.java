@@ -30,5 +30,5 @@ public interface RemoteZlmRecordPlanService {
      * @param inner
      */
     @GetMapping("/api/recordPlan/task")
-    R<Void> task(@RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<Void> task();
 }

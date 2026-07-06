@@ -222,7 +222,7 @@
          where server_id = #{serverId}
     </select>
 
-    <select id="getOne" resultMap="ZlmMediaServerResult" parameterType="java.lang.String">
+    <select id="getOne" resultMap="ZlmMediaServerResult" parameterType="java.lang.Long">
         <include refid="selectZlmMediaServerVo"/>
         WHERE id = #{id}
     </select>

@@ -32,7 +32,7 @@ public interface RemoteZlmCloudRecordService {
      * @return
      */
     @GetMapping("/api/cloudRecord/task")
-    R<Void> task(@RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<Void> task();
 
     /**
      * 查询云端录像列表
@@ -42,5 +42,5 @@ public interface RemoteZlmCloudRecordService {
      * @return
      */
     @PostMapping("/api/cloudRecord/list")
-    R<List<ZlmCloudRecord>> selectZlmCloudRecordList(@RequestBody ZlmCloudRecord zlmCloudRecord, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<List<ZlmCloudRecord>> selectZlmCloudRecordList(@RequestBody ZlmCloudRecord zlmCloudRecord);
 }

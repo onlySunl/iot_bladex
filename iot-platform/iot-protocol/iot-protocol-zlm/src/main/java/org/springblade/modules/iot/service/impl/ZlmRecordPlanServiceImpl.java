@@ -66,7 +66,7 @@ public class ZlmRecordPlanServiceImpl implements IZlmRecordPlanService {
             return;
         }
         // 重新拉起
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
         if (r.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("根据设备id查询设备信息失败");
         }
@@ -137,7 +137,7 @@ public class ZlmRecordPlanServiceImpl implements IZlmRecordPlanService {
     public List<ZlmRecordPlan> selectZlmRecordPlanList(ZlmRecordPlan zlmRecordPlan) {
         List<ZlmRecordPlan> zlmRecordPlans = zlmRecordPlanMapper.selectZlmRecordPlanList(zlmRecordPlan);
         for (ZlmRecordPlan recordPlan : zlmRecordPlans) {
-            R<Integer> r = remoteQsDeviceService.countRecordPlanDevice(recordPlan.getId(), SecurityConstants.INNER);
+            R<Integer> r = remoteQsDeviceService.countRecordPlanDevice(recordPlan.getId());
             if (r.getCode() != Constants.SUCCESS) {
                 throw new RuntimeException("删除录像计划失败");
             }
@@ -202,7 +202,7 @@ public class ZlmRecordPlanServiceImpl implements IZlmRecordPlanService {
     public int deleteZlmRecordPlanByIds(Long[] ids) {
         for (Long id : ids) {
             zlmRecordPlanItemMapper.cleanItems(id);
-            R<Void> r = remoteQsDeviceService.cleanRecordPlanId(id, SecurityConstants.INNER);
+            R<Void> r = remoteQsDeviceService.cleanRecordPlanId(id);
             if (r.getCode() != HttpStatus.OK.value()) {
                 throw new RuntimeException("删除录像计划失败");
             }
@@ -236,7 +236,7 @@ public class ZlmRecordPlanServiceImpl implements IZlmRecordPlanService {
             recordStreamMap.keySet().forEach(startDeviceIdList::remove);
             if (!startDeviceIdList.isEmpty()) {
                 // 获取所有的关联的设备
-                R<List<QsDevice>> r = remoteQsDeviceService.queryByIds(startDeviceIdList, SecurityConstants.INNER);
+                R<List<QsDevice>> r = remoteQsDeviceService.queryByIds(startDeviceIdList);
                 if (r.getCode() != HttpStatus.OK.value()) {
                     throw new RuntimeException("根据设备id集合查询设备信息失败");
                 }
@@ -287,7 +287,7 @@ public class ZlmRecordPlanServiceImpl implements IZlmRecordPlanService {
                 // 查看是否有人观看,存在则不做处理,等待后续自然处理,如果无人观看,则关闭该流
                 MediaInfo mediaInfo = mediaServerService.getMediaInfo(streamInfo.getMediaServer(), streamInfo.getApp(), streamInfo.getStream());
                 if (mediaInfo.getReaderCount() == null || mediaInfo.getReaderCount() == 0) {
-                    R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+                    R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
                     if (r.getCode() != HttpStatus.OK.value()) {
                         throw new RuntimeException("根据设备id查询设备信息失败");
                     }
@@ -306,7 +306,7 @@ public class ZlmRecordPlanServiceImpl implements IZlmRecordPlanService {
                         RTPServerParam rtpServerParam = new RTPServerParam();
                         rtpServerParam.setType(device.getType());
                         rtpServerParam.setStreamId(device.getDeviceCode());
-                        rtpServerParam.setId(device.getId());
+                        rtpServerParam.setDeviceId(device.getId());
 
                         mediaServerService.stopRtpPlay(rtpServerParam);
                     }

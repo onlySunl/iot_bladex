@@ -33,27 +33,27 @@ public class RemoteZlmFallbackFactory implements FallbackFactory<RemoteZlmServic
 
         return new RemoteZlmService() {
             @Override
-            public R<Void> releaseSsrc(Long mediaServerId, String ssrc, String inner) {
+            public R<Void> releaseSsrc(Long mediaServerId, String ssrc) {
                 return R.fail("zlm接口服务调用失败，releaseSsrc:" + throwable.getMessage());
             }
 
             @Override
-            public R<Void> closeRTPServer(Long mediaServerId, RtpServerParam rtpServer, String inner) {
+            public R<Void> closeRTPServer(Long mediaServerId, RtpServerParam rtpServer) {
                 return R.fail("zlm接口服务调用失败，closeRTPServer:" + throwable.getMessage());
             }
 
             @Override
-            public R<Boolean> connectRtpServer(Long mediaServerId, String address, int port, String stream, String inner) {
+            public R<Boolean> connectRtpServer(Long mediaServerId, String address, int port, String stream) {
                 return R.fail("zlm接口服务调用失败，connectRtpServer:" + throwable.getMessage());
             }
 
             @Override
-            public R<?> startSendRtp(String mediaServerId, Map<String, Object> param, String inner) {
+            public R<?> startSendRtp(String mediaServerId, Map<String, Object> param) {
                 return R.fail("zlm接口服务调用失败，startSendRtp:" + throwable.getMessage());
             }
 
             @Override
-            public R<?> stopSendRtp(String mediaServerId, Map<String, Object> param, String inner) {
+            public R<?> stopSendRtp(String mediaServerId, Map<String, Object> param) {
                 return R.fail("zlm接口服务调用失败，stopSendRtp:" + throwable.getMessage());
             }
 
@@ -63,32 +63,32 @@ public class RemoteZlmFallbackFactory implements FallbackFactory<RemoteZlmServic
             }
 
             @Override
-            public R<ZlmMediaServer> getOneFromDatabase(String id, String inner) {
+            public R<ZlmMediaServer> getOneFromDatabase(String id) {
                 return R.fail("zlm接口服务调用失败，getOneFromDatabase:" + throwable.getMessage());
             }
 
             @Override
-            public R<Void> gb28181PlatformPlay(Gb28181PlatformPlay platformPlay, String inner) {
+            public R<Void> gb28181PlatformPlay(Gb28181PlatformPlay platformPlay) {
                 return R.fail("zlm接口服务调用失败，gb28181PlatformPlay: " + throwable.getMessage());
             }
 
             @Override
-            public R<Void> gb28181PlatformPlayback(Gb28181PlatformPlayback platformPlayback, String inner) {
+            public R<Void> gb28181PlatformPlayback(Gb28181PlatformPlayback platformPlayback) {
                 return R.fail("zlm接口服务调用失败，gb28181PlatformPlayback: " + throwable.getMessage());
             }
 
             @Override
-            public R<Void> stopPlayback(Long deviceId, String deviceType, String stream, String inner) {
+            public R<Void> stopPlayback(Long deviceId, String deviceType, String stream) {
                 return R.fail("zlm接口服务调用失败, stopPlayback: " + throwable.getMessage());
             }
 
             @Override
-            public R<String> getSnap(String app, String stream, String inner) {
+            public R<String> getSnap(String app, String stream) {
                 return R.fail("zlm接口服务调用失败, getSnap: " + throwable.getMessage());
             }
 
             @Override
-            public R<String> snap(String app, String stream, String inner) {
+            public R<String> snap(String app, String stream) {
                 return R.fail("zlm接口服务调用失败, snap: " + throwable.getMessage());
             }
         };

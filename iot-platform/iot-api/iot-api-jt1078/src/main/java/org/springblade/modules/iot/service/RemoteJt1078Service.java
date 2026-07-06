@@ -30,40 +30,40 @@ public interface RemoteJt1078Service {
      * 根据设备手机号获取设备
      *
      * @param mobileNo 设备手机号
-     * @param inner
+     * 
      * @return
      */
     @GetMapping("/api/jt1078/getDeviceByMobileNo/{mobileNo}")
-    R<Jt1078Device> getDeviceByMobileNo(@PathVariable String mobileNo, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<Jt1078Device> getDeviceByMobileNo(@PathVariable String mobileNo);
 
     /**
      * 请求预览视频流
      *
      * @param rtpServer
-     * @param inner
+     * 
      * @return
      */
     @PostMapping("/api/jt1078/playStreamCmd")
-    R<Void> playStreamCmd(@RequestBody RtpServerParam rtpServer, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<Void> playStreamCmd(@RequestBody RtpServerParam rtpServer);
 
     /**
      * 停止视频流
      *
      * @param rtpServer
-     * @param inner
+     * 
      * @return
      */
     @PostMapping("/api/jt1078/streamByeCmd")
-    R<Void> streamByeCmd(@RequestBody RtpServerParam rtpServer, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<Void> streamByeCmd(@RequestBody RtpServerParam rtpServer);
 
     /**
      * 获取全部设备
      *
-     * @param inner
+     * 
      * @return
      */
     @GetMapping("/api/jt1078/getAllDevices")
-    R<List<Jt1078Device>> getAllDevices(@RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<List<Jt1078Device>> getAllDevices();
 
     /**
      * 云台旋转
@@ -72,13 +72,13 @@ public interface RemoteJt1078Service {
      * @param channelNo
      * @param direction
      * @param speed
-     * @param inner
+     * 
      * @return
      */
     @GetMapping("/api/jt1078/ptzRotate/{mobileNo}/{channelNo}")
     R<Void> ptzRotate(@PathVariable String mobileNo, @PathVariable int channelNo,
-                      @RequestParam int direction, @RequestParam(defaultValue = "50") int speed,
-                      @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+                      @RequestParam int direction, @RequestParam(defaultValue = "50") int speed
+                      );
 
     /**
      * 云台调整焦距控制
@@ -87,13 +87,13 @@ public interface RemoteJt1078Service {
      * @param channelNo
      * @param direction
      * @param speed
-     * @param inner
+     * 
      * @return
      */
     @GetMapping("/api/jt1078/ptzFocus/{mobileNo}/{channelNo}")
     R<Void> ptzFocus(@PathVariable String mobileNo, @PathVariable int channelNo,
-                     @RequestParam int direction, @RequestParam(defaultValue = "50") int speed,
-                     @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+                     @RequestParam int direction, @RequestParam(defaultValue = "50") int speed
+                     );
 
     /**
      * 云台调整光圈控制
@@ -102,13 +102,13 @@ public interface RemoteJt1078Service {
      * @param channelNo
      * @param direction
      * @param speed
-     * @param inner
+     * 
      * @return
      */
     @GetMapping("/api/jt1078/ptzIris/{mobileNo}/{channelNo}")
     R<Void> ptzIris(@PathVariable String mobileNo, @PathVariable int channelNo,
-                    @RequestParam int direction, @RequestParam(defaultValue = "50") int speed,
-                    @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+                    @RequestParam int direction, @RequestParam(defaultValue = "50") int speed
+                    );
 
     /**
      * 云台雨刷控制
@@ -116,13 +116,12 @@ public interface RemoteJt1078Service {
      * @param mobileNo
      * @param channelNo
      * @param control
-     * @param inner
+     * 
      * @return
      */
     @GetMapping("/api/jt1078/ptzWiper/{mobileNo}/{channelNo}")
     R<Void> ptzWiper(@PathVariable String mobileNo, @PathVariable int channelNo,
-                     @RequestParam int control,
-                     @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+                     @RequestParam int control);
 
     /**
      * 红外补光控制
@@ -130,13 +129,12 @@ public interface RemoteJt1078Service {
      * @param mobileNo
      * @param channelNo
      * @param control
-     * @param inner
+     * 
      * @return
      */
     @GetMapping("/api/jt1078/ptzInfrared/{mobileNo}/{channelNo}")
     R<Void> ptzInfrared(@PathVariable String mobileNo, @PathVariable int channelNo,
-                        @RequestParam int control,
-                        @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+                        @RequestParam int control);
 
     /**
      * 云台变倍控制
@@ -145,13 +143,12 @@ public interface RemoteJt1078Service {
      * @param channelNo
      * @param direction
      * @param speed
-     * @param inner
+     * 
      * @return
      */
     @GetMapping("/api/jt1078/ptzZoom/{mobileNo}/{channelNo}")
     R<Void> ptzZoom(@PathVariable String mobileNo, @PathVariable int channelNo,
-                    @RequestParam int direction, @RequestParam(defaultValue = "50") int speed,
-                    @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+                    @RequestParam int direction, @RequestParam(defaultValue = "50") int speed);
 
     /**
      * 查询录像文件列表
@@ -160,15 +157,14 @@ public interface RemoteJt1078Service {
      * @param channelNo
      * @param startTime
      * @param endTime
-     * @param inner
+     * 
      * @return
      */
     @GetMapping("/api/jt1078/queryRecord/{mobileNo}/{channelNo}")
     R<ArrayList<HashMap<String, Object>>> queryRecord(@PathVariable String mobileNo,
                                                         @PathVariable int channelNo,
                                                         @RequestParam String startTime,
-                                                        @RequestParam String endTime,
-                                                        @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+                                                        @RequestParam String endTime);
 
     /**
      * 远程录像回放
@@ -178,7 +174,7 @@ public interface RemoteJt1078Service {
      * @param endTime
      * @param playbackMode
      * @param playbackSpeed
-     * @param inner
+     * 
      * @return
      */
     @PostMapping("/api/jt1078/playback")
@@ -186,8 +182,7 @@ public interface RemoteJt1078Service {
                      @RequestParam String startTime,
                      @RequestParam String endTime,
                      @RequestParam(defaultValue = "0") int playbackMode,
-                     @RequestParam(defaultValue = "0") int playbackSpeed,
-                     @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+                     @RequestParam(defaultValue = "0") int playbackSpeed);
 
     /**
      * 录像回放控制
@@ -197,7 +192,7 @@ public interface RemoteJt1078Service {
      * @param playbackMode
      * @param playbackSpeed
      * @param playbackTime
-     * @param inner
+     * 
      * @return
      */
     @GetMapping("/api/jt1078/playbackControl/{mobileNo}/{channelNo}")
@@ -205,6 +200,5 @@ public interface RemoteJt1078Service {
                             @PathVariable int channelNo,
                             @RequestParam int playbackMode,
                             @RequestParam(defaultValue = "0") int playbackSpeed,
-                            @RequestParam(required = false) String playbackTime,
-                            @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+                            @RequestParam(required = false) String playbackTime);
 }

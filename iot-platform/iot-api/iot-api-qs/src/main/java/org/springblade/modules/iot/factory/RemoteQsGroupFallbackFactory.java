@@ -30,17 +30,17 @@ public class RemoteQsGroupFallbackFactory implements FallbackFactory<RemoteQsGro
 
         return new RemoteQsGroupService() {
             @Override
-            public R<List<QsGroupTree>> queryForTree(String query, Integer parentId, Boolean hasDevice, String source) {
+            public R<List<QsGroupTree>> queryForTree(String query, Integer parentId, Boolean hasDevice) {
                 return R.fail("查询分组树失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<List<QsGroupTree>> queryAllGroups(String query, String source) {
+            public R<List<QsGroupTree>> queryAllGroups(String query) {
                 return R.fail("查询所有分组失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<List<QsGroup>> queryList(String query, String source) {
+            public R<List<QsGroup>> queryList(String query) {
                 return R.fail("查询分组列表失败:" + throwable.getMessage());
             }
         };

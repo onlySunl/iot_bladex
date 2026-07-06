@@ -50,7 +50,7 @@ public class MediaServiceImpl implements IMediaService {
     @Override
     public boolean closeStreamOnNoneReader(Long mediaServerId, String app, String stream, String schema) {
 
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceStream(stream, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceStream(stream);
         if (r.getCode() != Constants.SUCCESS) {
             return false;
         }
@@ -90,7 +90,7 @@ public class MediaServiceImpl implements IMediaService {
             if (isPlayback) {
                 // 回放流一定要关闭
                 RTPServerParam rtpServerParam = new RTPServerParam();
-                rtpServerParam.setId(data.getId());
+                rtpServerParam.setDeviceId(data.getId());
                 rtpServerParam.setType(data.getType());
                 rtpServerParam.setStreamId(stream);
                 rtpServerParam.setPlayback(true);
@@ -99,7 +99,7 @@ public class MediaServiceImpl implements IMediaService {
             } else if ("1".equals(data.getEnableDisableNoneReader())) {
                 // 非回放流且配置了无人观看停用
                 RTPServerParam rtpServerParam = new RTPServerParam();
-                rtpServerParam.setId(data.getId());
+                rtpServerParam.setDeviceId(data.getId());
                 rtpServerParam.setType(data.getType());
                 rtpServerParam.setStreamId(stream);
                 rtpServerParam.setPlayback(false);
@@ -116,7 +116,7 @@ public class MediaServiceImpl implements IMediaService {
             }
         } else if ("gb28181".equals(app)) {
             if (isPlayback || "1".equals(data.getEnableDisableNoneReader())) {
-                R<Device> deviceR = remoteGb28181Service.getDeviceByDeviceId(data.getGbDeviceId(), SecurityConstants.INNER);
+                R<Device> deviceR = remoteGb28181Service.getDeviceByDeviceId(data.getGbDeviceId());
                 if (deviceR.getCode() == Constants.SUCCESS && deviceR.getData() != null) {
                     InviteSessionType type = isPlayback ? InviteSessionType.PLAYBACK : InviteSessionType.PLAY;
                     mediaServerService.stopGb28181Play(type, data, deviceR.getData(), data.getDeviceCode());
@@ -127,7 +127,7 @@ public class MediaServiceImpl implements IMediaService {
             }
         } else if ("jt1078".equals(app)) {
             if (isPlayback || "1".equals(data.getEnableDisableNoneReader())) {
-                R<Jt1078Device> deviceR = remoteJt1078Service.getDeviceByMobileNo(data.getJtMobileNo(), SecurityConstants.INNER);
+                R<Jt1078Device> deviceR = remoteJt1078Service.getDeviceByMobileNo(data.getJtMobileNo());
                 if (deviceR.getCode() == Constants.SUCCESS && deviceR.getData() != null) {
                     InviteSessionType type = isPlayback ? InviteSessionType.PLAYBACK : InviteSessionType.PLAY;
                     mediaServerService.stopJt1078Play(type, data, deviceR.getData(), data.getDeviceCode());
@@ -151,7 +151,7 @@ public class MediaServiceImpl implements IMediaService {
 
         // 推流 app 单独处理鉴权，但也要处理录制和无人观看配置
         if ("push".equals(app)) {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceStream(stream, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceStream(stream);
             if (r.getCode() == Constants.SUCCESS && r.getData() != null) {
                 boolean isPlayback = stream.equals(r.getData().getPlaybackStreamKey());
                 if (!isPlayback && "1".equals(r.getData().getEnableMp4())) {
@@ -191,7 +191,7 @@ public class MediaServiceImpl implements IMediaService {
 
         // 拉流代理 (rtsp/rtmp/flv/hls/onvif)
         if ("rtsp".equals(app) || "rtmp".equals(app) || "flv".equals(app) || "hls".equals(app) || "onvif".equals(app)) {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceStream(stream, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceStream(stream);
             if (r.getCode() == Constants.SUCCESS && r.getData() != null) {
                 boolean isPlayback = stream.equals(r.getData().getPlaybackStreamKey());
                 if (!isPlayback && "1".equals(r.getData().getEnableMp4())) {
@@ -206,7 +206,7 @@ public class MediaServiceImpl implements IMediaService {
 
         // 海康SDK / 海康ISUP / 大华SDK
         if ("haikang".equals(app) || "haikang_isup".equals(app) || "dahua".equals(app)) {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceStream(stream, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceStream(stream);
             if (r.getCode() == Constants.SUCCESS && r.getData() != null) {
                 boolean isPlayback = stream.equals(r.getData().getPlaybackStreamKey());
                 if (!isPlayback && "1".equals(r.getData().getEnableMp4())) {
@@ -221,7 +221,7 @@ public class MediaServiceImpl implements IMediaService {
 
         // GB28181
         if ("gb28181".equals(app)) {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceStream(stream, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceStream(stream);
             if (r.getCode() == Constants.SUCCESS && r.getData() != null) {
                 boolean isPlayback = stream.equals(r.getData().getPlaybackStreamKey());
                 if (!isPlayback && "1".equals(r.getData().getEnableMp4())) {
@@ -236,7 +236,7 @@ public class MediaServiceImpl implements IMediaService {
 
         // JT1078
         if ("jt1078".equals(app)) {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceStream(stream, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceStream(stream);
             if (r.getCode() == Constants.SUCCESS && r.getData() != null) {
                 boolean isPlayback = stream.equals(r.getData().getPlaybackStreamKey());
                 if (!isPlayback && "1".equals(r.getData().getEnableMp4())) {

@@ -36,40 +36,40 @@ public interface RemoteHaiKangService {
      * 登录设备，支持 V40 和 V30 版本，功能一致。
      *
      * @param loginDevice 海康设备登录信息
-     * @param source      请求来源
+     * R.fail("");
      * @return 登录成功返回用户ID，失败返回-1
      */
     @PostMapping(value = "/api/haikang/loginDevice")
-    public R<Integer> loginDevice(@RequestBody LoginDevice loginDevice, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    public R<Integer> loginDevice(@RequestBody LoginDevice loginDevice);
 
     /**
      * 设备注销
      *
      * @param ip     设备ip
-     * @param source 请求来源
+     * 
      */
     @PostMapping(value = "/api/haikang/logoutDevice/{ip}")
-    public R<Void> logoutDevice(@PathVariable String ip, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    public R<Void> logoutDevice(@PathVariable String ip);
 
     /**
      * 获取设备登录的用户ID
      *
      * @param ip     设备ip
-     * @param source 请求来源
+     * 
      * @return
      */
     @PostMapping("/api/haikang/getUserId/{ip}")
-    public R<Integer> getUserId(@PathVariable String ip, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    public R<Integer> getUserId(@PathVariable String ip);
 
 
     /**
      * 获取设备的基本参数
      *
      * @param ip     设备ip
-     * @param source 请求来源
+     * 
      */
     @PostMapping("/api/haikang/getDeviceInfo/{ip}")
-    R<HaikangDeviceInfo> getDeviceInfo(@PathVariable String ip, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<HaikangDeviceInfo> getDeviceInfo(@PathVariable String ip);
 
     /**
      * 开始播放
@@ -78,7 +78,7 @@ public interface RemoteHaiKangService {
      * @param source         请求来源
      */
     @PostMapping("/api/haikang/startPlay")
-    public R<Void> startPlay(@RequestBody RtpServerParam rtpServerParam, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    public R<Void> startPlay(@RequestBody RtpServerParam rtpServerParam);
 
     /**
      * 停止播放
@@ -87,7 +87,7 @@ public interface RemoteHaiKangService {
      * @param inner 请求来源
      */
     @GetMapping("/api/haikang/stopPlay/{id}")
-    public R<Void> stopPlay(@PathVariable Long id, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    public R<Void> stopPlay(@PathVariable Long id);
 
     /**
      * 开始回放
@@ -96,7 +96,7 @@ public interface RemoteHaiKangService {
      * @param source         请求来源
      */
     @PostMapping("/api/haikang/startPlayback")
-    public R<Void> startPlayback(@RequestBody RtpServerParam rtpServerParam, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    public R<Void> startPlayback(@RequestBody RtpServerParam rtpServerParam);
 
     /**
      * 停止回放
@@ -105,7 +105,7 @@ public interface RemoteHaiKangService {
      * @param inner 请求来源
      */
     @GetMapping("/api/haikang/stopPlayback/{id}")
-    public R<Void> stopPlayback(@PathVariable Long id, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    public R<Void> stopPlayback(@PathVariable Long id);
 
     /**
      * 开始云台控制
@@ -116,7 +116,7 @@ public interface RemoteHaiKangService {
      * @param source    请求来源
      */
     @GetMapping("/api/haikang/startPlayControl/{deviceId}/{channelId}")
-    R<Void> startPlayControl(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestParam String direction, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<Void> startPlayControl(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestParam String direction);
 
     /**
      * 结束云台控制
@@ -127,7 +127,7 @@ public interface RemoteHaiKangService {
      * @param source    请求来源
      */
     @GetMapping("/api/haikang/endPlayControl/{deviceId}/{channelId}")
-    R<Void> endPlayControl(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestParam String direction, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<Void> endPlayControl(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestParam String direction);
 
     /**
      * 重启设备
@@ -136,7 +136,7 @@ public interface RemoteHaiKangService {
      * @param source   请求来源
      */
     @GetMapping("/api/haikang/restartDevice/{deviceId}")
-    R<Void> restartDevice(@PathVariable("deviceId") Long deviceId, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<Void> restartDevice(@PathVariable("deviceId") Long deviceId);
 
     /**
      * 关机
@@ -145,7 +145,7 @@ public interface RemoteHaiKangService {
      * @param source   请求来源
      */
     @GetMapping("/api/haikang/shutDown/{deviceId}")
-    R<Void> shutDown(@PathVariable("deviceId") Long deviceId, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<Void> shutDown(@PathVariable("deviceId") Long deviceId);
 
     /**
      * 获取设备音频编码参数，确定转发音频参数
@@ -155,7 +155,7 @@ public interface RemoteHaiKangService {
      * @param source    请求来源
      */
     @GetMapping("/api/haikang/getCurrentAudio/{deviceId}/{channelId}")
-    R<HashMap<String, Object>> getCurrentAudio(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<HashMap<String, Object>> getCurrentAudio(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId);
 
     /**
      * 获取预置点列表
@@ -165,7 +165,7 @@ public interface RemoteHaiKangService {
      * @param source    请求来源
      */
     @GetMapping("/api/haikang/getPresets/{deviceId}/{channelId}")
-    R<List<PresetInfo>> getPresets(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<List<PresetInfo>> getPresets(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId);
 
     /**
      * 设置预置点
@@ -173,10 +173,10 @@ public interface RemoteHaiKangService {
      * @param deviceId    设备id
      * @param channelId   通道id
      * @param presetIndex 预置点索引
-     * @param source      请求来源
+     * R.fail("");
      */
     @GetMapping("/api/haikang/setPresets/{deviceId}/{channelId}")
-    R<Void> setPresets(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestParam int presetIndex, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<Void> setPresets(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestParam int presetIndex);
 
     /**
      * 清除预置点
@@ -184,10 +184,10 @@ public interface RemoteHaiKangService {
      * @param deviceId    设备id
      * @param channelId   通道id
      * @param presetIndex 预置点索引
-     * @param source      请求来源
+     * R.fail("");
      */
     @GetMapping("/api/haikang/delPresets/{deviceId}/{channelId}")
-    R<Void> delPresets(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestParam int presetIndex, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<Void> delPresets(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestParam int presetIndex);
 
     /**
      * 调用预置点
@@ -195,10 +195,10 @@ public interface RemoteHaiKangService {
      * @param deviceId    设备id
      * @param channelId 通道id
      * @param presetIndex 预置点索引
-     * @param source      请求来源
+     * R.fail("");
      */
     @GetMapping("/api/haikang/invokePresets/{deviceId}/{channelId}")
-    R<Void> invokePresets(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestParam int presetIndex, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<Void> invokePresets(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestParam int presetIndex);
 
     /**
      * 辅助设备控制（灯光、雨刷、风扇、加热器等）
@@ -207,10 +207,10 @@ public interface RemoteHaiKangService {
      * @param channelId 通道id
      * @param operation 操作类型
      * @param isStart 是否开始（true开始，false停止）
-     * @param source 请求来源
+     * 
      */
     @GetMapping("/api/haikang/cameraAuxControl/{deviceId}/{channelId}")
-    R<Void> cameraAuxControl(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestParam String operation, @RequestParam boolean isStart, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<Void> cameraAuxControl(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestParam String operation, @RequestParam boolean isStart);
 
     /**
      * 巡航控制
@@ -219,20 +219,20 @@ public interface RemoteHaiKangService {
      * @param channelId 通道id
      * @param operation 操作类型
      * @param param 参数（预置点号、停顿时间、速度等，根据操作类型不同而不同）
-     * @param source 请求来源
+     * 
      */
     @GetMapping("/api/haikang/cruiseControl/{deviceId}/{channelId}")
-    R<Void> cruiseControl(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestParam String operation, @RequestParam Integer param, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<Void> cruiseControl(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestParam String operation, @RequestParam Integer param);
 
     /**
      * 获取球机PTZ参数
      *
      * @param deviceId 设备id
      * @param channelId 通道id
-     * @param source 请求来源
+     * 
      */
     @GetMapping("/api/haikang/getPTZcfg/{deviceId}/{channelId}")
-    R<HashMap<String, Object>> getPTZcfg(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<HashMap<String, Object>> getPTZcfg(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId);
 
     /**
      * 设置球机PTZ参数
@@ -242,39 +242,39 @@ public interface RemoteHaiKangService {
      * @param p 云台水平角度
      * @param t 云台垂直角度
      * @param z 云台变倍倍数
-     * @param source 请求来源
+     * 
      */
     @GetMapping("/api/haikang/setPTZcfg/{deviceId}/{channelId}")
-    R<Void> setPTZcfg(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestParam short p, @RequestParam short t, @RequestParam short z, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<Void> setPTZcfg(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestParam short p, @RequestParam short t, @RequestParam short z);
 
     /**
      * 获取高精度PTZ绝对位置配置
      *
      * @param deviceId 设备id
      * @param channelId 通道id
-     * @param source 请求来源
+     * 
      */
     @GetMapping("/api/haikang/getPTZAbsoluteEx/{deviceId}/{channelId}")
-    R<HashMap<String, Object>> getPTZAbsoluteEx(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<HashMap<String, Object>> getPTZAbsoluteEx(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId);
 
     /**
      * 获取设备时间参数
      *
      * @param deviceId 设备id
-     * @param source 请求来源
+     * 
      */
     @GetMapping("/api/haikang/getDevTime/{deviceId}")
-    R<String> getDevTime(@PathVariable("deviceId") Long deviceId, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<String> getDevTime(@PathVariable("deviceId") Long deviceId);
 
     /**
      * 设置设备时间参数
      *
      * @param deviceId 设备id
      * @param time 时间
-     * @param source 请求来源
+     * 
      */
     @GetMapping("/api/haikang/setDevTime/{deviceId}")
-    R<Void> setDevTime(@PathVariable("deviceId") Long deviceId, @RequestParam String time, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<Void> setDevTime(@PathVariable("deviceId") Long deviceId, @RequestParam String time);
 
     /**
      * 海康设备查询录像
@@ -283,8 +283,8 @@ public interface RemoteHaiKangService {
      * @param channelId 通道id
      * @param startTime 开始时间
      * @param endTime 结束时间
-     * @param source 请求来源
+     * 
      */
     @GetMapping("/api/haikang/getRecMonth/{deviceId}/{channelId}")
-    R<ArrayList<HashMap<String, Object>>> getRecMonth(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestParam String startTime, @RequestParam String endTime, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<ArrayList<HashMap<String, Object>>> getRecMonth(@PathVariable("deviceId") Long deviceId, @PathVariable("channelId") int channelId, @RequestParam String startTime, @RequestParam String endTime);
 }

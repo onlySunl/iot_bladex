@@ -30,27 +30,27 @@ public class RemoteQsDeviceFallbackFactory implements FallbackFactory<RemoteQsDe
 
         return new RemoteQsDeviceService() {
             @Override
-            public R<List<QsDevice>> list(QsDevice qsDevice, String source) {
+            public R<List<QsDevice>> list(QsDevice qsDevice) {
                 return R.fail("查询视频监控设备失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<Boolean> updateQsDeviceStatusList(Set<Long> onlineDeviceSet, String deviceStatus, String inner) {
+            public R<Boolean> updateQsDeviceStatusList(Set<Long> onlineDeviceSet, String deviceStatus) {
                 return R.fail("更新设备在线状态失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<Boolean> updateQsDevice(QsDevice qsDevice, String inner) {
+            public R<Boolean> updateQsDevice(QsDevice qsDevice) {
                 return R.fail("修改视频监控设备失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<QsDevice> getQsDeviceStream(String stream, String inner) {
+            public R<QsDevice> getQsDeviceStream(String stream) {
                 return R.fail("根据流id获取视频监控设备失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<QsDevice> getQsDeviceInfo(Long id, String inner) {
+            public R<QsDevice> getQsDeviceInfo(Long id) {
                 return R.fail("获取视频监控设备详细信息失败:" + throwable.getMessage());
             }
 
@@ -60,47 +60,47 @@ public class RemoteQsDeviceFallbackFactory implements FallbackFactory<RemoteQsDe
             }
 
             @Override
-            public R<Void> cleanRecordPlanId(Long planId, String inner) {
+            public R<Void> cleanRecordPlanId(Long planId) {
                 return R.fail("设备清理设备计划id失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<List<QsDevice>> queryByIds(List<Long> startDeviceIdList, String inner) {
+            public R<List<QsDevice>> queryByIds(List<Long> startDeviceIdList) {
                 return R.fail("根据设备id集合查询设备信息失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<Integer> countRecordPlanDevice(Long planId, String inner) {
+            public R<Integer> countRecordPlanDevice(Long planId) {
                 return R.fail("根据计划id查询设备数量失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<Boolean> addQsDevice(QsDevice qsDevice, String inner) {
+            public R<Boolean> addQsDevice(QsDevice qsDevice) {
                 return R.fail("新增视频监控设备失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<Boolean> updateDeviceStatusByGbDeviceId(String gbDeviceId, String deviceStatus, String inner) {
+            public R<Boolean> updateDeviceStatusByGbDeviceId(String gbDeviceId, String deviceStatus) {
                 return R.fail("根据 gbDeviceId 更新设备在线状态失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<Boolean> updateDeviceStatusByJtMobileNo(String jtMobileNo, String deviceStatus, String inner) {
+            public R<Boolean> updateDeviceStatusByJtMobileNo(String jtMobileNo, String deviceStatus) {
                 return R.fail("根据 jtMobileNo 更新设备在线状态失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<QsDevice> getDeviceByGbCode(String gbCode, String inner) {
+            public R<QsDevice> getDeviceByGbCode(String gbCode) {
                 return R.fail("根据 gbCode 获取设备失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<QsDevice> getDeviceByDeviceCode(String deviceCode, String inner) {
+            public R<QsDevice> getDeviceByDeviceCode(String deviceCode) {
                 return R.fail("根据 deviceCode 获取设备失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<Boolean> updateSubscribeStatus(Long id, Integer subscribeCatalogStatus, Integer subscribeAlarmStatus, String subscribeTime, String inner) {
+            public R<Boolean> updateSubscribeStatus(Long id, Integer subscribeCatalogStatus, Integer subscribeAlarmStatus, String subscribeTime) {
                 return R.fail("更新订阅状态失败:" + throwable.getMessage());
             }
         };

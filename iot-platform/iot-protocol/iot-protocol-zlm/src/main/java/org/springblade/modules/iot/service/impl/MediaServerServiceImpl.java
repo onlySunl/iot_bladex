@@ -12,6 +12,7 @@ import org.springblade.modules.iot.common.constants.Constants;
 import org.springblade.modules.iot.common.constants.SecurityConstants;
 import org.springblade.modules.iot.common.domain.RtpServerParam;
 import org.springblade.modules.iot.common.enums.LiveStreamType;
+import org.springblade.modules.iot.common.utils.SreamUtils;
 import org.springblade.modules.iot.domain.*;
 import org.springblade.modules.iot.mediaServer.*;
 import org.springblade.modules.iot.service.RemoteHaiKangIsupService;
@@ -46,6 +47,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.DigestUtils;
 
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 /**
@@ -178,14 +180,14 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         }
         redisCatchStorage.updateStreamAuthorityInfo(event.getApp(), event.getStream(), streamAuthorityInfo);
 
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceStream("pull_" + event.getApp() + "_" + event.getStream(), SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceStream("pull_" + event.getApp() + "_" + event.getStream());
         if (r.getCode() != Constants.SUCCESS) {
             log.error("获取设备信息失败,stream:{}", event.getStream());
             return;
         }
 
         if (r.getData() == null) {
-            r = remoteQsDeviceService.getQsDeviceStream(event.getStream(), SecurityConstants.INNER);
+            r = remoteQsDeviceService.getQsDeviceStream(event.getStream());
             if (r.getCode() != Constants.SUCCESS) {
                 log.error("获取设备信息失败,stream:{}", event.getStream());
                 return;
@@ -206,7 +208,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
             String filePath = snapOnPlay(mediaInfo.getMediaServer(), event.getApp(), event.getStream());
             device.setSnap(filePath);
 
-            R<Boolean> addR = remoteQsDeviceService.addQsDevice(device, SecurityConstants.INNER);
+            R<Boolean> addR = remoteQsDeviceService.addQsDevice(device);
             if (addR.getCode() != Constants.SUCCESS) {
                 throw new RuntimeException("添加推流设备设备失败" + event.getApp() + "_" + event.getStream());
             }
@@ -223,7 +225,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
             device.setId(r.getData().getId());
             String filePath = snapOnPlay(mediaInfo.getMediaServer(), event.getApp(), event.getStream());
             device.setSnap(filePath);
-            R<Boolean> updateR = remoteQsDeviceService.updateQsDevice(device, SecurityConstants.INNER);
+            R<Boolean> updateR = remoteQsDeviceService.updateQsDevice(device);
             if (updateR.getCode() != Constants.SUCCESS) {
                 throw new RuntimeException("修改推流设备设备失败" + event.getApp() + "_" + event.getStream());
             }
@@ -259,7 +261,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
             InviteInfo inviteInfo = inviteStreamService.getInviteInfoByStream(null, event.getStream());
             if (inviteInfo != null && (inviteInfo.getType() == InviteSessionType.PLAY || inviteInfo.getType() == InviteSessionType.PLAYBACK)) {
                 // 先获取设备信息
-                R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(Long.valueOf(inviteInfo.getDeviceId()), SecurityConstants.INNER);
+                R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(Long.valueOf(inviteInfo.getDeviceId()));
                 if (r.getCode() != Constants.SUCCESS) {
                     return;
                 }
@@ -271,14 +273,14 @@ public class MediaServerServiceImpl  implements IMediaServerService {
                 if ("gb28181".equals(event.getApp())) {
                     // 处理gb28181的停止播放逻辑
                     log.info("[gb28181] 流离开，开始清理资源，stream: {}", event.getStream());
-                    R<Device> deviceR = remoteGb28181Service.getDeviceByDeviceId(r.getData().getGbDeviceId(), SecurityConstants.INNER);
+                    R<Device> deviceR = remoteGb28181Service.getDeviceByDeviceId(r.getData().getGbDeviceId());
                     if (deviceR.getCode() == Constants.SUCCESS && deviceR.getData() != null) {
                         stopGb28181Play(inviteInfo.getType(), r.getData(), deviceR.getData(), event.getStream());
                     }
                 } else if ("jt1078".equals(event.getApp())) {
                     // 处理jt1078的停止播放逻辑
                     log.info("[jt1078] 流离开，开始清理资源，stream: {}", event.getStream());
-                    R<Jt1078Device> deviceR = remoteJt1078Service.getDeviceByMobileNo(r.getData().getJtMobileNo(), SecurityConstants.INNER);
+                    R<Jt1078Device> deviceR = remoteJt1078Service.getDeviceByMobileNo(r.getData().getJtMobileNo());
                     if (deviceR.getCode() == Constants.SUCCESS && deviceR.getData() != null) {
                         stopJt1078Play(inviteInfo.getType(), r.getData(), deviceR.getData(), event.getStream());
                     }
@@ -286,7 +288,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
                     // 处理海康SDK、海康ISUP、大华SDK的停止播放逻辑
                     log.info("[{}] 流离开，开始清理资源，stream: {}, isPlayback: {}", event.getApp(), event.getStream(), inviteInfo.getType() == InviteSessionType.PLAYBACK);
                     RTPServerParam rtpServerParam = new RTPServerParam();
-                    rtpServerParam.setId(r.getData().getId());
+                    rtpServerParam.setDeviceId(r.getData().getId());
                     rtpServerParam.setType(r.getData().getType());
                     rtpServerParam.setStreamId(event.getStream());
                     // 设置回放标志
@@ -300,7 +302,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         }
 
         if ("video_file".equals(event.getApp()) || "onvif".equals(event.getApp())) {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceStream(event.getStream(), SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceStream(event.getStream());
             if (r.getCode() != Constants.SUCCESS) {
                 return;
             }
@@ -328,7 +330,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
                 qsDevice.setStreamStatus("0");
             }
             
-            R<Boolean> qsDevicer = remoteQsDeviceService.updateQsDevice(qsDevice, SecurityConstants.INNER);
+            R<Boolean> qsDevicer = remoteQsDeviceService.updateQsDevice(qsDevice);
             if (qsDevicer.getCode() != Constants.SUCCESS) {
                 log.error("更新设备失败");
             }
@@ -356,14 +358,14 @@ public class MediaServerServiceImpl  implements IMediaServerService {
             redisCatchStorage.removePushListItem(event.getApp(), event.getStream(), event.getMediaServer().getId());
         }
 
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceStream("pull_" + event.getApp() + "_" + event.getStream(), SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceStream("pull_" + event.getApp() + "_" + event.getStream());
         if (r.getCode() != Constants.SUCCESS) {
             log.error("获取设备信息失败,stream:{}", event.getStream());
             return;
         }
 
         if (r.getData() == null) {
-            r = remoteQsDeviceService.getQsDeviceStream(event.getStream(), SecurityConstants.INNER);
+            r = remoteQsDeviceService.getQsDeviceStream(event.getStream());
             if (r.getCode() != Constants.SUCCESS) {
                 log.error("获取设备信息失败,stream:{}", event.getStream());
                 return;
@@ -395,7 +397,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
             device.setStreamStatus("0");
         }
         
-        R<Boolean> updateR = remoteQsDeviceService.updateQsDevice(device, SecurityConstants.INNER);
+        R<Boolean> updateR = remoteQsDeviceService.updateQsDevice(device);
         if (updateR.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("修改推流设备设备失败" + event.getApp() + "_" + event.getStream());
         }
@@ -622,14 +624,14 @@ public class MediaServerServiceImpl  implements IMediaServerService {
 
         // 获取分数最低的，及并发最低的
         Set<Object> objects = bladeRedis.getRedisTemplate().opsForZSet().range(key, 0, -1);
-        ArrayList<Long> mediaServerObjectS = new ArrayList<>();
+        ArrayList<Object> mediaServerObjectS = new ArrayList<>(objects);
         ZlmMediaServer mediaServer = null;
         if (hasAssist == null) {
             Long mediaServerId = (Long) mediaServerObjectS.get(0);
             mediaServer = getOne(mediaServerId);
         } else if (hasAssist) {
-            for (Long mediaServerObject : mediaServerObjectS) {
-                Long mediaServerId = mediaServerObject;
+            for (Object mediaServerObject : mediaServerObjectS) {
+                Long mediaServerId = (Long)mediaServerObject;
                 ZlmMediaServer serverItem = getOne(mediaServerId);
                 if (serverItem.getRecordAssistPort() > 0) {
                     mediaServer = serverItem;
@@ -637,8 +639,8 @@ public class MediaServerServiceImpl  implements IMediaServerService {
                 }
             }
         } else if (!hasAssist) {
-            for (Long mediaServerObject : mediaServerObjectS) {
-                Long mediaServerId = mediaServerObject;
+            for (Object mediaServerObject : mediaServerObjectS) {
+                Long mediaServerId = (Long)mediaServerObject;
                 ZlmMediaServer serverItem = getOne(mediaServerId);
                 if (serverItem.getRecordAssistPort() == 0) {
                     mediaServer = serverItem;
@@ -657,7 +659,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
      * @param callback       回调
      */
     @Override
-    public void streamPullPlay(StreamPullPlay streamPullPlay, ErrorCallback<StreamInfo> callback) {
+    public void streamPullPlay(StreamPullPlay streamPullPlay, ErrorCallback<StreamInfo> callback)  {
         log.info("[拉流代理] app：{}, stream: {}, 流地址： {}", streamPullPlay.getApp(), streamPullPlay.getStream(), streamPullPlay.getUrl());
 
         ZlmMediaServer mediaServer = getMediaServerForMinimumLoad(null);
@@ -666,7 +668,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
             callback.run(InviteErrorCode.FAIL.getCode(), "无可用的节点", null);
             return;
         }
-        R<QsDevice> devicer = remoteQsDeviceService.getQsDeviceInfo(streamPullPlay.getDeviceId(), SecurityConstants.INNER);
+        R<QsDevice> devicer = remoteQsDeviceService.getQsDeviceInfo(streamPullPlay.getDeviceId());
         if (devicer.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("获取设备信息失败" + streamPullPlay.getDeviceId());
         }
@@ -674,16 +676,23 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         if (devicer.getData() == null) {
             throw new RuntimeException("设备不存在" + streamPullPlay.getDeviceId());
         }
-
-        if ("OFFLINE".equals(devicer.getData().getDeviceStatus())) {
+        QsDevice qssDevice = devicer.getData();
+       /* if ("OFFLINE".equals(devicer.getData().getDeviceStatus())) {
             throw new RuntimeException("设备不在线" + streamPullPlay.getDeviceId());
-        }
+        }*/
 
         StreamInfo stream = getStreamInfoByAppAndStreamWithCheck(streamPullPlay.getApp(), streamPullPlay.getStream(), mediaServer.getId(), null, false);
         if (stream != null) {
             callback.run(InviteErrorCode.SUCCESS.getCode(), InviteErrorCode.SUCCESS.getMsg(), stream);
             return;
         }
+       /* try {
+            String uurl = SreamUtils.buildAuthRtspUrl(streamPullPlay.getUrl(),qssDevice.getUserName(),qssDevice.getPassword());
+            streamPullPlay.setUrl(uurl);
+        }catch (Exception e){
+
+        }*/
+
 
         // 设置流超时的定时任务
         String timeOutTaskKey = UUID.randomUUID().toString();
@@ -716,7 +725,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
             if (!streamPullPlay.isPlayback()) {
                 qsDevice.setSnap(filePath);
             }
-            R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDevice, SecurityConstants.INNER);
+            R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDevice);
             if (r.getCode() != Constants.SUCCESS) {
                 throw new RuntimeException("更新设备失败");
             }
@@ -743,7 +752,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
             qsDevice.setMediaServerId(mediaServer.getId());
             qsDevice.setStreamStatus("1");
         }
-        R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDevice, SecurityConstants.INNER);
+        R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDevice);
         if (r.getCode() != Constants.SUCCESS) {
             log.error("更新设备失败");
             callback.run(InviteErrorCode.FAIL.getCode(), "更新设备失败", null);
@@ -830,7 +839,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
             qsDevice.setMediaServerId(null);
             qsDevice.setStreamStatus("0");
         }
-        R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDevice, SecurityConstants.INNER);
+        R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDevice);
         if (r.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("更新设备失败");
         }
@@ -1022,22 +1031,22 @@ public class MediaServerServiceImpl  implements IMediaServerService {
             return;
         }
 
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(rtpServerParam.getId(), SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(rtpServerParam.getDeviceId());
         if (r.getCode() != Constants.SUCCESS) {
-            callback.run(InviteErrorCode.FAIL.getCode(), "获取设备信息失败" + rtpServerParam.getId(), null);
+            callback.run(InviteErrorCode.FAIL.getCode(), "获取设备信息失败" + rtpServerParam.getDeviceId(), null);
             return;
         }
         if (r.getData() == null) {
-            callback.run(InviteErrorCode.FAIL.getCode(), "设备不存在" + rtpServerParam.getId(), null);
+            callback.run(InviteErrorCode.FAIL.getCode(), "设备不存在" + rtpServerParam.getDeviceId(), null);
             return;
         }
 
-        if ("OFFLINE".equals(r.getData().getDeviceStatus())) {
-            callback.run(InviteErrorCode.FAIL.getCode(), "设备不在线" + rtpServerParam.getId(), null);
+        /*if ("OFFLINE".equals(r.getData().getDeviceStatus())) {
+            callback.run(InviteErrorCode.FAIL.getCode(), "设备不在线" + rtpServerParam.getDeviceId(), null);
             return;
-        }
+        }*/
         
-        int tcpMode = r.getData().getStreamMode().equals("TCP-ACTIVE") ? 2 : (r.getData().getStreamMode().equals("TCP-PASSIVE") ? 1 : 0);
+        int tcpMode = Func.toInt(r.getData().getStreamMode());
         rtpServerParam.setTcpMode(tcpMode);
         rtpServerParam.setMediaServer(mediaServer);
         
@@ -1064,7 +1073,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
                 ssrcFactory.releaseSsrc(mediaServer.getId(), null);
                 // 点播发起了但是尚未成功, 仅注册回调等待结果即可
                 inviteStreamService.once(sessionType, device.getId(), null, callback);
-                log.info("[点播开始] 已经请求中，等待结果， deviceId: {}, channel: {}", device.getId(), device.getId());
+                log.info("[点播开始] 已经请求中，等待结果， deviceId: {}, channel: {},ssrc:{}", device.getId(), device.getId(),inviteInfoInCatch.getSsrcInfo());
                 return inviteInfoInCatch.getSsrcInfo();
             } else {
                 StreamInfo streamInfo = inviteInfoInCatch.getStreamInfo();
@@ -1081,13 +1090,13 @@ public class MediaServerServiceImpl  implements IMediaServerService {
                         callback.run(InviteErrorCode.SUCCESS.getCode(), InviteErrorCode.SUCCESS.getMsg(), streamInfo);
                     }
                     inviteStreamService.call(sessionType, device.getId(), null, InviteErrorCode.SUCCESS.getCode(), InviteErrorCode.SUCCESS.getMsg(), streamInfo);
-                    log.info("[点播已存在] 直接返回， 设备编号: {}", rtpServerParam.getId().intValue());
+                    log.info("[点播已存在] 直接返回， 设备编号: {}", rtpServerParam.getDeviceId().intValue());
                     return inviteInfoInCatch.getSsrcInfo();
                 } else {
                     // 点播发起了但是尚未成功, 仅注册回调等待结果即可
                     inviteStreamService.once(sessionType, device.getId(), null, callback);
                     RTPServerParam rtpServer = new RTPServerParam();
-                    rtpServer.setId(rtpServerParam.getId());
+                    rtpServer.setDeviceId(rtpServerParam.getDeviceId());
                     rtpServer.setType(rtpServerParam.getType());
                     rtpServer.setStreamId(rtpServerParam.getStreamId());
                     stopRtpPlay(rtpServer);
@@ -1162,7 +1171,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
 
 
                     QsDevice qsDevice = new QsDevice();
-                    qsDevice.setId(rtpServerParam.getId());
+                    qsDevice.setId(rtpServerParam.getDeviceId());
                     
                     // 区分实时播放和回放
                     if (rtpServerParam.isPlayback()) {
@@ -1181,7 +1190,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
                         qsDevice.setSnap(filePath);
                     }
                     
-                    R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDevice, SecurityConstants.INNER);
+                    R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDevice);
                     if (r.getCode() != Constants.SUCCESS) {
                         throw new RuntimeException("更新设备失败");
                     }
@@ -1219,7 +1228,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         RtpServerParam rtpServer = new RtpServerParam();
         rtpServer.setPort(port);
         rtpServer.setIp(ip);
-        rtpServer.setId(rtpServerParam.getId());
+        rtpServer.setId(rtpServerParam.getDeviceId());
         rtpServer.setSsrc(rtpServerParam.getSsrc());
         rtpServer.setPlayback(rtpServerParam.isPlayback());
         rtpServer.setChannel(rtpServerParam.getChannel());
@@ -1241,27 +1250,27 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         // 播放海康sdk
         if (LiveStreamType.HIK_SDK.getCode().equals(rtpServerParam.getType())) {
             if (rtpServerParam.isPlayback()) {
-                remoteHaiKangService.startPlayback(rtpServer, SecurityConstants.INNER);
+                remoteHaiKangService.startPlayback(rtpServer);
             } else {
-                remoteHaiKangService.startPlay(rtpServer, SecurityConstants.INNER);
+                remoteHaiKangService.startPlay(rtpServer);
             }
         }
 
         // 播放海康isup
         if (LiveStreamType.HIK_ISUP.getCode().equals(rtpServerParam.getType())) {
             if (rtpServerParam.isPlayback()) {
-                remoteHaiKangIsupService.startPlayback(rtpServer, SecurityConstants.INNER);
+                remoteHaiKangIsupService.startPlayback(rtpServer);
             } else {
-                remoteHaiKangIsupService.startPlay(rtpServer, SecurityConstants.INNER);
+                remoteHaiKangIsupService.startPlay(rtpServer);
             }
         }
 
         // 播放大华sdk
         if (LiveStreamType.DAHUA_SDK.getCode().equals(rtpServerParam.getType())) {
             if (rtpServerParam.isPlayback()) {
-                remoteDaHuaService.startPlayback(rtpServer, SecurityConstants.INNER);
+                remoteDaHuaService.startPlayback(rtpServer);
             } else {
-                remoteDaHuaService.startPlay(rtpServer, SecurityConstants.INNER);
+                remoteDaHuaService.startPlay(rtpServer);
             }
         }
         return ssrcInfo;
@@ -1295,7 +1304,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
      */
     @Override
     public void stopRtpPlay(RTPServerParam rtpServerParam) {
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(rtpServerParam.getId(), SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(rtpServerParam.getDeviceId());
         if (r.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("获取设备信息失败");
         }
@@ -1320,25 +1329,25 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         
         if (LiveStreamType.HIK_SDK.getCode().equals(rtpServerParam.getType())) {
             if (rtpServerParam.isPlayback()) {
-                remoteHaiKangService.stopPlayback(rtpServerParam.getId(), SecurityConstants.INNER);
+                remoteHaiKangService.stopPlayback(rtpServerParam.getDeviceId());
             } else {
-                remoteHaiKangService.stopPlay(rtpServerParam.getId(), SecurityConstants.INNER);
+                remoteHaiKangService.stopPlay(rtpServerParam.getDeviceId());
             }
         }
 
         if (LiveStreamType.HIK_ISUP.getCode().equals(rtpServerParam.getType())) {
             if (rtpServerParam.isPlayback()) {
-                remoteHaiKangIsupService.stopPlayback(rtpServerParam.getId(), SecurityConstants.INNER);
+                remoteHaiKangIsupService.stopPlayback(rtpServerParam.getDeviceId());
             } else {
-                remoteHaiKangIsupService.stopPlay(rtpServerParam.getId(), SecurityConstants.INNER);
+                remoteHaiKangIsupService.stopPlay(rtpServerParam.getDeviceId());
             }
         }
 
         if (LiveStreamType.DAHUA_SDK.getCode().equals(rtpServerParam.getType())) {
             if (rtpServerParam.isPlayback()) {
-                remoteDaHuaService.stopPlayback(rtpServerParam.getId(), SecurityConstants.INNER);
+                remoteDaHuaService.stopPlayback(rtpServerParam.getDeviceId());
             } else {
-                remoteDaHuaService.stopPlay(rtpServerParam.getId(), SecurityConstants.INNER);
+                remoteDaHuaService.stopPlay(rtpServerParam.getDeviceId());
             }
         }
 
@@ -1372,7 +1381,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         }
 
         QsDevice qsDevice = new QsDevice();
-        qsDevice.setId(rtpServerParam.getId());
+        qsDevice.setId(rtpServerParam.getDeviceId());
         
         // 区分实时播放和回放
         if (rtpServerParam.isPlayback()) {
@@ -1387,7 +1396,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
             qsDevice.setStreamStatus("0");
         }
         
-        R<Boolean> devicer = remoteQsDeviceService.updateQsDevice(qsDevice, SecurityConstants.INNER);
+        R<Boolean> devicer = remoteQsDeviceService.updateQsDevice(qsDevice);
         if (devicer.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("更新设备失败");
         }
@@ -1433,7 +1442,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
             return;
         }
 
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id);
         if (r.getCode() != Constants.SUCCESS) {
             callback.run(InviteErrorCode.FAIL.getCode(), "获取设备信息失败" + id, null);
             return;
@@ -1467,7 +1476,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
      */
     @Override
     public void closeStreams(Long id) {
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id);
         if (r.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("获取设备信息失败");
         }
@@ -1684,7 +1693,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
 
         // GB28181 设备播放
         if (LiveStreamType.GB28181.getCode().equals(device.getType())) {
-            R<Device> gbDeviceR = remoteGb28181Service.getDeviceByDeviceId(device.getGbDeviceId(), SecurityConstants.INNER);
+            R<Device> gbDeviceR = remoteGb28181Service.getDeviceByDeviceId(device.getGbDeviceId());
             if (gbDeviceR.getCode() == Constants.SUCCESS && gbDeviceR.getData() != null) {
                 startGb28181Play(device, gbDeviceR.getData(), callback);
             } else {
@@ -1695,7 +1704,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         
         // JT1078 设备播放
         if (LiveStreamType.JT1078.getCode().equals(device.getType())) {
-            R<Jt1078Device> jtDeviceR = remoteJt1078Service.getDeviceByMobileNo(device.getJtMobileNo(), SecurityConstants.INNER);
+            R<Jt1078Device> jtDeviceR = remoteJt1078Service.getDeviceByMobileNo(device.getJtMobileNo());
             if (jtDeviceR.getCode() == Constants.SUCCESS && jtDeviceR.getData() != null) {
                 startJt1078Play(device, jtDeviceR.getData(), callback);
             } else {
@@ -1718,7 +1727,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
             rtpServerParam.setStreamId(device.getDeviceCode());
             rtpServerParam.setTcpMode(0);
             rtpServerParam.setType(device.getType());
-            rtpServerParam.setId(device.getId());
+            rtpServerParam.setDeviceId(device.getId());
             System.out.println(rtpServerParam);
             play(mediaServer, rtpServerParam, device, null, callback);
         }
@@ -1806,7 +1815,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
      */
     @Override
     public Map<String, Object> getStreamPushAddress(Long id, String callId) {
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id);
         if (r.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("获取设备信息失败");
         }
@@ -1834,7 +1843,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
      */
     @Override
     public void streamPullPush(Long id, ErrorCallback<StreamInfo> callback) {
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id);
         if (r.getCode() != Constants.SUCCESS) {
             log.info("获取设备信息失败 id:{}", id);
             callback.run(InviteErrorCode.FAIL.getCode(), "获取设备信息失败", null);
@@ -1867,7 +1876,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
                     QsDevice qsDevice = new QsDevice();
                     qsDevice.setId(id);
                     qsDevice.setStreamStatus("1");
-                    R<Boolean> updateR = remoteQsDeviceService.updateQsDevice(qsDevice, SecurityConstants.INNER);
+                    R<Boolean> updateR = remoteQsDeviceService.updateQsDevice(qsDevice);
                     if (updateR.getCode() != Constants.SUCCESS) {
                         log.info("修改推流设备设备失败 id:{}", id);
                         throw new RuntimeException("修改推流设备设备失败");
@@ -1907,7 +1916,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         rtpServerParam.setType(LiveStreamType.GB28181.getCode());
         rtpServerParam.setStreamId(qsDevice.getDeviceCode());
         rtpServerParam.setTcpMode(tcpMode);
-        rtpServerParam.setId(qsDevice.getId());
+        rtpServerParam.setDeviceId(qsDevice.getId());
 
         startGb28181PlayFun(mediaServer, qsDevice, gbDevice, rtpServerParam, null, callback);
     }
@@ -1929,7 +1938,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         rtpServerParam.setType(LiveStreamType.GB28181.getCode());
         rtpServerParam.setStreamId(qsDevice.getDeviceCode() + "_playback");
         rtpServerParam.setTcpMode(tcpMode);
-        rtpServerParam.setId(qsDevice.getId());
+        rtpServerParam.setDeviceId(qsDevice.getId());
         rtpServerParam.setPlayback(true);
         rtpServerParam.setStartTime(startTime);
         rtpServerParam.setEndTime(endTime);
@@ -1986,7 +1995,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
                 qsDeviceUpdate.setPlaybackStreamStatus("0");
             }
             
-            R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDeviceUpdate, SecurityConstants.INNER);
+            R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDeviceUpdate);
             if (r.getCode() != Constants.SUCCESS) {
                 throw new RuntimeException("更新设备失败");
             }
@@ -2008,7 +2017,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
                 rtpServer.setGbDeviceId(qsDevice.getGbDeviceId());
                 rtpServer.setGbChannelId(qsDevice.getGbChannelId());
 
-                R<Void> r = remoteGb28181Service.streamByeCmd(rtpServer, SecurityConstants.INNER);
+                R<Void> r = remoteGb28181Service.streamByeCmd(rtpServer);
                 if (r.getCode() != Constants.SUCCESS) {
                     log.error("[命令发送失败] 停止点播/回放/下载， deviceId:{}", qsDevice.getGbDeviceId());
                     throw new RuntimeException("[命令发送失败] 停止点播/回放/下载， deviceId:" + qsDevice.getGbDeviceId());
@@ -2032,7 +2041,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
             qsDeviceUpdate.setPlaybackStreamStatus("0");
         }
         
-        R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDeviceUpdate, SecurityConstants.INNER);
+        R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDeviceUpdate);
         if (r.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("更新设备失败");
         }
@@ -2074,7 +2083,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         rtpServerParam.setType(LiveStreamType.JT1078.getCode());
         rtpServerParam.setStreamId(qsDevice.getDeviceCode());
         rtpServerParam.setTcpMode(tcpMode);
-        rtpServerParam.setId(qsDevice.getId());
+        rtpServerParam.setDeviceId(qsDevice.getId());
 
         startJt1078PlayFun(mediaServer, qsDevice, jt1078Device, rtpServerParam, null, callback);
     }
@@ -2105,7 +2114,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         rtpServerParam.setType(LiveStreamType.JT1078.getCode());
         rtpServerParam.setStreamId(qsDevice.getDeviceCode() + "_playback");
         rtpServerParam.setTcpMode(tcpMode);
-        rtpServerParam.setId(qsDevice.getId());
+        rtpServerParam.setDeviceId(qsDevice.getId());
         rtpServerParam.setPlayback(true);
         rtpServerParam.setStartTime(startTime);
         rtpServerParam.setEndTime(endTime);
@@ -2138,7 +2147,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
                 qsDeviceUpdate.setPlaybackStreamStatus("0");
             }
             
-            R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDeviceUpdate, SecurityConstants.INNER);
+            R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDeviceUpdate);
             if (r.getCode() != Constants.SUCCESS) {
                 throw new RuntimeException("更新设备失败");
             }
@@ -2157,7 +2166,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
                 rtpServer.setType(LiveStreamType.JT1078.getCode());
                 rtpServer.setChannel(qsDevice.getChannel());
 
-                R<Void> r = remoteJt1078Service.streamByeCmd(rtpServer, SecurityConstants.INNER);
+                R<Void> r = remoteJt1078Service.streamByeCmd(rtpServer);
                 if (r.getCode() != Constants.SUCCESS) {
                     log.error("[jt1078 命令发送失败] 停止点播，deviceId：{}", qsDevice.getId());
                     throw new RuntimeException("[jt1078 命令发送失败] 停止点播，deviceId：" + qsDevice.getId());
@@ -2181,7 +2190,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
             qsDeviceUpdate.setPlaybackStreamStatus("0");
         }
         
-        R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDeviceUpdate, SecurityConstants.INNER);
+        R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDeviceUpdate);
         if (r.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("更新设备失败");
         }
@@ -2245,7 +2254,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
                     // 点播发起了但是尚未成功，仅注册回调等待结果即可
                     inviteStreamService.once(sessionType, device.getId(), null, callback);
                     RTPServerParam rtpServer = new RTPServerParam();
-                    rtpServer.setId(device.getId());
+                    rtpServer.setDeviceId(device.getId());
                     rtpServer.setType(rtpServerParam.getType());
                     rtpServer.setStreamId(rtpServerParam.getStreamId());
                     rtpServer.setPlayback(rtpServerParam.isPlayback());
@@ -2316,7 +2325,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
 
                     String filePath = snapOnPlay(streamInfo.getMediaServer(), streamInfo.getApp(), streamInfo.getStream());
                     QsDevice qsDevice = new QsDevice();
-                    qsDevice.setId(rtpServerParam.getId());
+                    qsDevice.setId(rtpServerParam.getDeviceId());
                     if (rtpServerParam.isPlayback()) {
                         qsDevice.setPlaybackStreamKey(rtpServerParam.getStreamId());
                         qsDevice.setPlaybackMediaServerId(mediaServer.getId());
@@ -2327,7 +2336,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
                         qsDevice.setStreamStatus("1");
                     }
                     qsDevice.setSnap(filePath);
-                    R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDevice, SecurityConstants.INNER);
+                    R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDevice);
                     if (r.getCode() != Constants.SUCCESS) {
                         throw new RuntimeException("更新设备失败");
                     }
@@ -2366,7 +2375,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         RtpServerParam rtpServer = new RtpServerParam();
         rtpServer.setPort(port);
         rtpServer.setIp(ip);
-        rtpServer.setId(rtpServerParam.getId());
+        rtpServer.setId(rtpServerParam.getDeviceId());
         rtpServer.setSsrc(rtpServerParam.getSsrc());
         rtpServer.setMediaServerId(mediaServer.getId());
         rtpServer.setApp(rtpServerParam.getApp());
@@ -2396,9 +2405,9 @@ public class MediaServerServiceImpl  implements IMediaServerService {
 
         R<Void> r;
         if (rtpServerParam.isPlayback()) {
-            r = remoteJt1078Service.playback(rtpServer, rtpServerParam.getStartTime(), rtpServerParam.getEndTime(), 0, 0, SecurityConstants.INNER);
+            r = remoteJt1078Service.playback(rtpServer, rtpServerParam.getStartTime(), rtpServerParam.getEndTime(), 0, 0);
         } else {
-            r = remoteJt1078Service.playStreamCmd(rtpServer, SecurityConstants.INNER);
+            r = remoteJt1078Service.playStreamCmd(rtpServer);
         }
 
         if (r.getCode() != Constants.SUCCESS) {
@@ -2473,7 +2482,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
                     // 发起了但是尚未成功, 仅注册回调等待结果即可
                     inviteStreamService.once(sessionType, device.getId(), null, callback);
                     RTPServerParam rtpServer = new RTPServerParam();
-                    rtpServer.setId(device.getId());
+                    rtpServer.setDeviceId(device.getId());
                     rtpServer.setType(rtpServerParam.getType());
                     rtpServer.setStreamId(rtpServerParam.getStreamId());
                     rtpServer.setPlayback(rtpServerParam.isPlayback());
@@ -2549,7 +2558,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
 
 
                     QsDevice qsDevice = new QsDevice();
-                    qsDevice.setId(rtpServerParam.getId());
+                    qsDevice.setId(rtpServerParam.getDeviceId());
                     if (rtpServerParam.isPlayback()) {
                         // 回放不截图
                         qsDevice.setPlaybackStreamKey(rtpServerParam.getStreamId());
@@ -2562,7 +2571,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
                         qsDevice.setStreamStatus("1");
                         qsDevice.setSnap(filePath);
                     }
-                    R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDevice, SecurityConstants.INNER);
+                    R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDevice);
                     if (r.getCode() != Constants.SUCCESS) {
                         throw new RuntimeException("更新设备失败");
                     }
@@ -2602,7 +2611,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         RtpServerParam rtpServer = new RtpServerParam();
         rtpServer.setPort(port);
         rtpServer.setIp(ip);
-        rtpServer.setId(rtpServerParam.getId());
+        rtpServer.setId(rtpServerParam.getDeviceId());
         rtpServer.setSsrc(rtpServerParam.getSsrc());
         rtpServer.setGbDeviceId(gbDevice.getDeviceId());
         rtpServer.setGbChannelId(device.getGbChannelId());
@@ -2635,9 +2644,9 @@ public class MediaServerServiceImpl  implements IMediaServerService {
 
         R<Void> r;
         if (rtpServerParam.isPlayback()) {
-            r = remoteGb28181Service.playbackStreamCmd(rtpServer, SecurityConstants.INNER);
+            r = remoteGb28181Service.playbackStreamCmd(rtpServer);
         } else {
-            r = remoteGb28181Service.playStreamCmd(rtpServer, SecurityConstants.INNER);
+            r = remoteGb28181Service.playStreamCmd(rtpServer);
         }
 
         if (r.getCode() != Constants.SUCCESS) {
@@ -2730,7 +2739,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
                     qsDevice.setMediaServerId(mediaServer.getId());
                     qsDevice.setStreamStatus("1");
                 }
-                R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDevice, SecurityConstants.INNER);
+                R<Boolean> r = remoteQsDeviceService.updateQsDevice(qsDevice);
                 if (r.getCode() != Constants.SUCCESS) {
                     log.error("更新设备失败");
                     callback.run(InviteErrorCode.FAIL.getCode(), "更新设备失败", null);

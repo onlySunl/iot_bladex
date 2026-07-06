@@ -81,7 +81,7 @@ public class PSS_Storage_Callback implements HCISUPSS.EHomeSSStorageCallBack {
         QsDevice device = null;
         if (isManualSnapshot && deviceId != null) {
             // 获取设备信息
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (R.isNotSuccess(r)) {
                 log.error("获取设备信息失败，deviceId: {}, code: {}, msg: {}", deviceId, r.getCode(), r.getMsg());
                 return false;
@@ -144,7 +144,7 @@ public class PSS_Storage_Callback implements HCISUPSS.EHomeSSStorageCallBack {
             snapshot.setChannel(Long.valueOf(channelId));
             snapshot.setCaptureTime(new Date());
             
-            R<Long> result = remoteQsDeviceSnapshotService.add(snapshot, SecurityConstants.INNER);
+            R<Long> result = remoteQsDeviceSnapshotService.add(snapshot);
             if (R.isSuccess(result)) {
                 log.info("抓图记录保存成功，snapshotId: {}", result.getData());
             } else {

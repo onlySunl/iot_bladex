@@ -35,8 +35,7 @@ public interface RemoteQsRegionService {
     @GetMapping("/api/region/tree/list")
     R<List<QsRegionTree>> queryForTree(
             @RequestParam(required = false) Integer parent,
-            @RequestParam(required = false) Boolean hasDevice,
-            @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+            @RequestParam(required = false) Boolean hasDevice);
 
     /**
      * 查询所有区域
@@ -46,7 +45,7 @@ public interface RemoteQsRegionService {
      * @return
      */
     @GetMapping("/api/region/all/list")
-    R<List<QsRegionTree>> queryAllRegions(@RequestParam(required = false) String query, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<List<QsRegionTree>> queryAllRegions(@RequestParam(required = false) String query);
 
     /**
      * 查询区域列表
@@ -56,5 +55,5 @@ public interface RemoteQsRegionService {
      * @return
      */
     @GetMapping("/api/region/tree/query")
-    R<List<QsRegion>> queryList(@RequestParam(required = false) String query, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<List<QsRegion>> queryList(@RequestParam(required = false) String query);
 }

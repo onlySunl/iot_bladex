@@ -168,7 +168,7 @@ public class AlarmPictureMatchTask {
      */
     private boolean checkAlarmHasPicture(Long alarmId) {
         try {
-            R<QsDeviceAlarm> result = remoteQsDeviceAlarmService.getInfo(alarmId, SecurityConstants.INNER);
+            R<QsDeviceAlarm> result = remoteQsDeviceAlarmService.getInfo(alarmId);
             if (R.isSuccess(result) && result.getData() != null) {
                 QsDeviceAlarm alarm = result.getData();
                 String imageUrl = alarm.getImageUrl();
@@ -188,7 +188,7 @@ public class AlarmPictureMatchTask {
             QsDeviceAlarm alarm = new QsDeviceAlarm();
             alarm.setId(alarmId);
             alarm.setImageUrl(fileUrl);
-            R<Boolean> result = remoteQsDeviceAlarmService.edit(alarm, SecurityConstants.INNER);
+            R<Boolean> result = remoteQsDeviceAlarmService.edit(alarm);
             if (result.getCode() == 200 && result.getData()) {
                 log.info("报警图片URL更新成功！alarmId: {}, imageUrl: {}", alarmId, fileUrl);
                 return true;

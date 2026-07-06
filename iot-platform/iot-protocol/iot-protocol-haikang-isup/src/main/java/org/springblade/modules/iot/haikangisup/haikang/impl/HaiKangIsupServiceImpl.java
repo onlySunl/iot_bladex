@@ -134,7 +134,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
      */
     @Override
     public void startPlay(RtpServerParam rtpServerParam) {
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(rtpServerParam.getId(), SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(rtpServerParam.getId());
         if (r.getCode() != Constants.SUCCESS) {
             throw new SecurityException(r.getMsg());
         }
@@ -157,7 +157,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
      */
     @Override
     public void stopPlay(Long id) {
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id);
         if (r.getCode() != Constants.SUCCESS) {
             throw new SecurityException(r.getMsg());
         }
@@ -181,7 +181,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
      */
     @Override
     public void startPtz(Long deviceId, Integer channelId, int ptzCmd, int speed) {
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
         if (r.getCode() != Constants.SUCCESS) {
             throw new SecurityException(r.getMsg());
         }
@@ -231,7 +231,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
      */
     @Override
     public void endPtz(Long deviceId, Integer channelId, int ptzCmd, int speed) {
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
         if (r.getCode() != Constants.SUCCESS) {
             throw new SecurityException(r.getMsg());
         }
@@ -367,7 +367,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
     public void setPreset(Long deviceId, Integer channelId, int presetIndex) {
         log.info("开始设置预置点，deviceId:{}, channelId:{}, presetIndex:{}", deviceId, channelId, presetIndex);
 
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
         if (r.getCode() != Constants.SUCCESS) {
             log.error("获取设备信息失败，deviceId:{}, code:{}, msg:{}", deviceId, r.getCode(), r.getMsg());
             throw new ServiceException(r.getMsg());
@@ -392,7 +392,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
     public void clearPreset(Long deviceId, Integer channelId, int presetIndex) {
         log.info("开始删除预置点，deviceId:{}, channelId:{}, presetIndex:{}", deviceId, channelId, presetIndex);
 
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
         if (r.getCode() != Constants.SUCCESS) {
             log.error("获取设备信息失败，deviceId:{}, code:{}, msg:{}", deviceId, r.getCode(), r.getMsg());
             throw new ServiceException(r.getMsg());
@@ -417,7 +417,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
     public void gotoPreset(Long deviceId, Integer channelId, int presetIndex) {
         log.info("开始调用预置点，deviceId:{}, channelId:{}, presetIndex:{}", deviceId, channelId, presetIndex);
 
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
         if (r.getCode() != Constants.SUCCESS) {
             log.error("获取设备信息失败，deviceId:{}, code:{}, msg:{}", deviceId, r.getCode(), r.getMsg());
             throw new ServiceException(r.getMsg());
@@ -454,7 +454,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         }
         log.debug("操作类型验证成功，deviceId:{}, operation:{}, desc:{}", deviceId, operation, auxEnum.getDesc());
 
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
         if (r.getCode() != Constants.SUCCESS) {
             log.error("获取设备信息失败，deviceId:{}, code:{}, msg:{}", deviceId, r.getCode(), r.getMsg());
             throw new ServiceException(r.getMsg());
@@ -491,7 +491,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         }
         log.debug("操作类型验证成功，deviceId:{}, operation:{}, desc:{}", deviceId, operation, cruiseEnum.getDesc());
 
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
         if (r.getCode() != Constants.SUCCESS) {
             log.error("获取设备信息失败，deviceId:{}, code:{}, msg:{}", deviceId, r.getCode(), r.getMsg());
             throw new ServiceException(r.getMsg());
@@ -530,7 +530,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
     public ArrayList<HashMap<String, Object>> queryRecord(Long deviceId, Integer channelId, String startTime, String endTime) {
         log.info("开始查询海康设备录像，deviceId:{}, channelId:{}, startTime:{}, endTime:{}", deviceId, channelId, startTime, endTime);
 
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
         if (r.getCode() != Constants.SUCCESS) {
             log.error("获取设备信息失败，deviceId:{}, code:{}, msg:{}", deviceId, r.getCode(), r.getMsg());
             throw new ServiceException(r.getMsg());
@@ -797,7 +797,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
 
     @Override
     public void startPlayback(RtpServerParam rtpServerParam) {
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(rtpServerParam.getId(), SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(rtpServerParam.getId());
         if (r.getCode() != Constants.SUCCESS) {
             throw new SecurityException(r.getMsg());
         }
@@ -815,7 +815,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
 
     @Override
     public void stopPlayback(Long id) {
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id);
         if (r.getCode() != Constants.SUCCESS) {
             throw new SecurityException(r.getMsg());
         }
@@ -833,7 +833,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
     public void restartDevice(Long deviceId) {
         log.info("开始重启设备, deviceId:{}", deviceId);
 
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
         if (r.getCode() != Constants.SUCCESS) {
             log.error("获取设备信息失败, deviceId:{}, code:{}, msg:{}", deviceId, r.getCode(), r.getMsg());
             throw new ServiceException(r.getMsg());
@@ -857,7 +857,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
     public String getDevTime(Long deviceId) {
         log.info("开始获取设备时间参数, deviceId:{}", deviceId);
 
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
         if (r.getCode() != Constants.SUCCESS) {
             log.error("获取设备信息失败, deviceId:{}, code:{}, msg:{}", deviceId, r.getCode(), r.getMsg());
             throw new ServiceException(r.getMsg());
@@ -888,7 +888,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
     public void setDevTime(Long deviceId, String time) {
         log.info("开始设置设备时间参数, deviceId:{}, time:{}", deviceId, time);
 
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
         if (r.getCode() != Constants.SUCCESS) {
             log.error("获取设备信息失败, deviceId:{}, code:{}, msg:{}", deviceId, r.getCode(), r.getMsg());
             throw new ServiceException(r.getMsg());
@@ -1035,7 +1035,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         log.info("deviceId: {}, channelId: {}, snapshotType: {}", deviceId, channelId, snapshotType);
 
         // 获取设备信息
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
         if (R.isNotSuccess(r)) {
             log.error("获取设备信息失败，deviceId: {}, code: {}, msg: {}", deviceId, r.getCode(), r.getMsg());
             throw new SecurityException(r.getMsg());
@@ -1152,7 +1152,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         log.info("开始下载海康ISUP设备录像(直接返回文件), deviceId:{}, channelId:{}, 开始时间:{}, 结束时间:{}",
                 request.getId(), request.getChannelId(), request.getStartTime(), request.getEndTime());
 
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(request.getId(), SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(request.getId());
         if (R.isNotSuccess(r)) {
             log.error("获取设备信息失败, deviceId:{}, code:{}, msg:{}", request.getId(), r.getCode(), r.getMsg());
             throw new ServiceException(r.getMsg());
@@ -1187,7 +1187,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         HashMap<String, Object> result = new HashMap<>();
         result.put("success", false);
         try {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (R.isNotSuccess(r)) {
                 result.put("message", "获取设备信息失败: " + r.getMsg());
                 return result;
@@ -1237,7 +1237,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         HashMap<String, Object> result = new HashMap<>();
         result.put("success", false);
         try {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (R.isNotSuccess(r)) {
                 result.put("message", "获取设备信息失败: " + r.getMsg());
                 return result;
@@ -1305,7 +1305,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         HashMap<String, Object> result = new HashMap<>();
         result.put("success", false);
         try {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (R.isNotSuccess(r)) {
                 result.put("message", "获取设备信息失败: " + r.getMsg());
                 return result;
@@ -1922,7 +1922,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         HashMap<String, Object> result = new HashMap<>();
         result.put("success", false);
         try {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (R.isNotSuccess(r)) {
                 result.put("message", "获取设备信息失败: " + r.getMsg());
                 return result;
@@ -1965,7 +1965,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         HashMap<String, Object> result = new HashMap<>();
         result.put("success", false);
         try {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (R.isNotSuccess(r)) {
                 result.put("message", "获取设备信息失败: " + r.getMsg());
                 return result;
@@ -2011,7 +2011,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         HashMap<String, Object> result = new HashMap<>();
         result.put("success", false);
         try {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (R.isNotSuccess(r)) {
                 result.put("message", "获取设备信息失败: " + r.getMsg());
                 return result;
@@ -2053,7 +2053,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         HashMap<String, Object> result = new HashMap<>();
         result.put("success", false);
         try {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (R.isNotSuccess(r)) {
                 result.put("message", "获取设备信息失败: " + r.getMsg());
                 return result;
@@ -2087,7 +2087,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         result.setSuccess(false);
 
         try {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (R.isNotSuccess(r)) {
                 log.error("获取设备信息失败, deviceId:{}, code:{}, msg:{}", deviceId, r.getCode(), r.getMsg());
                 result.setErrorMessage(r.getMsg());
@@ -2161,7 +2161,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         HashMap<String, Object> result = new HashMap<>();
         result.put("success", false);
         try {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (R.isNotSuccess(r)) {
                 result.put("message", "获取设备信息失败: " + r.getMsg());
                 return result;
@@ -2197,7 +2197,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         HashMap<String, Object> result = new HashMap<>();
         result.put("success", false);
         try {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (R.isNotSuccess(r)) {
                 result.put("message", "获取设备信息失败: " + r.getMsg());
                 return result;
@@ -2237,7 +2237,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         HashMap<String, Object> result = new HashMap<>();
         result.put("success", false);
         try {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (R.isNotSuccess(r)) {
                 result.put("message", "获取设备信息失败: " + r.getMsg());
                 return result;
@@ -2284,7 +2284,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         HashMap<String, Object> result = new HashMap<>();
         result.put("success", false);
         try {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (R.isNotSuccess(r)) {
                 result.put("message", "获取设备信息失败：" + r.getMsg());
                 return result;
@@ -2346,7 +2346,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
                 return result;
             }
 
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(request.getDeviceId(), SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(request.getDeviceId());
             if (R.isNotSuccess(r)) {
                 result.put("message", "获取设备信息失败：" + r.getMsg());
                 return result;
@@ -2425,7 +2425,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         HashMap<String, Object> result = new HashMap<>();
         result.put("success", false);
         try {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (R.isNotSuccess(r)) {
                 result.put("message", "获取设备信息失败：" + r.getMsg());
                 return result;
@@ -2490,7 +2490,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         HashMap<String, Object> result = new HashMap<>();
         result.put("success", false);
         try {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (R.isNotSuccess(r)) {
                 result.put("message", "获取设备信息失败：" + r.getMsg());
                 return result;
@@ -2554,7 +2554,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         HashMap<String, Object> result = new HashMap<>();
         result.put("success", false);
         try {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (R.isNotSuccess(r)) {
                 result.put("message", "获取设备信息失败：" + r.getMsg());
                 return result;
@@ -2608,7 +2608,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         HashMap<String, Object> result = new HashMap<>();
         result.put("success", false);
         try {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (R.isNotSuccess(r)) {
                 result.put("message", "获取设备信息失败：" + r.getMsg());
                 return result;
@@ -2656,7 +2656,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         HashMap<String, Object> result = new HashMap<>();
         result.put("success", false);
         try {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (R.isNotSuccess(r)) {
                 result.put("message", "获取设备信息失败：" + r.getMsg());
                 return result;
@@ -2790,7 +2790,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
         HashMap<String, Object> result = new HashMap<>();
         result.put("success", false);
         try {
-            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (R.isNotSuccess(r)) {
                 result.put("message", "获取设备信息失败：" + r.getMsg());
                 return result;

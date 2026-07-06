@@ -179,8 +179,8 @@ public class HaikangIsupMediaStreamServiceImpl implements IHaikangIsupMediaStrea
     private void cleanupZlmResources(String streamKey, RtpServerParam rtpServerParam) {
         try {
             log.info("[海康设备] 清理 zlm 资源, streamKey: {}, ssrc: {}", streamKey, rtpServerParam.getSsrc());
-            remoteZlmService.releaseSsrc(rtpServerParam.getMediaServerId(), rtpServerParam.getSsrc(), SecurityConstants.INNER);
-            remoteZlmService.closeRTPServer(rtpServerParam.getMediaServerId(), rtpServerParam, SecurityConstants.INNER);
+            remoteZlmService.releaseSsrc(rtpServerParam.getMediaServerId(), rtpServerParam.getSsrc());
+            remoteZlmService.closeRTPServer(rtpServerParam.getMediaServerId(), rtpServerParam);
         } catch (Exception e) {
             log.error("[海康设备] 清理 zlm 资源失败, streamKey: {}", streamKey, e);
         }
@@ -392,8 +392,8 @@ public class HaikangIsupMediaStreamServiceImpl implements IHaikangIsupMediaStrea
     private void cleanupPlaybackZlmResources(String playbackKey, RtpServerParam rtpServerParam) {
         try {
             log.info("[海康设备] 清理回放 zlm 资源，playbackKey: {}, ssrc: {}", playbackKey, rtpServerParam.getSsrc());
-            remoteZlmService.releaseSsrc(rtpServerParam.getMediaServerId(), rtpServerParam.getSsrc(), SecurityConstants.INNER);
-            remoteZlmService.closeRTPServer(rtpServerParam.getMediaServerId(), rtpServerParam, SecurityConstants.INNER);
+            remoteZlmService.releaseSsrc(rtpServerParam.getMediaServerId(), rtpServerParam.getSsrc());
+            remoteZlmService.closeRTPServer(rtpServerParam.getMediaServerId(), rtpServerParam);
         } catch (Exception e) {
             log.error("[海康设备] 清理回放 zlm 资源失败，playbackKey: {}", playbackKey, e);
         }

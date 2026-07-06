@@ -26,17 +26,17 @@ public class RemoteQsDeviceSnapshotFallbackFactory implements FallbackFactory<Re
 
         return new RemoteQsDeviceSnapshotService() {
             @Override
-            public R<Long> add(QsDeviceSnapshot qsDeviceSnapshot, String inner) {
+            public R<Long> add(QsDeviceSnapshot qsDeviceSnapshot) {
                 return R.fail("新增设备抓图失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<List<QsDeviceSnapshot>> list(QsDeviceSnapshot qsDeviceSnapshot, String inner) {
+            public R<List<QsDeviceSnapshot>> list(QsDeviceSnapshot qsDeviceSnapshot) {
                 return R.fail("查询设备抓图列表失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<QsDeviceSnapshot> getInfo(Long id, String inner) {
+            public R<QsDeviceSnapshot> getInfo(Long id) {
                 return R.fail("获取设备抓图详细信息失败:" + throwable.getMessage());
             }
         };

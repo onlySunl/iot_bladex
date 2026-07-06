@@ -33,77 +33,77 @@ public class RemoteHaiKangIsupFallbackFactory implements FallbackFactory<RemoteH
         return new RemoteHaiKangIsupService() {
 
             @Override
-            public R<Integer> getUserId(String ip, String source) {
+            public R<Integer> getUserId(String ip) {
                 return R.fail("海康isup获取设备登录的用户ID失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<HaiKangIsupDeviceInfo> getDevInfo(String ip, String source) {
+            public R<HaiKangIsupDeviceInfo> getDevInfo(String ip) {
                 return R.fail("海康isup获取设备信息失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<Void> startPlay(RtpServerParam rtpServerParam, String inner) {
+            public R<Void> startPlay(RtpServerParam rtpServerParam) {
                 return R.fail("海康isup开始播放失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<Void> stopPlay(Long id, String inner) {
+            public R<Void> stopPlay(Long id) {
                 return R.fail("海康isup停止播放失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<Void> startPtz(Long deviceId, Integer channelId, int PTZCmd, int speed, String inner) {
+            public R<Void> startPtz(Long deviceId, Integer channelId, int PTZCmd, int speed) {
                 return R.fail("海康isup开始云台控制失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<Void> endPtz(Long deviceId, Integer channelId, int PTZCmd, int speed, String inner) {
+            public R<Void> endPtz(Long deviceId, Integer channelId, int PTZCmd, int speed) {
                 return R.fail("海康isup结束云台控制失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<Void> setPreset(Long deviceId, Integer channelId, int presetIndex, String inner) {
+            public R<Void> setPreset(Long deviceId, Integer channelId, int presetIndex) {
                 return R.fail("海康isup设置预置点失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<Void> clearPreset(Long deviceId, Integer channelId, int presetIndex, String inner) {
+            public R<Void> clearPreset(Long deviceId, Integer channelId, int presetIndex) {
                 return R.fail("海康isup清除预置点失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<Void> gotoPreset(Long deviceId, Integer channelId, int presetIndex, String inner) {
+            public R<Void> gotoPreset(Long deviceId, Integer channelId, int presetIndex) {
                 return R.fail("海康isup调用预置点失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<Void> cameraAuxControl(Long deviceId, Integer channelId, String operation, boolean isStart, String inner) {
+            public R<Void> cameraAuxControl(Long deviceId, Integer channelId, String operation, boolean isStart) {
                 return R.fail("海康isup辅助设备控制失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<Void> cruiseControl(Long deviceId, Integer channelId, String operation, Integer param, String inner) {
+            public R<Void> cruiseControl(Long deviceId, Integer channelId, String operation, Integer param) {
                 return R.fail("海康isup巡航控制失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<List<HaiKangIsupPresetInfo>> getPresetList(Long deviceId, Integer channelId, String inner) {
+            public R<List<HaiKangIsupPresetInfo>> getPresetList(Long deviceId, Integer channelId) {
                 return R.fail("海康isup获取预置点列表失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<ArrayList<HashMap<String, Object>>> getRecMonth(Long deviceId, Integer channelId, String startTime, String endTime, String inner) {
+            public R<ArrayList<HashMap<String, Object>>> getRecMonth(Long deviceId, Integer channelId, String startTime, String endTime) {
                 return R.fail("海康isup查询录像失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<Void> startPlayback(RtpServerParam rtpServerParam, String inner) {
+            public R<Void> startPlayback(RtpServerParam rtpServerParam) {
                 return R.fail("海康isup开始回放失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<Void> stopPlayback(Long id, String inner) {
+            public R<Void> stopPlayback(Long id) {
                 return R.fail("海康isup停止回放失败:" + throwable.getMessage());
             }
         };

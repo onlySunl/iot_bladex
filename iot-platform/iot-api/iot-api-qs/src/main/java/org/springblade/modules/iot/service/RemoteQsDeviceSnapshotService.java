@@ -30,7 +30,7 @@ public interface RemoteQsDeviceSnapshotService {
      * @return 抓图记录ID
      */
     @PostMapping("/api/snapshot/add")
-    R<Long> add(@RequestBody QsDeviceSnapshot qsDeviceSnapshot, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<Long> add(@RequestBody QsDeviceSnapshot qsDeviceSnapshot);
 
     /**
      * 查询设备抓图列表
@@ -40,7 +40,7 @@ public interface RemoteQsDeviceSnapshotService {
      * @return 抓图列表
      */
     @PostMapping("/api/snapshot/list")
-    R<List<QsDeviceSnapshot>> list(@RequestBody QsDeviceSnapshot qsDeviceSnapshot, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<List<QsDeviceSnapshot>> list(@RequestBody QsDeviceSnapshot qsDeviceSnapshot);
 
     /**
      * 获取设备抓图详细信息
@@ -50,5 +50,5 @@ public interface RemoteQsDeviceSnapshotService {
      * @return 抓图详细信息
      */
     @GetMapping("/api/snapshot/getInfo/{id}")
-    R<QsDeviceSnapshot> getInfo(@PathVariable("id") Long id, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<QsDeviceSnapshot> getInfo(@PathVariable("id") Long id);
 }

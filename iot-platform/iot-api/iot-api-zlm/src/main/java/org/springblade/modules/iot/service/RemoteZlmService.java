@@ -30,7 +30,7 @@ import java.util.Map;
 public interface RemoteZlmService {
 
     @DeleteMapping("/api/zlm/sessionManagerPut/{mediaServerId}/{ssrc}")
-    R<Void> releaseSsrc(@PathVariable Long mediaServerId, @PathVariable String ssrc, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<Void> releaseSsrc(@PathVariable Long mediaServerId, @PathVariable String ssrc);
 
     /**
      * 关闭rtp服务
@@ -40,7 +40,7 @@ public interface RemoteZlmService {
      * @param inner
      */
     @PostMapping("/api/zlm/closeRTPServer/{mediaServerId}")
-    R<Void> closeRTPServer(@PathVariable Long mediaServerId, @RequestBody RtpServerParam rtpServer, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<Void> closeRTPServer(@PathVariable Long mediaServerId, @RequestBody RtpServerParam rtpServer);
 
     /**
      * 连接rtp服务
@@ -53,7 +53,7 @@ public interface RemoteZlmService {
      * @return
      */
     @PostMapping("/api/zlm/connectRtpServer/{mediaServerId}")
-    R<Boolean> connectRtpServer(@PathVariable Long mediaServerId, @RequestParam String address, @RequestParam int port, @RequestParam String stream, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<Boolean> connectRtpServer(@PathVariable Long mediaServerId, @RequestParam String address, @RequestParam int port, @RequestParam String stream);
 
     /**
      * 开始发送RTP流到指定地址
@@ -64,7 +64,7 @@ public interface RemoteZlmService {
      * @return
      */
     @PostMapping("/api/zlm/startSendRtp/{mediaServerId}")
-    R<?> startSendRtp(@PathVariable String mediaServerId, @RequestBody Map<String, Object> param, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<?> startSendRtp(@PathVariable String mediaServerId, @RequestBody Map<String, Object> param);
 
     /**
      * 停止发送RTP流
@@ -75,7 +75,7 @@ public interface RemoteZlmService {
      * @return
      */
     @PostMapping("/api/zlm/stopSendRtp/{mediaServerId}")
-    R<?> stopSendRtp(@PathVariable String mediaServerId, @RequestBody Map<String, Object> param, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<?> stopSendRtp(@PathVariable String mediaServerId, @RequestBody Map<String, Object> param);
 
     /**
      * 获取默认的媒体服务器
@@ -94,7 +94,7 @@ public interface RemoteZlmService {
      * @return
      */
     @GetMapping("/api/zlm/getOneFromDatabase/{id}")
-    R<ZlmMediaServer> getOneFromDatabase(@PathVariable String id, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<ZlmMediaServer> getOneFromDatabase(@PathVariable String id);
 
     /**
      * 处理上级平台点播
@@ -104,7 +104,7 @@ public interface RemoteZlmService {
      * @return
      */
     @PostMapping("/api/zlm/gb28181PlatformPlay")
-    R<Void> gb28181PlatformPlay(@RequestBody Gb28181PlatformPlay platformPlay, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<Void> gb28181PlatformPlay(@RequestBody Gb28181PlatformPlay platformPlay);
 
     /**
      * 处理上级平台回放
@@ -114,7 +114,7 @@ public interface RemoteZlmService {
      * @return
      */
     @PostMapping("/api/zlm/gb28181PlatformPlayback")
-    R<Void> gb28181PlatformPlayback(@RequestBody Gb28181PlatformPlayback platformPlayback, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<Void> gb28181PlatformPlayback(@RequestBody Gb28181PlatformPlayback platformPlayback);
 
     /**
      * 停止上级平台回放
@@ -126,7 +126,7 @@ public interface RemoteZlmService {
      * @return
      */
     @GetMapping("/api/zlm/stopPlayback")
-    R<Void> stopPlayback(@RequestParam Long deviceId, @RequestParam String deviceType, @RequestParam String stream, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<Void> stopPlayback(@RequestParam Long deviceId, @RequestParam String deviceType, @RequestParam String stream);
 
     /**
      * 从流中获取截图
@@ -137,7 +137,7 @@ public interface RemoteZlmService {
      * @return 截图文件路径
      */
     @PostMapping("/api/zlm/getSnap")
-    R<String> getSnap(@RequestParam String app, @RequestParam String stream, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<String> getSnap(@RequestParam String app, @RequestParam String stream);
 
     /**
      * 新的抓图接口，每次生成不同的文件名
@@ -148,5 +148,5 @@ public interface RemoteZlmService {
      * @return 截图文件路径
      */
     @PostMapping("/api/zlm/snap")
-    R<String> snap(@RequestParam String app, @RequestParam String stream, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<String> snap(@RequestParam String app, @RequestParam String stream);
 }

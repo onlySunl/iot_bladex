@@ -41,7 +41,7 @@ public interface RemoteOnvifService {
      * @return
      */
     @PostMapping("/api/onvif/login")
-    R<OnvifDevice> login(@RequestBody WSOnvifDevice onvifDevice, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<OnvifDevice> login(@RequestBody WSOnvifDevice onvifDevice);
 
     /**
      * 开始云台控制
@@ -59,8 +59,7 @@ public interface RemoteOnvifService {
                              @RequestParam("username") String username,
                              @RequestParam("password") String password,
                              @RequestParam("direction") String direction,
-                             @RequestParam(value = "speed", defaultValue = "50") Integer speed,
-                             @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+                             @RequestParam(value = "speed", defaultValue = "50") Integer speed);
 
     /**
      * 停止云台控制
@@ -68,14 +67,12 @@ public interface RemoteOnvifService {
      * @param deviceIp 设备IP
      * @param username 用户名
      * @param password 密码
-     * @param source 请求来源
      * @return
      */
     @GetMapping("/api/onvif/stopPtzControl/{deviceIp}")
     R<Void> stopPtzControl(@PathVariable("deviceIp") String deviceIp,
                            @RequestParam("username") String username,
-                           @RequestParam("password") String password,
-                           @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+                           @RequestParam("password") String password);
 
     /**
      * 获取预置点列表
@@ -83,14 +80,12 @@ public interface RemoteOnvifService {
      * @param deviceIp 设备IP
      * @param username 用户名
      * @param password 密码
-     * @param source 请求来源
      * @return
      */
     @GetMapping("/api/onvif/getPresets/{deviceIp}")
     R<List<Map<String, Object>>> getPresets(@PathVariable("deviceIp") String deviceIp,
                                              @RequestParam("username") String username,
-                                             @RequestParam("password") String password,
-                                             @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+                                             @RequestParam("password") String password);
 
     /**
      * 设置预置点
@@ -100,7 +95,6 @@ public interface RemoteOnvifService {
      * @param password 密码
      * @param presetIndex 预置点索引
      * @param presetName 预置点名称
-     * @param source 请求来源
      * @return
      */
     @GetMapping("/api/onvif/setPreset/{deviceIp}")
@@ -108,8 +102,7 @@ public interface RemoteOnvifService {
                       @RequestParam("username") String username,
                       @RequestParam("password") String password,
                       @RequestParam(value = "presetIndex", required = false) Integer presetIndex,
-                      @RequestParam(value = "presetName", required = false) String presetName,
-                      @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+                      @RequestParam(value = "presetName", required = false) String presetName);
 
     /**
      * 调用预置点
@@ -119,7 +112,6 @@ public interface RemoteOnvifService {
      * @param password 密码
      * @param presetIndex 预置点索引
      * @param speed 速度
-     * @param source 请求来源
      * @return
      */
     @GetMapping("/api/onvif/gotoPreset/{deviceIp}")
@@ -127,8 +119,7 @@ public interface RemoteOnvifService {
                        @RequestParam("username") String username,
                        @RequestParam("password") String password,
                        @RequestParam("presetIndex") Integer presetIndex,
-                       @RequestParam(value = "speed", defaultValue = "50") Integer speed,
-                       @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+                       @RequestParam(value = "speed", defaultValue = "50") Integer speed);
 
     /**
      * 删除预置点
@@ -137,15 +128,13 @@ public interface RemoteOnvifService {
      * @param username 用户名
      * @param password 密码
      * @param presetIndex 预置点索引
-     * @param source 请求来源
      * @return
      */
     @GetMapping("/api/onvif/removePreset/{deviceIp}")
     R<Void> removePreset(@PathVariable("deviceIp") String deviceIp,
                         @RequestParam("username") String username,
                         @RequestParam("password") String password,
-                        @RequestParam("presetIndex") Integer presetIndex,
-                        @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+                        @RequestParam("presetIndex") Integer presetIndex);
 
     /**
      * 灯光控制
@@ -154,15 +143,13 @@ public interface RemoteOnvifService {
      * @param username 用户名
      * @param password 密码
      * @param on true为开灯，false为关灯
-     * @param source 请求来源
      * @return
      */
     @GetMapping("/api/onvif/controlLight/{deviceIp}")
     R<Void> controlLight(@PathVariable("deviceIp") String deviceIp,
                          @RequestParam("username") String username,
                          @RequestParam("password") String password,
-                         @RequestParam("on") boolean on,
-                         @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+                         @RequestParam("on") boolean on);
 
     /**
      * 雨刷控制
@@ -171,15 +158,13 @@ public interface RemoteOnvifService {
      * @param username 用户名
      * @param password 密码
      * @param on true为开雨刷，false为关雨刷
-     * @param source 请求来源
      * @return
      */
     @GetMapping("/api/onvif/controlWiper/{deviceIp}")
     R<Void> controlWiper(@PathVariable("deviceIp") String deviceIp,
                          @RequestParam("username") String username,
                          @RequestParam("password") String password,
-                         @RequestParam("on") boolean on,
-                         @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+                         @RequestParam("on") boolean on);
 
     /**
      * 查询录像文件
@@ -189,7 +174,6 @@ public interface RemoteOnvifService {
      * @param password  密码
      * @param startTime 开始时间，格式：yyyy-MM-dd HH:mm:ss
      * @param endTime   结束时间，格式：yyyy-MM-dd HH:mm:ss
-     * @param source    请求来源
      * @return 录像文件列表
      */
     @GetMapping("/api/onvif/queryRecord")
@@ -197,8 +181,7 @@ public interface RemoteOnvifService {
                            @RequestParam("username") String username,
                            @RequestParam("password") String password,
                            @RequestParam("startTime") String startTime,
-                           @RequestParam("endTime") String endTime,
-                           @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+                           @RequestParam("endTime") String endTime);
 
     /**
      * 获取回放地址
@@ -208,7 +191,6 @@ public interface RemoteOnvifService {
      * @param password 密码
      * @param recordingToken 录制令牌
      * @param trackToken 轨道令牌
-     * @param source 请求来源
      * @return 回放地址
      */
     @GetMapping("/api/onvif/getReplayUri")
@@ -216,6 +198,5 @@ public interface RemoteOnvifService {
                             @RequestParam("username") String username,
                             @RequestParam("password") String password,
                             @RequestParam("recordingToken") String recordingToken,
-                            @RequestParam("trackToken") String trackToken,
-                            @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+                            @RequestParam("trackToken") String trackToken);
 }

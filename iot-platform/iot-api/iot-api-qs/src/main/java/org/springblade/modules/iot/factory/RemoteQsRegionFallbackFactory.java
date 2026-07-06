@@ -30,17 +30,17 @@ public class RemoteQsRegionFallbackFactory implements FallbackFactory<RemoteQsRe
 
         return new RemoteQsRegionService() {
             @Override
-            public R<List<QsRegionTree>> queryForTree(Integer parent, Boolean hasDevice, String source) {
+            public R<List<QsRegionTree>> queryForTree(Integer parent, Boolean hasDevice) {
                 return R.fail("查询区域树失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<List<QsRegionTree>> queryAllRegions(String query, String source) {
+            public R<List<QsRegionTree>> queryAllRegions(String query) {
                 return R.fail("查询所有区域失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<List<QsRegion>> queryList(String query, String source) {
+            public R<List<QsRegion>> queryList(String query) {
                 return R.fail("查询区域列表失败:" + throwable.getMessage());
             }
         };

@@ -3,6 +3,7 @@ package org.springblade.modules.iot.controller;
 import com.alibaba.fastjson2.JSONObject;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.common.InviteErrorCode;
 import org.springblade.modules.iot.common.InviteSessionType;
@@ -40,7 +41,8 @@ import java.util.List;
  **/
 @Slf4j
 @RestController
-public class ZlmController {
+@RequestMapping("/")
+public class ZlmController extends BladeController {
 
     @Autowired
     private IMediaServerService mediaServerService;
@@ -131,8 +133,7 @@ public class ZlmController {
                 onvifPlayback.getUsername(),
                 onvifPlayback.getPassword(),
                 onvifPlayback.getRecordingToken(),
-                onvifPlayback.getTrackToken(),
-                SecurityConstants.INNER
+                onvifPlayback.getTrackToken()
         );
 
         if (replayUriResult.getCode() != Constants.SUCCESS || StringUtils.isEmpty(replayUriResult.getData())) {
@@ -241,7 +242,7 @@ public class ZlmController {
             wvpResult.setMsg("rtp播放超时");
             result.setResult(wvpResult);
 
-            inviteStreamService.removeInviteInfoByDeviceAndChannel(InviteSessionType.PLAY, rtpServerParam.getId());
+            inviteStreamService.removeInviteInfoByDeviceAndChannel(InviteSessionType.PLAY, rtpServerParam.getDeviceId());
             mediaServerService.stopRtpPlay(rtpServerParam);
         });
 
@@ -318,7 +319,7 @@ public class ZlmController {
             wvpResult.setMsg(typeDesc + "录像回放超时");
             result.setResult(wvpResult);
 
-            inviteStreamService.removeInviteInfoByDeviceAndChannel(InviteSessionType.PLAYBACK, rtpServerParam.getId());
+            inviteStreamService.removeInviteInfoByDeviceAndChannel(InviteSessionType.PLAYBACK, rtpServerParam.getDeviceId());
             mediaServerService.stopRtpPlay(rtpServerParam);
         });
 
@@ -364,7 +365,7 @@ public class ZlmController {
      */
     @PostMapping("/stopRtpPlay")
     public R stopRtpPlay(@RequestBody RTPServerParam rtpServerParam) {
-        log.info("停止rtp播放： id：{}", rtpServerParam.getId());
+        log.info("停止rtp播放： id：{}", rtpServerParam.getDeviceId());
         if (!(LiveStreamType.HIK_SDK.getCode().equals(rtpServerParam.getType())
                 || LiveStreamType.HIK_ISUP.getCode().equals(rtpServerParam.getType())
                 || LiveStreamType.DAHUA_SDK.getCode().equals(rtpServerParam.getType())
@@ -384,7 +385,7 @@ public class ZlmController {
      */
     @PostMapping("/stopRtpPlayback")
     public R stopRtpPlayback(@RequestBody RTPServerParam rtpServerParam) {
-        log.info("停止设备录像回放：type={}, id={}", rtpServerParam.getType(), rtpServerParam.getId());
+        log.info("停止设备录像回放：type={}, id={}", rtpServerParam.getType(), rtpServerParam.getDeviceId());
         // 验证支持的类型
         if (!(LiveStreamType.HIK_SDK.getCode().equals(rtpServerParam.getType())
                 || LiveStreamType.HIK_ISUP.getCode().equals(rtpServerParam.getType())
@@ -465,7 +466,7 @@ public class ZlmController {
      *
      * @return
      */
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/zlm/list")
     public R getMediaServerList() {
         List<ZlmMediaServer> list = mediaServerService.getAll();
         return R.data(list);
@@ -476,7 +477,7 @@ public class ZlmController {
      *
      * @param id 流媒体ID
      */
-    @DeleteMapping(value = "/delete")
+    @DeleteMapping(value = "/zlm/delete")
     public R deleteMediaServer(@RequestParam Long id) {
         ZlmMediaServer mediaServer = mediaServerService.getOne(id);
         if (mediaServer == null) {
@@ -491,7 +492,7 @@ public class ZlmController {
      *
      * @param mediaServer 流媒体信息
      */
-    @PostMapping(value = "/save")
+    @PostMapping(value = "/zlm/save")
     public R saveMediaServer(@RequestBody ZlmMediaServer mediaServer) {
         ZlmMediaServer mediaServerItemInDatabase = mediaServerService.getOneFromDatabase(mediaServer.getId());
 
@@ -517,7 +518,7 @@ public class ZlmController {
      * @param type   流媒体服务类型
      * @return
      */
-    @GetMapping(value = "/check")
+    @GetMapping(value = "/zlm/check")
     public R checkMediaServer(@RequestParam String ip, @RequestParam int port, @RequestParam String secret, @RequestParam String type) {
         ZlmMediaServer mediaServer = mediaServerService.checkMediaServer(ip, port, secret, type);
         return R.data(mediaServer);
@@ -529,7 +530,7 @@ public class ZlmController {
      * @param id 流媒体服务ID
      * @return
      */
-    @GetMapping(value = "/one/{id}")
+    @GetMapping(value = "/zlm/one/{id}")
     public R getMediaServer(@PathVariable Long id) {
         ZlmMediaServer mediaServer = mediaServerService.getOne(id);
         return R.data(mediaServer);
@@ -543,7 +544,7 @@ public class ZlmController {
      * @param mediaServerId 流媒体ID
      * @return
      */
-    @GetMapping(value = "/media_info")
+    @GetMapping(value = "/zlm/media_info")
     public R getMediaInfo(@RequestParam String app, @RequestParam String stream, @RequestParam Long mediaServerId) {
         Assert.hasText(app, "app参数不能为空");
         Assert.hasText(stream, "stream参数不能为空");
@@ -561,7 +562,7 @@ public class ZlmController {
      * @param mediaServerId 流媒体ID
      * @return
      */
-    @GetMapping(value = "/restartServer/{mediaServerId}")
+    @GetMapping(value = "/zlm/restartServer/{mediaServerId}")
     public R restartServer(@PathVariable Long mediaServerId) {
         ZlmMediaServer mediaServer = mediaServerService.getOne(mediaServerId);
         if (mediaServer == null) {
@@ -576,7 +577,7 @@ public class ZlmController {
      *
      * @return
      */
-    @GetMapping(value = "/getAllOnlineMediaServe")
+    @GetMapping(value = "/zlm/getAllOnlineMediaServe")
     public R getAllOnlineMediaServe() {
         return R.data(mediaServerService.getAllOnlineMediaServe());
     }
@@ -586,7 +587,7 @@ public class ZlmController {
      *
      * @return
      */
-    @GetMapping(value = "/getStreamPushAddress/{id}")
+    @GetMapping(value = "/zlm/getStreamPushAddress/{id}")
     public R getStreamPushAddress(@PathVariable Long id, String callId) {
         if (StringUtils.isEmpty(callId)) {
             return R.fail("callId不能是空");
@@ -601,7 +602,7 @@ public class ZlmController {
      * @param id
      * @return
      */
-    @GetMapping(value = "/streamPullPush")
+    @GetMapping(value = "/zlm/streamPullPush")
     public DeferredResult<R<StreamContent>> streamPullPush(HttpServletRequest request, @RequestParam Long id) {
         Assert.notNull(id, "设备ID不可为NULL");
         DeferredResult<R<StreamContent>> result = new DeferredResult<>(userSetting.getPlayTimeout().longValue());
@@ -651,7 +652,7 @@ public class ZlmController {
         log.info("[gb28181 开始点播] id：{} ", id);
         Assert.notNull(id, "设备id");
 
-        R<QsDevice> qsDevicer = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> qsDevicer = remoteQsDeviceService.getQsDeviceInfo(id);
         if (qsDevicer.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("获取设备信息失败 id:" + id);
         }
@@ -663,7 +664,7 @@ public class ZlmController {
             throw new RuntimeException("设备不在线 id:" + id);
         }
 
-        R<Device> deviceR = remoteGb28181Service.getDeviceByDeviceId(qsDevice.getGbDeviceId(), SecurityConstants.INNER);
+        R<Device> deviceR = remoteGb28181Service.getDeviceByDeviceId(qsDevice.getGbDeviceId());
         if (deviceR.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("gb28181 获取设备信息失败 id:" + qsDevice.getGbDeviceId());
         }
@@ -673,7 +674,7 @@ public class ZlmController {
             throw new RuntimeException("gb28181 国标设备不在线失败 id:" + qsDevice.getGbDeviceId());
         }
 
-        R<DeviceChannel> deviceChannelR = remoteGb28181Service.getDeviceChannelByChannelId(qsDevice.getGbDeviceId(), qsDevice.getGbChannelId(), SecurityConstants.INNER);
+        R<DeviceChannel> deviceChannelR = remoteGb28181Service.getDeviceChannelByChannelId(qsDevice.getGbDeviceId(), qsDevice.getGbChannelId());
         if (deviceChannelR.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("gb28181 获取设备通道失败 gbDeviceId:" + qsDevice.getGbDeviceId() + "，gbChannelId:" + qsDevice.getGbChannelId());
         }
@@ -753,7 +754,7 @@ public class ZlmController {
         Assert.notNull(startTime, "开始时间");
         Assert.notNull(endTime, "结束时间");
 
-        R<QsDevice> qsDevicer = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> qsDevicer = remoteQsDeviceService.getQsDeviceInfo(id);
         if (qsDevicer.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("获取设备信息失败 id:" + id);
         }
@@ -765,7 +766,7 @@ public class ZlmController {
             throw new RuntimeException("设备不在线 id:" + id);
         }
 
-        R<Device> deviceR = remoteGb28181Service.getDeviceByDeviceId(qsDevice.getGbDeviceId(), SecurityConstants.INNER);
+        R<Device> deviceR = remoteGb28181Service.getDeviceByDeviceId(qsDevice.getGbDeviceId());
         if (deviceR.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("gb28181 获取设备信息失败 id:" + qsDevice.getGbDeviceId());
         }
@@ -775,7 +776,7 @@ public class ZlmController {
             throw new RuntimeException("gb28181 国标设备不在线失败 id:" + qsDevice.getGbDeviceId());
         }
 
-        R<DeviceChannel> deviceChannelR = remoteGb28181Service.getDeviceChannelByChannelId(qsDevice.getGbDeviceId(), qsDevice.getGbChannelId(), SecurityConstants.INNER);
+        R<DeviceChannel> deviceChannelR = remoteGb28181Service.getDeviceChannelByChannelId(qsDevice.getGbDeviceId(), qsDevice.getGbChannelId());
         if (deviceChannelR.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("gb28181 获取设备通道失败 gbDeviceId:" + qsDevice.getGbDeviceId() + "，gbChannelId:" + qsDevice.getGbChannelId());
         }
@@ -845,7 +846,7 @@ public class ZlmController {
         log.info("[gb28181 停止点播] id：{} ", id);
         Assert.notNull(id, "设备id");
 
-        R<QsDevice> qsDevicer = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> qsDevicer = remoteQsDeviceService.getQsDeviceInfo(id);
         if (qsDevicer.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("获取设备信息失败 id:" + id);
         }
@@ -857,7 +858,7 @@ public class ZlmController {
             throw new RuntimeException("设备不在线 id:" + id);
         }
 
-        R<Device> deviceR = remoteGb28181Service.getDeviceByDeviceId(qsDevice.getGbDeviceId(), SecurityConstants.INNER);
+        R<Device> deviceR = remoteGb28181Service.getDeviceByDeviceId(qsDevice.getGbDeviceId());
         if (deviceR.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("gb28181 获取设备信息失败 id:" + qsDevice.getGbDeviceId());
         }
@@ -867,7 +868,7 @@ public class ZlmController {
             throw new RuntimeException("gb28181 国标设备不在线失败 id:" + qsDevice.getGbDeviceId());
         }
 
-        R<DeviceChannel> deviceChannelR = remoteGb28181Service.getDeviceChannelByChannelId(qsDevice.getGbDeviceId(), qsDevice.getGbChannelId(), SecurityConstants.INNER);
+        R<DeviceChannel> deviceChannelR = remoteGb28181Service.getDeviceChannelByChannelId(qsDevice.getGbDeviceId(), qsDevice.getGbChannelId());
         if (deviceChannelR.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("gb28181 获取设备通道失败 gbDeviceId:" + qsDevice.getGbDeviceId() + "，gbChannelId:" + qsDevice.getGbChannelId());
         }
@@ -897,7 +898,7 @@ public class ZlmController {
         log.info("[gb28181 停止回放] id={}", id);
         Assert.notNull(id, "设备id");
 
-        R<QsDevice> qsDevicer = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> qsDevicer = remoteQsDeviceService.getQsDeviceInfo(id);
         if (qsDevicer.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("获取设备信息失败 id:" + id);
         }
@@ -909,7 +910,7 @@ public class ZlmController {
             throw new RuntimeException("设备不在线 id:" + id);
         }
 
-        R<Device> deviceR = remoteGb28181Service.getDeviceByDeviceId(qsDevice.getGbDeviceId(), SecurityConstants.INNER);
+        R<Device> deviceR = remoteGb28181Service.getDeviceByDeviceId(qsDevice.getGbDeviceId());
         if (deviceR.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("gb28181 获取设备信息失败 id:" + qsDevice.getGbDeviceId());
         }
@@ -919,7 +920,7 @@ public class ZlmController {
             throw new RuntimeException("gb28181 国标设备不在线失败 id:" + qsDevice.getGbDeviceId());
         }
 
-        R<DeviceChannel> deviceChannelR = remoteGb28181Service.getDeviceChannelByChannelId(qsDevice.getGbDeviceId(), qsDevice.getGbChannelId(), SecurityConstants.INNER);
+        R<DeviceChannel> deviceChannelR = remoteGb28181Service.getDeviceChannelByChannelId(qsDevice.getGbDeviceId(), qsDevice.getGbChannelId());
         if (deviceChannelR.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("gb28181 获取设备通道失败 gbDeviceId:" + qsDevice.getGbDeviceId() + "，gbChannelId:" + qsDevice.getGbChannelId());
         }
@@ -958,7 +959,7 @@ public class ZlmController {
         Assert.notNull(startTime, "开始时间");
         Assert.notNull(endTime, "结束时间");
 
-        R<QsDevice> qsDevicer = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> qsDevicer = remoteQsDeviceService.getQsDeviceInfo(id);
         if (qsDevicer.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("获取设备信息失败 id:" + id);
         }
@@ -971,7 +972,7 @@ public class ZlmController {
         }
 
         // 通过手机号获取 JT1078 设备信息
-        R<Jt1078Device> deviceR = remoteJt1078Service.getDeviceByMobileNo(qsDevice.getJtMobileNo(), SecurityConstants.INNER);
+        R<Jt1078Device> deviceR = remoteJt1078Service.getDeviceByMobileNo(qsDevice.getJtMobileNo());
         if (deviceR.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("jt1078 获取设备信息失败 mobileNo:" + qsDevice.getJtMobileNo());
         }
@@ -1039,7 +1040,7 @@ public class ZlmController {
         log.info("[jt1078 停止回放] id={}", id);
         Assert.notNull(id, "设备id");
 
-        R<QsDevice> qsDevicer = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> qsDevicer = remoteQsDeviceService.getQsDeviceInfo(id);
         if (qsDevicer.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("获取设备信息失败 id:" + id);
         }
@@ -1052,7 +1053,7 @@ public class ZlmController {
         }
 
         // 通过手机号获取 JT1078 设备信息
-        R<Jt1078Device> deviceR = remoteJt1078Service.getDeviceByMobileNo(qsDevice.getJtMobileNo(), SecurityConstants.INNER);
+        R<Jt1078Device> deviceR = remoteJt1078Service.getDeviceByMobileNo(qsDevice.getJtMobileNo());
         if (deviceR.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("jt1078 获取设备信息失败 mobileNo:" + qsDevice.getJtMobileNo());
         }
@@ -1084,7 +1085,7 @@ public class ZlmController {
         log.info("[jt1078 开始点播] id：{} ", id);
         Assert.notNull(id, "设备id");
 
-        R<QsDevice> qsDevicer = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> qsDevicer = remoteQsDeviceService.getQsDeviceInfo(id);
         if (qsDevicer.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("获取设备信息失败 id：" + id);
         }
@@ -1098,7 +1099,7 @@ public class ZlmController {
 
         // 通过手机号获取 JT1078 设备信息
         // 或者使用 deviceCode 作为手机号
-        R<Jt1078Device> deviceR = remoteJt1078Service.getDeviceByMobileNo(qsDevice.getJtMobileNo(), SecurityConstants.INNER);
+        R<Jt1078Device> deviceR = remoteJt1078Service.getDeviceByMobileNo(qsDevice.getJtMobileNo());
         if (deviceR.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("jt1078 获取设备信息失败 mobileNo：" + qsDevice.getJtMobileNo());
         }
@@ -1166,7 +1167,7 @@ public class ZlmController {
         log.info("[jt1078 停止点播] id：{} ", id);
         Assert.notNull(id, "设备id");
 
-        R<QsDevice> qsDevicer = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> qsDevicer = remoteQsDeviceService.getQsDeviceInfo(id);
         if (qsDevicer.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("获取设备信息失败 id：" + id);
         }
@@ -1179,7 +1180,7 @@ public class ZlmController {
         }
 
         // 通过手机号获取 JT1078 设备信息
-        R<Jt1078Device> deviceR = remoteJt1078Service.getDeviceByMobileNo(qsDevice.getJtMobileNo(), SecurityConstants.INNER);
+        R<Jt1078Device> deviceR = remoteJt1078Service.getDeviceByMobileNo(qsDevice.getJtMobileNo());
         if (deviceR.getCode() != Constants.SUCCESS) {
             throw new RuntimeException("jt1078 获取设备信息失败 mobileNo：" + qsDevice.getJtMobileNo());
         }

@@ -26,22 +26,22 @@ public class RemoteQsDeviceAlarmFallbackFactory implements FallbackFactory<Remot
 
         return new RemoteQsDeviceAlarmService() {
             @Override
-            public R<Long> add(QsDeviceAlarm qsDeviceAlarm, String inner) {
+            public R<Long> add(QsDeviceAlarm qsDeviceAlarm) {
                 return R.fail("新增设备告警失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<List<QsDeviceAlarm>> list(QsDeviceAlarm qsDeviceAlarm, String inner) {
+            public R<List<QsDeviceAlarm>> list(QsDeviceAlarm qsDeviceAlarm) {
                 return R.fail("查询设备告警列表失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<QsDeviceAlarm> getInfo(Long id, String inner) {
+            public R<QsDeviceAlarm> getInfo(Long id) {
                 return R.fail("获取设备告警详细信息失败:" + throwable.getMessage());
             }
 
             @Override
-            public R<Boolean> edit(QsDeviceAlarm qsDeviceAlarm, String inner) {
+            public R<Boolean> edit(QsDeviceAlarm qsDeviceAlarm) {
                 return R.fail("修改设备告警失败:" + throwable.getMessage());
             }
         };

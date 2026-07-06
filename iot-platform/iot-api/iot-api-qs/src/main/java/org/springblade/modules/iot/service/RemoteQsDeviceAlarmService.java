@@ -31,7 +31,7 @@ public interface RemoteQsDeviceAlarmService {
      * @return 告警记录ID
      */
     @PostMapping("/api/alarm/add")
-    R<Long> add(@RequestBody QsDeviceAlarm qsDeviceAlarm, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<Long> add(@RequestBody QsDeviceAlarm qsDeviceAlarm);
 
     /**
      * 查询设备告警列表
@@ -41,7 +41,7 @@ public interface RemoteQsDeviceAlarmService {
      * @return 告警列表
      */
     @PostMapping("/api/alarm/list")
-    R<List<QsDeviceAlarm>> list(@RequestBody QsDeviceAlarm qsDeviceAlarm, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<List<QsDeviceAlarm>> list(@RequestBody QsDeviceAlarm qsDeviceAlarm);
 
     /**
      * 获取设备告警详细信息
@@ -51,7 +51,7 @@ public interface RemoteQsDeviceAlarmService {
      * @return 告警详细信息
      */
     @GetMapping("/api/alarm/getInfo/{id}")
-    R<QsDeviceAlarm> getInfo(@PathVariable("id") Long id, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<QsDeviceAlarm> getInfo(@PathVariable("id") Long id);
 
     /**
      * 修改设备告警
@@ -61,5 +61,5 @@ public interface RemoteQsDeviceAlarmService {
      * @return 结果
      */
     @PutMapping("/api/alarm/edit")
-    R<Boolean> edit(@RequestBody QsDeviceAlarm qsDeviceAlarm, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    R<Boolean> edit(@RequestBody QsDeviceAlarm qsDeviceAlarm);
 }

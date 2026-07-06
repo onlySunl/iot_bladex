@@ -7,6 +7,7 @@ import org.springblade.modules.iot.domain.RecordInfo;
 import org.springblade.modules.iot.domain.Snap;
 import org.springblade.modules.iot.domain.dto.ZLMResult;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -92,7 +93,7 @@ public interface IMediaServerService {
      * @param streamPullPlay 拉流播放请求参数
      * @param callback       回调
      */
-    void streamPullPlay(StreamPullPlay streamPullPlay, ErrorCallback<StreamInfo> callback);
+    void streamPullPlay(StreamPullPlay streamPullPlay, ErrorCallback<StreamInfo> callback) ;
 
     /**
      * 根据应用名和流ID获取播放地址, 通过zlm接口检查是否存在

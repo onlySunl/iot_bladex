@@ -87,9 +87,9 @@
         <result property="subscribeCatalogStatus" column="subscribe_catalog_status"/>
         <result property="subscribeAlarmStatus" column="subscribe_alarm_status"/>
         <result property="subscribeTime" column="subscribe_time"/>
-        <result property="createBy" column="create_by"/>
+        <result property="createUser" column="create_user"/>
         <result property="createTime" column="create_time"/>
-        <result property="updateBy" column="update_by"/>
+        <result property="updateUser" column="update_user"/>
         <result property="updateTime" column="update_time"/>
         <result property="remark" column="remark"/>
     </resultMap>
@@ -241,9 +241,9 @@
                subscribe_catalog_status,
                subscribe_alarm_status,
                subscribe_time,
-               create_by,
+               create_user,
                create_time,
-               update_by,
+               update_user,
                update_time,
                remark
         from qs_device
@@ -358,9 +358,9 @@
             <if test="subscribeCatalogStatus != null">subscribe_catalog_status,</if>
             <if test="subscribeAlarmStatus != null">subscribe_alarm_status,</if>
             <if test="subscribeTime != null">subscribe_time,</if>
-            <if test="createBy != null">create_by,</if>
+            <if test="createUser != null">create_user,</if>
             <if test="createTime != null">create_time,</if>
-            <if test="updateBy != null">update_by,</if>
+            <if test="updateUser != null">update_user,</if>
             <if test="updateTime != null">update_time,</if>
             <if test="remark != null">remark,</if>
         </trim>
@@ -446,9 +446,9 @@
             <if test="subscribeCatalogStatus != null">#{subscribeCatalogStatus},</if>
             <if test="subscribeAlarmStatus != null">#{subscribeAlarmStatus},</if>
             <if test="subscribeTime != null">#{subscribeTime},</if>
-            <if test="createBy != null">#{createBy},</if>
+            <if test="createUser != null">#{createUser},</if>
             <if test="createTime != null">#{createTime},</if>
-            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateUser != null">#{updateUser},</if>
             <if test="updateTime != null">#{updateTime},</if>
             <if test="remark != null">#{remark},</if>
         </trim>
@@ -538,9 +538,9 @@
             <if test="subscribeCatalogStatus != null">subscribe_catalog_status = #{subscribeCatalogStatus},</if>
             <if test="subscribeAlarmStatus != null">subscribe_alarm_status = #{subscribeAlarmStatus},</if>
             <if test="subscribeTime != null">subscribe_time = #{subscribeTime},</if>
-            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
-            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateUser != null">update_user = #{updateUser},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="remark != null">remark = #{remark},</if>
         </trim>

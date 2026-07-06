@@ -31,7 +31,7 @@ public interface RemoteHaiKangIsupService {
      * @return
      */
     @PostMapping("/api/haikang/isup/getUserId/{ip}")
-    R<Integer> getUserId(@PathVariable String ip, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<Integer> getUserId(@PathVariable String ip);
 
     /**
      * 获取设备信息
@@ -41,7 +41,7 @@ public interface RemoteHaiKangIsupService {
      * @return
      */
     @PostMapping("/api/haikang/isup/getDevInfo/{ip}")
-    R<HaiKangIsupDeviceInfo> getDevInfo(@PathVariable String ip, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<HaiKangIsupDeviceInfo> getDevInfo(@PathVariable String ip);
 
     /**
      * 开始播放
@@ -50,7 +50,7 @@ public interface RemoteHaiKangIsupService {
      * @param inner          请求来源
      */
     @PostMapping("/api/haikang/isup/startPlay")
-    public R<Void> startPlay(@RequestBody RtpServerParam rtpServerParam, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    public R<Void> startPlay(@RequestBody RtpServerParam rtpServerParam);
 
     /**
      * 停止播放
@@ -59,7 +59,7 @@ public interface RemoteHaiKangIsupService {
      * @param inner 请求来源
      */
     @GetMapping("/api/haikang/isup/stopPlay/{id}")
-    public R<Void> stopPlay(@PathVariable Long id, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    public R<Void> stopPlay(@PathVariable Long id);
 
     /**
      * 开始回放
@@ -68,7 +68,7 @@ public interface RemoteHaiKangIsupService {
      * @param inner          请求来源
      */
     @PostMapping("/api/haikang/isup/startPlayback")
-    public R<Void> startPlayback(@RequestBody RtpServerParam rtpServerParam, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    public R<Void> startPlayback(@RequestBody RtpServerParam rtpServerParam);
 
     /**
      * 停止回放
@@ -77,7 +77,7 @@ public interface RemoteHaiKangIsupService {
      * @param inner 请求来源
      */
     @GetMapping("/api/haikang/isup/stopPlayback/{id}")
-    public R<Void> stopPlayback(@PathVariable Long id, @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+    public R<Void> stopPlayback(@PathVariable Long id);
 
     /**
      * 开始云台控制
@@ -93,8 +93,7 @@ public interface RemoteHaiKangIsupService {
     R<Void> startPtz(@PathVariable("deviceId") Long deviceId,
                      @PathVariable("channelId") Integer channelId,
                      @RequestParam int PTZCmd,
-                     @RequestParam int speed,
-                     @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+                     @RequestParam int speed);
 
     /**
      * 结束云台控制
@@ -110,8 +109,7 @@ public interface RemoteHaiKangIsupService {
     R<Void> endPtz(@PathVariable("deviceId") Long deviceId,
                    @PathVariable("channelId") Integer channelId,
                    @RequestParam int PTZCmd,
-                   @RequestParam int speed,
-                   @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+                   @RequestParam int speed);
 
     /**
      * 设置预置点
@@ -125,8 +123,7 @@ public interface RemoteHaiKangIsupService {
     @GetMapping("/api/haikang/isup/setPreset/{deviceId}/{channelId}")
     R<Void> setPreset(@PathVariable("deviceId") Long deviceId,
                       @PathVariable("channelId") Integer channelId,
-                      @RequestParam int presetIndex,
-                      @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+                      @RequestParam int presetIndex);
 
     /**
      * 清除预置点
@@ -140,8 +137,7 @@ public interface RemoteHaiKangIsupService {
     @GetMapping("/api/haikang/isup/clearPreset/{deviceId}/{channelId}")
     R<Void> clearPreset(@PathVariable("deviceId") Long deviceId,
                         @PathVariable("channelId") Integer channelId,
-                        @RequestParam int presetIndex,
-                        @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+                        @RequestParam int presetIndex);
 
     /**
      * 调用预置点
@@ -155,8 +151,7 @@ public interface RemoteHaiKangIsupService {
     @GetMapping("/api/haikang/isup/gotoPreset/{deviceId}/{channelId}")
     R<Void> gotoPreset(@PathVariable("deviceId") Long deviceId,
                        @PathVariable("channelId") Integer channelId,
-                       @RequestParam int presetIndex,
-                       @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+                       @RequestParam int presetIndex);
 
     /**
      * 辅助设备控制（灯光、雨刮、风扇等）
@@ -172,8 +167,7 @@ public interface RemoteHaiKangIsupService {
     R<Void> cameraAuxControl(@PathVariable("deviceId") Long deviceId,
                              @PathVariable("channelId") Integer channelId,
                              @RequestParam String operation,
-                             @RequestParam boolean isStart,
-                             @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+                             @RequestParam boolean isStart);
 
     /**
      * 巡航控制
@@ -189,8 +183,7 @@ public interface RemoteHaiKangIsupService {
     R<Void> cruiseControl(@PathVariable("deviceId") Long deviceId,
                           @PathVariable("channelId") Integer channelId,
                           @RequestParam String operation,
-                          @RequestParam Integer param,
-                          @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+                          @RequestParam Integer param);
 
     /**
      * 获取预置点列表
@@ -202,8 +195,7 @@ public interface RemoteHaiKangIsupService {
      */
     @GetMapping("/api/haikang/isup/getPresetList/{deviceId}/{channelId}")
     R<List<HaiKangIsupPresetInfo>> getPresetList(@PathVariable("deviceId") Long deviceId,
-                                                 @PathVariable("channelId") Integer channelId,
-                                                 @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+                                                 @PathVariable("channelId") Integer channelId);
 
     /**
      * 海康设备查询录像
@@ -219,7 +211,6 @@ public interface RemoteHaiKangIsupService {
     R<ArrayList<HashMap<String, Object>>> getRecMonth(@PathVariable("deviceId") Long deviceId,
                                                       @PathVariable("channelId") Integer channelId,
                                                       @RequestParam String startTime,
-                                                      @RequestParam String endTime,
-                                                      @RequestHeader(SecurityConstants.FROM_SOURCE) String inner);
+                                                      @RequestParam String endTime);
 
 }

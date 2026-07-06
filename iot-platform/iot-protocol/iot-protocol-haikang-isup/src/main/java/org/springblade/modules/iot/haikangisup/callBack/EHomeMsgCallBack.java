@@ -296,7 +296,7 @@ public class EHomeMsgCallBack implements HCISUPAlarm.EHomeMsgCallBack {
             
             // 优先用 deviceCode（设备ID）匹配
             if (deviceId != null && !deviceId.isEmpty()) {
-                R<QsDevice> result = remoteQsDeviceService.getDeviceByDeviceCode("haikang_isup_" + deviceId, SecurityConstants.INNER);
+                R<QsDevice> result = remoteQsDeviceService.getDeviceByDeviceCode("haikang_isup_" + deviceId);
                 
                 if (R.isSuccess(result) && result.getData() != null) {
                     qsDevice = result.getData();
@@ -344,7 +344,7 @@ public class EHomeMsgCallBack implements HCISUPAlarm.EHomeMsgCallBack {
             log.info("保存报警 - 设备ID:{}, 设备名称:{}, 报警类型:{}, 通道:{}, imageUrl:{}",
                 alarm.getDeviceId(), alarm.getDeviceName(), alarm.getAlarmType(), alarm.getChannel(), imageUrl);
 
-            R<Long> result = remoteQsDeviceAlarmService.add(alarm, SecurityConstants.INNER);
+            R<Long> result = remoteQsDeviceAlarmService.add(alarm);
             if (result.getCode() != 200) {
                 log.error("保存报警失败:{}", result.getMsg());
             } else {

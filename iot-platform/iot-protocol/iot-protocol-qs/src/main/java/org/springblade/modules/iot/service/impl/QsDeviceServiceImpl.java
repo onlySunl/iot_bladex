@@ -160,7 +160,7 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
             loginDevice.setPort(qsDevice.getPort());
             loginDevice.setUserName(qsDevice.getUserName());
             loginDevice.setPassword(qsDevice.getPassword());
-            R<Integer> r = remoteHaiKangService.loginDevice(loginDevice, SecurityConstants.INNER);
+            R<Integer> r = remoteHaiKangService.loginDevice(loginDevice);
             if (r.getCode() != Constants.SUCCESS) {
                 throw new RuntimeException(r.getMsg());
             }
@@ -183,7 +183,7 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
 
             // 2=主动注册
             if ("2".equals(qsDevice.getOnlineType())) {
-                R<DahuaDevice> dahuaDevicer = remoteDaHuaService.getDahuaDevice(qsDevice.getIpAddress(), SecurityConstants.INNER);
+                R<DahuaDevice> dahuaDevicer = remoteDaHuaService.getDahuaDevice(qsDevice.getIpAddress());
                 if (dahuaDevicer.getCode() != Constants.SUCCESS) {
                     throw new RuntimeException(dahuaDevicer.getMsg());
                 }
@@ -198,7 +198,7 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
                 loginDevice.setOnlineType(qsDevice.getOnlineType());
             }
 
-            R<Void> r = remoteDaHuaService.loginDevice(loginDevice, SecurityConstants.INNER);
+            R<Void> r = remoteDaHuaService.loginDevice(loginDevice);
             if (r.getCode() != Constants.SUCCESS) {
                 throw new RuntimeException(r.getMsg());
             }
@@ -219,7 +219,7 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
         if (LiveStreamType.JT1078.getCode().equals(qsDevice.getType())) {
             qsDevice.setDeviceCode("device_" + IdUtil.getSnowflakeNextId());
         }
-        int result = qsDeviceMapper.insertQsDevice(qsDevice);
+        int result = this.baseMapper.insert(qsDevice);
         return result;
     }
 
@@ -271,7 +271,7 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
         }
 
 
-        int result = qsDeviceMapper.updateQsDevice(qsDevice);
+        int result = this.baseMapper.updateById(qsDevice);
         // 异步推送目录到所有在线平台（带防抖）
         return result;
     }
@@ -1071,17 +1071,17 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
 
         if (LiveStreamType.HIK_SDK.getCode().equals(deviceType)) {
             // 海康SDK
-            remoteHaiKangService.startPlayControl(id, channel, direction, SecurityConstants.INNER);
+            remoteHaiKangService.startPlayControl(id, channel, direction);
         } else if (LiveStreamType.HIK_ISUP.getCode().equals(deviceType)) {
             // 海康ISUP
             int ptzCmd = convertDirectionToHikIsupPtz(direction);
-            remoteHaiKangIsupService.startPtz(id, channel, ptzCmd, controlSpeed != null ? controlSpeed : 5, SecurityConstants.INNER);
+            remoteHaiKangIsupService.startPtz(id, channel, ptzCmd, controlSpeed != null ? controlSpeed : 5);
         } else if (LiveStreamType.DAHUA_SDK.getCode().equals(deviceType)) {
             // 大华SDK
-            remoteDaHuaService.ptzControlUpStart(id, channel, direction, controlSpeed, SecurityConstants.INNER);
+            remoteDaHuaService.ptzControlUpStart(id, channel, direction, controlSpeed);
         } else if (LiveStreamType.ONVIF.getCode().equals(deviceType)) {
             // ONVIF协议
-            remoteOnvifService.startPtzControl(device.getIpAddress(), device.getUserName(), device.getPassword(), direction, controlSpeed, SecurityConstants.INNER);
+            remoteOnvifService.startPtzControl(device.getIpAddress(), device.getUserName(), device.getPassword(), direction, controlSpeed);
         } else if (LiveStreamType.JT1078.getCode().equals(deviceType)) {
             // JT1078协议
             startJt1078Ptz(device, channel, direction, controlSpeed);
@@ -1099,20 +1099,20 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
                     Integer horizonSpeed = speed;
                     Integer verticalSpeed = speed;
                     Integer zoomSpeed = (speed / 10);
-                    remoteGb28181Service.ptz(device.getGbDeviceId(), device.getGbChannelId(), direction, horizonSpeed, verticalSpeed, zoomSpeed, SecurityConstants.INNER);
+                    remoteGb28181Service.ptz(device.getGbDeviceId(), device.getGbChannelId(), direction, horizonSpeed, verticalSpeed, zoomSpeed);
                     break;
                 case "focus":
-                    remoteGb28181Service.focus(device.getGbDeviceId(), device.getGbChannelId(), direction, speed, SecurityConstants.INNER);
+                    remoteGb28181Service.focus(device.getGbDeviceId(), device.getGbChannelId(), direction, speed);
                     break;
                 case "iris":
-                    remoteGb28181Service.iris(device.getGbDeviceId(), device.getGbChannelId(), direction, speed, SecurityConstants.INNER);
+                    remoteGb28181Service.iris(device.getGbDeviceId(), device.getGbChannelId(), direction, speed);
                     break;
                 case "zoom":
                     // GB28181 的缩放通过 ptz 接口处理
                     Integer horizonSpeedForZoom = 0;
                     Integer verticalSpeedForZoom = 0;
                     Integer zoomSpeedForZoom = speed;
-                    remoteGb28181Service.ptz(device.getGbDeviceId(), device.getGbChannelId(), direction, horizonSpeedForZoom, verticalSpeedForZoom, zoomSpeedForZoom, SecurityConstants.INNER);
+                    remoteGb28181Service.ptz(device.getGbDeviceId(), device.getGbChannelId(), direction, horizonSpeedForZoom, verticalSpeedForZoom, zoomSpeedForZoom);
                     break;
                 default:
                     throw new RuntimeException("不支持的云台控制类型: " + controlType);
@@ -1134,16 +1134,16 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
 
         switch (getPtzControlType(direction)) {
             case "rotate":
-                remoteJt1078Service.ptzRotate(mobileNo, channel, jtDirection, speed, SecurityConstants.INNER);
+                remoteJt1078Service.ptzRotate(mobileNo, channel, jtDirection, speed);
                 break;
             case "zoom":
-                remoteJt1078Service.ptzZoom(mobileNo, channel, jtDirection, speed, SecurityConstants.INNER);
+                remoteJt1078Service.ptzZoom(mobileNo, channel, jtDirection, speed);
                 break;
             case "focus":
-                remoteJt1078Service.ptzFocus(mobileNo, channel, jtDirection, speed, SecurityConstants.INNER);
+                remoteJt1078Service.ptzFocus(mobileNo, channel, jtDirection, speed);
                 break;
             case "iris":
-                remoteJt1078Service.ptzIris(mobileNo, channel, jtDirection, speed, SecurityConstants.INNER);
+                remoteJt1078Service.ptzIris(mobileNo, channel, jtDirection, speed);
                 break;
             default:
                 throw new RuntimeException("不支持的云台控制类型: " + direction);
@@ -1213,25 +1213,25 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
 
         if (LiveStreamType.HIK_SDK.getCode().equals(deviceType)) {
             // 海康SDK
-            remoteHaiKangService.endPlayControl(id, channel, direction, SecurityConstants.INNER);
+            remoteHaiKangService.endPlayControl(id, channel, direction);
         } else if (LiveStreamType.HIK_ISUP.getCode().equals(deviceType)) {
             // 海康ISUP
             if (direction == null || direction.isEmpty() || "stop".equals(direction)) {
                 // 如果方向为空或无效，我们尝试所有方向停止
                 int[] allPtzCmds = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
                 for (int cmd : allPtzCmds) {
-                    remoteHaiKangIsupService.endPtz(id, channel, cmd, controlSpeed != null ? controlSpeed : 5, SecurityConstants.INNER);
+                    remoteHaiKangIsupService.endPtz(id, channel, cmd, controlSpeed != null ? controlSpeed : 5);
                 }
             } else {
                 int ptzCmd = convertDirectionToHikIsupPtz(direction);
-                remoteHaiKangIsupService.endPtz(id, channel, ptzCmd, controlSpeed != null ? controlSpeed : 5, SecurityConstants.INNER);
+                remoteHaiKangIsupService.endPtz(id, channel, ptzCmd, controlSpeed != null ? controlSpeed : 5);
             }
         } else if (LiveStreamType.DAHUA_SDK.getCode().equals(deviceType)) {
             // 大华SDK
-            remoteDaHuaService.ptzControlUpEnd(id, channel, direction, SecurityConstants.INNER);
+            remoteDaHuaService.ptzControlUpEnd(id, channel, direction);
         } else if (LiveStreamType.ONVIF.getCode().equals(deviceType)) {
             // ONVIF协议
-            remoteOnvifService.stopPtzControl(device.getIpAddress(), device.getUserName(), device.getPassword(), SecurityConstants.INNER);
+            remoteOnvifService.stopPtzControl(device.getIpAddress(), device.getUserName(), device.getPassword());
         } else if (LiveStreamType.JT1078.getCode().equals(deviceType)) {
             // JT1078协议
             endJt1078Ptz(device, channel, direction);
@@ -1247,20 +1247,20 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
             
             switch (controlType) {
                 case "rotate":
-                    remoteGb28181Service.ptz(device.getGbDeviceId(), device.getGbChannelId(), stopCommand, 0, 0, 0, SecurityConstants.INNER);
+                    remoteGb28181Service.ptz(device.getGbDeviceId(), device.getGbChannelId(), stopCommand, 0, 0, 0);
                     break;
                 case "focus":
-                    remoteGb28181Service.focus(device.getGbDeviceId(), device.getGbChannelId(), stopCommand, stopSpeed, SecurityConstants.INNER);
+                    remoteGb28181Service.focus(device.getGbDeviceId(), device.getGbChannelId(), stopCommand, stopSpeed);
                     break;
                 case "iris":
-                    remoteGb28181Service.iris(device.getGbDeviceId(), device.getGbChannelId(), stopCommand, stopSpeed, SecurityConstants.INNER);
+                    remoteGb28181Service.iris(device.getGbDeviceId(), device.getGbChannelId(), stopCommand, stopSpeed);
                     break;
                 case "zoom":
-                    remoteGb28181Service.ptz(device.getGbDeviceId(), device.getGbChannelId(), stopCommand, 0, 0, 0, SecurityConstants.INNER);
+                    remoteGb28181Service.ptz(device.getGbDeviceId(), device.getGbChannelId(), stopCommand, 0, 0, 0);
                     break;
                 default:
                     // 默认调用 ptz 停止
-                    remoteGb28181Service.ptz(device.getGbDeviceId(), device.getGbChannelId(), stopCommand, 0, 0, 0, SecurityConstants.INNER);
+                    remoteGb28181Service.ptz(device.getGbDeviceId(), device.getGbChannelId(), stopCommand, 0, 0, 0);
                     break;
             }
 
@@ -1287,16 +1287,16 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
         for (String controlType : controlTypes) {
             switch (controlType) {
                 case "rotate":
-                    remoteJt1078Service.ptzRotate(mobileNo, channel, 0, speed, SecurityConstants.INNER);
+                    remoteJt1078Service.ptzRotate(mobileNo, channel, 0, speed);
                     break;
                 case "zoom":
-                    remoteJt1078Service.ptzZoom(mobileNo, channel, 0, speed, SecurityConstants.INNER);
+                    remoteJt1078Service.ptzZoom(mobileNo, channel, 0, speed);
                     break;
                 case "focus":
-                    remoteJt1078Service.ptzFocus(mobileNo, channel, 0, speed, SecurityConstants.INNER);
+                    remoteJt1078Service.ptzFocus(mobileNo, channel, 0, speed);
                     break;
                 case "iris":
-                    remoteJt1078Service.ptzIris(mobileNo, channel, 0, speed, SecurityConstants.INNER);
+                    remoteJt1078Service.ptzIris(mobileNo, channel, 0, speed);
                     break;
             }
         }
@@ -1313,7 +1313,7 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
         Integer channel = channelId != null ? channelId : (device.getChannel() != null ? device.getChannel() : 0);
 
         if (LiveStreamType.HIK_SDK.getCode().equals(deviceType)) {
-            R<List<PresetInfo>> result = remoteHaiKangService.getPresets(id, channel, SecurityConstants.INNER);
+            R<List<PresetInfo>> result = remoteHaiKangService.getPresets(id, channel);
             List<PresetInfo> presetInfoList = result.getData();
             List<Preset> presetList = new ArrayList<>();
             if (presetInfoList != null) {
@@ -1326,7 +1326,7 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
             }
             return presetList;
         } else if (LiveStreamType.HIK_ISUP.getCode().equals(deviceType)) {
-            R<List<HaiKangIsupPresetInfo>> result = remoteHaiKangIsupService.getPresetList(id, channel, SecurityConstants.INNER);
+            R<List<HaiKangIsupPresetInfo>> result = remoteHaiKangIsupService.getPresetList(id, channel);
             List<HaiKangIsupPresetInfo> presetInfoList = result.getData();
             List<Preset> presetList = new ArrayList<>();
             if (presetInfoList != null) {
@@ -1339,7 +1339,7 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
             }
             return presetList;
         } else if (LiveStreamType.DAHUA_SDK.getCode().equals(deviceType)) {
-            R<ArrayList<HashMap<String, Object>>> result = remoteDaHuaService.getPresetList(id, channel, SecurityConstants.INNER);
+            R<ArrayList<HashMap<String, Object>>> result = remoteDaHuaService.getPresetList(id, channel);
             ArrayList<HashMap<String, Object>> presetMapList = result.getData();
             List<Preset> presetList = new ArrayList<>();
             if (presetMapList != null) {
@@ -1352,7 +1352,7 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
             }
             return presetList;
         } else if (LiveStreamType.ONVIF.getCode().equals(deviceType)) {
-            R<List<Map<String, Object>>> result = remoteOnvifService.getPresets(device.getIpAddress(), device.getUserName(), device.getPassword(), SecurityConstants.INNER);
+            R<List<Map<String, Object>>> result = remoteOnvifService.getPresets(device.getIpAddress(), device.getUserName(), device.getPassword());
             List<Map<String, Object>> presetMapList = result.getData();
             List<Preset> presetList = new ArrayList<>();
             if (presetMapList != null) {
@@ -1370,7 +1370,7 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
             if (device.getGbDeviceId() == null || device.getGbChannelId() == null) {
                 throw new RuntimeException("设备未配置 GB28181 设备ID或通道ID");
             }
-            R<Object> result = remoteGb28181Service.queryPreset(device.getGbDeviceId(), device.getGbChannelId(), SecurityConstants.INNER);
+            R<Object> result = remoteGb28181Service.queryPreset(device.getGbDeviceId(), device.getGbChannelId());
             Object data = result.getData();
             List<Preset> presetList = new ArrayList<>();
             if (data instanceof List) {
@@ -1404,18 +1404,18 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
         Integer channel = channelId != null ? channelId : (device.getChannel() != null ? device.getChannel() : 0);
 
         if (LiveStreamType.HIK_SDK.getCode().equals(deviceType)) {
-            remoteHaiKangService.setPresets(id, channel, presetIndex, SecurityConstants.INNER);
+            remoteHaiKangService.setPresets(id, channel, presetIndex);
         } else if (LiveStreamType.HIK_ISUP.getCode().equals(deviceType)) {
-            remoteHaiKangIsupService.setPreset(id, channel, presetIndex, SecurityConstants.INNER);
+            remoteHaiKangIsupService.setPreset(id, channel, presetIndex);
         } else if (LiveStreamType.DAHUA_SDK.getCode().equals(deviceType)) {
-            remoteDaHuaService.setPreset(id, channel, presetIndex, SecurityConstants.INNER);
+            remoteDaHuaService.setPreset(id, channel, presetIndex);
         } else if (LiveStreamType.ONVIF.getCode().equals(deviceType)) {
-            remoteOnvifService.setPreset(device.getIpAddress(), device.getUserName(), device.getPassword(), presetIndex, presetName, SecurityConstants.INNER);
+            remoteOnvifService.setPreset(device.getIpAddress(), device.getUserName(), device.getPassword(), presetIndex, presetName);
         } else if (LiveStreamType.GB28181.getCode().equals(deviceType)) {
             if (device.getGbDeviceId() == null || device.getGbChannelId() == null) {
                 throw new RuntimeException("设备未配置 GB28181 设备ID或通道ID");
             }
-            remoteGb28181Service.addPreset(device.getGbDeviceId(), device.getGbChannelId(), presetIndex, SecurityConstants.INNER);
+            remoteGb28181Service.addPreset(device.getGbDeviceId(), device.getGbChannelId(), presetIndex);
         } else {
             throw new RuntimeException("不支持的设备类型: " + deviceType);
         }
@@ -1433,18 +1433,18 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
         Integer useSpeed = speed != null ? speed : 50;
 
         if (LiveStreamType.HIK_SDK.getCode().equals(deviceType)) {
-            remoteHaiKangService.invokePresets(id, channel, presetIndex, SecurityConstants.INNER);
+            remoteHaiKangService.invokePresets(id, channel, presetIndex);
         } else if (LiveStreamType.HIK_ISUP.getCode().equals(deviceType)) {
-            remoteHaiKangIsupService.gotoPreset(id, channel, presetIndex, SecurityConstants.INNER);
+            remoteHaiKangIsupService.gotoPreset(id, channel, presetIndex);
         } else if (LiveStreamType.DAHUA_SDK.getCode().equals(deviceType)) {
-            remoteDaHuaService.invokePreset(id, channel, presetIndex, SecurityConstants.INNER);
+            remoteDaHuaService.invokePreset(id, channel, presetIndex);
         } else if (LiveStreamType.ONVIF.getCode().equals(deviceType)) {
-            remoteOnvifService.gotoPreset(device.getIpAddress(), device.getUserName(), device.getPassword(), presetIndex, useSpeed, SecurityConstants.INNER);
+            remoteOnvifService.gotoPreset(device.getIpAddress(), device.getUserName(), device.getPassword(), presetIndex, useSpeed);
         } else if (LiveStreamType.GB28181.getCode().equals(deviceType)) {
             if (device.getGbDeviceId() == null || device.getGbChannelId() == null) {
                 throw new RuntimeException("设备未配置 GB28181 设备ID或通道ID");
             }
-            remoteGb28181Service.callPreset(device.getGbDeviceId(), device.getGbChannelId(), presetIndex, SecurityConstants.INNER);
+            remoteGb28181Service.callPreset(device.getGbDeviceId(), device.getGbChannelId(), presetIndex);
         } else {
             throw new RuntimeException("不支持的设备类型: " + deviceType);
         }
@@ -1461,18 +1461,18 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
         Integer channel = channelId != null ? channelId : (device.getChannel() != null ? device.getChannel() : 0);
 
         if (LiveStreamType.HIK_SDK.getCode().equals(deviceType)) {
-            remoteHaiKangService.delPresets(id, channel, presetIndex, SecurityConstants.INNER);
+            remoteHaiKangService.delPresets(id, channel, presetIndex);
         } else if (LiveStreamType.HIK_ISUP.getCode().equals(deviceType)) {
-            remoteHaiKangIsupService.clearPreset(id, channel, presetIndex, SecurityConstants.INNER);
+            remoteHaiKangIsupService.clearPreset(id, channel, presetIndex);
         } else if (LiveStreamType.DAHUA_SDK.getCode().equals(deviceType)) {
-            remoteDaHuaService.delPreset(id, channel, presetIndex, SecurityConstants.INNER);
+            remoteDaHuaService.delPreset(id, channel, presetIndex);
         } else if (LiveStreamType.ONVIF.getCode().equals(deviceType)) {
-            remoteOnvifService.removePreset(device.getIpAddress(), device.getUserName(), device.getPassword(), presetIndex, SecurityConstants.INNER);
+            remoteOnvifService.removePreset(device.getIpAddress(), device.getUserName(), device.getPassword(), presetIndex);
         } else if (LiveStreamType.GB28181.getCode().equals(deviceType)) {
             if (device.getGbDeviceId() == null || device.getGbChannelId() == null) {
                 throw new RuntimeException("设备未配置 GB28181 设备ID或通道ID");
             }
-            remoteGb28181Service.deletePreset(device.getGbDeviceId(), device.getGbChannelId(), presetIndex, SecurityConstants.INNER);
+            remoteGb28181Service.deletePreset(device.getGbDeviceId(), device.getGbChannelId(), presetIndex);
         } else {
             throw new RuntimeException("不支持的设备类型: " + deviceType);
         }
@@ -1489,18 +1489,18 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
         Integer channel = channelId != null ? channelId : (device.getChannel() != null ? device.getChannel() : 0);
 
         if (LiveStreamType.HIK_SDK.getCode().equals(deviceType)) {
-            remoteHaiKangService.cameraAuxControl(id, channel, "light", isOn, SecurityConstants.INNER);
+            remoteHaiKangService.cameraAuxControl(id, channel, "light", isOn);
         } else if (LiveStreamType.HIK_ISUP.getCode().equals(deviceType)) {
-            remoteHaiKangIsupService.cameraAuxControl(id, channel, "light", isOn, SecurityConstants.INNER);
+            remoteHaiKangIsupService.cameraAuxControl(id, channel, "light", isOn);
         } else if (LiveStreamType.DAHUA_SDK.getCode().equals(deviceType)) {
-            remoteDaHuaService.controlLight(id, channel, isOn ? 1 : 0, SecurityConstants.INNER);
+            remoteDaHuaService.controlLight(id, channel, isOn ? 1 : 0);
         } else if (LiveStreamType.GB28181.getCode().equals(deviceType)) {
             if (device.getGbDeviceId() == null || device.getGbChannelId() == null) {
                 throw new RuntimeException("设备未配置 GB28181 设备ID或通道ID");
             }
-            remoteGb28181Service.auxiliarySwitch(device.getGbDeviceId(), device.getGbChannelId(), isOn ? "on" : "off", 1, SecurityConstants.INNER);
+            remoteGb28181Service.auxiliarySwitch(device.getGbDeviceId(), device.getGbChannelId(), isOn ? "on" : "off", 1);
         } else if (LiveStreamType.ONVIF.getCode().equals(deviceType)) {
-            remoteOnvifService.controlLight(device.getIpAddress(), device.getUserName(), device.getPassword(), isOn, SecurityConstants.INNER);
+            remoteOnvifService.controlLight(device.getIpAddress(), device.getUserName(), device.getPassword(), isOn);
         } else {
             throw new RuntimeException("不支持的设备类型: " + deviceType);
         }
@@ -1517,18 +1517,18 @@ public class QsDeviceServiceImpl extends BladeServiceImpl<QsDeviceMapper, QsDevi
         Integer channel = channelId != null ? channelId : (device.getChannel() != null ? device.getChannel() : 0);
 
         if (LiveStreamType.HIK_SDK.getCode().equals(deviceType)) {
-            remoteHaiKangService.cameraAuxControl(id, channel, "wiper", isOn, SecurityConstants.INNER);
+            remoteHaiKangService.cameraAuxControl(id, channel, "wiper", isOn);
         } else if (LiveStreamType.HIK_ISUP.getCode().equals(deviceType)) {
-            remoteHaiKangIsupService.cameraAuxControl(id, channel, "wiper", isOn, SecurityConstants.INNER);
+            remoteHaiKangIsupService.cameraAuxControl(id, channel, "wiper", isOn);
         } else if (LiveStreamType.DAHUA_SDK.getCode().equals(deviceType)) {
-            remoteDaHuaService.controlWiper(id, channel, isOn ? 1 : 0, SecurityConstants.INNER);
+            remoteDaHuaService.controlWiper(id, channel, isOn ? 1 : 0);
         } else if (LiveStreamType.GB28181.getCode().equals(deviceType)) {
             if (device.getGbDeviceId() == null || device.getGbChannelId() == null) {
                 throw new RuntimeException("设备未配置 GB28181 设备ID或通道ID");
             }
-            remoteGb28181Service.wiper(device.getGbDeviceId(), device.getGbChannelId(), isOn ? "on" : "off", SecurityConstants.INNER);
+            remoteGb28181Service.wiper(device.getGbDeviceId(), device.getGbChannelId(), isOn ? "on" : "off");
         } else if (LiveStreamType.ONVIF.getCode().equals(deviceType)) {
-            remoteOnvifService.controlWiper(device.getIpAddress(), device.getUserName(), device.getPassword(), isOn, SecurityConstants.INNER);
+            remoteOnvifService.controlWiper(device.getIpAddress(), device.getUserName(), device.getPassword(), isOn);
         } else {
             throw new RuntimeException("不支持的设备类型: " + deviceType);
         }

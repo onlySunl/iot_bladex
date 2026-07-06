@@ -2225,7 +2225,7 @@ public class OnvifServiceImpl implements IOnvifService {
     public void restartDeviceById(Long id) {
         log.info("开始重启ONVIF设备, deviceId:{}", id);
 
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id);
         if (r.getCode() != Constants.SUCCESS) {
             log.error("获取设备信息失败, deviceId:{}, code:{}, msg:{}", id, r.getCode(), r.getMsg());
             throw new ServiceException(r.getMsg());
@@ -2248,7 +2248,7 @@ public class OnvifServiceImpl implements IOnvifService {
     public void syncDeviceTimeById(Long id, String dateTime) {
         log.info("开始校时ONVIF设备, deviceId: {}", id);
 
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id);
         if (r.getCode() != Constants.SUCCESS) {
             log.error("获取设备信息失败, deviceId: {}, code: {}, msg: {}", id, r.getCode(), r.getMsg());
             throw new ServiceException(r.getMsg());
@@ -2271,7 +2271,7 @@ public class OnvifServiceImpl implements IOnvifService {
     public Map<String, Object> getDeviceTimeById(Long id) {
         log.info("开始获取ONVIF设备时间, deviceId: {}", id);
 
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id);
         if (r.getCode() != Constants.SUCCESS) {
             log.error("获取设备信息失败, deviceId: {}, code: {}, msg: {}", id, r.getCode(), r.getMsg());
             throw new ServiceException(r.getMsg());
@@ -2347,7 +2347,7 @@ public class OnvifServiceImpl implements IOnvifService {
     public Map<String, Object> getDeviceInfoById(Long id) {
         log.info("开始获取ONVIF设备信息, deviceId: {}", id);
 
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id);
         if (r.getCode() != Constants.SUCCESS) {
             log.error("获取设备信息失败, deviceId: {}, code: {}, msg: {}", id, r.getCode(), r.getMsg());
             throw new ServiceException(r.getMsg());
@@ -2424,7 +2424,7 @@ public class OnvifServiceImpl implements IOnvifService {
         log.info("开始ONVIF设备抓图, deviceId: {}, channelId: {}, snapshotType: {}", id, channelId, snapshotType);
         
         // 获取设备信息
-        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id);
         if (R.isError(r)) {
             log.error("获取设备信息失败, deviceId: {}, code: {}, msg: {}", id, r.getCode(), r.getMsg());
             throw new ServiceException(r.getMsg());
@@ -2554,7 +2554,7 @@ public class OnvifServiceImpl implements IOnvifService {
             snapshot.setCaptureTime(new Date());
             
             // 保存到数据库
-            R<Long> result = remoteQsDeviceSnapshotService.add(snapshot, SecurityConstants.INNER);
+            R<Long> result = remoteQsDeviceSnapshotService.add(snapshot);
             
             if (R.isSuccess(result)) {
                 log.info("✅ ONVIF设备抓图记录保存成功, snapshotId:{}", result.getData());
@@ -2610,7 +2610,7 @@ public class OnvifServiceImpl implements IOnvifService {
     public Map<String, Object> getStorageConfigurationsById(Long id) {
         try {
             log.info("根据设备id获取存储配置: id={}", id);
-            R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+            R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(id);
             if (!R.isSuccess(deviceR)) {
                 throw new RuntimeException("获取设备信息失败: " + deviceR.getMsg());
             }
@@ -2627,7 +2627,7 @@ public class OnvifServiceImpl implements IOnvifService {
     public Map<String, Object> getStorageCapabilitiesById(Long id) {
         try {
             log.info("根据设备id获取存储能力: id={}", id);
-            R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+            R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(id);
             if (!R.isSuccess(deviceR)) {
                 throw new RuntimeException("获取设备信息失败: " + deviceR.getMsg());
             }
@@ -2644,7 +2644,7 @@ public class OnvifServiceImpl implements IOnvifService {
     public Map<String, Object> getStorageStateById(Long id) {
         try {
             log.info("根据设备id获取存储状态: id={}", id);
-            R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+            R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(id);
             if (!R.isSuccess(deviceR)) {
                 throw new RuntimeException("获取设备信息失败: " + deviceR.getMsg());
             }
@@ -3481,7 +3481,7 @@ public class OnvifServiceImpl implements IOnvifService {
 
     @Override
     public Map<String, Object> getNetworkInterfacesById(Long id) {
-        R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(id);
         if (!R.isSuccess(deviceR)) {
             throw new RuntimeException("获取设备信息失败: " + deviceR.getMsg());
         }
@@ -3491,7 +3491,7 @@ public class OnvifServiceImpl implements IOnvifService {
 
     @Override
     public Map<String, Object> getNetworkProtocolsById(Long id) {
-        R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(id);
         if (!R.isSuccess(deviceR)) {
             throw new RuntimeException("获取设备信息失败: " + deviceR.getMsg());
         }
@@ -3501,7 +3501,7 @@ public class OnvifServiceImpl implements IOnvifService {
 
     @Override
     public Map<String, Object> getVideoSourceConfigsById(Long id) {
-        R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(id);
         if (!R.isSuccess(deviceR)) {
             throw new RuntimeException("获取设备信息失败: " + deviceR.getMsg());
         }
@@ -3511,7 +3511,7 @@ public class OnvifServiceImpl implements IOnvifService {
 
     @Override
     public Map<String, Object> getVideoEncoderConfigsById(Long id) {
-        R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(id);
         if (!R.isSuccess(deviceR)) {
             throw new RuntimeException("获取设备信息失败: " + deviceR.getMsg());
         }
@@ -3521,7 +3521,7 @@ public class OnvifServiceImpl implements IOnvifService {
 
     @Override
     public Map<String, Object> getAudioSourceConfigsById(Long id) {
-        R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(id);
         if (!R.isSuccess(deviceR)) {
             throw new RuntimeException("获取设备信息失败: " + deviceR.getMsg());
         }
@@ -3531,7 +3531,7 @@ public class OnvifServiceImpl implements IOnvifService {
 
     @Override
     public Map<String, Object> getAudioEncoderConfigsById(Long id) {
-        R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(id);
         if (!R.isSuccess(deviceR)) {
             throw new RuntimeException("获取设备信息失败: " + deviceR.getMsg());
         }
@@ -3541,7 +3541,7 @@ public class OnvifServiceImpl implements IOnvifService {
 
     @Override
     public Map<String, Object> getVideoOutputConfigsById(Long id) {
-        R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(id, SecurityConstants.INNER);
+        R<QsDevice> deviceR = remoteQsDeviceService.getQsDeviceInfo(id);
         if (!R.isSuccess(deviceR)) {
             throw new RuntimeException("获取设备信息失败: " + deviceR.getMsg());
         }

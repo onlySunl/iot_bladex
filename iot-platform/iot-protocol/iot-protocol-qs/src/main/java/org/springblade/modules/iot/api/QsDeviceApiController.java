@@ -3,6 +3,7 @@ package org.springblade.modules.iot.api;
 
 import jakarta.annotation.Resource;
 import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.common.annotation.InnerAuth;
 import org.springblade.modules.iot.domain.QsDevice;
 import org.springblade.modules.iot.service.IQsDeviceService;
 import org.springframework.beans.factory.annotation.Autowired;

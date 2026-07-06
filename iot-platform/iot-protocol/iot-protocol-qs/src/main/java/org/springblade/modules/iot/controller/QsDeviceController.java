@@ -1,11 +1,17 @@
 package org.springblade.modules.iot.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.extern.slf4j.Slf4j;
 import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.mp.support.Condition;
+import org.springblade.core.mp.support.Query;
+import org.springblade.core.secure.BladeUser;
 import org.springblade.core.tool.api.R;
+import org.springblade.core.tool.constant.BladeConstant;
 import org.springblade.modules.iot.domain.*;
 import org.springblade.modules.iot.service.IQsDeviceService;
 import org.springblade.modules.iot.utils.VideoSnapshotUtil;
@@ -16,6 +22,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 视频监控设备Controller
@@ -25,7 +32,7 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@RequestMapping("/device/haik")
+@RequestMapping("/qs/device")
 public class QsDeviceController extends BladeController {
     @Autowired
     private IQsDeviceService qsDeviceService;
@@ -46,9 +53,11 @@ public class QsDeviceController extends BladeController {
      * 查询视频监控设备列表
      */
     @GetMapping("/list")
-    public IPage<List<QsDevice>> list(QsDevice qsDevice) {
-        List<QsDevice> list = qsDeviceService.selectQsDeviceList(qsDevice);
-        return new Page<>();
+    public IPage<QsDevice> list(@Parameter(hidden = true) @RequestParam Map<String, Object> user, Query query, BladeUser bladeUser) {
+        QueryWrapper<QsDevice> queryWrapper = Condition.getQueryWrapper(user, QsDevice.class);
+        IPage<QsDevice> pages = qsDeviceService.page(Condition.getPage(query), (!bladeUser.getTenantId().equals(BladeConstant.ADMIN_TENANT_ID)) ? queryWrapper.lambda().eq(QsDevice::getTenantId, bladeUser.getTenantId()) : queryWrapper);
+
+        return pages;
     }
 
     /**

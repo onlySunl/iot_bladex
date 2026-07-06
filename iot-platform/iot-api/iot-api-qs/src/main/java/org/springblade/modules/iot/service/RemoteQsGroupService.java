@@ -37,8 +37,7 @@ public interface RemoteQsGroupService {
     R<List<QsGroupTree>> queryForTree(
             @RequestParam(required = false) String query,
             @RequestParam(required = false) Integer parentId,
-            @RequestParam(required = false) Boolean hasDevice,
-            @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+            @RequestParam(required = false) Boolean hasDevice);
 
     /**
      * 查询所有分组
@@ -48,7 +47,7 @@ public interface RemoteQsGroupService {
      * @return
      */
     @GetMapping("/api/group/all/list")
-    R<List<QsGroupTree>> queryAllGroups(@RequestParam(required = false) String query, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<List<QsGroupTree>> queryAllGroups(@RequestParam(required = false) String query);
 
     /**
      * 查询分组列表
@@ -58,5 +57,5 @@ public interface RemoteQsGroupService {
      * @return
      */
     @GetMapping("/api/group/tree/query")
-    R<List<QsGroup>> queryList(@RequestParam(required = false) String query, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    R<List<QsGroup>> queryList(@RequestParam(required = false) String query);
 }

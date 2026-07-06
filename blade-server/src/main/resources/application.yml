@@ -248,6 +248,7 @@ blade:
     strict-token: true
     #缺失请求头则取消授权
     strict-header: true
+    inner-secret: Blade2026@iot
     #接口放行
     skip-url:
       - /blade-test/**
@@ -317,3 +318,12 @@ auto-table:
   index-prefix: IDX_
   super-insert-position: after
   auto-drop-index: true
+
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL
+logging:
+  level:
+    feign: DEBUG

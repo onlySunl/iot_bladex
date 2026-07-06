@@ -25,7 +25,7 @@ public class RemoteZlmRecordPlanFallbackFactory implements FallbackFactory<Remot
         log.error(" ZLM录像计划服务调用失败:{}", throwable.getMessage());
         return new RemoteZlmRecordPlanService(){
             @Override
-            public R<Void> task(String inner) {
+            public R<Void> task() {
                 return R.fail("ZLM录像计划服务调用失败" + throwable.getMessage());
             }
         };

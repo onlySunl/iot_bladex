@@ -283,7 +283,7 @@ public class ZlmApiController {
                 log.info("[云端录像查询条件] app: {}, stream: {}", app, stream);
                 
                 // 先不限制时间范围，查询所有相关录像
-                R<List<ZlmCloudRecord>> queryResult = remoteZlmCloudRecordService.selectZlmCloudRecordList(queryRecord, SecurityConstants.INNER);
+                R<List<ZlmCloudRecord>> queryResult = remoteZlmCloudRecordService.selectZlmCloudRecordList(queryRecord);
                 
                 if (queryResult.getCode() != Constants.SUCCESS) {
                     log.error("[查询云端录像失败] code: {}, msg: {}", queryResult.getCode(), queryResult.getMsg());
@@ -415,8 +415,7 @@ public class ZlmApiController {
                             qsDevice.getUserName(),
                             qsDevice.getPassword(),
                             startTimeStr,
-                            endTimeStr,
-                            SecurityConstants.INNER
+                            endTimeStr
                     );
                     
                     if (queryResult.getCode() != Constants.SUCCESS) {
@@ -461,8 +460,7 @@ public class ZlmApiController {
                             qsDevice.getUserName(),
                             qsDevice.getPassword(),
                             recordingToken,
-                            trackToken,
-                            SecurityConstants.INNER
+                            trackToken
                     );
                     
                     if (replayUriResult.getCode() != Constants.SUCCESS || StringUtil.isEmpty(replayUriResult.getData())) {
@@ -536,7 +534,7 @@ public class ZlmApiController {
                     }
                     rtpServerParam.setStreamId(qsDevice.getDeviceCode() + "_" + System.currentTimeMillis());
                     rtpServerParam.setType(deviceType);
-                    rtpServerParam.setId(qsDevice.getId());
+                    rtpServerParam.setDeviceId(qsDevice.getId());
                     rtpServerParam.setPlayback(true);
                     rtpServerParam.setStartTime(startTimeStr);
                     rtpServerParam.setEndTime(endTimeStr);
@@ -581,7 +579,7 @@ public class ZlmApiController {
                     // GB28181设备回放
                     log.info("[GB28181设备回放] 设备ID: {}, startTime: {}, endTime: {}", qsDevice.getId(), startTimeStr, endTimeStr);
                     
-                    R<Device> deviceR = remoteGb28181Service.getDeviceByDeviceId(qsDevice.getGbDeviceId(), SecurityConstants.INNER);
+                    R<Device> deviceR = remoteGb28181Service.getDeviceByDeviceId(qsDevice.getGbDeviceId());
                     if (deviceR.getCode() != Constants.SUCCESS) {
                         log.error("[GB28181获取设备信息失败] id:{}", qsDevice.getGbDeviceId());
                         return R.fail("GB28181获取设备信息失败");
@@ -634,7 +632,7 @@ public class ZlmApiController {
                     }
 
                     // 获取JT1078设备信息
-                    R<Jt1078Device> deviceR = remoteJt1078Service.getDeviceByMobileNo(qsDevice.getJtMobileNo(), SecurityConstants.INNER);
+                    R<Jt1078Device> deviceR = remoteJt1078Service.getDeviceByMobileNo(qsDevice.getJtMobileNo());
                     if (deviceR.getCode() != Constants.SUCCESS) {
                         log.error("[JT1078获取设备信息失败] mobileNo:{}", qsDevice.getJtMobileNo());
                         return R.fail("JT1078获取设备信息失败");
@@ -702,7 +700,7 @@ public class ZlmApiController {
         try {
             log.info("[停止上级平台回放] deviceId: {}, deviceType: {}, stream: {}", deviceId, deviceType, stream);
 
-            R<QsDevice> qsDeviceResult = remoteQsDeviceService.getQsDeviceInfo(deviceId, SecurityConstants.INNER);
+            R<QsDevice> qsDeviceResult = remoteQsDeviceService.getQsDeviceInfo(deviceId);
             if (qsDeviceResult.getCode() != Constants.SUCCESS || qsDeviceResult.getData() == null) {
                 log.warn("[停止上级平台回放] 获取设备信息失败, deviceId: {}", deviceId);
                 return R.fail("获取设备信息失败");
@@ -714,7 +712,7 @@ public class ZlmApiController {
                 log.info("[停止GB28181设备回放] deviceId: {}, gbDeviceId: {}, gbChannelId: {}", 
                         deviceId, qsDevice.getGbDeviceId(), qsDevice.getGbChannelId());
                 
-                R<Device> deviceResult = remoteGb28181Service.getDeviceByDeviceId(qsDevice.getGbDeviceId(), SecurityConstants.INNER);
+                R<Device> deviceResult = remoteGb28181Service.getDeviceByDeviceId(qsDevice.getGbDeviceId());
                 if (deviceResult.getCode() != Constants.SUCCESS || deviceResult.getData() == null) {
                     log.warn("[停止GB28181设备回放] 获取GB28181设备信息失败");
                     return R.fail("获取GB28181设备信息失败");
@@ -766,7 +764,7 @@ public class ZlmApiController {
                 log.info("[停止SDK设备回放] deviceId: {}, deviceType: {}", deviceId, deviceType);
                 
                 RTPServerParam rtpServerParam = new RTPServerParam();
-                rtpServerParam.setId(deviceId);
+                rtpServerParam.setDeviceId(deviceId);
                 rtpServerParam.setType(deviceType);
                 rtpServerParam.setPlayback(true);
                 rtpServerParam.setStreamId(stream);
@@ -778,7 +776,7 @@ public class ZlmApiController {
                 log.info("[停止JT1078设备回放] deviceId: {}, jtMobileNo: {}", deviceId, qsDevice.getJtMobileNo());
 
                 // 获取JT1078设备信息
-                R<Jt1078Device> deviceR = remoteJt1078Service.getDeviceByMobileNo(qsDevice.getJtMobileNo(), SecurityConstants.INNER);
+                R<Jt1078Device> deviceR = remoteJt1078Service.getDeviceByMobileNo(qsDevice.getJtMobileNo());
                 if (deviceR.getCode() != Constants.SUCCESS || deviceR.getData() == null) {
                     log.warn("[停止JT1078设备回放] 获取JT1078设备信息失败");
                     return R.fail("获取JT1078设备信息失败");
