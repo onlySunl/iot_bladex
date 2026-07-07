@@ -13,12 +13,15 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 预览流处理器 - 每个预览会话独立的回调实例
  * 注意：不使用 @Component/@Service 注解，避免单例模式导致的状态混乱
+ * 
+ * 数据流程：海康SDK回调 -> PS解复用 -> H.264 NAL单元 -> RTP封装 -> UDP发送
  */
 @Slf4j
 public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
@@ -42,6 +45,7 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
         String ssrc;
         DatagramSocket udpSocket;
         InetAddress targetAddress;
+        PSStreamDemuxer psDemuxer = new PSStreamDemuxer(); // PS解复用器
     }
 
     // 使用线程安全的 Map 存储每个句柄对应的连接
@@ -58,7 +62,6 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
         // 通过 iPreviewHandle 获取 sessionID
         Integer sessionID = StreamManager.previewHandSAndSessionIDandMap.get(iPreviewHandle);
         if (sessionID == null) {
-//            log.error("未找到预览句柄 {} 对应的 sessionID", iPreviewHandle);
             return;
         }
 
@@ -66,7 +69,6 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
         RtpServerParam rtpServerParam = StreamManager.luserIdAndRtpServerParamMap.get(sessionID);
 
         if (rtpServerParam == null) {
-//            log.error("未找到 sessionID {} 对应的 rtpServerParam", sessionID);
             return;
         }
 
@@ -99,113 +101,44 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
             if (pPreviewCBMsg.byDataType == 2) {
                 videoDataCount++;
                 if (seqNum == 0) {
-                    log.info("[RTP发送] 首次收到视频数据，开始发送RTP流，数据长度: {}, 目标: {}:{}", 
+                    log.info("[RTP发送] 首次收到视频数据，数据长度: {}, 目标: {}:{}", 
                             pPreviewCBMsg.dwDataLen, connection.targetAddress.getHostAddress(), connection.rtpPort);
                     // 打印前16字节的十六进制，用于分析数据格式
                     StringBuilder hex = new StringBuilder();
                     for (int i = 0; i < Math.min(16, dataStream.length); i++) {
                         hex.append(String.format("%02X ", dataStream[i] & 0xFF));
                     }
-                    log.info("[RTP数据格式] 前16字节: {}", hex.toString());
-                    log.info("[RTP参数] SSRC字符串: {}, 解析为整数: {}, 十六进制: 0x{}", 
-                            connection.ssrc, Integer.parseInt(connection.ssrc), 
-                            String.format("%08X", Integer.parseInt(connection.ssrc)));
+                    log.info("[PS数据格式] 前16字节: {}", hex.toString());
                 }
-                int dwBufSize = pPreviewCBMsg.dwDataLen;
-                Pointer pBuffer = pPreviewCBMsg.pRecvdata;
-                // 【修复点 1】时间戳逻辑：一帧只有一个时间戳，不要在循环里累加
-                int frameTimestamp = currentTimestamp;
-                currentTimestamp += TIMESTAMP_INCREMENT; // 为下一帧准备
-
-                byte pt = 96; // H.264 Payload Type
-
-                ByteBuffer buffer = ByteBuffer.allocate(4);
-
-                buffer.order(ByteOrder.BIG_ENDIAN);
-
-                buffer.putInt(Integer.parseInt(connection.ssrc));
-                byte[] ssrc = buffer.array();
-                byte[] tsBytes = intToBytes(frameTimestamp);
-
-                // 缓冲区大小 (MTU 1400 - UDP 头 - IP 头，这里留足余量)
-                // RTP Header = 12 字节
-                int maxPayloadSize = 1400 - 12;
-                byte[] rtpPacket = new byte[1400];
-
-                // --- 构建标准 RTP Header (12 Bytes) ---
-                // 注意：我们不再在开头放“长度”，而是直接放标准的 RTP 头
-                // Index 0: Version(2) + P(0) + X(0) + CC(0) = 0x80
-                rtpPacket[0] = (byte) 0x80;
-
-                // Index 1: Marker(0) + PayloadType(7bits). Marker 稍后根据情况设置
-                rtpPacket[1] = (byte) (pt & 0x7F);
-
-                // Index 2-3: Sequence Number (Big Endian) - 标准位置
-                // Index 4-7: Timestamp
-                // Index 8-11: SSRC
-
-                int offset = 0;
-                int dataSize = dwBufSize;
-
-                while (dataSize > 0) {
-                    int chunkSize = Math.min(maxPayloadSize, dataSize);
-                    boolean isLastFragment = (dataSize <= maxPayloadSize);
-
-                    // 1. 写入/更新 Header
-                    // 序列号自增
-                    seqNum++;
-                    byte[] seqBytes = shortToBytes(seqNum);
-                    rtpPacket[2] = seqBytes[0];
-                    rtpPacket[3] = seqBytes[1];
-
-                    // 时间戳 (本帧所有包相同)
-                    System.arraycopy(tsBytes, 0, rtpPacket, 4, 4);
-
-                    // SSRC
-                    System.arraycopy(ssrc, 0, rtpPacket, 8, 4);
-
-                    // Marker 位：只有最后一个包设为 1
-                    if (isLastFragment) {
-                        rtpPacket[1] = (byte) (rtpPacket[1] | 0x80);
-                    } else {
-                        rtpPacket[1] = (byte) (rtpPacket[1] & 0x7F); // 确保中间包 Marker 为 0
+                
+                // 将PS数据送入解复用器
+                connection.psDemuxer.feed(dataStream, 0, dataStream.length);
+                
+                // 提取NAL单元并发送RTP
+                List<byte[]> nalUnits = connection.psDemuxer.extractNalUnits();
+                if (!nalUnits.isEmpty()) {
+                    if (videoDataCount <= 3) {
+                        log.info("[PS解复用] 提取到{}个NAL单元", nalUnits.size());
                     }
-
-
-                    // 2. 读取 Payload 数据
-                    // 从 pBuffer 读取 chunkSize 长度的数据到 rtpPacket 的第 12 字节之后
-                    pBuffer.read(offset, rtpPacket, 12, chunkSize);
-
-                    // 3. 发送 UDP 包
-                    int packetLength = 12 + chunkSize;
-                    DatagramPacket packet = new DatagramPacket(rtpPacket, packetLength, connection.targetAddress, connection.rtpPort);
-                    connection.udpSocket.send(packet);
-                    totalBytesSent += packetLength;
-                    
-                    if (seqNum <= 5) {
-                        log.info("[RTP发送] 发送第{}个RTP包，大小: {} 字节，目标: {}:{}", 
-                                seqNum, packetLength, connection.targetAddress.getHostAddress(), connection.rtpPort);
+                    for (byte[] nalUnit : nalUnits) {
+                        sendNalUnitAsRtp(connection, nalUnit);
                     }
-                    
-                    // 每5秒输出一次统计信息
-                    long now = System.currentTimeMillis();
-                    if (startTime == 0) {
-                        startTime = now;
-                        lastStatsTime = now;
-                    }
-                    if (now - lastStatsTime >= 5000) {
-                        long elapsed = (now - startTime) / 1000;
-                        long interval = (now - lastStatsTime) / 1000;
-                        log.info("[RTP统计] 运行{}秒, 回调{}次, 视频数据{}次, 发送包{}个, 总字节{}, 速率: {}包/秒, {}字节/秒",
-                                elapsed, invokeCount, videoDataCount, seqNum, totalBytesSent,
-                                interval > 0 ? seqNum / interval : 0,
-                                interval > 0 ? totalBytesSent / interval : 0);
-                        lastStatsTime = now;
-                    }
-
-                    // 更新偏移和剩余大小
-                    offset += chunkSize;
-                    dataSize -= chunkSize;
+                }
+                
+                // 每5秒输出一次统计信息
+                long now = System.currentTimeMillis();
+                if (startTime == 0) {
+                    startTime = now;
+                    lastStatsTime = now;
+                }
+                if (now - lastStatsTime >= 5000) {
+                    long elapsed = (now - startTime) / 1000;
+                    long interval = (now - lastStatsTime) / 1000;
+                    log.info("[RTP统计] 运行{}秒, 回调{}次, 视频数据{}次, 发送包{}个, 总字节{}, 速率: {}包/秒, {}字节/秒",
+                            elapsed, invokeCount, videoDataCount, seqNum, totalBytesSent,
+                            interval > 0 ? seqNum / interval : 0,
+                            interval > 0 ? totalBytesSent / interval : 0);
+                    lastStatsTime = now;
                 }
             } else {
                 log.info("[RTP发送] 收到非视频数据，byDataType: {}, 数据长度: {}", pPreviewCBMsg.byDataType, pPreviewCBMsg.dwDataLen);
@@ -213,6 +146,75 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
         } else {
             log.info("[RTP发送] 收到空数据，dataStream: {}, dwDataLen: {}", 
                     dataStream == null ? "null" : "empty", pPreviewCBMsg.dwDataLen);
+        }
+    }
+    
+    /**
+     * 将NAL单元封装为RTP包并发送
+     */
+    private void sendNalUnitAsRtp(RtpConnection connection, byte[] nalUnit) throws IOException {
+        if (nalUnit == null || nalUnit.length == 0) {
+            return;
+        }
+        
+        byte pt = 96; // H.264 Payload Type
+        int maxPayloadSize = 1400 - 12; // MTU 1400 - RTP Header 12
+        
+        // 时间戳
+        int frameTimestamp = currentTimestamp;
+        currentTimestamp += TIMESTAMP_INCREMENT;
+        
+        // SSRC
+        ByteBuffer buffer = ByteBuffer.allocate(4);
+        buffer.order(ByteOrder.BIG_ENDIAN);
+        buffer.putInt(Integer.parseInt(connection.ssrc));
+        byte[] ssrc = buffer.array();
+        byte[] tsBytes = intToBytes(frameTimestamp);
+        
+        byte[] rtpPacket = new byte[1400];
+        rtpPacket[0] = (byte) 0x80; // Version 2, no padding, no extension, no CSRC
+        
+        int offset = 0;
+        int dataSize = nalUnit.length;
+        
+        while (dataSize > 0) {
+            int chunkSize = Math.min(maxPayloadSize, dataSize);
+            boolean isLastFragment = (dataSize <= maxPayloadSize);
+            
+            seqNum++;
+            byte[] seqBytes = shortToBytes(seqNum);
+            
+            // RTP Header
+            rtpPacket[0] = (byte) 0x80;
+            rtpPacket[1] = (byte) (pt & 0x7F);
+            rtpPacket[2] = seqBytes[0];
+            rtpPacket[3] = seqBytes[1];
+            System.arraycopy(tsBytes, 0, rtpPacket, 4, 4);
+            System.arraycopy(ssrc, 0, rtpPacket, 8, 4);
+            
+            // Marker bit: 最后一个包设为1
+            if (isLastFragment) {
+                rtpPacket[1] = (byte) (rtpPacket[1] | 0x80);
+            } else {
+                rtpPacket[1] = (byte) (rtpPacket[1] & 0x7F);
+            }
+            
+            // Payload
+            System.arraycopy(nalUnit, offset, rtpPacket, 12, chunkSize);
+            
+            // 发送
+            int packetLength = 12 + chunkSize;
+            DatagramPacket packet = new DatagramPacket(rtpPacket, packetLength, connection.targetAddress, connection.rtpPort);
+            connection.udpSocket.send(packet);
+            totalBytesSent += packetLength;
+            
+            if (seqNum <= 5) {
+                log.info("[RTP发送] 发送第{}个RTP包，NAL大小: {}, 分片大小: {}, 目标: {}:{}", 
+                        seqNum, nalUnit.length, chunkSize, connection.targetAddress.getHostAddress(), connection.rtpPort);
+            }
+            
+            offset += chunkSize;
+            dataSize -= chunkSize;
         }
     }
 
