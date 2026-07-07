@@ -170,7 +170,7 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
                     nalType, nalTypeName, nalUnit.length, String.format("%02X", nalUnit[0]));
         }
         
-        byte pt = 96; // H.264 Payload Type
+        byte pt = 98; // H.264 Payload Type (ZLM rtp_proxy配置: h264_pt=98)
         int maxPayloadSize = 1400 - 12; // MTU 1400 - RTP Header 12
         
         // 时间戳
