@@ -28,6 +28,7 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
     private final int CLOCK_RATE = 90000;
     private final int FPS = 25;
     private final int TIMESTAMP_INCREMENT = CLOCK_RATE / FPS; // 3600
+    private long invokeCount = 0; // 回调调用计数
 
     // 存储每个预览句柄对应的连接信息
     private class RtpConnection {
@@ -44,6 +45,12 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
 
     @Override
     public void invoke(int iPreviewHandle, HCISUPStream.NET_EHOME_PREVIEW_CB_MSG pPreviewCBMsg, Pointer pUserData) throws IOException {
+        invokeCount++;
+        if (invokeCount <= 3 || invokeCount % 100 == 0) {
+            log.info("[RTP回调] 第{}次调用，句柄: {}, byDataType: {}, dwDataLen: {}", 
+                    invokeCount, iPreviewHandle, pPreviewCBMsg.byDataType, pPreviewCBMsg.dwDataLen);
+        }
+        
         // 通过 iPreviewHandle 获取 sessionID
         Integer sessionID = StreamManager.previewHandSAndSessionIDandMap.get(iPreviewHandle);
         if (sessionID == null) {
@@ -86,6 +93,10 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
         byte[] dataStream = pPreviewCBMsg.pRecvdata.getByteArray(0, pPreviewCBMsg.dwDataLen);
         if (dataStream != null && dataStream.length > 0) {
             if (pPreviewCBMsg.byDataType == 2) {
+                if (seqNum == 0) {
+                    log.info("[RTP发送] 首次收到视频数据，开始发送RTP流，数据长度: {}, 目标: {}:{}", 
+                            pPreviewCBMsg.dwDataLen, connection.targetAddress.getHostAddress(), connection.rtpPort);
+                }
                 int dwBufSize = pPreviewCBMsg.dwDataLen;
                 Pointer pBuffer = pPreviewCBMsg.pRecvdata;
                 // 【修复点 1】时间戳逻辑：一帧只有一个时间戳，不要在循环里累加
@@ -155,12 +166,22 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
                     int packetLength = 12 + chunkSize;
                     DatagramPacket packet = new DatagramPacket(rtpPacket, packetLength, connection.targetAddress, connection.rtpPort);
                     connection.udpSocket.send(packet);
+                    
+                    if (seqNum <= 5) {
+                        log.info("[RTP发送] 发送第{}个RTP包，大小: {} 字节，目标: {}:{}", 
+                                seqNum, packetLength, connection.targetAddress.getHostAddress(), connection.rtpPort);
+                    }
 
                     // 更新偏移和剩余大小
                     offset += chunkSize;
                     dataSize -= chunkSize;
                 }
+            } else {
+                log.info("[RTP发送] 收到非视频数据，byDataType: {}, 数据长度: {}", pPreviewCBMsg.byDataType, pPreviewCBMsg.dwDataLen);
             }
+        } else {
+            log.info("[RTP发送] 收到空数据，dataStream: {}, dwDataLen: {}", 
+                    dataStream == null ? "null" : "empty", pPreviewCBMsg.dwDataLen);
         }
     }
 
