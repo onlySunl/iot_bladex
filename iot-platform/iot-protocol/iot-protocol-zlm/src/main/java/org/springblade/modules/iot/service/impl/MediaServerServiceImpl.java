@@ -624,6 +624,10 @@ public class MediaServerServiceImpl  implements IMediaServerService {
 
         // 获取分数最低的，及并发最低的
         Set<Object> objects = bladeRedis.getRedisTemplate().opsForZSet().range(key, 0, -1);
+        if (objects == null || objects.isEmpty()) {
+            log.error("没有可用的在线媒体服务器，请检查ZLM服务器是否已启动并注册。Redis Key: {}", key);
+            throw new ServiceException("没有可用的在线媒体服务器，请检查ZLM服务器配置");
+        }
         ArrayList<Object> mediaServerObjectS = new ArrayList<>(objects);
         ZlmMediaServer mediaServer = null;
         if (hasAssist == null) {
