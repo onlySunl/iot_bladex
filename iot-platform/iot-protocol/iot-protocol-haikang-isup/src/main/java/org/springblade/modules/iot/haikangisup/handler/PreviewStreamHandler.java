@@ -111,11 +111,8 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
                     log.info("[PS数据格式] 前16字节: {}", hex.toString());
                 }
                 
-                // 将PS数据送入解复用器
-                connection.psDemuxer.feed(dataStream, 0, dataStream.length);
-                
-                // 提取NAL单元并发送RTP
-                List<byte[]> nalUnits = connection.psDemuxer.extractNalUnits();
+                // 将PS数据送入解复用器提取NAL单元
+                List<byte[]> nalUnits = connection.psDemuxer.processPSData(dataStream);
                 if (!nalUnits.isEmpty()) {
                     if (videoDataCount <= 3) {
                         log.info("[PS解复用] 提取到{}个NAL单元", nalUnits.size());
