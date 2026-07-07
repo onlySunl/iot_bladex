@@ -69,7 +69,9 @@ public interface HCISUPStream extends Library {
     public class NET_EHOME_PREVIEW_DATA_CB_PARAM extends HIKSDKStructure {
         public PREVIEW_DATA_CB fnPreviewDataCB;    //数据回调函数
         public Pointer pUserData;         //用户参数, 在fnPreviewDataCB回调出来
-        public byte[] byRes = new byte[128];          //保留
+        public byte byStreamFormat;       //码流封装格式：0-PS 1-RTP(入参)
+        public byte[] byRes1 = new byte[3]; //保留对齐
+        public byte[] byRes = new byte[124];      //保留
     }
 
     public static final int NET_EHOME_DEVICEID_LEN = 256;  //设备ID长度
