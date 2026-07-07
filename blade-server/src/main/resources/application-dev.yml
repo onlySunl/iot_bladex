@@ -146,7 +146,7 @@ media:
   http-port: 8092
   http-ssl-port: 443
   # [可选] zlm服务器的hook所使用的IP, 默认使用sip.ip
-  hook-ip: 140.143.155.241
+  hook-ip: 62gs7wm71911.vicp.fun
   # [必选选] zlm服务器的hook.admin_params=secret
   secret: ssURrUNq5qd8mOETzkW0dwfflQc9fCF1
   # # [可选] 录像文件存储路径

@@ -15,8 +15,6 @@ public class FeignRequestInterceptor implements RequestInterceptor {
 
     @Override
     public void apply(RequestTemplate template) {
-        log.info("进入Feign 请求地址：{}",     template.url());
-
         RequestAttributes attr = RequestContextHolder.getRequestAttributes();
         if (attr == null) {
             log.warn("attr为空，无web上下文");
@@ -25,7 +23,6 @@ public class FeignRequestInterceptor implements RequestInterceptor {
         HttpServletRequest request = ((ServletRequestAttributes) attr).getRequest();
 
         String bladeAuth = request.getHeader("Blade-Auth");
-        log.info("读取Blade-Auth:{}", bladeAuth);
 
         // 核心鉴权Token
         setHeader(template, request, "Blade-Auth");

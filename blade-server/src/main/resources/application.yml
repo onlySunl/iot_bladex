@@ -252,6 +252,7 @@ blade:
     #接口放行
     skip-url:
       - /blade-test/**
+      - /zlm/index/hook/**
 
     #授权认证配置
     auth:

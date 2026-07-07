@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.redis.cache.BladeRedis;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.DateUtil;
@@ -424,7 +425,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
     @Transactional
     public void onApplicationEvent(MediaServerOnlineEvent event) {
         // 查看是否有未处理的RTP流
-        log.info("流媒体节点上线: {}", event.getMediaServer());
+        //log.info("流媒体节点上线: {}", event.getMediaServer());
         if (event.getMediaServer().getId() == null) {
             return;
         }
