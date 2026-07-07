@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  * @author fengcheng
  */
 @Slf4j
-@Configuration("media")
+@Configuration("mediaConfig")
 @Order(0)
 @Data
 public class MediaConfig {
@@ -33,7 +33,7 @@ public class MediaConfig {
     @Value("${media.wan_ip:}")
     private String wanIp;
 
-    @Value("${media.hook-ip:127.0.0.1}")
+    @Value("${media.hook-ip}")
     private String hookIp;
 
     @Value("${media.sdp-ip:${media.wan_ip:}}")
@@ -154,6 +154,7 @@ public class MediaConfig {
     }
 
     public ZlmMediaServer getMediaSerItem() {
+        log.info("media server: id-{}",getHookIp());
         ZlmMediaServer mediaServer = new ZlmMediaServer();
         mediaServer.setId(id);
         mediaServer.setIp(ip);

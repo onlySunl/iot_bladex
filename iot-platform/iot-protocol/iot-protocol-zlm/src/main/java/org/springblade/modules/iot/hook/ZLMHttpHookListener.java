@@ -35,7 +35,7 @@ import java.util.HashMap;
  */
 @Slf4j
 @RestController
-@RequestMapping("/index/hook")
+@RequestMapping("/zlm/index/hook")
 @Hidden
 public class ZLMHttpHookListener {
 

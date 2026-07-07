@@ -48,6 +48,8 @@ public class ZLMRESTfulUtils {
     private static final String RECORD_TYPE_MANUAL = "1";
     /** API 路径模板 */
     private static final String API_URL_TEMPLATE = "http://%s:%s/index/api/%s";
+    /** API 路径模板 */
+   // private static final String API_URL_TEMPLATE = "http://%s:%s/index/api/%s";
     /** 默认连接超时（秒） */
     private static final int DEFAULT_CONNECT_TIMEOUT = 8;
     /** 默认读取超时（秒） */

@@ -480,7 +480,7 @@ public class ZLMMediaNodeServerServiceImpl implements IMediaNodeServerService {
         mediaServer.setRtspSslPort(zlmServerConfig.getRtspSSlport());
         mediaServer.setRtpProxyPort(zlmServerConfig.getRtpProxyPort());
         mediaServer.setStreamIp(ip);
-        mediaServer.setHookIp("127.0.0.1");
+        mediaServer.setHookIp(zlmServerConfig.getHookIp());
         mediaServer.setSdpIp(ip);
         mediaServer.setType("zlm");
 

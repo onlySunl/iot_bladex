@@ -130,7 +130,7 @@ public class ZLMMediaServerStatusManager {
         offlineZlmTimeMap.remove(event.getMediaServer().getId());
     }
 
-    @Scheduled(fixedDelay = 10 * 1000)   //每隔10秒检查一次
+    //@Scheduled(fixedDelay = 10 * 1000)   //每隔10秒检查一次
     public void execute() {
         // 初次加入的离线节点会在30分钟内，每间隔十秒尝试一次，30分钟后如果仍然没有上线，则每隔30分钟尝试一次连接
         if (offlineZlmPrimaryMap.isEmpty() && offlineZlmsecondaryMap.isEmpty()) {
@@ -241,10 +241,10 @@ public class ZLMMediaServerStatusManager {
     }
 
     public void setZLMConfig(ZlmMediaServer mediaServerItem, boolean restart) {
-        log.info("[媒体服务节点] 正在设置 ：{} -> {}:{}",
-                mediaServerItem.getId(), mediaServerItem.getIp(), mediaServerItem.getHttpPort());
+        /*log.info("[媒体服务节点] 正在设置 ：{} -> {}:{}",
+                mediaServerItem.getId(), mediaServerItem.getIp(), mediaServerItem.getHttpPort());*/
         String protocol = sslEnabled ? "https" : "http";
-        String hookPrefix = String.format("%s://%s:%s%s/zlm/index/hook", protocol, mediaServerItem.getHookIp(), mediaServerItem.getHttpPort(), (serverServletContextPath == null || "/".equals(serverServletContextPath)) ? "" : serverServletContextPath);
+        String hookPrefix = String.format("%s://%s/zlm/index/hook", protocol, mediaServerItem.getHookIp());
 
         Map<String, Object> param = new HashMap<>();
         if (mediaServerItem.getRtspPort() != 0) {
@@ -295,8 +295,8 @@ public class ZLMMediaServerStatusManager {
                         mediaServerItem.getId(), mediaServerItem.getIp(), mediaServerItem.getHttpPort());
                 zlmresTfulUtils.restartServer(mediaServerItem);
             } else {
-                log.info("[媒体服务节点] 设置成功 {} -> {}:{}",
-                        mediaServerItem.getId(), mediaServerItem.getIp(), mediaServerItem.getHttpPort());
+               /* log.info("[媒体服务节点] 设置成功 {} -> {}:{}",
+                        mediaServerItem.getId(), mediaServerItem.getIp(), mediaServerItem.getHttpPort());*/
             }
         } else {
             log.info("[媒体服务节点] 设置媒体服务节点失败 {} -> {}:{}",

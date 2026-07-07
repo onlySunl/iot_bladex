@@ -35,7 +35,7 @@ public class ZlmMediaServer extends CustomBaseEntity {
     /** hook使用的IP（zlm访问WVP使用的IP） */
     @TableField(value = "hook_ip")
     @AutoColumn(comment = "hook使用的IP", length = 50, defaultValueType = DefaultValueEnum.EMPTY_STRING)
-    private String hookIp = "127.0.0.1";
+    private String hookIp;
 
     /** SDP IP */
     @TableField(value = "sdp_ip")
