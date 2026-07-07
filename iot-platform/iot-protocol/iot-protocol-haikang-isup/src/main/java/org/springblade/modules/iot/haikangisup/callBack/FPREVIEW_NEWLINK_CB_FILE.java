@@ -43,6 +43,7 @@ public class FPREVIEW_NEWLINK_CB_FILE implements HCISUPStream.PREVIEW_NEWLINK_CB
 
         HCISUPStream.NET_EHOME_PREVIEW_DATA_CB_PARAM struDataCB = new HCISUPStream.NET_EHOME_PREVIEW_DATA_CB_PARAM();
         struDataCB.fnPreviewDataCB = previewStreamHandler;
+        struDataCB.byStreamFormat = 1; // 码流封装格式：0-PS 1-RTP，使用RTP格式以便直接转发给ZLM
 
         if (!StreamService.hCEhomeStream.NET_ESTREAM_SetPreviewDataCB(lPreviewHandle, struDataCB)) {
             log.info("NET_ESTREAM_SetPreviewDataCB 失败 err: {}", StreamService.hCEhomeStream.NET_ESTREAM_GetLastError());
