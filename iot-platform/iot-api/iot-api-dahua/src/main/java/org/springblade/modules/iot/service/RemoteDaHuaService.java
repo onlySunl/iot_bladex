@@ -24,7 +24,11 @@ import java.util.HashMap;
  * @Author fengcheng
  * @date 2026-03-30
  **/
-@FeignClient(contextId = "remoteDaHuaService", value = ServiceNameConstants.DAHUA_SERVICE, fallbackFactory = RemoteDaHuaFallbackFactory.class)
+@FeignClient(contextId = "remoteDaHuaService",
+        value = ServiceNameConstants.DAHUA_SERVICE,
+        fallbackFactory = RemoteDaHuaFallbackFactory.class,
+        url = ServiceNameConstants.SERVICE_URL
+)
 public interface RemoteDaHuaService {
 
     /**
