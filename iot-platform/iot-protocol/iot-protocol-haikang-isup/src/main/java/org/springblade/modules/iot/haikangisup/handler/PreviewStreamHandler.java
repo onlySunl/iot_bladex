@@ -154,6 +154,22 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
             return;
         }
         
+        // 诊断：打印NAL单元类型
+        int nalType = nalUnit[0] & 0x1F;
+        String nalTypeName;
+        switch (nalType) {
+            case 1: nalTypeName = "Non-IDR Slice"; break;
+            case 5: nalTypeName = "IDR Slice"; break;
+            case 6: nalTypeName = "SEI"; break;
+            case 7: nalTypeName = "SPS"; break;
+            case 8: nalTypeName = "PPS"; break;
+            default: nalTypeName = "Unknown"; break;
+        }
+        if (seqNum < 10) {
+            log.info("[NAL诊断] NAL类型: {} ({}), 大小: {}, 首字节: 0x{}", 
+                    nalType, nalTypeName, nalUnit.length, String.format("%02X", nalUnit[0]));
+        }
+        
         byte pt = 96; // H.264 Payload Type
         int maxPayloadSize = 1400 - 12; // MTU 1400 - RTP Header 12
         
