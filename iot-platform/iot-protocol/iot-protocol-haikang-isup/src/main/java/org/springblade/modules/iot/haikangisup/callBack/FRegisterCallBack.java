@@ -45,7 +45,7 @@ public class FRegisterCallBack implements HCISUPCMS.DEVICE_REGISTER_CB {
     public static final CopyOnWriteArrayList<Device> deviceList = new CopyOnWriteArrayList<>();
 
     public boolean invoke(int lUserID, int dwDataType, Pointer pOutBuffer, int dwOutLen, Pointer pInBuffer, int dwInLen, Pointer pUser) {
-        log.info("设备注册状态回调: {}, lUserID: {}", dwDataType, lUserID);
+        log.info("设备状态回调: {}, lUserID: {}", dwDataType, lUserID);
         HCISUPCMS.NET_EHOME_DEV_REG_INFO_V12 strDevRegInfo = new HCISUPCMS.NET_EHOME_DEV_REG_INFO_V12();
         Pointer pDevRegInfo = strDevRegInfo.getPointer();
 
@@ -158,7 +158,7 @@ public class FRegisterCallBack implements HCISUPCMS.DEVICE_REGISTER_CB {
                         "    \"DasInfo\": {\n" +
                         "        \"Address\":\"" + haikangIsupConfig.getDasServer().getIp() + "\",\n" +
                         "        \"Domain\":\"\",\n" +
-                        "        \"ServerID\":\"\",\n" +
+                        "        \"ServerID\":\"000000\",\n" +
                         "        \"Port\":" + haikangIsupConfig.getDasServer().getPort() + ",\n" +
                         "        \"UdpPort\":" + haikangIsupConfig.getDasServer().getPort() + "\n" +
                         "    }\n" +

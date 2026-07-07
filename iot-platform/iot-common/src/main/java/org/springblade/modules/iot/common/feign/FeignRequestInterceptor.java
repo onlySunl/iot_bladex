@@ -15,7 +15,8 @@ public class FeignRequestInterceptor implements RequestInterceptor {
 
     @Override
     public void apply(RequestTemplate template) {
-        log.info("进入Feign拦截器");
+        log.info("进入Feign 请求地址：{}",     template.url());
+
         RequestAttributes attr = RequestContextHolder.getRequestAttributes();
         if (attr == null) {
             log.warn("attr为空，无web上下文");

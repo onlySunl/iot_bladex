@@ -129,12 +129,8 @@ public class CmsService {
 
     public void startCmsListen() {
         // 公网环境：listenIp 为本地监听地址，ip 为公网地址（设备连接用）
-        String listenIp = StringUtils.isNotBlank(haikangIsupConfig.getCmsServer().getListenIp())
-                ? haikangIsupConfig.getCmsServer().getListenIp()
-                : haikangIsupConfig.getCmsServer().getIp();
-        int listenPort = haikangIsupConfig.getCmsServer().getListenPort() > 0
-                ? haikangIsupConfig.getCmsServer().getListenPort()
-                : haikangIsupConfig.getCmsServer().getPort();
+        String listenIp =haikangIsupConfig.getCmsServer().getIp();
+        int listenPort = haikangIsupConfig.getCmsServer().getPort();
 
         System.arraycopy(listenIp.getBytes(), 0, struCMSListenPara.struAddress.szIP, 0, listenIp.length());
         struCMSListenPara.struAddress.wPort = (short) listenPort;

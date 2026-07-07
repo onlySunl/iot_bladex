@@ -144,7 +144,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
 
         Integer lUserID = FRegisterCallBack.lUserIDMap.get(device.getIpAddress());
         if (lUserID == null) {
-            throw new ServiceException("未找到用户信息");
+            throw new ServiceException("haikang_isup:startPlay:未找到用户信息");
         }
 
         mediaStreamService.startPlay(lUserID, device, streamKey, rtpServerParam);
@@ -166,7 +166,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
 
         Integer lUserID = FRegisterCallBack.lUserIDMap.get(device.getIpAddress());
         if (lUserID == null) {
-            throw new ServiceException("未找到用户信息");
+            throw new ServiceException("haikang_isup:stopPlay:未找到用户信息");
         }
         mediaStreamService.stopPlay(lUserID, device.getId(), device.getChannel(), streamKey);
     }
@@ -189,7 +189,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
 
         Integer lUserID = FRegisterCallBack.lUserIDMap.get(device.getIpAddress());
         if (lUserID == null) {
-            throw new ServiceException("未找到用户信息");
+            throw new ServiceException("haikang_isup:startPtz:未找到用户信息");
         }
 
         //云台控制
@@ -239,7 +239,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
 
         Integer lUserID = FRegisterCallBack.lUserIDMap.get(device.getIpAddress());
         if (lUserID == null) {
-            throw new ServiceException("未找到用户信息");
+            throw new ServiceException("haikang_isup:endPtz:未找到用户信息");
         }
 
         //云台控制
@@ -807,7 +807,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
 
         Integer lUserID = FRegisterCallBack.lUserIDMap.get(device.getIpAddress());
         if (lUserID == null) {
-            throw new ServiceException("未找到用户信息");
+            throw new ServiceException("haikang_isup:startPlayback:未找到用户信息");
         }
 
         mediaStreamService.startPlayback(lUserID, device, playbackKey, rtpServerParam);
@@ -824,7 +824,7 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
 
         Integer lUserID = FRegisterCallBack.lUserIDMap.get(device.getIpAddress());
         if (lUserID == null) {
-            throw new ServiceException("未找到用户信息");
+            throw new ServiceException("haikang_isup:stopPlayback:未找到用户信息");
         }
         mediaStreamService.stopPlayback(lUserID, device.getId(), device.getChannel(), playbackKey);
     }
