@@ -29,6 +29,10 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
     private final int FPS = 25;
     private final int TIMESTAMP_INCREMENT = CLOCK_RATE / FPS; // 3600
     private long invokeCount = 0; // 回调调用计数
+    private long videoDataCount = 0; // 视频数据回调计数
+    private long totalBytesSent = 0; // 总发送字节数
+    private long startTime = 0; // 开始时间
+    private long lastStatsTime = 0; // 上次统计时间
 
     // 存储每个预览句柄对应的连接信息
     private class RtpConnection {
@@ -93,9 +97,19 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
         byte[] dataStream = pPreviewCBMsg.pRecvdata.getByteArray(0, pPreviewCBMsg.dwDataLen);
         if (dataStream != null && dataStream.length > 0) {
             if (pPreviewCBMsg.byDataType == 2) {
+                videoDataCount++;
                 if (seqNum == 0) {
                     log.info("[RTP发送] 首次收到视频数据，开始发送RTP流，数据长度: {}, 目标: {}:{}", 
                             pPreviewCBMsg.dwDataLen, connection.targetAddress.getHostAddress(), connection.rtpPort);
+                    // 打印前16字节的十六进制，用于分析数据格式
+                    StringBuilder hex = new StringBuilder();
+                    for (int i = 0; i < Math.min(16, dataStream.length); i++) {
+                        hex.append(String.format("%02X ", dataStream[i] & 0xFF));
+                    }
+                    log.info("[RTP数据格式] 前16字节: {}", hex.toString());
+                    log.info("[RTP参数] SSRC字符串: {}, 解析为整数: {}, 十六进制: 0x{}", 
+                            connection.ssrc, Integer.parseInt(connection.ssrc), 
+                            String.format("%08X", Integer.parseInt(connection.ssrc)));
                 }
                 int dwBufSize = pPreviewCBMsg.dwDataLen;
                 Pointer pBuffer = pPreviewCBMsg.pRecvdata;
@@ -166,10 +180,27 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
                     int packetLength = 12 + chunkSize;
                     DatagramPacket packet = new DatagramPacket(rtpPacket, packetLength, connection.targetAddress, connection.rtpPort);
                     connection.udpSocket.send(packet);
+                    totalBytesSent += packetLength;
                     
                     if (seqNum <= 5) {
                         log.info("[RTP发送] 发送第{}个RTP包，大小: {} 字节，目标: {}:{}", 
                                 seqNum, packetLength, connection.targetAddress.getHostAddress(), connection.rtpPort);
+                    }
+                    
+                    // 每5秒输出一次统计信息
+                    long now = System.currentTimeMillis();
+                    if (startTime == 0) {
+                        startTime = now;
+                        lastStatsTime = now;
+                    }
+                    if (now - lastStatsTime >= 5000) {
+                        long elapsed = (now - startTime) / 1000;
+                        long interval = (now - lastStatsTime) / 1000;
+                        log.info("[RTP统计] 运行{}秒, 回调{}次, 视频数据{}次, 发送包{}个, 总字节{}, 速率: {}包/秒, {}字节/秒",
+                                elapsed, invokeCount, videoDataCount, seqNum, totalBytesSent,
+                                interval > 0 ? seqNum / interval : 0,
+                                interval > 0 ? totalBytesSent / interval : 0);
+                        lastStatsTime = now;
                     }
 
                     // 更新偏移和剩余大小
