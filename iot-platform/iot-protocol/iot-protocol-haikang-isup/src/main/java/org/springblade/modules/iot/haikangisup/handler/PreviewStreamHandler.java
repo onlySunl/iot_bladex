@@ -21,7 +21,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * 预览流处理器 - 每个预览会话独立的回调实例
  * 注意：不使用 @Component/@Service 注解，避免单例模式导致的状态混乱
  * 
- * 数据流程：海康SDK回调 -> PS解复用 -> H.264 NAL单元 -> RTP封装 -> UDP发送
+ * 数据流程：海康SDK回调 -> PS解复用 -> H.264/H.265 NAL单元 -> RTP封装 -> UDP发送
+ * 
+ * 支持H.264 (RFC 6184) 和 H.265/HEVC (RFC 7798) RTP格式
  */
 @Slf4j
 public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
@@ -147,29 +149,196 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
     }
     
     /**
+     * 检测是否为H.265/HEVC NAL单元
+     * H.265 NAL头为2字节：forbidden_zero_bit(1) + nal_unit_type(6) + nuh_layer_id(6) + nuh_temporal_id_plus1(3)
+     */
+    private boolean isHevcNalUnit(byte[] nalUnit) {
+        if (nalUnit == null || nalUnit.length < 2) return false;
+        
+        // H.265 NAL unit type在第一个字节的bit 1-6
+        int hevcNalType = (nalUnit[0] >> 1) & 0x3F;
+        
+        // 检查是否为有效的H.265 NAL类型
+        // VPS=32, SPS=33, PPS=34, IDR_W_RADL=19, IDR_N_LP=20, CRA_NUT=21
+        // SEI: PREFIX_SEI_NUT=39, SUFFIX_SEI_NUT=40
+        // 非VCL: RSV_NVCL41-47, UNSPEC48-63
+        return hevcNalType == 32 || hevcNalType == 33 || hevcNalType == 34 ||  // VPS, SPS, PPS
+               hevcNalType == 19 || hevcNalType == 20 || hevcNalType == 21 ||  // IDR, CRA
+               hevcNalType == 39 || hevcNalType == 40 ||                        // SEI
+               (hevcNalType >= 0 && hevcNalType <= 18) ||                       // Trail, TSA, STSA, etc.
+               (hevcNalType >= 32 && hevcNalType <= 35);                        // VPS, SPS, PPS, AP, FP
+    }
+    
+    /**
      * 将NAL单元封装为RTP包并发送
+     * 支持H.264和H.265/HEVC
      */
     private void sendNalUnitAsRtp(RtpConnection connection, byte[] nalUnit) throws IOException {
         if (nalUnit == null || nalUnit.length == 0) {
             return;
         }
         
-        // 诊断：打印NAL单元类型
-        int nalType = nalUnit[0] & 0x1F;
+        // 检测是否为H.265
+        boolean isHevc = isHevcNalUnit(nalUnit);
+        
+        if (isHevc) {
+            sendHevcNalAsRtp(connection, nalUnit);
+        } else {
+            sendAvcNalAsRtp(connection, nalUnit);
+        }
+    }
+    
+    /**
+     * 发送H.265/HEVC NAL单元为RTP包 (RFC 7798)
+     */
+    private void sendHevcNalAsRtp(RtpConnection connection, byte[] nalUnit) throws IOException {
+        // H.265 Payload Type - 需要根据ZLM配置调整
+        // 通常H.265使用PT=96或自定义值
+        byte pt = 96; // HEVC Payload Type
+        
+        int maxPayloadSize = 1400 - 12; // MTU 1400 - RTP Header 12
+        
+        // 时间戳
+        int frameTimestamp = currentTimestamp;
+        currentTimestamp += TIMESTAMP_INCREMENT;
+        
+        // SSRC
+        ByteBuffer buffer = ByteBuffer.allocate(4);
+        buffer.order(ByteOrder.BIG_ENDIAN);
+        buffer.putInt(Integer.parseInt(connection.ssrc));
+        byte[] ssrc = buffer.array();
+        byte[] tsBytes = intToBytes(frameTimestamp);
+        
+        // H.265 NAL头为2字节
+        int nalHeaderSize = 2;
+        int nalType = (nalUnit[0] >> 1) & 0x3F;
         String nalTypeName;
         switch (nalType) {
-            case 1: nalTypeName = "Non-IDR Slice"; break;
-            case 5: nalTypeName = "IDR Slice"; break;
-            case 6: nalTypeName = "SEI"; break;
-            case 7: nalTypeName = "SPS"; break;
-            case 8: nalTypeName = "PPS"; break;
-            default: nalTypeName = "Unknown"; break;
-        }
-        if (seqNum < 10) {
-            log.info("[NAL诊断] NAL类型: {} ({}), 大小: {}, 首字节: 0x{}", 
-                    nalType, nalTypeName, nalUnit.length, String.format("%02X", nalUnit[0]));
+            case 32: nalTypeName = "VPS"; break;
+            case 33: nalTypeName = "SPS"; break;
+            case 34: nalTypeName = "PPS"; break;
+            case 19: nalTypeName = "IDR_W_RADL"; break;
+            case 20: nalTypeName = "IDR_N_LP"; break;
+            case 21: nalTypeName = "CRA"; break;
+            case 39: nalTypeName = "PREFIX_SEI"; break;
+            case 40: nalTypeName = "SUFFIX_SEI"; break;
+            default: nalTypeName = "Type_" + nalType; break;
         }
         
+        if (seqNum < 10) {
+            log.info("[HEVC诊断] NAL类型: {} ({}), 大小: {}, 首2字节: 0x{} 0x{}", 
+                    nalType, nalTypeName, nalUnit.length, 
+                    String.format("%02X", nalUnit[0]), String.format("%02X", nalUnit[1]));
+        }
+        
+        byte[] rtpPacket = new byte[1400];
+        rtpPacket[0] = (byte) 0x80; // Version 2
+        
+        int offset = 0;
+        int dataSize = nalUnit.length;
+        
+        if (dataSize <= maxPayloadSize) {
+            // 单包模式：直接发送NAL单元
+            rtpPacket[1] = (byte) (pt & 0x7F);
+            rtpPacket[1] = (byte) (rtpPacket[1] | 0x80); // Marker bit = 1 (单包)
+            
+            byte[] seqBytes = shortToBytes(++seqNum);
+            rtpPacket[2] = seqBytes[0];
+            rtpPacket[3] = seqBytes[1];
+            System.arraycopy(tsBytes, 0, rtpPacket, 4, 4);
+            System.arraycopy(ssrc, 0, rtpPacket, 8, 4);
+            
+            // Payload: 完整的NAL单元（包含2字节NAL头）
+            System.arraycopy(nalUnit, 0, rtpPacket, 12, dataSize);
+            
+            int packetLength = 12 + dataSize;
+            DatagramPacket packet = new DatagramPacket(rtpPacket, packetLength, connection.targetAddress, connection.rtpPort);
+            connection.udpSocket.send(packet);
+            totalBytesSent += packetLength;
+            
+            if (seqNum <= 5) {
+                log.info("[HEVC RTP] 单包发送，NAL大小: {}, 目标: {}:{}", 
+                        dataSize, connection.targetAddress.getHostAddress(), connection.rtpPort);
+            }
+        } else {
+            // 分片模式：使用FU (Fragmentation Unit)
+            // H.265 FU格式：PayloadHdr(2字节) + FU type(1字节) + FU数据
+            // PayloadHdr: 保持原始NAL头的forbidden_zero_bit和nal_unit_type，但nal_unit_type改为49(FU)
+            // FU type字节: S(1bit) + E(1bit) + FuType(6bits)
+            
+            int fuHeaderSize = 3; // 2字节PayloadHdr + 1字节FU type
+            int fuPayloadSize = maxPayloadSize - fuHeaderSize;
+            
+            // 保存原始NAL头
+            byte nalHeader0 = nalUnit[0];
+            byte nalHeader1 = nalUnit[1];
+            
+            // 构建FU PayloadHdr：nal_unit_type = 49 (FU)
+            byte fuPayloadHdr0 = (byte) ((nalHeader0 & 0x81) | (49 << 1)); // 保持forbidden_zero_bit，设置nal_unit_type=49
+            byte fuPayloadHdr1 = nalHeader1; // 保持nuh_layer_id和nuh_temporal_id_plus1
+            
+            int dataOffset = nalHeaderSize; // 跳过原始NAL头
+            int remaining = dataSize - nalHeaderSize;
+            boolean isFirst = true;
+            
+            while (remaining > 0) {
+                int chunkSize = Math.min(fuPayloadSize, remaining);
+                boolean isLast = (remaining <= fuPayloadSize);
+                
+                seqNum++;
+                byte[] seqBytes = shortToBytes(seqNum);
+                
+                // RTP Header
+                rtpPacket[0] = (byte) 0x80;
+                rtpPacket[1] = (byte) (pt & 0x7F);
+                rtpPacket[2] = seqBytes[0];
+                rtpPacket[3] = seqBytes[1];
+                System.arraycopy(tsBytes, 0, rtpPacket, 4, 4);
+                System.arraycopy(ssrc, 0, rtpPacket, 8, 4);
+                
+                // Marker bit: 最后一个分片设为1
+                if (isLast) {
+                    rtpPacket[1] = (byte) (rtpPacket[1] | 0x80);
+                }
+                
+                // FU PayloadHdr
+                rtpPacket[12] = fuPayloadHdr0;
+                rtpPacket[13] = fuPayloadHdr1;
+                
+                // FU type字节：S(Start) + E(End) + FuType(6bits)
+                byte fuType = (byte) (nalType & 0x3F);
+                if (isFirst) {
+                    fuType |= 0x80; // S bit
+                    isFirst = false;
+                }
+                if (isLast) {
+                    fuType |= 0x40; // E bit
+                }
+                rtpPacket[14] = fuType;
+                
+                // FU数据
+                System.arraycopy(nalUnit, dataOffset, rtpPacket, 15, chunkSize);
+                
+                int packetLength = 15 + chunkSize;
+                DatagramPacket packet = new DatagramPacket(rtpPacket, packetLength, connection.targetAddress, connection.rtpPort);
+                connection.udpSocket.send(packet);
+                totalBytesSent += packetLength;
+                
+                if (seqNum <= 5) {
+                    log.info("[HEVC RTP] 分片发送，NAL大小: {}, 分片大小: {}, 目标: {}:{}", 
+                            dataSize, chunkSize, connection.targetAddress.getHostAddress(), connection.rtpPort);
+                }
+                
+                dataOffset += chunkSize;
+                remaining -= chunkSize;
+            }
+        }
+    }
+    
+    /**
+     * 发送H.264/AVC NAL单元为RTP包 (RFC 6184)
+     */
+    private void sendAvcNalAsRtp(RtpConnection connection, byte[] nalUnit) throws IOException {
         byte pt = 98; // H.264 Payload Type (ZLM rtp_proxy配置: h264_pt=98)
         int maxPayloadSize = 1400 - 12; // MTU 1400 - RTP Header 12
         
@@ -183,6 +352,22 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
         buffer.putInt(Integer.parseInt(connection.ssrc));
         byte[] ssrc = buffer.array();
         byte[] tsBytes = intToBytes(frameTimestamp);
+        
+        // 诊断：打印NAL单元类型
+        int nalType = nalUnit[0] & 0x1F;
+        String nalTypeName;
+        switch (nalType) {
+            case 1: nalTypeName = "Non-IDR Slice"; break;
+            case 5: nalTypeName = "IDR Slice"; break;
+            case 6: nalTypeName = "SEI"; break;
+            case 7: nalTypeName = "SPS"; break;
+            case 8: nalTypeName = "PPS"; break;
+            default: nalTypeName = "Unknown"; break;
+        }
+        if (seqNum < 10) {
+            log.info("[AVC诊断] NAL类型: {} ({}), 大小: {}, 首字节: 0x{}", 
+                    nalType, nalTypeName, nalUnit.length, String.format("%02X", nalUnit[0]));
+        }
         
         byte[] rtpPacket = new byte[1400];
         rtpPacket[0] = (byte) 0x80; // Version 2, no padding, no extension, no CSRC
@@ -222,7 +407,7 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
             totalBytesSent += packetLength;
             
             if (seqNum <= 5) {
-                log.info("[RTP发送] 发送第{}个RTP包，NAL大小: {}, 分片大小: {}, 目标: {}:{}", 
+                log.info("[AVC RTP] 发送第{}个RTP包，NAL大小: {}, 分片大小: {}, 目标: {}:{}", 
                         seqNum, nalUnit.length, chunkSize, connection.targetAddress.getHostAddress(), connection.rtpPort);
             }
             
