@@ -19,7 +19,10 @@ import java.util.List;
  *
  * @author fengcheng
  */
-@FeignClient(contextId = "remoteHaiKangIsupService", value = ServiceNameConstants.HAIKANG_SERVICE,fallbackFactory = RemoteHaiKangIsupFallbackFactory.class)
+@FeignClient(contextId = "remoteHaiKangIsupService",
+        value = ServiceNameConstants.HAIKANG_SERVICE,
+        fallbackFactory = RemoteHaiKangIsupFallbackFactory.class,
+        url= ServiceNameConstants.SERVICE_URL)
 public interface RemoteHaiKangIsupService {
 
 

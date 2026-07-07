@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  * @author fengcheng
  */
 @Slf4j
-@Configuration("mediaConfig")
+@Configuration("media")
 @Order(0)
 @Data
 public class MediaConfig {
