@@ -86,6 +86,30 @@ public class PSStreamDemuxer {
                         byte[] payload = new byte[payloadLen];
                         System.arraycopy(psData, offset, payload, 0, payloadLen);
                         
+                        // 诊断：打印PES负载前32字节
+                        if (payloadLen > 0) {
+                            StringBuilder sb = new StringBuilder();
+                            for (int i = 0; i < Math.min(32, payloadLen); i++) {
+                                sb.append(String.format("%02X ", payload[i] & 0xFF));
+                            }
+                            log.info("[PS解复用] PES负载长度: {}, 前{}字节: {}", 
+                                    payloadLen, Math.min(32, payloadLen), sb.toString().trim());
+                            
+                            // 检查是否有H.264起始码
+                            boolean hasStartCode = false;
+                            for (int i = 0; i < payloadLen - 3; i++) {
+                                if (payload[i] == 0x00 && payload[i+1] == 0x00 && 
+                                    (payload[i+2] == 0x01 || (payload[i+2] == 0x00 && i+3 < payloadLen && payload[i+3] == 0x01))) {
+                                    hasStartCode = true;
+                                    log.info("[PS解复用] 在偏移 {} 找到起始码", i);
+                                    break;
+                                }
+                            }
+                            if (!hasStartCode) {
+                                log.warn("[PS解复用] PES负载中未找到H.264起始码，可能数据格式不正确");
+                            }
+                        }
+                        
                         // 从payload中提取NAL单元
                         List<byte[]> nals = extractNALUnits(payload);
                         nalUnits.addAll(nals);
@@ -202,9 +226,14 @@ public class PSStreamDemuxer {
             }
         }
         
-        // 如果没有找到起始码，可能是裸数据或数据不完整
-        // 将数据缓存，等待下一个包
+        // 诊断：如果没有找到起始码，打印负载前16字节
         if (nalUnits.isEmpty() && payload.length > 0) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < Math.min(16, payload.length); i++) {
+                sb.append(String.format("%02X ", payload[i] & 0xFF));
+            }
+            log.info("[PS解复用] 未找到H.264起始码，负载前{}字节: {}", 
+                    Math.min(16, payload.length), sb.toString().trim());
             // 检查数据是否以00 00 00或00 00开头（可能是跨包的起始码）
             nalBuffer.write(payload, 0, payload.length);
         }
