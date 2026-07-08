@@ -61,6 +61,7 @@ public class PSStreamDemuxer {
 
         int globalOffset = 0;
         int dataLen = psData.length;
+        boolean hasVideoPes = false;
 
         while (globalOffset <= dataLen - 4) {
             // 匹配 00 00 01 起始码前缀
@@ -93,12 +94,17 @@ public class PSStreamDemuxer {
                 continue;
             }
 
-            // 3. 只处理视频PES / 私有流1
-            boolean targetStream = (streamIdInt >= VIDEO_PES_ID_START && streamIdInt <= VIDEO_PES_ID_END)
-                    || streamIdInt == PRIVATE_STREAM_1;
-            if (!targetStream) {
+            // 3. 只处理视频PES（0xE0-0xEF），跳过私有流1（0xBD，通常是音频）
+            // 音频数据不应混入视频NAL解复用缓冲区
+            boolean isVideoPes = (streamIdInt >= VIDEO_PES_ID_START && streamIdInt <= VIDEO_PES_ID_END);
+            if (!isVideoPes) {
+                // 跳过非视频PES（音频等），需要正确计算包长度以跳过
+                if (globalOffset + 2 > dataLen) break;
+                int pesTotalLen = ((psData[globalOffset] & 0xFF) << 8) | (psData[globalOffset + 1] & 0xFF);
+                globalOffset += 2 + pesTotalLen;
                 continue;
             }
+            hasVideoPes = true;
 
             // PES包长度校验
             if (globalOffset + 2 > dataLen) break;
@@ -127,8 +133,25 @@ public class PSStreamDemuxer {
             nalResult.addAll(nalList);
         }
 
+        // 诊断日志：当有视频PES但未提取到NAL时输出
+        if (hasVideoPes && nalResult.isEmpty() && diagnosticCount < 10) {
+            diagnosticCount++;
+            log.warn("[PS解复用] 视频PES未提取到NAL，数据长度: {}, 缓冲区大小: {}", 
+                    psData.length, fragmentBuffer.size());
+            // 打印前32字节用于诊断
+            int printLen = Math.min(32, psData.length);
+            StringBuilder hex = new StringBuilder();
+            for (int i = 0; i < printLen; i++) {
+                hex.append(String.format("%02X ", psData[i] & 0xFF));
+            }
+            log.warn("[PS解复用] 数据前{}字节: {}", printLen, hex.toString().trim());
+        }
+
         return nalResult;
     }
+
+    // 诊断日志计数器
+    private int diagnosticCount = 0;
 
     /**
      * 解析Pack Header长度，区分MPEG1/MPEG2

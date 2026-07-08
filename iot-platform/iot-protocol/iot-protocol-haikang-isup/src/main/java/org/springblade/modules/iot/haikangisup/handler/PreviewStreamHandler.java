@@ -102,22 +102,29 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
         if (dataStream != null && dataStream.length > 0) {
             if (pPreviewCBMsg.byDataType == 2) {
                 videoDataCount++;
-                if (seqNum == 0) {
+                if (connection.seqNum == 0) {
                     log.info("[RTP发送] 首次收到视频数据，数据长度: {}, 目标: {}:{}", 
                             pPreviewCBMsg.dwDataLen, connection.targetAddress.getHostAddress(), connection.rtpPort);
-                    // 打印前16字节的十六进制，用于分析数据格式
+                    // 打印前32字节的十六进制，用于分析数据格式
                     StringBuilder hex = new StringBuilder();
-                    for (int i = 0; i < Math.min(16, dataStream.length); i++) {
+                    for (int i = 0; i < Math.min(32, dataStream.length); i++) {
                         hex.append(String.format("%02X ", dataStream[i] & 0xFF));
                     }
-                    log.info("[PS数据格式] 前16字节: {}", hex.toString());
+                    log.info("[PS数据格式] 前{}字节: {}", Math.min(32, dataStream.length), hex.toString().trim());
                 }
                 
                 // 将PS数据送入解复用器提取NAL单元
                 List<byte[]> nalUnits = connection.psDemuxer.processPSData(dataStream);
                 if (!nalUnits.isEmpty()) {
-                    if (videoDataCount <= 3) {
-                        log.info("[PS解复用] 提取到{}个NAL单元", nalUnits.size());
+                    if (connection.seqNum == 0) {
+                        log.info("[PS解复用] 首次提取到{}个NAL单元", nalUnits.size());
+                        for (int i = 0; i < nalUnits.size(); i++) {
+                            byte[] nal = nalUnits.get(i);
+                            int nalType = nal.length > 0 ? (nal[0] & 0x1F) : -1;
+                            log.info("[PS解复用] NAL#{}: 长度={}, 类型={}, 前8字节={}", 
+                                    i, nal.length, nalType, 
+                                    bytesToHex(nal, Math.min(8, nal.length)));
+                        }
                     }
                     for (byte[] nalUnit : nalUnits) {
                         sendNalUnitAsRtp(connection, nalUnit);
@@ -133,19 +140,30 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
                 if (now - lastStatsTime >= 5000) {
                     long elapsed = (now - startTime) / 1000;
                     long interval = (now - lastStatsTime) / 1000;
-                    log.info("[RTP统计] 运行{}秒, 回调{}次, 视频数据{}次, 发送包{}个, 总字节{}, 速率: {}包/秒, {}字节/秒",
-                            elapsed, invokeCount, videoDataCount, seqNum, totalBytesSent,
-                            interval > 0 ? seqNum / interval : 0,
+                    log.info("[RTP统计] 运行{}秒, 回调{}次, 视频{}次, 发送RTP包{}个, 总字节{}, 速率: {}包/秒, {}字节/秒",
+                            elapsed, invokeCount, videoDataCount, connection.seqNum, totalBytesSent,
+                            interval > 0 ? connection.seqNum / interval : 0,
                             interval > 0 ? totalBytesSent / interval : 0);
                     lastStatsTime = now;
                 }
             } else {
-                log.info("[RTP发送] 收到非视频数据，byDataType: {}, 数据长度: {}", pPreviewCBMsg.byDataType, pPreviewCBMsg.dwDataLen);
+                if (invokeCount <= 3) {
+                    log.info("[RTP发送] 收到非视频数据，byDataType: {}, 数据长度: {}", pPreviewCBMsg.byDataType, pPreviewCBMsg.dwDataLen);
+                }
             }
         } else {
             log.info("[RTP发送] 收到空数据，dataStream: {}, dwDataLen: {}", 
                     dataStream == null ? "null" : "empty", pPreviewCBMsg.dwDataLen);
         }
+    }
+    
+    private String bytesToHex(byte[] bytes, int len) {
+        if (bytes == null || len == 0) return "";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < len; i++) {
+            sb.append(String.format("%02X ", bytes[i] & 0xFF));
+        }
+        return sb.toString().trim();
     }
     
     /**
