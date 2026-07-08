@@ -155,12 +155,24 @@ public class PSStreamDemuxer {
 
     /**
      * 解析Pack Header长度，区分MPEG1/MPEG2
+     * MPEG2: 10字节固定头 + pack_stuffing_length个填充字节
+     * MPEG1: 8字节固定头
      */
     private int parsePackHeaderLen(byte[] data, int offset, int totalLen) {
         if (offset >= totalLen) return 0;
         byte flag = data[offset];
-        // MPEG2 PackHeader固定10字节，MPEG1固定8字节
-        return (flag & 0xC0) == 0x40 ? 10 : 8;
+        if ((flag & 0xC0) == 0x40) {
+            // MPEG2: 10字节固定头 + 填充字节
+            // pack_stuffing_length在最后1字节的低3位 (offset+9)
+            int stuffingLen = 0;
+            if (offset + 9 < totalLen) {
+                stuffingLen = data[offset + 9] & 0x07;
+            }
+            return 10 + stuffingLen;
+        } else {
+            // MPEG1: 8字节固定头
+            return 8;
+        }
     }
 
     /**
@@ -180,6 +192,9 @@ public class PSStreamDemuxer {
         List<byte[]> nalUnits = new ArrayList<>(8);
         if (payload.length == 0) return nalUnits;
 
+        // 记录拼接前缓冲区是否有残留数据（即上一包未完成的NAL）
+        int bufferedSize = fragmentBuffer.size();
+
         // 写入分片缓存，拼接上一包残留片段
         fragmentBuffer.write(payload, 0, payload.length);
         // 缓存超限自动清空，防止内存堆积
@@ -187,12 +202,14 @@ public class PSStreamDemuxer {
             log.warn("[PS解复用] 分片缓存超限自动清空，可能丢帧");
             fragmentBuffer.reset();
             fragmentBuffer.write(payload, 0, payload.length);
+            bufferedSize = 0;
         }
 
         byte[] combinedData = fragmentBuffer.toByteArray();
         int dataLen = combinedData.length;
         int ptr = 0;
-        int lastNalStart = -1;
+        // 如果缓冲区有残留数据，说明有上一包未完成的NAL，从头开始追踪
+        int lastNalStart = bufferedSize > 0 ? 0 : -1;
 
         while (ptr <= dataLen - 4) {
             int fourByteCode = ((combinedData[ptr] & 0xFF) << 24)
