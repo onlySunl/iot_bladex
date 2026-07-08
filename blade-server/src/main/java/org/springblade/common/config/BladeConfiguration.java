@@ -32,10 +32,12 @@ import org.springblade.core.oauth2.endpoint.OAuth2TokenEndPoint;
 import org.springblade.core.secure.registry.SecureRegistry;
 import org.springblade.core.tool.utils.StringPool;
 import org.springblade.modules.auth.endpoint.Oauth2SmsEndpoint;
+import org.springblade.modules.iot.common.interceptor.InternalCallInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -65,6 +67,8 @@ public class BladeConfiguration implements WebMvcConfigurer {
 		secureRegistry.excludePathPatterns("/webjars/**");
 		secureRegistry.excludePathPatterns("/swagger-resources/**");
 		secureRegistry.excludePathPatterns("/druid/**");
+		// Feign内部调用路径排除鉴权
+		secureRegistry.excludePathPatterns("/api/**");
 		return secureRegistry;
 	}
 
@@ -90,6 +94,17 @@ public class BladeConfiguration implements WebMvcConfigurer {
 			c -> c.isAnnotationPresent(RestController.class) && (
 				OAuth2TokenEndPoint.class.equals(c) || OAuth2SocialEndpoint.class.equals(c) || Oauth2SmsEndpoint.class.equals(c))
 		);
+	}
+
+	/**
+	 * 注册内部调用拦截器
+	 * 识别Feign请求中的X-Internal-Call标识，设置系统用户上下文
+	 */
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new InternalCallInterceptor())
+			.addPathPatterns("/api/**")
+			.order(Integer.MIN_VALUE);
 	}
 
 }
