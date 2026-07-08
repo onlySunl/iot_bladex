@@ -355,6 +355,7 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
         
         // 诊断：打印NAL单元类型
         int nalType = nalUnit[0] & 0x1F;
+        int nalRefIdc = (nalUnit[0] >> 5) & 0x03;
         String nalTypeName;
         switch (nalType) {
             case 1: nalTypeName = "Non-IDR Slice"; break;
@@ -370,49 +371,100 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
         }
         
         byte[] rtpPacket = new byte[1400];
-        rtpPacket[0] = (byte) 0x80; // Version 2, no padding, no extension, no CSRC
+        rtpPacket[0] = (byte) 0x80; // Version 2
         
-        int offset = 0;
         int dataSize = nalUnit.length;
         
-        while (dataSize > 0) {
-            int chunkSize = Math.min(maxPayloadSize, dataSize);
-            boolean isLastFragment = (dataSize <= maxPayloadSize);
-            
-            seqNum++;
-            byte[] seqBytes = shortToBytes(seqNum);
-            
-            // RTP Header
-            rtpPacket[0] = (byte) 0x80;
+        if (dataSize <= maxPayloadSize) {
+            // 单包模式：直接发送NAL单元（Single NAL Unit Packet）
             rtpPacket[1] = (byte) (pt & 0x7F);
+            rtpPacket[1] = (byte) (rtpPacket[1] | 0x80); // Marker bit = 1
+            
+            byte[] seqBytes = shortToBytes(++seqNum);
             rtpPacket[2] = seqBytes[0];
             rtpPacket[3] = seqBytes[1];
             System.arraycopy(tsBytes, 0, rtpPacket, 4, 4);
             System.arraycopy(ssrc, 0, rtpPacket, 8, 4);
             
-            // Marker bit: 最后一个包设为1
-            if (isLastFragment) {
-                rtpPacket[1] = (byte) (rtpPacket[1] | 0x80);
-            } else {
-                rtpPacket[1] = (byte) (rtpPacket[1] & 0x7F);
-            }
+            // Payload: 完整的NAL单元
+            System.arraycopy(nalUnit, 0, rtpPacket, 12, dataSize);
             
-            // Payload
-            System.arraycopy(nalUnit, offset, rtpPacket, 12, chunkSize);
-            
-            // 发送
-            int packetLength = 12 + chunkSize;
+            int packetLength = 12 + dataSize;
             DatagramPacket packet = new DatagramPacket(rtpPacket, packetLength, connection.targetAddress, connection.rtpPort);
             connection.udpSocket.send(packet);
             totalBytesSent += packetLength;
             
             if (seqNum <= 5) {
-                log.info("[AVC RTP] 发送第{}个RTP包，NAL大小: {}, 分片大小: {}, 目标: {}:{}", 
-                        seqNum, nalUnit.length, chunkSize, connection.targetAddress.getHostAddress(), connection.rtpPort);
+                log.info("[AVC RTP] 单包发送，NAL大小: {}, 目标: {}:{}", 
+                        dataSize, connection.targetAddress.getHostAddress(), connection.rtpPort);
             }
+        } else {
+            // 分片模式：使用FU-A (Fragmentation Unit A)
+            // FU-A格式：FU indicator(1字节) + FU header(1字节) + FU payload
+            // FU indicator: forbidden_zero_bit(1) + nal_ref_idc(2) + type(5)=28
+            // FU header: S(1) + E(1) + R(1) + type(5)
             
-            offset += chunkSize;
-            dataSize -= chunkSize;
+            int fuHeaderSize = 2; // FU indicator + FU header
+            int fuPayloadSize = maxPayloadSize - fuHeaderSize;
+            
+            // 构建FU indicator：保持forbidden_zero_bit和nal_ref_idc，type=28(FU-A)
+            byte fuIndicator = (byte) ((nalUnit[0] & 0x80) | (nalRefIdc << 5) | 28);
+            
+            int dataOffset = 1; // 跳过原始NAL头
+            int remaining = dataSize - 1;
+            boolean isFirst = true;
+            
+            while (remaining > 0) {
+                int chunkSize = Math.min(fuPayloadSize, remaining);
+                boolean isLast = (remaining <= fuPayloadSize);
+                
+                seqNum++;
+                byte[] seqBytes = shortToBytes(seqNum);
+                
+                // RTP Header
+                rtpPacket[0] = (byte) 0x80;
+                rtpPacket[1] = (byte) (pt & 0x7F);
+                rtpPacket[2] = seqBytes[0];
+                rtpPacket[3] = seqBytes[1];
+                System.arraycopy(tsBytes, 0, rtpPacket, 4, 4);
+                System.arraycopy(ssrc, 0, rtpPacket, 8, 4);
+                
+                // Marker bit: 最后一个分片设为1
+                if (isLast) {
+                    rtpPacket[1] = (byte) (rtpPacket[1] | 0x80);
+                }
+                
+                // FU indicator
+                rtpPacket[12] = fuIndicator;
+                
+                // FU header：S(Start) + E(End) + R(Reserved=0) + type(5bits)
+                byte fuHeader = (byte) (nalType & 0x1F);
+                if (isFirst) {
+                    fuHeader |= 0x80; // S bit
+                    isFirst = false;
+                }
+                if (isLast) {
+                    fuHeader |= 0x40; // E bit
+                }
+                rtpPacket[13] = fuHeader;
+                
+                // FU payload
+                System.arraycopy(nalUnit, dataOffset, rtpPacket, 14, chunkSize);
+                
+                int packetLength = 14 + chunkSize;
+                DatagramPacket packet = new DatagramPacket(rtpPacket, packetLength, connection.targetAddress, connection.rtpPort);
+                connection.udpSocket.send(packet);
+                totalBytesSent += packetLength;
+                
+                if (seqNum <= 5) {
+                    log.info("[AVC RTP] FU-A分片发送，NAL大小: {}, 分片大小: {}, S:{}, E:{}, 目标: {}:{}", 
+                            dataSize, chunkSize, (fuHeader & 0x80) != 0, (fuHeader & 0x40) != 0,
+                            connection.targetAddress.getHostAddress(), connection.rtpPort);
+                }
+                
+                dataOffset += chunkSize;
+                remaining -= chunkSize;
+            }
         }
     }
 
