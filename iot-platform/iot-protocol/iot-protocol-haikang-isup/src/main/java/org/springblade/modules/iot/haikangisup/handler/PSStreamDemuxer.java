@@ -7,245 +7,238 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 简单的 MPEG PS (Program Stream) 解复用器
- * 用于从海康ISUP SDK返回的PS格式数据中提取H.264 NAL单元
+ * MPEG PS Program Stream 解复用器
+ * 适配海康ISUP SDK PS流，自动提取H.264/H.265 NAL单元
+ * 解决分包跨起始码、分片缓存、OOM防护、日志降噪、GC优化
  */
 @Slf4j
 public class PSStreamDemuxer {
-    
-    // MPEG PS 起始码
-    private static final byte[] PACK_START_CODE = {0x00, 0x00, 0x01, (byte) 0xBA};
-    private static final byte[] SYSTEM_HEADER_START_CODE = {0x00, 0x00, 0x01, (byte) 0xBB};
-    private static final byte[] PES_START_CODE_PREFIX = {0x00, 0x00, 0x01};
-    
-    // 视频PES流ID范围: 0xE0 - 0xEF
-    private static final int VIDEO_PES_START = 0xE0;
-    private static final int VIDEO_PES_END = 0xEF;
-    
-    // 私有流1 (可能包含H.264数据)
+    // ===================== PS 标准起始码常量 =====================
+    /** Pack起始码 0x000001BA */
+    private static final byte PACK_START_CODE_ID = (byte) 0xBA;
+    /** System Header起始码 0x000001BB */
+    private static final byte SYSTEM_HEADER_ID = (byte) 0xBB;
+    /** PES公共前缀 00 00 01 */
+    private static final int PES_PREFIX = 0x000001;
+    /** PES流ID掩码 */
+    private static final int STREAM_ID_MASK = 0xFF;
+
+    // ===================== PES 流类型 =====================
+    /** 视频PES起始ID */
+    private static final int VIDEO_PES_ID_START = 0xE0;
+    /** 视频PES结束ID */
+    private static final int VIDEO_PES_ID_END = 0xEF;
+    /** 私有流1（海康ISUP音视频常用） */
     private static final int PRIVATE_STREAM_1 = 0xBD;
-    
-    private ByteArrayOutputStream nalBuffer = new ByteArrayOutputStream();
-    private boolean isFirstPacket = true;
-    
+
+    // ===================== H264/H265 起始码 =====================
+    /** 3字节起始码 00 00 01 */
+    private static final int START_CODE_3BYTE = 0x000001;
+    /** 4字节起始码 00 00 00 01 */
+    private static final int START_CODE_4BYTE = 0x00000001;
+
+    // ===================== 防护阈值 =====================
+    /** PES负载最大允许长度，防止异常流OOM */
+    private static final int MAX_PAYLOAD_SIZE = 2 * 1024 * 1024;
+    /** 分片缓存最大容量，超过自动清空 */
+    private static final int BUFFER_MAX_CAPACITY = 1024 * 1024;
+    /** 日志打印字节上限，避免超长十六进制日志 */
+    private static final int LOG_HEX_LIMIT = 32;
+
+    // 跨包分片缓存：存储被切割的NAL片段，拼接下一包数据
+    private final ByteArrayOutputStream fragmentBuffer = new ByteArrayOutputStream();
+
     /**
-     * 处理PS数据块，提取H.264 NAL单元
-     * @param psData PS格式的数据
-     * @return 提取到的H.264 NAL单元列表
+     * 处理单次PS数据包，输出完整NAL列表
+     * @param psData 原始PS二进制数据
+     * @return 完整H264/H265 NAL数组列表
      */
     public List<byte[]> processPSData(byte[] psData) {
-        List<byte[]> nalUnits = new ArrayList<>();
-        
+        List<byte[]> nalResult = new ArrayList<>(16);
         if (psData == null || psData.length < 4) {
-            return nalUnits;
+            return nalResult;
         }
-        
-        int offset = 0;
-        while (offset < psData.length - 3) {
-            // 查找起始码 00 00 01
-            if (psData[offset] == 0x00 && psData[offset + 1] == 0x00 && psData[offset + 2] == 0x01) {
-                int streamId = psData[offset + 3] & 0xFF;
-                
-                // 跳过Pack Header
-                if (streamId == 0xBA) {
-                    offset += 4;
-                    // Pack header长度可变，需要解析
-                    if (offset < psData.length) {
-                        int packHeaderLen = getPackHeaderLength(psData, offset);
-                        offset += packHeaderLen;
-                    }
-                    continue;
+
+        int globalOffset = 0;
+        int dataLen = psData.length;
+
+        while (globalOffset <= dataLen - 4) {
+            // 匹配 00 00 01 起始码前缀
+            int prefixVal = ((psData[globalOffset] & 0xFF) << 16)
+                    | ((psData[globalOffset + 1] & 0xFF) << 8)
+                    | (psData[globalOffset + 2] & 0xFF);
+            if (prefixVal != PES_PREFIX) {
+                globalOffset++;
+                continue;
+            }
+
+            // 取出流ID
+            byte streamId = psData[globalOffset + 3];
+            int streamIdInt = streamId & STREAM_ID_MASK;
+            int codeHeadPos = globalOffset;
+            globalOffset += 4;
+
+            // 1. 跳过 Pack Header
+            if (streamIdInt == PACK_START_CODE_ID) {
+                int packHeaderLen = parsePackHeaderLen(psData, globalOffset, dataLen);
+                globalOffset += packHeaderLen;
+                continue;
+            }
+
+            // 2. 跳过 System Header
+            if (streamIdInt == SYSTEM_HEADER_ID) {
+                if (globalOffset + 2 > dataLen) break;
+                int sysHeaderLen = ((psData[globalOffset] & 0xFF) << 8) | (psData[globalOffset + 1] & 0xFF);
+                globalOffset += 2 + sysHeaderLen;
+                continue;
+            }
+
+            // 3. 只处理视频PES / 私有流1
+            boolean targetStream = (streamIdInt >= VIDEO_PES_ID_START && streamIdInt <= VIDEO_PES_ID_END)
+                    || streamIdInt == PRIVATE_STREAM_1;
+            if (!targetStream) {
+                continue;
+            }
+
+            // PES包长度校验
+            if (globalOffset + 2 > dataLen) break;
+            int pesTotalLen = ((psData[globalOffset] & 0xFF) << 8) | (psData[globalOffset + 1] & 0xFF);
+            globalOffset += 2;
+
+            // 解析PES头长度
+            int pesHeaderLen = parsePesHeaderLen(psData, globalOffset, dataLen);
+            globalOffset += pesHeaderLen;
+
+            // 负载边界校验，防越界+超大包OOM
+            int payloadRawLen = pesTotalLen - pesHeaderLen;
+            if (payloadRawLen <= 0 || globalOffset >= dataLen) {
+                continue;
+            }
+            int realPayloadLen = Math.min(payloadRawLen, dataLen - globalOffset);
+            realPayloadLen = Math.min(realPayloadLen, MAX_PAYLOAD_SIZE);
+
+            // 截取PES负载
+            byte[] pesPayload = new byte[realPayloadLen];
+            System.arraycopy(psData, globalOffset, pesPayload, 0, realPayloadLen);
+            globalOffset += realPayloadLen;
+
+            // 提取NAL单元并合并到结果
+            List<byte[]> nalList = extractNalFromPayload(pesPayload);
+            nalResult.addAll(nalList);
+        }
+
+        return nalResult;
+    }
+
+    /**
+     * 解析Pack Header长度，区分MPEG1/MPEG2
+     */
+    private int parsePackHeaderLen(byte[] data, int offset, int totalLen) {
+        if (offset >= totalLen) return 0;
+        byte flag = data[offset];
+        // MPEG2 PackHeader固定10字节，MPEG1固定8字节
+        return (flag & 0xC0) == 0x40 ? 10 : 8;
+    }
+
+    /**
+     * 解析PES头部占用字节长度
+     */
+    private int parsePesHeaderLen(byte[] data, int offset, int totalLen) {
+        if (offset + 3 > totalLen) return 0;
+        // PES头部固定3字节标志位 + 可变扩展长度
+        int extLen = data[offset + 2] & 0xFF;
+        return 3 + extLen;
+    }
+
+    /**
+     * 从PES负载提取完整NAL，自动拼接分片缓存，解决跨包起始码断裂
+     */
+    private List<byte[]> extractNalFromPayload(byte[] payload) {
+        List<byte[]> nalUnits = new ArrayList<>(8);
+        if (payload.length == 0) return nalUnits;
+
+        // 写入分片缓存，拼接上一包残留片段
+        fragmentBuffer.write(payload, 0, payload.length);
+        // 缓存超限自动清空，防止内存堆积
+        if (fragmentBuffer.size() > BUFFER_MAX_CAPACITY) {
+            log.warn("[PS解复用] 分片缓存超限自动清空，可能丢帧");
+            fragmentBuffer.reset();
+            fragmentBuffer.write(payload, 0, payload.length);
+        }
+
+        byte[] combinedData = fragmentBuffer.toByteArray();
+        int dataLen = combinedData.length;
+        int ptr = 0;
+        int lastNalStart = -1;
+
+        while (ptr <= dataLen - 4) {
+            int fourByteCode = ((combinedData[ptr] & 0xFF) << 24)
+                    | ((combinedData[ptr + 1] & 0xFF) << 16)
+                    | ((combinedData[ptr + 2] & 0xFF) << 8)
+                    | (combinedData[ptr + 3] & 0xFF);
+            int threeByteCode = ((combinedData[ptr] & 0xFF) << 16)
+                    | ((combinedData[ptr + 1] & 0xFF) << 8)
+                    | (combinedData[ptr + 2] & 0xFF);
+
+            int codeSkipLen = 0;
+            boolean hitStartCode = false;
+
+            // 4字节起始码 00000001
+            if (fourByteCode == START_CODE_4BYTE) {
+                hitStartCode = true;
+                codeSkipLen = 4;
+            }
+            // 3字节起始码 000001
+            else if (threeByteCode == START_CODE_3BYTE) {
+                hitStartCode = true;
+                codeSkipLen = 3;
+            }
+
+            if (hitStartCode) {
+                // 存在上一段完整NAL，保存
+                if (lastNalStart != -1) {
+                    int nalByteLen = ptr - lastNalStart;
+                    byte[] nal = new byte[nalByteLen];
+                    System.arraycopy(combinedData, lastNalStart, nal, 0, nalByteLen);
+                    nalUnits.add(nal);
                 }
-                
-                // 跳过System Header
-                if (streamId == 0xBB) {
-                    offset += 4;
-                    if (offset + 2 <= psData.length) {
-                        int sysHeaderLen = ((psData[offset] & 0xFF) << 8) | (psData[offset + 1] & 0xFF);
-                        offset += 2 + sysHeaderLen;
-                    }
-                    continue;
-                }
-                
-                // 处理PES包
-                if ((streamId >= VIDEO_PES_START && streamId <= VIDEO_PES_END) || streamId == PRIVATE_STREAM_1) {
-                    offset += 4;
-                    if (offset + 2 > psData.length) break;
-                    
-                    // PES包长度
-                    int pesPacketLen = ((psData[offset] & 0xFF) << 8) | (psData[offset + 1] & 0xFF);
-                    offset += 2;
-                    
-                    // 解析PES头
-                    int pesHeaderLen = parsePESHeader(psData, offset, Math.min(pesPacketLen, psData.length - offset));
-                    offset += pesHeaderLen;
-                    
-                    // 提取PES负载数据
-                    int payloadLen = pesPacketLen - pesHeaderLen;
-                    if (payloadLen > 0 && offset + payloadLen <= psData.length) {
-                        byte[] payload = new byte[payloadLen];
-                        System.arraycopy(psData, offset, payload, 0, payloadLen);
-                        
-                        // 诊断：打印PES负载前32字节
-                        if (payloadLen > 0) {
-                            StringBuilder sb = new StringBuilder();
-                            for (int i = 0; i < Math.min(32, payloadLen); i++) {
-                                sb.append(String.format("%02X ", payload[i] & 0xFF));
-                            }
-                            log.info("[PS解复用] PES负载长度: {}, 前{}字节: {}", 
-                                    payloadLen, Math.min(32, payloadLen), sb.toString().trim());
-                            
-                            // 检查是否有H.264起始码
-                            boolean hasStartCode = false;
-                            for (int i = 0; i < payloadLen - 3; i++) {
-                                if (payload[i] == 0x00 && payload[i+1] == 0x00 && 
-                                    (payload[i+2] == 0x01 || (payload[i+2] == 0x00 && i+3 < payloadLen && payload[i+3] == 0x01))) {
-                                    hasStartCode = true;
-                                    log.info("[PS解复用] 在偏移 {} 找到起始码", i);
-                                    break;
-                                }
-                            }
-                            if (!hasStartCode) {
-                                log.warn("[PS解复用] PES负载中未找到H.264起始码，可能数据格式不正确");
-                            }
-                        }
-                        
-                        // 从payload中提取NAL单元
-                        List<byte[]> nals = extractNALUnits(payload);
-                        nalUnits.addAll(nals);
-                        
-                        offset += payloadLen;
-                    } else {
-                        break;
-                    }
-                    continue;
-                }
-                
-                // 其他起始码，跳过
-                offset += 4;
+                // 新NAL起始位置
+                lastNalStart = ptr + codeSkipLen;
+                ptr = lastNalStart;
             } else {
-                offset++;
+                ptr++;
             }
         }
-        
-        return nalUnits;
-    }
-    
-    /**
-     * 获取Pack Header长度
-     */
-    private int getPackHeaderLength(byte[] data, int offset) {
-        if (offset >= data.length) return 0;
-        
-        int marker = (data[offset] & 0xC0) >> 6;
-        if (marker == 0x01) {
-            // MPEG-2: 固定10字节
-            return 10;
+
+        // 处理尾部未结束的分片：重新写入缓存，等待下一包拼接
+        if (lastNalStart == -1) {
+            // 无任何起始码，整段保留在缓存
+            return nalUnits;
+        } else if (lastNalStart < dataLen) {
+            // 截断缓存，只保留未完成的分片
+            fragmentBuffer.reset();
+            fragmentBuffer.write(combinedData, lastNalStart, dataLen - lastNalStart);
         } else {
-            // MPEG-1: 固定8字节
-            return 8;
+            // 所有数据都已组成完整NAL，清空缓存
+            fragmentBuffer.reset();
         }
-    }
-    
-    /**
-     * 解析PES头，返回PES头长度
-     */
-    private int parsePESHeader(byte[] data, int offset, int maxLen) {
-        if (offset + 3 > data.length || maxLen < 3) return 0;
-        
-        // PES头标志 (2字节)
-        // byte1: 10 xx xxxx
-        // byte2: x xxx x xxx (PTS/DTS标志等)
-        int ptsFlag = (data[offset + 1] >> 7) & 0x01;
-        int dtsFlag = (data[offset + 1] >> 6) & 0x01;
-        
-        // PES头数据长度
-        int pesHeaderDataLen = data[offset + 2] & 0xFF;
-        
-        // PES头总长度 = 3 (标志+长度) + pesHeaderDataLen
-        return 3 + pesHeaderDataLen;
-    }
-    
-    /**
-     * 从PES负载中提取H.264 NAL单元
-     */
-    private List<byte[]> extractNALUnits(byte[] payload) {
-        List<byte[]> nalUnits = new ArrayList<>();
-        
-        if (payload == null || payload.length < 4) {
-            return nalUnits;
+
+        // 调试日志仅在debug级别输出，线上默认关闭
+        if (log.isDebugEnabled() && nalUnits.isEmpty()) {
+            int printLen = Math.min(LOG_HEX_LIMIT, payload.length);
+            StringBuilder hexSb = new StringBuilder(printLen * 3);
+            for (int i = 0; i < printLen; i++) {
+                hexSb.append(String.format("%02X ", payload[i] & 0xFF));
+            }
+            log.debug("[PS解复用] PES负载未解析出NAL，前{}字节:{}", printLen, hexSb.toString().trim());
         }
-        
-        // 查找H.264起始码: 00 00 00 01 或 00 00 01
-        int offset = 0;
-        int nalStart = -1;
-        
-        while (offset < payload.length - 3) {
-            boolean foundStartCode = false;
-            int startCodeLen = 0;
-            
-            // 检查4字节起始码: 00 00 00 01
-            if (offset + 3 < payload.length &&
-                payload[offset] == 0x00 && payload[offset + 1] == 0x00 &&
-                payload[offset + 2] == 0x00 && payload[offset + 3] == 0x01) {
-                foundStartCode = true;
-                startCodeLen = 4;
-            }
-            // 检查3字节起始码: 00 00 01
-            else if (payload[offset] == 0x00 && payload[offset + 1] == 0x00 && payload[offset + 2] == 0x01) {
-                foundStartCode = true;
-                startCodeLen = 3;
-            }
-            
-            if (foundStartCode) {
-                // 如果之前有NAL单元，保存它
-                if (nalStart >= 0) {
-                    int nalLen = offset - nalStart;
-                    if (nalLen > 0) {
-                        byte[] nal = new byte[nalLen];
-                        System.arraycopy(payload, nalStart, nal, 0, nalLen);
-                        nalUnits.add(nal);
-                    }
-                }
-                
-                // 新的NAL单元从起始码后开始
-                nalStart = offset + startCodeLen;
-                offset = nalStart;
-            } else {
-                offset++;
-            }
-        }
-        
-        // 处理最后一个NAL单元
-        if (nalStart >= 0 && nalStart < payload.length) {
-            int nalLen = payload.length - nalStart;
-            if (nalLen > 0) {
-                byte[] nal = new byte[nalLen];
-                System.arraycopy(payload, nalStart, nal, 0, nalLen);
-                nalUnits.add(nal);
-            }
-        }
-        
-        // 诊断：如果没有找到起始码，打印负载前16字节
-        if (nalUnits.isEmpty() && payload.length > 0) {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < Math.min(16, payload.length); i++) {
-                sb.append(String.format("%02X ", payload[i] & 0xFF));
-            }
-            log.info("[PS解复用] 未找到H.264起始码，负载前{}字节: {}", 
-                    Math.min(16, payload.length), sb.toString().trim());
-            // 检查数据是否以00 00 00或00 00开头（可能是跨包的起始码）
-            nalBuffer.write(payload, 0, payload.length);
-        }
-        
         return nalUnits;
     }
-    
+
     /**
-     * 重置解复用器状态
+     * 重置解复用器缓存，切换设备/流时必须调用
      */
     public void reset() {
-        nalBuffer.reset();
-        isFirstPacket = true;
+        fragmentBuffer.reset();
     }
 }

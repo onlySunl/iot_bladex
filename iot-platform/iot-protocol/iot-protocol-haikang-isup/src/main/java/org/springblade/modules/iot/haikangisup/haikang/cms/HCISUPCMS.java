@@ -13,7 +13,6 @@
  * @author Xubinfeng
  */
 package org.springblade.modules.iot.haikangisup.haikang.cms;
-
 import com.sun.jna.*;
 import com.sun.jna.examples.win32.W32API;
 import org.springblade.modules.iot.haikangisup.haikang.HIKSDKStructure;
@@ -356,9 +355,9 @@ public interface HCISUPCMS extends Library {
         public byte bySpeed;  //云台速度，0-7，数值越大速度越快
         public byte[] byRes = new byte[29];
     }
-    
+
     ;
-    
+
     public static class NET_EHOME_PRESET_PARAM extends HIKSDKStructure {
         public int dwSize;                 //结构体大小
         public byte byPresetCmd;           //预置点控制命令：1-设置预置点，2-删除预置点，3-调用预置点

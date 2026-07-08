@@ -245,6 +245,7 @@ public class ZLMMediaServerStatusManager {
                 mediaServerItem.getId(), mediaServerItem.getIp(), mediaServerItem.getHttpPort());*/
         String protocol = sslEnabled ? "https" : "http";
         String hookPrefix = String.format("%s://%s/zlm/index/hook", protocol, mediaServerItem.getHookIp());
+        //String hookPrefix = String.format("%s://%s:%s%s/zlm/index/hook", protocol, mediaServerItem.getHookIp(), mediaServerItem.getHttpPort(), (serverServletContextPath == null || "/".equals(serverServletContextPath)) ? "" : serverServletContextPath);
 
         Map<String, Object> param = new HashMap<>();
         if (mediaServerItem.getRtspPort() != 0) {
