@@ -39,6 +39,8 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
     private int seqNum = 0;
     private int currentTimestamp = 0;
     private long totalBytesSent = 0;
+    private long invokeCount = 0; // 回调调用计数
+    private long videoDataCount = 0; // 视频数据回调计数
 
     // 存储每个回放句柄对应的连接信息
     private class RtpConnection {
@@ -54,9 +56,14 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
 
     @Override
     public boolean invoke(int iPlayBackLinkHandle, HCISUPStream.NET_EHOME_PLAYBACK_DATA_CB_INFO pDataCBInfo, Pointer pUserData) {
+        invokeCount++;
+        
         // 通过 iPlayBackLinkHandle 获取 sessionID
         Integer sessionID = StreamManager.playbackHandSAndSessionIDandMap.get(iPlayBackLinkHandle);
         if (sessionID == null) {
+            if (invokeCount <= 3) {
+                log.warn("[回放回调] 句柄: {} 未找到sessionID", iPlayBackLinkHandle);
+            }
             return true;
         }
 
@@ -102,6 +109,9 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
         // 回放模式：PS解复用 -> H.264 NAL提取 -> RTP发送
         RtpServerParam rtpServerParam = StreamManager.luserIdAndPlaybackRtpServerParamMap.get(sessionID);
         if (rtpServerParam == null) {
+            if (invokeCount <= 3) {
+                log.warn("[回放回调] sessionID: {} 未找到rtpServerParam", sessionID);
+            }
             return true;
         }
 
@@ -130,18 +140,44 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
             return true;
         }
 
+        // 诊断日志：前几次回调打印详细信息
+        if (invokeCount <= 5) {
+            log.info("[回放回调] 第{}次调用，句柄: {}, dwType: {}, dwDataLen: {}, pData: {}",
+                    invokeCount, iPlayBackLinkHandle, pDataCBInfo.dwType, pDataCBInfo.dwDataLen,
+                    pDataCBInfo.pData != null ? "非空" : "空");
+        }
+
         // 检查数据类型
         if (pDataCBInfo.dwType == 2) { // 码流数据
             int dwBufSize = pDataCBInfo.dwDataLen;
             Pointer pBuffer = pDataCBInfo.pData;
 
             if (pBuffer != null && dwBufSize > 0) {
+                videoDataCount++;
                 try {
                     byte[] data = pBuffer.getByteArray(0, dwBufSize);
+
+                    // 首次打印数据格式
+                    if (videoDataCount <= 2) {
+                        StringBuilder hex = new StringBuilder();
+                        for (int i = 0; i < Math.min(32, data.length); i++) {
+                            hex.append(String.format("%02X ", data[i] & 0xFF));
+                        }
+                        log.info("[回放PS数据] 第{}次视频数据，长度: {}, 前{}字节: {}",
+                                videoDataCount, data.length, Math.min(32, data.length), hex.toString().trim());
+                    }
 
                     // 将PS数据送入解复用器提取NAL单元
                     List<byte[]> nalUnits = connection.psDemuxer.processPSData(data);
                     if (!nalUnits.isEmpty()) {
+                        if (videoDataCount <= 2) {
+                            log.info("[回放PS解复用] 提取到{}个NAL单元", nalUnits.size());
+                            for (int i = 0; i < nalUnits.size(); i++) {
+                                byte[] nal = nalUnits.get(i);
+                                int nalType = nal.length > 0 ? (nal[0] & 0x1F) : -1;
+                                log.info("[回放PS解复用] NAL#{}: 长度={}, 类型={}", i, nal.length, nalType);
+                            }
+                        }
                         for (byte[] nalUnit : nalUnits) {
                             sendNalUnitAsRtp(connection, nalUnit);
                         }
@@ -153,6 +189,10 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
         } else if (pDataCBInfo.dwType == 3) { // 回放停止信令
             log.info("收到回放停止信令，句柄: {}", iPlayBackLinkHandle);
             close(iPlayBackLinkHandle);
+        } else {
+            if (invokeCount <= 5) {
+                log.warn("[回放回调] 未知数据类型 dwType: {}", pDataCBInfo.dwType);
+            }
         }
 
         return true;
