@@ -425,7 +425,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
     @Transactional
     public void onApplicationEvent(MediaServerOnlineEvent event) {
         // 查看是否有未处理的RTP流
-        //log.info("流媒体节点上线: {}", event.getMediaServer());
+        log.info("流媒体节点上线: {}", event.getMediaServer());
         if (event.getMediaServer().getId() == null) {
             return;
         }

@@ -38,6 +38,7 @@
         <result property="transcodeSuffix" column="transcode_suffix"/>
         <result property="serverId" column="server_id"/>
         <result property="status" column="status"/>
+        <result property="mediaStatus" column="media_status"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
@@ -75,6 +76,7 @@
                record_day,
                transcode_suffix,
                server_id,
+               media_status,
                status,
                create_time,
                update_time
@@ -117,6 +119,7 @@
             <if test="transcodeSuffix != null">transcode_suffix,</if>
             <if test="serverId != null">server_id,</if>
             <if test="status != null">status,</if>
+            <if test="mediaStatus != null">media_status,</if>
             <if test="createTime != null">create_time,</if>
             <if test="updateTime != null">update_time,</if>
         </trim>
@@ -153,6 +156,7 @@
             <if test="recordDay != null">#{recordDay},</if>
             <if test="transcodeSuffix != null">#{transcodeSuffix},</if>
             <if test="serverId != null">#{serverId},</if>
+            <if test="mediaStatus != null">#{mediaStatus},</if>
             <if test="status != null">#{status},</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="updateTime != null">#{updateTime},</if>
@@ -194,6 +198,7 @@
             <if test="transcodeSuffix != null">transcode_suffix = #{transcodeSuffix},</if>
             <if test="serverId != null">server_id = #{serverId},</if>
             <if test="status != null">status = #{status},</if>
+            <if test="mediaStatus != null">media_status = #{mediaStatus},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </trim>
@@ -229,7 +234,7 @@
 
     <select id="getAllOnlineMediaServe" resultMap="ZlmMediaServerResult">
         <include refid="selectZlmMediaServerVo"/>
-        where status = 'ON'
+        where media_status = 'ONLINE'
     </select>
 
     <select id="queryOneByHostAndPort" resultMap="ZlmMediaServerResult">
