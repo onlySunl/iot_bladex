@@ -6,21 +6,24 @@ import org.springblade.modules.iot.common.domain.RtpServerParam;
 import org.springblade.modules.iot.haikangisup.haikang.stream.HCISUPStream;
 import org.springblade.modules.iot.haikangisup.manager.StreamManager;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * 回放流处理器 - 每个回放会话独立的回调实例
  * 注意：不使用 @Component/@Service 注解，避免单例模式导致的状态混乱
+ *
+ * 数据流程：海康SDK回调 -> PS解复用 -> H.264 NAL单元 -> RTP封装(RFC 6184) -> UDP发送
  */
 @Slf4j
 public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
@@ -28,27 +31,22 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
     private static final int CLOCK_RATE = 90000;
     private static final int FPS = 25;
     private static final int TIMESTAMP_INCREMENT = CLOCK_RATE / FPS; // 3600
-    private static final int MAX_PAYLOAD_SIZE = 1400 - 12; // RTP包大小减去头部
 
     // 下载相关的latch map - 静态，用于跨实例访问
     public static final Map<String, CountDownLatch> downloadLatchMap = new ConcurrentHashMap<>();
 
+    // 状态变量
+    private int seqNum = 0;
+    private int currentTimestamp = 0;
+    private long totalBytesSent = 0;
+
     // 存储每个回放句柄对应的连接信息
     private class RtpConnection {
-        int seqNum = 0;
-        int timestamp = 0;
         int rtpPort = 0;
         String ssrc;
         DatagramSocket udpSocket;
         InetAddress targetAddress;
-        
-        // 帧队列相关
-        ByteArrayOutputStream currentFrameBuffer = new ByteArrayOutputStream();
-        LinkedBlockingQueue<byte[]> frameQueue = new LinkedBlockingQueue<>();
-        
-        // 发送线程
-        Thread sendThread;
-        volatile boolean running = true;
+        PSStreamDemuxer psDemuxer = new PSStreamDemuxer(); // PS解复用器
     }
 
     // 使用线程安全的 Map 存储每个句柄对应的连接
@@ -64,7 +62,7 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
 
         // 获取回放类型
         String type = StreamManager.playbackUserIDandTypeMap.get(sessionID);
-        
+
         if ("download".equals(type)) {
             // 下载模式：将数据写入文件
             String filePath = StreamManager.playbackUserIDandFilePathMap.get(sessionID);
@@ -76,11 +74,10 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
             if (pDataCBInfo.dwType == 2 && pDataCBInfo.pData != null && pDataCBInfo.dwDataLen > 0) {
                 try {
                     File file = new File(filePath);
-                    // 确保父目录存在
                     if (file.getParentFile() != null && !file.getParentFile().exists()) {
                         file.getParentFile().mkdirs();
                     }
-                    
+
                     try (FileOutputStream fos = new FileOutputStream(file, true)) {
                         byte[] data = pDataCBInfo.pData.getByteArray(0, pDataCBInfo.dwDataLen);
                         fos.write(data);
@@ -90,7 +87,6 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
                 }
             } else if (pDataCBInfo.dwType == 3) {
                 log.info("收到回放停止信令（下载模式），句柄: {}, sessionID: {}", iPlayBackLinkHandle, sessionID);
-                // 唤醒下载等待的线程
                 String downloadKey = StreamManager.sessionIDandDownloadKeyMap.get(sessionID);
                 if (downloadKey != null) {
                     CountDownLatch latch = downloadLatchMap.get(downloadKey);
@@ -103,8 +99,7 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
             return true;
         }
 
-        // 回放模式：正常的RTP发送
-        // 通过 sessionID 获取 rtpServerParam
+        // 回放模式：PS解复用 -> H.264 NAL提取 -> RTP发送
         RtpServerParam rtpServerParam = StreamManager.luserIdAndPlaybackRtpServerParamMap.get(sessionID);
         if (rtpServerParam == null) {
             return true;
@@ -114,23 +109,17 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
         RtpConnection connection = connectionMap.computeIfAbsent(iPlayBackLinkHandle, handle -> {
             RtpConnection conn = new RtpConnection();
             try {
-                // 1. 解析目标地址
                 conn.targetAddress = InetAddress.getByName(rtpServerParam.getIp());
-                // 2. 创建本地 UDP Socket
                 conn.udpSocket = new DatagramSocket();
-                // 3. 设置 SSRC
                 conn.ssrc = rtpServerParam.getSsrc();
                 conn.rtpPort = rtpServerParam.getPort();
-                
-                // 4. 启动发送线程
-                conn.sendThread = new Thread(() -> sendLoop(conn), "RtpSender-" + handle);
-                conn.sendThread.start();
-                
-                log.info("回放句柄: {} ==== RTP Socket创建成功，ip: {}, 端口: {}, ssrc: {}, sessionID: {}", 
-                        iPlayBackLinkHandle, rtpServerParam.getIp(), rtpServerParam.getPort(), rtpServerParam.getSsrc(), sessionID);
+                log.info("回放句柄: {} ==== RTP Socket创建成功，ip: {}, 端口: {}, ssrc: {}, sessionID: {}",
+                        iPlayBackLinkHandle, rtpServerParam.getIp(), rtpServerParam.getPort(),
+                        rtpServerParam.getSsrc(), sessionID);
             } catch (Exception e) {
-                log.error("创建RTP Socket失败，句柄: {}, ip: {}, 端口: {}, ssrc: {}, sessionID: {}", 
-                        iPlayBackLinkHandle, rtpServerParam.getIp(), rtpServerParam.getPort(), rtpServerParam.getSsrc(), sessionID, e);
+                log.error("创建RTP Socket失败，句柄: {}, ip: {}, 端口: {}, ssrc: {}, sessionID: {}",
+                        iPlayBackLinkHandle, rtpServerParam.getIp(), rtpServerParam.getPort(),
+                        rtpServerParam.getSsrc(), sessionID, e);
                 return null;
             }
             return conn;
@@ -145,13 +134,20 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
         if (pDataCBInfo.dwType == 2) { // 码流数据
             int dwBufSize = pDataCBInfo.dwDataLen;
             Pointer pBuffer = pDataCBInfo.pData;
-            
+
             if (pBuffer != null && dwBufSize > 0) {
                 try {
                     byte[] data = pBuffer.getByteArray(0, dwBufSize);
-                    processFrameData(connection, data);
+
+                    // 将PS数据送入解复用器提取NAL单元
+                    List<byte[]> nalUnits = connection.psDemuxer.processPSData(data);
+                    if (!nalUnits.isEmpty()) {
+                        for (byte[] nalUnit : nalUnits) {
+                            sendNalUnitAsRtp(connection, nalUnit);
+                        }
+                    }
                 } catch (Exception e) {
-                    log.error("[海康ISUP] 处理回调数据异常，句柄: {}", iPlayBackLinkHandle, e);
+                    log.error("[海康ISUP回放] 处理回调数据异常，句柄: {}", iPlayBackLinkHandle, e);
                 }
             }
         } else if (pDataCBInfo.dwType == 3) { // 回放停止信令
@@ -163,175 +159,168 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
     }
 
     /**
-     * 处理帧数据
+     * 将NAL单元封装为RTP包并发送 (RFC 6184 H.264)
+     * 与PreviewStreamHandler使用相同的封装逻辑
      */
-    private void processFrameData(RtpConnection connection, byte[] data) throws IOException {
-        int packHeaderPos = findPackHeader(data, 0);
-        
-        if (packHeaderPos == -1) {
-            connection.currentFrameBuffer.write(data);
+    private void sendNalUnitAsRtp(RtpConnection connection, byte[] nalUnit) throws IOException {
+        if (nalUnit == null || nalUnit.length == 0) {
             return;
         }
-        
-        if (packHeaderPos > 0) {
-            connection.currentFrameBuffer.write(data, 0, packHeaderPos);
-            if (connection.currentFrameBuffer.size() > 0) {
-                connection.frameQueue.offer(connection.currentFrameBuffer.toByteArray());
-                connection.currentFrameBuffer = new ByteArrayOutputStream();
-            }
-        }
-        
-        int nextPos = findPackHeader(data, packHeaderPos + 4);
-        while (nextPos != -1) {
-            int frameLen = nextPos - packHeaderPos;
-            byte[] frameData = new byte[frameLen];
-            System.arraycopy(data, packHeaderPos, frameData, 0, frameLen);
-            connection.frameQueue.offer(frameData);
-            packHeaderPos = nextPos;
-            nextPos = findPackHeader(data, packHeaderPos + 4);
-        }
-        
-        connection.currentFrameBuffer.write(data, packHeaderPos, data.length - packHeaderPos);
-    }
 
-    /**
-     * 查找帧头 0x00 0x00 0x01 0xBA
-     */
-    private int findPackHeader(byte[] data, int start) {
-        for (int i = start; i < data.length - 3; i++) {
-            if (data[i] == 0x00 && data[i + 1] == 0x00 && 
-                data[i + 2] == 0x01 && data[i + 3] == (byte) 0xBA) {
-                return i;
-            }
-        }
-        return -1;
-    }
+        byte pt = 98; // H.264 Payload Type (ZLM配置: h264_pt=98)
+        int maxPayloadSize = 1400 - 12; // MTU 1400 - RTP Header 12
 
-    /**
-     * 发送循环
-     */
-    private void sendLoop(RtpConnection connection) {
-        long frameInterval = 1000L / FPS; // 每帧间隔（毫秒）
-        
-        while (connection.running) {
-            try {
-                byte[] frameData = connection.frameQueue.poll();
-                if (frameData != null && frameData.length > 0) {
-                    sendFrame(connection, frameData);
-                    connection.timestamp += TIMESTAMP_INCREMENT;
-                }
-                Thread.sleep(frameInterval);
-            } catch (InterruptedException e) {
-                break;
-            } catch (Exception e) {
-                log.error("[海康ISUP] 发送帧数据异常", e);
-            }
-        }
-    }
+        // 时间戳
+        int frameTimestamp = currentTimestamp;
+        currentTimestamp += TIMESTAMP_INCREMENT;
 
-    /**
-     * 发送一帧数据
-     */
-    private void sendFrame(RtpConnection connection, byte[] frameData) throws IOException {
-        int offset = 0;
-        
-        while (offset < frameData.length) {
-            int payloadSize = Math.min(MAX_PAYLOAD_SIZE, frameData.length - offset);
-            boolean isLastPacket = (offset + payloadSize >= frameData.length);
-            
-            // 构建RTP包
-            byte[] rtpPacket = buildRtpPacket(connection, ++connection.seqNum, connection.timestamp, isLastPacket, frameData, offset, payloadSize);
-            
-            // 发送UDP包
-            DatagramPacket packet = new DatagramPacket(rtpPacket, rtpPacket.length, connection.targetAddress, connection.rtpPort);
+        // SSRC
+        ByteBuffer buffer = ByteBuffer.allocate(4);
+        buffer.order(ByteOrder.BIG_ENDIAN);
+        buffer.putInt(Integer.parseInt(connection.ssrc));
+        byte[] ssrc = buffer.array();
+        byte[] tsBytes = intToBytes(frameTimestamp);
+
+        int nalType = nalUnit[0] & 0x1F;
+        int nalRefIdc = (nalUnit[0] >> 5) & 0x03;
+
+        byte[] rtpPacket = new byte[1400];
+        rtpPacket[0] = (byte) 0x80; // Version 2
+
+        int dataSize = nalUnit.length;
+
+        if (dataSize <= maxPayloadSize) {
+            // 单包模式：Single NAL Unit Packet
+            rtpPacket[1] = (byte) (pt & 0x7F);
+            rtpPacket[1] = (byte) (rtpPacket[1] | 0x80); // Marker bit = 1
+
+            byte[] seqBytes = shortToBytes(++seqNum);
+            rtpPacket[2] = seqBytes[0];
+            rtpPacket[3] = seqBytes[1];
+            System.arraycopy(tsBytes, 0, rtpPacket, 4, 4);
+            System.arraycopy(ssrc, 0, rtpPacket, 8, 4);
+
+            System.arraycopy(nalUnit, 0, rtpPacket, 12, dataSize);
+
+            int packetLength = 12 + dataSize;
+            DatagramPacket packet = new DatagramPacket(rtpPacket, packetLength, connection.targetAddress, connection.rtpPort);
             connection.udpSocket.send(packet);
-            
-            offset += payloadSize;
+            totalBytesSent += packetLength;
+
+            if (seqNum <= 3) {
+                String nalTypeName;
+                switch (nalType) {
+                    case 5: nalTypeName = "IDR"; break;
+                    case 7: nalTypeName = "SPS"; break;
+                    case 8: nalTypeName = "PPS"; break;
+                    case 6: nalTypeName = "SEI"; break;
+                    case 1: nalTypeName = "Non-IDR"; break;
+                    default: nalTypeName = "Type_" + nalType; break;
+                }
+                log.info("[回放RTP] 单包发送 NAL={} 大小={} 目标={}:{}", 
+                        nalTypeName, dataSize, connection.targetAddress.getHostAddress(), connection.rtpPort);
+            }
+        } else {
+            // 分片模式：FU-A (Fragmentation Unit A)
+            // FU indicator: forbidden_zero_bit(1) + nal_ref_idc(2) + type(5)=28
+            // FU header: S(1) + E(1) + R(1) + type(5)
+            byte fuIndicator = (byte) ((nalUnit[0] & 0x80) | (nalRefIdc << 5) | 28);
+
+            int dataOffset = 1; // 跳过原始NAL头
+            int remaining = dataSize - 1;
+            boolean isFirst = true;
+
+            while (remaining > 0) {
+                int fuPayloadSize = maxPayloadSize - 2; // FU indicator + FU header
+                int chunkSize = Math.min(fuPayloadSize, remaining);
+                boolean isLast = (remaining <= fuPayloadSize);
+
+                seqNum++;
+                byte[] seqBytes = shortToBytes(seqNum);
+
+                // RTP Header
+                rtpPacket[0] = (byte) 0x80;
+                rtpPacket[1] = (byte) (pt & 0x7F);
+                rtpPacket[2] = seqBytes[0];
+                rtpPacket[3] = seqBytes[1];
+                System.arraycopy(tsBytes, 0, rtpPacket, 4, 4);
+                System.arraycopy(ssrc, 0, rtpPacket, 8, 4);
+
+                // Marker bit: 最后一个分片设为1
+                if (isLast) {
+                    rtpPacket[1] = (byte) (rtpPacket[1] | 0x80);
+                }
+
+                // FU indicator
+                rtpPacket[12] = fuIndicator;
+
+                // FU header
+                byte fuHeader = (byte) (nalType & 0x1F);
+                if (isFirst) {
+                    fuHeader |= 0x80; // S bit
+                    isFirst = false;
+                }
+                if (isLast) {
+                    fuHeader |= 0x40; // E bit
+                }
+                rtpPacket[13] = fuHeader;
+
+                // FU payload
+                System.arraycopy(nalUnit, dataOffset, rtpPacket, 14, chunkSize);
+
+                int packetLength = 14 + chunkSize;
+                DatagramPacket packet = new DatagramPacket(rtpPacket, packetLength, connection.targetAddress, connection.rtpPort);
+                connection.udpSocket.send(packet);
+                totalBytesSent += packetLength;
+
+                dataOffset += chunkSize;
+                remaining -= chunkSize;
+            }
+
+            if (seqNum <= 3) {
+                log.info("[回放RTP] FU-A分片发送 NAL类型={} 原始大小={} 目标={}:{}", 
+                        nalType, dataSize, connection.targetAddress.getHostAddress(), connection.rtpPort);
+            }
         }
-    }
-
-    /**
-     * 构建RTP包
-     */
-    private byte[] buildRtpPacket(RtpConnection connection, int seq, int ts, boolean marker, byte[] frameData, int dataOffset, int payloadSize) {
-        int rtpLength = 12 + payloadSize;
-        byte[] packet = new byte[rtpLength];
-        
-        // 构建RTP头部
-        byte[] rtpHeader = buildRtpHeader(connection, seq, ts, marker);
-        System.arraycopy(rtpHeader, 0, packet, 0, 12);
-        
-        // 复制数据到RTP包
-        System.arraycopy(frameData, dataOffset, packet, 12, payloadSize);
-        
-        return packet;
-    }
-
-    /**
-     * 构建RTP头部
-     */
-    private byte[] buildRtpHeader(RtpConnection connection, int seq, int ts, boolean marker) {
-        byte markerBit = marker ? (byte) 0x80 : (byte) 0x00;
-        byte[] ssrcBytes = intToBytes(Integer.parseInt(connection.ssrc));
-        
-        return new byte[]{
-            (byte) 0x80,
-            (byte) (markerBit | 0x60), // 0x60 = 96 (H.264 Payload Type)
-            (byte) (seq >> 8),
-            (byte) (seq & 0xFF),
-            (byte) (ts >> 24),
-            (byte) (ts >> 16),
-            (byte) (ts >> 8),
-            (byte) (ts & 0xFF),
-            ssrcBytes[0],
-            ssrcBytes[1],
-            ssrcBytes[2],
-            ssrcBytes[3]
-        };
     }
 
     /**
      * 关闭指定句柄的RTP连接
-     *
-     * @param iPlayBackLinkHandle 回放句柄
      */
     public void close(int iPlayBackLinkHandle) {
         RtpConnection connection = connectionMap.remove(iPlayBackLinkHandle);
-        if (connection != null) {
-            // 停止发送线程
-            connection.running = false;
-            if (connection.sendThread != null) {
-                connection.sendThread.interrupt();
-                try {
-                    connection.sendThread.join(1000);
-                } catch (InterruptedException e) {
-                    // 忽略
-                }
-            }
-            
-            // 关闭Socket
-            if (connection.udpSocket != null && !connection.udpSocket.isClosed()) {
-                try {
-                    connection.udpSocket.close();
-                    log.info("[海康ISUP] 关闭RTP连接成功，句柄: {}", iPlayBackLinkHandle);
-                } catch (Exception e) {
-                    log.error("[海康ISUP] 关闭RTP连接失败，句柄: {}", iPlayBackLinkHandle, e);
-                }
+        if (connection != null && connection.udpSocket != null && !connection.udpSocket.isClosed()) {
+            try {
+                connection.udpSocket.close();
+                log.info("关闭回放RTP连接成功，句柄: {}, 已发送{}字节", iPlayBackLinkHandle, totalBytesSent);
+            } catch (Exception e) {
+                log.error("关闭RTP连接失败，句柄: {}", iPlayBackLinkHandle, e);
             }
         }
     }
 
     /**
-     * 将int值转换为4字节的字节数组 大端序
-     *
-     * @param value 要转换的int值
-     * @return 包含该int值的4字节表示形式的字节数组
+     * 关闭所有连接
      */
+    public void closeAll() {
+        for (Integer handle : connectionMap.keySet()) {
+            close(handle);
+        }
+    }
+
+    // 工具方法
     private byte[] intToBytes(int value) {
         return new byte[]{
-                (byte) (value >>> 24),
-                (byte) (value >>> 16),
-                (byte) (value >>> 8),
+                (byte) (value >> 24),
+                (byte) (value >> 16),
+                (byte) (value >> 8),
+                (byte) value
+        };
+    }
+
+    private byte[] shortToBytes(int value) {
+        return new byte[]{
+                (byte) (value >> 8),
                 (byte) value
         };
     }

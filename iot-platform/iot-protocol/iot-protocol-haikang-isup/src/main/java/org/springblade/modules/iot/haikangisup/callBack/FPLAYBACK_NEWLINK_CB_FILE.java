@@ -45,7 +45,7 @@ public class FPLAYBACK_NEWLINK_CB_FILE implements HCISUPStream.PLAYBACK_NEWLINK_
 
         HCISUPStream.NET_EHOME_PLAYBACK_DATA_CB_PARAM struDataCB = new HCISUPStream.NET_EHOME_PLAYBACK_DATA_CB_PARAM();
         struDataCB.fnPlayBackDataCB = playbackStreamHandler;
-        struDataCB.byStreamFormat = 1; // 1-RTP格式
+        struDataCB.byStreamFormat = 0; // 码流封装格式：0-PS格式（与预览一致，使用PSStreamDemuxer解复用）
 
         if (!StreamService.hCEhomeStream.NET_ESTREAM_SetPlayBackDataCB(lPlayBackLinkHandle, struDataCB)) {
             log.info("NET_ESTREAM_SetPlayBackDataCB 失败 err: {}", StreamService.hCEhomeStream.NET_ESTREAM_GetLastError());
