@@ -48,6 +48,11 @@ public class PSStreamDemuxer {
     // 跨包分片缓存：存储被切割的NAL片段，拼接下一包数据
     private final ByteArrayOutputStream fragmentBuffer = new ByteArrayOutputStream();
 
+    // 诊断日志计数器
+    private int diagnosticCount = 0;
+    // 解析步骤诊断计数器
+    private int parseDiagnosticCount = 0;
+
     /**
      * 处理单次PS数据包，输出完整NAL列表
      * @param psData 原始PS二进制数据
@@ -62,6 +67,10 @@ public class PSStreamDemuxer {
         int globalOffset = 0;
         int dataLen = psData.length;
         boolean hasVideoPes = false;
+        boolean hasPackHeader = false;
+        boolean hasSystemHeader = false;
+        int pesFoundCount = 0;
+        int skippedPesCount = 0;
 
         while (globalOffset <= dataLen - 4) {
             // 匹配 00 00 01 起始码前缀
@@ -81,30 +90,44 @@ public class PSStreamDemuxer {
 
             // 1. 跳过 Pack Header
             if (streamIdInt == PACK_START_CODE_ID) {
+                hasPackHeader = true;
                 int packHeaderLen = parsePackHeaderLen(psData, globalOffset, dataLen);
+                if (parseDiagnosticCount < 5) {
+                    int stuffingLen = packHeaderLen - 10;
+                    log.info("[PS解析] Pack Header @offset={}, stuffingLen={}, totalPackLen={}", 
+                            codeHeadPos, stuffingLen, 4 + packHeaderLen);
+                }
                 globalOffset += packHeaderLen;
                 continue;
             }
 
             // 2. 跳过 System Header
             if (streamIdInt == SYSTEM_HEADER_ID) {
+                hasSystemHeader = true;
                 if (globalOffset + 2 > dataLen) break;
                 int sysHeaderLen = ((psData[globalOffset] & 0xFF) << 8) | (psData[globalOffset + 1] & 0xFF);
+                if (parseDiagnosticCount < 5) {
+                    log.info("[PS解析] System Header @offset={}, len={}", codeHeadPos, sysHeaderLen);
+                }
                 globalOffset += 2 + sysHeaderLen;
                 continue;
             }
 
             // 3. 只处理视频PES（0xE0-0xEF），跳过私有流1（0xBD，通常是音频）
-            // 音频数据不应混入视频NAL解复用缓冲区
             boolean isVideoPes = (streamIdInt >= VIDEO_PES_ID_START && streamIdInt <= VIDEO_PES_ID_END);
             if (!isVideoPes) {
-                // 跳过非视频PES（音频等），需要正确计算包长度以跳过
                 if (globalOffset + 2 > dataLen) break;
                 int pesTotalLen = ((psData[globalOffset] & 0xFF) << 8) | (psData[globalOffset + 1] & 0xFF);
+                skippedPesCount++;
+                if (parseDiagnosticCount < 5) {
+                    log.info("[PS解析] 跳过非视频PES streamId=0x{}, @offset={}, pesLen={}", 
+                            String.format("%02X", streamIdInt), codeHeadPos, pesTotalLen);
+                }
                 globalOffset += 2 + pesTotalLen;
                 continue;
             }
             hasVideoPes = true;
+            pesFoundCount++;
 
             // PES包长度校验
             if (globalOffset + 2 > dataLen) break;
@@ -115,13 +138,28 @@ public class PSStreamDemuxer {
             int pesHeaderLen = parsePesHeaderLen(psData, globalOffset, dataLen);
             globalOffset += pesHeaderLen;
 
-            // 负载边界校验，防越界+超大包OOM
+            // 负载边界校验
             int payloadRawLen = pesTotalLen - pesHeaderLen;
             if (payloadRawLen <= 0 || globalOffset >= dataLen) {
+                if (parseDiagnosticCount < 5) {
+                    log.warn("[PS解析] 视频PES负载无效，pesTotalLen={}, pesHeaderLen={}, payloadRawLen={}", 
+                            pesTotalLen, pesHeaderLen, payloadRawLen);
+                }
                 continue;
             }
             int realPayloadLen = Math.min(payloadRawLen, dataLen - globalOffset);
             realPayloadLen = Math.min(realPayloadLen, MAX_PAYLOAD_SIZE);
+
+            if (parseDiagnosticCount < 5) {
+                log.info("[PS解析] 视频PES @offset={}, pesTotalLen={}, pesHeaderLen={}, payloadLen={}", 
+                        codeHeadPos, pesTotalLen, pesHeaderLen, realPayloadLen);
+                int printLen = Math.min(16, realPayloadLen);
+                StringBuilder hex = new StringBuilder();
+                for (int i = 0; i < printLen; i++) {
+                    hex.append(String.format("%02X ", psData[globalOffset + i] & 0xFF));
+                }
+                log.info("[PS解析] PES负载前{}字节: {}", printLen, hex.toString().trim());
+            }
 
             // 截取PES负载
             byte[] pesPayload = new byte[realPayloadLen];
@@ -130,7 +168,16 @@ public class PSStreamDemuxer {
 
             // 提取NAL单元并合并到结果
             List<byte[]> nalList = extractNalFromPayload(pesPayload);
+            if (parseDiagnosticCount < 5) {
+                log.info("[PS解析] PES负载提取到{}个NAL单元", nalList.size());
+            }
             nalResult.addAll(nalList);
+        }
+
+        if (parseDiagnosticCount < 5) {
+            parseDiagnosticCount++;
+            log.info("[PS解析] 完成: packHeader={}, sysHeader={}, videoPes={}, skippedPes={}, nalResult={}, offset={}/{}", 
+                    hasPackHeader, hasSystemHeader, pesFoundCount, skippedPesCount, nalResult.size(), globalOffset, dataLen);
         }
 
         // 诊断日志：当有视频PES但未提取到NAL时输出
@@ -138,7 +185,6 @@ public class PSStreamDemuxer {
             diagnosticCount++;
             log.warn("[PS解复用] 视频PES未提取到NAL，数据长度: {}, 缓冲区大小: {}", 
                     psData.length, fragmentBuffer.size());
-            // 打印前32字节用于诊断
             int printLen = Math.min(32, psData.length);
             StringBuilder hex = new StringBuilder();
             for (int i = 0; i < printLen; i++) {
@@ -149,9 +195,6 @@ public class PSStreamDemuxer {
 
         return nalResult;
     }
-
-    // 诊断日志计数器
-    private int diagnosticCount = 0;
 
     /**
      * 解析Pack Header长度，区分MPEG1/MPEG2
