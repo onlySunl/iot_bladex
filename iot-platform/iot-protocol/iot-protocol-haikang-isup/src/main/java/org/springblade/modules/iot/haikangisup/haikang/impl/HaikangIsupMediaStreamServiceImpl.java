@@ -418,7 +418,7 @@ public class HaikangIsupMediaStreamServiceImpl implements IHaikangIsupMediaStrea
         m_struPlayBackInfoIn.dwSize = m_struPlayBackInfoIn.size();
         m_struPlayBackInfoIn.dwChannel = channelToUse; //通道号
         m_struPlayBackInfoIn.byPlayBackMode = 1;//0- 按文件名回放，1- 按时间回放
-        m_struPlayBackInfoIn.byStreamPackage = 1;//回放码流类型，设备端发出的码流格式 0－PS（默认） 1－RTP
+        m_struPlayBackInfoIn.byStreamPackage = 0;//回放码流类型，设备端发出的码流格式 0－PS（默认） 1－RTP
         m_struPlayBackInfoIn.unionPlayBackMode.setType(HCISUPCMS.NET_EHOME_PLAYBACKBYTIME.class);
 
         // 解析开始时间
@@ -490,29 +490,12 @@ public class HaikangIsupMediaStreamServiceImpl implements IHaikangIsupMediaStrea
         m_struPushPlayBackOut.dwSize = m_struPushPlayBackOut.size();
         m_struPushPlayBackOut.write();
 
-        // 重试机制处理错误码3701（设备会话冲突）
-        int maxRetries = 3;
-        boolean pushSuccess = false;
-        for (int retry = 0; retry < maxRetries; retry++) {
-            if (CmsService.hCEhomeCMS.NET_ECMS_StartPushPlayBack(luserId, m_struPushPlayBackIn, m_struPushPlayBackOut)) {
-                log.info("NET_ECMS_StartPushPlayBack成功，lSessionID:" + lSessionID);
-                pushSuccess = true;
-                break;
-            }
+        if (!CmsService.hCEhomeCMS.NET_ECMS_StartPushPlayBack(luserId, m_struPushPlayBackIn, m_struPushPlayBackOut)) {
             int errorCode = CmsService.hCEhomeCMS.NET_ECMS_GetLastError();
-            log.warn("NET_ECMS_StartPushPlayBack第{}次失败，错误代码:{}，准备重试...", retry + 1, errorCode);
-            try {
-                Thread.sleep(500); // 等待500ms后重试
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                break;
-            }
+            log.error("NET_ECMS_StartPushPlayBack失败，错误代码:" + errorCode);
+            throw new RuntimeException("NET_ECMS_StartPushPlayBack失败，错误代码:" + errorCode);
         }
-        if (!pushSuccess) {
-            int lastError = CmsService.hCEhomeCMS.NET_ECMS_GetLastError();
-            log.error("NET_ECMS_StartPushPlayBack最终失败，错误代码:" + lastError);
-            throw new RuntimeException("NET_ECMS_StartPushPlayBack失败，错误代码:" + lastError);
-        }
+        log.info("NET_ECMS_StartPushPlayBack成功，lSessionID:" + lSessionID);
     }
 
     /**
