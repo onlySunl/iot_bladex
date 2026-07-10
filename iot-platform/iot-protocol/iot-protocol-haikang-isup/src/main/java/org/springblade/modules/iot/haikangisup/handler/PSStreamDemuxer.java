@@ -48,6 +48,9 @@ public class PSStreamDemuxer {
     // 跨包分片缓存：存储被切割的NAL片段，拼接下一包数据
     private final ByteArrayOutputStream fragmentBuffer = new ByteArrayOutputStream();
 
+    // 跨回调PS数据累积缓冲区：当PES负载跨越多个SDK回调时，累积数据直到完整
+    private final ByteArrayOutputStream psDataBuffer = new ByteArrayOutputStream();
+
     // 诊断日志计数器
     private int diagnosticCount = 0;
     // 解析步骤诊断计数器
@@ -55,10 +58,62 @@ public class PSStreamDemuxer {
 
     /**
      * 处理单次PS数据包，输出完整NAL列表
+     * 支持跨回调数据累积：当PES负载跨越多个SDK回调时，自动累积数据
      * @param psData 原始PS二进制数据
      * @return 完整H264/H265 NAL数组列表
      */
     public List<byte[]> processPSData(byte[] psData) {
+        List<byte[]> emptyResult = new ArrayList<>(16);
+        if (psData == null || psData.length == 0) {
+            return emptyResult;
+        }
+
+        // 将新数据追加到PS数据缓冲区
+        psDataBuffer.write(psData, 0, psData.length);
+        byte[] accumulatedData = psDataBuffer.toByteArray();
+
+        // 防护：缓冲区过大时清空
+        if (accumulatedData.length > BUFFER_MAX_CAPACITY) {
+            log.warn("[PS解复用] 缓冲区过大({}字节)，清空防止OOM", accumulatedData.length);
+            psDataBuffer.reset();
+            return emptyResult;
+        }
+
+        // 解析累积的数据
+        List<byte[]> result = parseAccumulatedData(accumulatedData);
+
+        // 找到最后一个完整的Pack Header位置，保留从该位置开始的数据
+        int lastPackStart = findLastPackStart(accumulatedData);
+        if (lastPackStart > 0) {
+            // 有未处理的数据，保留到下次
+            psDataBuffer.reset();
+            psDataBuffer.write(accumulatedData, lastPackStart, accumulatedData.length - lastPackStart);
+        } else {
+            // 所有数据都已处理或没有Pack Header，清空缓冲区
+            psDataBuffer.reset();
+        }
+
+        return result;
+    }
+
+    /**
+     * 查找数据中最后一个Pack Header的位置
+     * @return Pack Header的起始位置，如果没找到返回-1
+     */
+    private int findLastPackStart(byte[] data) {
+        int lastPackStart = -1;
+        for (int i = 0; i + 3 < data.length; i++) {
+            if (data[i] == 0x00 && data[i + 1] == 0x00 && data[i + 2] == 0x01 && data[i + 3] == (byte) 0xBA) {
+                lastPackStart = i;
+            }
+        }
+        return lastPackStart;
+    }
+
+    /**
+     * 解析累积的PS数据，提取NAL单元
+     */
+    private List<byte[]> parseAccumulatedData(byte[] psData) {
         List<byte[]> nalResult = new ArrayList<>(16);
         if (psData == null || psData.length < 4) {
             return nalResult;
@@ -323,5 +378,6 @@ public class PSStreamDemuxer {
      */
     public void reset() {
         fragmentBuffer.reset();
+        psDataBuffer.reset();
     }
 }
