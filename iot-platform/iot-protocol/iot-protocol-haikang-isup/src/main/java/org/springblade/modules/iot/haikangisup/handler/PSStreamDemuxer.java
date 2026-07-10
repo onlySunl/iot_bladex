@@ -15,9 +15,9 @@ import java.util.List;
 public class PSStreamDemuxer {
     // ===================== PS 标准起始码常量 =====================
     /** Pack起始码 0x000001BA */
-    private static final byte PACK_START_CODE_ID = (byte) 0xBA;
+    private static final int PACK_START_CODE_ID = 0xBA;
     /** System Header起始码 0x000001BB */
-    private static final byte SYSTEM_HEADER_ID = (byte) 0xBB;
+    private static final int SYSTEM_HEADER_ID = 0xBB;
     /** PES公共前缀 00 00 01 */
     private static final int PES_PREFIX = 0x000001;
     /** PES流ID掩码 */
