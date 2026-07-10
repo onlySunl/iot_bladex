@@ -418,7 +418,7 @@ public class HaikangIsupMediaStreamServiceImpl implements IHaikangIsupMediaStrea
         m_struPlayBackInfoIn.dwSize = m_struPlayBackInfoIn.size();
         m_struPlayBackInfoIn.dwChannel = channelToUse; //通道号
         m_struPlayBackInfoIn.byPlayBackMode = 1;//0- 按文件名回放，1- 按时间回放
-        m_struPlayBackInfoIn.byStreamPackage = 1;//回放码流类型，设备端发出的码流格式 0－PS（默认） 1－RTP
+        m_struPlayBackInfoIn.byStreamPackage = 0;//回放码流类型，设备端发出的码流格式 0－PS（默认） 1－RTP
         m_struPlayBackInfoIn.unionPlayBackMode.setType(HCISUPCMS.NET_EHOME_PLAYBACKBYTIME.class);
 
         // 解析开始时间
