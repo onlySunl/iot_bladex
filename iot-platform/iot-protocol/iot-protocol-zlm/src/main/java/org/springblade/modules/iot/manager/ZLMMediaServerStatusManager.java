@@ -81,7 +81,7 @@ public class ZLMMediaServerStatusManager {
             if (!type.equals(mediaServerItem.getType())) {
                 continue;
             }
-            log.info("[ZLM-添加待上线节点] ID：" + mediaServerItem.getId());
+            log.debug("[ZLM-添加待上线节点] ID：" + mediaServerItem.getId());
             offlineZlmPrimaryMap.put(mediaServerItem.getId(), mediaServerItem);
             offlineZlmTimeMap.put(mediaServerItem.getId(), System.currentTimeMillis());
             execute();
@@ -100,7 +100,7 @@ public class ZLMMediaServerStatusManager {
         if (serverItem == null) {
             return;
         }
-        log.info("[ZLM-HOOK事件-服务启动] ID：" + event.getMediaServerItem().getId());
+        log.debug("[ZLM-HOOK事件-服务启动] ID：" + event.getMediaServerItem().getId());
         online(serverItem, null);
     }
 
@@ -124,7 +124,7 @@ public class ZLMMediaServerStatusManager {
         if (event.getMediaServer() == null) {
             return;
         }
-        log.info("[ZLM-节点被移除] ID：" + event.getMediaServer().getId());
+        log.debug("[ZLM-节点被移除] ID：" + event.getMediaServer().getId());
         offlineZlmPrimaryMap.remove(event.getMediaServer().getId());
         offlineZlmsecondaryMap.remove(event.getMediaServer().getId());
         offlineZlmTimeMap.remove(event.getMediaServer().getId());
@@ -206,7 +206,7 @@ public class ZLMMediaServerStatusManager {
         offlineZlmsecondaryMap.remove(mediaServerItem.getId());
         offlineZlmTimeMap.remove(mediaServerItem.getId());
         if (!"ON".equals(mediaServerItem.getStatus())) {
-            log.info("[ZLM-连接成功] ID：{}, 地址： {}:{}", mediaServerItem.getId(), mediaServerItem.getIp(), mediaServerItem.getHttpPort());
+            log.debug("[ZLM-连接成功] ID：{}, 地址： {}:{}", mediaServerItem.getId(), mediaServerItem.getIp(), mediaServerItem.getHttpPort());
             mediaServerItem.setStatus(0);
             mediaServerItem.setHookAliveInterval(10F);
             // 发送上线通知
@@ -292,7 +292,7 @@ public class ZLMMediaServerStatusManager {
 
         if (zlmResult != null && zlmResult.getCode() == 0) {
             if (restart) {
-                log.info("[媒体服务节点] 设置成功,开始重启以保证配置生效 {} -> {}:{}",
+                log.debug("[媒体服务节点] 设置成功,开始重启以保证配置生效 {} -> {}:{}",
                         mediaServerItem.getId(), mediaServerItem.getIp(), mediaServerItem.getHttpPort());
                 zlmresTfulUtils.restartServer(mediaServerItem);
             } else {
@@ -300,7 +300,7 @@ public class ZLMMediaServerStatusManager {
                         mediaServerItem.getId(), mediaServerItem.getIp(), mediaServerItem.getHttpPort());*/
             }
         } else {
-            log.info("[媒体服务节点] 设置媒体服务节点失败 {} -> {}:{}",
+            log.debug("[媒体服务节点] 设置媒体服务节点失败 {} -> {}:{}",
                     mediaServerItem.getId(), mediaServerItem.getIp(), mediaServerItem.getHttpPort());
         }
     }

@@ -6,8 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.tool.api.R;
+import org.springblade.core.tool.utils.Func;
+import org.springblade.modules.iot.common.constants.DeviceConstant;
 import org.springblade.modules.iot.common.constants.SecurityConstants;
 import org.springblade.modules.iot.common.domain.RtpServerParam;
+import org.springblade.modules.iot.common.enums.ServiceStatus;
+import org.springblade.modules.iot.domain.QsDevice;
 import org.springblade.modules.iot.haikangisup.config.HaikangIsupConfig;
 import org.springblade.modules.iot.haikangisup.haikang.alarm.AlarmService;
 import org.springblade.modules.iot.haikangisup.haikang.cms.CmsService;
@@ -15,12 +20,15 @@ import org.springblade.modules.iot.haikangisup.haikang.cms.HCISUPCMS;
 import org.springblade.modules.iot.haikangisup.haikang.stream.StreamService;
 import org.springblade.modules.iot.haikangisup.handler.PreviewStreamHandler;
 import org.springblade.modules.iot.haikangisup.manager.StreamManager;
+import org.springblade.modules.iot.haikangisup.xml.DeviceStatus;
+import org.springblade.modules.iot.service.RemoteQsDeviceService;
 import org.springblade.modules.iot.service.RemoteZlmService;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -37,6 +45,8 @@ public class FRegisterCallBack implements HCISUPCMS.DEVICE_REGISTER_CB {
 
     private final HaikangIsupConfig haikangIsupConfig;
     private final RemoteZlmService remoteZlmService;
+
+    private final RemoteQsDeviceService remoteQsDeviceService;
 
     public static final ConcurrentHashMap<Integer, String> deviceIdMap = new ConcurrentHashMap<>(16);
 
@@ -61,30 +71,30 @@ public class FRegisterCallBack implements HCISUPCMS.DEVICE_REGISTER_CB {
                 //strEhomeServerInfo.dwSize = strEhomeServerInfo.size();
                 byte[] byCmsIP = new byte[0];
                 //设置报警服务器地址、端口、类型
-                byCmsIP = haikangIsupConfig.getAlarmServer().getIp().getBytes();
-                System.arraycopy(byCmsIP, 0, strEhomeServerInfo.struUDPAlarmSever.szIP, 0, byCmsIP.length);
-                System.arraycopy(byCmsIP, 0, strEhomeServerInfo.struTCPAlarmSever.szIP, 0, byCmsIP.length);
+                //byCmsIP = haikangIsupConfig.getAlarmServer().getIp().getBytes();
+                //System.arraycopy(byCmsIP, 0, strEhomeServerInfo.struUDPAlarmSever.szIP, 0, byCmsIP.length);
+                //System.arraycopy(byCmsIP, 0, strEhomeServerInfo.struTCPAlarmSever.szIP, 0, byCmsIP.length);
 
                 //报警服务器类型：0- 只支持UDP协议上报，1- 支持UDP、TCP两种协议上报 2-MQTT
-                strEhomeServerInfo.dwAlarmServerType = haikangIsupConfig.getAlarmServer().getType();
-                strEhomeServerInfo.struTCPAlarmSever.wPort = (short) haikangIsupConfig.getAlarmServer().getTcpPort();
-                strEhomeServerInfo.struUDPAlarmSever.wPort = (short) haikangIsupConfig.getAlarmServer().getUdpPort();
+                //strEhomeServerInfo.dwAlarmServerType = haikangIsupConfig.getAlarmServer().getType();
+                //strEhomeServerInfo.struTCPAlarmSever.wPort = (short) haikangIsupConfig.getAlarmServer().getTcpPort();
+                //strEhomeServerInfo.struUDPAlarmSever.wPort = (short) haikangIsupConfig.getAlarmServer().getUdpPort();
 
-                byte[] byClouldAccessKey = "test".getBytes();
-                System.arraycopy(byClouldAccessKey, 0, strEhomeServerInfo.byClouldAccessKey, 0, byClouldAccessKey.length);
-                byte[] byClouldSecretKey = "12345".getBytes();
-                System.arraycopy(byClouldSecretKey, 0, strEhomeServerInfo.byClouldSecretKey, 0, byClouldSecretKey.length);
-                strEhomeServerInfo.dwClouldPoolId = 1;
+                //byte[] byClouldAccessKey = "test".getBytes();
+                //System.arraycopy(byClouldAccessKey, 0, strEhomeServerInfo.byClouldAccessKey, 0, byClouldAccessKey.length);
+                //byte[] byClouldSecretKey = "12345".getBytes();
+                //System.arraycopy(byClouldSecretKey, 0, strEhomeServerInfo.byClouldSecretKey, 0, byClouldSecretKey.length);
+                //strEhomeServerInfo.dwClouldPoolId = 1;
 
                 //设置图片存储服务器地址、端口、类型
-                byte[] bySSIP = new byte[0];
+               /* byte[] bySSIP = new byte[0];
                 bySSIP = haikangIsupConfig.getPicServer().getIp().getBytes();
                 System.arraycopy(bySSIP, 0, strEhomeServerInfo.struPictureSever.szIP, 0, bySSIP.length);
                 strEhomeServerInfo.struPictureSever.wPort = (short) haikangIsupConfig.getPicServer().getPort();
                 strEhomeServerInfo.dwPicServerType = haikangIsupConfig.getPicServer().getType();    //存储服务器（SS）类型：0-Tomcat，1-VRB，2-云存储，3-KMS，4-ISUP5.0。
                 strEhomeServerInfo.write();
                 dwInLen = strEhomeServerInfo.size();
-                pInBuffer.write(0, strEhomeServerInfo.getPointer().getByteArray(0, dwInLen), 0, dwInLen);
+                pInBuffer.write(0, strEhomeServerInfo.getPointer().getByteArray(0, dwInLen), 0, dwInLen);*/
 
                 String deviceId = new String(strDevRegInfo.struRegInfo.byDeviceID).trim();
                 String ip = new String(strDevRegInfo.struRegInfo.struDevAdd.szIP).trim();
@@ -98,15 +108,14 @@ public class FRegisterCallBack implements HCISUPCMS.DEVICE_REGISTER_CB {
 
                 // 判断是否已存在（根据 deviceId 和 ip）
                 boolean exists = deviceList.stream()
-                        .anyMatch(d -> d.getDeviceId().equals(deviceId) && d.getIp().equals(ip));
+                        .anyMatch(d -> d.getDeviceId().equals("haikang_isup_"+deviceId) && d.getIp().equals(ip));
 
                 if (!exists) {
                     deviceList.add(device);
                 }
-
-
                 deviceIdMap.put(lUserID, ip);
                 lUserIDMap.put(ip, lUserID);
+                updateDevice("haikang_isup_"+deviceId, "ONLINE");
                 return true;
             }
 
@@ -176,10 +185,13 @@ public class FRegisterCallBack implements HCISUPCMS.DEVICE_REGISTER_CB {
                 if (ip != null) {
                     lUserIDMap.remove(ip);
                 }
+                Optional <Device> optional = deviceList.stream().filter(d -> Objects.equals(d.getIp(), ip)).findFirst();
                 deviceList.removeIf(d -> Objects.equals(d.getIp(), ip));
-                
                 // 清理该设备相关的流资源
                 cleanupDeviceResources(lUserID);
+                if (optional.isPresent()){
+                    updateDevice(optional.get().getDeviceId(), "OFFLINE");
+                }
                 break;
             }
             //设备地址发生变化
@@ -260,7 +272,21 @@ public class FRegisterCallBack implements HCISUPCMS.DEVICE_REGISTER_CB {
             log.error("清理设备资源失败，lUserID: {}", lUserID, e);
         }
     }
+    private  void updateDevice(String deviceId,String deviceStatus){
+        QsDevice qsDevice = null;
 
+        // 优先用 deviceCode（设备ID）匹配
+        if (deviceId != null && !deviceId.isEmpty()) {
+            deviceId = deviceId.replace("haikang_isup_","");
+            R<QsDevice> result = remoteQsDeviceService.getDeviceByDeviceCode(deviceId);
+
+            if (R.isSuccess(result) && result.getData() != null) {
+                qsDevice = result.getData();
+                qsDevice.setDeviceStatus(deviceStatus);
+                remoteQsDeviceService.updateQsDevice(qsDevice);
+            }
+        }
+    }
     /**
      * 完整清理单个 streamKey 的所有资源
      */

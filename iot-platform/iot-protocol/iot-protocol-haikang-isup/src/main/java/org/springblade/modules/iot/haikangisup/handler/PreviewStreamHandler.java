@@ -57,7 +57,7 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
     public void invoke(int iPreviewHandle, HCISUPStream.NET_EHOME_PREVIEW_CB_MSG pPreviewCBMsg, Pointer pUserData) throws IOException {
         invokeCount++;
         if (invokeCount <= 3 || invokeCount % 100 == 0) {
-            log.info("[RTP回调] 第{}次调用，句柄: {}, byDataType: {}, dwDataLen: {}", 
+            log.debug("[RTP回调] 第{}次调用，句柄: {}, byDataType: {}, dwDataLen: {}",
                     invokeCount, iPreviewHandle, pPreviewCBMsg.byDataType, pPreviewCBMsg.dwDataLen);
         }
         
@@ -85,7 +85,7 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
                 // 3. 设置 SSRC
                 conn.ssrc = rtpServerParam.getSsrc();
                 conn.rtpPort = rtpServerParam.getPort();
-                log.info("预览句柄: {} ==== RTP Socket创建成功，ip: {}, 端口: {}, ssrc: {}, sessionID: {}", iPreviewHandle, rtpServerParam.getIp(), rtpServerParam.getPort(), rtpServerParam.getSsrc(), sessionID);
+                log.debug("预览句柄: {} ==== RTP Socket创建成功，ip: {}, 端口: {}, ssrc: {}, sessionID: {}", iPreviewHandle, rtpServerParam.getIp(), rtpServerParam.getPort(), rtpServerParam.getSsrc(), sessionID);
             } catch (Exception e) {
                 log.error("创建RTP Socket失败，句柄: {}, ip: {}, 端口: {}, ssrc: {}, sessionID: {}", iPreviewHandle, rtpServerParam.getIp(), rtpServerParam.getPort(), rtpServerParam.getSsrc(), sessionID, e);
                 return null;
@@ -103,25 +103,25 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
             if (pPreviewCBMsg.byDataType == 2) {
                 videoDataCount++;
                 if (connection.seqNum == 0) {
-                    log.info("[RTP发送] 首次收到视频数据，数据长度: {}, 目标: {}:{}", 
+                    log.debug("[RTP发送] 首次收到视频数据，数据长度: {}, 目标: {}:{}",
                             pPreviewCBMsg.dwDataLen, connection.targetAddress.getHostAddress(), connection.rtpPort);
                     // 打印前32字节的十六进制，用于分析数据格式
                     StringBuilder hex = new StringBuilder();
                     for (int i = 0; i < Math.min(32, dataStream.length); i++) {
                         hex.append(String.format("%02X ", dataStream[i] & 0xFF));
                     }
-                    log.info("[PS数据格式] 前{}字节: {}", Math.min(32, dataStream.length), hex.toString().trim());
+                    log.debug("[PS数据格式] 前{}字节: {}", Math.min(32, dataStream.length), hex.toString().trim());
                 }
                 
                 // 将PS数据送入解复用器提取NAL单元
                 List<byte[]> nalUnits = connection.psDemuxer.processPSData(dataStream);
                 if (!nalUnits.isEmpty()) {
                     if (connection.seqNum == 0) {
-                        log.info("[PS解复用] 首次提取到{}个NAL单元", nalUnits.size());
+                        log.debug("[PS解复用] 首次提取到{}个NAL单元", nalUnits.size());
                         for (int i = 0; i < nalUnits.size(); i++) {
                             byte[] nal = nalUnits.get(i);
                             int nalType = nal.length > 0 ? (nal[0] & 0x1F) : -1;
-                            log.info("[PS解复用] NAL#{}: 长度={}, 类型={}, 前8字节={}", 
+                            log.debug("[PS解复用] NAL#{}: 长度={}, 类型={}, 前8字节={}",
                                     i, nal.length, nalType, 
                                     bytesToHex(nal, Math.min(8, nal.length)));
                         }
@@ -140,7 +140,7 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
                 if (now - lastStatsTime >= 5000) {
                     long elapsed = (now - startTime) / 1000;
                     long interval = (now - lastStatsTime) / 1000;
-                    log.info("[RTP统计] 运行{}秒, 回调{}次, 视频{}次, 发送RTP包{}个, 总字节{}, 速率: {}包/秒, {}字节/秒",
+                    log.debug("[RTP统计] 运行{}秒, 回调{}次, 视频{}次, 发送RTP包{}个, 总字节{}, 速率: {}包/秒, {}字节/秒",
                             elapsed, invokeCount, videoDataCount, connection.seqNum, totalBytesSent,
                             interval > 0 ? connection.seqNum / interval : 0,
                             interval > 0 ? totalBytesSent / interval : 0);
@@ -148,11 +148,11 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
                 }
             } else {
                 if (invokeCount <= 3) {
-                    log.info("[RTP发送] 收到非视频数据，byDataType: {}, 数据长度: {}", pPreviewCBMsg.byDataType, pPreviewCBMsg.dwDataLen);
+                    log.debug("[RTP发送] 收到非视频数据，byDataType: {}, 数据长度: {}", pPreviewCBMsg.byDataType, pPreviewCBMsg.dwDataLen);
                 }
             }
         } else {
-            log.info("[RTP发送] 收到空数据，dataStream: {}, dwDataLen: {}", 
+            log.debug("[RTP发送] 收到空数据，dataStream: {}, dwDataLen: {}",
                     dataStream == null ? "null" : "empty", pPreviewCBMsg.dwDataLen);
         }
     }
@@ -244,7 +244,7 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
         }
         
         if (seqNum < 10) {
-            log.info("[HEVC诊断] NAL类型: {} ({}), 大小: {}, 首2字节: 0x{} 0x{}", 
+            log.debug("[HEVC诊断] NAL类型: {} ({}), 大小: {}, 首2字节: 0x{} 0x{}",
                     nalType, nalTypeName, nalUnit.length, 
                     String.format("%02X", nalUnit[0]), String.format("%02X", nalUnit[1]));
         }
@@ -275,7 +275,7 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
             totalBytesSent += packetLength;
             
             if (seqNum <= 5) {
-                log.info("[HEVC RTP] 单包发送，NAL大小: {}, 目标: {}:{}", 
+                log.debug("[HEVC RTP] 单包发送，NAL大小: {}, 目标: {}:{}",
                         dataSize, connection.targetAddress.getHostAddress(), connection.rtpPort);
             }
         } else {
@@ -343,7 +343,7 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
                 totalBytesSent += packetLength;
                 
                 if (seqNum <= 5) {
-                    log.info("[HEVC RTP] 分片发送，NAL大小: {}, 分片大小: {}, 目标: {}:{}", 
+                    log.debug("[HEVC RTP] 分片发送，NAL大小: {}, 分片大小: {}, 目标: {}:{}",
                             dataSize, chunkSize, connection.targetAddress.getHostAddress(), connection.rtpPort);
                 }
                 
@@ -384,7 +384,7 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
             default: nalTypeName = "Unknown"; break;
         }
         if (seqNum < 10) {
-            log.info("[AVC诊断] NAL类型: {} ({}), 大小: {}, 首字节: 0x{}", 
+            log.debug("[AVC诊断] NAL类型: {} ({}), 大小: {}, 首字节: 0x{}",
                     nalType, nalTypeName, nalUnit.length, String.format("%02X", nalUnit[0]));
         }
         
@@ -413,7 +413,7 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
             totalBytesSent += packetLength;
             
             if (seqNum <= 5) {
-                log.info("[AVC RTP] 单包发送，NAL大小: {}, 目标: {}:{}", 
+                log.debug("[AVC RTP] 单包发送，NAL大小: {}, 目标: {}:{}",
                         dataSize, connection.targetAddress.getHostAddress(), connection.rtpPort);
             }
         } else {
@@ -475,7 +475,7 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
                 totalBytesSent += packetLength;
                 
                 if (seqNum <= 5) {
-                    log.info("[AVC RTP] FU-A分片发送，NAL大小: {}, 分片大小: {}, S:{}, E:{}, 目标: {}:{}", 
+                    log.debug("[AVC RTP] FU-A分片发送，NAL大小: {}, 分片大小: {}, S:{}, E:{}, 目标: {}:{}",
                             dataSize, chunkSize, (fuHeader & 0x80) != 0, (fuHeader & 0x40) != 0,
                             connection.targetAddress.getHostAddress(), connection.rtpPort);
                 }
@@ -496,7 +496,7 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
         if (connection != null && connection.udpSocket != null && !connection.udpSocket.isClosed()) {
             try {
                 connection.udpSocket.close();
-                log.info("关闭RTP连接成功，句柄: {}", iPreviewHandle);
+                log.debug("关闭RTP连接成功，句柄: {}", iPreviewHandle);
             } catch (Exception e) {
                 log.error("关闭RTP连接失败，句柄: {}", iPreviewHandle, e);
             }

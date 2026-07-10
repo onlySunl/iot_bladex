@@ -405,7 +405,7 @@ public class HaikangIsupMediaStreamServiceImpl implements IHaikangIsupMediaStrea
                 device.getChannel(), rtpServerParam.getStartTime(), rtpServerParam.getEndTime());
 
         // 验证登录句柄
-        if (luserId == null || luserId == 0) {
+        if (luserId == null) {
             log.error("登录句柄无效, deviceId: {}", device.getId());
             throw new RuntimeException("登录句柄无效");
         }

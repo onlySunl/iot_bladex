@@ -31,7 +31,7 @@ public class InternalCallInterceptor implements HandlerInterceptor {
     private static final String SYSTEM_USER_NAME = "system";
     private static final String SYSTEM_NICK_NAME = "系统内部调用";
     private static final String SYSTEM_ROLE_NAME = "administrator";
-    private static final Long SYSTEM_DEPT_ID = 0L;
+    private static final String SYSTEM_DEPT_ID = "0";
 
     @Override
     public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
@@ -56,9 +56,9 @@ public class InternalCallInterceptor implements HandlerInterceptor {
         BladeUser user = new BladeUser();
         user.setUserId(SYSTEM_USER_ID);
         user.setTenantId(SYSTEM_TENANT_ID);
-        user.setName(SYSTEM_USER_NAME);
+        user.setNickName(SYSTEM_USER_NAME);
         user.setNickName(SYSTEM_NICK_NAME);
-        user.setRoleName(Collections.singletonList(SYSTEM_ROLE_NAME));
+        user.setRoleName(SYSTEM_ROLE_NAME);
         user.setDeptId(SYSTEM_DEPT_ID);
         return user;
     }
