@@ -93,6 +93,18 @@ public class HaiKangIsupApiController {
     }
 
     /**
+     * 尝试复用现有回放会话并跳转时间
+     *
+     * @param rtpServerParam 回放参数（包含新的开始/结束时间）
+     * @return true=seek成功，false=需要新建会话
+     */
+    @PostMapping("/trySeekPlayback")
+    public R<Boolean> trySeekPlayback(@RequestBody RtpServerParam rtpServerParam) {
+        boolean result = haiKangIsupService.trySeekPlayback(rtpServerParam);
+        return R.data(result);
+    }
+
+    /**
      * 停止回放
      *
      * @param id 设备id

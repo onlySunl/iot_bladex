@@ -20,6 +20,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -276,6 +277,18 @@ public class HaikangIsupMediaStreamServiceImpl implements IHaikangIsupMediaStrea
         try {
             // 创建异步控制器
             RealPlayback(lUserID, device, playbackKey, rtpServerParam);
+            
+            // 记录会话时间信息（用于后续seek判断）
+            LocalDateTime startTime = parseDateTime(rtpServerParam.getStartTime());
+            LocalDateTime endTime = parseDateTime(rtpServerParam.getEndTime());
+            if (startTime != null) {
+                StreamManager.playbackKeyAndStartTimeMap.put(playbackKey, startTime);
+                StreamManager.playbackKeyAndPlayDateMap.put(playbackKey, startTime.toLocalDate());
+            }
+            if (endTime != null) {
+                StreamManager.playbackKeyAndEndTimeMap.put(playbackKey, endTime);
+            }
+            
             // 阻塞，直到 stopPlayback() 调用 latch.countDown()
             latch.await();
             needCleanup = false;
@@ -286,7 +299,160 @@ public class HaikangIsupMediaStreamServiceImpl implements IHaikangIsupMediaStrea
             if (needCleanup) {
                 cleanupPlaybackResources(playbackKey, rtpServerParam);
             }
+            // 清理会话时间跟踪信息
+            StreamManager.playbackKeyAndStartTimeMap.remove(playbackKey);
+            StreamManager.playbackKeyAndEndTimeMap.remove(playbackKey);
+            StreamManager.playbackKeyAndPlayDateMap.remove(playbackKey);
             StreamManager.playbackKeyAndLatchMap.remove(playbackKey);
+        }
+    }
+
+    /**
+     * 尝试复用现有回放会话并跳转时间
+     * 如果现有会话有效（同一日期、时间跨度<=30分钟、会话未失效），则执行seek跳转
+     *
+     * @param playbackKey 回放标识
+     * @param lUserID 用户ID
+     * @param newStartTime 新的开始时间
+     * @param newEndTime 新的结束时间
+     * @return true=seek成功，false=需要新建会话
+     */
+    @Override
+    public boolean trySeekPlayback(String playbackKey, Integer lUserID, String newStartTime, String newEndTime) {
+        // 检查是否存在活跃的回放会话
+        Integer existingSessionId = StreamManager.playbackKeyAndSessionIDMap.get(playbackKey);
+        if (existingSessionId == null || existingSessionId <= 0) {
+            log.info("[回放seek] 无现有会话，需要新建: playbackKey={}", playbackKey);
+            return false;
+        }
+
+        // 检查会话是否仍然有效（latch是否存在）
+        CountDownLatch latch = StreamManager.playbackKeyAndLatchMap.get(playbackKey);
+        if (latch == null) {
+            log.info("[回放seek] 会话latch不存在，需要新建: playbackKey={}", playbackKey);
+            return false;
+        }
+
+        // 解析新的开始时间
+        LocalDateTime newStart = parseDateTime(newStartTime);
+        if (newStart == null) {
+            log.warn("[回放seek] 无法解析开始时间: {}", newStartTime);
+            return false;
+        }
+        LocalDate newPlayDate = newStart.toLocalDate();
+
+        // 条件1：播放日期改变
+        LocalDate existingPlayDate = StreamManager.playbackKeyAndPlayDateMap.get(playbackKey);
+        if (existingPlayDate != null && !existingPlayDate.equals(newPlayDate)) {
+            log.info("[回放seek] 播放日期改变，需要新建: {} -> {}", existingPlayDate, newPlayDate);
+            return false;
+        }
+
+        // 条件2：时间跨度超过30分钟
+        LocalDateTime existingStartTime = StreamManager.playbackKeyAndStartTimeMap.get(playbackKey);
+        if (existingStartTime != null) {
+            long spanMinutes = Math.abs(java.time.Duration.between(existingStartTime, newStart).toMinutes());
+            if (spanMinutes > 30) {
+                log.info("[回放seek] 时间跨度超过30分钟({}分钟)，需要新建", spanMinutes);
+                return false;
+            }
+        }
+
+        // 所有条件满足，执行seek跳转
+        log.info("[回放seek] 复用现有会话，执行seek跳转: playbackKey={}, sessionId={}, 新时间={}", 
+            playbackKey, existingSessionId, newStartTime);
+
+        boolean seekSuccess = seekPlayback(lUserID, playbackKey, existingSessionId, newStart);
+        if (seekSuccess) {
+            // seek成功，更新会话时间信息
+            StreamManager.playbackKeyAndStartTimeMap.put(playbackKey, newStart);
+            LocalDateTime newEnd = parseDateTime(newEndTime);
+            if (newEnd != null) {
+                StreamManager.playbackKeyAndEndTimeMap.put(playbackKey, newEnd);
+            }
+            StreamManager.playbackKeyAndPlayDateMap.put(playbackKey, newPlayDate);
+            log.info("[回放seek] seek跳转成功: playbackKey={}", playbackKey);
+            return true;
+        } else {
+            log.warn("[回放seek] seek跳转失败，需要新建会话: playbackKey={}", playbackKey);
+            return false;
+        }
+    }
+
+    /**
+     * 解析时间字符串
+     */
+    private LocalDateTime parseDateTime(String timeStr) {
+        if (timeStr == null || timeStr.isEmpty()) {
+            return null;
+        }
+        try {
+            return LocalDateTime.parse(timeStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        } catch (Exception e) {
+            log.warn("时间解析失败: {}", timeStr);
+            return null;
+        }
+    }
+
+    /**
+     * 回放seek跳转 - 复用现有会话跳转到新的时间点
+     * 使用 NET_ECMS_PlayBackOperate 接口，enumMode=SEEK(3)
+     */
+    private boolean seekPlayback(Integer luserId, String playbackKey, int lSessionID, LocalDateTime seekTime) {
+        try {
+            if (seekTime == null) {
+                log.warn("seek时间为空，无法跳转");
+                return false;
+            }
+
+            // 构造seek参数
+            HCISUPCMS.NET_EHOME_PLAYBACK_SEEK_PARAM seekParam = new HCISUPCMS.NET_EHOME_PLAYBACK_SEEK_PARAM();
+            seekParam.lSessionID = lSessionID;
+
+            // 获取回放句柄
+            Integer playbackHandle = StreamManager.playbackKeyAndPlaybackHandleMap.get(playbackKey);
+            if (playbackHandle != null) {
+                seekParam.lHandle = playbackHandle;
+            }
+
+            // 设置跳转时间
+            seekParam.struSeekTime.wYear = (short) seekTime.getYear();
+            seekParam.struSeekTime.byMonth = (byte) seekTime.getMonthValue();
+            seekParam.struSeekTime.byDay = (byte) seekTime.getDayOfMonth();
+            seekParam.struSeekTime.byHour = (byte) seekTime.getHour();
+            seekParam.struSeekTime.byMinute = (byte) seekTime.getMinute();
+            seekParam.struSeekTime.bySecond = (byte) seekTime.getSecond();
+            seekParam.struSeekTime.wMSecond = (short) (seekTime.getNano() / 1_000_000);
+            seekParam.write();
+
+            log.info("调用NET_ECMS_PlayBackOperate SEEK: luserId={}, sessionId={}, seekTime={}", 
+                luserId, lSessionID, seekTime);
+
+            boolean b = CmsService.hCEhomeCMS.NET_ECMS_PlayBackOperate(
+                luserId, 
+                HCISUPCMS.PLAYBACK_OPERATE_SEEK, 
+                seekParam.getPointer()
+            );
+
+            if (!b) {
+                int errorCode = CmsService.hCEhomeCMS.NET_ECMS_GetLastError();
+                log.error("NET_ECMS_PlayBackOperate SEEK失败，错误代码:{}", errorCode);
+                return false;
+            }
+
+            log.info("NET_ECMS_PlayBackOperate SEEK成功: sessionId={}, seekTime={}", lSessionID, seekTime);
+
+            // 重置PlaybackStreamHandler的状态，准备接收新时间的数据
+            PlaybackStreamHandler handler = StreamManager.sessionIDAndPlaybackStreamHandlerMap.get(lSessionID);
+            if (handler != null) {
+                handler.reset();
+                log.info("已重置PlaybackStreamHandler: sessionId={}", lSessionID);
+            }
+
+            return true;
+        } catch (Exception e) {
+            log.error("seekPlayback异常: {}", e.getMessage(), e);
+            return false;
         }
     }
 
@@ -376,6 +542,11 @@ public class HaikangIsupMediaStreamServiceImpl implements IHaikangIsupMediaStrea
         StreamManager.playbackKeyAndPlaybackHandleMap.remove(playbackKey);
         StreamManager.playbackKeyAndRtpServerParamMap.remove(playbackKey);
         StreamManager.playbackKeyAndSessionIDMap.remove(playbackKey);
+        
+        // 清理会话时间跟踪信息
+        StreamManager.playbackKeyAndStartTimeMap.remove(playbackKey);
+        StreamManager.playbackKeyAndEndTimeMap.remove(playbackKey);
+        StreamManager.playbackKeyAndPlayDateMap.remove(playbackKey);
 
         // 清理 zlm 资源
         if (rtpServerParam != null) {

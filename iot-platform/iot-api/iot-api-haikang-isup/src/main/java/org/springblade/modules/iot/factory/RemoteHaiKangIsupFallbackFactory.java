@@ -103,6 +103,11 @@ public class RemoteHaiKangIsupFallbackFactory implements FallbackFactory<RemoteH
             }
 
             @Override
+            public R<Boolean> trySeekPlayback(RtpServerParam rtpServerParam) {
+                return R.data(false);
+            }
+
+            @Override
             public R<Void> stopPlayback(Long id) {
                 return R.fail("海康isup停止回放失败:" + throwable.getMessage());
             }

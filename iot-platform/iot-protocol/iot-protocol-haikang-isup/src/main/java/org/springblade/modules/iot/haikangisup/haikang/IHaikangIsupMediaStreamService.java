@@ -73,4 +73,16 @@ public interface IHaikangIsupMediaStreamService {
      * @return
      */
     File downloadRecordByTime(Integer lUserID, QsDevice device, Integer channelId, String startTime, String endTime, String filePath);
+
+    /**
+     * 尝试复用现有回放会话并跳转时间
+     * 如果现有会话有效（同一日期、时间跨度<=30分钟、会话未失效），则执行seek跳转
+     *
+     * @param playbackKey 回放标识
+     * @param lUserID 用户ID
+     * @param newStartTime 新的开始时间
+     * @param newEndTime 新的结束时间
+     * @return true=seek成功，false=需要新建会话
+     */
+    boolean trySeekPlayback(String playbackKey, Integer lUserID, String newStartTime, String newEndTime);
 }

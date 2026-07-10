@@ -604,6 +604,19 @@ public interface HCISUPCMS extends Library {
         public byte[] byRes = new byte[120];
     }
 
+    // 回放跳转参数结构体
+    public static class NET_EHOME_PLAYBACK_SEEK_PARAM extends HIKSDKStructure {
+        public int lSessionID;           // 回放会话ID
+        public int lHandle;              // 回放句柄
+        public NET_EHOME_TIME struSeekTime;  // 跳转的目标时间
+        public byte[] byRes = new byte[108];
+    }
+
+    // 回放操作模式常量
+    public static final int PLAYBACK_OPERATE_PAUSE = 1;      // 暂停回放
+    public static final int PLAYBACK_OPERATE_RESTART = 2;    // 恢复回放
+    public static final int PLAYBACK_OPERATE_SEEK = 3;       // 跳转回放（按时间定位）
+
     boolean NET_ECMS_PlayBackOperate(int lUserID, int enumMode, Pointer pOperateParam);
 
     public static class NET_EHOME_PUSHPLAYBACK_IN extends HIKSDKStructure {

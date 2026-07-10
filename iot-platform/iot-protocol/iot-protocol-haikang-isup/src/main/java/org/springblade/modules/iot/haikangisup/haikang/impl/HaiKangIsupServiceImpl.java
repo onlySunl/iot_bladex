@@ -814,6 +814,31 @@ public class HaiKangIsupServiceImpl implements IHaiKangIsupService {
     }
 
     @Override
+    public boolean trySeekPlayback(RtpServerParam rtpServerParam) {
+        R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(rtpServerParam.getId());
+        if (r.getCode() != Constants.SUCCESS) {
+            log.warn("[回放seek] 获取设备信息失败: {}", r.getMsg());
+            return false;
+        }
+        QsDevice device = r.getData();
+        if (device == null) {
+            log.warn("[回放seek] 设备不存在: {}", rtpServerParam.getId());
+            return false;
+        }
+
+        String playbackKey = "haikang_isup_playback_" + device.getId() + "_" + device.getChannel();
+
+        Integer lUserID = FRegisterCallBack.lUserIDMap.get(device.getIpAddress());
+        if (lUserID == null) {
+            log.warn("[回放seek] 未找到用户信息: {}", device.getIpAddress());
+            return false;
+        }
+
+        return mediaStreamService.trySeekPlayback(playbackKey, lUserID, 
+            rtpServerParam.getStartTime(), rtpServerParam.getEndTime());
+    }
+
+    @Override
     public void stopPlayback(Long id) {
         R<QsDevice> r = remoteQsDeviceService.getQsDeviceInfo(id);
         if (r.getCode() != Constants.SUCCESS) {

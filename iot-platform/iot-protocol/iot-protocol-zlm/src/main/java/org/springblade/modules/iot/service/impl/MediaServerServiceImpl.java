@@ -1054,7 +1054,44 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         int tcpMode = Func.toInt(r.getData().getStreamMode());
         rtpServerParam.setTcpMode(tcpMode);
         rtpServerParam.setMediaServer(mediaServer);
-        
+
+        // 海康ISUP回放：尝试复用现有会话（seek跳转时间），避免频繁创建会话触发3701错误
+        if (rtpServerParam.isPlayback() && LiveStreamType.HIK_ISUP.getCode().equals(rtpServerParam.getType())) {
+            RtpServerParam seekParam = new RtpServerParam();
+            seekParam.setId(rtpServerParam.getDeviceId());
+            seekParam.setChannel(rtpServerParam.getChannel());
+            seekParam.setStartTime(rtpServerParam.getStartTime());
+            seekParam.setEndTime(rtpServerParam.getEndTime());
+            seekParam.setPlayback(true);
+
+            try {
+                R<Boolean> seekResult = remoteHaiKangIsupService.trySeekPlayback(seekParam);
+                if (seekResult != null && seekResult.getCode() == Constants.SUCCESS && Boolean.TRUE.equals(seekResult.getData())) {
+                    // seek成功，现有会话已复用，设备继续向旧端口推流
+                    // 从已有的InviteInfo中获取流信息返回给前端
+                    InviteSessionType sessionType = InviteSessionType.PLAYBACK;
+                    InviteInfo existingInvite = inviteStreamService.getInviteInfoByDeviceAndChannel(sessionType, r.getData().getId());
+                    if (existingInvite != null && existingInvite.getSsrcInfo() != null) {
+                        log.info("[回放seek] 会话复用成功，返回现有流信息: deviceId={}, stream={}", 
+                            rtpServerParam.getDeviceId(), existingInvite.getSsrcInfo().getStream());
+                        if (callback != null) {
+                            StreamInfo existingStreamInfo = existingInvite.getStreamInfo();
+                            if (existingStreamInfo != null) {
+                                callback.run(InviteErrorCode.SUCCESS.getCode(), "回放seek跳转成功", existingStreamInfo);
+                                return;
+                            } else {
+                                log.warn("[回放seek] seek成功但StreamInfo为空，将新建会话");
+                            }
+                        }
+                    } else {
+                        log.warn("[回放seek] seek成功但未找到现有InviteInfo，将新建会话");
+                    }
+                }
+            } catch (Exception e) {
+                log.warn("[回放seek] trySeekPlayback调用异常，将新建会话: {}", e.getMessage());
+            }
+        }
+
         play(mediaServer, rtpServerParam, r.getData(), null, callback);
     }
 

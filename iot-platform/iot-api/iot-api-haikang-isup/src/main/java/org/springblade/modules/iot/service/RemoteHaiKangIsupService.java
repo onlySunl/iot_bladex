@@ -74,6 +74,15 @@ public interface RemoteHaiKangIsupService {
     public R<Void> startPlayback(@RequestBody RtpServerParam rtpServerParam);
 
     /**
+     * 尝试复用现有回放会话并跳转时间
+     *
+     * @param rtpServerParam 回放参数（包含新的开始/结束时间）
+     * @return true=seek成功，false=需要新建会话
+     */
+    @PostMapping("/api/haikang/isup/trySeekPlayback")
+    public R<Boolean> trySeekPlayback(@RequestBody RtpServerParam rtpServerParam);
+
+    /**
      * 停止回放
      *
      * @param id    设备id

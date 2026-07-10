@@ -134,6 +134,14 @@ public interface IHaiKangIsupService {
     void startPlayback(RtpServerParam rtpServerParam);
 
     /**
+     * 尝试复用现有回放会话并跳转时间
+     *
+     * @param rtpServerParam 回放参数（包含新的开始/结束时间）
+     * @return true=seek成功，false=需要新建会话
+     */
+    boolean trySeekPlayback(RtpServerParam rtpServerParam);
+
+    /**
      * 停止回放
      *
      * @param id 设备id
