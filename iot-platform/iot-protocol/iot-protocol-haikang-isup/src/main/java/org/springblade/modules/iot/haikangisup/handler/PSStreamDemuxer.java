@@ -79,19 +79,21 @@ public class PSStreamDemuxer {
             return emptyResult;
         }
 
-        // 解析累积的数据
-        List<byte[]> result = parseAccumulatedData(accumulatedData);
-
-        // 找到最后一个完整的Pack Header位置，保留从该位置开始的数据
+        // 先找到最后一个Pack Header位置，只解析之前的完整数据
         int lastPackStart = findLastPackStart(accumulatedData);
-        if (lastPackStart > 0) {
-            // 有未处理的数据，保留到下次
-            psDataBuffer.reset();
-            psDataBuffer.write(accumulatedData, lastPackStart, accumulatedData.length - lastPackStart);
-        } else {
-            // 所有数据都已处理或没有Pack Header，清空缓冲区
-            psDataBuffer.reset();
+        if (lastPackStart <= 0) {
+            // 没有找到Pack Header或只有一个在不完整位置，继续累积
+            return emptyResult;
         }
+
+        // 只解析到最后一个Pack Header之前的数据（保证完整性）
+        byte[] completeData = new byte[lastPackStart];
+        System.arraycopy(accumulatedData, 0, completeData, 0, lastPackStart);
+        List<byte[]> result = parseAccumulatedData(completeData);
+
+        // 保留从最后一个Pack Header开始的数据（可能不完整，留待下次处理）
+        psDataBuffer.reset();
+        psDataBuffer.write(accumulatedData, lastPackStart, accumulatedData.length - lastPackStart);
 
         return result;
     }
