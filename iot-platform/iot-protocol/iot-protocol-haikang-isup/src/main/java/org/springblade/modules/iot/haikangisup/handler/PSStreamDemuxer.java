@@ -44,6 +44,8 @@ public class PSStreamDemuxer {
     private static final int BUFFER_MAX_CAPACITY = 1024 * 1024;
     /** 日志打印字节上限，避免超长十六进制日志 */
     private static final int LOG_HEX_LIMIT = 32;
+    /** 单Pack Header时最小解析阈值（字节），数据量达到此值后强制解析 */
+    private static final int MIN_PARSE_SIZE = 1000;
 
     // 跨包分片缓存：存储被切割的NAL片段，拼接下一包数据
     private final ByteArrayOutputStream fragmentBuffer = new ByteArrayOutputStream();
@@ -79,21 +81,48 @@ public class PSStreamDemuxer {
             return emptyResult;
         }
 
-        // 先找到最后一个Pack Header位置，只解析之前的完整数据
+        // 先找到最后一个Pack Header位置
         int lastPackStart = findLastPackStart(accumulatedData);
-        if (lastPackStart <= 0) {
-            // 没有找到Pack Header或只有一个在不完整位置，继续累积
+        if (lastPackStart < 0) {
+            // 没有找到Pack Header，继续累积
             return emptyResult;
         }
 
-        // 只解析到最后一个Pack Header之前的数据（保证完整性）
-        byte[] completeData = new byte[lastPackStart];
-        System.arraycopy(accumulatedData, 0, completeData, 0, lastPackStart);
+        // 查找是否有第二个Pack Header（用于确定完整数据边界）
+        int secondPackStart = -1;
+        for (int i = lastPackStart + 4; i + 3 < accumulatedData.length; i++) {
+            if (accumulatedData[i] == 0x00 && accumulatedData[i + 1] == 0x00
+                    && accumulatedData[i + 2] == 0x01 && accumulatedData[i + 3] == (byte) 0xBA) {
+                secondPackStart = i;
+                break;
+            }
+        }
+
+        byte[] completeData;
+        int retainedStart;
+
+        if (secondPackStart > 0) {
+            // 有多个Pack Header：只解析到第二个Pack Header之前的数据（保证完整性）
+            completeData = new byte[secondPackStart];
+            System.arraycopy(accumulatedData, 0, completeData, 0, secondPackStart);
+            retainedStart = secondPackStart;
+        } else if (accumulatedData.length >= MIN_PARSE_SIZE) {
+            // 只有一个Pack Header但数据量足够大：解析全部数据
+            // （接受最后一个PES可能不完整的风险，fragmentBuffer会处理跨包NAL）
+            completeData = accumulatedData;
+            retainedStart = accumulatedData.length;
+        } else {
+            // 只有一个Pack Header且数据量不够，继续累积
+            return emptyResult;
+        }
+
         List<byte[]> result = parseAccumulatedData(completeData);
 
-        // 保留从最后一个Pack Header开始的数据（可能不完整，留待下次处理）
+        // 保留未处理的数据
         psDataBuffer.reset();
-        psDataBuffer.write(accumulatedData, lastPackStart, accumulatedData.length - lastPackStart);
+        if (retainedStart < accumulatedData.length) {
+            psDataBuffer.write(accumulatedData, retainedStart, accumulatedData.length - retainedStart);
+        }
 
         return result;
     }
