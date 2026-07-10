@@ -207,7 +207,7 @@ public class ZLMMediaServerStatusManager {
         offlineZlmTimeMap.remove(mediaServerItem.getId());
         if (!"ON".equals(mediaServerItem.getStatus())) {
             log.debug("[ZLM-连接成功] ID：{}, 地址： {}:{}", mediaServerItem.getId(), mediaServerItem.getIp(), mediaServerItem.getHttpPort());
-            mediaServerItem.setStatus(0);
+            mediaServerItem.setMediaStatus("ONLINE");
             mediaServerItem.setHookAliveInterval(10F);
             // 发送上线通知
             eventPublisher.mediaServerOnlineEventPublish(mediaServerItem);
@@ -231,7 +231,7 @@ public class ZLMMediaServerStatusManager {
         String key = "zlm-keepalive-" + mediaServerItem.getId();
         dynamicTask.startDelay(key, () -> {
             log.warn("[ZLM-心跳超时] ID：{}", mediaServerItem.getId());
-            mediaServerItem.setStatus(0);
+            mediaServerItem.setMediaStatus("OFFLINE");
             offlineZlmPrimaryMap.put(mediaServerItem.getId(), mediaServerItem);
             offlineZlmTimeMap.put(mediaServerItem.getId(), System.currentTimeMillis());
             // 发送离线通知

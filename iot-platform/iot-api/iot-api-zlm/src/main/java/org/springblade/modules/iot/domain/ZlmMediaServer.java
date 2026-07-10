@@ -181,6 +181,10 @@ public class ZlmMediaServer extends CustomBaseEntity {
     @AutoColumn(comment = "服务Id", length = 100, defaultValueType = DefaultValueEnum.EMPTY_STRING)
     private String serverId;
 
+    /** 服务Id */
+    @TableField(value = "media_status")
+    @AutoColumn(comment = "服务Id", length = 100, defaultValueType = DefaultValueEnum.EMPTY_STRING)
+    private String mediaStatus;
 
     public ZlmMediaServer() {
     }
