@@ -126,8 +126,11 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
                                     bytesToHex(nal, Math.min(8, nal.length)));
                         }
                     }
+                    // 同一帧的所有NAL使用相同时间戳（H.264 RTP要求）
+                    int frameTs = currentTimestamp;
+                    currentTimestamp += TIMESTAMP_INCREMENT;
                     for (byte[] nalUnit : nalUnits) {
-                        sendNalUnitAsRtp(connection, nalUnit);
+                        sendNalUnitAsRtp(connection, nalUnit, frameTs);
                     }
                 }
                 
@@ -190,8 +193,9 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
     /**
      * 将NAL单元封装为RTP包并发送
      * 支持H.264和H.265/HEVC
+     * @param frameTimestamp 帧时间戳，同一帧的所有NAL使用相同时间戳
      */
-    private void sendNalUnitAsRtp(RtpConnection connection, byte[] nalUnit) throws IOException {
+    private void sendNalUnitAsRtp(RtpConnection connection, byte[] nalUnit, int frameTimestamp) throws IOException {
         if (nalUnit == null || nalUnit.length == 0) {
             return;
         }
@@ -200,25 +204,22 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
         boolean isHevc = isHevcNalUnit(nalUnit);
         
         if (isHevc) {
-            sendHevcNalAsRtp(connection, nalUnit);
+            sendHevcNalAsRtp(connection, nalUnit, frameTimestamp);
         } else {
-            sendAvcNalAsRtp(connection, nalUnit);
+            sendAvcNalAsRtp(connection, nalUnit, frameTimestamp);
         }
     }
     
     /**
      * 发送H.265/HEVC NAL单元为RTP包 (RFC 7798)
+     * @param frameTimestamp 帧时间戳
      */
-    private void sendHevcNalAsRtp(RtpConnection connection, byte[] nalUnit) throws IOException {
+    private void sendHevcNalAsRtp(RtpConnection connection, byte[] nalUnit, int frameTimestamp) throws IOException {
         // H.265 Payload Type - 需要根据ZLM配置调整
         // 通常H.265使用PT=96或自定义值
         byte pt = 96; // HEVC Payload Type
         
         int maxPayloadSize = 1400 - 12; // MTU 1400 - RTP Header 12
-        
-        // 时间戳
-        int frameTimestamp = currentTimestamp;
-        currentTimestamp += TIMESTAMP_INCREMENT;
         
         // SSRC
         ByteBuffer buffer = ByteBuffer.allocate(4);
@@ -355,14 +356,11 @@ public class PreviewStreamHandler implements HCISUPStream.PREVIEW_DATA_CB {
     
     /**
      * 发送H.264/AVC NAL单元为RTP包 (RFC 6184)
+     * @param frameTimestamp 帧时间戳
      */
-    private void sendAvcNalAsRtp(RtpConnection connection, byte[] nalUnit) throws IOException {
+    private void sendAvcNalAsRtp(RtpConnection connection, byte[] nalUnit, int frameTimestamp) throws IOException {
         byte pt = 98; // H.264 Payload Type (ZLM rtp_proxy配置: h264_pt=98)
         int maxPayloadSize = 1400 - 12; // MTU 1400 - RTP Header 12
-        
-        // 时间戳
-        int frameTimestamp = currentTimestamp;
-        currentTimestamp += TIMESTAMP_INCREMENT;
         
         // SSRC
         ByteBuffer buffer = ByteBuffer.allocate(4);

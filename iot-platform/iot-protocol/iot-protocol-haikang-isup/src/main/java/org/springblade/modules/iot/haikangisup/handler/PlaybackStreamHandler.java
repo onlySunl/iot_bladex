@@ -178,8 +178,11 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
                                 log.info("[回放PS解复用] NAL#{}: 长度={}, 类型={}", i, nal.length, nalType);
                             }
                         }
+                        // 同一帧的所有NAL使用相同时间戳（H.264 RTP要求）
+                        int frameTs = currentTimestamp;
+                        currentTimestamp += TIMESTAMP_INCREMENT;
                         for (byte[] nalUnit : nalUnits) {
-                            sendNalUnitAsRtp(connection, nalUnit);
+                            sendNalUnitAsRtp(connection, nalUnit, frameTs);
                         }
                     }
                 } catch (Exception e) {
@@ -201,18 +204,15 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
     /**
      * 将NAL单元封装为RTP包并发送 (RFC 6184 H.264)
      * 与PreviewStreamHandler使用相同的封装逻辑
+     * @param frameTimestamp 帧时间戳，同一帧的所有NAL使用相同时间戳
      */
-    private void sendNalUnitAsRtp(RtpConnection connection, byte[] nalUnit) throws IOException {
+    private void sendNalUnitAsRtp(RtpConnection connection, byte[] nalUnit, int frameTimestamp) throws IOException {
         if (nalUnit == null || nalUnit.length == 0) {
             return;
         }
 
         byte pt = 98; // H.264 Payload Type (ZLM配置: h264_pt=98)
         int maxPayloadSize = 1400 - 12; // MTU 1400 - RTP Header 12
-
-        // 时间戳
-        int frameTimestamp = currentTimestamp;
-        currentTimestamp += TIMESTAMP_INCREMENT;
 
         // SSRC
         ByteBuffer buffer = ByteBuffer.allocate(4);
