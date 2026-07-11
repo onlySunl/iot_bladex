@@ -14,6 +14,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -41,6 +42,10 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
     private long totalBytesSent = 0;
     private long invokeCount = 0; // 回调调用计数
     private long videoDataCount = 0; // 视频数据回调计数
+
+    // SPS/PPS缓冲：确保与后续VCL NAL（IDR/Non-IDR）使用相同时间戳发送
+    // 解决fragmentBuffer跨PES拼接导致SPS/PPS与IDR分到不同processPSData调用的问题
+    private final List<byte[]> pendingNalUnits = new ArrayList<>();
 
     // 存储每个回放句柄对应的连接信息
     private class RtpConnection {
@@ -195,11 +200,26 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
                                 }
                             }
                         }
-                        // 同一帧的所有NAL使用相同时间戳（H.264 RTP要求）
-                        int frameTs = currentTimestamp;
-                        currentTimestamp += TIMESTAMP_INCREMENT;
+                        // 分离VCL和non-VCL NAL单元
+                        // non-VCL (SPS/PPS/SEI) 暂存，等VCL (IDR/Non-IDR) 到达后一起发送，确保相同时间戳
+                        // 解决fragmentBuffer跨PES拼接导致SPS/PPS与IDR分到不同回调的问题
                         for (byte[] nalUnit : nalUnits) {
-                            sendNalUnitAsRtp(connection, nalUnit, frameTs);
+                            int nalType = nalUnit[0] & 0x1F;
+                            if (nalType >= 1 && nalType <= 5) {
+                                // VCL NAL: 先发送缓冲的non-VCL，再发送当前VCL，全部使用相同时间戳
+                                int frameTs = currentTimestamp;
+                                currentTimestamp += TIMESTAMP_INCREMENT;
+                                if (!pendingNalUnits.isEmpty()) {
+                                    for (byte[] pending : pendingNalUnits) {
+                                        sendNalUnitAsRtp(connection, pending, frameTs, false);
+                                    }
+                                    pendingNalUnits.clear();
+                                }
+                                sendNalUnitAsRtp(connection, nalUnit, frameTs, true);
+                            } else {
+                                // non-VCL NAL (SPS/PPS/SEI): 缓冲，等待VCL NAL
+                                pendingNalUnits.add(nalUnit);
+                            }
                         }
                     }
                 } catch (Exception e) {
@@ -222,8 +242,9 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
      * 将NAL单元封装为RTP包并发送 (RFC 6184 H.264)
      * 与PreviewStreamHandler使用相同的封装逻辑
      * @param frameTimestamp 帧时间戳，同一帧的所有NAL使用相同时间戳
+     * @param setMarkerBit 是否设置RTP Marker bit（Access Unit最后一个包设为true）
      */
-    private void sendNalUnitAsRtp(RtpConnection connection, byte[] nalUnit, int frameTimestamp) throws IOException {
+    private void sendNalUnitAsRtp(RtpConnection connection, byte[] nalUnit, int frameTimestamp, boolean setMarkerBit) throws IOException {
         if (nalUnit == null || nalUnit.length == 0) {
             return;
         }
@@ -249,7 +270,9 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
         if (dataSize <= maxPayloadSize) {
             // 单包模式：Single NAL Unit Packet
             rtpPacket[1] = (byte) (pt & 0x7F);
-            rtpPacket[1] = (byte) (rtpPacket[1] | 0x80); // Marker bit = 1
+            if (setMarkerBit) {
+                rtpPacket[1] = (byte) (rtpPacket[1] | 0x80); // Marker bit = 1 (Access Unit结束)
+            }
 
             byte[] seqBytes = shortToBytes(++seqNum);
             rtpPacket[2] = seqBytes[0];
@@ -303,8 +326,8 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
                 System.arraycopy(tsBytes, 0, rtpPacket, 4, 4);
                 System.arraycopy(ssrc, 0, rtpPacket, 8, 4);
 
-                // Marker bit: 最后一个分片设为1
-                if (isLast) {
+                // Marker bit: 仅在setMarkerBit为true且是最后一个分片时设置
+                if (setMarkerBit && isLast) {
                     rtpPacket[1] = (byte) (rtpPacket[1] | 0x80);
                 }
 
@@ -366,6 +389,7 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
         totalBytesSent = 0;
         invokeCount = 0;
         videoDataCount = 0;
+        pendingNalUnits.clear();
         // 重置每个连接的PS解复用器
         for (RtpConnection conn : connectionMap.values()) {
             if (conn.psDemuxer != null) {
