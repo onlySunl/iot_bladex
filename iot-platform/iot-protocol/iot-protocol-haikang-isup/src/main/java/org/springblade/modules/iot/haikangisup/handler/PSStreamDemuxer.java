@@ -254,8 +254,22 @@ public class PSStreamDemuxer {
 
             // 提取NAL单元并合并到结果
             List<byte[]> nalList = extractNalFromPayload(pesPayload);
-            if (parseDiagnosticCount < 5) {
+            if (parseDiagnosticCount < 10) {
                 log.info("[PS解析] PES负载提取到{}个NAL单元", nalList.size());
+                for (int i = 0; i < nalList.size(); i++) {
+                    byte[] nal = nalList.get(i);
+                    int nalType = nal.length > 0 ? (nal[0] & 0x1F) : -1;
+                    String nalTypeName;
+                    switch (nalType) {
+                        case 5: nalTypeName = "IDR"; break;
+                        case 7: nalTypeName = "SPS"; break;
+                        case 8: nalTypeName = "PPS"; break;
+                        case 6: nalTypeName = "SEI"; break;
+                        case 1: nalTypeName = "Non-IDR"; break;
+                        default: nalTypeName = "Type_" + nalType; break;
+                    }
+                    log.info("[PS解析] NAL#{}: 长度={}, 类型={}({})", i, nal.length, nalType, nalTypeName);
+                }
             }
             nalResult.addAll(nalList);
         }

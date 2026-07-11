@@ -170,12 +170,29 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
                     // 将PS数据送入解复用器提取NAL单元
                     List<byte[]> nalUnits = connection.psDemuxer.processPSData(data);
                     if (!nalUnits.isEmpty()) {
-                        if (videoDataCount <= 2) {
+                        if (videoDataCount <= 5) {
                             log.info("[回放PS解复用] 提取到{}个NAL单元", nalUnits.size());
                             for (int i = 0; i < nalUnits.size(); i++) {
                                 byte[] nal = nalUnits.get(i);
                                 int nalType = nal.length > 0 ? (nal[0] & 0x1F) : -1;
-                                log.info("[回放PS解复用] NAL#{}: 长度={}, 类型={}", i, nal.length, nalType);
+                                String nalTypeName;
+                                switch (nalType) {
+                                    case 5: nalTypeName = "IDR"; break;
+                                    case 7: nalTypeName = "SPS"; break;
+                                    case 8: nalTypeName = "PPS"; break;
+                                    case 6: nalTypeName = "SEI"; break;
+                                    case 1: nalTypeName = "Non-IDR"; break;
+                                    default: nalTypeName = "Type_" + nalType; break;
+                                }
+                                log.info("[回放PS解复用] NAL#{}: 长度={}, 类型={}({})", i, nal.length, nalType, nalTypeName);
+                                // 打印前16字节用于诊断
+                                if (nal.length > 0) {
+                                    StringBuilder hex = new StringBuilder();
+                                    for (int j = 0; j < Math.min(16, nal.length); j++) {
+                                        hex.append(String.format("%02X ", nal[j] & 0xFF));
+                                    }
+                                    log.info("[回放PS解复用] NAL#{} 前{}字节: {}", i, Math.min(16, nal.length), hex.toString().trim());
+                                }
                             }
                         }
                         // 同一帧的所有NAL使用相同时间戳（H.264 RTP要求）
