@@ -130,7 +130,7 @@ public class ZLMMediaServerStatusManager {
         offlineZlmTimeMap.remove(event.getMediaServer().getId());
     }
 
-    //@Scheduled(fixedDelay = 10 * 1000)   //每隔10秒检查一次
+    @Scheduled(fixedDelay = 10 * 1000)   //每隔10秒检查一次
     public void execute() {
         // 初次加入的离线节点会在30分钟内，每间隔十秒尝试一次，30分钟后如果仍然没有上线，则每隔30分钟尝试一次连接
         if (offlineZlmPrimaryMap.isEmpty() && offlineZlmsecondaryMap.isEmpty()) {

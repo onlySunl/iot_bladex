@@ -177,7 +177,7 @@ public class PSStreamDemuxer {
                 int packHeaderLen = parsePackHeaderLen(psData, globalOffset, dataLen);
                 if (parseDiagnosticCount < 5) {
                     int stuffingLen = packHeaderLen - 10;
-                    log.info("[PS解析] Pack Header @offset={}, stuffingLen={}, totalPackLen={}", 
+                    log.debug("[PS解析] Pack Header @offset={}, stuffingLen={}, totalPackLen={}",
                             codeHeadPos, stuffingLen, 4 + packHeaderLen);
                 }
                 globalOffset += packHeaderLen;
@@ -190,7 +190,7 @@ public class PSStreamDemuxer {
                 if (globalOffset + 2 > dataLen) break;
                 int sysHeaderLen = ((psData[globalOffset] & 0xFF) << 8) | (psData[globalOffset + 1] & 0xFF);
                 if (parseDiagnosticCount < 5) {
-                    log.info("[PS解析] System Header @offset={}, len={}", codeHeadPos, sysHeaderLen);
+                    log.debug("[PS解析] System Header @offset={}, len={}", codeHeadPos, sysHeaderLen);
                 }
                 globalOffset += 2 + sysHeaderLen;
                 continue;
@@ -203,7 +203,7 @@ public class PSStreamDemuxer {
                 int pesTotalLen = ((psData[globalOffset] & 0xFF) << 8) | (psData[globalOffset + 1] & 0xFF);
                 skippedPesCount++;
                 if (parseDiagnosticCount < 5) {
-                    log.info("[PS解析] 跳过非视频PES streamId=0x{}, @offset={}, pesLen={}", 
+                    log.debug("[PS解析] 跳过非视频PES streamId=0x{}, @offset={}, pesLen={}",
                             String.format("%02X", streamIdInt), codeHeadPos, pesTotalLen);
                 }
                 globalOffset += 2 + pesTotalLen;
@@ -234,14 +234,14 @@ public class PSStreamDemuxer {
             realPayloadLen = Math.min(realPayloadLen, MAX_PAYLOAD_SIZE);
 
             if (parseDiagnosticCount < 5) {
-                log.info("[PS解析] 视频PES @offset={}, pesTotalLen={}, pesHeaderLen={}, payloadLen={}", 
+                log.debug("[PS解析] 视频PES @offset={}, pesTotalLen={}, pesHeaderLen={}, payloadLen={}",
                         codeHeadPos, pesTotalLen, pesHeaderLen, realPayloadLen);
                 int printLen = Math.min(16, realPayloadLen);
                 StringBuilder hex = new StringBuilder();
                 for (int i = 0; i < printLen; i++) {
                     hex.append(String.format("%02X ", psData[globalOffset + i] & 0xFF));
                 }
-                log.info("[PS解析] PES负载前{}字节: {}", printLen, hex.toString().trim());
+                log.debug("[PS解析] PES负载前{}字节: {}", printLen, hex.toString().trim());
             }
 
             // 截取PES负载
@@ -252,7 +252,7 @@ public class PSStreamDemuxer {
             // 提取NAL单元并合并到结果
             List<byte[]> nalList = extractNalFromPayload(pesPayload);
             if (parseDiagnosticCount < 10) {
-                log.info("[PS解析] PES负载提取到{}个NAL单元", nalList.size());
+                log.debug("[PS解析] PES负载提取到{}个NAL单元", nalList.size());
                 for (int i = 0; i < nalList.size(); i++) {
                     byte[] nal = nalList.get(i);
                     int nalType = nal.length > 0 ? (nal[0] & 0x1F) : -1;
@@ -265,7 +265,7 @@ public class PSStreamDemuxer {
                         case 1: nalTypeName = "Non-IDR"; break;
                         default: nalTypeName = "Type_" + nalType; break;
                     }
-                    log.info("[PS解析] NAL#{}: 长度={}, 类型={}({})", i, nal.length, nalType, nalTypeName);
+                    log.debug("[PS解析] NAL#{}: 长度={}, 类型={}({})", i, nal.length, nalType, nalTypeName);
                 }
             }
             nalResult.addAll(nalList);
@@ -273,7 +273,7 @@ public class PSStreamDemuxer {
 
         if (parseDiagnosticCount < 5) {
             parseDiagnosticCount++;
-            log.info("[PS解析] 完成: packHeader={}, sysHeader={}, videoPes={}, skippedPes={}, nalResult={}, offset={}/{}", 
+            log.debug("[PS解析] 完成: packHeader={}, sysHeader={}, videoPes={}, skippedPes={}, nalResult={}, offset={}/{}",
                     hasPackHeader, hasSystemHeader, pesFoundCount, skippedPesCount, nalResult.size(), globalOffset, dataLen);
         }
 
