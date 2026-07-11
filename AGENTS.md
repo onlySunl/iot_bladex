@@ -26,6 +26,9 @@
 │       └── application.yml    # 主配置文件
 ├── blade-common/             # 公共模块
 ├── blade-api/                # API 模块
+│   └── src/main/java/org/springblade/modules/iot/
+│       ├── pojo/entity/      # IoT实体类 (Product, Device, RuleModel等)
+│       └── pojo/vo/          # IoT VO类
 ├── iot-platform/             # IoT 平台业务模块
 │   ├── iot-common/           # IoT 公共模块
 │   ├── iot-api/              # IoT API 接口模块
@@ -78,3 +81,47 @@ docker build -t blade-iot .
 - **回放 vs 预览**：回放流（PlaybackStreamHandler）和预览流（PreviewStreamHandler）共用 PSStreamDemuxer，但回放流的 PES 包更大（IDR帧可达数KB），更容易出现跨回调截断。
 - **SPS/PPS 与 IDR 时间戳对齐**：fragmentBuffer 机制导致 SPS/PPS 和 IDR 可能被分到不同的 `processPSData` 调用。PlaybackStreamHandler 使用 `pendingNalUnits` 缓冲 non-VCL NAL（SPS/PPS/SEI），等 VCL NAL（IDR/Non-IDR）到达后一起发送，确保同一 Access Unit 的所有 NAL 使用相同 RTP 时间戳。
 - **RTP Marker bit 规范**：Marker bit 仅在 Access Unit 的最后一个 RTP 包设为 1。SPS/PPS 等 non-VCL NAL 不设 M=1，VCL NAL（IDR/Non-IDR）设为 M=1。FU-A 分片仅在最后一个分片设 M=1。
+
+## IoT 管理模块（迁移自 NexIoT）
+
+### 概述
+从 NexIoT 项目迁移的产品管理、设备管理、规则引擎功能，已按 BladeX 标准重构。
+
+### 代码位置
+- **实体类/VO**: `blade-api/src/main/java/org/springblade/modules/iot/pojo/`
+- **Mapper**: `blade-server/src/main/java/org/springblade/modules/iot/mapper/`
+- **Service**: `blade-server/src/main/java/org/springblade/modules/iot/service/`
+- **Controller**: `blade-server/src/main/java/org/springblade/modules/iot/controller/`
+- **Wrapper**: `blade-server/src/main/java/org/springblade/modules/iot/wrapper/`
+- **规则引擎**: `blade-server/src/main/java/org/springblade/modules/iot/rule/`
+- **DDL**: `iot-platform/iot-common/src/main/resources/sql/nexiot-migration.sql`
+
+### 数据表
+| 表名 | 说明 |
+|---|---|
+| `iot_product` | 产品表 |
+| `iot_device` | 设备表 |
+| `iot_product_function` | 产品功能定义（物模型） |
+| `iot_device_group` | 设备分组 |
+| `iot_device_group_union` | 设备-分组关联 |
+| `iot_rule_model` | 规则模型 |
+
+### API 接口
+| 模块 | 路径前缀 | 说明 |
+|---|---|---|
+| 产品管理 | `/product/` | CRUD + 发布 |
+| 设备管理 | `/device/` | CRUD + 在线状态 |
+| 规则引擎 | `/rule/` | CRUD + 启停 |
+
+### 规则引擎
+- **RuleEngine**: 执行 SQL 规则语句，过滤和转换设备上报数据
+- **RuleSqlParser**: 解析类 SQL 语法规则（SELECT ... FROM ... WHERE ...）
+- **RuleTransmitTemplate**: 数据转发模板（HTTP/MQTT/KAFKA/LOG）
+- **RuleExecutionService**: 规则执行服务，异步匹配规则并转发
+
+### BladeX 规范适配
+- 实体类继承 `CustomBaseEntity`（含 id/create_time/update_time/tenant_id/is_deleted）
+- Controller 继承 `BladeController`，使用 `R<T>` 统一响应
+- Wrapper 继承 `BaseEntityWrapper`，使用 `BeanUtil.copyProperties` 转换
+- Service 继承 `IService<T>` / `ServiceImpl<M, T>`
+- Mapper 继承 `BaseMapper<T>`
