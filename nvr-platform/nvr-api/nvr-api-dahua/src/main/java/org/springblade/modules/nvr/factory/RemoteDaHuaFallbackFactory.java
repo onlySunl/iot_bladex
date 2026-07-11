@@ -1,0 +1,173 @@
+package org.springblade.modules.nvr.factory;
+
+
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.nvr.common.domain.RtpServerParam;
+import org.springblade.modules.nvr.service.RemoteDaHuaService;
+import org.springblade.modules.nvr.domain.DahuaDevice;
+import org.springblade.modules.nvr.domain.LoginDevice;
+import org.springblade.modules.nvr.domain.DahuaRecordDownloadRequest;
+import org.springblade.modules.nvr.domain.DahuaRecordDownloadResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cloud.openfeign.FallbackFactory;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+/**
+ * 大华sdk服务降级处理
+ *
+ * @FileName RemoteDaHuaFallbackFactory
+ * @Description
+ * @Author fengcheng
+ * @date 2026-03-30
+ **/
+@Component
+public class RemoteDaHuaFallbackFactory implements FallbackFactory<RemoteDaHuaService> {
+
+    private static final Logger log = LoggerFactory.getLogger(RemoteDaHuaFallbackFactory.class);
+
+
+    @Override
+    public RemoteDaHuaService create(Throwable throwable) {
+        log.error("大华sdk服务调用失败:{}", throwable.getMessage());
+        return new RemoteDaHuaService() {
+            @Override
+            public R<Void> loginDevice(LoginDevice loginDevice) {
+                return R.fail("大华sdk登录设备失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Boolean> isUserId(String ip) {
+                return R.fail("大华sdk查询是否登录失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<String> getTime(String ip) {
+                return R.fail("大华sdk设备获取时间失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Boolean> setTime(Long id, String date, boolean type) {
+                return R.fail("大华sdk设备设置时间失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Boolean> reboot(Long id) {
+                return R.fail("大华sdk设备重启失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<DahuaDevice> getDahuaDevice(String ip) {
+                return R.fail("大华sdk获取主动上线设备失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Boolean> logoutDevice(String ip) {
+                return R.fail("大华sdk退出设备失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Void> startPlay(RtpServerParam rtpServerParam) {
+                return R.fail("大华sdk开始播放失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Void> stopPlay(Long id) {
+                return R.fail("大华sdk停止播放失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Boolean> ptzControlUpStart(Long id, int channelId, String direction, Integer speed) {
+                return R.fail("大华sdk云台控制开始失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Boolean> ptzControlUpEnd(Long id, int channelId, String direction) {
+                return R.fail("大华sdk云台控制停止失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<ArrayList<HashMap<String, Object>>> getPresetList(Long id, int channelId) {
+                return R.fail("大华sdk获取预置点列表失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Void> setPreset(Long id, int channelId, int presetIndex) {
+                return R.fail("大华sdk设置预置点失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Void> delPreset(Long id, int channelId, int presetIndex) {
+                return R.fail("大华sdk删除预置点失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Void> invokePreset(Long id, int channelId, int presetIndex) {
+                return R.fail("大华sdk调用预置点失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Void> controlLight(Long id, int channelId, int action) {
+                return R.fail("大华sdk灯光控制失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Void> controlWiper(Long id, int channelId, int action) {
+                return R.fail("大华sdk雨刷控制失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Void> startTour(Long id, int channelId, int tourIndex) {
+                return R.fail("大华sdk开始巡航失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Void> stopTour(Long id, int channelId) {
+                return R.fail("大华sdk停止巡航失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Void> addPresetToTour(Long id, int channelId, int tourIndex, int presetIndex) {
+                return R.fail("大华sdk添加预置点到巡航线路失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Void> removePresetFromTour(Long id, int channelId, int tourIndex, int presetIndex) {
+                return R.fail("大华sdk从巡航线路删除预置点失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Void> clearTour(Long id, int channelId, int tourIndex) {
+                return R.fail("大华sdk清除巡航线路失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<ArrayList<HashMap<String, Object>>> queryRecord(Long id, int channelId, String startTime, String endTime) {
+                return R.fail("大华sdk查询录像失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Void> startPlayback(RtpServerParam rtpServerParam) {
+                return R.fail("大华sdk开始录像回放失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Void> stopPlayback(Long id) {
+                return R.fail("大华sdk停止录像回放失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Long> captureAndSave(Long id, int channelId, String snapshotType) {
+                return R.fail("大华sdk抓图并保存失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<DahuaRecordDownloadResponse> downloadRecord(DahuaRecordDownloadRequest request) {
+                return R.fail("大华sdk录像下载失败:" + throwable.getMessage());
+            }
+        };
+    }
+}

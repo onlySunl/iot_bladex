@@ -11,7 +11,7 @@
         <module>blade-server</module>
         <module>blade-common</module>
         <module>blade-api</module>
-        <module>iot-platform</module>
+        <module>nvr-platform</module>
     </modules>
     <version>4.2.0.RELEASE</version>
 

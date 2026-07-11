@@ -25,24 +25,30 @@
 │   └── src/main/resources/
 │       └── application.yml    # 主配置文件
 ├── blade-common/             # 公共模块
-├── blade-api/                # API 模块
-│   └── src/main/java/org/springblade/modules/iot/
-│       ├── pojo/entity/      # IoT实体类 (Product, Device, RuleModel等)
-│       └── pojo/vo/          # IoT VO类
-├── iot-platform/             # IoT 平台业务模块
-│   ├── iot-common/           # IoT 公共模块
-│   ├── iot-api/              # IoT API 接口模块
-│   │   ├── iot-api-dahua/    # 大华设备 API
-│   │   ├── iot-api-zlm/      # ZLM 流媒体 API
-│   │   ├── iot-api-haikang/  # 海康设备 API
-│   │   ├── iot-api-onvif/    # ONVIF 设备 API
-│   │   ├── iot-api-qs/       # QS 设备 API
-│   │   ├── iot-api-haikang-isup/  # 海康 ISUP API
-│   │   ├── iot-api-gb28181/  # GB28181 国标 API
-│   │   └── iot-api-jt1078/   # JT1078 部标 API
-│   ├── iot-biz/              # IoT 业务模块
-│   ├── iot-protocol/         # IoT 协议模块
-│   └── iot-service/          # IoT 服务模块
+├── blade-api/                # BladeX 系统 API 模块
+├── nvr-platform/             # NVR 平台业务模块
+│   ├── nvr-common/           # NVR 公共模块 (实体基类, 工具类, SQL DDL)
+│   ├── nvr-api/              # NVR API 接口模块
+│   │   ├── pojo/entity/      # IoT管理实体类 (Product, Device, RuleModel等)
+│   │   ├── pojo/vo/          # IoT管理 VO类
+│   │   ├── nvr-api-dahua/    # 大华设备 API
+│   │   ├── nvr-api-zlm/      # ZLM 流媒体 API
+│   │   ├── nvr-api-haikang/  # 海康设备 API
+│   │   ├── nvr-api-onvif/    # ONVIF 设备 API
+│   │   ├── nvr-api-qs/       # QS 设备 API
+│   │   ├── nvr-api-haikang-isup/  # 海康 ISUP API
+│   │   ├── nvr-api-gb28181/  # GB28181 国标 API
+│   │   └── nvr-api-jt1078/   # JT1078 部标 API
+│   ├── nvr-biz/              # NVR 业务模块 (Controller + 规则引擎)
+│   │   └── controller/       # IoT管理 Controller (Product, Device, Rule)
+│   │   └── rule/             # 规则引擎核心
+│   ├── nvr-protocol/         # NVR 协议模块
+│   │   ├── nvr-protocol-common/
+│   │   ├── nvr-protocol-haikang-isup/
+│   │   ├── nvr-protocol-onvif/
+│   │   ├── nvr-protocol-qs/
+│   │   └── nvr-protocol-zlm/
+│   └── nvr-service/          # NVR 服务模块 (Mapper/Service/Wrapper)
 └── research-webchart/        # 数据可视化模块
 ```
 
@@ -88,13 +94,13 @@ docker build -t blade-iot .
 从 NexIoT 项目迁移的产品管理、设备管理、规则引擎功能，已按 BladeX 标准重构。
 
 ### 代码位置
-- **实体类/VO**: `blade-api/src/main/java/org/springblade/modules/iot/pojo/`
-- **Mapper**: `blade-server/src/main/java/org/springblade/modules/iot/mapper/`
-- **Service**: `blade-server/src/main/java/org/springblade/modules/iot/service/`
-- **Controller**: `blade-server/src/main/java/org/springblade/modules/iot/controller/`
-- **Wrapper**: `blade-server/src/main/java/org/springblade/modules/iot/wrapper/`
-- **规则引擎**: `blade-server/src/main/java/org/springblade/modules/iot/rule/`
-- **DDL**: `iot-platform/iot-common/src/main/resources/sql/nexiot-migration.sql`
+- **实体类/VO**: `nvr-platform/nvr-api/src/main/java/org/springblade/modules/nvr/pojo/`
+- **Mapper**: `nvr-platform/nvr-service/src/main/java/org/springblade/modules/nvr/mapper/`
+- **Service**: `nvr-platform/nvr-service/src/main/java/org/springblade/modules/nvr/service/`
+- **Controller**: `nvr-platform/nvr-biz/src/main/java/org/springblade/modules/nvr/controller/`
+- **Wrapper**: `nvr-platform/nvr-service/src/main/java/org/springblade/modules/nvr/wrapper/`
+- **规则引擎**: `nvr-platform/nvr-biz/src/main/java/org/springblade/modules/nvr/rule/`
+- **DDL**: `nvr-platform/nvr-common/src/main/resources/sql/nexiot-migration.sql`
 
 ### 数据表
 | 表名 | 说明 |

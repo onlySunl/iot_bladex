@@ -1,0 +1,96 @@
+package org.springblade.modules.nvr.factory;
+
+
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.nvr.common.domain.RtpServerParam;
+import org.springblade.modules.nvr.domain.Gb28181PlatformPlay;
+import org.springblade.modules.nvr.domain.Gb28181PlatformPlayback;
+import org.springblade.modules.nvr.domain.ZlmMediaServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springblade.modules.nvr.service.RemoteZlmService;
+import org.springframework.cloud.openfeign.FallbackFactory;
+import org.springframework.stereotype.Component;
+
+import java.util.Map;
+
+/**
+ * zlm接口服务降级处理
+ *
+ * @FileName RemoteZlmFallbackFactory
+ * @Description
+ * @Author fengcheng
+ * @date 2026-03-28
+ **/
+@Component
+public class RemoteZlmFallbackFactory implements FallbackFactory<RemoteZlmService> {
+
+    private static final Logger log = LoggerFactory.getLogger(RemoteZlmFallbackFactory.class);
+
+    @Override
+    public RemoteZlmService create(Throwable throwable) {
+        log.error("zlm服务调用失败:{}", throwable.getMessage());
+
+        return new RemoteZlmService() {
+            @Override
+            public R<Void> releaseSsrc(Long mediaServerId, String ssrc) {
+                return R.fail("zlm接口服务调用失败，releaseSsrc:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Void> closeRTPServer(Long mediaServerId, RtpServerParam rtpServer) {
+                return R.fail("zlm接口服务调用失败，closeRTPServer:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Boolean> connectRtpServer(Long mediaServerId, String address, int port, String stream) {
+                return R.fail("zlm接口服务调用失败，connectRtpServer:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<?> startSendRtp(String mediaServerId, Map<String, Object> param) {
+                return R.fail("zlm接口服务调用失败，startSendRtp:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<?> stopSendRtp(String mediaServerId, Map<String, Object> param) {
+                return R.fail("zlm接口服务调用失败，stopSendRtp:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<ZlmMediaServer> getDefaultMediaServer(String inner) {
+                return R.fail("zlm接口服务调用失败，getDefaultMediaServer:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<ZlmMediaServer> getOneFromDatabase(String id) {
+                return R.fail("zlm接口服务调用失败，getOneFromDatabase:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<Void> gb28181PlatformPlay(Gb28181PlatformPlay platformPlay) {
+                return R.fail("zlm接口服务调用失败，gb28181PlatformPlay: " + throwable.getMessage());
+            }
+
+            @Override
+            public R<Void> gb28181PlatformPlayback(Gb28181PlatformPlayback platformPlayback) {
+                return R.fail("zlm接口服务调用失败，gb28181PlatformPlayback: " + throwable.getMessage());
+            }
+
+            @Override
+            public R<Void> stopPlayback(Long deviceId, String deviceType, String stream) {
+                return R.fail("zlm接口服务调用失败, stopPlayback: " + throwable.getMessage());
+            }
+
+            @Override
+            public R<String> getSnap(String app, String stream) {
+                return R.fail("zlm接口服务调用失败, getSnap: " + throwable.getMessage());
+            }
+
+            @Override
+            public R<String> snap(String app, String stream) {
+                return R.fail("zlm接口服务调用失败, snap: " + throwable.getMessage());
+            }
+        };
+    }
+}

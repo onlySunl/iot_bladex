@@ -42,7 +42,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableRedisHttpSession
 @SpringBootApplication
 @EnableAutoTable
-@EnableFeignClients(basePackages = "org.springblade.modules.iot.service")
+@EnableFeignClients(basePackages = "org.springblade.modules.nvr.service")
 public class Application {
 
 	public static void main(String[] args) {

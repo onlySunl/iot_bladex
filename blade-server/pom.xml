@@ -32,73 +32,88 @@
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-common</artifactId>
+            <artifactId>nvr-common</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-api-dahua</artifactId>
+            <artifactId>nvr-api</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-api-gb28181</artifactId>
+            <artifactId>nvr-service</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-api-haikang</artifactId>
+            <artifactId>nvr-biz</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-api-haikang-isup</artifactId>
+            <artifactId>nvr-api-dahua</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-api-jt1078</artifactId>
+            <artifactId>nvr-api-gb28181</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-api-onvif</artifactId>
+            <artifactId>nvr-api-haikang</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-api-qs</artifactId>
+            <artifactId>nvr-api-haikang-isup</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>nvr-api-jt1078</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>nvr-api-onvif</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>nvr-api-qs</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
 
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-api-zlm</artifactId>
+            <artifactId>nvr-api-zlm</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-protocol-qs</artifactId>
+            <artifactId>nvr-protocol-qs</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-protocol-haikang-isup</artifactId>
+            <artifactId>nvr-protocol-haikang-isup</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-protocol-zlm</artifactId>
+            <artifactId>nvr-protocol-zlm</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-protocol-qs</artifactId>
+            <artifactId>nvr-protocol-qs</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-protocol-haikang-isup</artifactId>
+            <artifactId>nvr-protocol-haikang-isup</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
     </dependencies>
