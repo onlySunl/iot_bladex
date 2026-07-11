@@ -340,6 +340,25 @@ public class PlaybackStreamHandler implements HCISUPStream.PLAYBACK_DATA_CB {
     }
 
     /**
+     * 重置状态（用于seek跳转后准备接收新时间的数据）
+     * 重置序列号、时间戳、计数器，以及每个连接的PS解复用器缓冲区
+     */
+    public void reset() {
+        seqNum = 0;
+        currentTimestamp = 0;
+        totalBytesSent = 0;
+        invokeCount = 0;
+        videoDataCount = 0;
+        // 重置每个连接的PS解复用器
+        for (RtpConnection conn : connectionMap.values()) {
+            if (conn.psDemuxer != null) {
+                conn.psDemuxer.reset();
+            }
+        }
+        log.info("[PlaybackStreamHandler] 状态已重置");
+    }
+
+    /**
      * 关闭所有连接
      */
     public void closeAll() {
