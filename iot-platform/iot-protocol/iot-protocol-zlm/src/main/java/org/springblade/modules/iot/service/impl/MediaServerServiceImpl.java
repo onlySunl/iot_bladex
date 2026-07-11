@@ -1056,7 +1056,10 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         rtpServerParam.setMediaServer(mediaServer);
 
         // 海康ISUP回放：尝试复用现有会话（seek跳转时间），避免频繁创建会话触发3701错误
-        if (rtpServerParam.isPlayback() && LiveStreamType.HIK_ISUP.getCode().equals(rtpServerParam.getType())) {
+        // 判断是否为回放请求：isPlayback标记 或 带有startTime/endTime
+        boolean isPlaybackRequest = rtpServerParam.isPlayback() 
+                || (rtpServerParam.getStartTime() != null && !rtpServerParam.getStartTime().isEmpty());
+        if (isPlaybackRequest && LiveStreamType.HIK_ISUP.getCode().equals(rtpServerParam.getType())) {
             RtpServerParam seekParam = new RtpServerParam();
             seekParam.setId(rtpServerParam.getDeviceId());
             seekParam.setChannel(rtpServerParam.getChannel());
@@ -1106,7 +1109,10 @@ public class MediaServerServiceImpl  implements IMediaServerService {
      * @return
      */
     private SSRCInfo play(ZlmMediaServer mediaServer, RTPServerParam rtpServerParam, QsDevice device, String ssrc, ErrorCallback<StreamInfo> callback) {
-        InviteSessionType sessionType = rtpServerParam.isPlayback() ? InviteSessionType.PLAYBACK : InviteSessionType.PLAY;
+        // 判断是否为回放请求：isPlayback标记 或 带有startTime
+        boolean isPlaybackRequest = rtpServerParam.isPlayback() 
+                || (rtpServerParam.getStartTime() != null && !rtpServerParam.getStartTime().isEmpty());
+        InviteSessionType sessionType = isPlaybackRequest ? InviteSessionType.PLAYBACK : InviteSessionType.PLAY;
         // 获取点播的状态信息
         InviteInfo inviteInfoInCatch = inviteStreamService.getInviteInfoByDeviceAndChannel(sessionType, device.getId());
         if (inviteInfoInCatch != null) {
@@ -1156,7 +1162,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
                 if (rtpServerParam.getPresetSsrc() != null) {
                     ssrc = rtpServerParam.getPresetSsrc();
                 } else {
-                    if (rtpServerParam.isPlayback()) {
+                    if (isPlaybackRequest) {
                         ssrc = ssrcFactory.getPlayBackSsrc(mediaServer.getId());
                     } else {
                         ssrc = ssrcFactory.getPlaySsrc(mediaServer.getId());
@@ -1216,7 +1222,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
                     qsDevice.setId(rtpServerParam.getDeviceId());
                     
                     // 区分实时播放和回放
-                    if (rtpServerParam.isPlayback()) {
+                    if (isPlaybackRequest) {
                         // 回放：设置回放相关字段
                         qsDevice.setPlaybackStreamKey(rtpServerParam.getStreamId());
                         qsDevice.setPlaybackMediaServerId(mediaServer.getId());
@@ -1272,7 +1278,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
         rtpServer.setIp(ip);
         rtpServer.setId(rtpServerParam.getDeviceId());
         rtpServer.setSsrc(rtpServerParam.getSsrc());
-        rtpServer.setPlayback(rtpServerParam.isPlayback());
+        rtpServer.setPlayback(isPlaybackRequest);
         rtpServer.setChannel(rtpServerParam.getChannel());
         rtpServer.setStartTime(rtpServerParam.getStartTime());
         rtpServer.setEndTime(rtpServerParam.getEndTime());
@@ -1291,7 +1297,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
 
         // 播放海康sdk
         if (LiveStreamType.HIK_SDK.getCode().equals(rtpServerParam.getType())) {
-            if (rtpServerParam.isPlayback()) {
+            if (isPlaybackRequest) {
                 remoteHaiKangService.startPlayback(rtpServer);
             } else {
                 remoteHaiKangService.startPlay(rtpServer);
@@ -1300,7 +1306,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
 
         // 播放海康isup
         if (LiveStreamType.HIK_ISUP.getCode().equals(rtpServerParam.getType())) {
-            if (rtpServerParam.isPlayback()) {
+            if (isPlaybackRequest) {
                 remoteHaiKangIsupService.startPlayback(rtpServer);
             } else {
                 remoteHaiKangIsupService.startPlay(rtpServer);
@@ -1309,7 +1315,7 @@ public class MediaServerServiceImpl  implements IMediaServerService {
 
         // 播放大华sdk
         if (LiveStreamType.DAHUA_SDK.getCode().equals(rtpServerParam.getType())) {
-            if (rtpServerParam.isPlayback()) {
+            if (isPlaybackRequest) {
                 remoteDaHuaService.startPlayback(rtpServer);
             } else {
                 remoteDaHuaService.startPlay(rtpServer);
