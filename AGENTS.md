@@ -71,3 +71,8 @@ docker build -t blade-iot .
 - 启动前需确保 MySQL 和 Redis 服务可用
 - 多环境配置需根据实际环境修改 application-{profile}.yml
 - Docker 部署端口映射: 8093:8093
+
+## ISUP 流媒体处理关键经验
+- **PSStreamDemuxer 数据完整性**：`processPSData` 必须等待至少两个 Pack Header 才处理数据，确保只解析完整的 PS 包序列。单 Pack Header 时继续累积，避免 PES 跨回调截断导致花屏。仅在缓冲区达到 `BUFFER_MAX_CAPACITY` (1MB) 时强制处理防止 OOM。
+- **fragmentBuffer 跨 PES 拼接**：NAL 单元可能跨越多个 PES 包，`extractNalFromPayload` 使用 `fragmentBuffer` 累积不完整 NAL 片段，等待下一个 PES 的起始码确认边界后再输出。
+- **回放 vs 预览**：回放流（PlaybackStreamHandler）和预览流（PreviewStreamHandler）共用 PSStreamDemuxer，但回放流的 PES 包更大（IDR帧可达数KB），更容易出现跨回调截断。
