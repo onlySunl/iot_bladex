@@ -21,6 +21,8 @@
         <module>iot-persistence</module>
         <module>iot-bridge</module>
         <module>iot-monitor</module>
+        <module>iot-infrastructure</module>
+        <module>iot-framework</module>
     </modules>
     <version>4.2.0.RELEASE</version>
     <dependencyManagement>

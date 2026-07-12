@@ -48,6 +48,21 @@
 │   │   ├── web/config/           # Web 配置 (XSS/编解码/日志/拦截器)
 │   │   ├── web/controller/       # 通用/OpenAPI 控制器
 │   │   └── web/service/          # Web 服务层
+│   ├── iot-infrastructure/   # IoT 基础设施模块
+│   │   ├── iot-infrastructure-cache/     # 缓存 (Redis 策略/管理器)
+│   │   ├── iot-infrastructure-database/  # 数据库配置
+│   │   ├── iot-infrastructure-message/   # 消息模块
+│   │   ├── iot-infrastructure-security/  # 安全认证 (Token/Provider)
+│   │   └── iot-infrastructure-storage/   # 存储模块
+│   ├── iot-framework/        # IoT 框架模块
+│   │   ├── iot-framework-common/   # 公共工具/配置/注解/POI
+│   │   ├── iot-framework-config/   # 配置模块
+│   │   ├── iot-framework-core/     # 核心引擎 (下行/元数据/规则解析)
+│   │   ├── iot-framework-dm/       # 设备管理 (设备/视频/下行)
+│   │   ├── iot-framework-exception/ # 异常处理
+│   │   ├── iot-framework-notice/   # 通知管理
+│   │   ├── iot-framework-oss/      # 对象存储管理
+│   │   └── iot-framework-rocketmq/ # RocketMQ 集成
 │   └── iot-protocol/         # IoT 协议模块 (独立子模块)
 │       ├── iot-protocol-common/  # 协议核心抽象 (ProtocolCodec/DeviceMessage)
 │       ├── iot-protocol-mqtt/    # MQTT 协议 (完整实现: 处理器/Topic/OTA/第三方)
@@ -237,9 +252,11 @@ docker build -t blade-iot .
 | `cn-universal-protocol/cn-universal-mqtt-protocol` | `iot-protocol/iot-protocol-mqtt` | MQTT 完整协议实现（处理器/Topic/OTA） |
 | `cn-universal-protocol/cn-universal-http-protocol` | `iot-protocol/iot-protocol-http` | HTTP 完整协议实现（处理器/编解码） |
 | `cn-universal-protocol/cn-universal-websocket-protocol` | `iot-protocol/iot-protocol-websocket` | WebSocket 协议（新建模块） |
-| `cn-universal-persistence` | `iot-persistence` | 数据持久化层（实体/Mapper/DTO/MyBatis XML） |
-| `cn-universal-data-bridge` | `iot-bridge` | 数据桥接（core + 6 个插件 + starter + web） |
-| `cn-universal-web` | `iot-monitor` | Web 层（监控/配置/控制器/服务） |
+| `cn-universal-persistence` | `iot-platform/iot-persistence` | 数据持久化层（实体/Mapper/DTO/MyBatis XML） |
+| `cn-universal-data-bridge` | `iot-platform/iot-bridge` | 数据桥接（core + 6 个插件 + starter + web） |
+| `cn-universal-web` | `iot-platform/iot-monitor` | Web 层（监控/配置/控制器/服务） |
+| `cn-universal-infrastructure` | `iot-platform/iot-infrastructure` | 基础设施（缓存/数据库/消息/安全/存储） |
+| `cn-universal-framework` | `iot-platform/iot-framework` | 框架层（公共/配置/核心/设备管理/异常/通知/OSS/RocketMQ） |
 
 ### 包名映射
 | 原包名 | 新包名 |
@@ -255,6 +272,11 @@ docker build -t blade-iot .
 | `cn.universal.common` | `org.springblade.modules.iot.common` |
 | `cn.universal.dm.*` | `org.springblade.modules.iot.dm.*` |
 | `cn.universal.manager` | `org.springblade.modules.iot.manager` |
+| `cn.universal.cache` | `org.springblade.modules.iot.cache` |
+| `cn.universal.security` | `org.springblade.modules.iot.security` |
+| `cn.universal.core` | `org.springblade.modules.iot.core` |
+| `cn.universal.ossm` | `org.springblade.modules.iot.ossm` |
+| `cn.universal.rocketmq` | `org.springblade.modules.iot.rocketmq` |
 
 ### 迁移统计
 - **iot-rule**: 62 Java 文件（规则引擎/推送策略/地理围栏/Rulego/场景联动）
@@ -262,4 +284,6 @@ docker build -t blade-iot .
 - **iot-persistence**: 203 Java 文件 + 46 资源文件（实体/Mapper/DTO/MyBatis XML）
 - **iot-bridge**: 54 Java 文件（core 40 + 6 插件 13 + starter 1）
 - **iot-monitor**: 68 Java 文件（监控/配置/控制器/服务）
-- **总计**: 551 Java 文件
+- **iot-infrastructure**: 36 Java 文件（cache 10 + security 26）
+- **iot-framework**: 551 Java 文件（common 73 + core 319 + dm 93 + notice 33 + oss 22 + rocketmq 11）
+- **总计**: 1138 Java 文件
