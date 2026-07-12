@@ -31,29 +31,23 @@
 │   ├── iot-api/              # IoT API 模块 (实体/VO)
 │   ├── iot-service/          # IoT 服务模块 (Mapper/Service/Wrapper/Controller)
 │   ├── iot-rule/             # IoT 规则引擎模块 (规则引擎 + 推送策略 + 地理围栏 + Rulego)
+│   ├── iot-persistence/      # IoT 持久化模块 (NexIoT 数据层迁移)
+│   ├── iot-bridge/           # IoT 数据桥接模块
+│   │   ├── iot-bridge-core/      # 桥接核心 (引擎/模板/插件抽象)
+│   │   ├── iot-bridge-plugin-jdbc/   # JDBC 插件
+│   │   ├── iot-bridge-plugin-kafka/  # Kafka 插件
+│   │   ├── iot-bridge-plugin-mqtt/   # MQTT 插件
+│   │   ├── iot-bridge-plugin-http/   # HTTP 插件
+│   │   ├── iot-bridge-plugin-iotdb/  # IoTDB 插件
+│   │   ├── iot-bridge-plugin-influxdb/ # InfluxDB 插件
+│   │   ├── iot-bridge-starter/   # 桥接自动配置
+│   │   └── iot-bridge-web/       # 桥接 Web 接口
 │   └── iot-protocol/         # IoT 协议模块 (独立子模块)
 │       ├── iot-protocol-common/  # 协议核心抽象 (ProtocolCodec/DeviceMessage)
 │       ├── iot-protocol-mqtt/    # MQTT 协议 (完整实现: 处理器/Topic/OTA/第三方)
 │       ├── iot-protocol-http/    # HTTP 协议 (完整实现: 处理器/编解码/服务)
 │       ├── iot-protocol-codec/   # 通用编解码 (JSON)
 │       └── iot-protocol-websocket/ # WebSocket 协议 (完整实现: 处理器/会话管理)
-├── iot-persistence/          # IoT 持久化模块 (NexIoT 数据层迁移)
-│   ├── entity/               # 实体类 (IoT设备/产品/日志/规则等)
-│   ├── mapper/               # MyBatis Mapper 接口
-│   ├── dto/                  # 数据传输对象
-│   ├── base/                 # 基础适配器/请求/设备生命周期
-│   ├── config/               # MyBatis 配置
-│   └── mybatis/              # MyBatis XML 映射文件
-├── iot-bridge/               # IoT 数据桥接模块
-│   ├── iot-bridge-core/      # 桥接核心 (引擎/模板/插件抽象)
-│   ├── iot-bridge-plugin-jdbc/   # JDBC 插件
-│   ├── iot-bridge-plugin-kafka/  # Kafka 插件
-│   ├── iot-bridge-plugin-mqtt/   # MQTT 插件
-│   ├── iot-bridge-plugin-http/   # HTTP 插件
-│   ├── iot-bridge-plugin-iotdb/  # IoTDB 插件
-│   ├── iot-bridge-plugin-influxdb/ # InfluxDB 插件
-│   ├── iot-bridge-starter/   # 桥接自动配置
-│   └── iot-bridge-web/       # 桥接 Web 接口
 ├── iot-monitor/              # IoT 监控模块 (NexIoT Web 层迁移)
 │   ├── monitor/              # 缓存/线程监控
 │   ├── listener/             # 应用启动监听
