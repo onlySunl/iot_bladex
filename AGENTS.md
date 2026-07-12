@@ -29,8 +29,8 @@
 ├── iot-platform/             # IoT 管理平台模块 (NexIoT 迁移)
 │   ├── iot-common/           # IoT 公共模块 (实体基类, 工具类, SQL DDL)
 │   ├── iot-api/              # IoT API 模块 (实体/VO)
-│   ├── iot-service/          # IoT 服务模块 (Mapper/Service/Wrapper)
-│   ├── iot-biz/              # IoT 业务模块 (Controller + 规则引擎 + 推送策略)
+│   ├── iot-service/          # IoT 服务模块 (Mapper/Service/Wrapper/Controller)
+│   ├── iot-rule/             # IoT 规则引擎模块 (规则引擎 + 推送策略)
 │   └── iot-protocol/         # IoT 协议模块 (独立子模块)
 │       ├── iot-protocol-common/  # 协议核心抽象 (ProtocolCodec/DeviceMessage)
 │       ├── iot-protocol-mqtt/    # MQTT 协议 (Eclipse Paho)
@@ -103,15 +103,15 @@ docker build -t blade-iot .
 - **实体类/VO**: `iot-platform/iot-api/src/main/java/org/springblade/modules/iot/pojo/`
 - **Mapper**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/mapper/`
 - **Service**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/service/`
-- **Controller**: `iot-platform/iot-biz/src/main/java/org/springblade/modules/iot/controller/`
+- **Controller**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/controller/`
 - **Wrapper**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/wrapper/`
-- **规则引擎**: `iot-platform/iot-biz/src/main/java/org/springblade/modules/iot/rule/`
+- **规则引擎**: `iot-platform/iot-rule/src/main/java/org/springblade/modules/iot/rule/`
 - **协议核心抽象**: `iot-platform/iot-common/src/main/java/org/springblade/modules/iot/common/protocol/`
 - **设备消息模型**: `iot-platform/iot-common/src/main/java/org/springblade/modules/iot/common/message/`
 - **MQTT 协议**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/protocol/mqtt/`
 - **HTTP 协议**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/protocol/http/`
 - **设备通信服务**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/device/`
-- **推送策略**: `iot-platform/iot-biz/src/main/java/org/springblade/modules/iot/push/`
+- **推送策略**: `iot-platform/iot-rule/src/main/java/org/springblade/modules/iot/push/`
 - **DDL**: `iot-platform/iot-common/src/main/resources/sql/nexiot-migration.sql`
 
 ### 数据表
@@ -167,7 +167,7 @@ docker build -t blade-iot .
 - `DeviceMessageService` - 设备消息处理（属性/事件/上线/下线/日志）
 - `DeviceDownlinkService` - 设备下行服务（服务调用/属性设置/命令下发）
 
-**推送策略**（`iot-biz`）：
+**推送策略**（`iot-rule`）：
 - `PushStrategy` - 推送策略接口（push/pushAsync）
 - `HttpPushStrategy` - HTTP 推送（POST JSON）
 - `MqttPushStrategy` - MQTT 推送（发布到 Topic）
