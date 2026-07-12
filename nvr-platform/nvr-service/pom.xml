@@ -9,26 +9,5 @@
         <version>4.2.0.RELEASE</version>
     </parent>
     <artifactId>nvr-service</artifactId>
-    <name>nvr-service</name>
-    <description>NVR业务层 - Mapper/XML/Service/ServiceImpl/Wrapper</description>
-    <packaging>jar</packaging>
-    <dependencies>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-core-boot</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
+    <packaging>pom</packaging>
 </project>

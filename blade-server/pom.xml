@@ -37,17 +37,17 @@
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>nvr-api</artifactId>
+            <artifactId>iot-api</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>nvr-service</artifactId>
+            <artifactId>iot-service</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>nvr-biz</artifactId>
+            <artifactId>iot-biz</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
