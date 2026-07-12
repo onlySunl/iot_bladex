@@ -154,3 +154,129 @@ CREATE TABLE IF NOT EXISTS `iot_rule_model_instance` (
   KEY `idx_device_id` (`device_id`),
   KEY `idx_group_id` (`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='IoT规则模型实例表';
+
+-- 8. 产品分类表
+CREATE TABLE IF NOT EXISTS `iot_product_sort` (
+  `id` bigint NOT NULL COMMENT '主键ID',
+  `name` varchar(128) DEFAULT NULL COMMENT '分类名称',
+  `parent_id` bigint DEFAULT 0 COMMENT '父分类ID',
+  `sort` int DEFAULT 0 COMMENT '排序',
+  `remark` varchar(512) DEFAULT NULL COMMENT '备注',
+  `creator_id` bigint DEFAULT NULL COMMENT '创建者ID',
+  `tenant_id` varchar(12) DEFAULT '000000' COMMENT '租户编号',
+  `is_deleted` int DEFAULT 0 COMMENT '是否已删除',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_parent_id` (`parent_id`),
+  KEY `idx_tenant_id` (`tenant_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='IoT产品分类表';
+
+-- 9. 设备证书表
+CREATE TABLE IF NOT EXISTS `iot_certificate` (
+  `id` bigint NOT NULL COMMENT '主键ID',
+  `name` varchar(128) DEFAULT NULL COMMENT '证书名称',
+  `type` varchar(32) DEFAULT NULL COMMENT '证书类型: CA-CA证书, DEVICE-设备证书',
+  `cert_data` text COMMENT '证书内容',
+  `private_key` text COMMENT '私钥',
+  `public_key` text COMMENT '公钥',
+  `signature` varchar(512) DEFAULT NULL COMMENT '签名',
+  `expire_time` bigint DEFAULT NULL COMMENT '过期时间',
+  `creator_id` bigint DEFAULT NULL COMMENT '创建者ID',
+  `tenant_id` varchar(12) DEFAULT '000000' COMMENT '租户编号',
+  `is_deleted` int DEFAULT 0 COMMENT '是否已删除',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_tenant_id` (`tenant_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='IoT设备证书表';
+
+-- 10. 设备日志表
+CREATE TABLE IF NOT EXISTS `iot_device_log` (
+  `id` bigint NOT NULL COMMENT '主键ID',
+  `product_key` varchar(64) DEFAULT NULL COMMENT '产品Key',
+  `device_id` varchar(64) DEFAULT NULL COMMENT '设备ID',
+  `msg_id` varchar(128) DEFAULT NULL COMMENT '消息ID',
+  `type` varchar(32) DEFAULT NULL COMMENT '日志类型: PROPERTY-属性, EVENT-事件, FUNCTION-功能, OTA-升级',
+  `action` varchar(128) DEFAULT NULL COMMENT '操作',
+  `option` varchar(32) DEFAULT NULL COMMENT '操作类型: READ-读, WRITE-写, REPORT-上报',
+  `data` text COMMENT '数据内容（JSON）',
+  `creator_id` bigint DEFAULT NULL COMMENT '创建者ID',
+  `tenant_id` varchar(12) DEFAULT '000000' COMMENT '租户编号',
+  `is_deleted` int DEFAULT 0 COMMENT '是否已删除',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_product_key` (`product_key`),
+  KEY `idx_device_id` (`device_id`),
+  KEY `idx_tenant_id` (`tenant_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='IoT设备日志表';
+
+-- 11. 设备标签表
+CREATE TABLE IF NOT EXISTS `iot_device_tags` (
+  `id` bigint NOT NULL COMMENT '主键ID',
+  `device_id` bigint DEFAULT NULL COMMENT '设备ID',
+  `tag_key` varchar(128) DEFAULT NULL COMMENT '标签Key',
+  `tag_value` varchar(256) DEFAULT NULL COMMENT '标签Value',
+  `tag_name` varchar(128) DEFAULT NULL COMMENT '标签名称',
+  `tag_remark` varchar(512) DEFAULT NULL COMMENT '标签备注',
+  `creator_id` bigint DEFAULT NULL COMMENT '创建者ID',
+  `tenant_id` varchar(12) DEFAULT '000000' COMMENT '租户编号',
+  `is_deleted` int DEFAULT 0 COMMENT '是否已删除',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_device_id` (`device_id`),
+  KEY `idx_tenant_id` (`tenant_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='IoT设备标签表';
+
+-- 12. 设备影子表
+CREATE TABLE IF NOT EXISTS `iot_device_shadow` (
+  `id` bigint NOT NULL COMMENT '主键ID',
+  `device_id` bigint DEFAULT NULL COMMENT '设备ID',
+  `state` text COMMENT '设备状态（JSON）',
+  `metadata` text COMMENT '元数据（JSON）',
+  `last_update_time` bigint DEFAULT NULL COMMENT '最后更新时间',
+  `creator_id` bigint DEFAULT NULL COMMENT '创建者ID',
+  `tenant_id` varchar(12) DEFAULT '000000' COMMENT '租户编号',
+  `is_deleted` int DEFAULT 0 COMMENT '是否已删除',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_device_id` (`device_id`),
+  KEY `idx_tenant_id` (`tenant_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='IoT设备影子表';
+
+-- 13. 设备订阅表
+CREATE TABLE IF NOT EXISTS `iot_device_subscribe` (
+  `id` bigint NOT NULL COMMENT '主键ID',
+  `device_id` bigint DEFAULT NULL COMMENT '设备ID',
+  `type` varchar(32) DEFAULT NULL COMMENT '订阅类型: PRODUCT-产品, DEVICE-设备, PART-部分',
+  `topic_id` varchar(128) DEFAULT NULL COMMENT '主题ID',
+  `creator_id` bigint DEFAULT NULL COMMENT '创建者ID',
+  `tenant_id` varchar(12) DEFAULT '000000' COMMENT '租户编号',
+  `is_deleted` int DEFAULT 0 COMMENT '是否已删除',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_device_id` (`device_id`),
+  KEY `idx_tenant_id` (`tenant_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='IoT设备订阅表';
+
+-- 14. 场景联动表
+CREATE TABLE IF NOT EXISTS `iot_scene_linkage` (
+  `id` bigint NOT NULL COMMENT '主键ID',
+  `scene_name` varchar(128) DEFAULT NULL COMMENT '场景名称',
+  `scene_description` varchar(512) DEFAULT NULL COMMENT '场景描述',
+  `trigger_type` varchar(32) DEFAULT NULL COMMENT '触发类型: DEVICE-设备触发, TIMER-定时触发, MANUAL-手动触发',
+  `trigger_config` text COMMENT '触发配置（JSON）',
+  `action_config` text COMMENT '执行动作配置（JSON）',
+  `status` tinyint DEFAULT 1 COMMENT '状态: 0-停用, 1-启用',
+  `creator_id` bigint DEFAULT NULL COMMENT '创建者ID',
+  `tenant_id` varchar(12) DEFAULT '000000' COMMENT '租户编号',
+  `is_deleted` int DEFAULT 0 COMMENT '是否已删除',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_tenant_id` (`tenant_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='IoT场景联动表';

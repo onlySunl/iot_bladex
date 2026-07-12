@@ -99,7 +99,7 @@ docker build -t blade-iot .
 ## IoT 管理模块（迁移自 NexIoT）
 
 ### 概述
-从 NexIoT 项目迁移的产品管理、设备管理、规则引擎功能，已按 BladeX 标准重构。
+从 NexIoT 项目完整迁移的 IoT 物联网管理平台，包含产品管理、设备管理、规则引擎、场景联动、设备影子、设备日志、设备标签、设备证书等功能，全部按 BladeX 4.2.0 标准重构。共 12 个实体、12 个 VO、12 个 Mapper、12 个 Service、10 个 Controller、7 个规则引擎类。
 
 ### 代码位置
 - **实体类/VO**: `iot-platform/iot-api/src/main/java/org/springblade/modules/iot/pojo/`
@@ -116,12 +116,30 @@ docker build -t blade-iot .
 | `iot_product` | 产品表 |
 | `iot_device` | 设备表 |
 | `iot_product_function` | 产品功能定义（物模型） |
+| `iot_product_sort` | 产品分类（树形结构） |
 | `iot_device_group` | 设备分组 |
 | `iot_device_group_union` | 设备-分组关联 |
+| `iot_device_log` | 设备日志 |
+| `iot_device_tags` | 设备标签 |
+| `iot_device_shadow` | 设备影子（期望/上报状态） |
+| `iot_device_subscribe` | 设备订阅（MQTT Topic） |
+| `iot_certificate` | 设备证书（SSL/TLS） |
 | `iot_rule_model` | 规则模型 |
+| `iot_scene_linkage` | 场景联动 |
 
 ### API 接口
 | 模块 | 路径前缀 | 说明 |
+|---|---|---|
+| 产品管理 | `/product/` | CRUD + 发布 |
+| 产品分类 | `/product-sort/` | 树形列表/CRUD |
+| 设备管理 | `/device/` | CRUD + 在线状态 |
+| 设备日志 | `/device-log/` | 分页查询/详情 |
+| 设备标签 | `/device-tags/` | CRUD |
+| 设备影子 | `/device-shadow/` | 获取/更新影子 |
+| 设备订阅 | `/device-subscribe/` | CRUD |
+| 设备证书 | `/certificate/` | CRUD |
+| 规则引擎 | `/rule/` | CRUD + 启停 |
+| 场景联动 | `/scene-linkage/` | CRUD + 启停 |
 |---|---|---|
 | 产品管理 | `/product/` | CRUD + 发布 |
 | 设备管理 | `/device/` | CRUD + 在线状态 |
