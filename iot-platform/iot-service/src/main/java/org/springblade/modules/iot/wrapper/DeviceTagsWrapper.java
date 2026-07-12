@@ -1,9 +1,9 @@
 package org.springblade.modules.iot.wrapper;
 
+import org.springblade.core.mp.support.BaseEntityWrapper;
+import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.iot.pojo.entity.DeviceTags;
 import org.springblade.modules.iot.pojo.vo.DeviceTagsVO;
-import org.springblade.core.tool.utils.Func;
-import org.springblade.system.wrapper.BaseEntityWrapper;
 
 public class DeviceTagsWrapper extends BaseEntityWrapper<DeviceTags, DeviceTagsVO> {
 
@@ -13,8 +13,6 @@ public class DeviceTagsWrapper extends BaseEntityWrapper<DeviceTags, DeviceTagsV
 
 	@Override
 	public DeviceTagsVO entityVO(DeviceTags entity) {
-		DeviceTagsVO vo = new DeviceTagsVO();
-		Func.copyProperties(entity, vo);
-		return vo;
+		return Func.copyProperties(entity, DeviceTagsVO.class);
 	}
 }

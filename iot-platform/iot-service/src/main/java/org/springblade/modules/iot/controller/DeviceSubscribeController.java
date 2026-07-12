@@ -1,13 +1,10 @@
 package org.springblade.modules.iot.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springblade.core.boot.ctrl.BladeController;
-import org.springblade.core.tenant.TenantCache;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.iot.pojo.entity.DeviceSubscribe;
@@ -15,6 +12,7 @@ import org.springblade.modules.iot.pojo.vo.DeviceSubscribeVO;
 import org.springblade.modules.iot.service.IDeviceSubscribeService;
 import org.springblade.modules.iot.wrapper.DeviceSubscribeWrapper;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -24,7 +22,6 @@ import java.util.List;
 public class DeviceSubscribeController extends BladeController {
 
 	private final IDeviceSubscribeService deviceSubscribeService;
-	private final TenantCache tenantCache;
 
 	@GetMapping("/list")
 	@Operation(summary = "设备订阅列表")
@@ -39,9 +36,6 @@ public class DeviceSubscribeController extends BladeController {
 	@PostMapping("/save")
 	@Operation(summary = "新增或修改设备订阅")
 	public R<Boolean> save(@RequestBody DeviceSubscribe entity) {
-		if (Func.isEmpty(entity.getId())) {
-			entity.setTenantId(tenantCache.getTenantId());
-		}
 		return R.data(deviceSubscribeService.saveOrUpdate(entity));
 	}
 

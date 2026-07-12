@@ -3,22 +3,26 @@ package org.springblade.modules.iot.controller;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.github.xiaoymin.knife4j.core.annotation.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.mp.support.Condition;
+import org.springblade.core.mp.support.Query;
 import org.springblade.core.tenant.mp.TenantEntity;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.iot.pojo.entity.Device;
+import org.springblade.modules.iot.pojo.entity.Product;
 import org.springblade.modules.iot.pojo.vo.DeviceVO;
 import org.springblade.modules.iot.service.IDeviceService;
 import org.springblade.modules.iot.wrapper.DeviceWrapper;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * IoT设备管理 控制器
@@ -38,22 +42,9 @@ public class DeviceController extends BladeController {
 	@GetMapping("/page")
 	@Operation(summary = "分页查询设备", description = "分页查询设备列表")
 	@ApiOperationSupport(order = 1)
-	public R<IPage<DeviceVO>> page(Device device, QueryWrapper<Device> queryWrapper) {
-		QueryWrapper<Device> qw = Func.toQueryWrapper(queryWrapper);
-		if (StrUtil.isNotBlank(device.getDeviceName())) {
-			qw.lambda().like(Device::getDeviceName, device.getDeviceName());
-		}
-		if (StrUtil.isNotBlank(device.getProductKey())) {
-			qw.lambda().eq(Device::getProductKey, device.getProductKey());
-		}
-		if (StrUtil.isNotBlank(device.getIotId())) {
-			qw.lambda().eq(Device::getIotId, device.getIotId());
-		}
-		if (device.getState() != null) {
-			qw.lambda().eq(Device::getState, device.getState());
-		}
-		qw.lambda().orderByDesc(TenantEntity::getCreateTime);
-		IPage<Device> pages = deviceServiceImpl.page(Condition.getPage(queryWrapper), qw);
+	public R<IPage<DeviceVO>> page(Map<String, Object> device, Query query) {
+		QueryWrapper<Device> queryWrapper = Condition.getQueryWrapper(device, Device.class);
+		IPage<Device> pages = deviceServiceImpl.page(Condition.getPage(query), queryWrapper);
 		return R.data(DeviceWrapper.build().pageVO(pages));
 	}
 
@@ -65,7 +56,7 @@ public class DeviceController extends BladeController {
 	@ApiOperationSupport(order = 2)
 	public R<DeviceVO> detail(@Parameter(description = "设备ID", required = true) @RequestParam Long id) {
 		Device device = deviceServiceImpl.getById(id);
-		return R.data(DeviceWrapper.build().toVO(device));
+		return R.data(DeviceWrapper.build().entityVO(device));
 	}
 
 	/**
@@ -78,7 +69,7 @@ public class DeviceController extends BladeController {
 		QueryWrapper<Device> qw = new QueryWrapper<>();
 		qw.lambda().eq(Device::getIotId, iotId);
 		Device device = deviceServiceImpl.getOne(qw);
-		return R.data(DeviceWrapper.build().toVO(device));
+		return R.data(DeviceWrapper.build().entityVO(device));
 	}
 
 	/**

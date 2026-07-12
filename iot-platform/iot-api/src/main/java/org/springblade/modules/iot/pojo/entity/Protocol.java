@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.tangzc.autotable.annotation.AutoColumn;
 import com.tangzc.autotable.annotation.ColumnType;
-import com.tangzc.autotable.annotation.Index;
 import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -32,7 +31,6 @@ public class Protocol extends CustomBaseEntity {
 	 */
 	@TableField(value = "code")
 	@AutoColumn(comment = "协议编码", length = 50, defaultValueType = DefaultValueEnum.NULL)
-	@Index(unique = true)
 	private String code;
 
 	/**

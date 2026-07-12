@@ -38,6 +38,6 @@ public class DeviceLogController extends BladeController {
 	@GetMapping("/detail")
 	@Operation(summary = "设备日志详情")
 	public R<DeviceLogVO> detail(@Parameter(name = "id") @RequestParam Long id) {
-		return R.data(DeviceLogWrapper.build().getVO(deviceLogService.getById(id)));
+		return R.data(DeviceLogWrapper.build().entityVO(deviceLogService.getById(id)));
 	}
 }

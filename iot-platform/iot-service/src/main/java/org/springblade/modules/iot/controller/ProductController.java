@@ -1,17 +1,16 @@
 package org.springblade.modules.iot.controller;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.github.xiaoymin.knife4j.core.annotation.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springblade.core.boot.ctrl.BladeController;
-import org.springblade.core.tenant.mp.TenantEntity;
+import org.springblade.core.mp.support.Condition;
+import org.springblade.core.mp.support.Query;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.iot.pojo.entity.Product;
 import org.springblade.modules.iot.pojo.vo.ProductVO;
 import org.springblade.modules.iot.service.IProductService;
@@ -19,6 +18,7 @@ import org.springblade.modules.iot.wrapper.ProductWrapper;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * IoT产品管理 控制器
@@ -38,22 +38,9 @@ public class ProductController extends BladeController {
 	@GetMapping("/page")
 	@Operation(summary = "分页查询产品", description = "分页查询产品列表")
 	@ApiOperationSupport(order = 1)
-	public R<IPage<ProductVO>> page(Product product, QueryWrapper<Product> queryWrapper) {
-		QueryWrapper<Product> qw = Func.toQueryWrapper(queryWrapper);
-		if (StrUtil.isNotBlank(product.getName())) {
-			qw.lambda().like(Product::getName, product.getName());
-		}
-		if (StrUtil.isNotBlank(product.getProductKey())) {
-			qw.lambda().eq(Product::getProductKey, product.getProductKey());
-		}
-		if (StrUtil.isNotBlank(product.getDeviceNode())) {
-			qw.lambda().eq(Product::getDeviceNode, product.getDeviceNode());
-		}
-		if (product.getState() != null) {
-			qw.lambda().eq(Product::getState, product.getState());
-		}
-		qw.lambda().orderByDesc(TenantEntity::getCreateTime);
-		IPage<Product> pages = productServiceImpl.page(Condition.getPage(queryWrapper), qw);
+	public R<IPage<ProductVO>> page(Map<String, Object> product, Query query) {
+		QueryWrapper<Product> queryWrapper = Condition.getQueryWrapper(product, Product.class);
+		IPage<Product> pages = productServiceImpl.page(Condition.getPage(query), queryWrapper);
 		return R.data(ProductWrapper.build().pageVO(pages));
 	}
 
@@ -65,7 +52,7 @@ public class ProductController extends BladeController {
 	@ApiOperationSupport(order = 2)
 	public R<ProductVO> detail(@Parameter(description = "产品ID", required = true) @RequestParam Long id) {
 		Product product = productServiceImpl.getById(id);
-		return R.data(ProductWrapper.build().toVO(product));
+		return R.data(ProductWrapper.build().entityVO(product));
 	}
 
 	/**
@@ -78,7 +65,7 @@ public class ProductController extends BladeController {
 		QueryWrapper<Product> qw = new QueryWrapper<>();
 		qw.lambda().eq(Product::getProductKey, productKey);
 		Product product = productServiceImpl.getOne(qw);
-		return R.data(ProductWrapper.build().toVO(product));
+		return R.data(ProductWrapper.build().entityVO(product));
 	}
 
 	/**
@@ -88,8 +75,7 @@ public class ProductController extends BladeController {
 	@Operation(summary = "新增产品", description = "新增产品")
 	@ApiOperationSupport(order = 4)
 	public R<Boolean> save(@RequestBody Product product) {
-		product.setCreateTime(new Date());
-		product.setState(0);
+
 		return R.data(productServiceImpl.save(product));
 	}
 
@@ -123,7 +109,7 @@ public class ProductController extends BladeController {
 	public R<Boolean> releaseProduct(@Parameter(description = "产品ID", required = true) @RequestParam Long id) {
 		Product product = new Product();
 		product.setId(id);
-		product.setState(1);
+		product.setStatus(1);
 		product.setUpdateTime(new Date());
 		return R.data(productServiceImpl.updateById(product));
 	}
