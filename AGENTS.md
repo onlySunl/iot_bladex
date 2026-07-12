@@ -42,6 +42,12 @@
 │   │   ├── iot-bridge-plugin-influxdb/ # InfluxDB 插件
 │   │   ├── iot-bridge-starter/   # 桥接自动配置
 │   │   └── iot-bridge-web/       # 桥接 Web 接口
+│   ├── iot-monitor/          # IoT 监控模块 (NexIoT Web 层迁移)
+│   │   ├── monitor/              # 缓存/线程监控
+│   │   ├── listener/             # 应用启动监听
+│   │   ├── web/config/           # Web 配置 (XSS/编解码/日志/拦截器)
+│   │   ├── web/controller/       # 通用/OpenAPI 控制器
+│   │   └── web/service/          # Web 服务层
 │   └── iot-protocol/         # IoT 协议模块 (独立子模块)
 │       ├── iot-protocol-common/  # 协议核心抽象 (ProtocolCodec/DeviceMessage)
 │       ├── iot-protocol-mqtt/    # MQTT 协议 (完整实现: 处理器/Topic/OTA/第三方)

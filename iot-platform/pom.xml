@@ -20,6 +20,7 @@
         <module>iot-rule</module>
         <module>iot-persistence</module>
         <module>iot-bridge</module>
+        <module>iot-monitor</module>
     </modules>
     <version>4.2.0.RELEASE</version>
     <dependencyManagement>
