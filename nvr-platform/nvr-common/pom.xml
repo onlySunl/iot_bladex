@@ -9,14 +9,13 @@
         <version>4.2.0.RELEASE</version>
     </parent>
     <artifactId>nvr-common</artifactId>
-    <name>iot-common</name>
+    <name>nvr-common</name>
     <description>IoT公共模块 - 常量/枚举/工具类</description>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <module.name>iot.common</module.name>
+        <module.name>nvr.common</module.name>
     </properties>
 
     <dependencies>

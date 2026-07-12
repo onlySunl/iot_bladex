@@ -10,11 +10,10 @@
     </parent>
     <artifactId>iot-common</artifactId>
     <packaging>jar</packaging>
+    <properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-common</artifactId>
-        </dependency>
-    </dependencies>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <module.name>iot.common</module.name>
+    </properties>
+
 </project>

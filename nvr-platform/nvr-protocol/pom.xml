@@ -11,26 +11,26 @@
 
     <artifactId>nvr-protocol</artifactId>
     <packaging>pom</packaging>
-    <description>IoT协议实现模块</description>
+    <description>nvr协议实现模块</description>
 
     <modules>
         <!-- 协议公共模块 -->
-        <module>iot-protocol-common</module>
+        <module>nvr-protocol-common</module>
         <!-- QS设备协议 -->
-        <module>iot-protocol-qs</module>
+        <module>nvr-protocol-qs</module>
         <!-- ZLM流媒体协议 -->
-        <module>iot-protocol-zlm</module>
+        <module>nvr-protocol-zlm</module>
         <!-- GB28181国标协议 -->
-       <!-- <module>iot-protocol-gb28181</module>-->
+       <!-- <module>nvr-protocol-gb28181</module>-->
         <!-- 海康设备协议 -->
        <!-- <module>iot-protocol-haikang</module>-->
         <!-- 海康ISUP协议 -->
-        <module>iot-protocol-haikang-isup</module>
+        <module>nvr-protocol-haikang-isup</module>
         <!-- 大华设备协议 -->
-        <!--<module>iot-protocol-dahua</module>-->
+        <!--<module>nvr-protocol-dahua</module>-->
         <!-- ONVIF协议 -->
-       <!-- <module>iot-protocol-onvif</module>-->
+       <!-- <module>nvr-protocol-onvif</module>-->
         <!-- JT1078部标协议 -->
-       <!-- <module>iot-protocol-jt1078</module>-->
+       <!-- <module>nvr-protocol-jt1078</module>-->
     </modules>
 </project>

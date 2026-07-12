@@ -1,4 +1,4 @@
-package org.springblade.modules.nvr.common.feign;
+package org.springblade.common.feign;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;

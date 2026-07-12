@@ -1,12 +1,14 @@
 package org.springblade.modules.iot.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
 import com.tangzc.autotable.annotation.ColumnType;
-import com.tangzc.autotable.annotation.enums.ColumnTypeEnum;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springblade.modules.iot.common.entity.CustomBaseEntity;
+import org.springblade.common.entity.CustomBaseEntity;
 
 import java.io.Serial;
 
@@ -26,141 +28,139 @@ public class Product extends CustomBaseEntity {
 	/**
 	 * 产品Key（唯一标识）
 	 */
-	@Schema(description = "产品Key")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 64)
+	@TableField(value = "product_key")
+	@AutoColumn(comment = "产品KEY", length = 64, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String productKey;
 
 	/**
 	 * 产品密钥（一型一密）
 	 */
-	@Schema(description = "产品密钥")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 128)
+	@TableField(value = "product_secret")
+	@AutoColumn(comment = "产品密钥", length = 128, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String productSecret;
 
 	/**
 	 * 产品名称
 	 */
-	@Schema(description = "产品名称")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 128)
+
+	@TableField(value = "name")
+	@AutoColumn(comment = "产品名称", length = 128, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String name;
 
 	/**
 	 * 设备类型: gateway-网关, device-设备
 	 */
-	@Schema(description = "设备类型")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 32)
+	@TableField(value = "device_node")
+	@AutoColumn(comment = "设备类型", length = 128, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String deviceNode;
 
 	/**
 	 * 所属网关产品的ProductKey
 	 */
-	@Schema(description = "网关产品ProductKey")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 64)
+
+	@TableField(value = "gw_product_key")
+	@AutoColumn(comment = "网关产品ProductKey", length = 64, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String gwProductKey;
 
 	/**
 	 * 分类ID
 	 */
-	@Schema(description = "分类ID")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 64)
+	@TableField(value = "classified_id")
+	@AutoColumn(comment = "分类ID", length = 64, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String classifiedId;
 
 	/**
 	 * 分类名称
 	 */
-	@Schema(description = "分类名称")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 128)
+	@TableField(value = "classified_name")
+	@AutoColumn(comment = "分类名称", length = 128, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String classifiedName;
 
 	/**
 	 * 网络组件ID
 	 */
-	@Schema(description = "网络组件ID")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 64)
+	@TableField(value = "network_union_id")
+	@AutoColumn(comment = "网络组件ID", length = 64, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String networkUnionId;
 
 	/**
 	 * 传输协议: MQTT,COAP,UDP
 	 */
-	@Schema(description = "传输协议")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 32)
+	@TableField(value = "transport_protocol")
+	@AutoColumn(comment = "传输协议", length = 32, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String transportProtocol;
 
 	/**
 	 * 消息协议
 	 */
-	@Schema(description = "消息协议")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 64)
+	@TableField(value = "message_protocol")
+	@AutoColumn(comment = "消息协议", length = 64, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String messageProtocol;
 
 	/**
 	 * 接入方式/第三方平台
 	 */
-	@Schema(description = "接入方式")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 64)
+	@TableField(value = "third_platform")
+	@AutoColumn(comment = "接入方式", length = 64, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String thirdPlatform;
 
 	/**
 	 * 第三方平台配置信息
 	 */
-	@Schema(description = "第三方平台配置")
+	@TableField(value = "third_configuration")
+	@AutoColumn(comment = "第三方平台配置",  defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String thirdConfiguration;
 
 	/**
 	 * 协议配置
 	 */
-	@Schema(description = "协议配置")
+	@TableField(value = "configuration")
+	@AutoColumn(comment = "协议配置",  defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String configuration;
 
 	/**
 	 * 物模型（JSON）
 	 */
-	@Schema(description = "物模型")
+	@TableField(value = "metadata")
+	@AutoColumn(comment = "物模型",  defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String metadata;
 
 	/**
 	 * 数据存储策略
 	 */
-	@Schema(description = "数据存储策略")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 32)
+
+	@TableField(value = "store_policy")
+	@AutoColumn(comment = "数据存储策略", length = 32,  defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String storePolicy;
 
 	/**
 	 * 数据存储策略配置
 	 */
-	@Schema(description = "数据存储策略配置")
+	@TableField(value = "store_policy_configuration")
+	@AutoColumn(comment = "数据存储策略配置",  defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String storePolicyConfiguration;
 
 	/**
 	 * 图片地址
 	 */
-	@Schema(description = "图片地址")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 512)
+
+	@TableField(value = "photo_url")
+	@AutoColumn(comment = "图片地址",  defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String photoUrl;
 
 	/**
 	 * 产品标签
 	 */
-	@Schema(description = "产品标签")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 256)
+	@TableField(value = "tags")
+	@AutoColumn(comment = "产品标签",  defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String tags;
 
 	/**
 	 * 说明
 	 */
-	@Schema(description = "说明")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 512)
+
+	@TableField(value = "describe_info")
+	@AutoColumn(comment = "说明",  length = 512,defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String describeInfo;
 
-	/**
-	 * 产品状态: 0-开发中, 1-已发布
-	 */
-	@Schema(description = "产品状态")
-	private Integer state;
-
-	/**
-	 * 创建者ID
-	 */
-	@Schema(description = "创建者ID")
-	private Long creatorId;
 }

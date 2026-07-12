@@ -15,10 +15,26 @@
         <module>nvr-api-dahua</module>
         <module>nvr-api-gb28181</module>
         <module>nvr-api-haikang</module>
-        <module>nvr-api-haikang-isup</module>
         <module>nvr-api-jt1078</module>
         <module>nvr-api-onvif</module>
+        <module>nvr-api-haikang-isup</module>
         <module>nvr-api-qs</module>
         <module>nvr-api-zlm</module>
     </modules>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-common</artifactId>
+                <version>4.2.0.RELEASE</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-common</artifactId>
+                <version>4.2.0.RELEASE</version>
+                <scope>compile</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

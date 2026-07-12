@@ -1,12 +1,14 @@
 package org.springblade.modules.iot.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
 import com.tangzc.autotable.annotation.ColumnType;
-import com.tangzc.autotable.annotation.enums.ColumnTypeEnum;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springblade.modules.iot.common.entity.CustomBaseEntity;
+import org.springblade.common.entity.CustomBaseEntity;
 
 import java.io.Serial;
 
@@ -26,47 +28,37 @@ public class RuleModel extends CustomBaseEntity {
 	/**
 	 * 规则名称
 	 */
-	@Schema(description = "规则名称")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 128)
+	@TableField(value = "rule_name")
+	@AutoColumn(comment = "规则名称", length = 128, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String ruleName;
 
 	/**
 	 * 数据级别: PRODUCT-产品, DEVICE-设备, GROUP-分组
 	 */
-	@Schema(description = "数据级别")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 32)
+	@TableField(value = "data_level")
+	@AutoColumn(comment = "数据级别", length = 32, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String dataLevel;
 
 	/**
 	 * 描述
 	 */
-	@Schema(description = "描述")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 512)
+	@TableField(value = "description")
+	@AutoColumn(comment = "描述", length = 512, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String description;
 
-	/**
-	 * 状态: start-启用, stop-停用
-	 */
-	@Schema(description = "状态")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 16)
-	private String status;
 
 	/**
 	 * 产品KEY
 	 */
-	@Schema(description = "产品KEY")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 64)
+	@TableField(value = "product_key")
+	@AutoColumn(comment = "产品KEY", length = 64, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String productKey;
 
 	/**
 	 * 规则配置（JSON）
 	 */
-	@Schema(description = "规则配置")
+	@TableField(value = "config")
+	@AutoColumn(comment = "规则配置", defaultValueType = DefaultValueEnum.NULL)
 	private String config;
 
-	/**
-	 * 创建者ID
-	 */
-	@Schema(description = "创建者ID")
-	private Long creatorId;
 }

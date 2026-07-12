@@ -8,24 +8,29 @@
         <artifactId>nvr-api</artifactId>
         <version>4.2.0.RELEASE</version>
     </parent>
-
     <artifactId>nvr-api-dahua</artifactId>
-
     <description>
-        iot-api-dahua 大华SDK接口模块
+        nvr-api-dahua 大华SDK接口模块
     </description>
-
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>nvr.api.dahua</module.name>
+    </properties>
     <dependencies>
         <!-- IoT Common -->
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-common</artifactId>
-            <version>4.2.0.RELEASE</version>
-        </dependency>
+
         <!-- 原生Feign，无需SpringCloud -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-openfeign-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>nvr-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-common</artifactId>
         </dependency>
     </dependencies>
 

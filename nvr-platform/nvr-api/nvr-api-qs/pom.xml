@@ -12,17 +12,21 @@
     <artifactId>nvr-api-qs</artifactId>
 
     <description>
-        iot-api-qs QS设备接口模块
+        nvr-api-qs QS设备接口模块
     </description>
-
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>nvr.api.qs</module.name>
+    </properties>
     <dependencies>
-        <!-- IoT Common -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-common</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-common</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

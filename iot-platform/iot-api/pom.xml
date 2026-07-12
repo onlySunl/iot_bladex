@@ -19,7 +19,10 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-common</artifactId>
-            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-common</artifactId>
         </dependency>
     </dependencies>
 </project>

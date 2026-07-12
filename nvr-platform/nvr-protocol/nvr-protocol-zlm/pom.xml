@@ -17,54 +17,40 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <module.name>iot.zml</module.name>
+        <module.name>nvr.zml</module.name>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-common</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-zlm</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-onvif</artifactId>
-            <version>4.2.0.RELEASE</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-jt1078</artifactId>
-            <version>4.2.0.RELEASE</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-haikang</artifactId>
-            <version>4.2.0.RELEASE</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-haikang-isup</artifactId>
-            <version>4.2.0.RELEASE</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-dahua</artifactId>
-            <version>4.2.0.RELEASE</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-protocol-common</artifactId>
-            <version>4.2.0.RELEASE</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

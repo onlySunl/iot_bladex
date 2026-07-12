@@ -9,23 +9,19 @@
         <artifactId>nvr-protocol</artifactId>
         <version>4.2.0.RELEASE</version>
     </parent>
-
     <artifactId>nvr-protocol-common</artifactId>
     <packaging>jar</packaging>
-    <name>iot-protocol-common</name>
-    <description>IoT协议公共模块</description>
+    <name>nvr-protocol-common</name>
+    <description>nvr协议公共模块</description>
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <module.name>iot.protocol.common</module.name>
+        <module.name>nvr.protocol.common</module.name>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-common</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
 
     </dependencies>

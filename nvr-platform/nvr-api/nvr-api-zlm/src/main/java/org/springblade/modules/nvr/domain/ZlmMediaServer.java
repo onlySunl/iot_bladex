@@ -8,7 +8,7 @@ import com.tangzc.mpe.autotable.annotation.Table;
 
 
 import org.springblade.core.tool.utils.Func;
-import org.springblade.modules.nvr.common.entity.CustomBaseEntity;
+import org.springblade.common.entity.CustomBaseEntity;
 import org.springblade.modules.nvr.config.ZLMServerConfig;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

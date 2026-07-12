@@ -1,4 +1,4 @@
-package org.springblade.modules.nvr.common.interceptor;
+package org.springblade.common.interceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -6,8 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springblade.core.secure.BladeUser;
 import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.HandlerInterceptor;
-
-import java.util.Collections;
 
 /**
  * 内部调用拦截器

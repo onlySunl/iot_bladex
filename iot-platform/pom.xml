@@ -19,4 +19,36 @@
         <module>iot-biz</module>
     </modules>
     <version>4.2.0.RELEASE</version>
+    <dependencyManagement>
+        <dependencies>
+            <!--统一内部模块版本 4.2.0.RELEASE -->
+
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-common</artifactId>
+                <version>4.2.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-common</artifactId>
+                <version>4.2.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-api</artifactId>
+                <version>4.2.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-biz</artifactId>
+                <version>4.2.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-service</artifactId>
+                <version>4.2.0.RELEASE</version>
+            </dependency>
+            <!--剩下protocol模块同样补全-->
+        </dependencies>
+    </dependencyManagement>
 </project>

@@ -28,6 +28,18 @@
     </properties>
     <dependencyManagement>
         <dependencies>
+            <!--统一内部模块版本 4.2.0.RELEASE -->
+
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-common</artifactId>
+                <version>4.2.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-common</artifactId>
+                <version>4.2.0.RELEASE</version>
+            </dependency>
             <!-- JAIN-SIP (NIST RI，包含 javax.sip API + 实现) -->
             <dependency>
                 <groupId>javax.sip</groupId>
@@ -41,12 +53,25 @@
                 <version>${netty.version}</version>
             </dependency>
 
+            <!-- Eclipse Paho MQTT -->
+            <dependency>
+                <groupId>org.eclipse.paho</groupId>
+                <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+                <version>${eclipse.paho.version}</version>
+            </dependency>     <!-- JAIN-SIP (NIST RI，包含 javax.sip API + 实现) -->
+            <dependency>
+                <groupId>javax.sip</groupId>
+                <artifactId>jain-sip-api</artifactId>
+                <version>${jain-sip.version}</version> <!-- 使用最新版本 -->
+            </dependency>
+
             <!-- Netty -->
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
                 <version>${netty.version}</version>
             </dependency>
+
             <!-- Eclipse Paho MQTT -->
             <dependency>
                 <groupId>org.eclipse.paho</groupId>
@@ -54,6 +79,56 @@
                 <version>${eclipse.paho.version}</version>
             </dependency>
 
+
+
+            <!--统一内部模块版本 4.2.0.RELEASE -->
+
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-dahua</artifactId>
+                <version>4.2.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-haikang</artifactId>
+                <version>4.2.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-gb28181</artifactId>
+                <version>4.2.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-qs</artifactId>
+                <version>4.2.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-onvif</artifactId>
+                <version>4.2.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-jt1078</artifactId>
+                <version>4.2.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-haikang-isup</artifactId>
+                <version>4.2.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-zlm</artifactId>
+                <version>4.2.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-protocol-common</artifactId>
+                <version>4.2.0.RELEASE</version>
+            </dependency>
+            <!--剩下protocol模块同样补全-->
         </dependencies>
     </dependencyManagement>
 </project>

@@ -12,13 +12,11 @@
     <artifactId>nvr-protocol-haikang-isup</artifactId>
     <packaging>jar</packaging>
 
-    <name>iot-protocol-haikang-isup</name>
+    <name>nvr-protocol-haikang-isup</name>
     <description>海康ISUP协议模块</description>
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <module.name>iot.protocol.haikang.isup</module.name>
+        <module.name>nvr.protocol.haikang.isup</module.name>
     </properties>
     <dependencies>
         <!-- Lombok -->
@@ -56,26 +54,18 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-qs</artifactId>
-            <version>4.2.0.RELEASE</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-zlm</artifactId>
-            <version>4.2.0.RELEASE</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-haikang-isup</artifactId>
-            <version>4.2.0.RELEASE</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-haikang-isup</artifactId>
-            <version>4.2.0.RELEASE</version>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>

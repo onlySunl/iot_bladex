@@ -7,7 +7,7 @@ import com.tangzc.mpe.autotable.annotation.Table;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springblade.modules.nvr.common.entity.CustomBaseEntity;
+import org.springblade.common.entity.CustomBaseEntity;
 
 import java.io.Serializable;
 

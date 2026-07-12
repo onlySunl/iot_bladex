@@ -7,7 +7,7 @@ import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import com.tangzc.mpe.autotable.annotation.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springblade.modules.nvr.common.entity.CustomBaseEntity;
+import org.springblade.common.entity.CustomBaseEntity;
 
 /**
  * 录像计划管理通道对象 zlm_record_plan_item

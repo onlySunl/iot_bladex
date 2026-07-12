@@ -1,12 +1,14 @@
 package org.springblade.modules.iot.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
 import com.tangzc.autotable.annotation.ColumnType;
-import com.tangzc.autotable.annotation.enums.ColumnTypeEnum;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springblade.modules.iot.common.entity.CustomBaseEntity;
+import org.springblade.common.entity.CustomBaseEntity;
 
 import java.io.Serial;
 
@@ -26,60 +28,57 @@ public class ProductFunction extends CustomBaseEntity {
 	/**
 	 * 产品Key
 	 */
-	@Schema(description = "产品Key")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 64)
+	@TableField(value = "product_key")
+	@AutoColumn(comment = "产品KEY", length = 64, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String productKey;
 
 	/**
 	 * 标签: property-属性, event-事件, function-功能
 	 */
-	@Schema(description = "功能标签")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 32)
+	@TableField(value = "tag")
+	@AutoColumn(comment = "功能标签", length = 32, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String tag;
 
 	/**
 	 * 功能名称
 	 */
-	@Schema(description = "功能名称")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 128)
+	@TableField(value = "name")
+	@AutoColumn(comment = "功能名称", length = 128, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String name;
 
 	/**
 	 * 别名
 	 */
-	@Schema(description = "别名")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 128)
+	@TableField(value = "alias")
+	@AutoColumn(comment = "别名", length = 128, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String alias;
 
 	/**
 	 * 访问模式: r-读, rw-读写
 	 */
-	@Schema(description = "访问模式")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 16)
+	@TableField(value = "access_mode")
+	@AutoColumn(comment = "访问模式", length = 128, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String accessMode;
 
 	/**
 	 * 描述
 	 */
-	@Schema(description = "描述")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 512)
+	@TableField(value = "description")
+	@AutoColumn(comment = "描述", length = 512, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String description;
 
 	/**
 	 * 输入参数（JSON）
 	 */
-	@Schema(description = "输入参数")
+	@TableField(value = "input")
+	@AutoColumn(comment = "输入参数",  defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String input;
 
 	/**
 	 * 输出参数（JSON）
 	 */
-	@Schema(description = "输出参数")
+	@TableField(value = "output")
+	@AutoColumn(comment = "输出参数",  defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String output;
 
-	/**
-	 * 创建者ID
-	 */
-	@Schema(description = "创建者ID")
-	private Long creatorId;
 }

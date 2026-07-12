@@ -1,4 +1,4 @@
-package org.springblade.modules.nvr.common.entity;
+package org.springblade.common.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.NullSerializer;
@@ -7,7 +7,6 @@ import com.tangzc.autotable.annotation.AutoColumn;
 import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import com.tangzc.mpe.autotable.annotation.Column;
 import lombok.Data;
-import org.springblade.core.mp.base.BaseEntity;
 import org.springblade.core.tenant.mp.TenantEntity;
 
 @Data

@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.springblade.modules.nvr.common.entity.CustomBaseEntity;
+import org.springblade.common.entity.CustomBaseEntity;
 
 /**
  * 云端录像对象 zlm_cloud_record

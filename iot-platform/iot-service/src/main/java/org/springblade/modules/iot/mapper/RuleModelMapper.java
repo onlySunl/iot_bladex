@@ -1,10 +1,13 @@
 package org.springblade.modules.iot.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.pojo.entity.RuleModel;
 
 /**
  * IoT规则模型 Mapper 接口
  */
-public interface RuleModelMapper extends BaseMapper<RuleModel> {
+@Mapper
+public interface RuleModelMapper extends BladeMapper<RuleModel> {
 }

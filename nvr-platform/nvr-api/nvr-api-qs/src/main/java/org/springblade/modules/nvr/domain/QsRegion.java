@@ -7,7 +7,7 @@ import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import com.tangzc.mpe.autotable.annotation.Table;
 
 import org.springblade.core.tool.utils.DateUtil;
-import org.springblade.modules.nvr.common.entity.CustomBaseEntity;
+import org.springblade.common.entity.CustomBaseEntity;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

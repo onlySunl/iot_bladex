@@ -1,12 +1,14 @@
 package org.springblade.modules.iot.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
 import com.tangzc.autotable.annotation.ColumnType;
-import com.tangzc.autotable.annotation.enums.ColumnTypeEnum;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springblade.modules.iot.common.entity.CustomBaseEntity;
+import org.springblade.common.entity.CustomBaseEntity;
 
 import java.io.Serial;
 
@@ -26,26 +28,23 @@ public class DeviceGroup extends CustomBaseEntity {
 	/**
 	 * 分组名称
 	 */
-	@Schema(description = "分组名称")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 128)
+
+	@TableField(value = "name")
+	@AutoColumn(comment = "分组名称",length = 128, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String name;
 
 	/**
 	 * 分组描述
 	 */
-	@Schema(description = "分组描述")
-	@ColumnType(value = ColumnTypeEnum.VARCHAR, length = 512)
+	@TableField(value = "describe_info")
+	@AutoColumn(comment = "分组名称",length = 512, defaultValueType = DefaultValueEnum.EMPTY_STRING)
 	private String describeInfo;
 
 	/**
 	 * 父分组ID
 	 */
-	@Schema(description = "父分组ID")
+	@TableField(value = "parent_id")
+	@AutoColumn(comment = "父分组ID",length = 512, defaultValueType = DefaultValueEnum.NULL)
 	private Long parentId;
 
-	/**
-	 * 创建者ID
-	 */
-	@Schema(description = "创建者ID")
-	private Long creatorId;
 }
