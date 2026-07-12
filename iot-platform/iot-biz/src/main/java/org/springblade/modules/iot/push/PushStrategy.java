@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.push;
 
-import org.springblade.modules.iot.common.message.DeviceMessage;
+import org.springblade.modules.iot.protocol.common.message.DeviceMessage;
 
 /**
  * 数据推送策略接口 - 将设备数据推送到外部系统

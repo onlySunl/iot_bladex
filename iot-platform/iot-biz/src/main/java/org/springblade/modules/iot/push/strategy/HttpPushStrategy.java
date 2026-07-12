@@ -2,7 +2,7 @@ package org.springblade.modules.iot.push.strategy;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.modules.iot.common.message.DeviceMessage;
+import org.springblade.modules.iot.protocol.common.message.DeviceMessage;
 import org.springblade.modules.iot.push.PushStrategy;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

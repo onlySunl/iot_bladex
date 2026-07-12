@@ -52,6 +52,26 @@
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
+            <artifactId>iot-protocol-common</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-protocol-mqtt</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-protocol-http</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-protocol-codec</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
             <artifactId>nvr-api-dahua</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>

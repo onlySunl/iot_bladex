@@ -1,11 +1,11 @@
 package org.springblade.modules.iot.device;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.modules.iot.common.message.DeviceMessage;
-import org.springblade.modules.iot.common.message.ServiceCallMessage;
-import org.springblade.modules.iot.common.protocol.ProtocolCodec;
-import org.springblade.modules.iot.common.protocol.ProtocolRegistry;
-import org.springblade.modules.iot.common.protocol.ProtocolType;
+import org.springblade.modules.iot.protocol.common.message.DeviceMessage;
+import org.springblade.modules.iot.protocol.common.message.ServiceCallMessage;
+import org.springblade.modules.iot.protocol.common.protocol.ProtocolCodec;
+import org.springblade.modules.iot.protocol.common.protocol.ProtocolRegistry;
+import org.springblade.modules.iot.protocol.common.protocol.ProtocolType;
 import org.springblade.modules.iot.protocol.mqtt.MqttClientService;
 import org.springframework.stereotype.Service;
 

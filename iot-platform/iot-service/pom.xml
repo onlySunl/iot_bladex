@@ -26,13 +26,11 @@
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>blade-common</artifactId>
+            <artifactId>iot-protocol-common</artifactId>
         </dependency>
-        <!-- Eclipse Paho MQTT Client -->
         <dependency>
-            <groupId>org.eclipse.paho</groupId>
-            <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
-            <version>1.2.5</version>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-common</artifactId>
         </dependency>
     </dependencies>
 </project>

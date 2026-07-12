@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
-import org.springblade.modules.iot.common.message.DeviceMessage;
+import org.springblade.modules.iot.protocol.common.message.DeviceMessage;
 import org.springblade.modules.iot.push.PushStrategy;
 
 import java.util.Map;

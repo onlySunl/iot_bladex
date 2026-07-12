@@ -15,6 +15,7 @@
     <modules>
         <module>iot-common</module>
         <module>iot-api</module>
+        <module>iot-protocol</module>
         <module>iot-service</module>
         <module>iot-biz</module>
     </modules>

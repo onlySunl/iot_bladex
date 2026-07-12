@@ -29,15 +29,13 @@
 ├── iot-platform/             # IoT 管理平台模块 (NexIoT 迁移)
 │   ├── iot-common/           # IoT 公共模块 (实体基类, 工具类, SQL DDL)
 │   ├── iot-api/              # IoT API 模块 (实体/VO)
-│   │   └── pojo/entity/      # 实体类 (Product, Device, ProductFunction, DeviceGroup, RuleModel)
-│   │   └── pojo/vo/          # VO 类
 │   ├── iot-service/          # IoT 服务模块 (Mapper/Service/Wrapper)
-│   │   └── mapper/           # MyBatis-Plus Mapper
-│   │   └── service/          # Service 接口 + 实现
-│   │   └── wrapper/          # MapStruct Wrapper
-│   └── iot-biz/              # IoT 业务模块 (Controller + 规则引擎)
-│       └── controller/       # Controller (Product, Device, Rule)
-│       └── rule/             # 规则引擎核心 (RuleEngine, RuleSqlParser, RuleTransmitTemplate)
+│   ├── iot-biz/              # IoT 业务模块 (Controller + 规则引擎 + 推送策略)
+│   └── iot-protocol/         # IoT 协议模块 (独立子模块)
+│       ├── iot-protocol-common/  # 协议核心抽象 (ProtocolCodec/DeviceMessage)
+│       ├── iot-protocol-mqtt/    # MQTT 协议 (Eclipse Paho)
+│       ├── iot-protocol-http/    # HTTP 协议 (RestTemplate)
+│       └── iot-protocol-codec/   # 通用编解码 (JSON)
 ├── nvr-platform/             # NVR 平台业务模块
 │   ├── nvr-common/           # NVR 公共模块 (实体基类, 工具类)
 │   ├── nvr-api/              # NVR API 接口模块
@@ -135,18 +133,26 @@ docker build -t blade-iot .
 | `iot_protocol` | 协议定义（MQTT/HTTP/TCP/UDP/CoAP） |
 
 ### 协议层架构
-迁移自 NexIoT 协议框架，按 BladeX 标准重构：
+迁移自 NexIoT 协议框架，按 BladeX 标准重构，独立 `iot-protocol` 模块：
 
-**核心抽象**（`iot-common`）：
+**`iot-protocol/iot-protocol-common`** — 协议核心抽象：
 - `ProtocolType` - 协议类型枚举（MQTT/HTTP/TCP/UDP/CoAP）
 - `ProtocolDefinition` - 协议定义（名称/类型/配置/状态）
 - `ProtocolCodec` - 协议编解码接口（encode/decode）
-- `ProtocolRegistry` - 协议注册中心（Spring Bean 自动发现 + SPI 加载）
+- `ProtocolRegistry` - 协议注册中心（Spring Bean 自动发现）
+- `DeviceMessage` / `PropertyMessage` / `EventMessage` / `ServiceCallMessage` - 设备消息模型
 
-**设备消息模型**（`iot-common`）：
-- `DeviceMessage` - 设备消息基类（deviceId/productId/messageId/timestamp）
-- `PropertyMessage` - 属性上报消息（properties Map）
-- `EventMessage` - 事件上报消息（eventId/eventName/data）
+**`iot-protocol/iot-protocol-mqtt`** — MQTT 协议：
+- `MqttConnectionConfig` - MQTT 连接配置
+- `MqttClientService` - MQTT 客户端（Eclipse Paho，异步连接/发布/订阅/自动重连）
+- `MqttJsonCodec` - JSON 协议编解码器
+
+**`iot-protocol/iot-protocol-http`** — HTTP 协议：
+- `HttpConnectionConfig` - HTTP 连接配置
+- `HttpClientService` - HTTP 客户端（RestTemplate，GET/POST/异步）
+
+**`iot-protocol/iot-protocol-codec`** — 通用编解码：
+- `JsonProtocolCodec` - JSON 协议编解码器
 - `ServiceCallMessage` - 服务调用消息（serviceId/params/timeout）
 
 **MQTT 协议**（`iot-service`）：

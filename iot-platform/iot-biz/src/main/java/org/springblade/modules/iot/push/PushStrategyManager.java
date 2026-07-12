@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.push;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.modules.iot.common.message.DeviceMessage;
+import org.springblade.modules.iot.protocol.common.message.DeviceMessage;
 import org.springblade.modules.iot.push.strategy.HttpPushStrategy;
 import org.springblade.modules.iot.push.strategy.MqttPushStrategy;
 import org.springframework.stereotype.Service;
