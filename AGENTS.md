@@ -30,12 +30,36 @@
 │   ├── iot-common/           # IoT 公共模块 (实体基类, 工具类, SQL DDL)
 │   ├── iot-api/              # IoT API 模块 (实体/VO)
 │   ├── iot-service/          # IoT 服务模块 (Mapper/Service/Wrapper/Controller)
-│   ├── iot-rule/             # IoT 规则引擎模块 (规则引擎 + 推送策略)
+│   ├── iot-rule/             # IoT 规则引擎模块 (规则引擎 + 推送策略 + 地理围栏 + Rulego)
 │   └── iot-protocol/         # IoT 协议模块 (独立子模块)
 │       ├── iot-protocol-common/  # 协议核心抽象 (ProtocolCodec/DeviceMessage)
-│       ├── iot-protocol-mqtt/    # MQTT 协议 (Eclipse Paho)
-│       ├── iot-protocol-http/    # HTTP 协议 (RestTemplate)
-│       └── iot-protocol-codec/   # 通用编解码 (JSON)
+│       ├── iot-protocol-mqtt/    # MQTT 协议 (完整实现: 处理器/Topic/OTA/第三方)
+│       ├── iot-protocol-http/    # HTTP 协议 (完整实现: 处理器/编解码/服务)
+│       ├── iot-protocol-codec/   # 通用编解码 (JSON)
+│       └── iot-protocol-websocket/ # WebSocket 协议 (完整实现: 处理器/会话管理)
+├── iot-persistence/          # IoT 持久化模块 (NexIoT 数据层迁移)
+│   ├── entity/               # 实体类 (IoT设备/产品/日志/规则等)
+│   ├── mapper/               # MyBatis Mapper 接口
+│   ├── dto/                  # 数据传输对象
+│   ├── base/                 # 基础适配器/请求/设备生命周期
+│   ├── config/               # MyBatis 配置
+│   └── mybatis/              # MyBatis XML 映射文件
+├── iot-bridge/               # IoT 数据桥接模块
+│   ├── iot-bridge-core/      # 桥接核心 (引擎/模板/插件抽象)
+│   ├── iot-bridge-plugin-jdbc/   # JDBC 插件
+│   ├── iot-bridge-plugin-kafka/  # Kafka 插件
+│   ├── iot-bridge-plugin-mqtt/   # MQTT 插件
+│   ├── iot-bridge-plugin-http/   # HTTP 插件
+│   ├── iot-bridge-plugin-iotdb/  # IoTDB 插件
+│   ├── iot-bridge-plugin-influxdb/ # InfluxDB 插件
+│   ├── iot-bridge-starter/   # 桥接自动配置
+│   └── iot-bridge-web/       # 桥接 Web 接口
+├── iot-monitor/              # IoT 监控模块 (NexIoT Web 层迁移)
+│   ├── monitor/              # 缓存/线程监控
+│   ├── listener/             # 应用启动监听
+│   ├── web/config/           # Web 配置 (XSS/编解码/日志/拦截器)
+│   ├── web/controller/       # 通用/OpenAPI 控制器
+│   └── web/service/          # Web 服务层
 ├── nvr-platform/             # NVR 平台业务模块
 │   ├── nvr-common/           # NVR 公共模块 (实体基类, 工具类)
 │   ├── nvr-api/              # NVR API 接口模块
@@ -203,3 +227,39 @@ docker build -t blade-iot .
 - Wrapper 继承 `BaseEntityWrapper`，使用 `BeanUtil.copyProperties` 转换
 - Service 继承 `IService<T>` / `ServiceImpl<M, T>`
 - Mapper 继承 `BaseMapper<T>`
+
+## NexIoT 源码迁移（cn-universal → BladeX）
+
+### 迁移映射表
+| 源模块 (nexiot-source) | 目标模块 | 说明 |
+|---|---|---|
+| `cn-universal-rule` | `iot-platform/iot-rule` | 规则引擎 + 推送策略 + 地理围栏 + Rulego + 场景联动 |
+| `cn-universal-protocol/cn-universal-mqtt-protocol` | `iot-protocol/iot-protocol-mqtt` | MQTT 完整协议实现（处理器/Topic/OTA） |
+| `cn-universal-protocol/cn-universal-http-protocol` | `iot-protocol/iot-protocol-http` | HTTP 完整协议实现（处理器/编解码） |
+| `cn-universal-protocol/cn-universal-websocket-protocol` | `iot-protocol/iot-protocol-websocket` | WebSocket 协议（新建模块） |
+| `cn-universal-persistence` | `iot-persistence` | 数据持久化层（实体/Mapper/DTO/MyBatis XML） |
+| `cn-universal-data-bridge` | `iot-bridge` | 数据桥接（core + 6 个插件 + starter + web） |
+| `cn-universal-web` | `iot-monitor` | Web 层（监控/配置/控制器/服务） |
+
+### 包名映射
+| 原包名 | 新包名 |
+|---|---|
+| `cn.universal.rule` | `org.springblade.modules.iot.rule` |
+| `cn.universal.mqtt.protocol` | `org.springblade.modules.iot.protocol.mqtt` |
+| `cn.universal.http.protocol` | `org.springblade.modules.iot.protocol.http` |
+| `cn.universal.websocket.protocol` | `org.springblade.modules.iot.protocol.websocket` |
+| `cn.universal.persistence` | `org.springblade.modules.iot.persistence` |
+| `cn.universal.databridge` | `org.springblade.modules.iot.databridge` |
+| `cn.universal.web` | `org.springblade.modules.iot.monitor.web` |
+| `cn.universal.monitor` | `org.springblade.modules.iot.monitor.monitor` |
+| `cn.universal.common` | `org.springblade.modules.iot.common` |
+| `cn.universal.dm.*` | `org.springblade.modules.iot.dm.*` |
+| `cn.universal.manager` | `org.springblade.modules.iot.manager` |
+
+### 迁移统计
+- **iot-rule**: 62 Java 文件（规则引擎/推送策略/地理围栏/Rulego/场景联动）
+- **iot-protocol**: 164 Java 文件（common 8 + mqtt 64 + http 36 + codec 1 + websocket 55）
+- **iot-persistence**: 203 Java 文件 + 46 资源文件（实体/Mapper/DTO/MyBatis XML）
+- **iot-bridge**: 54 Java 文件（core 40 + 6 插件 13 + starter 1）
+- **iot-monitor**: 68 Java 文件（监控/配置/控制器/服务）
+- **总计**: 551 Java 文件

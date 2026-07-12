@@ -1,0 +1,153 @@
+package org.springblade.modules.iot.protocol.mqtt.processor.up.common;
+
+import cn.hutool.core.util.StrUtil;
+import org.springblade.modules.iot.common.utils.PayloadCodecUtils;
+import org.springblade.modules.iot.dm.device.service.AbstratIoTService;
+import org.springblade.modules.iot.dm.device.service.impl.IoTProductDeviceService;
+import org.springblade.modules.iot.protocol.mqtt.config.MqttConstant;
+import org.springblade.modules.iot.protocol.mqtt.entity.MQTTPublishMessage;
+import org.springblade.modules.iot.protocol.mqtt.entity.MQTTUPRequest;
+import org.springblade.modules.iot.protocol.mqtt.processor.MqttMessageProcessor;
+import org.springblade.modules.iot.protocol.mqtt.system.SysMQTTManager;
+import org.springblade.modules.iot.protocol.mqtt.third.ThirdMQTTServerManager;
+import org.springblade.modules.iot.protocol.mqtt.topic.MQTTTopicManager;
+import org.springblade.modules.iot.protocol.mqtt.topic.MQTTTopicType;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+
+/**
+ * 公共消息回复处理器基类
+ *
+ * <p>统一处理所有需要自动回复的MQTT消息（如物模型/透传下行等）
+ */
+@Slf4j(topic = "mqtt")
+public abstract class BaseReplyProcessor extends AbstratIoTService implements MqttMessageProcessor {
+
+  @Autowired protected ThirdMQTTServerManager thirdMqttServerManager;
+  @Autowired protected SysMQTTManager sysMQTTManager;
+
+  @Autowired protected MQTTTopicManager mqttTopicManager;
+  @Resource private IoTProductDeviceService ioTProductDeviceService;
+
+  @Override
+  public String getName() {
+    return "消息回复处理器-" + getTopicType();
+  }
+
+  @Override
+  public String getDescription() {
+    return "处理" + getTopicType() + "主题的自动消息回复";
+  }
+
+  @Override
+  public int getOrder() {
+    return 800; // 回复处理一般在业务处理后
+  }
+
+  @Override
+  public ProcessorResult process(MQTTUPRequest request) {
+    try {
+      String replyPayload = request.getReplyPayload();
+      if (StrUtil.isBlank(replyPayload)) {
+        log.debug("[{}] 无需回复，跳过", getName());
+        return ProcessorResult.CONTINUE;
+      }
+      String downTopic = buildDownTopic(request);
+
+      // 根据产品配置的 encoderType 编码 payload
+      String productKey = request.getProductKey();
+      String encoderType = ioTProductDeviceService.getProductEncoderType(productKey);
+      byte[] payloadBytes = PayloadCodecUtils.encode(encoderType, replyPayload);
+
+      MQTTPublishMessage build =
+          MQTTPublishMessage.builder()
+              .topic(downTopic)
+              .qos(request.getQos())
+              .payload(payloadBytes)
+              .build();
+      boolean success = publishWithSystemOrThirdMqtt(request, build);
+      if (success) {
+        log.info(
+            "[{}] 回复消息发布成功 - 主题: {} encoderType: {} 内容：{}",
+            getName(),
+            downTopic,
+            encoderType,
+            replyPayload);
+        request.setContextValue("replySuccess", true);
+      } else {
+        log.warn("[{}] 回复消息发布失败 - 主题: {}", getName(), downTopic);
+        request.setContextValue("replySuccess", false);
+      }
+      // 主题类型特定的后续处理
+      if (!processTopicSpecificReply(request, build)) {
+        log.warn("[{}] 主题特定回复处理失败", getName());
+        return ProcessorResult.ERROR;
+      }
+
+      return ProcessorResult.CONTINUE;
+
+    } catch (Exception e) {
+      log.error("[{}] 回复处理异常: ", getName(), e);
+      return ProcessorResult.ERROR;
+    }
+  }
+
+  private String buildDownTopic(MQTTUPRequest request) {
+    String downTopic = request.getDownTopic();
+    if (StrUtil.isBlank(downTopic)) {
+      downTopic = buildReplyTopic(request);
+    } else {
+      // 对已有的下发主题做占位符填充，以支持模板与通配符
+      downTopic =
+          mqttTopicManager.fillTopicPattern(
+              downTopic, request.getProductKey(), request.getDeviceId());
+    }
+    return downTopic;
+  }
+
+  @Override
+  public boolean supports(MQTTUPRequest request) {
+    return request.getReplyPayload() != null;
+  }
+
+  /** 构建回复topic */
+  protected String buildReplyTopic(MQTTUPRequest request) {
+    String productKey = request.getProductKey();
+    String deviceId = request.getDeviceId();
+    String networkUnionId = request.getNetworkUnionId();
+    if (StrUtil.isBlank(networkUnionId)) {
+      return MQTTTopicType.THING_DOWN.buildTopic(productKey, deviceId);
+    }
+    // 1. 优先查第三方MQTT自定义下发topic
+    String thirdPartyDownPattern =
+        mqttTopicManager.getThirdPartyDownTopicPattern(networkUnionId, MqttConstant.TYPE_DOWN);
+    if (thirdPartyDownPattern != null) {
+      // 2. 使用统一的pattern填充工具生成最终下发topic
+      return mqttTopicManager.fillTopicPattern(thirdPartyDownPattern, productKey, deviceId);
+    }
+    // 3. 兜底：仍然走默认物模型下行topic
+    return MQTTTopicType.THING_DOWN.buildTopic(productKey, deviceId);
+  }
+
+  /** 根据产品类型决定推送到内置MQTT还是第三方MQTT */
+  protected boolean publishWithSystemOrThirdMqtt(MQTTUPRequest request, MQTTPublishMessage reply) {
+    String productKey = request.getProductKey();
+    String topic = reply.getTopic();
+    if (sysMQTTManager.isEnabled() && sysMQTTManager.isProductCovered(productKey)) {
+      return sysMQTTManager.publishMessage(
+          topic, reply.getPayloadAsBytes(), reply.getQos(), reply.isRetained());
+    } else {
+      // 取networkUnionId，通常等于productKey，或根据实际业务获取
+      return thirdMqttServerManager.publishMessage(request.getNetworkUnionId(), reply);
+    }
+  }
+
+  /** 获取主题类型名称 */
+  protected abstract String getTopicType();
+
+  /** 主题类型特定的回复处理（可选扩展） */
+  protected boolean processTopicSpecificReply(MQTTUPRequest request, MQTTPublishMessage reply) {
+    return true;
+  }
+}

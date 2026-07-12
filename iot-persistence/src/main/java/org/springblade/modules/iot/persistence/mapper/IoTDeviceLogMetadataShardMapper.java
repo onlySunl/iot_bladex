@@ -1,0 +1,89 @@
+/*
+ *
+ * Copyright (c) 2025, NexIoT. All Rights Reserved.
+ *
+ * @Description: 本文件由 gitee.com/NexIoT 开发并拥有版权，未经授权严禁擅自商用、复制或传播。
+ * @Author: gitee.com/NexIoT
+ * @Email: wo8335224@gmail.com
+ * @Wechat: outlookFil
+ *
+ *
+ */
+
+package org.springblade.modules.iot.persistence.mapper;
+
+import org.springblade.modules.iot.persistence.common.BaseMapper;
+import org.springblade.modules.iot.persistence.consistent.DeviceMetaShardingRouter;
+import org.springblade.modules.iot.persistence.consistent.TableShard;
+import org.springblade.modules.iot.persistence.entity.IoTDeviceLogMetadata;
+import org.springblade.modules.iot.persistence.entity.vo.IoTDeviceLogMetadataVO;
+import org.springblade.modules.iot.persistence.query.LogQuery;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+@TableShard(
+    tableNamePrefix = "iot_device_log_metadata",
+    value = "iotId",
+    fieldFlag = true,
+    shardStrategy = DeviceMetaShardingRouter.class)
+public interface IoTDeviceLogMetadataShardMapper extends BaseMapper<IoTDeviceLogMetadata> {
+
+  /**
+   * 获取属性最大的条数
+   *
+   * @param iotId
+   * @param maxStorage
+   * @param property
+   * @return
+   */
+  Integer getTopPropertiesRecord(
+      @Param("iotId") String iotId,
+      @Param("maxStorage") int maxStorage,
+      @Param("property") String property);
+
+  /**
+   * 删除属性最大的条数
+   *
+   * @param iotId iotId
+   * @param topId 待删除的起始id
+   * @return 影响条数
+   */
+  int deleteTopPropertiesRecord(
+      @Param("iotId") String iotId,
+      @Param("topId") Integer topId,
+      @Param("property") String property);
+
+  /**
+   * 获取事件最大的条数
+   *
+   * @param iotId
+   * @param maxStorage
+   * @param event
+   * @return
+   */
+  Integer getTopEventRecord(
+      @Param("iotId") String iotId,
+      @Param("maxStorage") int maxStorage,
+      @Param("event") String event);
+
+  /**
+   * 删除属性最大的条数
+   *
+   * @param iotId iotId
+   * @param topId 待删除的起始id
+   * @return 影响条数
+   */
+  int deleteTopEventRecord(
+      @Param("iotId") String iotId, @Param("topId") Integer topId, @Param("event") String event);
+
+  List<IoTDeviceLogMetadataVO> selectLogMetaList(LogQuery logQuery);
+
+  /**
+   * 获取设备事件的统计信息
+   *
+   * @param event 事件id
+   * @param iotId 设备iotId
+   */
+  List<String> queryEventTotalByEventAndId(
+      @Param("event") String event, @Param("iotId") String iotId);
+}
