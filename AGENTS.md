@@ -99,7 +99,7 @@ docker build -t blade-iot .
 ## IoT 管理模块（迁移自 NexIoT）
 
 ### 概述
-从 NexIoT 项目完整迁移的 IoT 物联网管理平台，包含产品管理、设备管理、规则引擎、场景联动、设备影子、设备日志、设备标签、设备证书等功能，全部按 BladeX 4.2.0 标准重构。共 12 个实体、12 个 VO、12 个 Mapper、12 个 Service、10 个 Controller、7 个规则引擎类。
+从 NexIoT 项目完整迁移的 IoT 物联网管理平台，包含产品管理、设备管理、规则引擎、场景联动、设备影子、设备日志、设备标签、设备证书、协议管理等功能，以及完整的协议层（MQTT/HTTP/编解码/推送策略），全部按 BladeX 4.2.0 标准重构。共 13 个实体、13 个 VO、13 个 Mapper、13 个 Service、11 个 Controller、7 个规则引擎类、15 个协议层类。
 
 ### 代码位置
 - **实体类/VO**: `iot-platform/iot-api/src/main/java/org/springblade/modules/iot/pojo/`
@@ -108,6 +108,12 @@ docker build -t blade-iot .
 - **Controller**: `iot-platform/iot-biz/src/main/java/org/springblade/modules/iot/controller/`
 - **Wrapper**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/wrapper/`
 - **规则引擎**: `iot-platform/iot-biz/src/main/java/org/springblade/modules/iot/rule/`
+- **协议核心抽象**: `iot-platform/iot-common/src/main/java/org/springblade/modules/iot/common/protocol/`
+- **设备消息模型**: `iot-platform/iot-common/src/main/java/org/springblade/modules/iot/common/message/`
+- **MQTT 协议**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/protocol/mqtt/`
+- **HTTP 协议**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/protocol/http/`
+- **设备通信服务**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/device/`
+- **推送策略**: `iot-platform/iot-biz/src/main/java/org/springblade/modules/iot/push/`
 - **DDL**: `iot-platform/iot-common/src/main/resources/sql/nexiot-migration.sql`
 
 ### 数据表
@@ -126,6 +132,40 @@ docker build -t blade-iot .
 | `iot_certificate` | 设备证书（SSL/TLS） |
 | `iot_rule_model` | 规则模型 |
 | `iot_scene_linkage` | 场景联动 |
+| `iot_protocol` | 协议定义（MQTT/HTTP/TCP/UDP/CoAP） |
+
+### 协议层架构
+迁移自 NexIoT 协议框架，按 BladeX 标准重构：
+
+**核心抽象**（`iot-common`）：
+- `ProtocolType` - 协议类型枚举（MQTT/HTTP/TCP/UDP/CoAP）
+- `ProtocolDefinition` - 协议定义（名称/类型/配置/状态）
+- `ProtocolCodec` - 协议编解码接口（encode/decode）
+- `ProtocolRegistry` - 协议注册中心（Spring Bean 自动发现 + SPI 加载）
+
+**设备消息模型**（`iot-common`）：
+- `DeviceMessage` - 设备消息基类（deviceId/productId/messageId/timestamp）
+- `PropertyMessage` - 属性上报消息（properties Map）
+- `EventMessage` - 事件上报消息（eventId/eventName/data）
+- `ServiceCallMessage` - 服务调用消息（serviceId/params/timeout）
+
+**MQTT 协议**（`iot-service`）：
+- `MqttConnectionConfig` - MQTT 连接配置（broker/topic/auth/QoS/SSL）
+- `MqttClientService` - MQTT 客户端服务（Eclipse Paho，连接/发布/订阅/重连）
+- `MqttJsonCodec` - JSON 协议编解码器（DeviceMessage ↔ JSON bytes）
+
+**HTTP 协议**（`iot-service`）：
+- `HttpClientService` - HTTP 客户端服务（RestTemplate，GET/POST/异步）
+
+**设备通信服务**（`iot-service`）：
+- `DeviceMessageService` - 设备消息处理（属性/事件/上线/下线/日志）
+- `DeviceDownlinkService` - 设备下行服务（服务调用/属性设置/命令下发）
+
+**推送策略**（`iot-biz`）：
+- `PushStrategy` - 推送策略接口（push/pushAsync）
+- `HttpPushStrategy` - HTTP 推送（POST JSON）
+- `MqttPushStrategy` - MQTT 推送（发布到 Topic）
+- `PushStrategyManager` - 推送策略管理器（注册/执行/异步执行）
 
 ### API 接口
 | 模块 | 路径前缀 | 说明 |

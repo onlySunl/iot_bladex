@@ -280,3 +280,26 @@ CREATE TABLE IF NOT EXISTS `iot_scene_linkage` (
   PRIMARY KEY (`id`),
   KEY `idx_tenant_id` (`tenant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='IoT场景联动表';
+
+-- 14. 协议定义表
+CREATE TABLE IF NOT EXISTS `iot_protocol` (
+  `id` bigint NOT NULL COMMENT '主键ID',
+  `name` varchar(128) DEFAULT NULL COMMENT '协议名称',
+  `protocol_type` varchar(32) DEFAULT NULL COMMENT '协议类型(MQTT/HTTP/WEBSOCKET/MODBUS/OPC_UA/CUSTOM)',
+  `description` varchar(512) DEFAULT NULL COMMENT '协议描述',
+  `configuration` json DEFAULT NULL COMMENT '协议配置(JSON格式，含连接参数、编解码配置等)',
+  `codec_type` varchar(32) DEFAULT 'JSON' COMMENT '编解码类型(JSON/BINARY/JAVASCRIPT/PASSTHROUGH)',
+  `codec_script` text DEFAULT NULL COMMENT '编解码脚本(JavaScript)',
+  `status` int DEFAULT 1 COMMENT '状态(1启用 0禁用)',
+  `sort_index` int DEFAULT 0 COMMENT '排序',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `creator` bigint DEFAULT NULL COMMENT '创建人',
+  `create_dept` bigint DEFAULT NULL COMMENT '创建部门',
+  `tenant_id` varchar(12) DEFAULT '000000' COMMENT '租户编号',
+  `is_deleted` int DEFAULT 0 COMMENT '是否已删除',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_tenant_id` (`tenant_id`),
+  KEY `idx_protocol_type` (`protocol_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='IoT协议定义表';
