@@ -1,10 +1,15 @@
 package org.springblade.modules.iot.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springblade.modules.iot.common.entity.CustomBaseEntity;
+import org.springblade.common.entity.CustomBaseEntity;
+
+import java.io.Serial;
 
 /**
  * 场景联动 实体
@@ -17,24 +22,49 @@ import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 @Schema(description = "SceneLinkage对象")
 public class SceneLinkage extends CustomBaseEntity {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "场景名称")
+	/**
+	 * 场景名称
+	 */
+	@TableField(value = "scene_name")
+	@AutoColumn(comment = "场景名称", length = 128, defaultValueType = DefaultValueEnum.NULL)
 	private String sceneName;
 
-	@Schema(description = "场景描述")
+	/**
+	 * 场景描述
+	 */
+	@TableField(value = "scene_description")
+	@AutoColumn(comment = "场景描述", length = 512, defaultValueType = DefaultValueEnum.NULL)
 	private String sceneDescription;
 
-	@Schema(description = "触发类型: DEVICE-设备触发, TIMER-定时触发, MANUAL-手动触发")
+	/**
+	 * 触发类型: DEVICE-设备触发, TIMER-定时触发, MANUAL-手动触发
+	 */
+	@TableField(value = "trigger_type")
+	@AutoColumn(comment = "触发类型", length = 32, defaultValueType = DefaultValueEnum.NULL)
 	private String triggerType;
 
-	@Schema(description = "触发配置（JSON）")
+	/**
+	 * 触发配置（JSON）
+	 */
+	@TableField(value = "trigger_config")
+	@AutoColumn(comment = "触发配置", defaultValueType = DefaultValueEnum.NULL)
 	private String triggerConfig;
 
-	@Schema(description = "执行动作配置（JSON）")
+	/**
+	 * 执行动作配置（JSON）
+	 */
+	@TableField(value = "action_config")
+	@AutoColumn(comment = "执行动作配置", defaultValueType = DefaultValueEnum.NULL)
 	private String actionConfig;
 
-	@Schema(description = "状态: 0-停用, 1-启用")
+	/**
+	 * 状态: 0-停用, 1-启用
+	 */
+	@TableField(value = "status")
+	@AutoColumn(comment = "状态", defaultValueType = DefaultValueEnum.NULL)
 	private Integer status;
 
 }

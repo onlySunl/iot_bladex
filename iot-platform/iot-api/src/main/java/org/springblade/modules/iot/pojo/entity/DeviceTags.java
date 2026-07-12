@@ -1,11 +1,16 @@
 package org.springblade.modules.iot.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
 import com.tangzc.autotable.annotation.Index;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springblade.modules.iot.common.entity.CustomBaseEntity;
+import org.springblade.common.entity.CustomBaseEntity;
+
+import java.io.Serial;
 
 /**
  * 设备标签 实体
@@ -18,22 +23,43 @@ import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 @Schema(description = "DeviceTags对象")
 public class DeviceTags extends CustomBaseEntity {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "设备ID")
+	/**
+	 * 设备ID
+	 */
+	@TableField(value = "device_id")
+	@AutoColumn(comment = "设备ID", defaultValueType = DefaultValueEnum.NULL)
 	@Index
 	private Long deviceId;
 
-	@Schema(description = "标签Key")
+	/**
+	 * 标签Key
+	 */
+	@TableField(value = "tag_key")
+	@AutoColumn(comment = "标签Key", length = 64, defaultValueType = DefaultValueEnum.NULL)
 	private String tagKey;
 
-	@Schema(description = "标签Value")
+	/**
+	 * 标签Value
+	 */
+	@TableField(value = "tag_value")
+	@AutoColumn(comment = "标签Value", length = 256, defaultValueType = DefaultValueEnum.NULL)
 	private String tagValue;
 
-	@Schema(description = "标签名称")
+	/**
+	 * 标签名称
+	 */
+	@TableField(value = "tag_name")
+	@AutoColumn(comment = "标签名称", length = 128, defaultValueType = DefaultValueEnum.NULL)
 	private String tagName;
 
-	@Schema(description = "标签备注")
+	/**
+	 * 标签备注
+	 */
+	@TableField(value = "tag_remark")
+	@AutoColumn(comment = "标签备注", length = 256, defaultValueType = DefaultValueEnum.NULL)
 	private String tagRemark;
 
 }

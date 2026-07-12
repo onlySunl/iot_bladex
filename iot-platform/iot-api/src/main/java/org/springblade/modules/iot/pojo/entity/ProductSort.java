@@ -1,13 +1,16 @@
 package org.springblade.modules.iot.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.tangzc.autotable.annotation.ColumnComment;
+import com.tangzc.autotable.annotation.AutoColumn;
 import com.tangzc.autotable.annotation.Index;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springblade.core.tenant.mp.TenantEntity;
-import org.springblade.modules.iot.common.entity.CustomBaseEntity;
+import org.springblade.common.entity.CustomBaseEntity;
+
+import java.io.Serial;
 
 /**
  * 产品分类 实体
@@ -20,19 +23,36 @@ import org.springblade.modules.iot.common.entity.CustomBaseEntity;
 @Schema(description = "ProductSort对象")
 public class ProductSort extends CustomBaseEntity {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Schema(description = "分类名称")
+	/**
+	 * 分类名称
+	 */
+	@TableField(value = "name")
+	@AutoColumn(comment = "分类名称", length = 128, defaultValueType = DefaultValueEnum.NULL)
 	private String name;
 
-	@Schema(description = "父分类ID")
+	/**
+	 * 父分类ID
+	 */
+	@TableField(value = "parent_id")
+	@AutoColumn(comment = "父分类ID", defaultValueType = DefaultValueEnum.NULL)
 	@Index
 	private Long parentId;
 
-	@Schema(description = "排序")
+	/**
+	 * 排序
+	 */
+	@TableField(value = "sort")
+	@AutoColumn(comment = "排序", defaultValueType = DefaultValueEnum.NULL)
 	private Integer sort;
 
-	@Schema(description = "备注")
+	/**
+	 * 备注
+	 */
+	@TableField(value = "remark")
+	@AutoColumn(comment = "备注", length = 512, defaultValueType = DefaultValueEnum.NULL)
 	private String remark;
 
 }
