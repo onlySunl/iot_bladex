@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springblade.core.mp.service.impl.BladeServiceImpl;
 import org.springblade.core.mp.service.impl.BladeServiceImpl;
 import org.springblade.modules.iot.mapper.RuleModelMapper;
 import org.springblade.modules.iot.pojo.entity.RuleModel;

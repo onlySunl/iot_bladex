@@ -31,9 +31,10 @@ public class ProtocolController extends BladeController {
 
     @Operation(summary = "分页列表")
     @GetMapping("/list")
-    public R<IPage<ProtocolVO>> list(Protocol protocol, QueryWrapper<Protocol> queryWrapper) {
-        IPage<Protocol> pages = protocolService.page(Condition.getPage(queryWrapper));
-        return R.data(protocolWrapper.wrap().wrapListVO(pages));
+    public R<IPage<ProtocolVO>> page(Map<String, Object> protocol, Query query) {
+        QueryWrapper<Protocol> queryWrapper = Condition.getQueryWrapper(protocol, Protocol.class);
+        IPage<Protocol> pages = protocolService.page(Condition.getPage(query), queryWrapper);
+        return R.data(ProtocolWrapper.build().pageVO(pages));
     }
 
     @Operation(summary = "详情")

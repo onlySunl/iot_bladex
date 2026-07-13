@@ -1,9 +1,9 @@
 package org.springblade.modules.iot.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
+import org.springblade.core.mp.service.BladeService;
 import org.springblade.modules.iot.pojo.entity.ProductSort;
 import java.util.List;
 
-public interface IProductSortService extends IService<ProductSort> {
+public interface IProductSortService extends BladeService<ProductSort> {
 	List<ProductSort> treeList();
 }

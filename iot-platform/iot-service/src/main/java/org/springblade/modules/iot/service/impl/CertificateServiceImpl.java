@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springblade.core.mp.service.impl.BladeServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springblade.modules.iot.mapper.CertificateMapper;
 import org.springblade.modules.iot.pojo.entity.Certificate;
@@ -9,5 +9,5 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class CertificateServiceImpl extends ServiceImpl<CertificateMapper, Certificate> implements ICertificateService {
+public class CertificateServiceImpl extends BladeServiceImpl<CertificateMapper, Certificate> implements ICertificateService {
 }

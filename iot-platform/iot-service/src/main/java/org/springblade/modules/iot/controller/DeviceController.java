@@ -117,7 +117,6 @@ public class DeviceController extends BladeController {
 		update.setState(device.getState());
 		if (device.getState() != null && device.getState() == 1) {
 			update.setOnlineTime(System.currentTimeMillis());
-		}
 		update.setUpdateTime(new Date());
 		return R.data(deviceServiceImpl.updateById(update));
 	}

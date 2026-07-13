@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springblade.core.boot.ctrl.BladeController;
-import org.springblade.core.tenant.TenantCache;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.iot.pojo.entity.ProductSort;
@@ -24,7 +23,6 @@ import java.util.List;
 public class ProductSortController extends BladeController {
 
 	private final IProductSortService productSortService;
-	private final TenantCache tenantCache;
 
 	@GetMapping("/list")
 	@Operation(summary = "产品分类列表")
@@ -38,16 +36,13 @@ public class ProductSortController extends BladeController {
 	@Operation(summary = "产品分类详情")
 	public R<ProductSortVO> detail(@Parameter(name = "id", description = "主键", required = true) @RequestParam Long id) {
 		ProductSort entity = productSortService.getById(id);
-		return R.data(ProductSortWrapper.build().getVO(entity));
+		return R.data(ProductSortWrapper.build().entityVO(entity));
 	}
 
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 3)
 	@Operation(summary = "新增或修改产品分类")
 	public R<Boolean> save(@RequestBody ProductSort entity) {
-		if (Func.isEmpty(entity.getId())) {
-			entity.setTenantId(tenantCache.getTenantId());
-		}
 		return R.data(productSortService.saveOrUpdate(entity));
 	}
 

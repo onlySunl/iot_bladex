@@ -1,12 +1,14 @@
 package org.springblade.modules.iot.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.tool.utils.Func;
+import org.springblade.core.tool.api.Query;
+import org.springblade.core.mp.support.Condition;
 import org.springblade.modules.iot.pojo.entity.DeviceSubscribe;
 import org.springblade.modules.iot.pojo.vo.DeviceSubscribeVO;
 import org.springblade.modules.iot.service.IDeviceSubscribeService;
@@ -25,11 +27,9 @@ public class DeviceSubscribeController extends BladeController {
 
 	@GetMapping("/list")
 	@Operation(summary = "设备订阅列表")
-	public R<IPage<DeviceSubscribeVO>> list(DeviceSubscribe subscribe, com.baomidou.mybatisplus.extension.plugins.pagination.Page page) {
-		com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<DeviceSubscribe> qw = new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<>();
-		qw.eq(DeviceSubscribe::getIsDeleted, 0);
-		qw.eq(Func.isNotEmpty(subscribe.getDeviceId()), DeviceSubscribe::getDeviceId, subscribe.getDeviceId());
-		IPage<DeviceSubscribe> pages = deviceSubscribeService.page(page, qw);
+	public R<IPage<DeviceSubscribeVO>> page(Map<String, Object> deviceSubscribe, Query query) {
+		QueryWrapper<DeviceSubscribe> queryWrapper = Condition.getQueryWrapper(deviceSubscribe, DeviceSubscribe.class);
+		IPage<DeviceSubscribe> pages = deviceSubscribeService.page(Condition.getPage(query), queryWrapper);
 		return R.data(DeviceSubscribeWrapper.build().pageVO(pages));
 	}
 

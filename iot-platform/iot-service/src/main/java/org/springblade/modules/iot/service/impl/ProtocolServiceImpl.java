@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springblade.core.mp.service.impl.BladeServiceImpl;
 import org.springblade.modules.iot.mapper.ProtocolMapper;
 import org.springblade.modules.iot.pojo.entity.Protocol;
 import org.springblade.modules.iot.service.IProtocolService;
@@ -12,5 +12,5 @@ import org.springframework.stereotype.Service;
  * @author blade-iot
  */
 @Service
-public class ProtocolServiceImpl extends ServiceImpl<ProtocolMapper, Protocol> implements IProtocolService {
+public class ProtocolServiceImpl extends BladeServiceImpl<ProtocolMapper, Protocol> implements IProtocolService {
 }

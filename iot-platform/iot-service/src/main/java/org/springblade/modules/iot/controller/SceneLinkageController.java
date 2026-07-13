@@ -1,5 +1,6 @@
 package org.springblade.modules.iot.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.v3.oas.annotations.Operation;
@@ -7,9 +8,9 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springblade.core.boot.ctrl.BladeController;
-import org.springblade.core.tenant.TenantCache;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.tool.utils.Func;
+import org.springblade.core.tool.api.Query;
+import org.springblade.core.mp.support.Condition;
 import org.springblade.modules.iot.pojo.entity.SceneLinkage;
 import org.springblade.modules.iot.pojo.vo.SceneLinkageVO;
 import org.springblade.modules.iot.service.ISceneLinkageService;
@@ -24,30 +25,24 @@ import java.util.List;
 public class SceneLinkageController extends BladeController {
 
 	private final ISceneLinkageService sceneLinkageService;
-	private final TenantCache tenantCache;
 
 	@GetMapping("/list")
 	@Operation(summary = "场景联动列表")
-	public R<IPage<SceneLinkageVO>> list(SceneLinkage linkage, com.baomidou.mybatisplus.extension.plugins.pagination.Page page) {
-		com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<SceneLinkage> qw = new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<>();
-		qw.eq(SceneLinkage::getIsDeleted, 0);
-		qw.eq(Func.isNotEmpty(linkage.getTenantId()), SceneLinkage::getTenantId, linkage.getTenantId());
-		IPage<SceneLinkage> pages = sceneLinkageService.page(page, qw);
+	public R<IPage<SceneLinkageVO>> page(Map<String, Object> sceneLinkage, Query query) {
+		QueryWrapper<SceneLinkage> queryWrapper = Condition.getQueryWrapper(sceneLinkage, SceneLinkage.class);
+		IPage<SceneLinkage> pages = sceneLinkageService.page(Condition.getPage(query), queryWrapper);
 		return R.data(SceneLinkageWrapper.build().pageVO(pages));
 	}
 
 	@GetMapping("/detail")
 	@Operation(summary = "场景联动详情")
 	public R<SceneLinkageVO> detail(@Parameter(name = "id") @RequestParam Long id) {
-		return R.data(SceneLinkageWrapper.build().getVO(sceneLinkageService.getById(id)));
+		return R.data(SceneLinkageWrapper.build().entityVO(sceneLinkageService.getById(id)));
 	}
 
 	@PostMapping("/save")
 	@Operation(summary = "新增或修改场景联动")
 	public R<Boolean> save(@RequestBody SceneLinkage entity) {
-		if (Func.isEmpty(entity.getId())) {
-			entity.setTenantId(tenantCache.getTenantId());
-		}
 		return R.data(sceneLinkageService.saveOrUpdate(entity));
 	}
 

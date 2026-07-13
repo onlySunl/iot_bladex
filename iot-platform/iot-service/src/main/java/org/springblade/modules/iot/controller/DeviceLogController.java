@@ -1,5 +1,6 @@
 package org.springblade.modules.iot.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.v3.oas.annotations.Operation;
@@ -8,7 +9,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.tool.utils.Func;
+import org.springblade.core.tool.api.Query;
+import org.springblade.core.mp.support.Condition;
 import org.springblade.modules.iot.pojo.entity.DeviceLog;
 import org.springblade.modules.iot.pojo.vo.DeviceLogVO;
 import org.springblade.modules.iot.service.IDeviceLogService;
@@ -25,13 +27,10 @@ public class DeviceLogController extends BladeController {
 
 	@GetMapping("/list")
 	@Operation(summary = "设备日志列表")
-	public R<IPage<DeviceLogVO>> list(DeviceLog log, com.baomidou.mybatisplus.extension.plugins.pagination.Page page) {
-		com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<DeviceLog> qw = new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<>();
-		qw.eq(DeviceLog::getIsDeleted, 0);
-		qw.eq(Func.isNotEmpty(log.getDeviceId()), DeviceLog::getDeviceId, log.getDeviceId());
-		qw.eq(Func.isNotEmpty(log.getType()), DeviceLog::getType, log.getType());
-		qw.orderByDesc(DeviceLog::getCreateTime);
-		IPage<DeviceLog> pages = deviceLogService.page(page, qw);
+	public R<IPage<DeviceLogVO>> page(Map<String, Object> deviceLog, Query query) {
+		QueryWrapper<DeviceLog> queryWrapper = Condition.getQueryWrapper(deviceLog, DeviceLog.class);
+		queryWrapper.orderByDesc(DeviceLog::getCreateTime);
+		IPage<DeviceLog> pages = deviceLogService.page(Condition.getPage(query), queryWrapper);
 		return R.data(DeviceLogWrapper.build().pageVO(pages));
 	}
 

@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
+import org.springblade.core.mp.service.BladeService;
 import org.springblade.modules.iot.pojo.entity.DeviceLog;
 
-public interface IDeviceLogService extends IService<DeviceLog> {
+public interface IDeviceLogService extends BladeService<DeviceLog> {
 }

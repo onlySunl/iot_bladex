@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springblade.core.mp.service.impl.BladeServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springblade.modules.iot.mapper.ProductSortMapper;
 import org.springblade.modules.iot.pojo.entity.ProductSort;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class ProductSortServiceImpl extends ServiceImpl<ProductSortMapper, ProductSort> implements IProductSortService {
+public class ProductSortServiceImpl extends BladeServiceImpl<ProductSortMapper, ProductSort> implements IProductSortService {
 
 	@Override
 	public List<ProductSort> treeList() {

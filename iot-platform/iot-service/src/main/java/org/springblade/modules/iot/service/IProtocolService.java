@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
+import org.springblade.core.mp.service.BladeService;
 import org.springblade.modules.iot.pojo.entity.Protocol;
 
 /**
@@ -8,5 +8,5 @@ import org.springblade.modules.iot.pojo.entity.Protocol;
  *
  * @author blade-iot
  */
-public interface IProtocolService extends IService<Protocol> {
+public interface IProtocolService extends BladeService<Protocol> {
 }
