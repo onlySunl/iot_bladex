@@ -125,14 +125,5 @@ public class GatewayPollingConfig extends CustomBaseEntity {
   @AutoColumn(comment = "失败次数", defaultValueType = DefaultValueEnum.NULL)
   private Long failCount;
 
-  /** 创建时间 */
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 
-  /** 更新时间 */
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-
-  /** 创建人ID */
-  @TableField(value = "creator_id")
-  @AutoColumn(comment = "创建人ID", length = 128, defaultValueType = DefaultValueEnum.NULL)
-  private String creatorId;
 }

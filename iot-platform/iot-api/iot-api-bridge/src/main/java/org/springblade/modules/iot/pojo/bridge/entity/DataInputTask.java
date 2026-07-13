@@ -64,10 +64,6 @@ public class DataInputTask extends CustomBaseEntity {
     @AutoColumn(comment = "下次执行时间", defaultValueType = DefaultValueEnum.NULL)
     private LocalDateTime nextExecutionTime;
 
-    /** 状态 */
-    @TableField(value = "status")
-    @AutoColumn(comment = "状态", defaultValueType = DefaultValueEnum.NULL)
-  
 
     /** 错误信息 */
     @TableField(value = "error_message")

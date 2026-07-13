@@ -109,9 +109,5 @@ public class GatewayPollingCommand extends CustomBaseEntity {
   @AutoColumn(comment = "描述", defaultValueType = DefaultValueEnum.NULL)
   private String description;
 
-  /** 创建时间 */
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 
-  /** 更新时间 */
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 }

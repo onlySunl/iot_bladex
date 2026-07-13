@@ -2,7 +2,6 @@
 
 package org.springblade.modules.iot.pojo.entity;
 
-import org.springblade.modules.iot.persistence.common.inteceptor.SQenGenId;
 import io.swagger.v3.oas.annotations.media.Schema;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -15,7 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import tk.mybatis.mapper.annotation.KeySql;
 
 /**
  * rulego规则链管理实体
@@ -64,8 +62,6 @@ public class RulegoChain extends CustomBaseEntity {
   @AutoColumn(comment = "创建人姓名", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String creatorName;
 
-  /** 状态：draft-草稿，deployed-已部署，stopped-已停止 */
-  @Schema(description = "状态")
 
   /** 规则链DSL内容(JSON格式) */
   @Schema(description = "规则链DSL内容")
@@ -80,11 +76,6 @@ public class RulegoChain extends CustomBaseEntity {
   @AutoColumn(comment = "最后同步时间", defaultValueType = DefaultValueEnum.NULL)
   private Date lastSyncTime;
 
-  /** 创建时间 */
-  @Schema(description = "创建时间")
-
-  /** 更新时间 */
-  @Schema(description = "更新时间")
 
   /** 是否删除：0-未删除，1-已删除 */
   @Schema(description = "是否删除")

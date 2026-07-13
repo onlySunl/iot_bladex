@@ -3,16 +3,14 @@ package org.springblade.modules.iot.pojo.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.tangzc.autotable.annotation.AutoColumn;
-import com.tangzc.autotable.annotation.ColumnType;
 import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
-import org.springblade.common.entity.CustomBaseEntity;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import tk.mybatis.mapper.annotation.KeySql;
+import org.springblade.common.entity.CustomBaseEntity;
+
+import java.time.LocalDate;
 
 /**
  * 仪表盘统计实体
@@ -29,8 +27,6 @@ import tk.mybatis.mapper.annotation.KeySql;
 public class IoTDashboardStatistics extends CustomBaseEntity {
 
   private static final long serialVersionUID = 1L;
-
-  @KeySql(useGeneratedKeys = true)
 
   /** 统计日期 */
   @TableField(value = "stat_date")

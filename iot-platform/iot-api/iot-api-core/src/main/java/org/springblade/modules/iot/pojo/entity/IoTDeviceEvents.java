@@ -5,6 +5,8 @@ package org.springblade.modules.iot.pojo.entity;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @Builder
 public class IoTDeviceEvents implements Serializable {

@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.pojo.bridge.entity;
+import org.springblade.common.entity.CustomBaseEntity;
 import org.springblade.modules.iot.common.enums.DataDirection;
 
 import java.util.List;
@@ -52,7 +53,8 @@ public class PluginInfo extends CustomBaseEntity {
   private String icon;
 
   /** 是否启用 */
-  @Builder.Default private Boolean enabled = true;
+  @Builder.Default
+  private Boolean enabled = true;
 
-  /** 数据流向枚举 */
+
 }

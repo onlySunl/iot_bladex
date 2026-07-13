@@ -24,5 +24,11 @@
             <groupId>org.springblade</groupId>
             <artifactId>blade-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-framework-common</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>

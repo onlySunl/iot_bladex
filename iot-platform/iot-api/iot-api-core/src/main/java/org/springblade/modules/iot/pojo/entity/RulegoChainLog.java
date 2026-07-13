@@ -2,20 +2,17 @@
 
 package org.springblade.modules.iot.pojo.entity;
 
-import org.springblade.modules.iot.persistence.common.inteceptor.SQenGenId;
-import io.swagger.v3.oas.annotations.media.Schema;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.tangzc.autotable.annotation.AutoColumn;
 import com.tangzc.autotable.annotation.ColumnType;
 import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
-import org.springblade.common.entity.CustomBaseEntity;
-import java.util.Date;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import tk.mybatis.mapper.annotation.KeySql;
+import org.springblade.common.entity.CustomBaseEntity;
 
 /**
  * rulego规则链执行日志实体
@@ -85,6 +82,4 @@ public class RulegoChainLog extends CustomBaseEntity {
   @AutoColumn(comment = "执行耗时(毫秒)", defaultValueType = DefaultValueEnum.NULL)
   private Long executionTime;
 
-  /** 创建时间 */
-  @Schema(description = "创建时间")
 }

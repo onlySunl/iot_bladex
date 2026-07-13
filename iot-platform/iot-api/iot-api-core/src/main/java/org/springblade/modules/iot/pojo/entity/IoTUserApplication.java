@@ -2,7 +2,6 @@
 
 package org.springblade.modules.iot.pojo.entity;
 
-import org.springblade.modules.iot.common.annotation.Excel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -15,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springblade.modules.iot.common.annotation.Excel;
 
 @TableName("iot_user_application")
 @Data
@@ -25,9 +25,6 @@ public class IoTUserApplication extends CustomBaseEntity {
 
   private static final long serialVersionUID = 1L;
 
-  @TableField(value = "uuid")
-  @AutoColumn(comment = "uuid", defaultValueType = DefaultValueEnum.NULL)
-  //  private Long uuid;
 
   @TableField(value = "union_id")
   @AutoColumn(comment = "private Long uuid;", length = 128, defaultValueType = DefaultValueEnum.NULL)

@@ -73,14 +73,4 @@ public class DataInputLog extends CustomBaseEntity {
     @AutoColumn(comment = "执行时间(毫秒)", defaultValueType = DefaultValueEnum.NULL)
     private Long executionTime;
 
-    /** 状态 */
-    @TableField(value = "status")
-    @AutoColumn(comment = "状态", defaultValueType = DefaultValueEnum.NULL)
-  
-
-
-
-    /**
-     * 状态枚举
-     */
 }
