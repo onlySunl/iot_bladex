@@ -15,7 +15,8 @@ package org.springblade.modules.iot.persistence.mapper;
 import org.springblade.modules.iot.pojo.entity.RulegoChainLog;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import tk.mybatis.mapper.common.Mapper;
+
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * rulego规则链执行日志Mapper接口
@@ -23,7 +24,8 @@ import tk.mybatis.mapper.common.Mapper;
  * @author gitee.com/NexIoT
  * @since 2025/01/15
  */
-public interface RulegoChainLogMapper extends Mapper<RulegoChainLog> {
+@Mapper
+public interface RulegoChainLogMapper extends com.baomidou.mybatisplus.core.mapper.BaseMapper<RulegoChainLog> {
 
   /**
    * 根据rulegoId查询执行日志

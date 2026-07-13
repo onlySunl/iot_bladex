@@ -12,18 +12,20 @@
 
 package org.springblade.modules.iot.persistence.mapper;
 
-import org.springblade.modules.iot.persistence.common.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.pojo.entity.RuleModel;
 import org.springblade.modules.iot.pojo.bo.RuleModelBO;
 import org.springblade.modules.iot.pojo.vo.RuleModelVO;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 规则模型Mapper @Author gitee.com/NexIoT
  *
  * @since 2023/1/13 14:31
  */
+@Mapper
 public interface RuleModelMapper extends BaseMapper<RuleModel> {
 
   /**

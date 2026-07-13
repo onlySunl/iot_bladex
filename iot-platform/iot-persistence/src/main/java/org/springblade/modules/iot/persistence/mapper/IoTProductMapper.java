@@ -12,7 +12,7 @@
 
 package org.springblade.modules.iot.persistence.mapper;
 
-import org.springblade.modules.iot.persistence.common.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import org.springblade.modules.iot.pojo.bo.IoTProductBO;
 import org.springblade.modules.iot.pojo.vo.IoTDeviceModelVO;
@@ -24,7 +24,9 @@ import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.cache.annotation.Cacheable;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface IoTProductMapper extends BaseMapper<IoTProduct> {
 
   List<IoTProductVO> openAPIProductList(IoTAPIQuery iotAPIQuery);

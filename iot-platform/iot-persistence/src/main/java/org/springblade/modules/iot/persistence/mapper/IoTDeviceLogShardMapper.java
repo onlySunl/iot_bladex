@@ -12,7 +12,7 @@
 
 package org.springblade.modules.iot.persistence.mapper;
 
-import org.springblade.modules.iot.persistence.common.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.persistence.consistent.DeviceShardingRouter;
 import org.springblade.modules.iot.persistence.consistent.TableShard;
 import org.springblade.modules.iot.pojo.entity.IoTDeviceLog;
@@ -21,12 +21,14 @@ import org.springblade.modules.iot.pojo.vo.IoTDeviceLogVO;
 import org.springblade.modules.iot.persistence.query.LogQuery;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Mapper;
 
 @TableShard(
     tableNamePrefix = "iot_device_log",
     value = "iotId",
     fieldFlag = true,
     shardStrategy = DeviceShardingRouter.class)
+@Mapper
 public interface IoTDeviceLogShardMapper extends BaseMapper<IoTDeviceLog> {
 
   List<IoTDeviceLogVO> queryLogPageV2ByIdList(LogQuery logQuery);

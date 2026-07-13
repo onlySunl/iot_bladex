@@ -15,7 +15,8 @@ package org.springblade.modules.iot.persistence.mapper;
 import org.springblade.modules.iot.pojo.entity.GatewayPollingCommand;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import tk.mybatis.mapper.common.Mapper;
+
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 网关轮询指令 Mapper
@@ -23,7 +24,8 @@ import tk.mybatis.mapper.common.Mapper;
  * @author Aleo
  * @date 2025-10-26
  */
-public interface GatewayPollingCommandMapper extends Mapper<GatewayPollingCommand> {
+@Mapper
+public interface GatewayPollingCommandMapper extends com.baomidou.mybatisplus.core.mapper.BaseMapper<GatewayPollingCommand> {
 
   /**
    * 根据网关设备查询指令列表

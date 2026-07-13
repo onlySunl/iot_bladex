@@ -12,16 +12,18 @@
 
 package org.springblade.modules.iot.persistence.mapper;
 
-import org.springblade.modules.iot.persistence.common.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.pojo.entity.SceneLinkage;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 场景联动Mapper接口 @Author gitee.com/NexIoT
  *
  * @since 2023-03-01
  */
+@Mapper
 public interface SceneLinkageMapper extends BaseMapper<SceneLinkage> {
 
     List<SceneLinkage> selectTriggerByDevId(String deviceId);

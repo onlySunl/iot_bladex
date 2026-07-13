@@ -13,14 +13,19 @@
 package org.springblade.modules.iot.persistence.mapper;
 
 import org.springblade.modules.iot.pojo.entity.IoTProductSort;
+import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 产品分类Mapper接口 @Author gitee.com/NexIoT
  *
  * @since 2025-12-29
  */
-public interface IoTProductSortMapper {
+@Mapper
+public interface IoTProductSortMapper extends com.baomidou.mybatisplus.core.mapper.BaseMapper<org.springblade.modules.iot.pojo.entity.IoTProductSort> {
 
   /**
    * 查询产品分类

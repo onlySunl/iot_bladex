@@ -12,7 +12,7 @@
 
 package org.springblade.modules.iot.persistence.mapper;
 
-import org.springblade.modules.iot.persistence.common.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceMetadataBO;
 import org.springblade.modules.iot.pojo.entity.IoTDevice;
@@ -32,7 +32,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface IoTDeviceMapper extends BaseMapper<IoTDevice> {
 
   /**

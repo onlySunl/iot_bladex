@@ -9,7 +9,8 @@
 package org.springblade.modules.iot.persistence.mapper;
 
 import org.springblade.modules.iot.pojo.entity.VideoPlatformChannel;
-import tk.mybatis.mapper.common.Mapper;
+
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 视频平台通道Mapper
@@ -18,5 +19,6 @@ import tk.mybatis.mapper.common.Mapper;
  * @version 2.0
  * @since 2025/11/08
  */
-public interface VideoPlatformChannelMapper extends Mapper<VideoPlatformChannel> {
+@Mapper
+public interface VideoPlatformChannelMapper extends com.baomidou.mybatisplus.core.mapper.BaseMapper<VideoPlatformChannel> {
 }

@@ -12,13 +12,14 @@
 
 package org.springblade.modules.iot.persistence.mapper;
 
-import org.springblade.modules.iot.persistence.common.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.pojo.entity.Network;
 import org.springblade.modules.iot.pojo.bo.NetworkBO;
 import org.springblade.modules.iot.pojo.vo.NetworkVO;
 import org.springblade.modules.iot.persistence.query.NetworkQuery;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 网络组件Mapper接口
@@ -27,6 +28,7 @@ import org.apache.ibatis.annotations.Param;
  * @version 1.0
  * @since 2025/1/20
  */
+@Mapper
 public interface NetworkMapper extends BaseMapper<Network> {
 
   int selectNetWorkByPort(@Param("port") Integer port, @Param("productKey") String productKey);

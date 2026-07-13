@@ -16,7 +16,8 @@ import org.springblade.modules.iot.pojo.entity.GatewayPollingConfig;
 import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import tk.mybatis.mapper.common.Mapper;
+
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 网关轮询配置 Mapper
@@ -24,7 +25,8 @@ import tk.mybatis.mapper.common.Mapper;
  * @author Aleo
  * @date 2025-10-26
  */
-public interface GatewayPollingConfigMapper extends Mapper<GatewayPollingConfig> {
+@Mapper
+public interface GatewayPollingConfigMapper extends com.baomidou.mybatisplus.core.mapper.BaseMapper<GatewayPollingConfig> {
 
   /**
    * 查询待轮询的网关设备

@@ -12,12 +12,14 @@
 
 package org.springblade.modules.iot.persistence.mapper;
 
-import org.springblade.modules.iot.persistence.common.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.pojo.entity.IoTUser;
 import org.springblade.modules.iot.pojo.bo.IoTUserBO;
 import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
  
 
+@Mapper
 public interface IoTUserMapper extends BaseMapper<IoTUser> {
 
   /**

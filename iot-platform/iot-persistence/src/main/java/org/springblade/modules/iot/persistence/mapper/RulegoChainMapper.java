@@ -17,7 +17,8 @@ import org.springblade.modules.iot.pojo.bo.RulegoChainBO;
 import org.springblade.modules.iot.pojo.vo.RulegoChainVO;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import tk.mybatis.mapper.common.Mapper;
+
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * rulego规则链Mapper接口
@@ -25,7 +26,8 @@ import tk.mybatis.mapper.common.Mapper;
  * @author gitee.com/NexIoT
  * @since 2025/01/15
  */
-public interface RulegoChainMapper extends Mapper<RulegoChain> {
+@Mapper
+public interface RulegoChainMapper extends com.baomidou.mybatisplus.core.mapper.BaseMapper<RulegoChain> {
 
   /**
    * 根据条件查询规则链列表

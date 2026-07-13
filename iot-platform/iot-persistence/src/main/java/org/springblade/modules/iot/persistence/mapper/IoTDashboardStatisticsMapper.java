@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import tk.mybatis.mapper.common.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * 仪表盘统计Mapper接口
