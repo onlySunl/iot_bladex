@@ -13,7 +13,7 @@
 package org.springblade.modules.iot.persistence.mapper;
 
 import org.springblade.modules.iot.persistence.common.BaseMapper;
-import org.springblade.modules.iot.persistence.entity.SupportMapAreas;
+import org.springblade.modules.iot.pojo.entity.SupportMapAreas;
 import org.apache.ibatis.annotations.Param;
 
 public interface SupportMapAreasMapper extends BaseMapper<SupportMapAreas> {

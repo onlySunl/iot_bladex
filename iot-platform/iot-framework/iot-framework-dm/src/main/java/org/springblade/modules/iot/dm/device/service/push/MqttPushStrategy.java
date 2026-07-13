@@ -14,7 +14,7 @@ package org.springblade.modules.iot.dm.device.service.push;
 
 import org.springblade.modules.iot.dm.device.entity.IoTPushResult;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
-import org.springblade.modules.iot.persistence.entity.bo.UPPushBO;
+import org.springblade.modules.iot.pojo.bo.UPPushBO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

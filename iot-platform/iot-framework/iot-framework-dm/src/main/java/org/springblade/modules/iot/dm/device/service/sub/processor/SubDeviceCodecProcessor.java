@@ -21,7 +21,7 @@ import org.springblade.modules.iot.dm.device.service.impl.IoTDeviceShadowService
 import org.springblade.modules.iot.dm.device.service.sub.context.SubDeviceRequest;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
-import org.springblade.modules.iot.persistence.entity.IoTProduct;
+import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

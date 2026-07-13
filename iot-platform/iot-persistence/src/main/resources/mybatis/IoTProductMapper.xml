@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.springblade.modules.iot.persistence.mapper.IoTProductMapper">
-    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.persistence.entity.IoTProduct">
+    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.pojo.entity.IoTProduct">
         <!--
           WARNING - @mbg.generated
         -->
@@ -36,7 +36,7 @@
         <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
-    <resultMap id="productVoMap" type="org.springblade.modules.iot.persistence.entity.vo.IoTProductVO"
+    <resultMap id="productVoMap" type="org.springblade.modules.iot.pojo.vo.IoTProductVO"
                extends="BaseResultMap">
         <result column="devNum" jdbcType="INTEGER" property="devNum"/>
         <result column="type" jdbcType="INTEGER" property="type"/>
@@ -99,7 +99,7 @@
         from iot_product p
     </sql>
 
-    <select id="selectDevProductList" parameterType="org.springblade.modules.iot.persistence.entity.IoTProduct"
+    <select id="selectDevProductList" parameterType="org.springblade.modules.iot.pojo.entity.IoTProduct"
             resultMap="BaseResultMap">
         <include refid="selectDevProductVo"/>
         <where>
@@ -308,7 +308,7 @@
 
     <select id="selectAllDevProductV2List"
             parameterType="org.springblade.modules.iot.persistence.query.IoTProductQuery"
-            resultType="org.springblade.modules.iot.persistence.entity.vo.IoTProductExportVO">
+            resultType="org.springblade.modules.iot.pojo.vo.IoTProductExportVO">
         SELECT
         a.id,
         a.product_id,
@@ -399,7 +399,7 @@
         where p.id = #{id}
     </select>
 
-    <insert id="insertDevProduct" parameterType="org.springblade.modules.iot.persistence.entity.IoTProduct"
+    <insert id="insertDevProduct" parameterType="org.springblade.modules.iot.pojo.entity.IoTProduct"
             useGeneratedKeys="true" keyProperty="id">
         insert into iot_product
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -454,7 +454,7 @@
         </trim>
     </insert>
 
-    <update id="updateDevProduct" parameterType="org.springblade.modules.iot.persistence.entity.IoTProduct">
+    <update id="updateDevProduct" parameterType="org.springblade.modules.iot.pojo.entity.IoTProduct">
         update iot_product p
         <trim prefix="SET" suffixOverrides=",">
             <if test="productId != null and productId != ''">product_id = #{productId},</if>
@@ -508,32 +508,32 @@
     </select>
 
     <select id="getModelByProductKey" parameterType="String"
-            resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceModelVO">
+            resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceModelVO">
         SELECT *
         FROM iot_device_model
         WHERE product_key = #{productKey}
     </select>
 
-    <update id="insertMetadata" parameterType="org.springblade.modules.iot.persistence.entity.bo.IoTProductBO">
+    <update id="insertMetadata" parameterType="org.springblade.modules.iot.pojo.bo.IoTProductBO">
         update iot_product
         set metadata=json_array_append(metadata, #{path}, cast(#{jsonStr} as json))
         where product_key = #{productKey}
     </update>
-    <update id="deleteMetadata" parameterType="org.springblade.modules.iot.persistence.entity.bo.IoTProductBO">
+    <update id="deleteMetadata" parameterType="org.springblade.modules.iot.pojo.bo.IoTProductBO">
         update iot_product
         set metadata=json_remove(metadata, replace(
                 replace(json_search(metadata, 'one', #{oldId}, null, #{path}), '"', ''), '.id', ''))
         where product_key = #{productKey}
     </update>
-    <update id="updateMetadata" parameterType="org.springblade.modules.iot.persistence.entity.bo.IoTProductBO">
+    <update id="updateMetadata" parameterType="org.springblade.modules.iot.pojo.bo.IoTProductBO">
         update iot_product
         set metadata=json_set(metadata, replace(
                 replace(json_search(metadata, 'one', #{oldId}, null, #{path}), '"', ''), '.id', ''),
                               cast(#{jsonStr} as json))
         where product_key = #{productKey}
     </update>
-    <select id="getMetadata" parameterType="org.springblade.modules.iot.persistence.entity.bo.IoTProductBO"
-            resultType="org.springblade.modules.iot.persistence.entity.bo.IoTProductBO">
+    <select id="getMetadata" parameterType="org.springblade.modules.iot.pojo.bo.IoTProductBO"
+            resultType="org.springblade.modules.iot.pojo.bo.IoTProductBO">
         select json_extract(metadata, replace(
                 replace(json_search(metadata, 'one', #{oldId}, null, #{path}), '"', ''), '.id',
                 '')) as jsonStr
@@ -546,7 +546,7 @@
         where product_key = #{productKey}
     </select>
     <select id="countDevNumberByProductKey" parameterType="String"
-            resultType="org.springblade.modules.iot.persistence.entity.vo.IoTProductVO">
+            resultType="org.springblade.modules.iot.pojo.vo.IoTProductVO">
         select di.product_key , count(di.id) as devNum
         from iot_device di
         <where>
@@ -558,19 +558,19 @@
     </select>
 
     <select id="selectDevProductAllList"
-            resultType="org.springblade.modules.iot.persistence.entity.vo.IoTProductVO">
+            resultType="org.springblade.modules.iot.pojo.vo.IoTProductVO">
         select *
         from iot_product
         where state = 0
     </select>
-    <select id="selectProductName" resultType="org.springblade.modules.iot.persistence.entity.vo.IoTProductVO">
+    <select id="selectProductName" resultType="org.springblade.modules.iot.pojo.vo.IoTProductVO">
         select product_key,name from iot_product where product_key in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
     </select>
     <select id="getGatewaySubDeviceList"
-            resultType="org.springblade.modules.iot.persistence.entity.vo.IoTProductVO">
+            resultType="org.springblade.modules.iot.pojo.vo.IoTProductVO">
         select *
         from iot_product
         where device_node = 'GATEWAY_SUB_DEVICE'
@@ -619,7 +619,7 @@
           AND is_deleted = 0 LIMIT 1
     </select>
     <select id="selectMqttProductsUseNetwork"
-            resultType="org.springblade.modules.iot.persistence.entity.bo.IoTProductBO">
+            resultType="org.springblade.modules.iot.pojo.bo.IoTProductBO">
         SELECT product_key, `name`, `device_node`, `third_platform`, `photo_url`, company_no
         FROM iot_product
         WHERE network_union_id = #{networkUnionId}
@@ -629,14 +629,14 @@
       update iot_product set `network_union_id`=null WHERE network_union_id= #{networkUnionId}
     </update>
     <select id="selectTcpProductsUseNetwork"
-            resultType="org.springblade.modules.iot.persistence.entity.bo.IoTProductBO">
+            resultType="org.springblade.modules.iot.pojo.bo.IoTProductBO">
         SELECT product_key, `name`, `device_node`, `third_platform`, `photo_url`, company_no
         FROM iot_product
         WHERE product_key = #{product_key}
           AND is_deleted = 0 limit 1
     </select>
     <select id="selectProductNameByProductKeys"
-            resultType="org.springblade.modules.iot.persistence.entity.bo.IoTProductBO">
+            resultType="org.springblade.modules.iot.pojo.bo.IoTProductBO">
         SELECT
         product_key,
         `name`,
@@ -656,7 +656,7 @@
         ORDER BY create_time DESC
     </select>
     <select id="selectTransportProtocol"
-            resultType="org.springblade.modules.iot.persistence.entity.bo.IoTProductBO">
+            resultType="org.springblade.modules.iot.pojo.bo.IoTProductBO">
         SELECT product_key,
                `name`,
                `device_node`,

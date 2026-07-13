@@ -8,7 +8,7 @@
  */
 package org.springblade.modules.iot.persistence.mapper;
 
-import org.springblade.modules.iot.persistence.entity.VideoPlatformDeviceExt;
+import org.springblade.modules.iot.pojo.entity.VideoPlatformDeviceExt;
 import tk.mybatis.mapper.common.Mapper;
 
 /**

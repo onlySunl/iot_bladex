@@ -11,9 +11,9 @@
  */
 package org.springblade.modules.iot.monitor.web.service.impl;
 
-import org.springblade.modules.iot.persistence.entity.IoTProduct;
-import org.springblade.modules.iot.persistence.entity.IoTUser;
-import org.springblade.modules.iot.persistence.entity.IoTUserApplication;
+import org.springblade.modules.iot.pojo.entity.IoTProduct;
+import org.springblade.modules.iot.pojo.entity.IoTUser;
+import org.springblade.modules.iot.pojo.entity.IoTUserApplication;
 import org.springblade.modules.iot.monitor.web.dto.EmqxAuthRequest;
 import org.springblade.modules.iot.monitor.web.dto.EmqxAuthResponse;
 import org.springblade.modules.iot.monitor.web.service.EmqxAuthLogService;

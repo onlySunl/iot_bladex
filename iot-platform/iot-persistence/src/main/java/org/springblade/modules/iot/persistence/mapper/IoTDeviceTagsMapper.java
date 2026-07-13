@@ -13,7 +13,7 @@
 package org.springblade.modules.iot.persistence.mapper;
 
 import org.springblade.modules.iot.persistence.common.BaseMapper;
-import org.springblade.modules.iot.persistence.entity.IoTDeviceTags;
+import org.springblade.modules.iot.pojo.entity.IoTDeviceTags;
 import java.util.List;
 
 public interface IoTDeviceTagsMapper extends BaseMapper<IoTDeviceTags> {

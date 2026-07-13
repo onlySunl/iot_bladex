@@ -22,7 +22,7 @@ import org.springblade.modules.iot.dm.device.service.action.IoTDeviceActionAfter
 import org.springblade.modules.iot.protocol.http.entity.HttpUPRequest;
 import org.springblade.modules.iot.protocol.http.processor.HttpUPMessageProcessor;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
-import org.springblade.modules.iot.persistence.entity.IoTDeviceSubscribe;
+import org.springblade.modules.iot.pojo.entity.IoTDeviceSubscribe;
 import jakarta.annotation.Resource;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;

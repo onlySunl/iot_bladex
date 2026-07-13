@@ -23,7 +23,7 @@ import org.springblade.modules.iot.dm.device.service.AbstratIoTService;
 import org.springblade.modules.iot.protocol.http.entity.HttpUPRequest;
 import org.springblade.modules.iot.protocol.http.processor.HttpUPMessageProcessor;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
-import org.springblade.modules.iot.persistence.entity.IoTProduct;
+import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

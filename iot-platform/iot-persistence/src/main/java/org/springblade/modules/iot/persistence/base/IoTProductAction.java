@@ -12,7 +12,7 @@
 
 package org.springblade.modules.iot.persistence.base;
 
-import org.springblade.modules.iot.persistence.entity.IoTProduct;
+import org.springblade.modules.iot.pojo.entity.IoTProduct;
 
 /** 产品（设备）全Action生命周期接口 */
 public interface IoTProductAction extends IoTAction {

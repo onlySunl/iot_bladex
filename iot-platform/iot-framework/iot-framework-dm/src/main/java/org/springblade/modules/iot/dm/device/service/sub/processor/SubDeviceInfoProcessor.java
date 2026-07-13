@@ -16,7 +16,7 @@ import org.springblade.modules.iot.dm.device.service.AbstratIoTService;
 import org.springblade.modules.iot.dm.device.service.impl.IoTDeviceShadowService;
 import org.springblade.modules.iot.dm.device.service.sub.context.SubDeviceRequest;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
-import org.springblade.modules.iot.persistence.entity.IoTProduct;
+import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import org.springblade.modules.iot.persistence.query.IoTDeviceQuery;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -18,7 +18,7 @@ import cn.hutool.json.JSONUtil;
 import org.springblade.modules.iot.common.constant.Constants;
 import org.springblade.modules.iot.common.constant.IoTConstant;
 import org.springblade.modules.iot.common.utils.RSAUtils;
-import org.springblade.modules.iot.persistence.entity.IoTUser;
+import org.springblade.modules.iot.pojo.entity.IoTUser;
 import org.springblade.modules.iot.security.service.AdminLogService;
 import org.springblade.modules.iot.security.service.IoTUserService;
 import org.springblade.modules.iot.security.token.OAuth2CaptchaAuthenticationToken;

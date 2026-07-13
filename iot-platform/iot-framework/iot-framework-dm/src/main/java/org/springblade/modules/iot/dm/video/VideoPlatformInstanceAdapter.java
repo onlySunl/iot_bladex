@@ -11,7 +11,7 @@
  */
 package org.springblade.modules.iot.dm.video;
 
-import org.springblade.modules.iot.persistence.entity.VideoPlatformInstance;
+import org.springblade.modules.iot.pojo.entity.VideoPlatformInstance;
 
 /** 视频实例 */
 public interface VideoPlatformInstanceAdapter {

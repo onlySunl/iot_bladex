@@ -12,7 +12,7 @@
 
 package org.springblade.modules.iot.security;
 
-import org.springblade.modules.iot.persistence.entity.OAuth2ClientDetails;
+import org.springblade.modules.iot.pojo.entity.OAuth2ClientDetails;
 import org.springblade.modules.iot.persistence.mapper.OauthClientDetailsMapper;
 import java.time.Duration;
 import java.util.Arrays;

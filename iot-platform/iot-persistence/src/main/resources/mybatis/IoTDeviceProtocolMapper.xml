@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.springblade.modules.iot.persistence.mapper.IoTDeviceProtocolMapper">
-    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.persistence.entity.IoTDeviceProtocol">
+    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.pojo.entity.IoTDeviceProtocol">
         <!--
           WARNING - @mbg.generated
         -->
@@ -23,7 +23,7 @@
     </sql>
 
     <select id="selectDevProtocolList"
-            parameterType="org.springblade.modules.iot.persistence.entity.IoTDeviceProtocol"
+            parameterType="org.springblade.modules.iot.pojo.entity.IoTDeviceProtocol"
             resultMap="BaseResultMap">
         <include refid="selectDevProtocolVo"/>
         left join iot_product pt on pt.product_key=pl.id
@@ -84,7 +84,7 @@
         </foreach>
     </select>
     <select id="selectDevProtocolByProductKey"
-            resultType="org.springblade.modules.iot.persistence.entity.IoTDeviceProtocol">
+            resultType="org.springblade.modules.iot.pojo.entity.IoTDeviceProtocol">
         select *
         from iot_device_protocol
         where id = #{productKey}
@@ -92,7 +92,7 @@
     </select>
 
     <!-- 查询未创建协议的产品列表（归属人为当前用户） -->
-    <select id="selectProductsWithoutProtocol" resultType="org.springblade.modules.iot.persistence.entity.IoTProduct">
+    <select id="selectProductsWithoutProtocol" resultType="org.springblade.modules.iot.pojo.entity.IoTProduct">
         SELECT
             p.id,
             p.product_key as productKey,
@@ -120,7 +120,7 @@
         ORDER BY p.create_time DESC
     </select>
 
-    <insert id="insertDevProtocol" parameterType="org.springblade.modules.iot.persistence.entity.IoTDeviceProtocol">
+    <insert id="insertDevProtocol" parameterType="org.springblade.modules.iot.pojo.entity.IoTDeviceProtocol">
         insert into iot_device_protocol
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>
@@ -154,7 +154,7 @@
         </foreach>
     </insert>
 
-    <update id="updateDevProtocol" parameterType="org.springblade.modules.iot.persistence.entity.IoTDeviceProtocol">
+    <update id="updateDevProtocol" parameterType="org.springblade.modules.iot.pojo.entity.IoTDeviceProtocol">
         update iot_device_protocol
         <trim prefix="SET" suffixOverrides=",">
             <if test="name != null">name = #{name},</if>

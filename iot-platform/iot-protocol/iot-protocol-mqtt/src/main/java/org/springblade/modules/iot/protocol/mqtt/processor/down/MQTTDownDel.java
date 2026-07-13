@@ -10,7 +10,7 @@ import org.springblade.modules.iot.protocol.mqtt.entity.MQTTDownRequest;
 import org.springblade.modules.iot.protocol.mqtt.processor.MQTTDownMessageProcessor;
 import org.springblade.modules.iot.persistence.base.IoTDeviceLifeCycle;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
-import org.springblade.modules.iot.persistence.entity.IoTDevice;
+import org.springblade.modules.iot.pojo.entity.IoTDevice;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceMapper;
 import jakarta.annotation.Resource;
 import java.util.HashMap;

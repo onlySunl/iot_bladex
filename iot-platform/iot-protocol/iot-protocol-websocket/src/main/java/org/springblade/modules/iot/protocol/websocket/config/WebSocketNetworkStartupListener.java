@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import org.springblade.modules.iot.common.util.WebInterfaceReadyChecker;
-import org.springblade.modules.iot.persistence.entity.bo.NetworkBO;
+import org.springblade.modules.iot.pojo.bo.NetworkBO;
 import org.springblade.modules.iot.persistence.mapper.NetworkMapper;
 import org.springblade.modules.iot.persistence.query.NetworkQuery;
 import org.springblade.modules.iot.protocol.websocket.manager.IWebSocketServerManager;

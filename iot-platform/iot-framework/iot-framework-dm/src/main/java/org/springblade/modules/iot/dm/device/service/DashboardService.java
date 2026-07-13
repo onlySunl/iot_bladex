@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.dm.device.service;
 
 import org.springblade.modules.iot.dm.device.service.push.processor.PushStatisticsProcessor;
-import org.springblade.modules.iot.persistence.entity.IoTDashboardStatistics;
+import org.springblade.modules.iot.pojo.entity.IoTDashboardStatistics;
 import org.springblade.modules.iot.persistence.mapper.IoTDashboardStatisticsMapper;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceMapper;
 import java.time.LocalDate;

@@ -38,7 +38,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import org.springblade.modules.iot.persistence.entity.Network;
+import org.springblade.modules.iot.pojo.entity.Network;
 import org.springblade.modules.iot.persistence.mapper.NetworkMapper;
 import org.springblade.modules.iot.protocol.websocket.entity.WebSocketUPRequest;
 import org.springblade.modules.iot.protocol.websocket.enums.WebSocketMessageType;

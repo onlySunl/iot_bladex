@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.springblade.modules.iot.persistence.mapper.IoTDeviceTagsMapper">
-    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.persistence.entity.IoTDeviceTags">
+    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.pojo.entity.IoTDeviceTags">
         <!--
           WARNING - @mbg.generated
         -->
@@ -38,7 +38,7 @@
                                     AND `value` = #{groupId}))
     </select>
 
-    <select id="getOne" resultType="org.springblade.modules.iot.persistence.entity.IoTDeviceTags"
+    <select id="getOne" resultType="org.springblade.modules.iot.pojo.entity.IoTDeviceTags"
             parameterType="String">
         SELECT *
         FROM iot_device_tags

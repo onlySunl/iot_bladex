@@ -24,7 +24,7 @@ import org.springblade.modules.iot.common.exception.IoTException;
 import org.springblade.modules.iot.core.message.DownRequest;
 import org.springblade.modules.iot.dm.device.service.impl.IoTProductDeviceService;
 import org.springblade.modules.iot.persistence.base.IoTDownWrapper;
-import org.springblade.modules.iot.persistence.entity.IoTProduct;
+import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

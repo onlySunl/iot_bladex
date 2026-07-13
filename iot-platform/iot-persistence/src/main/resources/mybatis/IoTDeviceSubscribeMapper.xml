@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.springblade.modules.iot.persistence.mapper.IoTDeviceSubscribeMapper">
-    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.persistence.entity.IoTDeviceSubscribe">
+    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.pojo.entity.IoTDeviceSubscribe">
         <!--
           WARNING - @mbg.generated
         -->
@@ -52,7 +52,7 @@
         </if>
     </select>
 
-    <select id="selectSubscribesBO" resultType="org.springblade.modules.iot.persistence.entity.IoTDeviceSubscribe">
+    <select id="selectSubscribesBO" resultType="org.springblade.modules.iot.pojo.entity.IoTDeviceSubscribe">
         select * from iot_device_subscribe
         WHERE enabled=true
 

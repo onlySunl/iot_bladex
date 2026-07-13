@@ -13,11 +13,11 @@
 package org.springblade.modules.iot.persistence.mapper;
 
 import org.springblade.modules.iot.persistence.common.BaseMapper;
-import org.springblade.modules.iot.persistence.entity.IoTDeviceFunctionTask;
-import org.springblade.modules.iot.persistence.entity.bo.IoTDeviceFunctionHistoryBO;
-import org.springblade.modules.iot.persistence.entity.bo.IoTDeviceFunctionTaskBO;
-import org.springblade.modules.iot.persistence.entity.vo.IoTDeviceFunctionHistoryVO;
-import org.springblade.modules.iot.persistence.entity.vo.IoTDeviceFunctionTaskVO;
+import org.springblade.modules.iot.pojo.entity.IoTDeviceFunctionTask;
+import org.springblade.modules.iot.pojo.bo.IoTDeviceFunctionHistoryBO;
+import org.springblade.modules.iot.pojo.bo.IoTDeviceFunctionTaskBO;
+import org.springblade.modules.iot.pojo.vo.IoTDeviceFunctionHistoryVO;
+import org.springblade.modules.iot.pojo.vo.IoTDeviceFunctionTaskVO;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

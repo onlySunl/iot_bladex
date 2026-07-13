@@ -31,11 +31,11 @@ import org.springblade.modules.iot.dm.device.service.impl.IoTProductDeviceServic
 import org.springblade.modules.iot.dm.device.service.log.IIoTDeviceDataService;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
-import org.springblade.modules.iot.persistence.entity.IoTDevice;
-import org.springblade.modules.iot.persistence.entity.IoTDeviceFenceRel;
-import org.springblade.modules.iot.persistence.entity.IoTDeviceGeoFence;
-import org.springblade.modules.iot.persistence.entity.IoTDeviceLog;
-import org.springblade.modules.iot.persistence.entity.IoTProduct;
+import org.springblade.modules.iot.pojo.entity.IoTDevice;
+import org.springblade.modules.iot.pojo.entity.IoTDeviceFenceRel;
+import org.springblade.modules.iot.pojo.entity.IoTDeviceGeoFence;
+import org.springblade.modules.iot.pojo.entity.IoTDeviceLog;
+import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceFenceRelMapper;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceGeoFenceMapper;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceLogMapper;

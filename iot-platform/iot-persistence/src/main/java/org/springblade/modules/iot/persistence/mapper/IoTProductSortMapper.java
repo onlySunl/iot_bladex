@@ -12,7 +12,7 @@
 
 package org.springblade.modules.iot.persistence.mapper;
 
-import org.springblade.modules.iot.persistence.entity.IoTProductSort;
+import org.springblade.modules.iot.pojo.entity.IoTProductSort;
 import java.util.List;
 
 /**

@@ -16,7 +16,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpStatus;
 import org.springblade.modules.iot.common.exception.BaseException;
 import org.springblade.modules.iot.common.exception.IoTException;
-import org.springblade.modules.iot.persistence.entity.IoTUser;
+import org.springblade.modules.iot.pojo.entity.IoTUser;
 import org.springblade.modules.iot.security.service.IoTUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

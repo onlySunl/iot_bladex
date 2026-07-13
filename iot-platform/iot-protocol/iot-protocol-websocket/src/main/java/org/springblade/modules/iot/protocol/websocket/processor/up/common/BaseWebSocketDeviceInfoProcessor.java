@@ -17,7 +17,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.springblade.modules.iot.dm.device.service.AbstratIoTService;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
-import org.springblade.modules.iot.persistence.entity.IoTProduct;
+import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import org.springblade.modules.iot.persistence.query.IoTDeviceQuery;
 import org.springblade.modules.iot.protocol.websocket.entity.WebSocketUPRequest;
 import org.springblade.modules.iot.protocol.websocket.entity.WebSocketUPRequest.ProcessingStage;

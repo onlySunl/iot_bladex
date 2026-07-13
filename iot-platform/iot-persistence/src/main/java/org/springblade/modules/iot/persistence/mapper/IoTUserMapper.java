@@ -13,8 +13,8 @@
 package org.springblade.modules.iot.persistence.mapper;
 
 import org.springblade.modules.iot.persistence.common.BaseMapper;
-import org.springblade.modules.iot.persistence.entity.IoTUser;
-import org.springblade.modules.iot.persistence.entity.bo.IoTUserBO;
+import org.springblade.modules.iot.pojo.entity.IoTUser;
+import org.springblade.modules.iot.pojo.bo.IoTUserBO;
 import java.util.List;
  
 

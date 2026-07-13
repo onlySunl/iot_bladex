@@ -2,7 +2,7 @@ package org.springblade.modules.iot.security;
 
 import cn.hutool.core.date.DateUtil;
 import org.springblade.modules.iot.common.utils.StringUtils;
-import org.springblade.modules.iot.persistence.entity.IoTUser;
+import org.springblade.modules.iot.pojo.entity.IoTUser;
 import org.springblade.modules.iot.persistence.page.PageDomain;
 import org.springblade.modules.iot.persistence.page.PageUtils;
 import org.springblade.modules.iot.persistence.page.TableDataInfo;

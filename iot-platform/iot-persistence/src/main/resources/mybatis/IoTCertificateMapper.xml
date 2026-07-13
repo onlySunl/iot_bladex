@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.springblade.modules.iot.persistence.mapper.IoTCertificateMapper">
-    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.persistence.entity.IoTCertificate">
+    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.pojo.entity.IoTCertificate">
         <id column="id" property="id"/>
         <result column="ssl_key" property="sslKey"/>
         <result column="name" property="name"/>

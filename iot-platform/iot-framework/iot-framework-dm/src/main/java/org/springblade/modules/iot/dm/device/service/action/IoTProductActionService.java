@@ -15,7 +15,7 @@ package org.springblade.modules.iot.dm.device.service.action;
 import org.springblade.modules.iot.dm.device.service.impl.IoTCacheRemoveService;
 import org.springblade.modules.iot.dm.device.service.impl.IoTProductDeviceService;
 import org.springblade.modules.iot.persistence.base.IoTProductAction;
-import org.springblade.modules.iot.persistence.entity.IoTProduct;
+import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;

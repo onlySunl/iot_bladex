@@ -32,7 +32,7 @@ import org.springblade.modules.iot.dm.device.service.AbstratIoTService;
 import org.springblade.modules.iot.dm.device.service.impl.IoTDeviceShadowService;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
-import org.springblade.modules.iot.persistence.entity.IoTProduct;
+import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import org.springblade.modules.iot.protocol.websocket.entity.WebSocketUPRequest;
 import org.springblade.modules.iot.protocol.websocket.entity.WebSocketUPRequest.ProcessingStage;
 import org.springblade.modules.iot.protocol.websocket.processor.up.WebSocketUPProcessor;

@@ -12,9 +12,9 @@
 
 package org.springblade.modules.iot.persistence.mapper;
 
-import org.springblade.modules.iot.persistence.entity.RulegoChain;
-import org.springblade.modules.iot.persistence.entity.bo.RulegoChainBO;
-import org.springblade.modules.iot.persistence.entity.vo.RulegoChainVO;
+import org.springblade.modules.iot.pojo.entity.RulegoChain;
+import org.springblade.modules.iot.pojo.bo.RulegoChainBO;
+import org.springblade.modules.iot.pojo.vo.RulegoChainVO;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;

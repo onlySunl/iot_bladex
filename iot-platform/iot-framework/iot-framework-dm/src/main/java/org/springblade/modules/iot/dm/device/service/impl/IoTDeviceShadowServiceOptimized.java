@@ -18,7 +18,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.springblade.modules.iot.core.message.UPRequest;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
-import org.springblade.modules.iot.persistence.entity.IoTDeviceShadow;
+import org.springblade.modules.iot.pojo.entity.IoTDeviceShadow;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceShadowMapper;
 import org.springblade.modules.iot.persistence.shadow.Shadow;
 import org.springblade.modules.iot.persistence.shadow.State;

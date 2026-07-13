@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.springblade.modules.iot.persistence.mapper.IoTDeviceGroupMapper">
 
-    <resultMap type="org.springblade.modules.iot.persistence.entity.IoTDeviceGroup" id="DevGroupResult">
+    <resultMap type="org.springblade.modules.iot.pojo.entity.IoTDeviceGroup" id="DevGroupResult">
         <result property="id" column="id"/>
         <result property="groupName" column="group_name"/>
         <result property="groupCode" column="group_code"/>
@@ -19,7 +19,7 @@
         <result property="tag" column="tag"/>
     </resultMap>
 
-    <resultMap type="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceGroupVO" id="DevGroupVoResult">
+    <resultMap type="org.springblade.modules.iot.pojo.vo.IoTDeviceGroupVO" id="DevGroupVoResult">
         <result property="id" column="id"/>
         <result property="groupName" column="group_name"/>
         <result property="groupCode" column="group_code"/>
@@ -51,7 +51,7 @@
     </select>
 
     <select id="selectDevGroupList"
-            parameterType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceGroupVO"
+            parameterType="org.springblade.modules.iot.pojo.vo.IoTDeviceGroupVO"
             resultMap="DevGroupVoResult">
         select id, group_name, has_child, group_level, parent_id
         from iot_device_group
@@ -73,7 +73,7 @@
           AND iot_id = #{iotId}
     </select>
 
-    <insert id="insertDevGroup" parameterType="org.springblade.modules.iot.persistence.entity.IoTDeviceGroup">
+    <insert id="insertDevGroup" parameterType="org.springblade.modules.iot.pojo.entity.IoTDeviceGroup">
         insert into iot_device_group
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null ">id,</if>
@@ -105,7 +105,7 @@
         </trim>
     </insert>
 
-    <update id="updateDevGroup" parameterType="org.springblade.modules.iot.persistence.entity.IoTDeviceGroup">
+    <update id="updateDevGroup" parameterType="org.springblade.modules.iot.pojo.entity.IoTDeviceGroup">
         update iot_device_group
         <trim prefix="SET" suffixOverrides=",">
             <if test="groupName != null  and groupName != ''">group_name = #{groupName},</if>

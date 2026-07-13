@@ -14,7 +14,7 @@ package org.springblade.modules.iot.protocol.mqtt.third;
 
 import org.springblade.modules.iot.common.enums.NetworkType;
 import org.springblade.modules.iot.protocol.mqtt.topic.MQTTTopicManager;
-import org.springblade.modules.iot.persistence.entity.Network;
+import org.springblade.modules.iot.pojo.entity.Network;
 import org.springblade.modules.iot.persistence.mapper.IoTProductMapper;
 import org.springblade.modules.iot.persistence.mapper.NetworkMapper;
 import java.util.List;

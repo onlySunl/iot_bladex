@@ -14,9 +14,9 @@ package org.springblade.modules.iot.rule.rulego.service;
 
 import cn.hutool.core.util.RandomUtil;
 import org.springblade.modules.iot.common.exception.IoTException;
-import org.springblade.modules.iot.persistence.entity.RulegoChain;
-import org.springblade.modules.iot.persistence.entity.bo.RulegoChainBO;
-import org.springblade.modules.iot.persistence.entity.vo.RulegoChainVO;
+import org.springblade.modules.iot.pojo.entity.RulegoChain;
+import org.springblade.modules.iot.pojo.bo.RulegoChainBO;
+import org.springblade.modules.iot.pojo.vo.RulegoChainVO;
 import org.springblade.modules.iot.persistence.mapper.RulegoChainMapper;
 import org.springblade.modules.iot.rule.rulego.client.RulegoApiClient;
 import org.springblade.modules.iot.rule.rulego.model.RulegoApiResponse;

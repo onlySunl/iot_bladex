@@ -18,7 +18,7 @@ import org.springblade.modules.iot.dm.device.entity.IoTPushResult;
 import org.springblade.modules.iot.dm.device.service.push.processor.PushRetryProcessor;
 import org.springblade.modules.iot.dm.device.service.push.processor.PushStatisticsProcessor;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
-import org.springblade.modules.iot.persistence.entity.bo.UPPushBO;
+import org.springblade.modules.iot.pojo.bo.UPPushBO;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;

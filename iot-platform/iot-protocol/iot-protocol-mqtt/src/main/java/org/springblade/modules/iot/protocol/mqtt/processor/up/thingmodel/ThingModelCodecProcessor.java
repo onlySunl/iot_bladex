@@ -26,7 +26,7 @@ import org.springblade.modules.iot.protocol.mqtt.processor.MqttMessageProcessor;
 import org.springblade.modules.iot.protocol.mqtt.topic.MQTTTopicManager;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
-import org.springblade.modules.iot.persistence.entity.IoTProduct;
+import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

@@ -8,7 +8,7 @@
  */
 package org.springblade.modules.iot.dm.video;
 
-import org.springblade.modules.iot.persistence.entity.VideoPlatformInstance;
+import org.springblade.modules.iot.pojo.entity.VideoPlatformInstance;
 import java.util.List;
 import java.util.Map;
 

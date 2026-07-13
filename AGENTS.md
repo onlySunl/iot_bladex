@@ -28,7 +28,7 @@
 ├── blade-api/                # BladeX 系统 API 模块
 ├── iot-platform/             # IoT 管理平台模块 (NexIoT 迁移)
 │   ├── iot-common/           # IoT 公共模块 (实体基类, 工具类, SQL DDL)
-│   ├── iot-api/              # IoT API 模块 (实体/VO)
+│   ├── iot-api/              # IoT API 模块 (实体/VO/BO/DTO - 48实体+35VO+20BO+1DTO)
 │   ├── iot-service/          # IoT 服务模块 (Mapper/Service/Wrapper/Controller)
 │   ├── iot-rule/             # IoT 规则引擎模块 (规则引擎 + 推送策略 + 地理围栏 + Rulego)
 │   ├── iot-persistence/      # IoT 持久化模块 (NexIoT 数据层迁移)

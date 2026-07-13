@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.springblade.modules.iot.persistence.mapper.IoTDashboardStatisticsMapper">
 
-    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.persistence.entity.IoTDashboardStatistics">
+    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.pojo.entity.IoTDashboardStatistics">
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="stat_date" property="statDate" jdbcType="DATE"/>
         <result column="product_key" property="productKey" jdbcType="VARCHAR"/>
@@ -79,7 +79,7 @@
     </update>
 
     <!-- 插入统计数据 -->
-    <insert id="insert" parameterType="org.springblade.modules.iot.persistence.entity.IoTDashboardStatistics">
+    <insert id="insert" parameterType="org.springblade.modules.iot.pojo.entity.IoTDashboardStatistics">
         INSERT INTO iot_dashboard_statistics
         (stat_date, product_key, channel, metric_type, metric_value, create_time, update_time)
         VALUES (#{statDate}, #{productKey}, #{channel}, #{metricType}, #{metricValue}, #{createTime},

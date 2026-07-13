@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.springblade.modules.iot.persistence.mapper.IoTUserMapper">
-    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.persistence.entity.IoTUser">
+    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.pojo.entity.IoTUser">
         <!--
           WARNING - @mbg.generated
         -->
@@ -35,7 +35,7 @@
         where id = #{id}
     </update>
 
-    <select id="selectList" parameterType="org.springblade.modules.iot.persistence.entity.IoTUser"
+    <select id="selectList" parameterType="org.springblade.modules.iot.pojo.entity.IoTUser"
             resultMap="BaseResultMap">
         select * from iot_user u
         <where>
@@ -72,7 +72,7 @@
         </where>
     </select>
 
-    <select id="selectAllocatedList" parameterType="org.springblade.modules.iot.persistence.entity.bo.IoTUserBO"
+    <select id="selectAllocatedList" parameterType="org.springblade.modules.iot.pojo.bo.IoTUserBO"
             resultMap="BaseResultMap">
         select distinct u.id, u.org_id, u.username, u.union_id,u.alias, u.email, u.mobile, u.status,
         u.create_date
@@ -88,13 +88,13 @@
     </select>
 
     <select id="selectUserByMobile" parameterType="string"
-            resultType="org.springblade.modules.iot.persistence.entity.IoTUser">
+            resultType="org.springblade.modules.iot.pojo.entity.IoTUser">
         select *
         from iot_user
         where mobile = #{mobile}
     </select>
 
-    <select id="selectUnallocatedList" parameterType="org.springblade.modules.iot.persistence.entity.bo.IoTUserBO"
+    <select id="selectUnallocatedList" parameterType="org.springblade.modules.iot.pojo.bo.IoTUserBO"
             resultMap="BaseResultMap">
         select distinct u.id, u.org_id, u.username, u.union_id,u.alias, u.email, u.mobile, u.status,
         u.create_date

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.springblade.modules.iot.persistence.mapper.IoTUserApplicationMapper">
 
-    <resultMap type="org.springblade.modules.iot.persistence.entity.IoTUserApplication"
+    <resultMap type="org.springblade.modules.iot.pojo.entity.IoTUserApplication"
                id="IotUserApplicationResult">
         <!--        <result property="uuid"    column="uuid"    />-->
         <result property="unionId" column="union_id"/>
@@ -24,7 +24,7 @@
         <result property="deleted" column="deleted"/>
         <result property="cfg" column="cfg"/>
     </resultMap>
-    <resultMap type="org.springblade.modules.iot.persistence.entity.vo.IoTUserApplicationVO"
+    <resultMap type="org.springblade.modules.iot.pojo.vo.IoTUserApplicationVO"
                id="IotUserApplicationVoResult">
         <!--        <result property="uuid"    column="uuid"    />-->
         <result property="unionId" column="union_id"/>
@@ -68,7 +68,7 @@
     </sql>
 
     <select id="selectIotUserApplicationList"
-            parameterType="org.springblade.modules.iot.persistence.entity.IoTUserApplication"
+            parameterType="org.springblade.modules.iot.pojo.entity.IoTUserApplication"
             resultMap="IotUserApplicationVoResult">
         <include refid="selectIotUserApplicationVo"/>
         <where>
@@ -108,7 +108,7 @@
     </select>
 
     <insert id="insertIotUserApplication"
-            parameterType="org.springblade.modules.iot.persistence.entity.IoTUserApplication" useGeneratedKeys="true"
+            parameterType="org.springblade.modules.iot.pojo.entity.IoTUserApplication" useGeneratedKeys="true"
             keyProperty="appUniqueId">
         insert into iot_user_application
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -150,7 +150,7 @@
     </insert>
 
     <update id="updateIotUserApplication"
-            parameterType="org.springblade.modules.iot.persistence.entity.IoTUserApplication">
+            parameterType="org.springblade.modules.iot.pojo.entity.IoTUserApplication">
         update iot_user_application
         <trim prefix="SET" suffixOverrides=",">
             <if test="appName != null  and appName != ''">app_name = #{appName},</if>
@@ -195,7 +195,7 @@
           and up_topic!='' and union_id=#{unionId}
     </select>
     <select id="selectApplicationList"
-            parameterType="org.springblade.modules.iot.persistence.entity.IoTUserApplication"
+            parameterType="org.springblade.modules.iot.pojo.entity.IoTUserApplication"
             resultMap="IotUserApplicationVoResult">
         <include refid="selectIotUserApplicationVo"/>
         <where>

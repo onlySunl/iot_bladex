@@ -13,8 +13,8 @@
 package org.springblade.modules.iot.persistence.mapper;
 
 import org.springblade.modules.iot.persistence.common.BaseMapper;
-import org.springblade.modules.iot.persistence.entity.IoTDeviceRuleLog;
-import org.springblade.modules.iot.persistence.entity.vo.SceneLinkageLogVO;
+import org.springblade.modules.iot.pojo.entity.IoTDeviceRuleLog;
+import org.springblade.modules.iot.pojo.vo.SceneLinkageLogVO;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

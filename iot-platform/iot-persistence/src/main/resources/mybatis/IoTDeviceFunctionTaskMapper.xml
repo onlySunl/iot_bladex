@@ -10,7 +10,7 @@
 
 
     <select id="selectTaskList"
-            resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceFunctionTaskVO">
+            resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceFunctionTaskVO">
         select t.*,count(h.id) as `total_num`,sum(h.down_result) as `success_num`
         from iot_device_function_task t
         left join iot_device_function_history h on t.id = h.task_id
@@ -34,7 +34,7 @@
         group by t.id order by t.id desc
     </select>
     <select id="queryFunctionListByTaskId"
-            resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceFunctionHistoryVO">
+            resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceFunctionHistoryVO">
         select h.*,t.command_data
         from iot_device_function_history h
         left join iot_device_function_task t on h.task_id=t.id
@@ -58,7 +58,7 @@
         </where>
         order by h.id
     </select>
-    <select id="selectOneTask" resultType="org.springblade.modules.iot.persistence.entity.IoTDeviceFunctionTask">
+    <select id="selectOneTask" resultType="org.springblade.modules.iot.pojo.entity.IoTDeviceFunctionTask">
         select * from iot_device_function_task t
         <where>
             <if test="bo.status!=null">

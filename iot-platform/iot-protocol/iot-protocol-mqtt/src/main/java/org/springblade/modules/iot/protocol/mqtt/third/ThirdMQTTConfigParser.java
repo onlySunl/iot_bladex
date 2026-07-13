@@ -5,7 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import org.springblade.modules.iot.protocol.mqtt.entity.MQTTProductConfig;
 import org.springblade.modules.iot.protocol.mqtt.topic.MQTTTopicManager;
-import org.springblade.modules.iot.persistence.entity.Network;
+import org.springblade.modules.iot.pojo.entity.Network;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;

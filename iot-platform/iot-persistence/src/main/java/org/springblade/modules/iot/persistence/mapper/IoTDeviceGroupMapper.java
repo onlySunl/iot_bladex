@@ -13,8 +13,8 @@
 package org.springblade.modules.iot.persistence.mapper;
 
 import org.springblade.modules.iot.persistence.common.BaseMapper;
-import org.springblade.modules.iot.persistence.entity.IoTDeviceGroup;
-import org.springblade.modules.iot.persistence.entity.vo.IoTDeviceGroupVO;
+import org.springblade.modules.iot.pojo.entity.IoTDeviceGroup;
+import org.springblade.modules.iot.pojo.vo.IoTDeviceGroupVO;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

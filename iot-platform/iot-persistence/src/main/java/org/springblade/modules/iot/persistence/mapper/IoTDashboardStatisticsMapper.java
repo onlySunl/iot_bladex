@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.persistence.mapper;
 
-import org.springblade.modules.iot.persistence.entity.IoTDashboardStatistics;
+import org.springblade.modules.iot.pojo.entity.IoTDashboardStatistics;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;

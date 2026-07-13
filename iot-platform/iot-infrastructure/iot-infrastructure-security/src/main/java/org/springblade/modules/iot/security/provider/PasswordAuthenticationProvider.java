@@ -12,7 +12,7 @@
 
 package org.springblade.modules.iot.security.provider;
 
-import org.springblade.modules.iot.persistence.entity.IoTUser;
+import org.springblade.modules.iot.pojo.entity.IoTUser;
 import org.springblade.modules.iot.persistence.mapper.IoTUserMapper;
 import org.springblade.modules.iot.security.token.PasswordAuthenticationToken;
 import java.security.Principal;

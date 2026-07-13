@@ -12,7 +12,7 @@ import org.springblade.modules.iot.databridge.service.ResourceConnectionService;
 import org.springblade.modules.iot.databridge.util.ConnectionTester;
 import org.springblade.modules.iot.databridge.util.ConnectionTester.ConnectionTestResult;
 import org.springblade.modules.iot.databridge.vo.DataBridgeConfigVO;
-import org.springblade.modules.iot.persistence.entity.IoTUser;
+import org.springblade.modules.iot.pojo.entity.IoTUser;
 import org.springblade.modules.iot.persistence.query.AjaxResult;
 import org.springblade.modules.iot.security.BaseController;
 import org.springblade.modules.iot.security.utils.SecurityUtils;

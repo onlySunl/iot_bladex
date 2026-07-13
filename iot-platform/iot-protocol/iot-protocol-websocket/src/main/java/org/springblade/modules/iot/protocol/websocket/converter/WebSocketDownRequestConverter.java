@@ -25,7 +25,7 @@ import org.springblade.modules.iot.common.message.DownCommonData;
 import org.springblade.modules.iot.common.message.UnifiedDownlinkCommand;
 import org.springblade.modules.iot.dm.device.service.AbstractDownService;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
-import org.springblade.modules.iot.persistence.entity.IoTProduct;
+import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import org.springblade.modules.iot.persistence.query.IoTDeviceQuery;
 import org.springblade.modules.iot.protocol.websocket.config.WebSocketModuleInfo;
 import org.springblade.modules.iot.protocol.websocket.entity.WebSocketDownRequest;

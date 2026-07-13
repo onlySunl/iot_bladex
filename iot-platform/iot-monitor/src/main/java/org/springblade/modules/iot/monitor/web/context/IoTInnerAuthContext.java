@@ -20,7 +20,7 @@ import org.springblade.modules.iot.common.constant.IoTConstant;
 import org.springblade.modules.iot.common.exception.IoTException;
 import org.springblade.modules.iot.common.utils.AESOperator;
 import org.springblade.modules.iot.common.utils.AuthUtil;
-import org.springblade.modules.iot.persistence.entity.IoTUserApplication;
+import org.springblade.modules.iot.pojo.entity.IoTUserApplication;
 import org.springblade.modules.iot.persistence.mapper.IoTUserMapper;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;

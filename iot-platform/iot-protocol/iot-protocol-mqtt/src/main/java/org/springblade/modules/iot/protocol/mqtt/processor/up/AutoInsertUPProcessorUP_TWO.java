@@ -23,7 +23,7 @@ import org.springblade.modules.iot.common.service.IoTDownlFactory;
 import org.springblade.modules.iot.protocol.mqtt.entity.MQTTUPRequest;
 import org.springblade.modules.iot.protocol.mqtt.processor.up.common.BaseAutoRegisterProcessor;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
-import org.springblade.modules.iot.persistence.entity.IoTProduct;
+import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import org.springblade.modules.iot.persistence.query.IoTDeviceQuery;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

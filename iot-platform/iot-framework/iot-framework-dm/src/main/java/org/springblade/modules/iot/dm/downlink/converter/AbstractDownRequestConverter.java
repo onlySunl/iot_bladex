@@ -20,7 +20,7 @@ import org.springblade.modules.iot.core.message.UnifiedDownlinkCommand;
 import org.springblade.modules.iot.dm.device.service.AbstratIoTService;
 import org.springblade.modules.iot.persistence.base.BaseDownRequest;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
-import org.springblade.modules.iot.persistence.entity.IoTProduct;
+import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import lombok.extern.slf4j.Slf4j;
 
 /**

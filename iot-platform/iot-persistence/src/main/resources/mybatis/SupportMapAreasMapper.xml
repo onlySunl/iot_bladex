@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.springblade.modules.iot.persistence.mapper.SupportMapAreasMapper">
-    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.persistence.entity.SupportMapAreas">
+    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.pojo.entity.SupportMapAreas">
         <!--
           WARNING - @mbg.generated
         -->
@@ -17,7 +17,7 @@
     </resultMap>
 
     <!-- 根据经纬度查询区域id -->
-    <select id="selectMapAreas" resultType="org.springblade.modules.iot.persistence.entity.SupportMapAreas">
+    <select id="selectMapAreas" resultType="org.springblade.modules.iot.pojo.entity.SupportMapAreas">
         select id
         from support_map_areas
         where st_within(st_geomfromtext('POINT('

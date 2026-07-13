@@ -15,7 +15,7 @@ package org.springblade.modules.iot.security;
 import org.springblade.modules.iot.common.constant.Constants;
 import org.springblade.modules.iot.common.constant.IoTConstant;
 import org.springblade.modules.iot.common.utils.ServletUtils;
-import org.springblade.modules.iot.persistence.entity.IoTUser;
+import org.springblade.modules.iot.pojo.entity.IoTUser;
 import org.springblade.modules.iot.persistence.mapper.IoTUserMapper;
 import org.springblade.modules.iot.security.service.AdminLogService;
 import jakarta.annotation.Resource;

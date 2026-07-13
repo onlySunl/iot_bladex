@@ -14,7 +14,7 @@ package org.springblade.modules.iot.rule.scene.deviceUp;
 
 import org.springblade.modules.iot.common.constant.IoTConstant;
 import org.springblade.modules.iot.common.message.UPRequest;
-import org.springblade.modules.iot.persistence.entity.bo.TriggerBO;
+import org.springblade.modules.iot.pojo.bo.TriggerBO;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

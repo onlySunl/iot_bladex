@@ -12,7 +12,7 @@
 
 package org.springblade.modules.iot.persistence.dto;
 
-import org.springblade.modules.iot.persistence.entity.GatewayPollingCommand;
+import org.springblade.modules.iot.pojo.entity.GatewayPollingCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.util.List;

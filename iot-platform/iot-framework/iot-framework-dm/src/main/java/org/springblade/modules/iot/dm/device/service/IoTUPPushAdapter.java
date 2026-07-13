@@ -22,7 +22,7 @@ import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import org.springblade.modules.iot.persistence.base.IoTDeviceExtendService;
 import org.springblade.modules.iot.persistence.base.IoTUPWrapper;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
-import org.springblade.modules.iot.persistence.entity.bo.UPPushBO;
+import org.springblade.modules.iot.pojo.bo.UPPushBO;
 import jakarta.annotation.Resource;
 import java.util.List;
 import java.util.Map;

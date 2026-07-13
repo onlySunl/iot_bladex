@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.springblade.modules.iot.persistence.mapper.RuleModelMapper">
 
-    <select id="selectRuleByBo" resultType="org.springblade.modules.iot.persistence.entity.RuleModel">
+    <select id="selectRuleByBo" resultType="org.springblade.modules.iot.pojo.entity.RuleModel">
         select rm.id, rm.rule_name, rm.description, rm.config, rm.create_time
         from rule_model_instance rmi
         left join rule_model rm on rmi.model_id = rm.id
@@ -19,7 +19,7 @@
         </where>
 
     </select>
-    <select id="selectRuleListByBo" resultType="org.springblade.modules.iot.persistence.entity.vo.RuleModelVO">
+    <select id="selectRuleListByBo" resultType="org.springblade.modules.iot.pojo.vo.RuleModelVO">
         select id, rule_name, description, status, creator_id, create_time
         from rule_model
         <where>

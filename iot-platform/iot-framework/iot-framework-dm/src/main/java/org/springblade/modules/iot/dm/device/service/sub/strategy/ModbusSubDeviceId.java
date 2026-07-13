@@ -2,7 +2,7 @@ package org.springblade.modules.iot.dm.device.service.sub.strategy;
 
 import cn.hutool.core.util.StrUtil;
 import org.springblade.modules.iot.core.message.SubDevice;
-import org.springblade.modules.iot.persistence.entity.IoTDevice;
+import org.springblade.modules.iot.pojo.entity.IoTDevice;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceMapper;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

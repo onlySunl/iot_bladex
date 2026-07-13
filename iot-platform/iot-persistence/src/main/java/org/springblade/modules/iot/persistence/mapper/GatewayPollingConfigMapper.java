@@ -12,7 +12,7 @@
 
 package org.springblade.modules.iot.persistence.mapper;
 
-import org.springblade.modules.iot.persistence.entity.GatewayPollingConfig;
+import org.springblade.modules.iot.pojo.entity.GatewayPollingConfig;
 import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;

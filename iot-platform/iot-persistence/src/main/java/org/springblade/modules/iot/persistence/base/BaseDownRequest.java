@@ -15,7 +15,7 @@ package org.springblade.modules.iot.persistence.base;
 import cn.hutool.json.JSONObject;
 import org.springblade.modules.iot.common.message.DownRequest;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
-import org.springblade.modules.iot.persistence.entity.IoTProduct;
+import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

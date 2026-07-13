@@ -25,11 +25,11 @@ import org.springblade.modules.iot.dm.device.service.impl.IoTProductDeviceServic
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
 import org.springblade.modules.iot.persistence.dto.LogStorePolicyDTO;
-import org.springblade.modules.iot.persistence.entity.IoTDeviceEvents;
-import org.springblade.modules.iot.persistence.entity.IoTDeviceLog;
-import org.springblade.modules.iot.persistence.entity.IoTProduct;
-import org.springblade.modules.iot.persistence.entity.vo.IoTDeviceLogMetadataVO;
-import org.springblade.modules.iot.persistence.entity.vo.IoTDeviceLogVO;
+import org.springblade.modules.iot.pojo.entity.IoTDeviceEvents;
+import org.springblade.modules.iot.pojo.entity.IoTDeviceLog;
+import org.springblade.modules.iot.pojo.entity.IoTProduct;
+import org.springblade.modules.iot.pojo.vo.IoTDeviceLogMetadataVO;
+import org.springblade.modules.iot.pojo.vo.IoTDeviceLogVO;
 import org.springblade.modules.iot.persistence.query.LogQuery;
 import org.springblade.modules.iot.persistence.query.PageBean;
 import com.influxdb.client.InfluxDBClient;

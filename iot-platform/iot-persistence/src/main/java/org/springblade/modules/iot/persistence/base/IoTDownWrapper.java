@@ -14,8 +14,8 @@ package org.springblade.modules.iot.persistence.base;
 
 import org.springblade.modules.iot.common.domain.R;
 import org.springblade.modules.iot.common.message.DownRequest;
-import org.springblade.modules.iot.persistence.entity.IoTDevice;
-import org.springblade.modules.iot.persistence.entity.IoTProduct;
+import org.springblade.modules.iot.pojo.entity.IoTDevice;
+import org.springblade.modules.iot.pojo.entity.IoTProduct;
 
 /**
  * @author gitee.com/NexIoT

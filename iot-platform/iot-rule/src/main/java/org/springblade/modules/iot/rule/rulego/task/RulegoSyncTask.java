@@ -12,7 +12,7 @@
 
 package org.springblade.modules.iot.rule.rulego.task;
 
-import org.springblade.modules.iot.persistence.entity.RulegoChain;
+import org.springblade.modules.iot.pojo.entity.RulegoChain;
 import org.springblade.modules.iot.persistence.mapper.RulegoChainMapper;
 import org.springblade.modules.iot.rule.rulego.service.RulegoChainService;
 import jakarta.annotation.Resource;

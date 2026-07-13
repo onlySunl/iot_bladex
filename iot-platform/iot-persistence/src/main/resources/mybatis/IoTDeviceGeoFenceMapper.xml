@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.springblade.modules.iot.persistence.mapper.IoTDeviceGeoFenceMapper">
 
-    <select id="selectByIotId" resultType="org.springblade.modules.iot.persistence.entity.IoTDeviceGeoFence">
+    <select id="selectByIotId" resultType="org.springblade.modules.iot.pojo.entity.IoTDeviceGeoFence">
         select b.*
         from iot_device_fence_rel a
                  left join iot_device_geo_fence b on a.fence_id = b.id
@@ -12,7 +12,7 @@
 
     </select>
 
-    <select id="selectList" resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceGeoFenceVO">
+    <select id="selectList" resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceGeoFenceVO">
         SELECT a.*,ifnull(b.deviceNum,0) as deviceNum from iot_device_geo_fence a
         LEFT JOIN (select count(1) deviceNum,fence_id from iot_device_fence_rel GROUP BY fence_id) b
         on a.id=b.fence_id
@@ -63,7 +63,7 @@
         order by create_date desc
     </select>
 
-    <update id="updateFence" parameterType="org.springblade.modules.iot.persistence.entity.IoTDeviceGeoFence">
+    <update id="updateFence" parameterType="org.springblade.modules.iot.pojo.entity.IoTDeviceGeoFence">
         update iot_device_geo_fence
         <set>
             <if test="ioTDeviceGeoFence.name != null and ioTDeviceGeoFence.name != ''">`name` =

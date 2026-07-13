@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.springblade.modules.iot.persistence.mapper.GatewayPollingCommandMapper">
 
-    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.persistence.entity.GatewayPollingCommand">
+    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.pojo.entity.GatewayPollingCommand">
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="gateway_product_key" property="gatewayProductKey" jdbcType="VARCHAR"/>
         <result column="gateway_device_id" property="gatewayDeviceId" jdbcType="VARCHAR"/>

@@ -13,7 +13,7 @@
 package org.springblade.modules.iot.databridge.vo;
 
 import org.springblade.modules.iot.databridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.persistence.entity.bo.IoTProductBO;
+import org.springblade.modules.iot.pojo.bo.IoTProductBO;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;

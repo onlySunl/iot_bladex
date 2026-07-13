@@ -20,7 +20,7 @@ import org.springblade.modules.iot.common.constant.IoTConstant.MessageType;
 import org.springblade.modules.iot.common.domain.R;
 import org.springblade.modules.iot.common.exception.IoTErrorCode;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceSubscribeBO;
-import org.springblade.modules.iot.persistence.entity.IoTDeviceSubscribe;
+import org.springblade.modules.iot.pojo.entity.IoTDeviceSubscribe;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceSubscribeMapper;
 import jakarta.annotation.Resource;
 import java.util.ArrayList;

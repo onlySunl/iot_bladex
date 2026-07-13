@@ -19,7 +19,7 @@ import org.springblade.modules.iot.common.exception.IoTErrorCode;
 import org.springblade.modules.iot.common.exception.IoTException;
 import org.springblade.modules.iot.dm.device.service.impl.IoTDeviceService;
 import org.springblade.modules.iot.dm.device.service.impl.IoTProductDeviceService;
-import org.springblade.modules.iot.persistence.entity.IoTUserApplication;
+import org.springblade.modules.iot.pojo.entity.IoTUserApplication;
 import org.springblade.modules.iot.persistence.query.IoTAPIQuery;
 import org.springblade.modules.iot.security.service.IoTUserService;
 import org.springblade.modules.iot.monitor.web.context.TtlAuthContextHolder;

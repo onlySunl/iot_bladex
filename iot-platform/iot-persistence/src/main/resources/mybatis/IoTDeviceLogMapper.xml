@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.springblade.modules.iot.persistence.mapper.IoTDeviceLogMapper">
-    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.persistence.entity.IoTDeviceLog">
+    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.pojo.entity.IoTDeviceLog">
         <!--
           WARNING - @mbg.generated
         -->
@@ -20,7 +20,7 @@
         <result column="content" jdbcType="LONGVARCHAR" property="content"/>
     </resultMap>
 
-    <select id="queryLogPageV2List" resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceLogVO">
+    <select id="queryLogPageV2List" resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceLogVO">
         select *
         from iot_device_log
         <where>
@@ -54,7 +54,7 @@
         </where>
         order by create_time desc
     </select>
-    <select id="queryLogById" resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceLogVO">
+    <select id="queryLogById" resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceLogVO">
         select *
         from iot_device_log
         <where>
@@ -72,7 +72,7 @@
 
     </select>
 
-    <select id="queryLogPageList" resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceLogVO">
+    <select id="queryLogPageList" resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceLogVO">
         select *
         from iot_device_log
         <where>
@@ -117,7 +117,7 @@
     </select>
 
 
-    <select id="queryCoordinatesLogByIotId" resultType="org.springblade.modules.iot.persistence.entity.IoTDeviceLog">
+    <select id="queryCoordinatesLogByIotId" resultType="org.springblade.modules.iot.pojo.entity.IoTDeviceLog">
         select *
         from iot_device_log
         where iot_id = #{iotId}

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.springblade.modules.iot.persistence.mapper.SceneLinkageMapper">
 
-    <resultMap type="org.springblade.modules.iot.persistence.entity.SceneLinkage" id="SceneLinkageResult">
+    <resultMap type="org.springblade.modules.iot.pojo.entity.SceneLinkage" id="SceneLinkageResult">
         <result property="id" column="id"/>
         <result property="sceneName" column="scene_name"/>
         <result property="touch" column="touch"/>
@@ -35,7 +35,7 @@
         from scene_linkage
     </sql>
 
-    <select id="selectSceneLinkageList" parameterType="org.springblade.modules.iot.persistence.entity.SceneLinkage"
+    <select id="selectSceneLinkageList" parameterType="org.springblade.modules.iot.pojo.entity.SceneLinkage"
             resultMap="SceneLinkageResult">
         <include refid="selectSceneLinkageVo"/>
         <where>
@@ -78,7 +78,7 @@
         where id = #{id}
           and create_by = #{unionId}
     </select>
-    <insert id="insertSceneLinkage" parameterType="org.springblade.modules.iot.persistence.entity.SceneLinkage"
+    <insert id="insertSceneLinkage" parameterType="org.springblade.modules.iot.pojo.entity.SceneLinkage"
             useGeneratedKeys="true" keyProperty="id">
         insert into scene_linkage
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -109,7 +109,7 @@
         </trim>
     </insert>
 
-    <update id="updateSceneLinkage" parameterType="org.springblade.modules.iot.persistence.entity.SceneLinkage">
+    <update id="updateSceneLinkage" parameterType="org.springblade.modules.iot.pojo.entity.SceneLinkage">
         update scene_linkage
         <trim prefix="SET" suffixOverrides=",">
             <if test="sceneName != null  and sceneName != ''">scene_name = #{sceneName},</if>

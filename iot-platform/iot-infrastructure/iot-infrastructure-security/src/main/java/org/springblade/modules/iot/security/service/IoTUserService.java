@@ -12,8 +12,8 @@
 
 package org.springblade.modules.iot.security.service;
 
-import org.springblade.modules.iot.persistence.entity.IoTUser;
-import org.springblade.modules.iot.persistence.entity.bo.IoTUserBO;
+import org.springblade.modules.iot.pojo.entity.IoTUser;
+import org.springblade.modules.iot.pojo.bo.IoTUserBO;
 import java.util.List;
 
 /** 用户业务层接口 */

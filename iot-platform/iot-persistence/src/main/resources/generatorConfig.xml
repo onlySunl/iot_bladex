@@ -20,7 +20,7 @@
         </jdbcConnection>
 
         <!--生成PO类的位置 -->
-        <javaModelGenerator targetPackage="org.springblade.modules.iot.persistence.entity"
+        <javaModelGenerator targetPackage="org.springblade.modules.iot.pojo.entity"
                             targetProject="src/main/java"/>
         <!-- xml映射文件生成的位置 -->
         <sqlMapGenerator targetPackage="mybatis" targetProject="src/main/resources"/>
