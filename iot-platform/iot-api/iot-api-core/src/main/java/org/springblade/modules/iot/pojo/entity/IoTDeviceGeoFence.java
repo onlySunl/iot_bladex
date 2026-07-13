@@ -88,8 +88,6 @@ public class IoTDeviceGeoFence extends CustomBaseEntity {
 @AutoColumn(comment = "归属第三方应用", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String creatorUser;
 
-  @Transient private List<String> queryUserList;
-
   /** 创建时间 */
 @TableField(value = "create_date")
 @AutoColumn(comment = "创建时间", defaultValueType = DefaultValueEnum.NULL)

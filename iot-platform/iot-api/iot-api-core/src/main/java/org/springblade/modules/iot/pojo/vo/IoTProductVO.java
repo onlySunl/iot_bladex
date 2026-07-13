@@ -3,6 +3,8 @@
 package org.springblade.modules.iot.pojo.vo;
 
 import org.springblade.modules.iot.pojo.entity.IoTProduct;
+
+import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import lombok.Data;
 
 /**
@@ -20,7 +22,6 @@ public class IoTProductVO extends IoTProduct {
 
   private int devNum;
 
-  private String storePolicy;
   private String type;
   private String gwName;
   private String gwPhotoUrl;

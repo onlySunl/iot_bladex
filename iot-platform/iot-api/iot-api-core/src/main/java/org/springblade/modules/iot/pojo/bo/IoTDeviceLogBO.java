@@ -3,7 +3,6 @@
 package org.springblade.modules.iot.pojo.bo;
 
 import org.springblade.modules.iot.common.domain.BaseEntity;
-import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,7 +28,7 @@ public class IoTDeviceLogBO extends BaseEntity {
   private String deviceId;
 
   /** 第三方设备ID唯一标识符 */
-  @Transient private String extDeviceId;
+  private String extDeviceId;
 
   /** 产品ID */
   private String productKey;

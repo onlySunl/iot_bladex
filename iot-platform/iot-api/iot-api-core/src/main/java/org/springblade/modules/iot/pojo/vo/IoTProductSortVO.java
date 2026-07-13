@@ -2,6 +2,8 @@
 
 package org.springblade.modules.iot.pojo.vo;
 
+import org.springblade.modules.iot.pojo.entity.IoTProductSort;
+
 import org.springblade.modules.iot.common.annotation.Excel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
@@ -14,41 +16,19 @@ import java.util.List;
  *
  * @since 2025-12-29
  */
-public class IoTProductSortVO implements Serializable {
+public class IoTProductSortVO extends IoTProductSort implements Serializable {
 
-  private static final long serialVersionUID = 1L;
 
-  /** id */
-  private String id;
 
-  /** 父id */
-  @Excel(name = "父id")
-  private String parentId;
 
-  /** 是否有子节点 */
-  @Excel(name = "是否有子节点")
-  private Integer hasChild;
 
-  /** 标识 */
-  @Excel(name = "标识")
-  private String identification;
 
   /** 分类名称 */
   @Excel(name = "分类名称")
   private String label;
 
-  /** 说明 */
-  @Excel(name = "说明")
-  private String description;
 
-  /** 创建时间 */
-  @Excel(name = "创建时间")
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  private Date createTime;
 
-  /** 创建者 */
-  @Excel(name = "创建者")
-  private String createBy;
 
   /** 子分类 */
   private List<IoTProductSortVO> children = new ArrayList<IoTProductSortVO>();
@@ -62,7 +42,6 @@ public class IoTProductSortVO implements Serializable {
   }
 
   public static long getSerialVersionUID() {
-    return serialVersionUID;
   }
 
   public String getId() {

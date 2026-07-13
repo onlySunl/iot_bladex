@@ -2,6 +2,8 @@
 
 package org.springblade.modules.iot.pojo.vo;
 
+import org.springblade.modules.iot.pojo.entity.IoTDeviceGroup;
+
 import java.io.Serializable;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -13,30 +15,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class IoTDeviceGroupVO implements Serializable {
+public class IoTDeviceGroupVO extends IoTDeviceGroup implements Serializable {
 
-  private static final long serialVersionUID = 1L;
 
   /** 分组ID，非自增 */
   private Long id;
 
-  /** 分组名称 */
-  private String groupName;
 
-  /** 分组标识 */
-  private String groupCode;
 
-  /** 群组描述 */
-  private String groupDescribe;
 
-  /** 父id */
-  private Long parentId;
 
-  /** 是否有子分组 */
-  private Integer hasChild;
 
-  /** 分组级别 */
-  private Integer groupLevel;
 
   /** 设备列表 */
   private List<IoTDeviceVO> instanceVOS;

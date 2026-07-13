@@ -157,12 +157,6 @@ public class IoTDevice extends CustomBaseEntity {
   // @Excel(name = "设备坐标")
   private String coordinate;
 
-  @Transient
-  private String deviceNode;
-
-  @Transient
-  private String thirdPlatform;
-
   /** 纬度 */
   @Excel(name = "纬度")
   private transient String latitude;

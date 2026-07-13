@@ -3,7 +3,6 @@
 package org.springblade.modules.iot.pojo.bo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Transient;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -40,5 +39,5 @@ public class IoTDeviceFunctionTaskBO {
   private List<String> extParam;
 
   /** 请求参数 */
-  @Transient private Map<String, Object> params = new HashMap<>();
+  private Map<String, Object> params = new HashMap<>();
 }
