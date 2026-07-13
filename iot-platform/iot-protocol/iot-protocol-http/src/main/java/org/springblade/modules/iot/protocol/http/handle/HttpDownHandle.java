@@ -22,7 +22,7 @@ import org.springblade.modules.iot.common.utils.DelayedTaskUtil;
 import org.springblade.modules.iot.common.utils.ThreadLocalCache;
 import org.springblade.modules.iot.common.message.DownRequest;
 import org.springblade.modules.iot.dm.device.service.impl.IoTDeviceService;
-import org.springblade.modules.iot.protocol.http.entity.HttpDownRequest;
+import org.springblade.modules.iot.pojo.protocol.http.HttpDownRequest;
 import org.springblade.modules.iot.persistence.base.IoTDeviceLifeCycle;
 import org.springblade.modules.iot.persistence.base.IoTDownAdapter;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;

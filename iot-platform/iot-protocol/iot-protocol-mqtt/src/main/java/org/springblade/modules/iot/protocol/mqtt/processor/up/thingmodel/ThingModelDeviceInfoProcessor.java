@@ -14,7 +14,7 @@ package org.springblade.modules.iot.protocol.mqtt.processor.up.thingmodel;
 
 import org.springblade.modules.iot.protocol.mqtt.config.MqttConstant;
 import org.springblade.modules.iot.protocol.mqtt.config.MqttConstant.TopicCategory;
-import org.springblade.modules.iot.protocol.mqtt.entity.MQTTUPRequest;
+import org.springblade.modules.iot.pojo.protocol.mqtt.MQTTUPRequest;
 import org.springblade.modules.iot.protocol.mqtt.processor.up.common.BaseDeviceInfoProcessor;
 import org.springblade.modules.iot.protocol.mqtt.topic.MQTTTopicManager;
 import lombok.extern.slf4j.Slf4j;

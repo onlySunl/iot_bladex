@@ -7,7 +7,7 @@ import org.springblade.modules.iot.common.constant.IoTConstant.DownCmd;
 import org.springblade.modules.iot.common.constant.IoTConstant.ERROR_CODE;
 import org.springblade.modules.iot.common.domain.R;
 import org.springblade.modules.iot.dm.device.service.impl.IoTProductDeviceService;
-import org.springblade.modules.iot.protocol.mqtt.entity.MQTTDownRequest;
+import org.springblade.modules.iot.pojo.protocol.mqtt.MQTTDownRequest;
 import org.springblade.modules.iot.protocol.mqtt.processor.MQTTDownMessageProcessor;
 import org.springblade.modules.iot.persistence.base.IoTDeviceLifeCycle;
 import org.springblade.modules.iot.persistence.base.IoTDownAdapter;

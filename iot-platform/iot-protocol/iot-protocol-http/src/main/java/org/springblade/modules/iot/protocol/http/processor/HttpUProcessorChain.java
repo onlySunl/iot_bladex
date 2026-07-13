@@ -14,7 +14,7 @@ package org.springblade.modules.iot.protocol.http.processor;
 
 import cn.hutool.json.JSONObject;
 import org.springblade.modules.iot.dm.device.service.plugin.ProcessorExecutor;
-import org.springblade.modules.iot.protocol.http.entity.HttpUPRequest;
+import org.springblade.modules.iot.pojo.protocol.http.HttpUPRequest;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;

@@ -21,8 +21,8 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import org.springblade.modules.iot.protocol.websocket.entity.WebSocketSession;
-import org.springblade.modules.iot.protocol.websocket.entity.WebSocketUPRequest;
+import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketSession;
+import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketUPRequest;
 import org.springblade.modules.iot.protocol.websocket.enums.WebSocketMessageType;
 import org.springblade.modules.iot.protocol.websocket.enums.WebSocketStatus;
 import org.springblade.modules.iot.protocol.websocket.handle.WebSocketUPHandle;

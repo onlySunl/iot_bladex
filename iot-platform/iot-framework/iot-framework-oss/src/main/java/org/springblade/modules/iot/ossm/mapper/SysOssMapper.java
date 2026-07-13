@@ -12,7 +12,7 @@
 
 package org.springblade.modules.iot.ossm.mapper;
 
-import org.springblade.modules.iot.ossm.entity.SysOss;
+import org.springblade.modules.iot.pojo.framework.entity.SysOss;
 import org.springblade.modules.iot.persistence.common.BaseMapper;
 import java.util.Collection;
 import java.util.List;

@@ -21,7 +21,7 @@ import org.springblade.modules.iot.common.domain.R;
 import org.springblade.modules.iot.common.message.UnifiedDownlinkCommand;
 import org.springblade.modules.iot.common.service.IoTDownlFactory;
 import org.springblade.modules.iot.dm.device.service.AbstratIoTService;
-import org.springblade.modules.iot.protocol.mqtt.entity.MQTTUPRequest;
+import org.springblade.modules.iot.pojo.protocol.mqtt.MQTTUPRequest;
 import org.springblade.modules.iot.protocol.mqtt.processor.MqttMessageProcessor;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
 import org.springblade.modules.iot.pojo.entity.IoTProduct;

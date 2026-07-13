@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import org.springblade.modules.iot.protocol.websocket.entity.WebSocketSession;
-import org.springblade.modules.iot.protocol.websocket.entity.WebSocketUPRequest;
+import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketSession;
+import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketUPRequest;
 import org.springblade.modules.iot.protocol.websocket.processor.up.WebSocketUPProcessor;
 import org.springblade.modules.iot.protocol.websocket.service.WebSocketSessionManager;
 import lombok.extern.slf4j.Slf4j;

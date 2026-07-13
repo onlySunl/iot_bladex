@@ -16,7 +16,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import org.springblade.modules.iot.ossm.oss.entity.UploadResult;
+import org.springblade.modules.iot.pojo.framework.entity.UploadResult;
 import org.springblade.modules.iot.ossm.oss.service.ICloudStorageService;
 import java.io.InputStream;
 import java.util.Date;

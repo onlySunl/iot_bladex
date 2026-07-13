@@ -17,7 +17,7 @@ import org.springblade.modules.iot.common.constant.IoTConstant.MessageType;
 import org.springblade.modules.iot.common.metadata.AbstractEventMetadata;
 import org.springblade.modules.iot.common.metadata.DeviceMetadata;
 import org.springblade.modules.iot.dm.device.service.AbstratIoTService;
-import org.springblade.modules.iot.protocol.mqtt.entity.MQTTUPRequest;
+import org.springblade.modules.iot.pojo.protocol.mqtt.MQTTUPRequest;
 import org.springblade.modules.iot.protocol.mqtt.processor.MqttMessageProcessor;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import java.util.List;

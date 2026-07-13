@@ -16,7 +16,7 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import org.springblade.modules.iot.common.domain.R;
 import org.springblade.modules.iot.dm.device.service.impl.IoTProductDeviceService;
-import org.springblade.modules.iot.protocol.mqtt.entity.MQTTPublishMessage;
+import org.springblade.modules.iot.pojo.protocol.mqtt.MQTTPublishMessage;
 import org.springblade.modules.iot.protocol.mqtt.system.SysMQTTManager;
 import org.springblade.modules.iot.protocol.mqtt.third.ThirdMQTTServerManager;
 import java.util.HashMap;

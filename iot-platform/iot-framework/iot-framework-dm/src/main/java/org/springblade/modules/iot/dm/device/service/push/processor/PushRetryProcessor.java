@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.dm.device.service.push.processor;
 
-import org.springblade.modules.iot.dm.device.entity.IoTPushResult;
+import org.springblade.modules.iot.pojo.framework.entity.IoTPushResult;
 import org.springblade.modules.iot.dm.device.service.push.UPProcessor;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import jakarta.annotation.PreDestroy;

@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 import org.springframework.stereotype.Component;
 
 import cn.hutool.core.util.StrUtil;
-import org.springblade.modules.iot.protocol.websocket.entity.WebSocketUPRequest.MessageCategory;
+import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketUPRequest.MessageCategory;
 import lombok.extern.slf4j.Slf4j;
 
 /**

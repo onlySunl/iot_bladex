@@ -12,8 +12,8 @@
 
 package org.springblade.modules.iot.ossm.service;
 
-import org.springblade.modules.iot.ossm.entity.SysOss;
-import org.springblade.modules.iot.ossm.entity.bo.SysOssBo;
+import org.springblade.modules.iot.pojo.framework.entity.SysOss;
+import org.springblade.modules.iot.pojo.framework.bo.SysOssBo;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;

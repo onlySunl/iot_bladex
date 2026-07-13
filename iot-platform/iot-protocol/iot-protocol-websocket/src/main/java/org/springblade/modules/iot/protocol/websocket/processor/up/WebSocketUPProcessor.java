@@ -13,7 +13,7 @@
 package org.springblade.modules.iot.protocol.websocket.processor.up;
 
 import org.springblade.modules.iot.dm.device.service.plugin.BaseMessageProcessor;
-import org.springblade.modules.iot.protocol.websocket.entity.WebSocketUPRequest;
+import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketUPRequest;
 
 /**
  * WebSocket 上行处理器接口

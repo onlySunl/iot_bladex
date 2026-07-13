@@ -17,7 +17,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
-import org.springblade.modules.iot.protocol.websocket.entity.WebSocketUPRequest;
+import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketUPRequest;
 import org.springblade.modules.iot.protocol.websocket.processor.up.WebSocketUPProcessor;
 import lombok.extern.slf4j.Slf4j;
 

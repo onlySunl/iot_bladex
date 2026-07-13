@@ -16,7 +16,7 @@ import cn.hutool.core.util.StrUtil;
 import org.springblade.modules.iot.common.cache.annotation.MultiLevelCacheable;
 import org.springblade.modules.iot.common.cache.strategy.CacheStrategy;
 import org.springblade.modules.iot.common.enums.NetworkType;
-import org.springblade.modules.iot.protocol.mqtt.entity.MQTTProductConfig;
+import org.springblade.modules.iot.pojo.protocol.mqtt.MQTTProductConfig;
 import org.springblade.modules.iot.protocol.mqtt.system.SysMQTTStatusProvider;
 import org.springblade.modules.iot.pojo.entity.Network;
 import org.springblade.modules.iot.persistence.mapper.IoTProductMapper;

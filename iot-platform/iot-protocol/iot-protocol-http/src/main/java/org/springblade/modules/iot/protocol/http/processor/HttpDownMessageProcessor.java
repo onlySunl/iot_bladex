@@ -13,7 +13,7 @@
 package org.springblade.modules.iot.protocol.http.processor;
 
 import org.springblade.modules.iot.dm.device.service.plugin.BaseMessageProcessor;
-import org.springblade.modules.iot.protocol.http.entity.HttpDownRequest;
+import org.springblade.modules.iot.pojo.protocol.http.HttpDownRequest;
 
 /**
  * HTTP下行消息处理器接口

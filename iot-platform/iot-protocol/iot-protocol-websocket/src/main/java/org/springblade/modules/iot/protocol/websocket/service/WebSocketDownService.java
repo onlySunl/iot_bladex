@@ -21,7 +21,7 @@ import org.springblade.modules.iot.common.downlink.DownlinkInterceptorChain;
 import org.springblade.modules.iot.common.service.IDown;
 import org.springblade.modules.iot.dm.device.service.AbstractDownService;
 import org.springblade.modules.iot.protocol.websocket.config.WebSocketModuleInfo;
-import org.springblade.modules.iot.protocol.websocket.entity.WebSocketDownRequest;
+import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketDownRequest;
 import org.springblade.modules.iot.protocol.websocket.handle.WebSocketDownHandle;
 import org.springblade.modules.iot.protocol.websocket.processor.down.WebSocketDownProcessorChain;
 import jakarta.annotation.Resource;

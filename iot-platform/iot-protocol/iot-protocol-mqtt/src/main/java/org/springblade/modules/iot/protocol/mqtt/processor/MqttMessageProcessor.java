@@ -13,7 +13,7 @@
 package org.springblade.modules.iot.protocol.mqtt.processor;
 
 import org.springblade.modules.iot.dm.device.service.plugin.BaseMessageProcessor;
-import org.springblade.modules.iot.protocol.mqtt.entity.MQTTUPRequest;
+import org.springblade.modules.iot.pojo.protocol.mqtt.MQTTUPRequest;
 
 /**
  * MQTT消息处理器接口

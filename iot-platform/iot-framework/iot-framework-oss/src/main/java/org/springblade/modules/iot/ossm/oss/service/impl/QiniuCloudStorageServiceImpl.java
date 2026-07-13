@@ -11,7 +11,7 @@ package org.springblade.modules.iot.ossm.oss.service.impl;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import org.springblade.modules.iot.common.exception.IoTException;
-import org.springblade.modules.iot.ossm.oss.entity.UploadResult;
+import org.springblade.modules.iot.pojo.framework.entity.UploadResult;
 import org.springblade.modules.iot.ossm.oss.properties.CloudStorageProperties;
 import org.springblade.modules.iot.ossm.oss.service.ICloudStorageService;
 import com.qiniu.storage.Configuration;

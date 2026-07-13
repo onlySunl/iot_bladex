@@ -28,7 +28,7 @@ import org.springblade.modules.iot.pojo.entity.IoTDevice;
 import org.springblade.modules.iot.pojo.entity.SupportMapAreas;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceMapper;
 import org.springblade.modules.iot.persistence.mapper.SupportMapAreasMapper;
-import org.springblade.modules.iot.protocol.websocket.entity.WebSocketDownRequest;
+import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketDownRequest;
 import org.springblade.modules.iot.protocol.websocket.processor.down.WebSocketDownProcessorChain;
 import org.springblade.modules.iot.protocol.websocket.service.WebSocketSessionManager;
 import jakarta.annotation.Resource;

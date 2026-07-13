@@ -18,9 +18,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import org.springblade.modules.iot.dm.device.entity.IoTPushResult;
+import org.springblade.modules.iot.pojo.framework.entity.IoTPushResult;
 import org.springblade.modules.iot.dm.device.service.IoTUPPushAdapter;
-import org.springblade.modules.iot.protocol.websocket.entity.WebSocketUPRequest;
+import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketUPRequest;
 
 /**
  * WebSocket 上行消息处理类

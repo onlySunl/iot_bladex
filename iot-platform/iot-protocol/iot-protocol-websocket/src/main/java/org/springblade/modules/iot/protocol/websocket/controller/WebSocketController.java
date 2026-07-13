@@ -12,7 +12,7 @@
 
 package org.springblade.modules.iot.protocol.websocket.controller;
 
-import org.springblade.modules.iot.protocol.websocket.entity.WebSocketSession;
+import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketSession;
 import org.springblade.modules.iot.protocol.websocket.service.WebSocketSessionManager;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

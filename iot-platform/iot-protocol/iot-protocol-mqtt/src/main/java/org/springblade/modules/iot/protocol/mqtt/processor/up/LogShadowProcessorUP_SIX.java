@@ -12,7 +12,7 @@
 
 package org.springblade.modules.iot.protocol.mqtt.processor.up;
 
-import org.springblade.modules.iot.protocol.mqtt.entity.MQTTUPRequest;
+import org.springblade.modules.iot.pojo.protocol.mqtt.MQTTUPRequest;
 import org.springblade.modules.iot.protocol.mqtt.processor.up.common.BaseLogShadowProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

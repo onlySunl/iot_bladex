@@ -19,7 +19,7 @@ import org.springblade.modules.iot.common.metadata.AbstractEventMetadata;
 import org.springblade.modules.iot.common.metadata.DeviceMetadata;
 import org.springblade.modules.iot.dm.device.service.AbstratIoTService;
 import org.springblade.modules.iot.dm.device.service.action.IoTDeviceActionAfterService;
-import org.springblade.modules.iot.protocol.http.entity.HttpUPRequest;
+import org.springblade.modules.iot.pojo.protocol.http.HttpUPRequest;
 import org.springblade.modules.iot.protocol.http.processor.HttpUPMessageProcessor;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
 import org.springblade.modules.iot.pojo.entity.IoTDeviceSubscribe;

@@ -16,7 +16,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import org.springblade.modules.iot.common.constant.IoTConstant.DownCmd;
 import org.springblade.modules.iot.common.domain.R;
-import org.springblade.modules.iot.protocol.http.entity.HttpDownRequest;
+import org.springblade.modules.iot.pojo.protocol.http.HttpDownRequest;
 import org.springblade.modules.iot.protocol.http.processor.HttpDownMessageProcessor;
 import org.springblade.modules.iot.protocol.http.protocol.codec.HTTPCodecAction;
 import jakarta.annotation.Resource;

@@ -14,7 +14,7 @@ package org.springblade.modules.iot.dm.device.service.push;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.extra.spring.SpringUtil;
-import org.springblade.modules.iot.dm.device.entity.IoTPushResult;
+import org.springblade.modules.iot.pojo.framework.entity.IoTPushResult;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import java.util.ArrayList;
 import java.util.Comparator;

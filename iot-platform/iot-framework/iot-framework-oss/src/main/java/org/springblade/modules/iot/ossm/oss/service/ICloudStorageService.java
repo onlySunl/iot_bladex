@@ -12,7 +12,7 @@
 
 package org.springblade.modules.iot.ossm.oss.service;
 
-import org.springblade.modules.iot.ossm.oss.entity.UploadResult;
+import org.springblade.modules.iot.pojo.framework.entity.UploadResult;
 import java.io.InputStream;
 
 /** 云存储服务接口 @Author Lion Li */

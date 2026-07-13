@@ -13,7 +13,7 @@
 package org.springblade.modules.iot.ossm.oss.service.impl;
 
 import cn.hutool.core.util.StrUtil;
-import org.springblade.modules.iot.ossm.oss.entity.UploadResult;
+import org.springblade.modules.iot.pojo.framework.entity.UploadResult;
 import org.springblade.modules.iot.ossm.oss.enumd.CloudServiceEnumd;
 import org.springblade.modules.iot.ossm.oss.exception.OssException;
 import org.springblade.modules.iot.ossm.oss.factory.OssFactory;

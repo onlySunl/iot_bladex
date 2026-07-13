@@ -22,7 +22,7 @@ import org.springblade.modules.iot.common.constant.IoTConstant.MessageType;
 import org.springblade.modules.iot.core.message.UPRequest;
 import org.springblade.modules.iot.core.metadata.AbstractPropertyMetadata;
 import org.springblade.modules.iot.core.metadata.PropertyMode;
-import org.springblade.modules.iot.dm.device.entity.IoTDevicePropertiesBO;
+import org.springblade.modules.iot.pojo.framework.bo.IoTDevicePropertiesBO;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
 import org.springblade.modules.iot.persistence.dto.LogStorePolicyDTO;
 import org.springblade.modules.iot.pojo.entity.IoTDeviceShadow;

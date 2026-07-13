@@ -17,7 +17,7 @@ import cn.hutool.http.Header;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
-import org.springblade.modules.iot.dm.device.entity.IoTPushResult;
+import org.springblade.modules.iot.pojo.framework.entity.IoTPushResult;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import org.springblade.modules.iot.pojo.entity.IoTDeviceSubscribe;
 import com.github.benmanes.caffeine.cache.Cache;
