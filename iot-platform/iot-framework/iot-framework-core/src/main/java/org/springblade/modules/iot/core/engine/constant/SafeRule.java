@@ -4,18 +4,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/**
- * @Author gitee.com/NexIoT
- *
- * @version 1.0
- * @since 2023/5/19
- */
 
-/**
- * @author gitee.com/NexIoT
- * @version 1.0
- * @since 2023/5/19
- */
+
+
 public class SafeRule {
 
   public static Set<String> packages =
