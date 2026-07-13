@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.protocol.websocket.processor.up.thingmodel;
+import org.springblade.modules.iot.common.enums.MessageType;
 import MessageType;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.common.enums;
 
-enum CommandType {
+public enum CommandType {
 /** 开始升级 */
 START_UPGRADE("开始升级"),
 

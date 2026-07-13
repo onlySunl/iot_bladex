@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.common.enums;
 
-enum DeviceStatus {
+public enum DeviceStatus {
 ONLINE, // 在线
 OFFLINE, // 离线
 INACTIVE, // 不活跃

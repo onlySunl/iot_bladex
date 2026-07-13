@@ -1,4 +1,7 @@
 package org.springblade.modules.iot.databridge.plugin.mqtt;
+import org.springblade.modules.iot.common.enums.SourceScope;
+import org.springblade.modules.iot.common.enums.MessageType;
+import org.springblade.modules.iot.common.enums.DataDirection;
 import MessageType;
 import DataDirection;
 

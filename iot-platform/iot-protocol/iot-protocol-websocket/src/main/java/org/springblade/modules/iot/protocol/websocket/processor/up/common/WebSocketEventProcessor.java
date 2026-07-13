@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.protocol.websocket.processor.up.common;
+import org.springblade.modules.iot.common.enums.MessageType;
 
 import java.time.LocalDateTime;
 

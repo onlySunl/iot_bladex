@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.protocol.mqtt.processor.up.thingmodel;
+import org.springblade.modules.iot.common.enums.MessageType;
 import MessageType;
 
 import cn.hutool.json.JSONObject;

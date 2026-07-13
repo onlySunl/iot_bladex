@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.pojo.protocol.mqtt;
+import org.springblade.modules.iot.common.enums.ProcessingStage;
 
 import org.springblade.modules.iot.protocol.mqtt.config.MqttConstant;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;

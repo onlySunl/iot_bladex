@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.common.enums;
 
-enum MessageType {
+public enum MessageType {
 // 属性
 properties,
 // 事件

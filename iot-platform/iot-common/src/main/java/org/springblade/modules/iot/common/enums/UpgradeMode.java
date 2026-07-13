@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.common.enums;
 
-enum UpgradeMode {
+public enum UpgradeMode {
 /** 普通模式（下载完成后升级） */
 NORMAL("普通模式"),
 

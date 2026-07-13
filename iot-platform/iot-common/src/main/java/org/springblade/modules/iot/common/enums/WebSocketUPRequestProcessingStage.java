@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.common.enums;
 
-enum WebSocketUPRequestProcessingStage {
+public enum WebSocketUPRequestProcessingStage {
 /** 初始化 */
 INIT,
 /** 已认证 */

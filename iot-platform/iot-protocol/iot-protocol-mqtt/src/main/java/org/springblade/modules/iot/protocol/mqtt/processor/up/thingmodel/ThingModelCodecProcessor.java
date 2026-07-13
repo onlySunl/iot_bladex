@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.protocol.mqtt.processor.up.thingmodel;
+import org.springblade.modules.iot.common.enums.ProcessingStage;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;

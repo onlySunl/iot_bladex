@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.pojo.framework.entity;
+import org.springblade.modules.iot.common.enums.PushStatus;
 
 import java.time.LocalDateTime;
 import lombok.Builder;

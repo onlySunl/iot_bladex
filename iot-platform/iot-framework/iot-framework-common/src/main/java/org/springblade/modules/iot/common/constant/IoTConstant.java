@@ -1,6 +1,8 @@
 
 
 package org.springblade.modules.iot.common.constant;
+import org.springblade.modules.iot.common.enums.MessageType;
+import org.springblade.modules.iot.common.enums.DeviceStatus;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;

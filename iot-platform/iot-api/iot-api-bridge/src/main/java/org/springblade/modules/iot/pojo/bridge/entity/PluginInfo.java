@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.pojo.bridge.entity;
+import org.springblade.modules.iot.common.enums.DataDirection;
 
 import java.util.List;
 import lombok.AllArgsConstructor;

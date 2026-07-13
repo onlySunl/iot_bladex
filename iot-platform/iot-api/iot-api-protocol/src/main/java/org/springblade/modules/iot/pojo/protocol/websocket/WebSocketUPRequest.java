@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.pojo.protocol.websocket;
+import org.springblade.modules.iot.common.enums.ProcessingStage;
 
 import java.util.List;
 import java.util.Map;

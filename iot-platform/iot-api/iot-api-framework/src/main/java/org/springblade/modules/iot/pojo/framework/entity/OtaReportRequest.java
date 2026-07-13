@@ -1,6 +1,9 @@
 
 
 package org.springblade.modules.iot.pojo.framework.entity;
+import org.springblade.modules.iot.common.enums.UpgradeStatus;
+import org.springblade.modules.iot.common.enums.ReportType;
+import org.springblade.modules.iot.common.enums.DeviceStatus;
 
 import java.time.LocalDateTime;
 import java.util.Map;

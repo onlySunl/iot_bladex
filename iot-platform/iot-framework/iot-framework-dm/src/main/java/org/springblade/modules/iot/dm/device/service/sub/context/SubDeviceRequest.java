@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.dm.device.service.sub.context;
+import org.springblade.modules.iot.common.enums.ProcessingStage;
 
 import org.springblade.modules.iot.core.message.SubDevice;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;

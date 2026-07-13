@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.rule.scene.deviceUp;
+import org.springblade.modules.iot.common.enums.MessageType;
 import MessageType;
 
 import org.springblade.modules.iot.common.constant.IoTConstant;

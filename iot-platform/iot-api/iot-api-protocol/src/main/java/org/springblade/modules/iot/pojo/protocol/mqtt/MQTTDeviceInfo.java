@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.pojo.protocol.mqtt;
+import org.springblade.modules.iot.common.enums.DeviceStatus;
 
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;

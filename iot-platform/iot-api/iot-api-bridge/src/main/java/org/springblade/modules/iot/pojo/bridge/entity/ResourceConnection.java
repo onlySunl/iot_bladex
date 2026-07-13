@@ -1,6 +1,9 @@
 
 
 package org.springblade.modules.iot.pojo.bridge.entity;
+import org.springblade.modules.iot.common.enums.ResourceType;
+import org.springblade.modules.iot.common.enums.Direction;
+import org.springblade.modules.iot.common.enums.DataDirection;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;

@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.protocol.common.message;
+import org.springblade.modules.iot.common.enums.MessageType;
 
 import lombok.Data;
 import java.io.Serializable;

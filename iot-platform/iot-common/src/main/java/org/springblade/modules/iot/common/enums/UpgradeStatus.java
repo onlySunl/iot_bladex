@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.common.enums;
 
-enum UpgradeStatus {
+public enum UpgradeStatus {
 /** 空闲状态 */
 IDLE("空闲"),
 

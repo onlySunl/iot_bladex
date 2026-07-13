@@ -1,6 +1,9 @@
 
 
 package org.springblade.modules.iot.pojo.bo;
+import org.springblade.modules.iot.common.enums.TriggerType;
+import org.springblade.modules.iot.common.enums.Operator;
+import org.springblade.modules.iot.common.enums.ExecTriggerType;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;

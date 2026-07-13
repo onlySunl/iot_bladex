@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.protocol.websocket.route;
+import org.springblade.modules.iot.common.enums.MessageCategory;
 import MessageCategory;
 
 import java.util.Map;

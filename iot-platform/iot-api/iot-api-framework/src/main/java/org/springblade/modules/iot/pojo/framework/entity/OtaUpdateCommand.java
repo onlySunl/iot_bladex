@@ -1,6 +1,8 @@
 
 
 package org.springblade.modules.iot.pojo.framework.entity;
+import org.springblade.modules.iot.common.enums.UpgradeMode;
+import org.springblade.modules.iot.common.enums.CommandType;
 
 import java.time.LocalDateTime;
 import java.util.Map;

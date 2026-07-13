@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.common.enums;
 
-enum DataDirection {
+public enum DataDirection {
 /** 仅数据输入（从外部系统拉取数据） */
 INPUT("INPUT", "数据输入"),
 

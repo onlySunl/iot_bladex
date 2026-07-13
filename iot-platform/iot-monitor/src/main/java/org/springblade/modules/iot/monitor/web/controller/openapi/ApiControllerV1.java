@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.monitor.web.controller.openapi;
+import org.springblade.modules.iot.common.enums.MessageType;
 import MessageType;
 
 import static org.springblade.modules.iot.common.constant.IoTConstant.DownCmd.DEV_FUNCTION;

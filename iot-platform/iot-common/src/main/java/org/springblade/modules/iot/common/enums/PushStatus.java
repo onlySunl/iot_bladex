@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.common.enums;
 
-enum PushStatus {
+public enum PushStatus {
 SUCCESS("成功"),
 FAILED("失败"),
 RETRYING("重试中"),

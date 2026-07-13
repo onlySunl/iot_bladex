@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.common.enums;
 
-enum MessageCategory {
+public enum MessageCategory {
 /** 认证消息 */
 AUTH,
 /** 事件消息 */

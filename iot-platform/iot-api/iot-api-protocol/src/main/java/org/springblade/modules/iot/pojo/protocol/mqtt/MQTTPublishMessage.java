@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.pojo.protocol.mqtt;
+import org.springblade.modules.iot.common.enums.MessageStatus;
 
 import cn.hutool.core.util.StrUtil;
 import java.nio.charset.StandardCharsets;

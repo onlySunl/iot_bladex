@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.common.enums;
 
-enum Operator {
+public enum Operator {
 eq("=="),
 not("!="),
 gt(">"),

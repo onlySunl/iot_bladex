@@ -1,6 +1,8 @@
 
 
 package org.springblade.modules.iot.databridge.core.service;
+import org.springblade.modules.iot.common.enums.SourceScope;
+import org.springblade.modules.iot.common.enums.BridgeType;
 import SourceScope;
 import BridgeType;
 

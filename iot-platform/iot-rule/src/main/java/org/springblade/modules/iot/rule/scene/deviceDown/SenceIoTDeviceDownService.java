@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.rule.scene.deviceDown;
+import org.springblade.modules.iot.common.enums.ExecTriggerType;
 import ExecTriggerType;
 
 import cn.hutool.core.bean.BeanUtil;

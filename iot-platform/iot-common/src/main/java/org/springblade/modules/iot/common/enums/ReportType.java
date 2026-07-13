@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.common.enums;
 
-enum ReportType {
+public enum ReportType {
 /** 固件信息上报 */
 FIRMWARE_INFO("固件信息上报"),
 

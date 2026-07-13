@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.common.enums;
 
-enum BridgeType {
+public enum BridgeType {
 JDBC,
 KAFKA,
 IOTDB,

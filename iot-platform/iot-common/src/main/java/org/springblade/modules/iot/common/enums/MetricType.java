@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.common.enums;
 
-enum MetricType {
+public enum MetricType {
 DEVICE_TOTAL("device_total", "设备总数"),
 DEVICE_ONLINE("device_online", "在线设备数"),
 MESSAGE_TOTAL("message_total", "消息总数"),

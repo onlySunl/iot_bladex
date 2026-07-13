@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.dm.device.service.impl;
+import org.springblade.modules.iot.common.enums.MessageType;
 import MessageType;
 
 import cn.hutool.core.collection.CollectionUtil;

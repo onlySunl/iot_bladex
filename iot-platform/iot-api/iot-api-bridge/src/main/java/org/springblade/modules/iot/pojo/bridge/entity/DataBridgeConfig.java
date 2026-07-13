@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.pojo.bridge.entity;
+import org.springblade.modules.iot.common.enums.BridgeType;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
