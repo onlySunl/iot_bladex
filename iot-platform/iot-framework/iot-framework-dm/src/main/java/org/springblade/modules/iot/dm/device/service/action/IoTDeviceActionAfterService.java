@@ -1,13 +1,14 @@
 
 
 package org.springblade.modules.iot.dm.device.service.action;
+import MessageType;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.springblade.modules.iot.common.constant.IoTConstant.DevLifeCycle;
-import org.springblade.modules.iot.common.constant.IoTConstant.MessageType;
+import org.springblade.modules.iot.common.constant.MessageType;
 import org.springblade.modules.iot.core.message.DownRequest;
 import org.springblade.modules.iot.core.metadata.AbstractEventMetadata;
 import org.springblade.modules.iot.core.metadata.AbstractFunctionMetadata;

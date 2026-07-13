@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.protocol.http.codec;
+package org.springblade.modules.iot.protocol.http.protocol.codec;
 
 import cn.hutool.core.util.StrUtil;
 import org.springblade.modules.iot.common.exception.CodecException;
@@ -6,8 +6,8 @@ import org.springblade.modules.iot.common.exception.IoTException;
 import org.springblade.modules.iot.common.protocol.support.ProtocolSupportDefinition;
 import org.springblade.modules.iot.dm.device.service.impl.IoTProductDeviceService;
 import org.springblade.modules.iot.protocol.http.enums.HTTPCodecMethod;
-import org.springblade.modules.iot.protocol.http.protocol.HTTPProtocolSupportDefinition;
-import org.springblade.modules.iot.protocol.http.protocol.HTTPProtocolUniversalCodec;
+import org.springblade.modules.iot.protocol.http.HTTPProtocolSupportDefinition;
+import org.springblade.modules.iot.protocol.http.HTTPProtocolUniversalCodec;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceProtocolMapper;
 import jakarta.annotation.Resource;
 import java.util.Map;

@@ -1,9 +1,10 @@
 
 
 package org.springblade.modules.iot.protocol.mqtt.processor.up.thingmodel;
+import MessageType;
 
 import cn.hutool.json.JSONObject;
-import org.springblade.modules.iot.common.constant.IoTConstant.MessageType;
+import org.springblade.modules.iot.common.constant.MessageType;
 import org.springblade.modules.iot.dm.device.service.AbstratIoTService;
 import org.springblade.modules.iot.protocol.mqtt.config.MqttConstant;
 import org.springblade.modules.iot.protocol.mqtt.config.MqttConstant.TopicCategory;

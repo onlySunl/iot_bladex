@@ -1,10 +1,11 @@
 
 
 package org.springblade.modules.iot.core.message;
+import MessageType;
 
 import cn.hutool.json.JSONObject;
 import org.springblade.modules.iot.common.constant.IoTConstant.DeviceNode;
-import org.springblade.modules.iot.common.constant.IoTConstant.MessageType;
+import org.springblade.modules.iot.common.constant.MessageType;
 import java.io.Serializable;
 import java.util.Map;
 import lombok.AllArgsConstructor;

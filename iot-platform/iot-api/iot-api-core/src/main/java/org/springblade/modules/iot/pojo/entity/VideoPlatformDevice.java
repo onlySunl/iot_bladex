@@ -138,11 +138,9 @@ public class VideoPlatformDevice extends CustomBaseEntity {
   @TableField(value = "create_time")
   @AutoColumn(comment = "创建时间", defaultValueType = DefaultValueEnum.NULL)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  private Date createTime;
 
   /** 更新时间 */
   @TableField(value = "update_time")
   @AutoColumn(comment = "更新时间", defaultValueType = DefaultValueEnum.NULL)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  private Date updateTime;
 }

@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.pojo.framework.bo;
+package org.springblade.modules.iot.pojo.framework.entity;
 
 import java.time.LocalDateTime;
 import lombok.Builder;
@@ -61,23 +61,6 @@ public class IoTPushResult {
   private String requestId;
 
   /** 推送状态枚举 */
-  public enum PushStatus {
-    SUCCESS("成功"),
-    FAILED("失败"),
-    RETRYING("重试中"),
-    TIMEOUT("超时"),
-    CANCELLED("已取消");
-
-    private final String description;
-
-    PushStatus(String description) {
-      this.description = description;
-    }
-
-    public String getDescription() {
-      return description;
-    }
-  }
 
   /** 创建成功结果 */
   public static IoTPushResult success(

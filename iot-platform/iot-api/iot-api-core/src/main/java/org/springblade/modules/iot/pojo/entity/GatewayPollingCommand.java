@@ -111,13 +111,7 @@ public class GatewayPollingCommand extends CustomBaseEntity {
 
   /** 创建时间 */
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  @TableField(value = "create_time")
-  @AutoColumn(comment = "创建时间", defaultValueType = DefaultValueEnum.NULL)
-  private Date createTime;
 
   /** 更新时间 */
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  @TableField(value = "update_time")
-  @AutoColumn(comment = "更新时间", defaultValueType = DefaultValueEnum.NULL)
-  private Date updateTime;
 }

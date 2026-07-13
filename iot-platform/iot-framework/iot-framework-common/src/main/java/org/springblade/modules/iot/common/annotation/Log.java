@@ -3,7 +3,7 @@
 package org.springblade.modules.iot.common.annotation;
 
 import org.springblade.modules.iot.common.enums.BusinessType;
-import org.springblade.modules.iot.common.enums.OperatorType;
+import OperatorType;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

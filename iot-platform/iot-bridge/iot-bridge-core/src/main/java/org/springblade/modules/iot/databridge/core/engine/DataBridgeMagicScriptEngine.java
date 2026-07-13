@@ -1,12 +1,12 @@
 
 
-package org.springblade.modules.iot.databridge.engine;
+package org.springblade.modules.iot.databridge.core.engine;
 
 import cn.hutool.core.util.StrUtil;
 import org.springblade.modules.iot.common.engine.MagicScript;
 import org.springblade.modules.iot.common.engine.MagicScriptContext;
-import org.springblade.modules.iot.databridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.databridge.entity.ResourceConnection;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

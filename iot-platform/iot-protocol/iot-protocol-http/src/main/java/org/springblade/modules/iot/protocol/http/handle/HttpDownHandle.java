@@ -1,11 +1,12 @@
 
 
 package org.springblade.modules.iot.protocol.http.handle;
+import DeviceStatus;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import org.springblade.modules.iot.common.constant.IoTConstant;
-import org.springblade.modules.iot.common.constant.IoTConstant.DeviceStatus;
+import org.springblade.modules.iot.common.constant.DeviceStatus;
 import org.springblade.modules.iot.common.constant.IoTConstant.ERROR_CODE;
 import org.springblade.modules.iot.common.domain.R;
 import org.springblade.modules.iot.common.utils.DelayedTaskUtil;

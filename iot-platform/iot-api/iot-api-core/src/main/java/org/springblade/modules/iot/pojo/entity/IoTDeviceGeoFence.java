@@ -31,19 +31,12 @@ public class IoTDeviceGeoFence extends CustomBaseEntity {
 
   @Id
   @KeySql(genId = SQenGenId.class)
-@TableField(value = "id")
-@AutoColumn(comment = "id", defaultValueType = DefaultValueEnum.NULL)
-  private Long id;
 
   /** 围栏名称 */
 @TableField(value = "name")
 @AutoColumn(comment = "围栏名称", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String name;
 
-  /** 围栏状态 0.启用 1.停用 */
-@TableField(value = "status")
-@AutoColumn(comment = "围栏状态 0.启用 1.停用", defaultValueType = DefaultValueEnum.NULL)
-  private Integer status;
 
   /** 触发模式 in.进入 out.离开 all.进入&离开 */
 @TableField(value = "touch_way")

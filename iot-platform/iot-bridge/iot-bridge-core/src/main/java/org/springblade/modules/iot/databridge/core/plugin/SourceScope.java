@@ -1,6 +1,6 @@
 
 
-package org.springblade.modules.iot.databridge.plugin;
+package org.springblade.modules.iot.databridge.core.plugin;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

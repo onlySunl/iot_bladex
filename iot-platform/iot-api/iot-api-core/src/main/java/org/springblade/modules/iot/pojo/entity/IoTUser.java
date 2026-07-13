@@ -72,7 +72,6 @@ public class IoTUser extends CustomBaseEntity {
 
   /** 账号状态（0正常，1停用） */
   @Excel(name = "账号状态（0正常，1停用")
-  private String status;
 
   /** 头像 */
   @Excel(name = "头像")
@@ -102,7 +101,6 @@ public class IoTUser extends CustomBaseEntity {
   @TableField(value = "create_by")
   @AutoColumn(comment = "创建者", length = 255, defaultValueType = DefaultValueEnum.NULL)
   @Excel(name = "创建者")
-  private String createBy;
 
   /** 创建时间 */
 @TableField(value = "create_date")
@@ -113,7 +111,6 @@ public class IoTUser extends CustomBaseEntity {
   @TableField(value = "update_by")
   @AutoColumn(comment = "updateBy", length = 255, defaultValueType = DefaultValueEnum.NULL)
   @Excel(name = "更新者")
-  private String updateBy;
 
 @TableField(value = "update_date")
   @Excel(name = "更新时间")

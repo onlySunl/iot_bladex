@@ -26,7 +26,6 @@ public class IoTDeviceGroup extends CustomBaseEntity {
 
   /** 分组ID，非自增 */
   @KeySql(genId = SQenGenId.class)
-  private Long id;
 
   /** 分组名称 */
   @TableField(value = "group_name")

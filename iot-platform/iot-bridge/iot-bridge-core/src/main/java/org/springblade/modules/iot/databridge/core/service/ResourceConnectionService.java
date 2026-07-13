@@ -1,18 +1,20 @@
 
 
-package org.springblade.modules.iot.databridge.service;
+package org.springblade.modules.iot.databridge.core.service;
+import ResourceType;
+import Direction;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.springblade.modules.iot.common.cache.annotation.MultiLevelCacheable;
-import org.springblade.modules.iot.databridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.databridge.entity.ResourceConnection;
-import org.springblade.modules.iot.databridge.mapper.ResourceConnectionMapper;
-import org.springblade.modules.iot.databridge.util.ConfigValidator;
-import org.springblade.modules.iot.databridge.util.ConnectionTester;
-import org.springblade.modules.iot.databridge.util.ConnectionTester.ConnectionTestResult;
-import org.springblade.modules.iot.databridge.util.ResourceConnectionUtils;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
+import org.springblade.modules.iot.databridge.core.mapper.ResourceConnectionMapper;
+import org.springblade.modules.iot.databridge.core.util.ConfigValidator;
+import org.springblade.modules.iot.databridge.core.util.ConnectionTester;
+import org.springblade.modules.iot.databridge.core.util.ConnectionTester.ConnectionTestResult;
+import org.springblade.modules.iot.databridge.core.util.ResourceConnectionUtils;
 import jakarta.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -131,13 +133,13 @@ public class ResourceConnectionService {
   }
 
   /** 根据类型获取活跃连接 */
-  public List<ResourceConnection> getActiveConnectionsByType(ResourceConnection.ResourceType type) {
+  public List<ResourceConnection> getActiveConnectionsByType(ResourceType type) {
     return resourceConnectionMapper.selectActiveConnectionsByType(type.name());
   }
 
   /** 根据方向获取资源连接列表 */
   public List<ResourceConnection> getConnectionsByDirection(
-      ResourceConnection.Direction direction) {
+      Direction direction) {
     ResourceConnection condition = new ResourceConnection();
     condition.setDirection(direction);
     condition.setStatus(1); // 只查询启用的连接

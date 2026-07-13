@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.dm.device.service.sub.processor;
+import ProcessingStage;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
@@ -85,7 +86,7 @@ public class SubDeviceCodecProcessor extends AbstratIoTService
 
       request.setContextValue("codecProcessedCount", upRequestList.size());
       request.setContextValue("codecProcessed", true);
-      request.setStage(SubDeviceRequest.ProcessingStage.DECODED);
+      request.setStage(ProcessingStage.DECODED);
 
       log.debug("[{}] 子设备编解码处理器完成，生成请求数量: {}", getName(), upRequestList.size());
       return ProcessorResult.CONTINUE;
@@ -140,12 +141,12 @@ public class SubDeviceCodecProcessor extends AbstratIoTService
         }
         request.setContextValue("codecSuccess", true);
         request.setContextValue("codecType", "SUB_DEVICE_PRODUCT_CODEC");
-        request.setStage(SubDeviceRequest.ProcessingStage.PROTOCOL_DECODED);
+        request.setStage(ProcessingStage.PROTOCOL_DECODED);
         return upRequestList;
       } else {
         log.debug("[{}] 子设备产品编解码器未返回解码结果", getName());
         request.setContextValue("codecSuccess", false);
-        request.setStage(SubDeviceRequest.ProcessingStage.DECODED);
+        request.setStage(ProcessingStage.DECODED);
         JSONObject jsonObject = new JSONObject();
         if (JSONUtil.isTypeJSON(request.getPayload())) {
           jsonObject = JSONUtil.parseObj(request.getPayload());

@@ -6,7 +6,7 @@ import org.springblade.modules.iot.common.event.ProtocolUpdatedEvent;
 import org.springblade.modules.iot.common.protocol.jar.ProtocolCodecJar;
 import org.springblade.modules.iot.common.protocol.jscrtipt.ProtocolCodecJscript;
 import org.springblade.modules.iot.common.protocol.magic.ProtocolCodecMagic;
-import org.springblade.modules.iot.protocol.http.protocol.codec.HTTPAbstractCodec;
+import org.springblade.modules.iot.protocol.http.codec.HTTPAbstractCodec;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;

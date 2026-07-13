@@ -8,7 +8,7 @@ import org.springblade.modules.iot.common.constant.IoTConstant.DownCmd;
 import org.springblade.modules.iot.common.domain.R;
 import org.springblade.modules.iot.pojo.protocol.http.HttpDownRequest;
 import org.springblade.modules.iot.protocol.http.processor.HttpDownMessageProcessor;
-import org.springblade.modules.iot.protocol.http.protocol.codec.HTTPCodecAction;
+import org.springblade.modules.iot.protocol.http.codec.HTTPCodecAction;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

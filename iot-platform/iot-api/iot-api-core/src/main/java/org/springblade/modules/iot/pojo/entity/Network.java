@@ -49,10 +49,6 @@ public class Network extends CustomBaseEntity {
   /** 配置内容 */
   private String configuration;
 
-  /** 创建用户 */
-  @TableField(value = "create_user")
-  @AutoColumn(comment = "创建用户", length = 255, defaultValueType = DefaultValueEnum.NULL)
-  private String createUser;
 
   private static final long serialVersionUID = 1L;
 }

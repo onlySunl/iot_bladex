@@ -1,6 +1,6 @@
 
 
-package org.springblade.modules.iot.databridge.logger;
+package org.springblade.modules.iot.databridge.core.logger;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

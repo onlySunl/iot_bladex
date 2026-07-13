@@ -1,6 +1,8 @@
 
 
 package org.springblade.modules.iot.protocol.websocket.processor.up;
+import ProcessingStage;
+import MessageType;
 
 import java.util.ArrayList;
 import java.util.Base64;
@@ -75,7 +77,7 @@ public class WebSocketCodecProcessor extends AbstratIoTService implements WebSoc
                 request.setUpRequestList(upRequestList);
                 request.setContextValue("codecProcessedCount", upRequestList.size());
                 request.setContextValue("codecProcessed", true);
-                request.setStage(WebSocketUPRequest.ProcessingStage.DECODED);
+                request.setStage(ProcessingStage.DECODED);
                 log.debug("[{}] 编解码处理完成，生成请求数量: {}, 已设置到request.upRequestList", getName(), upRequestList.size());
             } else {
                 log.debug("[{}] 未使用产品编解码器，保持原始消息", getName());
@@ -299,7 +301,7 @@ public class WebSocketCodecProcessor extends AbstratIoTService implements WebSoc
                 if (codecResult.getMessageType() != null) {
                     builder.messageType(codecResult.getMessageType());
                 } else {
-                    builder.messageType(IoTConstant.MessageType.PROPERTIES);  // 默认为属性消息
+                    builder.messageType(MessageType.PROPERTIES);  // 默认为属性消息
                 }
                 
                 buildCodecNotNullBean(messageJson, deviceDTO, codecResult, builder);
@@ -318,7 +320,7 @@ public class WebSocketCodecProcessor extends AbstratIoTService implements WebSoc
                         .deviceId(resolvedDeviceId)       // 使用正确解析的deviceId
                         .productKey(productKey)
                         .deviceName(request.getDeviceName())
-                        .messageType(codecResult.getMessageType() != null ? codecResult.getMessageType() : IoTConstant.MessageType.PROPERTIES);
+                        .messageType(codecResult.getMessageType() != null ? codecResult.getMessageType() : MessageType.PROPERTIES);
                 
                 // 直接设置编解码器返回的properties和data，不调用buildCodecNotNullBean
                 if (codecResult.getProperties() != null && !codecResult.getProperties().isEmpty()) {

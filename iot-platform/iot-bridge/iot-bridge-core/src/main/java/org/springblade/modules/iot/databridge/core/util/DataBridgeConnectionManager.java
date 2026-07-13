@@ -9,9 +9,9 @@
  *
  */
 
-package org.springblade.modules.iot.databridge.util;
+package org.springblade.modules.iot.databridge.core.util;
 
-import org.springblade.modules.iot.databridge.entity.ResourceConnection;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import java.util.concurrent.ConcurrentHashMap;

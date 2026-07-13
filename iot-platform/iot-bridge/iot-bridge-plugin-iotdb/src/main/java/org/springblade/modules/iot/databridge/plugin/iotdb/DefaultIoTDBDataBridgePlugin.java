@@ -1,10 +1,11 @@
 
 
 package org.springblade.modules.iot.databridge.plugin.iotdb;
+import DataDirection;
 
-import org.springblade.modules.iot.databridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.databridge.entity.PluginInfo;
-import org.springblade.modules.iot.databridge.entity.ResourceConnection;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.PluginInfo;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 import org.springblade.modules.iot.databridge.plugin.AbstractDataOutputPlugin;
 import org.springblade.modules.iot.databridge.plugin.SourceScope;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
@@ -35,7 +36,7 @@ public class DefaultIoTDBDataBridgePlugin extends AbstractDataOutputPlugin {
         .author("gitee.com/NexIoT")
         .pluginType("IOTDB")
         .supportedResourceTypes(List.of("IOTDB"))
-        .dataDirection(PluginInfo.DataDirection.OUTPUT)
+        .dataDirection(DataDirection.OUTPUT)
         .category("时序数据库")
         .icon("database")
         .build();

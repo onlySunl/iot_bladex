@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.dm.device.service.log;
+import MessageType;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.CharsetUtil;
@@ -8,7 +9,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
-import org.springblade.modules.iot.common.constant.IoTConstant.MessageType;
+import org.springblade.modules.iot.common.constant.MessageType;
 import org.springblade.modules.iot.core.message.UPRequest;
 import org.springblade.modules.iot.core.metadata.AbstractPropertyMetadata;
 import org.springblade.modules.iot.pojo.framework.bo.IoTDevicePropertiesBO;

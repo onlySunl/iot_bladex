@@ -1,6 +1,6 @@
-package org.springblade.modules.iot.databridge.engine.dialect;
+package org.springblade.modules.iot.databridge.core.engine.dialect;
 
-import org.springblade.modules.iot.databridge.engine.SqlDialectAdapter;
+import org.springblade.modules.iot.databridge.core.engine.SqlDialectAdapter;
 import java.util.List;
 import java.util.stream.Collectors;
 

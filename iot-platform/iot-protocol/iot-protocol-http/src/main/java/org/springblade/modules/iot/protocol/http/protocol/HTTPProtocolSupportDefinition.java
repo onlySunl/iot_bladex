@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.protocol.http;
+package org.springblade.modules.iot.protocol.http.protocol;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

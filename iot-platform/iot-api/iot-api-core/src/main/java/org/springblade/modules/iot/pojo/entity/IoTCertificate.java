@@ -55,17 +55,8 @@ public class IoTCertificate extends CustomBaseEntity {
   @AutoColumn(comment = "remark", defaultValueType = DefaultValueEnum.NULL)
   private String remark;
 
-  @TableField(value = "create_time")
-  @AutoColumn(comment = "createTime", defaultValueType = DefaultValueEnum.NULL)
-  private Date createTime;
 
-  @TableField(value = "update_time")
-  @AutoColumn(comment = "updateTime", defaultValueType = DefaultValueEnum.NULL)
-  private Date updateTime;
 
-  @TableField(value = "create_user")
-  @AutoColumn(comment = "createUser", length = 255, defaultValueType = DefaultValueEnum.NULL)
-  private String createUser;
 
   @TableField(value = "cert_info")
   @AutoColumn(comment = "certInfo", length = 255, defaultValueType = DefaultValueEnum.NULL)

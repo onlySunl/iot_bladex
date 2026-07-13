@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.dm.device.service.sub.processor;
+import ProcessingStage;
 
 import org.springblade.modules.iot.dm.device.service.sub.context.SubDeviceRequest;
 import jakarta.annotation.PostConstruct;
@@ -99,7 +100,7 @@ public class SubDeviceProcessorChain {
             break;
           case STOP:
             log.debug("处理器 {} 处理完成，停止处理链", processor.getName());
-            context.setStage(SubDeviceRequest.ProcessingStage.COMPLETED);
+            context.setStage(ProcessingStage.COMPLETED);
             context.setSuccess(true);
             return ProcessResult.SUCCESS;
           case SKIP:
@@ -108,7 +109,7 @@ public class SubDeviceProcessorChain {
             break;
           case ERROR:
             log.error("处理器 {} 处理失败", processor.getName());
-            context.setStage(SubDeviceRequest.ProcessingStage.FAILED);
+            context.setStage(ProcessingStage.FAILED);
             context.setSuccess(false);
             return ProcessResult.ERROR;
         }
@@ -120,7 +121,7 @@ public class SubDeviceProcessorChain {
 
         // 如果是必需的处理器出错，停止处理链
         if (processor.isRequired()) {
-          context.setStage(SubDeviceRequest.ProcessingStage.FAILED);
+          context.setStage(ProcessingStage.FAILED);
           context.setSuccess(false);
           return ProcessResult.ERROR;
         }
@@ -128,7 +129,7 @@ public class SubDeviceProcessorChain {
     }
 
     // 所有处理器执行完成
-    context.setStage(SubDeviceRequest.ProcessingStage.COMPLETED);
+    context.setStage(ProcessingStage.COMPLETED);
     context.setSuccess(true);
 
     log.debug(

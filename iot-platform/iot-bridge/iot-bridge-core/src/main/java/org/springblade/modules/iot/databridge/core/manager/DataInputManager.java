@@ -1,16 +1,17 @@
 
 
-package org.springblade.modules.iot.databridge.manager;
+package org.springblade.modules.iot.databridge.core.manager;
+import Status;
 
 import cn.hutool.core.collection.CollectionUtil;
-import org.springblade.modules.iot.databridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.databridge.entity.DataInputLog;
-import org.springblade.modules.iot.databridge.entity.ResourceConnection;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.DataInputLog;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 import org.springblade.modules.iot.databridge.logger.DataBridgeLogger;
 import org.springblade.modules.iot.databridge.plugin.DataInputPlugin;
-import org.springblade.modules.iot.databridge.service.DataBridgeConfigService;
-import org.springblade.modules.iot.databridge.service.DataInputLogService;
-import org.springblade.modules.iot.databridge.service.ResourceConnectionService;
+import org.springblade.modules.iot.databridge.core.service.DataBridgeConfigService;
+import org.springblade.modules.iot.databridge.core.service.DataInputLogService;
+import org.springblade.modules.iot.databridge.core.service.ResourceConnectionService;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import jakarta.annotation.Resource;
 import java.time.LocalDateTime;
@@ -235,7 +236,7 @@ public class DataInputManager {
                 .failedCount(failedCount)
                 .errorMessage(errorMessage)
                 .executionTime(executionTime)
-                .status(failedCount > 0 ? DataInputLog.Status.FAILED : DataInputLog.Status.SUCCESS)
+                .status(failedCount > 0 ? Status.FAILED : Status.SUCCESS)
                 .createTime(LocalDateTime.now())
                 .createBy(config.getCreateBy())
                 .build();

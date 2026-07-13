@@ -31,7 +31,6 @@ public class IoTDashboardStatistics extends CustomBaseEntity {
   private static final long serialVersionUID = 1L;
 
   @KeySql(useGeneratedKeys = true)
-  private Long id;
 
   /** 统计日期 */
   @TableField(value = "stat_date")
@@ -58,40 +57,7 @@ public class IoTDashboardStatistics extends CustomBaseEntity {
   @AutoColumn(comment = "指标值", defaultValueType = DefaultValueEnum.NULL)
   private Long metricValue;
 
-  /** 创建时间 */
-  @TableField(value = "create_time")
-  @AutoColumn(comment = "创建时间", defaultValueType = DefaultValueEnum.NULL)
-  private LocalDateTime createTime;
 
-  /** 更新时间 */
-  @TableField(value = "update_time")
-  @AutoColumn(comment = "更新时间", defaultValueType = DefaultValueEnum.NULL)
-  private LocalDateTime updateTime;
 
   /** 指标类型枚举 */
-  public enum MetricType {
-    DEVICE_TOTAL("device_total", "设备总数"),
-    DEVICE_ONLINE("device_online", "在线设备数"),
-    MESSAGE_TOTAL("message_total", "消息总数"),
-    MESSAGE_SUCCESS("message_success", "成功消息数"),
-    MESSAGE_FAILED("message_failed", "失败消息数"),
-    MESSAGE_RETRY("message_retry", "重试消息数"),
-    MESSAGE_PUSH("message_push", "推送消息数");
-
-    private final String code;
-    private final String description;
-
-    MetricType(String code, String description) {
-      this.code = code;
-      this.description = description;
-    }
-
-    public String getCode() {
-      return code;
-    }
-
-    public String getDescription() {
-      return description;
-    }
-  }
 }

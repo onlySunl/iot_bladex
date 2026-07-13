@@ -70,10 +70,4 @@ public class Protocol extends CustomBaseEntity {
 	@ColumnType("text")
 	private String config;
 
-	/**
-	 * 状态: 0-禁用 1-启用
-	 */
-	@TableField(value = "status")
-	@AutoColumn(comment = "状态", defaultValueType = DefaultValueEnum.NULL)
-	private Integer status;
 }

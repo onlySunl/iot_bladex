@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.protocol.websocket.processor.up;
+import ProcessingStage;
 
 import org.springframework.stereotype.Component;
 
@@ -83,7 +84,7 @@ public class WebSocketPublishUPProcessor extends IoTUPPushAdapter<BaseUPRequest>
           getName(), request.getSessionId(), messageCount, elapsedTime, deviceInfo);
 
       // 标记阶段
-      request.setStage(WebSocketUPRequest.ProcessingStage.COMPLETED);
+      request.setStage(ProcessingStage.COMPLETED);
 
       return ProcessorResult.STOP; // 处理完成，停止后续处理器
     } catch (Exception e) {

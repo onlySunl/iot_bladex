@@ -1,6 +1,6 @@
 
 
-package org.springblade.modules.iot.databridge.exception;
+package org.springblade.modules.iot.databridge.core.exception;
 
 /**
  * 数据桥接异常

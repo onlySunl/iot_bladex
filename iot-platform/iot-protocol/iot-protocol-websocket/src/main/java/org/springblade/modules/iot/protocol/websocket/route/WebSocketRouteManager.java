@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.protocol.websocket.route;
+import MessageCategory;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -9,7 +10,7 @@ import java.util.regex.Pattern;
 import org.springframework.stereotype.Component;
 
 import cn.hutool.core.util.StrUtil;
-import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketUPRequest.MessageCategory;
+import org.springblade.modules.iot.pojo.protocol.websocket.MessageCategory;
 import lombok.extern.slf4j.Slf4j;
 
 /**

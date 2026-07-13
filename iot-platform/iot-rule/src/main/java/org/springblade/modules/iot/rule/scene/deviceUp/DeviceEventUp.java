@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.rule.scene.deviceUp;
+import MessageType;
 
 import org.springblade.modules.iot.common.constant.IoTConstant;
 import org.springblade.modules.iot.common.message.UPRequest;
@@ -18,7 +19,7 @@ public class DeviceEventUp extends AbstractDeviceUp implements DeviceUp {
 
   @Override
   public String messageType() {
-    return IoTConstant.MessageType.EVENT.name();
+    return MessageType.EVENT.name();
   }
 
   @Override

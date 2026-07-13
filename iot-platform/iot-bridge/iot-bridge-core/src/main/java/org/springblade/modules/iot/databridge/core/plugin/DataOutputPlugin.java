@@ -1,9 +1,9 @@
 
 
-package org.springblade.modules.iot.databridge.plugin;
+package org.springblade.modules.iot.databridge.core.plugin;
 
-import org.springblade.modules.iot.databridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.databridge.entity.ResourceConnection;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import java.util.List;
 

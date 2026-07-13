@@ -31,7 +31,6 @@ public class RuleModelInstance extends CustomBaseEntity {
 
   /** 主键ID */
   @KeySql(genId = SQenGenId.class)
-  private Long id;
 
   /** 模型id */
   @TableField(value = "model_id")

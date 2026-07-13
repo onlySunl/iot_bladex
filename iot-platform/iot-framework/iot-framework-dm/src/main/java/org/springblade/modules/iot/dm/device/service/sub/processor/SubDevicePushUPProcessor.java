@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.dm.device.service.sub.processor;
+import ProcessingStage;
 
 import cn.hutool.core.collection.CollUtil;
 import org.springblade.modules.iot.dm.device.service.IoTUPPushAdapter;
@@ -48,7 +49,7 @@ public class SubDevicePushUPProcessor extends IoTUPPushAdapter<BaseUPRequest> im
                 doUp(request.getUpRequestList());
             }
             // 4. 更新处理阶段
-            request.setStage(SubDeviceRequest.ProcessingStage.COMPLETED);
+            request.setStage(ProcessingStage.COMPLETED);
             log.debug("[{}] 子设备消息推送处理完成，设备: {}", getName(), request.getDeviceId());
             return ProcessorResult.STOP; // 处理完成，停止后续处理
         } catch (Exception e) {

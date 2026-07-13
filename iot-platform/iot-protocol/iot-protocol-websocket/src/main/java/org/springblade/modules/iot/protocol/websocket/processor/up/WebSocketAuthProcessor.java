@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.protocol.websocket.processor.up;
+import ProcessingStage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -98,7 +99,7 @@ public class WebSocketAuthProcessor implements WebSocketUPProcessor {
                     request.setIotId(deviceId);
                     request.setProductKey(productKey);
                     request.setDeviceName(deviceId);
-                    request.setStage(WebSocketUPRequest.ProcessingStage.AUTHENTICATED);
+                    request.setStage(ProcessingStage.AUTHENTICATED);
 
                     log.info("[WebSocket认证][成功] SessionID: {}, DeviceID: {}", 
                             request.getSessionId(), deviceId);

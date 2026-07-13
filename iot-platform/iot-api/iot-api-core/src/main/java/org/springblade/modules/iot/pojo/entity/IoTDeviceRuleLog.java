@@ -45,17 +45,8 @@ public class IoTDeviceRuleLog extends CustomBaseEntity {
   /** 条件 */
   private String conditions;
 
-  @TableField(value = "create_by")
-  @AutoColumn(comment = "条件", length = 255, defaultValueType = DefaultValueEnum.NULL)
-  private String createBy;
 
-  @TableField(value = "create_time")
-  @AutoColumn(comment = "createTime", defaultValueType = DefaultValueEnum.NULL)
-  private Date createTime;
 
-  @TableField(value = "update_time")
-  @AutoColumn(comment = "updateTime", defaultValueType = DefaultValueEnum.NULL)
-  private Date updateTime;
 
   @TableField(value = "c_device_meta")
   @AutoColumn(comment = "cDeviceMeta", length = 255, defaultValueType = DefaultValueEnum.NULL)

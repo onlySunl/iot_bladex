@@ -1,15 +1,17 @@
 package org.springblade.modules.iot.databridge.plugin.jdbc;
+import ResourceType;
+import DataDirection;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
-import org.springblade.modules.iot.databridge.engine.ParamSql;
-import org.springblade.modules.iot.databridge.engine.ParamTemplateEngine;
-import org.springblade.modules.iot.databridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.databridge.entity.PluginInfo;
-import org.springblade.modules.iot.databridge.entity.ResourceConnection;
+import org.springblade.modules.iot.databridge.core.engine.ParamSql;
+import org.springblade.modules.iot.databridge.core.engine.ParamTemplateEngine;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.PluginInfo;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 import org.springblade.modules.iot.databridge.plugin.AbstractDataOutputPlugin;
 import org.springblade.modules.iot.databridge.plugin.SourceScope;
-import org.springblade.modules.iot.databridge.util.DataBridgeConnectionManager;
+import org.springblade.modules.iot.databridge.core.util.DataBridgeConnectionManager;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -39,7 +41,7 @@ public class DefaultJdbcOutPlugin extends AbstractDataOutputPlugin {
         .author("gitee.com/NexIoT")
         .pluginType("JDBC")
         .supportedResourceTypes(List.of("MYSQL", "POSTGRESQL", "H2", "ORACLE", "SQLSERVER"))
-        .dataDirection(PluginInfo.DataDirection.OUTPUT)
+        .dataDirection(DataDirection.OUTPUT)
         .category("数据库")
         .icon("database")
         .build();
@@ -145,7 +147,7 @@ public class DefaultJdbcOutPlugin extends AbstractDataOutputPlugin {
   }
 
   private org.springblade.modules.iot.databridge.engine.SqlDialectAdapter getAdapter(
-      org.springblade.modules.iot.databridge.entity.ResourceConnection.ResourceType type) {
+      org.springblade.modules.iot.databridge.entity.ResourceType type) {
     switch (type) {
       case MYSQL:
       case H2:

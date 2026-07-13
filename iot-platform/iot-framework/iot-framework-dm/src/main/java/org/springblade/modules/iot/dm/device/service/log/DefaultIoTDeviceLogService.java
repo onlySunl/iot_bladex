@@ -14,13 +14,14 @@
  */
 
 package org.springblade.modules.iot.dm.device.service.log;
+import MessageType;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import org.springblade.modules.iot.common.constant.IoTConstant;
-import org.springblade.modules.iot.common.constant.IoTConstant.MessageType;
+import org.springblade.modules.iot.common.constant.MessageType;
 import org.springblade.modules.iot.dm.device.service.impl.IoTProductDeviceService;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;

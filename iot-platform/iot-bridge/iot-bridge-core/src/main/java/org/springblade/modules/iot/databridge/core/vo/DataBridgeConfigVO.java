@@ -1,8 +1,10 @@
 
 
-package org.springblade.modules.iot.databridge.vo;
+package org.springblade.modules.iot.databridge.core.vo;
+import SourceScope;
+import BridgeType;
 
-import org.springblade.modules.iot.databridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
 import org.springblade.modules.iot.pojo.bo.IoTProductBO;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -33,7 +35,7 @@ public class DataBridgeConfigVO implements Serializable {
   private String name;
 
   /** 源范围：ALL_PRODUCTS-所有产品，SPECIFIC_PRODUCTS-指定产品，APPLICATION-应用 */
-  private DataBridgeConfig.SourceScope sourceScope;
+  private SourceScope sourceScope;
 
   /** 源产品KEY列表JSON（当source_scope=SPECIFIC_PRODUCTS时使用） */
   private String sourceProductKeys;
@@ -54,7 +56,7 @@ public class DataBridgeConfigVO implements Serializable {
   private String targetResourceName;
 
   /** 桥接类型(JDBC,KAFKA,MQTT,HTTP,IOTDB,INFLUXDB等) */
-  private DataBridgeConfig.BridgeType bridgeType;
+  private BridgeType bridgeType;
 
   /** 模板内容（SQL、JSON等） */
   private String template;

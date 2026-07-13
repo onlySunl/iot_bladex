@@ -61,35 +61,6 @@ public class OtaUpdateCommand {
   private String protocol;
 
   /** 命令类型枚举 */
-  public enum CommandType {
-    /** 开始升级 */
-    START_UPGRADE("开始升级"),
-
-    /** 暂停升级 */
-    PAUSE_UPGRADE("暂停升级"),
-
-    /** 恢复升级 */
-    RESUME_UPGRADE("恢复升级"),
-
-    /** 取消升级 */
-    CANCEL_UPGRADE("取消升级"),
-
-    /** 重新开始升级 */
-    RESTART_UPGRADE("重新开始升级"),
-
-    /** 查询升级状态 */
-    QUERY_STATUS("查询升级状态");
-
-    private final String description;
-
-    CommandType(String description) {
-      this.description = description;
-    }
-
-    public String getDescription() {
-      return description;
-    }
-  }
 
   /** 固件信息 */
   @Data
@@ -189,26 +160,6 @@ public class OtaUpdateCommand {
   }
 
   /** 升级模式枚举 */
-  public enum UpgradeMode {
-    /** 普通模式（下载完成后升级） */
-    NORMAL("普通模式"),
-
-    /** 增量模式（差分升级） */
-    INCREMENTAL("增量模式"),
-
-    /** 流式模式（边下载边升级） */
-    STREAMING("流式模式");
-
-    private final String description;
-
-    UpgradeMode(String description) {
-      this.description = description;
-    }
-
-    public String getDescription() {
-      return description;
-    }
-  }
 
   /** 重试策略 */
   @Data

@@ -1,11 +1,12 @@
 package org.springblade.modules.iot.databridge.plugin.kafka;
+import DataDirection;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import org.springblade.modules.iot.databridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.databridge.entity.PluginInfo;
-import org.springblade.modules.iot.databridge.entity.ResourceConnection;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.PluginInfo;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 import org.springblade.modules.iot.databridge.plugin.AbstractDataOutputPlugin;
 import org.springblade.modules.iot.databridge.plugin.SourceScope;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
@@ -48,7 +49,7 @@ public class KafkaDataBridgePlugin extends AbstractDataOutputPlugin {
         .author("gitee.com/NexIoT")
         .pluginType("KAFKA")
         .supportedResourceTypes(List.of("KAFKA"))
-        .dataDirection(PluginInfo.DataDirection.BIDIRECTIONAL)
+        .dataDirection(DataDirection.BIDIRECTIONAL)
         .category("消息队列")
         .icon("message")
         .build();

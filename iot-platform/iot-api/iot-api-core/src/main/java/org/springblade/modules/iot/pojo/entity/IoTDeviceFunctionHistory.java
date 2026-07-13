@@ -27,9 +27,6 @@ public class IoTDeviceFunctionHistory extends CustomBaseEntity {
 
   @Id
   @KeySql(genId = SQenGenId.class)
-@TableField(value = "id")
-@AutoColumn(comment = "id", defaultValueType = DefaultValueEnum.NULL)
-  private Long id;
 
 @TableField(value = "iot_id")
 @AutoColumn(comment = "iotId", length = 128, defaultValueType = DefaultValueEnum.NULL)
@@ -59,9 +56,6 @@ public class IoTDeviceFunctionHistory extends CustomBaseEntity {
   private String downError;
 
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-@TableField(value = "update_time")
-@AutoColumn(comment = "updateTime", defaultValueType = DefaultValueEnum.NULL)
-  private Date updateTime;
 
 @TableField(value = "task_id")
 @AutoColumn(comment = "taskId", defaultValueType = DefaultValueEnum.NULL)

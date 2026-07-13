@@ -1,20 +1,21 @@
 
 
 package org.springblade.modules.iot.protocol.http.processor.up;
+import MessageType;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONObject;
 import org.springblade.modules.iot.common.constant.IoTConstant;
 import org.springblade.modules.iot.common.constant.IoTConstant.DeviceNode;
-import org.springblade.modules.iot.common.constant.IoTConstant.MessageType;
+import org.springblade.modules.iot.common.constant.MessageType;
 import org.springblade.modules.iot.common.message.UPRequest;
 import org.springblade.modules.iot.common.service.ICodecService;
 import org.springblade.modules.iot.dm.device.service.action.IoTDeviceActionAfterService;
 import org.springblade.modules.iot.pojo.protocol.http.HttpUPRequest;
 import org.springblade.modules.iot.pojo.protocol.http.HttpUPRequest.HttpUPRequestBuilder;
 import org.springblade.modules.iot.protocol.http.processor.HttpUPMessageProcessor;
-import org.springblade.modules.iot.protocol.http.protocol.codec.HTTPCodecAction;
+import org.springblade.modules.iot.protocol.http.codec.HTTPCodecAction;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
 import jakarta.annotation.Resource;
 import java.util.List;

@@ -1,15 +1,15 @@
 
 
-package org.springblade.modules.iot.databridge.plugin;
+package org.springblade.modules.iot.databridge.core.plugin;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.springblade.modules.iot.common.constant.IoTConstant;
-import org.springblade.modules.iot.databridge.engine.DataBridgeMagicScriptEngine;
-import org.springblade.modules.iot.databridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.databridge.entity.ResourceConnection;
-import org.springblade.modules.iot.databridge.enums.PluginStatus;
+import org.springblade.modules.iot.databridge.core.engine.DataBridgeMagicScriptEngine;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
+import org.springblade.modules.iot.databridge.core.enums.PluginStatus;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import jakarta.annotation.Resource;
 import java.util.List;

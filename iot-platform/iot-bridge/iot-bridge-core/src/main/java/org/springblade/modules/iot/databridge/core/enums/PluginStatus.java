@@ -1,6 +1,6 @@
 
 
-package org.springblade.modules.iot.databridge.enums;
+package org.springblade.modules.iot.databridge.core.enums;
 
 /**
  * 插件状态枚举

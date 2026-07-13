@@ -1,10 +1,11 @@
 
 
-package org.springblade.modules.iot.protocol.http.codec;
+package org.springblade.modules.iot.protocol.http.protocol.codec;
+import MessageType;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
-import org.springblade.modules.iot.common.constant.IoTConstant.MessageType;
+import org.springblade.modules.iot.common.constant.MessageType;
 import org.springblade.modules.iot.common.message.UPRequest;
 import org.springblade.modules.iot.protocol.http.enums.HTTPCodecMethod;
 import java.util.ArrayList;

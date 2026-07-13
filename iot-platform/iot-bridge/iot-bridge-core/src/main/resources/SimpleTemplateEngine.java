@@ -10,7 +10,7 @@
  * @Wechat: outlookFil
  */
 
-package org.springblade.modules.iot.databridge.engine;
+package iot-platform.iot-bridge.iot-bridge-core.src.main.resources;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;

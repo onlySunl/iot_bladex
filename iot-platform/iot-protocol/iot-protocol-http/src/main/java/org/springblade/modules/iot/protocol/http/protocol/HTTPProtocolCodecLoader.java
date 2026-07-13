@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.protocol.http;
+package org.springblade.modules.iot.protocol.http.protocol;
 
 import org.springblade.modules.iot.common.exception.CodecException;
 import org.springblade.modules.iot.common.protocol.loader.IProtocolCodecLoader;

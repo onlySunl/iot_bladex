@@ -1,6 +1,8 @@
 
 
-package org.springblade.modules.iot.databridge.service;
+package org.springblade.modules.iot.databridge.core.service;
+import SourceScope;
+import BridgeType;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,14 +14,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.hutool.json.JSONUtil;
-import org.springblade.modules.iot.databridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.databridge.entity.ResourceConnection;
-import org.springblade.modules.iot.databridge.exception.DataBridgeException;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
+import org.springblade.modules.iot.databridge.core.exception.DataBridgeException;
 import org.springblade.modules.iot.databridge.logger.DataBridgeLogger;
-import org.springblade.modules.iot.databridge.mapper.DataBridgeConfigMapper;
+import org.springblade.modules.iot.databridge.core.mapper.DataBridgeConfigMapper;
 import org.springblade.modules.iot.databridge.plugin.DataBridgePlugin;
-import org.springblade.modules.iot.databridge.util.ConfigValidator;
-import org.springblade.modules.iot.databridge.vo.DataBridgeConfigVO;
+import org.springblade.modules.iot.databridge.core.util.ConfigValidator;
+import org.springblade.modules.iot.databridge.core.vo.DataBridgeConfigVO;
 import org.springblade.modules.iot.pojo.entity.IoTDevice;
 import org.springblade.modules.iot.pojo.entity.IoTUserApplication;
 import org.springblade.modules.iot.pojo.bo.IoTProductBO;
@@ -113,7 +115,7 @@ public class DataBridgeConfigService {
     /**
      * 根据源范围获取配置列表
      */
-    public List<DataBridgeConfig> getConfigsBySourceScope(DataBridgeConfig.SourceScope sourceScope) {
+    public List<DataBridgeConfig> getConfigsBySourceScope(SourceScope sourceScope) {
         DataBridgeConfig condition = new DataBridgeConfig();
         condition.setSourceScope(sourceScope);
         condition.setStatus(1); // 只查询启用的配置
@@ -391,7 +393,7 @@ public class DataBridgeConfigService {
     /**
      * 根据桥接类型获取配置
      */
-    public List<DataBridgeConfig> getConfigsByBridgeType(DataBridgeConfig.BridgeType bridgeType) {
+    public List<DataBridgeConfig> getConfigsByBridgeType(BridgeType bridgeType) {
         if (bridgeType == null) {
             throw new IllegalArgumentException("桥接类型不能为空");
         }

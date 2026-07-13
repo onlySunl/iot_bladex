@@ -1,6 +1,6 @@
 
 
-package org.springblade.modules.iot.databridge.entity;
+package org.springblade.modules.iot.pojo.bridge.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -32,7 +32,6 @@ public class DataBridgeConfig extends CustomBaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
 
   /** 配置名称 */
   @TableField(value = "name")
@@ -84,10 +83,6 @@ public class DataBridgeConfig extends CustomBaseEntity {
   @AutoColumn(comment = "统一配置JSON", defaultValueType = DefaultValueEnum.NULL)
   private String config;
 
-  /** 状态：0禁用，1启用 */
-  @TableField(value = "status")
-  @AutoColumn(comment = "状态：0禁用，1启用", defaultValueType = DefaultValueEnum.NULL)
-  private Integer status;
 
   /** 描述 */
   @TableField(value = "description")
@@ -95,42 +90,11 @@ public class DataBridgeConfig extends CustomBaseEntity {
   @AutoColumn(comment = "描述", defaultValueType = DefaultValueEnum.NULL)
   private String description;
 
-  /** 创建者 */
-  @TableField(value = "create_by")
-  @AutoColumn(comment = "创建者", length = 255, defaultValueType = DefaultValueEnum.NULL)
-  private String createBy;
 
-  /** 创建时间 */
-  @TableField(value = "create_time")
-  @AutoColumn(comment = "创建时间", defaultValueType = DefaultValueEnum.NULL)
-  private LocalDateTime createTime;
 
-  /** 更新者 */
-  @TableField(value = "update_by")
-  @AutoColumn(comment = "更新者", length = 255, defaultValueType = DefaultValueEnum.NULL)
-  private String updateBy;
 
-  /** 更新时间 */
-  @TableField(value = "update_time")
-  @AutoColumn(comment = "更新时间", defaultValueType = DefaultValueEnum.NULL)
-  private LocalDateTime updateTime;
 
   /** 源范围枚举 */
-  public enum SourceScope {
-    ALL_PRODUCTS, // 所有产品
-    SPECIFIC_PRODUCTS, // 指定产品
-    APPLICATION // 应用级别
-  }
 
   /** 桥接类型枚举 */
-  public enum BridgeType {
-    JDBC,
-    KAFKA,
-    IOTDB,
-    INFLUXDB,
-    MQTT,
-    HTTP,
-    REDIS,
-    ELASTICSEARCH
-  }
 }

@@ -1,8 +1,9 @@
 
 
-package org.springblade.modules.iot.databridge.util;
+package org.springblade.modules.iot.databridge.core.util;
+import ResourceType;
 
-import org.springblade.modules.iot.databridge.entity.ResourceConnection;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -15,17 +16,17 @@ import lombok.extern.slf4j.Slf4j;
 public class ResourceConnectionUtils {
 
   /** 资源类型到插件类型的默认映射 */
-  private static final java.util.Map<ResourceConnection.ResourceType, String>
+  private static final java.util.Map<ResourceType, String>
       DEFAULT_RESOURCE_PLUGIN_MAPPING =
           java.util.Map.of(
-              ResourceConnection.ResourceType.MYSQL, "JDBC",
-              ResourceConnection.ResourceType.KAFKA, "KAFKA",
-              ResourceConnection.ResourceType.MQTT, "MQTT",
-              ResourceConnection.ResourceType.HTTP, "HTTP",
-              ResourceConnection.ResourceType.IOTDB, "IOTDB",
-              ResourceConnection.ResourceType.INFLUXDB, "INFLUXDB",
-              ResourceConnection.ResourceType.ELASTICSEARCH, "ELASTICSEARCH",
-              ResourceConnection.ResourceType.REDIS, "REDIS");
+              ResourceType.MYSQL, "JDBC",
+              ResourceType.KAFKA, "KAFKA",
+              ResourceType.MQTT, "MQTT",
+              ResourceType.HTTP, "HTTP",
+              ResourceType.IOTDB, "IOTDB",
+              ResourceType.INFLUXDB, "INFLUXDB",
+              ResourceType.ELASTICSEARCH, "ELASTICSEARCH",
+              ResourceType.REDIS, "REDIS");
 
   /** 为资源连接设置默认的插件类型（如果未设置） */
   public static void setDefaultPluginTypeIfMissing(ResourceConnection connection) {
@@ -41,7 +42,7 @@ public class ResourceConnectionUtils {
   }
 
   /** 根据资源类型获取默认的插件类型 */
-  public static String getDefaultPluginType(ResourceConnection.ResourceType resourceType) {
+  public static String getDefaultPluginType(ResourceType resourceType) {
     return DEFAULT_RESOURCE_PLUGIN_MAPPING.get(resourceType);
   }
 }

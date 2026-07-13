@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.protocol.websocket.processor.up.common;
+import ProcessingStage;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
@@ -10,7 +11,7 @@ import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
 import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import org.springblade.modules.iot.persistence.query.IoTDeviceQuery;
 import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketUPRequest;
-import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketUPRequest.ProcessingStage;
+import org.springblade.modules.iot.pojo.protocol.websocket.ProcessingStage;
 import org.springblade.modules.iot.protocol.websocket.processor.up.WebSocketUPProcessor;
 import lombok.extern.slf4j.Slf4j;
 

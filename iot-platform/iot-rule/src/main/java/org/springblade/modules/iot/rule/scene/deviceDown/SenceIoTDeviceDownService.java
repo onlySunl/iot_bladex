@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.rule.scene.deviceDown;
+import ExecTriggerType;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
@@ -71,7 +72,7 @@ public class SenceIoTDeviceDownService {
     for (TriggerBO exec : execs) {
       ExeRunContextBuilder exeRunContextBuilder =
           ExeRunContext.builder().trigger(exec.getTrigger());
-      if (TriggerBO.ExecTriggerType.device.name().equals(exec.getTrigger())) {
+      if (ExecTriggerType.device.name().equals(exec.getTrigger())) {
         exeRunContextBuilder.target(exec.getDeviceId());
         exeRunContextBuilder.param(exec.getExecData());
         String downRequest = getDownRequest(exec, unionId);
@@ -98,7 +99,7 @@ public class SenceIoTDeviceDownService {
           log.error("场景联动指令下发失败，设备编号:{}", exec.getDeviceId());
         }
         runContexts.add(exeRunContextBuilder.build());
-      } else if (TriggerBO.ExecTriggerType.notice.name().equals(exec.getTrigger())) {
+      } else if (ExecTriggerType.notice.name().equals(exec.getTrigger())) {
         exeRunContextBuilder.target(exec.getNoticeTemplateId());
         exeRunContextBuilder.targetName(exec.getNoticeTemplateName());
         // 组装通知参数

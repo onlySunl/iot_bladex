@@ -1,8 +1,8 @@
 
 
-package org.springblade.modules.iot.databridge.mapper;
+package org.springblade.modules.iot.databridge.core.mapper;
 
-import org.springblade.modules.iot.databridge.entity.ResourceConnection;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 import org.springblade.modules.iot.persistence.common.BaseMapper;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;

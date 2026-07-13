@@ -1,12 +1,13 @@
 
 
 package org.springblade.modules.iot.dm.device.service.impl;
+import MessageType;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import org.springblade.modules.iot.common.constant.IoTConstant;
 import org.springblade.modules.iot.common.constant.IoTConstant.DeviceSubscribe;
-import org.springblade.modules.iot.common.constant.IoTConstant.MessageType;
+import org.springblade.modules.iot.common.constant.MessageType;
 import org.springblade.modules.iot.common.domain.R;
 import org.springblade.modules.iot.common.exception.IoTErrorCode;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceSubscribeBO;

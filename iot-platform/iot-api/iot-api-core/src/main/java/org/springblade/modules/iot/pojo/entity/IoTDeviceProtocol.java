@@ -31,7 +31,6 @@ public class IoTDeviceProtocol extends CustomBaseEntity {
   private String name;
   private String description;
   private Byte state;
-  private String id;
   private String type;
   private String configuration;
   private String example;
@@ -49,7 +48,6 @@ public class IoTDeviceProtocol extends CustomBaseEntity {
   @TableField(value = "create_time")
   @AutoColumn(comment = "/", defaultValueType = DefaultValueEnum.NULL)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  private Date createTime;
 
   public ProtocolSupportDefinition toDefinition() {
     ProtocolSupportDefinition definition = new ProtocolSupportDefinition();

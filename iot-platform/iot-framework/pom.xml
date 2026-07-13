@@ -17,7 +17,6 @@
         <module>iot-framework-dm</module>
         <module>iot-framework-exception</module>
         <module>iot-framework-notice</module>
-        <module>iot-framework-oss</module>
         <module>iot-framework-rocketmq</module>
     </modules>
 </project>

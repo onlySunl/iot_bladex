@@ -79,60 +79,8 @@ public class OtaReportRequest {
   private String protocol;
 
   /** 报告类型枚举 */
-  public enum ReportType {
-    /** 固件信息上报 */
-    FIRMWARE_INFO("固件信息上报"),
-
-    /** 升级进度上报 */
-    UPGRADE_PROGRESS("升级进度上报"),
-
-    /** 升级结果上报 */
-    UPGRADE_RESULT("升级结果上报");
-
-    private final String description;
-
-    ReportType(String description) {
-      this.description = description;
-    }
-
-    public String getDescription() {
-      return description;
-    }
-  }
 
   /** 升级状态枚举 */
-  public enum UpgradeStatus {
-    /** 空闲状态 */
-    IDLE("空闲"),
-
-    /** 下载中 */
-    DOWNLOADING("下载中"),
-
-    /** 校验中 */
-    VERIFYING("校验中"),
-
-    /** 安装中 */
-    INSTALLING("安装中"),
-
-    /** 重启中 */
-    REBOOTING("重启中"),
-
-    /** 升级成功 */
-    SUCCESS("升级成功"),
-
-    /** 升级失败 */
-    FAILED("升级失败");
-
-    private final String description;
-
-    UpgradeStatus(String description) {
-      this.description = description;
-    }
-
-    public String getDescription() {
-      return description;
-    }
-  }
 
   /** 设备状态信息 */
   @Data

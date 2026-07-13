@@ -1,17 +1,22 @@
-package org.springblade.modules.iot.databridge.web;
+package org.springblade.modules.iot.databridge.web.web;
+import SourceScope;
+import ResourceType;
+import Direction;
+import DataDirection;
+import BridgeType;
 
 import org.springblade.modules.iot.common.annotation.Log;
 import org.springblade.modules.iot.common.enums.BusinessType;
-import org.springblade.modules.iot.databridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.databridge.entity.PluginInfo;
-import org.springblade.modules.iot.databridge.entity.ResourceConnection;
-import org.springblade.modules.iot.databridge.enums.PluginStatus;
-import org.springblade.modules.iot.databridge.manager.DataBridgeManager;
-import org.springblade.modules.iot.databridge.service.DataBridgeConfigService;
-import org.springblade.modules.iot.databridge.service.ResourceConnectionService;
-import org.springblade.modules.iot.databridge.util.ConnectionTester;
-import org.springblade.modules.iot.databridge.util.ConnectionTester.ConnectionTestResult;
-import org.springblade.modules.iot.databridge.vo.DataBridgeConfigVO;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.PluginInfo;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
+import org.springblade.modules.iot.databridge.core.enums.PluginStatus;
+import org.springblade.modules.iot.databridge.core.manager.DataBridgeManager;
+import org.springblade.modules.iot.databridge.core.service.DataBridgeConfigService;
+import org.springblade.modules.iot.databridge.core.service.ResourceConnectionService;
+import org.springblade.modules.iot.databridge.core.util.ConnectionTester;
+import org.springblade.modules.iot.databridge.core.util.ConnectionTester.ConnectionTestResult;
+import org.springblade.modules.iot.databridge.core.vo.DataBridgeConfigVO;
 import org.springblade.modules.iot.pojo.entity.IoTUser;
 import org.springblade.modules.iot.persistence.query.AjaxResult;
 import org.springblade.modules.iot.security.BaseController;
@@ -50,8 +55,8 @@ public class DataBridgeController extends BaseController {
   public AjaxResult<List<Map<String, Object>>> getPluginTypesByResourceType(
       @PathVariable String resourceType) {
     try {
-      ResourceConnection.ResourceType type =
-          ResourceConnection.ResourceType.valueOf(resourceType.toUpperCase());
+      ResourceType type =
+          ResourceType.valueOf(resourceType.toUpperCase());
       List<Map<String, Object>> options = new ArrayList<>();
 
       // 从所有插件中查找支持该资源类型的插件
@@ -430,13 +435,13 @@ public class DataBridgeController extends BaseController {
   @GetMapping("/configs/type/{bridgeType}")
   public List<DataBridgeConfig> getConfigsByType(@PathVariable String bridgeType) {
     return dataBridgeConfigService.getConfigsByBridgeType(
-        DataBridgeConfig.BridgeType.valueOf(bridgeType.toUpperCase()));
+        BridgeType.valueOf(bridgeType.toUpperCase()));
   }
 
   @GetMapping("/resources/type/{type}")
   public List<ResourceConnection> getResourcesByType(@PathVariable String type) {
     return resourceConnectionService.getActiveConnectionsByType(
-        ResourceConnection.ResourceType.valueOf(type.toUpperCase()));
+        ResourceType.valueOf(type.toUpperCase()));
   }
 
   // 双向数据流转相关API
@@ -446,8 +451,8 @@ public class DataBridgeController extends BaseController {
   public AjaxResult<List<DataBridgeConfig>> getConfigsByScope(@PathVariable String scope) {
     try {
       IoTUser currentUser = loginIoTUnionUser(SecurityUtils.getUnionId());
-      DataBridgeConfig.SourceScope sourceScope =
-          DataBridgeConfig.SourceScope.valueOf(scope.toUpperCase());
+      SourceScope sourceScope =
+          SourceScope.valueOf(scope.toUpperCase());
 
       List<DataBridgeConfig> configs;
       if (currentUser.isAdmin()) {
@@ -471,8 +476,8 @@ public class DataBridgeController extends BaseController {
       @PathVariable String direction) {
     try {
       IoTUser currentUser = loginIoTUnionUser(SecurityUtils.getUnionId());
-      ResourceConnection.Direction dir =
-          ResourceConnection.Direction.valueOf(direction.toUpperCase());
+      Direction dir =
+          Direction.valueOf(direction.toUpperCase());
 
       List<ResourceConnection> connections;
       if (currentUser.isAdmin()) {
@@ -536,10 +541,10 @@ public class DataBridgeController extends BaseController {
       logger.info("获取到 {} 个插件信息", pluginInfos.size());
 
       // 根据数据流向过滤插件
-      PluginInfo.DataDirection targetDirection = null;
+      DataDirection targetDirection = null;
       if (direction != null) {
         try {
-          targetDirection = PluginInfo.DataDirection.valueOf(direction.toUpperCase());
+          targetDirection = DataDirection.valueOf(direction.toUpperCase());
         } catch (IllegalArgumentException e) {
           logger.warn("无效的数据流向参数: {}", direction);
         }
@@ -558,13 +563,13 @@ public class DataBridgeController extends BaseController {
         if (targetDirection != null
             && info.getDataDirection() != null
             && info.getDataDirection() != targetDirection
-            && info.getDataDirection() != PluginInfo.DataDirection.BIDIRECTIONAL) {
+            && info.getDataDirection() != DataDirection.BIDIRECTIONAL) {
           continue;
         }
 
         if (info.getSupportedResourceTypes() != null) {
           for (String resourceType : info.getSupportedResourceTypes()) {
-            // 只处理 ResourceConnection.ResourceType 枚举中存在的类型
+            // 只处理 ResourceType 枚举中存在的类型
             if (isValidResourceType(resourceType)) {
               String displayName = getResourceTypeDisplayName(resourceType);
               String category = getResourceTypeCategory(resourceType);
@@ -586,12 +591,12 @@ public class DataBridgeController extends BaseController {
       // 获取数据流向信息
       Map<String, List<String>> directionTypes = new HashMap<>();
       directionTypes.put(
-          "inputTypes", getResourceTypesByDirection(pluginInfos, PluginInfo.DataDirection.INPUT));
+          "inputTypes", getResourceTypesByDirection(pluginInfos, DataDirection.INPUT));
       directionTypes.put(
-          "outputTypes", getResourceTypesByDirection(pluginInfos, PluginInfo.DataDirection.OUTPUT));
+          "outputTypes", getResourceTypesByDirection(pluginInfos, DataDirection.OUTPUT));
       directionTypes.put(
           "bidirectionalTypes",
-          getResourceTypesByDirection(pluginInfos, PluginInfo.DataDirection.BIDIRECTIONAL));
+          getResourceTypesByDirection(pluginInfos, DataDirection.BIDIRECTIONAL));
       result.putAll(directionTypes);
 
       return AjaxResult.success(result);
@@ -603,11 +608,11 @@ public class DataBridgeController extends BaseController {
 
   /** 根据数据流向获取资源类型 */
   private List<String> getResourceTypesByDirection(
-      Map<String, PluginInfo> pluginInfos, PluginInfo.DataDirection direction) {
+      Map<String, PluginInfo> pluginInfos, DataDirection direction) {
     List<String> types = new ArrayList<>();
     for (PluginInfo info : pluginInfos.values()) {
       if (info.getDataDirection() == direction
-          || info.getDataDirection() == PluginInfo.DataDirection.BIDIRECTIONAL) {
+          || info.getDataDirection() == DataDirection.BIDIRECTIONAL) {
         if (info.getSupportedResourceTypes() != null) {
           for (String resourceType : info.getSupportedResourceTypes()) {
             if (isValidResourceType(resourceType) && !types.contains(resourceType)) {
@@ -641,7 +646,7 @@ public class DataBridgeController extends BaseController {
   /** 检查资源类型是否在枚举中存在 */
   private boolean isValidResourceType(String resourceType) {
     try {
-      ResourceConnection.ResourceType.valueOf(resourceType.toUpperCase());
+      ResourceType.valueOf(resourceType.toUpperCase());
       return true;
     } catch (IllegalArgumentException e) {
       logger.warn("资源类型 {} 不在枚举中，跳过", resourceType);
@@ -651,7 +656,7 @@ public class DataBridgeController extends BaseController {
 
   /** 添加兜底的资源类型数据 */
   private void addFallbackResourceTypes(
-      Map<String, Map<String, String>> categorizedTypes, PluginInfo.DataDirection direction) {
+      Map<String, Map<String, String>> categorizedTypes, DataDirection direction) {
     // 数据库类型
     categorizedTypes.get("databases").put("MYSQL", "MySQL数据库");
     categorizedTypes.get("databases").put("POSTGRESQL", "PostgreSQL数据库");
@@ -665,7 +670,7 @@ public class DataBridgeController extends BaseController {
     categorizedTypes.get("messageQueues").put("MQTT", "MQTT消息代理");
 
     // 时序数据库类型（主要用于输出）
-    if (direction == null || direction == PluginInfo.DataDirection.OUTPUT) {
+    if (direction == null || direction == DataDirection.OUTPUT) {
       categorizedTypes.get("timeSeries").put("IOTDB", "IoTDB时序数据库");
       categorizedTypes.get("timeSeries").put("INFLUXDB", "InfluxDB时序数据库");
 
@@ -677,7 +682,7 @@ public class DataBridgeController extends BaseController {
     }
 
     // 云平台类型（主要用于输入）
-    if (direction == null || direction == PluginInfo.DataDirection.INPUT) {
+    if (direction == null || direction == DataDirection.INPUT) {
       categorizedTypes.get("cloudPlatforms").put("ALIYUN_IOT", "阿里云IoT平台");
       categorizedTypes.get("cloudPlatforms").put("TENCENT_IOT", "腾讯云IoT平台");
     }
@@ -769,8 +774,8 @@ public class DataBridgeController extends BaseController {
 
       // 检查插件是否支持输入
       boolean supportsInput =
-          pluginInfo.getDataDirection() == PluginInfo.DataDirection.INPUT
-              || pluginInfo.getDataDirection() == PluginInfo.DataDirection.BIDIRECTIONAL;
+          pluginInfo.getDataDirection() == DataDirection.INPUT
+              || pluginInfo.getDataDirection() == DataDirection.BIDIRECTIONAL;
 
       if (!supportsInput) {
         return AjaxResult.error("该插件不支持输入功能", false);
@@ -799,8 +804,8 @@ public class DataBridgeController extends BaseController {
 
       // 检查插件是否支持输入
       boolean supportsInput =
-          pluginInfo.getDataDirection() == PluginInfo.DataDirection.INPUT
-              || pluginInfo.getDataDirection() == PluginInfo.DataDirection.BIDIRECTIONAL;
+          pluginInfo.getDataDirection() == DataDirection.INPUT
+              || pluginInfo.getDataDirection() == DataDirection.BIDIRECTIONAL;
 
       if (!supportsInput) {
         return AjaxResult.error("该插件不支持输入功能", "{}");

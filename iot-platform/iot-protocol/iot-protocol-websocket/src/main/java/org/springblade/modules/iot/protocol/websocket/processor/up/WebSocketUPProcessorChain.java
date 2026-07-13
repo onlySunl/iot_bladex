@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.protocol.websocket.processor.up;
+import ProcessingStage;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,7 +73,7 @@ public class WebSocketUPProcessorChain {
 
         // 设置初始处理阶段
         if (request.getStage() == null) {
-            request.setStage(WebSocketUPRequest.ProcessingStage.INIT);
+            request.setStage(ProcessingStage.INIT);
         }
 
         log.debug("[WebSocket上行链] 开始处理消息，SessionID: {}, MessageID: {}",
@@ -134,10 +135,10 @@ public class WebSocketUPProcessorChain {
         }
 
         // 设置最终处理阶段
-        if (success && request.getStage() != WebSocketUPRequest.ProcessingStage.FAILED) {
-            request.setStage(WebSocketUPRequest.ProcessingStage.COMPLETED);
+        if (success && request.getStage() != ProcessingStage.FAILED) {
+            request.setStage(ProcessingStage.COMPLETED);
         } else if (!success) {
-            request.setStage(WebSocketUPRequest.ProcessingStage.FAILED);
+            request.setStage(ProcessingStage.FAILED);
         }
 
         log.debug("[WebSocket上行链] 消息处理完成，SessionID: {}, 成功: {}, 最终阶段: {}",

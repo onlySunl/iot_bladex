@@ -1,9 +1,9 @@
 
 
-package org.springblade.modules.iot.databridge.service;
+package org.springblade.modules.iot.databridge.core.service;
 
-import org.springblade.modules.iot.databridge.entity.DataInputLog;
-import org.springblade.modules.iot.databridge.mapper.DataInputLogMapper;
+import org.springblade.modules.iot.pojo.bridge.entity.DataInputLog;
+import org.springblade.modules.iot.databridge.core.mapper.DataInputLogMapper;
 import jakarta.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;

@@ -37,9 +37,6 @@ public class VideoPlatformDeviceCache extends CustomBaseEntity {
   @AutoColumn(comment = "deviceName", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String deviceName;
 
-  @TableField(value = "status")
-  @AutoColumn(comment = "status", length = 32, defaultValueType = DefaultValueEnum.NULL)
-  private String status;
 
   @TableField(value = "model")
   @AutoColumn(comment = "model", length = 255, defaultValueType = DefaultValueEnum.NULL)
@@ -69,10 +66,8 @@ public class VideoPlatformDeviceCache extends CustomBaseEntity {
   @TableField(value = "create_time")
   @AutoColumn(comment = "更新者ID", defaultValueType = DefaultValueEnum.NULL)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  private Date createTime;
 
   @TableField(value = "update_time")
   @AutoColumn(comment = "updateTime", defaultValueType = DefaultValueEnum.NULL)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  private Date updateTime;
 }

@@ -1,12 +1,12 @@
 
 
-package org.springblade.modules.iot.databridge.web;
+package org.springblade.modules.iot.databridge.web.web;
 
-import org.springblade.modules.iot.databridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.databridge.entity.DataInputLog;
-import org.springblade.modules.iot.databridge.manager.DataInputManager;
-import org.springblade.modules.iot.databridge.service.DataBridgeConfigService;
-import org.springblade.modules.iot.databridge.service.DataInputLogService;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.DataInputLog;
+import org.springblade.modules.iot.databridge.core.manager.DataInputManager;
+import org.springblade.modules.iot.databridge.core.service.DataBridgeConfigService;
+import org.springblade.modules.iot.databridge.core.service.DataInputLogService;
 import org.springblade.modules.iot.persistence.page.PageUtils;
 import org.springblade.modules.iot.persistence.page.TableDataInfo;
 import org.springblade.modules.iot.persistence.query.AjaxResult;

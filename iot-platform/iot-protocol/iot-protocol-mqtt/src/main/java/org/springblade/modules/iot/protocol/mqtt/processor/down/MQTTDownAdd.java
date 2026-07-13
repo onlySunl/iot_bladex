@@ -1,8 +1,9 @@
 package org.springblade.modules.iot.protocol.mqtt.processor.down;
+import DeviceStatus;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
-import org.springblade.modules.iot.common.constant.IoTConstant.DeviceStatus;
+import org.springblade.modules.iot.common.constant.DeviceStatus;
 import org.springblade.modules.iot.common.constant.IoTConstant.DownCmd;
 import org.springblade.modules.iot.common.constant.IoTConstant.ERROR_CODE;
 import org.springblade.modules.iot.common.domain.R;

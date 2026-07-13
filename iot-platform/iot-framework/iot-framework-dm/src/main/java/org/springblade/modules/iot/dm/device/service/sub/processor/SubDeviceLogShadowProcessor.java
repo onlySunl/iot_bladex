@@ -1,6 +1,8 @@
 
 
 package org.springblade.modules.iot.dm.device.service.sub.processor;
+import ProcessingStage;
+import MessageType;
 
 import cn.hutool.core.collection.CollUtil;
 import org.springblade.modules.iot.dm.device.service.AbstratIoTService;
@@ -87,7 +89,7 @@ public class SubDeviceLogShadowProcessor extends AbstratIoTService
       request.setContextValue("logProcessedCount", processedCount);
       request.setContextValue("shadowUpdatedCount", shadowUpdatedCount);
       request.setContextValue("logShadowProcessed", true);
-      request.setStage(SubDeviceRequest.ProcessingStage.LOGGED);
+      request.setStage(ProcessingStage.LOGGED);
 
       log.debug("[{}] 子设备日志影子处理完成，日志: {}, 影子: {}", getName(), processedCount, shadowUpdatedCount);
       return ProcessorResult.CONTINUE;
@@ -114,7 +116,7 @@ public class SubDeviceLogShadowProcessor extends AbstratIoTService
 
   protected boolean updateSubDeviceEventName(BaseUPRequest upRequest) {
     // 如果是事件，则完善事件名称
-    if (org.springblade.modules.iot.common.constant.IoTConstant.MessageType.EVENT.equals(
+    if (org.springblade.modules.iot.common.constant.MessageType.EVENT.equals(
         upRequest.getMessageType())) {
       org.springblade.modules.iot.core.metadata.DeviceMetadata deviceMetadata =
           iotProductDeviceService.getDeviceMetadata(upRequest.getProductKey());

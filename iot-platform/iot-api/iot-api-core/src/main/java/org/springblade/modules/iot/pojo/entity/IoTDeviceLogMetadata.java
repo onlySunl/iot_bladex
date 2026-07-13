@@ -56,10 +56,6 @@ public class IoTDeviceLogMetadata extends CustomBaseEntity {
 
   private String ext3;
 
-  /** 发生时间 */
-  @TableField(value = "create_time")
-  @AutoColumn(comment = "发生时间", defaultValueType = DefaultValueEnum.NULL)
-  private LocalDateTime createTime;
 
   /** 其他 */
   private String content;

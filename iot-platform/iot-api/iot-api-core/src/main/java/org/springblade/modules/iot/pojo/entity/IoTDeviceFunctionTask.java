@@ -32,9 +32,6 @@ public class IoTDeviceFunctionTask extends CustomBaseEntity {
 
   @Id
   @KeySql(genId = SQenGenId.class)
-@TableField(value = "id")
-@AutoColumn(comment = "id", defaultValueType = DefaultValueEnum.NULL)
-  private Long id;
 
 @TableField(value = "task_name")
 @AutoColumn(comment = "taskName", length = 128, defaultValueType = DefaultValueEnum.NULL)
@@ -66,8 +63,4 @@ public class IoTDeviceFunctionTask extends CustomBaseEntity {
 @AutoColumn(comment = "commandData", defaultValueType = DefaultValueEnum.NULL)
   private String commandData;
 
-  /** 状态 0.待执行；1.已执行；2.正在执行 */
-@TableField(value = "status")
-@AutoColumn(comment = "状态 0.待执行；1.已执行；2.正在执行", defaultValueType = DefaultValueEnum.NULL)
-  private Integer status;
 }

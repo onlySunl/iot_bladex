@@ -1,10 +1,11 @@
 
 
 package org.springblade.modules.iot.databridge.plugin.influxdb;
+import DataDirection;
 
-import org.springblade.modules.iot.databridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.databridge.entity.PluginInfo;
-import org.springblade.modules.iot.databridge.entity.ResourceConnection;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.PluginInfo;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 import org.springblade.modules.iot.databridge.plugin.AbstractDataInputPlugin;
 import org.springblade.modules.iot.databridge.plugin.SourceScope;
 import com.influxdb.client.InfluxDBClient;
@@ -35,7 +36,7 @@ public class DefaultInfluxDBDataInputPlugin extends AbstractDataInputPlugin {
         .author("gitee.com/NexIoT")
         .pluginType("INFLUXDB")
         .supportedResourceTypes(List.of("INFLUXDB"))
-        .dataDirection(PluginInfo.DataDirection.INPUT)
+        .dataDirection(DataDirection.INPUT)
         .category("时序数据库")
         .icon("database")
         .build();

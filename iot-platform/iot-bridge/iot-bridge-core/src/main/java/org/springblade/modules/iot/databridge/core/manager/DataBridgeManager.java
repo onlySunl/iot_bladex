@@ -1,21 +1,22 @@
 
 
-package org.springblade.modules.iot.databridge.manager;
+package org.springblade.modules.iot.databridge.core.manager;
+import DataDirection;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import org.springblade.modules.iot.databridge.engine.TemplateEngine;
-import org.springblade.modules.iot.databridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.databridge.entity.PluginInfo;
-import org.springblade.modules.iot.databridge.entity.ResourceConnection;
-import org.springblade.modules.iot.databridge.enums.PluginStatus;
+import org.springblade.modules.iot.databridge.core.engine.TemplateEngine;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.PluginInfo;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
+import org.springblade.modules.iot.databridge.core.enums.PluginStatus;
 import org.springblade.modules.iot.databridge.logger.DataBridgeLogger;
 import org.springblade.modules.iot.databridge.plugin.DataBridgePlugin;
 import org.springblade.modules.iot.databridge.plugin.DataOutputPlugin;
-import org.springblade.modules.iot.databridge.service.DataBridgeConfigService;
-import org.springblade.modules.iot.databridge.service.ResourceConnectionService;
+import org.springblade.modules.iot.databridge.core.service.DataBridgeConfigService;
+import org.springblade.modules.iot.databridge.core.service.ResourceConnectionService;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -397,7 +398,7 @@ public class DataBridgeManager {
      */
     public List<String> getBidirectionalPluginTypes() {
         return getPluginInfos().values().stream()
-                .filter(info -> info.getDataDirection() == PluginInfo.DataDirection.BIDIRECTIONAL)
+                .filter(info -> info.getDataDirection() == DataDirection.BIDIRECTIONAL)
                 .map(PluginInfo::getPluginType)
                 .collect(Collectors.toList());
     }
@@ -407,7 +408,7 @@ public class DataBridgeManager {
      */
     public List<String> getOutputOnlyPluginTypes() {
         return getPluginInfos().values().stream()
-                .filter(info -> info.getDataDirection() == PluginInfo.DataDirection.OUTPUT)
+                .filter(info -> info.getDataDirection() == DataDirection.OUTPUT)
                 .map(PluginInfo::getPluginType)
                 .collect(Collectors.toList());
     }
@@ -417,7 +418,7 @@ public class DataBridgeManager {
      */
     public List<String> getInputOnlyPluginTypes() {
         return getPluginInfos().values().stream()
-                .filter(info -> info.getDataDirection() == PluginInfo.DataDirection.INPUT)
+                .filter(info -> info.getDataDirection() == DataDirection.INPUT)
                 .map(PluginInfo::getPluginType)
                 .collect(Collectors.toList());
     }

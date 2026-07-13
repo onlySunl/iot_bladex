@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.rule.fence.service;
+import MessageType;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
@@ -9,7 +10,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.springblade.modules.iot.common.constant.IoTConstant;
 import org.springblade.modules.iot.common.constant.IoTConstant.ERROR_CODE;
-import org.springblade.modules.iot.common.constant.IoTConstant.MessageType;
+import org.springblade.modules.iot.common.constant.MessageType;
 import org.springblade.modules.iot.common.domain.R;
 import org.springblade.modules.iot.common.event.EventTopics;
 import org.springblade.modules.iot.common.event.processer.EventPublisher;

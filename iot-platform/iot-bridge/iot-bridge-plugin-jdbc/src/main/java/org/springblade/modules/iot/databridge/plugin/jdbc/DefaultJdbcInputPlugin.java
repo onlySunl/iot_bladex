@@ -1,10 +1,11 @@
 
 
 package org.springblade.modules.iot.databridge.plugin.jdbc;
+import DataDirection;
 
-import org.springblade.modules.iot.databridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.databridge.entity.PluginInfo;
-import org.springblade.modules.iot.databridge.entity.ResourceConnection;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.PluginInfo;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 import org.springblade.modules.iot.databridge.plugin.AbstractDataInputPlugin;
 import org.springblade.modules.iot.databridge.plugin.SourceScope;
 import java.sql.Connection;
@@ -35,7 +36,7 @@ public class DefaultJdbcInputPlugin extends AbstractDataInputPlugin {
         .author("gitee.com/NexIoT")
         .pluginType("JDBC")
         .supportedResourceTypes(List.of("MYSQL", "POSTGRESQL", "H2", "ORACLE", "SQLSERVER"))
-        .dataDirection(PluginInfo.DataDirection.INPUT)
+        .dataDirection(DataDirection.INPUT)
         .category("数据库")
         .icon("database")
         .build();

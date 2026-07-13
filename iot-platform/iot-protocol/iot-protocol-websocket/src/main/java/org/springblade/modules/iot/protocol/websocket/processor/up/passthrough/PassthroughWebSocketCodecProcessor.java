@@ -1,6 +1,8 @@
 
 
 package org.springblade.modules.iot.protocol.websocket.processor.up.passthrough;
+import ProcessingStage;
+import MessageType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,7 @@ import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
 import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketUPRequest;
-import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketUPRequest.ProcessingStage;
+import org.springblade.modules.iot.pojo.protocol.websocket.ProcessingStage;
 import org.springblade.modules.iot.protocol.websocket.processor.up.WebSocketUPProcessor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -233,7 +235,7 @@ public class PassthroughWebSocketCodecProcessor extends AbstratIoTService
                 .deviceId(codecResult.getDeviceId() != null ? codecResult.getDeviceId() : request.getDeviceId())
                 .productKey(request.getProductKey())
                 .deviceName(request.getDeviceName())
-                .messageType(codecResult.getMessageType() != null ? codecResult.getMessageType() : IoTConstant.MessageType.PROPERTIES);
+                .messageType(codecResult.getMessageType() != null ? codecResult.getMessageType() : MessageType.PROPERTIES);
         
         // 直接设置编解码器返回的properties和data，不调用buildCodecNotNullBean
         if (codecResult.getProperties() != null && !codecResult.getProperties().isEmpty()) {

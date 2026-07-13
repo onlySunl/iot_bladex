@@ -10,12 +10,12 @@
 // *
 // */
 //
-// package org.springblade.modules.iot.databridge.plugin.jdbc;
+// package org.springblade.modules.iot.databridge.core.plugin.jdbc;
 //
-// import org.springblade.modules.iot.databridge.entity.DataBridgeConfig;
-// import org.springblade.modules.iot.databridge.entity.PluginInfo;
-// import org.springblade.modules.iot.databridge.entity.ResourceConnection;
-// import org.springblade.modules.iot.databridge.enums.PluginStatus;
+// import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+// import org.springblade.modules.iot.pojo.bridge.entity.PluginInfo;
+// import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
+// import org.springblade.modules.iot.databridge.core.enums.PluginStatus;
 // import org.springblade.modules.iot.databridge.plugin.DataBridgePlugin;
 // import org.springblade.modules.iot.databridge.plugin.SourceScope;
 // import java.sql.Connection;
@@ -55,7 +55,7 @@
 //        .author("用户")
 //        .pluginType("JDBC")
 //        .supportedResourceTypes(List.of("MYSQL", "POSTGRESQL", "H2", "ORACLE", "SQLSERVER"))
-//        .dataDirection(PluginInfo.DataDirection.BIDIRECTIONAL)
+//        .dataDirection(DataDirection.BIDIRECTIONAL)
 //        .category("数据库")
 //        .icon("database")
 //        .build();

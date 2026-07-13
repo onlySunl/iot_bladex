@@ -60,12 +60,6 @@ public class MQTTDeviceInfo {
   private String tags;
 
   /** 设备状态枚举 */
-  public enum DeviceStatus {
-    ONLINE, // 在线
-    OFFLINE, // 离线
-    INACTIVE, // 不活跃
-    UNKNOWN // 未知
-  }
 
   /** 获取设备唯一标识 */
   public String getDeviceUniqueId() {

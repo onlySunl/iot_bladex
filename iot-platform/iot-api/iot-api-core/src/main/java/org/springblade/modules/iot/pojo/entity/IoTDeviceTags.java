@@ -35,9 +35,6 @@ public class IoTDeviceTags extends CustomBaseEntity {
   @AutoColumn(comment = "产品ID或者设备唯一标识", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String iotId;
 
-  @TableField(value = "create_time")
-  @AutoColumn(comment = "createTime", defaultValueType = DefaultValueEnum.NULL)
-  private Long createTime;
 
   @TableField(value = "`name`")
   @AutoColumn(comment = "name", length = 128, defaultValueType = DefaultValueEnum.NULL)

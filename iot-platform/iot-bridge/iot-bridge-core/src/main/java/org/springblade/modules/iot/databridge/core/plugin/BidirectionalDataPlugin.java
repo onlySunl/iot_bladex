@@ -1,6 +1,6 @@
 
 
-package org.springblade.modules.iot.databridge.plugin;
+package org.springblade.modules.iot.databridge.core.plugin;
 
 /**
  * 双向数据插件接口 - 同时支持输入和输出

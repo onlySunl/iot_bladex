@@ -1,9 +1,10 @@
 
 
 package org.springblade.modules.iot.rule.wrapper;
+import MessageType;
 
 import cn.hutool.core.collection.CollectionUtil;
-import org.springblade.modules.iot.common.constant.IoTConstant.MessageType;
+import org.springblade.modules.iot.common.constant.MessageType;
 import org.springblade.modules.iot.dm.device.service.wrapper.IoTDeviceUPIntercept;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import org.springblade.modules.iot.persistence.base.IoTUPWrapper;

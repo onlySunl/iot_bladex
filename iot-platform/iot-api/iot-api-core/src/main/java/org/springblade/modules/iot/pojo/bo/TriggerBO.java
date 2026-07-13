@@ -64,25 +64,9 @@ public class TriggerBO {
 
   @AllArgsConstructor
   @Getter
-  public enum MessageType {
-    // 属性
-    properties,
-    // 事件
-    event,
-    // 功能调用回复
-    functions;
-  }
 
   @Getter
   @AllArgsConstructor
-  public enum TriggerType implements Serializable {
-    // 设备消息
-    device(Arrays.asList(MessageType.properties, MessageType.event)),
-    // 定时,定时获取只支持获取设备属性和调用功能.
-    timer(Arrays.asList(MessageType.properties, MessageType.functions));
-
-    final List<MessageType> supportMessageTypes;
-  }
 
   @Getter
   @Setter
@@ -126,28 +110,9 @@ public class TriggerBO {
 
   @AllArgsConstructor
   @Getter
-  public enum Operator {
-    eq("=="),
-    not("!="),
-    gt(">"),
-    lt("<"),
-    gte(">="),
-    lte("<="),
-    like("like");
-
-    private final String symbol;
-
-    public Object convert(String value) {
-      return value;
-    }
-  }
 
   @Getter
   @AllArgsConstructor
-  public enum ExecTriggerType implements Serializable {
-    device,
-    notice;
-  }
 
   @Schema(description = "动作触发类型: device/notice")
   private ExecTriggerType execTriggerType;

@@ -60,10 +60,6 @@ public class IoTDeviceLog extends CustomBaseEntity {
   /** 事件名称 */
   private String event;
 
-  /** 创建时间 */
-  @TableField(value = "create_time")
-  @AutoColumn(comment = "创建时间", defaultValueType = DefaultValueEnum.NULL)
-  private LocalDateTime createTime;
 
   /** 内容 */
   private String content;

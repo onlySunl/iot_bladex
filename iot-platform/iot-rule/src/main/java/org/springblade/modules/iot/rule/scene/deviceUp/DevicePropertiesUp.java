@@ -1,13 +1,15 @@
 
 
 package org.springblade.modules.iot.rule.scene.deviceUp;
+import Operator;
+import MessageType;
 
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import org.springblade.modules.iot.common.constant.IoTConstant;
 import org.springblade.modules.iot.common.message.UPRequest;
 import org.springblade.modules.iot.pojo.bo.TriggerBO;
-import org.springblade.modules.iot.pojo.bo.TriggerBO.Operator;
+import org.springblade.modules.iot.pojo.bo.Operator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -20,7 +22,7 @@ public class DevicePropertiesUp extends AbstractDeviceUp implements DeviceUp {
 
   @Override
   public String messageType() {
-    return IoTConstant.MessageType.PROPERTIES.name();
+    return MessageType.PROPERTIES.name();
   }
 
   @Override

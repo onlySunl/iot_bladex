@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.databridge.engine;
+package org.springblade.modules.iot.databridge.core.engine;
 
 import cn.hutool.core.util.StrUtil;
 import java.util.ArrayList;

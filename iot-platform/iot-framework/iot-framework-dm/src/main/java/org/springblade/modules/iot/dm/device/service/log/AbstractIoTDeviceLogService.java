@@ -1,13 +1,14 @@
 
 
 package org.springblade.modules.iot.dm.device.service.log;
+import MessageType;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import org.springblade.modules.iot.common.constant.IoTConstant.MessageType;
+import org.springblade.modules.iot.common.constant.MessageType;
 import org.springblade.modules.iot.core.message.UPRequest;
 import org.springblade.modules.iot.core.metadata.DeviceMetadata;
 import org.springblade.modules.iot.dm.device.constant.DeviceManagerConstant;

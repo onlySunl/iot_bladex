@@ -13,7 +13,7 @@ import org.springblade.modules.iot.common.domain.R;
 import org.springblade.modules.iot.dm.device.service.impl.IoTDeviceService;
 import org.springblade.modules.iot.pojo.protocol.http.HttpDownRequest;
 import org.springblade.modules.iot.protocol.http.processor.HttpDownMessageProcessor;
-import org.springblade.modules.iot.protocol.http.protocol.codec.HTTPCodecAction;
+import org.springblade.modules.iot.protocol.http.codec.HTTPCodecAction;
 import org.springblade.modules.iot.persistence.base.CommonRequest;
 import org.springblade.modules.iot.persistence.base.IoTDeviceLifeCycle;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;

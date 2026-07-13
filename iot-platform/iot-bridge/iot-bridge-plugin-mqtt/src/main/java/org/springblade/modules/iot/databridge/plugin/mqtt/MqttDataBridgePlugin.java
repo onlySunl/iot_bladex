@@ -1,11 +1,12 @@
 package org.springblade.modules.iot.databridge.plugin.mqtt;
+import DataDirection;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import org.springblade.modules.iot.databridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.databridge.entity.PluginInfo;
-import org.springblade.modules.iot.databridge.entity.ResourceConnection;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.PluginInfo;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 import org.springblade.modules.iot.databridge.plugin.AbstractDataOutputPlugin;
 import org.springblade.modules.iot.databridge.plugin.SourceScope;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
@@ -39,7 +40,7 @@ public class MqttDataBridgePlugin extends AbstractDataOutputPlugin {
                 .author("gitee.com/NexIoT")
                 .pluginType("MQTT")
                 .supportedResourceTypes(List.of("MQTT"))
-                .dataDirection(PluginInfo.DataDirection.BIDIRECTIONAL)
+                .dataDirection(DataDirection.BIDIRECTIONAL)
                 .category("消息队列")
                 .icon("message")
                 .build();

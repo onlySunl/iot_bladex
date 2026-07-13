@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.monitor.web.controller.openapi;
+import MessageType;
 
 import static org.springblade.modules.iot.common.constant.IoTConstant.DownCmd.DEV_FUNCTION;
 
@@ -10,7 +11,7 @@ import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.springblade.modules.iot.common.constant.IoTConstant.DownCmd;
-import org.springblade.modules.iot.common.constant.IoTConstant.MessageType;
+import org.springblade.modules.iot.common.constant.MessageType;
 import org.springblade.modules.iot.common.domain.R;
 import org.springblade.modules.iot.common.exception.IoTErrorCode;
 import org.springblade.modules.iot.common.message.UnifiedDownlinkCommand;

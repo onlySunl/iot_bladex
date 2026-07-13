@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.dm.device.service;
+import MessageType;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.NumberUtil;
@@ -10,7 +11,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.springblade.modules.iot.common.constant.IoTConstant;
 import org.springblade.modules.iot.common.constant.IoTConstant.DeviceNode;
-import org.springblade.modules.iot.common.constant.IoTConstant.MessageType;
+import org.springblade.modules.iot.common.constant.MessageType;
 import org.springblade.modules.iot.core.message.UPRequest;
 import org.springblade.modules.iot.core.metadata.AbstractEventMetadata;
 import org.springblade.modules.iot.core.metadata.AbstractFunctionMetadata;

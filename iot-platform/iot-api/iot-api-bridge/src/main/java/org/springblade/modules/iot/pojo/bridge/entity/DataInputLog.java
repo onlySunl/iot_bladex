@@ -1,6 +1,6 @@
 
 
-package org.springblade.modules.iot.databridge.entity;
+package org.springblade.modules.iot.pojo.bridge.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -32,7 +32,6 @@ public class DataInputLog extends CustomBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     /** 配置ID */
     @TableField(value = "config_id")
@@ -79,24 +78,10 @@ public class DataInputLog extends CustomBaseEntity {
     @TableField(value = "status")
     @AutoColumn(comment = "状态", defaultValueType = DefaultValueEnum.NULL)
     @Enumerated(EnumType.STRING)
-    private Status status;
 
-    /** 创建时间 */
-    @TableField(value = "create_time")
-    @AutoColumn(comment = "创建时间", defaultValueType = DefaultValueEnum.NULL)
-    private LocalDateTime createTime;
 
-    /** 创建者 */
-    @TableField(value = "create_by")
-    @AutoColumn(comment = "创建者", length = 255, defaultValueType = DefaultValueEnum.NULL)
-    private String createBy;
 
     /**
      * 状态枚举
      */
-    public enum Status {
-        SUCCESS,    // 成功
-        FAILED,     // 失败
-        RUNNING     // 运行中
-    }
 }

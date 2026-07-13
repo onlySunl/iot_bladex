@@ -60,11 +60,5 @@ public class SceneLinkage extends CustomBaseEntity {
 	@AutoColumn(comment = "执行动作配置", defaultValueType = DefaultValueEnum.NULL)
 	private String actionConfig;
 
-	/**
-	 * 状态: 0-停用, 1-启用
-	 */
-	@TableField(value = "status")
-	@AutoColumn(comment = "状态", defaultValueType = DefaultValueEnum.NULL)
-	private Integer status;
 
 }

@@ -1,9 +1,9 @@
 
 
-package org.springblade.modules.iot.databridge.processor;
+package org.springblade.modules.iot.databridge.core.processor;
 
 import cn.hutool.core.collection.CollectionUtil;
-import org.springblade.modules.iot.databridge.manager.DataBridgeManager;
+import org.springblade.modules.iot.databridge.core.manager.DataBridgeManager;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import jakarta.annotation.Resource;
 import java.util.List;

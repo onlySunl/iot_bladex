@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.protocol.websocket.handle;
+import DeviceStatus;
 
 import java.util.Map;
 import java.util.Objects;
@@ -8,7 +9,7 @@ import java.util.Objects;
 import org.springframework.stereotype.Component;
 
 import cn.hutool.core.util.StrUtil;
-import org.springblade.modules.iot.common.constant.IoTConstant.DeviceStatus;
+import org.springblade.modules.iot.common.constant.DeviceStatus;
 import org.springblade.modules.iot.common.constant.IoTConstant.ERROR_CODE;
 import org.springblade.modules.iot.common.domain.R;
 import org.springblade.modules.iot.dm.device.service.impl.IoTDeviceService;

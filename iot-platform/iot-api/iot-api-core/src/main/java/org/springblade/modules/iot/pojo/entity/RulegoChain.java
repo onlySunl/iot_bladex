@@ -35,7 +35,6 @@ public class RulegoChain extends CustomBaseEntity {
   /** 主键ID */
   @KeySql(genId = SQenGenId.class)
   @Schema(description = "主键ID")
-  private Long id;
 
   /** rulego规则链ID */
   @Schema(description = "rulego规则链ID")
@@ -70,9 +69,6 @@ public class RulegoChain extends CustomBaseEntity {
 
   /** 状态：draft-草稿，deployed-已部署，stopped-已停止 */
   @Schema(description = "状态")
-  @TableField(value = "status")
-  @AutoColumn(comment = "状态：draft-草稿，deployed-已部署，stopped-已停止", length = 32, defaultValueType = DefaultValueEnum.NULL)
-  private String status;
 
   /** 规则链DSL内容(JSON格式) */
   @Schema(description = "规则链DSL内容")
@@ -89,15 +85,9 @@ public class RulegoChain extends CustomBaseEntity {
 
   /** 创建时间 */
   @Schema(description = "创建时间")
-  @TableField(value = "create_time")
-  @AutoColumn(comment = "创建时间", defaultValueType = DefaultValueEnum.NULL)
-  private Date createTime;
 
   /** 更新时间 */
   @Schema(description = "更新时间")
-  @TableField(value = "update_time")
-  @AutoColumn(comment = "更新时间", defaultValueType = DefaultValueEnum.NULL)
-  private Date updateTime;
 
   /** 是否删除：0-未删除，1-已删除 */
   @Schema(description = "是否删除")

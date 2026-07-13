@@ -137,9 +137,6 @@ public class IoTDevice extends CustomBaseEntity {
   @Excel(name = "备注")
   private String detail;
 
-  @TableField(value = "create_time")
-  @AutoColumn(comment = "说明", defaultValueType = DefaultValueEnum.NULL)
-  private Long createTime;
 
   /** 派生元数据,有的设备的属性，功能，事件可能会动态的添加 */
   @TableField(value = "derive_metadata")

@@ -1,10 +1,11 @@
 
 
 package org.springblade.modules.iot.protocol.http.processor.up;
+import MessageType;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.json.JSONObject;
-import org.springblade.modules.iot.common.constant.IoTConstant.MessageType;
+import org.springblade.modules.iot.common.constant.MessageType;
 import org.springblade.modules.iot.common.metadata.AbstractEventMetadata;
 import org.springblade.modules.iot.common.metadata.DeviceMetadata;
 import org.springblade.modules.iot.dm.device.service.AbstratIoTService;

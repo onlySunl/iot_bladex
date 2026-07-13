@@ -173,7 +173,6 @@ public class IoTProduct extends CustomBaseEntity {
   @TableField(value = "create_time")
   @AutoColumn(comment = "/", defaultValueType = DefaultValueEnum.NULL)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  private Date createTime;
 
   /**
    * 协议配置
@@ -201,13 +200,9 @@ public class IoTProduct extends CustomBaseEntity {
   @TableField(value = "update_time")
   @AutoColumn(comment = "/", defaultValueType = DefaultValueEnum.NULL)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  private Date updateTime;
 
   @TableField(value = "instance")
   @AutoColumn(comment = "instance", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String instance;
 
-  @TableField(value = "is_deleted")
-  @AutoColumn(comment = "isDeleted", defaultValueType = DefaultValueEnum.NULL)
-  private Integer isDeleted;
 }

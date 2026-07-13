@@ -1,12 +1,12 @@
 
 
-package org.springblade.modules.iot.databridge.plugin;
+package org.springblade.modules.iot.databridge.core.plugin;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
-import org.springblade.modules.iot.databridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.databridge.entity.ResourceConnection;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import java.util.List;
 import java.util.Map;

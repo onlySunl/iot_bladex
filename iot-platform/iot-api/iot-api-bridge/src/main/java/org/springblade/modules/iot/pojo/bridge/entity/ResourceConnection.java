@@ -1,6 +1,6 @@
 
 
-package org.springblade.modules.iot.databridge.entity;
+package org.springblade.modules.iot.pojo.bridge.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -32,7 +32,6 @@ public class ResourceConnection extends CustomBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     /** 资源名称 */
     @TableField(value = "name")
@@ -81,10 +80,6 @@ public class ResourceConnection extends CustomBaseEntity {
     @AutoColumn(comment = "扩展配置JSON", defaultValueType = DefaultValueEnum.NULL)
     private String extraConfig;
 
-    /** 状态：0禁用，1启用 */
-    @TableField(value = "status")
-    @AutoColumn(comment = "状态：0禁用，1启用", defaultValueType = DefaultValueEnum.NULL)
-    private Integer status;
 
     /** 描述 */
     @TableField(value = "description")
@@ -92,25 +87,9 @@ public class ResourceConnection extends CustomBaseEntity {
     @AutoColumn(comment = "描述", defaultValueType = DefaultValueEnum.NULL)
     private String description;
 
-    /** 创建者 */
-    @TableField(value = "create_by")
-    @AutoColumn(comment = "创建者", length = 255, defaultValueType = DefaultValueEnum.NULL)
-    private String createBy;
 
-    /** 创建时间 */
-    @TableField(value = "create_time")
-    @AutoColumn(comment = "创建时间", defaultValueType = DefaultValueEnum.NULL)
-    private LocalDateTime createTime;
 
-    /** 更新者 */
-    @TableField(value = "update_by")
-    @AutoColumn(comment = "更新者", length = 255, defaultValueType = DefaultValueEnum.NULL)
-    private String updateBy;
 
-    /** 更新时间 */
-    @TableField(value = "update_time")
-    @AutoColumn(comment = "更新时间", defaultValueType = DefaultValueEnum.NULL)
-    private LocalDateTime updateTime;
 
     /** 方向：IN-输入，OUT-输出，BOTH-双向 */
     @TableField(value = "direction")
@@ -130,25 +109,12 @@ public class ResourceConnection extends CustomBaseEntity {
     /**
      * 资源类型枚举
      */
-    public enum ResourceType {
-        MYSQL, POSTGRESQL, H2, ORACLE, SQLSERVER, KAFKA, IOTDB, INFLUXDB, MQTT, HTTP, REDIS, ELASTICSEARCH, ALIYUN_IOT, TENCENT_IOT, HUAWEI_IOT
-    }
 
     /**
      * 方向枚举
      */
-    public enum Direction {
-        IN,     // 输入
-        OUT,    // 输出
-        BOTH    // 双向
-    }
 
     /**
      * 数据流向枚举
      */
-    public enum DataDirection {
-        INPUT,          // 数据输入
-        OUTPUT,         // 数据输出
-        BIDIRECTIONAL   // 双向流转
-    }
 }

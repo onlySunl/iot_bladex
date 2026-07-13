@@ -59,10 +59,8 @@ public class VideoPlatformOrgCache extends CustomBaseEntity {
   @TableField(value = "create_time")
   @AutoColumn(comment = "更新者ID", defaultValueType = DefaultValueEnum.NULL)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  private Date createTime;
 
   @TableField(value = "update_time")
   @AutoColumn(comment = "updateTime", defaultValueType = DefaultValueEnum.NULL)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  private Date updateTime;
 }

@@ -1,6 +1,6 @@
 
 
-package org.springblade.modules.iot.databridge.entity;
+package org.springblade.modules.iot.pojo.bridge.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -32,7 +32,6 @@ public class DataInputTask extends CustomBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     /** 配置ID */
     @TableField(value = "config_id")
@@ -69,7 +68,6 @@ public class DataInputTask extends CustomBaseEntity {
     @TableField(value = "status")
     @AutoColumn(comment = "状态", defaultValueType = DefaultValueEnum.NULL)
     @Enumerated(EnumType.STRING)
-    private Status status;
 
     /** 错误信息 */
     @TableField(value = "error_message")
@@ -77,40 +75,15 @@ public class DataInputTask extends CustomBaseEntity {
     @AutoColumn(comment = "错误信息", defaultValueType = DefaultValueEnum.NULL)
     private String errorMessage;
 
-    /** 创建时间 */
-    @TableField(value = "create_time")
-    @AutoColumn(comment = "创建时间", defaultValueType = DefaultValueEnum.NULL)
-    private LocalDateTime createTime;
 
-    /** 更新时间 */
-    @TableField(value = "update_time")
-    @AutoColumn(comment = "更新时间", defaultValueType = DefaultValueEnum.NULL)
-    private LocalDateTime updateTime;
 
-    /** 创建者 */
-    @TableField(value = "create_by")
-    @AutoColumn(comment = "创建者", length = 255, defaultValueType = DefaultValueEnum.NULL)
-    private String createBy;
 
-    /** 更新者 */
-    @TableField(value = "update_by")
-    @AutoColumn(comment = "更新者", length = 255, defaultValueType = DefaultValueEnum.NULL)
-    private String updateBy;
 
     /**
      * 任务类型枚举
      */
-    public enum TaskType {
-        SCHEDULED,  // 定时任务
-        REALTIME    // 实时任务
-    }
 
     /**
      * 状态枚举
      */
-    public enum Status {
-        RUNNING,    // 运行中
-        STOPPED,    // 已停止
-        ERROR       // 错误状态
-    }
 }

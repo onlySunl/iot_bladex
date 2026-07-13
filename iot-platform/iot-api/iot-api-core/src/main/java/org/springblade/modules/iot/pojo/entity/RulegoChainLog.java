@@ -35,7 +35,6 @@ public class RulegoChainLog extends CustomBaseEntity {
   /** 主键ID */
   @KeySql(genId = SQenGenId.class)
   @Schema(description = "主键ID")
-  private Long id;
 
   /** rulego规则链ID */
   @Schema(description = "rulego规则链ID")
@@ -90,7 +89,4 @@ public class RulegoChainLog extends CustomBaseEntity {
 
   /** 创建时间 */
   @Schema(description = "创建时间")
-  @TableField(value = "create_time")
-  @AutoColumn(comment = "创建时间", defaultValueType = DefaultValueEnum.NULL)
-  private Date createTime;
 }

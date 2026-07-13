@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.dm.device.service.push.processor;
+import PushStatus;
 
 import org.springblade.modules.iot.pojo.framework.entity.IoTPushResult;
 import org.springblade.modules.iot.dm.device.service.push.UPProcessor;
@@ -426,7 +427,7 @@ public class PushRetryProcessor implements UPProcessor<BaseUPRequest> {
             .pushTime(LocalDateTime.parse(parts[7], DATETIME_FORMATTER))
             .retryCount(Integer.valueOf(parts[8]))
             .ok(false)
-            .status(IoTPushResult.PushStatus.FAILED)
+            .status(PushStatus.FAILED)
             .build();
       }
     } catch (Exception e) {
@@ -453,7 +454,7 @@ public class PushRetryProcessor implements UPProcessor<BaseUPRequest> {
             .channel(channel)
             .pushTime(LocalDateTime.now())
             .ok(false)
-            .status(IoTPushResult.PushStatus.RETRYING)
+            .status(PushStatus.RETRYING)
             .retryCount(currentRetryCount + 1)
             .maxRetryCount(DEFAULT_MAX_RETRY_COUNT)
             .errorMessage("Manual retry")
@@ -534,7 +535,7 @@ public class PushRetryProcessor implements UPProcessor<BaseUPRequest> {
                       .errorCode(parts[6])
                       .pushTime(LocalDateTime.parse(parts[7], DATETIME_FORMATTER))
                       .ok(false)
-                      .status(IoTPushResult.PushStatus.FAILED)
+                      .status(PushStatus.FAILED)
                       .build();
               failedPushes.add(result);
             }
