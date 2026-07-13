@@ -1,57 +1,73 @@
 package org.springblade.modules.iot.pojo.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.ColumnType;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import org.springblade.common.entity.CustomBaseEntity;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name = "iot_certificate")
+@TableName("iot_certificate")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class IoTCertificate implements Serializable {
+public class IoTCertificate extends CustomBaseEntity {
 
-  @Id private Long id;
 
-  @Column(name = "ssl_key")
+  @TableField(value = "ssl_key")
+  @AutoColumn(comment = "sslKey", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String sslKey;
 
-  @Column(name = "name")
+  @TableField(value = "name")
+  @AutoColumn(comment = "name", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String name;
 
-  @Column(name = "cert_content")
+  @TableField(value = "cert_content")
+  @ColumnType("text")
+  @AutoColumn(comment = "certContent", defaultValueType = DefaultValueEnum.NULL)
   private String certContent; // PEM内容或加密内容
 
-  @Column(name = "key_content")
+  @TableField(value = "key_content")
+  @ColumnType("text")
+  @AutoColumn(comment = "keyContent", defaultValueType = DefaultValueEnum.NULL)
   private String keyContent; // PEM内容或加密内容
 
-  @Column(name = "cert_password")
+  @TableField(value = "cert_password")
+  @AutoColumn(comment = "certPassword", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String certPassword;
 
-  @Column(name = "key_password")
+  @TableField(value = "key_password")
+  @AutoColumn(comment = "keyPassword", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String keyPassword;
 
-  @Column(name = "expire_time")
+  @TableField(value = "expire_time")
+  @AutoColumn(comment = "expireTime", defaultValueType = DefaultValueEnum.NULL)
   private Date expireTime;
 
-  @Column(name = "remark")
+  @TableField(value = "remark")
+  @ColumnType("text")
+  @AutoColumn(comment = "remark", defaultValueType = DefaultValueEnum.NULL)
   private String remark;
 
-  @Column(name = "create_time")
+  @TableField(value = "create_time")
+  @AutoColumn(comment = "createTime", defaultValueType = DefaultValueEnum.NULL)
   private Date createTime;
 
-  @Column(name = "update_time")
+  @TableField(value = "update_time")
+  @AutoColumn(comment = "updateTime", defaultValueType = DefaultValueEnum.NULL)
   private Date updateTime;
 
-  @Column(name = "create_user")
+  @TableField(value = "create_user")
+  @AutoColumn(comment = "createUser", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String createUser;
 
-  @Column(name = "cert_info")
+  @TableField(value = "cert_info")
+  @AutoColumn(comment = "certInfo", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String certInfo; // 证书详细信息（JSON）
 }

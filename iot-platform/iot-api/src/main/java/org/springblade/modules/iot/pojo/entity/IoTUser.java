@@ -19,10 +19,12 @@ import org.springblade.modules.iot.common.annotation.Excel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.ColumnType;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import org.springblade.common.entity.CustomBaseEntity;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,19 +33,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name = "iot_user")
+@TableName("iot_user")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class IoTUser implements Serializable {
+public class IoTUser extends CustomBaseEntity {
 
   private static final long serialVersionUID = 1L;
-  @Id private Long id;
 
   /** 归属组织机构 */
-  @Column(name = "org_id")
+  @TableField(value = "org_id")
+  @AutoColumn(comment = "归属组织机构", defaultValueType = DefaultValueEnum.NULL)
   @Excel(name = "归属组织机构")
   private Long orgId;
 
@@ -62,7 +64,8 @@ public class IoTUser implements Serializable {
 
   /** 用户唯一标识 */
   @Excel(name = "用户唯一标识")
-  @Column(name = "union_id")
+  @TableField(value = "union_id")
+  @AutoColumn(comment = "用户唯一标识", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String unionId;
 
   /** 邮箱 */
@@ -94,32 +97,35 @@ public class IoTUser implements Serializable {
   private Integer identity;
 
   /** 登录IP */
-  @Column(name = "login_ip")
+  @TableField(value = "login_ip")
+  @AutoColumn(comment = "登录IP", length = 255, defaultValueType = DefaultValueEnum.NULL)
   @Excel(name = "登录IP")
   private String loginIp;
 
   /** 登录时间 */
-  @Column(name = "login_date")
+@TableField(value = "login_date")
   @Excel(name = "登录时间")
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private Date loginDate;
 
   /** 创建者 */
-  @Column(name = "create_by")
+  @TableField(value = "create_by")
+  @AutoColumn(comment = "创建者", length = 255, defaultValueType = DefaultValueEnum.NULL)
   @Excel(name = "创建者")
   private String createBy;
 
   /** 创建时间 */
-  @Column(name = "create_date")
+@TableField(value = "create_date")
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   @Excel(name = "创建时间")
   private Date createDate;
 
-  @Column(name = "update_by")
+  @TableField(value = "update_by")
+  @AutoColumn(comment = "updateBy", length = 255, defaultValueType = DefaultValueEnum.NULL)
   @Excel(name = "更新者")
   private String updateBy;
 
-  @Column(name = "update_date")
+@TableField(value = "update_date")
   @Excel(name = "更新时间")
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private Date updateDate;

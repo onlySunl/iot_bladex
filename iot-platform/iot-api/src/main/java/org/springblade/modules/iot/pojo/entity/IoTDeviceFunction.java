@@ -12,7 +12,6 @@
 
 package org.springblade.modules.iot.pojo.entity;
 
-import java.io.Serializable;
 import lombok.Builder;
 import lombok.Data;
 

@@ -12,53 +12,63 @@
 
 package org.springblade.modules.iot.pojo.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.ColumnType;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import org.springblade.common.entity.CustomBaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name = "iot_device_tags")
+@TableName("iot_device_tags")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class IoTDeviceTags implements Serializable {
+public class IoTDeviceTags extends CustomBaseEntity {
 
-  @Id private Long id;
 
   /** 设备deviceId */
-  @Column(name = "device_id")
+  @TableField(value = "device_id")
+  @AutoColumn(comment = "设备deviceId", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String deviceId;
 
   /** 产品ID或者设备唯一标识 */
-  @Column(name = "product_key")
+  @TableField(value = "product_key")
+  @AutoColumn(comment = "产品ID或者设备唯一标识", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String productKey;
 
-  @Column(name = "iot_id")
+  @TableField(value = "iot_id")
+  @AutoColumn(comment = "产品ID或者设备唯一标识", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String iotId;
 
-  @Column(name = "create_time")
+  @TableField(value = "create_time")
+  @AutoColumn(comment = "createTime", defaultValueType = DefaultValueEnum.NULL)
   private Long createTime;
 
-  @Column(name = "`name`")
+  @TableField(value = "`name`")
+  @AutoColumn(comment = "name", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String name;
 
   private String description;
 
-  @Column(name = "`type`")
+  @TableField(value = "`type`")
+  @AutoColumn(comment = "type", length = 32, defaultValueType = DefaultValueEnum.NULL)
   private String type;
 
-  @Column(name = "`value`")
+  @TableField(value = "`value`")
+  @AutoColumn(comment = "value", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String value;
 
-  @Column(name = "`key`")
+  @TableField(value = "`key`")
+  @AutoColumn(comment = "key", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String key;
 
-  @Column(name = "`instance`")
+  @TableField(value = "`instance`")
+  @AutoColumn(comment = "instance", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String instance;
 
   private static final long serialVersionUID = 1L;

@@ -12,33 +12,36 @@
 
 package org.springblade.modules.iot.pojo.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.ColumnType;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import org.springblade.common.entity.CustomBaseEntity;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name = "iot_network")
+@TableName("iot_network")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Network implements Serializable {
+public class Network extends CustomBaseEntity {
 
-  @Id private Integer id;
 
   /** TCP_CLIENT,MQTT_CLIENT,HTTP_CLIENT,WEB_SOCKET_CLIENT */
   private String type;
 
   /** 唯一标识 */
-  @Column(name = "product_key")
+  @TableField(value = "product_key")
+  @AutoColumn(comment = "唯一标识", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String productKey;
 
-  @Column(name = "union_id")
+  @TableField(value = "union_id")
+  @AutoColumn(comment = "唯一标识", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String unionId;
 
   private String name;
@@ -46,7 +49,8 @@ public class Network implements Serializable {
   /** 详细描述 */
   private String description;
 
-  @Column(name = "create_date")
+  @TableField(value = "create_date")
+  @AutoColumn(comment = "详细描述", defaultValueType = DefaultValueEnum.NULL)
   private Date createDate;
 
   /** enable,disable */
@@ -56,7 +60,8 @@ public class Network implements Serializable {
   private String configuration;
 
   /** 创建用户 */
-  @Column(name = "create_user")
+  @TableField(value = "create_user")
+  @AutoColumn(comment = "创建用户", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String createUser;
 
   private static final long serialVersionUID = 1L;

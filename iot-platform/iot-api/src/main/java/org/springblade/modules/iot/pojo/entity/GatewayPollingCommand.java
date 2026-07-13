@@ -13,10 +13,12 @@
 package org.springblade.modules.iot.pojo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.ColumnType;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import org.springblade.common.entity.CustomBaseEntity;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,77 +32,92 @@ import lombok.NoArgsConstructor;
  * @date 2025-10-26
  */
 @Data
-@Table(name = "iot_gateway_polling_command")
+@TableName("iot_gateway_polling_command")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GatewayPollingCommand implements Serializable {
+public class GatewayPollingCommand extends CustomBaseEntity {
 
   private static final long serialVersionUID = 1L;
 
   /** 主键ID */
-  @Id
-  private Long id;
 
   /** 网关产品KEY */
-  @Column(name = "gateway_product_key")
+  @TableField(value = "gateway_product_key")
+  @AutoColumn(comment = "网关产品KEY", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String gatewayProductKey;
 
   /** 网关设备ID */
-  @Column(name = "gateway_device_id")
+  @TableField(value = "gateway_device_id")
+  @AutoColumn(comment = "网关设备ID", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String gatewayDeviceId;
 
   /** 从站设备ID (可选) */
-  @Column(name = "slave_device_id")
+  @TableField(value = "slave_device_id")
+  @AutoColumn(comment = "从站设备ID (可选)", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String slaveDeviceId;
 
   /** 指令名称 */
-  @Column(name = "command_name")
+  @TableField(value = "command_name")
+  @AutoColumn(comment = "指令名称", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String commandName;
 
   /** 执行顺序 */
-  @Column(name = "execution_order")
+  @TableField(value = "execution_order")
+  @AutoColumn(comment = "执行顺序", defaultValueType = DefaultValueEnum.NULL)
   private Integer executionOrder;
 
   /** 完整的轮询指令(HEX格式) */
-  @Column(name = "command_hex")
+  @TableField(value = "command_hex")
+  @AutoColumn(comment = "完整的轮询指令(HEX格式)", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String commandHex;
 
   /** 指令类型: MODBUS/S7/OPCUA/CUSTOM */
-  @Column(name = "command_type")
+  @TableField(value = "command_type")
+  @AutoColumn(comment = "指令类型: MODBUS", length = 32, defaultValueType = DefaultValueEnum.NULL)
   private String commandType;
 
   /** 协议参数JSON (用于前端回显编辑) */
-  @Column(name = "protocol_params")
+  @TableField(value = "protocol_params")
+  @AutoColumn(comment = "协议参数JSON (用于前端回显编辑)", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String protocolParams;
 
   /** 属性映射JSON (寄存器->物模型属性) */
-  @Column(name = "property_mapping")
+  @TableField(value = "property_mapping")
+  @AutoColumn(comment = "属性映射JSON (寄存器->物模型属性)", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String propertyMapping;
 
   /** 数据解析脚本 (可选) */
-  @Column(name = "data_parser_script")
+  @TableField(value = "data_parser_script")
+  @ColumnType("text")
+  @AutoColumn(comment = "数据解析脚本 (可选)", defaultValueType = DefaultValueEnum.NULL)
   private String dataParserScript;
 
   /** 是否启用 */
-  @Column(name = "enabled")
+  @TableField(value = "enabled")
+  @AutoColumn(comment = "是否启用", defaultValueType = DefaultValueEnum.NULL)
   private Boolean enabled;
 
   /** 超时时间(ms) */
-  @Column(name = "timeout_ms")
+  @TableField(value = "timeout_ms")
+  @AutoColumn(comment = "超时时间(ms)", defaultValueType = DefaultValueEnum.NULL)
   private Integer timeoutMs;
 
   /** 描述 */
-  @Column(name = "description")
+  @TableField(value = "description")
+  @ColumnType("text")
+  @AutoColumn(comment = "描述", defaultValueType = DefaultValueEnum.NULL)
   private String description;
 
   /** 创建时间 */
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  @Column(name = "create_time")
+  @TableField(value = "create_time")
+  @AutoColumn(comment = "创建时间", defaultValueType = DefaultValueEnum.NULL)
   private Date createTime;
 
   /** 更新时间 */
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  @Column(name = "update_time")
+  @TableField(value = "update_time")
+  @AutoColumn(comment = "更新时间", defaultValueType = DefaultValueEnum.NULL)
   private Date updateTime;
 }

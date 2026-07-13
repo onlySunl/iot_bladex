@@ -14,7 +14,6 @@ package org.springblade.modules.iot.pojo.entity;
 
 import org.springblade.modules.iot.common.annotation.Excel;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

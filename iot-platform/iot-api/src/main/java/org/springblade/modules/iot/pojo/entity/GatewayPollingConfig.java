@@ -13,10 +13,12 @@
 package org.springblade.modules.iot.pojo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.ColumnType;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import org.springblade.common.entity.CustomBaseEntity;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,96 +32,113 @@ import lombok.NoArgsConstructor;
  * @date 2025-10-26
  */
 @Data
-@Table(name = "iot_gateway_polling_config")
+@TableName("iot_gateway_polling_config")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GatewayPollingConfig implements Serializable {
+public class GatewayPollingConfig extends CustomBaseEntity {
 
   private static final long serialVersionUID = 1L;
 
   /** 主键ID */
-  @Id
-  private Long id;
 
   /** 网关设备ID */
-  @Column(name = "device_id")
+  @TableField(value = "device_id")
+  @AutoColumn(comment = "网关设备ID", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String deviceId;
 
   /** 产品KEY */
-  @Column(name = "product_key")
+  @TableField(value = "product_key")
+  @AutoColumn(comment = "产品KEY", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String productKey;
 
   /** IoT ID */
-  @Column(name = "iot_id")
+  @TableField(value = "iot_id")
+  @AutoColumn(comment = "IoT ID", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String iotId;
 
   /** 是否启用轮询 */
-  @Column(name = "enabled")
+  @TableField(value = "enabled")
+  @AutoColumn(comment = "是否启用轮询", defaultValueType = DefaultValueEnum.NULL)
   private Boolean enabled;
 
   /** 轮询间隔(秒) */
-  @Column(name = "interval_seconds")
+  @TableField(value = "interval_seconds")
+  @AutoColumn(comment = "轮询间隔(秒)", defaultValueType = DefaultValueEnum.NULL)
   private Integer intervalSeconds;
 
   /** 超时时间(秒) */
-  @Column(name = "timeout_seconds")
+  @TableField(value = "timeout_seconds")
+  @AutoColumn(comment = "超时时间(秒)", defaultValueType = DefaultValueEnum.NULL)
   private Integer timeoutSeconds;
 
   /** 失败重试次数 */
-  @Column(name = "retry_times")
+  @TableField(value = "retry_times")
+  @AutoColumn(comment = "失败重试次数", defaultValueType = DefaultValueEnum.NULL)
   private Integer retryTimes;
 
   /** 指令间隔(毫秒) */
-  @Column(name = "command_interval_ms")
+  @TableField(value = "command_interval_ms")
+  @AutoColumn(comment = "指令间隔(毫秒)", defaultValueType = DefaultValueEnum.NULL)
   private Integer commandIntervalMs;
 
   /** 下次轮询时间 */
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  @Column(name = "next_poll_time")
+  @TableField(value = "next_poll_time")
+  @AutoColumn(comment = "下次轮询时间", defaultValueType = DefaultValueEnum.NULL)
   private Date nextPollTime;
 
   /** 最后轮询时间 */
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  @Column(name = "last_poll_time")
+  @TableField(value = "last_poll_time")
+  @AutoColumn(comment = "最后轮询时间", defaultValueType = DefaultValueEnum.NULL)
   private Date lastPollTime;
 
   /** 最后成功时间 */
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  @Column(name = "last_success_time")
+  @TableField(value = "last_success_time")
+  @AutoColumn(comment = "最后成功时间", defaultValueType = DefaultValueEnum.NULL)
   private Date lastSuccessTime;
 
   /** 连续失败次数 */
-  @Column(name = "continuous_fail_count")
+  @TableField(value = "continuous_fail_count")
+  @AutoColumn(comment = "连续失败次数", defaultValueType = DefaultValueEnum.NULL)
   private Integer continuousFailCount;
 
   /** 轮询状态: NORMAL-正常, PAUSED-暂停, FAILED-失败 */
-  @Column(name = "polling_status")
+  @TableField(value = "polling_status")
+  @AutoColumn(comment = "轮询状态: NORMAL-正常, PAUSED-暂停, FAILED-失败", length = 32, defaultValueType = DefaultValueEnum.NULL)
   private String pollingStatus;
 
   /** 总轮询次数 */
-  @Column(name = "total_poll_count")
+  @TableField(value = "total_poll_count")
+  @AutoColumn(comment = "总轮询次数", defaultValueType = DefaultValueEnum.NULL)
   private Long totalPollCount;
 
   /** 成功次数 */
-  @Column(name = "success_count")
+  @TableField(value = "success_count")
+  @AutoColumn(comment = "成功次数", defaultValueType = DefaultValueEnum.NULL)
   private Long successCount;
 
   /** 失败次数 */
-  @Column(name = "fail_count")
+  @TableField(value = "fail_count")
+  @AutoColumn(comment = "失败次数", defaultValueType = DefaultValueEnum.NULL)
   private Long failCount;
 
   /** 创建时间 */
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  @Column(name = "create_time")
+  @TableField(value = "create_time")
+  @AutoColumn(comment = "创建时间", defaultValueType = DefaultValueEnum.NULL)
   private Date createTime;
 
   /** 更新时间 */
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  @Column(name = "update_time")
+  @TableField(value = "update_time")
+  @AutoColumn(comment = "更新时间", defaultValueType = DefaultValueEnum.NULL)
   private Date updateTime;
 
   /** 创建人ID */
-  @Column(name = "creator_id")
+  @TableField(value = "creator_id")
+  @AutoColumn(comment = "创建人ID", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String creatorId;
 }

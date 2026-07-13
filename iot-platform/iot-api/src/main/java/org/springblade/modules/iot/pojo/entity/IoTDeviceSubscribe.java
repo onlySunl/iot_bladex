@@ -13,43 +13,49 @@
 package org.springblade.modules.iot.pojo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.ColumnType;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import org.springblade.common.entity.CustomBaseEntity;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name = "iot_device_subscribe")
+@TableName("iot_device_subscribe")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class IoTDeviceSubscribe implements Serializable {
+public class IoTDeviceSubscribe extends CustomBaseEntity {
 
-  @Id private Long id;
 
   /** 消息类别：属性（PROPERTIES），指令（REPLY），事件（EVENT），上下线（EVENT：online,offline），所有 */
-  @Column(name = "msg_type")
+  @TableField(value = "msg_type")
+  @AutoColumn(comment = "消息类别：属性（PROPERTIES），指令（REPLY），事件（EVENT），上下线（EVENT：online,offline），所有", length = 32, defaultValueType = DefaultValueEnum.NULL)
   private String msgType;
 
   /** 订阅级别：设备级，产品级 */
-  @Column(name = "sub_type")
+  @TableField(value = "sub_type")
+  @AutoColumn(comment = "订阅级别：设备级，产品级", length = 32, defaultValueType = DefaultValueEnum.NULL)
   private String subType;
 
   /** 设备deviceId */
-  @Column(name = "device_id")
+  @TableField(value = "device_id")
+  @AutoColumn(comment = "设备deviceId", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String deviceId;
 
   /** 产品ID或者设备唯一标识 */
-  @Column(name = "product_key")
+  @TableField(value = "product_key")
+  @AutoColumn(comment = "产品ID或者设备唯一标识", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String productKey;
 
   /** 产品ID或者设备唯一标识 */
-  @Column(name = "iot_id")
+  @TableField(value = "iot_id")
+  @AutoColumn(comment = "产品ID或者设备唯一标识", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String iotId;
 
   /** 订阅地址 */
@@ -59,7 +65,8 @@ public class IoTDeviceSubscribe implements Serializable {
   private String topic;
 
   /** 创建时间 */
-  @Column(name = "create_date")
+  @TableField(value = "create_date")
+  @AutoColumn(comment = "创建时间", defaultValueType = DefaultValueEnum.NULL)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private Date createDate;
 
@@ -67,7 +74,8 @@ public class IoTDeviceSubscribe implements Serializable {
   private String creater;
 
   /** 实例编号(应用标识) */
-  @Column(name = "`instance`")
+  @TableField(value = "`instance`")
+  @AutoColumn(comment = "实例编号(应用标识)", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String instance;
 
   /** 是否启用 */

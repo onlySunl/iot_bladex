@@ -12,65 +12,76 @@
 
 package org.springblade.modules.iot.pojo.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.ColumnType;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import org.springblade.common.entity.CustomBaseEntity;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name = "iot_device_shadow")
+@TableName("iot_device_shadow")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class IoTDeviceShadow implements Serializable {
+public class IoTDeviceShadow extends CustomBaseEntity {
 
-  @Id private Long id;
 
   /** 本平台设备唯一标识符 */
-  @Column(name = "iot_id")
+  @TableField(value = "iot_id")
+  @AutoColumn(comment = "本平台设备唯一标识符", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String iotId;
 
   /** 产品KEY */
-  @Column(name = "product_key")
+  @TableField(value = "product_key")
+  @AutoColumn(comment = "产品KEY", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String productKey;
 
   /** 设备自身序号 */
-  @Column(name = "device_id")
+  @TableField(value = "device_id")
+  @AutoColumn(comment = "设备自身序号", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String deviceId;
 
   /** 第三方平台设备ID唯一标识符 */
-  @Column(name = "ext_device_id")
+  @TableField(value = "ext_device_id")
+  @AutoColumn(comment = "第三方平台设备ID唯一标识符", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String extDeviceId;
 
   /** 注册时间 */
-  @Column(name = "active_time")
+  @TableField(value = "active_time")
+  @AutoColumn(comment = "注册时间", defaultValueType = DefaultValueEnum.NULL)
   private Date activeTime;
 
   /** 激活时间 */
-  @Column(name = "online_time")
+  @TableField(value = "online_time")
+  @AutoColumn(comment = "激活时间", defaultValueType = DefaultValueEnum.NULL)
   private Date onlineTime;
 
   /** 最后通信时间 */
-  @Column(name = "last_time")
+  @TableField(value = "last_time")
+  @AutoColumn(comment = "最后通信时间", defaultValueType = DefaultValueEnum.NULL)
   private Date lastTime;
 
   /** 更新时间 */
-  @Column(name = "update_date")
+  @TableField(value = "update_date")
+  @AutoColumn(comment = "更新时间", defaultValueType = DefaultValueEnum.NULL)
   private Date updateDate;
 
   /** 影子数据 */
   private String metadata;
 
-  @Column(name = "`instance`")
+  @TableField(value = "`instance`")
+  @AutoColumn(comment = "影子数据", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String instance;
 
   /** 版本号 */
-  @Column(name = "version")
+  @TableField(value = "version")
+  @AutoColumn(comment = "版本号", defaultValueType = DefaultValueEnum.NULL)
   private Long version;
 
   private static final long serialVersionUID = 1L;

@@ -12,58 +12,67 @@
 
 package org.springblade.modules.iot.pojo.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.ColumnType;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import org.springblade.common.entity.CustomBaseEntity;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name = "iot_device_log")
+@TableName("iot_device_log")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class IoTDeviceLog implements Serializable {
+public class IoTDeviceLog extends CustomBaseEntity {
 
-  @Id private Long id;
 
   /** 唯一编码 */
   @Column(name = "iot_id", length = 128)
   private String iotId;
 
   /** 设备自身序号 */
-  @Column(name = "device_id")
+  @TableField(value = "device_id")
+  @AutoColumn(comment = "设备自身序号", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String deviceId;
 
   /** 产品ID */
-  @Column(name = "product_key")
+  @TableField(value = "product_key")
+  @AutoColumn(comment = "产品ID", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String productKey;
 
   /** 设备名称 */
-  @Column(name = "device_name")
+  @TableField(value = "device_name")
+  @AutoColumn(comment = "设备名称", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String deviceName;
 
   /** 消息类型 */
-  @Column(name = "message_type")
+  @TableField(value = "message_type")
+  @ColumnType("text")
+  @AutoColumn(comment = "消息类型", defaultValueType = DefaultValueEnum.NULL)
   private String messageType;
 
   /** 指令ID */
-  @Column(name = "command_id")
+  @TableField(value = "command_id")
+  @AutoColumn(comment = "指令ID", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String commandId;
 
   /** 指令ID */
-  @Column(name = "command_status")
+  @TableField(value = "command_status")
+  @AutoColumn(comment = "指令ID", defaultValueType = DefaultValueEnum.NULL)
   private Integer commandStatus;
 
   /** 事件名称 */
   private String event;
 
   /** 创建时间 */
-  @Column(name = "create_time")
+  @TableField(value = "create_time")
+  @AutoColumn(comment = "创建时间", defaultValueType = DefaultValueEnum.NULL)
   private LocalDateTime createTime;
 
   /** 内容 */

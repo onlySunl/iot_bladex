@@ -1,9 +1,11 @@
 package org.springblade.modules.iot.pojo.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.ColumnType;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import org.springblade.common.entity.CustomBaseEntity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -23,41 +25,47 @@ import tk.mybatis.mapper.annotation.KeySql;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "iot_dashboard_statistics")
-public class IoTDashboardStatistics implements Serializable {
+@TableName("iot_dashboard_statistics")
+public class IoTDashboardStatistics extends CustomBaseEntity {
 
   private static final long serialVersionUID = 1L;
 
-  @Id
   @KeySql(useGeneratedKeys = true)
   private Long id;
 
   /** 统计日期 */
-  @Column(name = "stat_date")
+  @TableField(value = "stat_date")
+  @AutoColumn(comment = "统计日期", defaultValueType = DefaultValueEnum.NULL)
   private LocalDate statDate;
 
   /** 产品Key，NULL表示全产品 */
-  @Column(name = "product_key")
+  @TableField(value = "product_key")
+  @AutoColumn(comment = "产品Key，NULL表示全产品", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String productKey;
 
   /** 推送渠道，NULL表示全渠道 */
-  @Column(name = "channel")
+  @TableField(value = "channel")
+  @AutoColumn(comment = "推送渠道，NULL表示全渠道", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String channel;
 
   /** 指标类型 */
-  @Column(name = "metric_type")
+  @TableField(value = "metric_type")
+  @AutoColumn(comment = "指标类型", length = 32, defaultValueType = DefaultValueEnum.NULL)
   private String metricType;
 
   /** 指标值 */
-  @Column(name = "metric_value")
+  @TableField(value = "metric_value")
+  @AutoColumn(comment = "指标值", defaultValueType = DefaultValueEnum.NULL)
   private Long metricValue;
 
   /** 创建时间 */
-  @Column(name = "create_time")
+  @TableField(value = "create_time")
+  @AutoColumn(comment = "创建时间", defaultValueType = DefaultValueEnum.NULL)
   private LocalDateTime createTime;
 
   /** 更新时间 */
-  @Column(name = "update_time")
+  @TableField(value = "update_time")
+  @AutoColumn(comment = "更新时间", defaultValueType = DefaultValueEnum.NULL)
   private LocalDateTime updateTime;
 
   /** 指标类型枚举 */

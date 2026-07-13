@@ -14,10 +14,12 @@ package org.springblade.modules.iot.pojo.entity;
 
 import org.springblade.modules.iot.persistence.common.inteceptor.SQenGenId;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.ColumnType;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import org.springblade.common.entity.CustomBaseEntity;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,63 +33,74 @@ import tk.mybatis.mapper.annotation.KeySql;
  * @author gitee.com/NexIoT
  * @since 2025/01/15
  */
-@Table(name = "rulego_chain_log")
+@TableName("rulego_chain_log")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RulegoChainLog implements Serializable {
+public class RulegoChainLog extends CustomBaseEntity {
 
   private static final long serialVersionUID = 1L;
 
   /** 主键ID */
-  @Id
   @KeySql(genId = SQenGenId.class)
   @Schema(description = "主键ID")
   private Long id;
 
   /** rulego规则链ID */
   @Schema(description = "rulego规则链ID")
-  @Column(name = "rulego_id")
+  @TableField(value = "rulego_id")
+  @AutoColumn(comment = "rulego规则链ID", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String rulegoId;
 
   /** 规则链名称 */
   @Schema(description = "规则链名称")
-  @Column(name = "chain_name")
+  @TableField(value = "chain_name")
+  @AutoColumn(comment = "规则链名称", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String chainName;
 
   /** 执行ID */
   @Schema(description = "执行ID")
-  @Column(name = "execution_id")
+  @TableField(value = "execution_id")
+  @AutoColumn(comment = "执行ID", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String executionId;
 
   /** 输入数据 */
   @Schema(description = "输入数据")
-  @Column(name = "input_data")
+  @TableField(value = "input_data")
+  @ColumnType("text")
+  @AutoColumn(comment = "输入数据", defaultValueType = DefaultValueEnum.NULL)
   private String inputData;
 
   /** 输出数据 */
   @Schema(description = "输出数据")
-  @Column(name = "output_data")
+  @TableField(value = "output_data")
+  @ColumnType("text")
+  @AutoColumn(comment = "输出数据", defaultValueType = DefaultValueEnum.NULL)
   private String outputData;
 
   /** 执行状态：success-成功，failed-失败 */
   @Schema(description = "执行状态")
-  @Column(name = "execution_status")
+  @TableField(value = "execution_status")
+  @AutoColumn(comment = "执行状态：success-成功，failed-失败", length = 32, defaultValueType = DefaultValueEnum.NULL)
   private String executionStatus;
 
   /** 错误信息 */
   @Schema(description = "错误信息")
-  @Column(name = "error_message")
+  @TableField(value = "error_message")
+  @ColumnType("text")
+  @AutoColumn(comment = "错误信息", defaultValueType = DefaultValueEnum.NULL)
   private String errorMessage;
 
   /** 执行耗时(毫秒) */
   @Schema(description = "执行耗时")
-  @Column(name = "execution_time")
+  @TableField(value = "execution_time")
+  @AutoColumn(comment = "执行耗时(毫秒)", defaultValueType = DefaultValueEnum.NULL)
   private Long executionTime;
 
   /** 创建时间 */
   @Schema(description = "创建时间")
-  @Column(name = "create_time")
+  @TableField(value = "create_time")
+  @AutoColumn(comment = "创建时间", defaultValueType = DefaultValueEnum.NULL)
   private Date createTime;
 }

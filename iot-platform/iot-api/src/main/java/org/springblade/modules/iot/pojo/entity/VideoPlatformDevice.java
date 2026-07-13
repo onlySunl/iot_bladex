@@ -9,15 +9,17 @@
 package org.springblade.modules.iot.pojo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.ColumnType;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import org.springblade.common.entity.CustomBaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -29,98 +31,118 @@ import java.util.Date;
  * @version 2.0
  * @since 2025/11/08
  */
-@Table(name = "video_platform_device")
+@TableName("video_platform_device")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class VideoPlatformDevice implements Serializable {
+public class VideoPlatformDevice extends CustomBaseEntity {
 
   private static final long serialVersionUID = 1L;
 
   /** 主键ID */
-  @Id
-  private Long id;
 
   /** 平台实例唯一标识 */
-  @Column(name = "instance_key")
+  @TableField(value = "instance_key")
+  @AutoColumn(comment = "平台实例唯一标识", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String instanceKey;
 
   /** 设备ID（平台侧唯一标识） */
-  @Column(name = "device_id")
+  @TableField(value = "device_id")
+  @AutoColumn(comment = "设备ID（平台侧唯一标识）", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String deviceId;
 
   /** 设备名称 */
-  @Column(name = "device_name")
+  @TableField(value = "device_name")
+  @AutoColumn(comment = "设备名称", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String deviceName;
 
   /** 设备状态: online/offline/1/0等 */
-  @Column(name = "device_status")
+  @TableField(value = "device_status")
+  @AutoColumn(comment = "设备状态: online", length = 32, defaultValueType = DefaultValueEnum.NULL)
   private String deviceStatus;
 
   /** 设备型号 */
-  @Column(name = "device_model")
+  @TableField(value = "device_model")
+  @AutoColumn(comment = "设备型号", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String deviceModel;
 
   /** 设备IP地址 */
-  @Column(name = "device_ip")
+  @TableField(value = "device_ip")
+  @AutoColumn(comment = "设备IP地址", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String deviceIp;
 
   /** 设备端口 */
-  @Column(name = "device_port")
+  @TableField(value = "device_port")
+  @AutoColumn(comment = "设备端口", defaultValueType = DefaultValueEnum.NULL)
   private Integer devicePort;
 
   /** 设备厂商 */
-  @Column(name = "manufacturer")
+  @TableField(value = "manufacturer")
+  @AutoColumn(comment = "设备厂商", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String manufacturer;
 
   /** 所属组织ID */
-  @Column(name = "org_id")
+  @TableField(value = "org_id")
+  @AutoColumn(comment = "所属组织ID", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String orgId;
 
   /** 所属组织名称 */
-  @Column(name = "org_name")
+  @TableField(value = "org_name")
+  @AutoColumn(comment = "所属组织名称", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String orgName;
 
   /** 经度（longitude） */
-  @Column(name = "gps_x")
+  @TableField(value = "gps_x")
+  @AutoColumn(comment = "经度（longitude）", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String gpsX;
 
   /** 纬度（latitude） */
-  @Column(name = "gps_y")
+  @TableField(value = "gps_y")
+  @AutoColumn(comment = "纬度（latitude）", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String gpsY;
 
   /** Z轴高度（altitude） */
-  @Column(name = "gps_z")
+  @TableField(value = "gps_z")
+  @AutoColumn(comment = "Z轴高度（altitude）", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String gpsZ;
 
   /** 设备配置（JSON）包含channelList、能力集等公共扩展信息 */
-  @Column(name = "configuration")
+  @TableField(value = "configuration")
+  @ColumnType("text")
+  @AutoColumn(comment = "设备配置（JSON）包含channelList、能力集等公共扩展信息", defaultValueType = DefaultValueEnum.NULL)
   private String configuration;
 
   /** 备注说明 */
-  @Column(name = "remark")
+  @TableField(value = "remark")
+  @ColumnType("text")
+  @AutoColumn(comment = "备注说明", defaultValueType = DefaultValueEnum.NULL)
   private String remark;
 
   /** 是否启用：0-禁用，1-启用 */
-  @Column(name = "enabled")
+  @TableField(value = "enabled")
+  @AutoColumn(comment = "是否启用：0-禁用，1-启用", defaultValueType = DefaultValueEnum.NULL)
   private Integer enabled;
 
   /** 创建者ID */
-  @Column(name = "create_id")
+  @TableField(value = "create_id")
+  @AutoColumn(comment = "创建者ID", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String createId;
 
   /** 更新者ID */
-  @Column(name = "update_id")
+  @TableField(value = "update_id")
+  @AutoColumn(comment = "更新者ID", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String updateId;
 
   /** 创建时间 */
-  @Column(name = "create_time")
+  @TableField(value = "create_time")
+  @AutoColumn(comment = "创建时间", defaultValueType = DefaultValueEnum.NULL)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private Date createTime;
 
   /** 更新时间 */
-  @Column(name = "update_time")
+  @TableField(value = "update_time")
+  @AutoColumn(comment = "更新时间", defaultValueType = DefaultValueEnum.NULL)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private Date updateTime;
 }

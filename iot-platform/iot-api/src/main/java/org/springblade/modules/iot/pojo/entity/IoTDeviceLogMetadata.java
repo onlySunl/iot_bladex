@@ -12,30 +12,33 @@
 
 package org.springblade.modules.iot.pojo.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.ColumnType;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import org.springblade.common.entity.CustomBaseEntity;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name = "iot_device_log_metadata")
+@TableName("iot_device_log_metadata")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class IoTDeviceLogMetadata implements Serializable {
+public class IoTDeviceLogMetadata extends CustomBaseEntity {
 
-  @Id private Long id;
 
-  @Column(name = "iot_id")
+  @TableField(value = "iot_id")
+  @AutoColumn(comment = "iotId", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String iotId;
 
   /** 产品唯一标识 */
-  @Column(name = "product_key")
+  @TableField(value = "product_key")
+  @AutoColumn(comment = "产品唯一标识", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String productKey;
 
   /** 设备名称 */
@@ -46,7 +49,9 @@ public class IoTDeviceLogMetadata implements Serializable {
   private String deviceId;
 
   /** 消息类型 */
-  @Column(name = "message_type")
+  @TableField(value = "message_type")
+  @ColumnType("text")
+  @AutoColumn(comment = "消息类型", defaultValueType = DefaultValueEnum.NULL)
   private String messageType;
 
   @Column(length = 32)
@@ -62,7 +67,8 @@ public class IoTDeviceLogMetadata implements Serializable {
   private String ext3;
 
   /** 发生时间 */
-  @Column(name = "create_time")
+  @TableField(value = "create_time")
+  @AutoColumn(comment = "发生时间", defaultValueType = DefaultValueEnum.NULL)
   private LocalDateTime createTime;
 
   /** 其他 */

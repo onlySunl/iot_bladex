@@ -13,108 +13,123 @@
 package org.springblade.modules.iot.pojo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.ColumnType;
+import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import org.springblade.common.entity.CustomBaseEntity;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name = "iot_product")
+@TableName("iot_product")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class IoTProduct implements Serializable {
+public class IoTProduct extends CustomBaseEntity {
 
   private static final long serialVersionUID = 1L;
 
   /**
    * 主键ID
    */
-  @Id
-  private Long id;
 
   /**
    * 产品编号
    */
-  @Column(name = "product_id")
+  @TableField(value = "product_id")
+  @AutoColumn(comment = "/", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String productId;
 
   /**
    * 产品标签
    */
-  @Column(name = "tags")
+  @TableField(value = "tags")
+  @AutoColumn(comment = "/", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String tags;
 
   /**
    * 产品KEY
    */
-  @Column(name = "product_key")
+  @TableField(value = "product_key")
+  @AutoColumn(comment = "/", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String productKey;
 
   /**
    * 产品密钥（1型1密）
    */
-  @Column(name = "product_secret")
+  @TableField(value = "product_secret")
+  @AutoColumn(comment = "/", length = 128, defaultValueType = DefaultValueEnum.NULL)
 //  @SensitiveField(showPrefix = 3, showSuffix = 3)
   private String productSecret;
 
   /**
    * 接入方式
    */
-  @Column(name = "third_platform")
+  @TableField(value = "third_platform")
+  @AutoColumn(comment = "/", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String thirdPlatform;
 
   /**
    * 第三方平台配置信息
    */
-  @Column(name = "third_configuration")
+  @TableField(value = "third_configuration")
+  @ColumnType("text")
+  @AutoColumn(comment = "/", defaultValueType = DefaultValueEnum.NULL)
   private String thirdConfiguration;
 
   /**
    * 厂商编号
    */
-  @Column(name = "company_no")
+  @TableField(value = "company_no")
+  @AutoColumn(comment = "/", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String companyNo;
 
   /**
    * 分类ID
    */
-  @Column(name = "classified_id")
+  @TableField(value = "classified_id")
+  @AutoColumn(comment = "/", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String classifiedId;
 
   /**
    * 网络组件：关联network表
    */
-  @Column(name = "network_union_id")
+  @TableField(value = "network_union_id")
+  @AutoColumn(comment = "/", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String networkUnionId;
 
   /**
    * 设备类型: 网关，设备
    */
-  @Column(name = "device_node")
+  @TableField(value = "device_node")
+  @AutoColumn(comment = "/", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String deviceNode;
 
   /**
    * 所属网关设备的ProductKey
    */
-  @Column(name = "gw_product_key")
+  @TableField(value = "gw_product_key")
+  @AutoColumn(comment = "/", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String gwProductKey;
 
   /**
    * 分类名称
    */
-  @Column(name = "classified_name")
+  @TableField(value = "classified_name")
+  @AutoColumn(comment = "/", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String classifiedName;
 
   /**
    * 消息协议:
    */
-  @Column(name = "message_protocol")
+  @TableField(value = "message_protocol")
+  @ColumnType("text")
+  @AutoColumn(comment = "/", defaultValueType = DefaultValueEnum.NULL)
   private String messageProtocol;
 
   /**
@@ -125,7 +140,8 @@ public class IoTProduct implements Serializable {
   /**
    * 创建者id
    */
-  @Column(name = "creator_id")
+  @TableField(value = "creator_id")
+  @AutoColumn(comment = "/", length = 128, defaultValueType = DefaultValueEnum.NULL)
   private String creatorId;
 
   /**
@@ -136,31 +152,36 @@ public class IoTProduct implements Serializable {
   /**
    * 说明
    */
-  @Column(name = "`describe`")
+  @TableField(value = "`describe`")
+  @AutoColumn(comment = "/", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String describe;
 
   /**
    * 数据存储策略
    */
-  @Column(name = "store_policy")
+  @TableField(value = "store_policy")
+  @AutoColumn(comment = "/", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String storePolicy;
 
   /**
    * 传输协议: MQTT,COAP,UDP
    */
-  @Column(name = "transport_protocol")
+  @TableField(value = "transport_protocol")
+  @AutoColumn(comment = "/", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String transportProtocol;
 
   /**
    * 图片地址
    */
-  @Column(name = "photo_url")
+  @TableField(value = "photo_url")
+  @AutoColumn(comment = "/", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String photoUrl;
 
   /**
    * 创建时间
    */
-  @Column(name = "create_time")
+  @TableField(value = "create_time")
+  @AutoColumn(comment = "/", defaultValueType = DefaultValueEnum.NULL)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private Date createTime;
 
@@ -172,7 +193,9 @@ public class IoTProduct implements Serializable {
   /**
    * 数据存储策略配置
    */
-  @Column(name = "store_policy_configuration")
+  @TableField(value = "store_policy_configuration")
+  @ColumnType("text")
+  @AutoColumn(comment = "/", defaultValueType = DefaultValueEnum.NULL)
   private String storePolicyConfiguration;
 
   /**
@@ -185,13 +208,16 @@ public class IoTProduct implements Serializable {
    */
   private String thirdDownRequest;
 
-  @Column(name = "update_time")
+  @TableField(value = "update_time")
+  @AutoColumn(comment = "/", defaultValueType = DefaultValueEnum.NULL)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private Date updateTime;
 
-  @Column(name = "instance")
+  @TableField(value = "instance")
+  @AutoColumn(comment = "instance", length = 255, defaultValueType = DefaultValueEnum.NULL)
   private String instance;
 
-  @Column(name = "is_deleted")
+  @TableField(value = "is_deleted")
+  @AutoColumn(comment = "isDeleted", defaultValueType = DefaultValueEnum.NULL)
   private Integer isDeleted;
 }
