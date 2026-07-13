@@ -12,9 +12,9 @@
 //
 // package org.springblade.modules.iot.databridge.core.plugin.jdbc;
 //
-// import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
-// import org.springblade.modules.iot.pojo.bridge.entity.PluginInfo;
-// import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
+// import org.springblade.modules.iot.pojo.entity.DataBridgeConfig;
+// import org.springblade.modules.iot.pojo.entity.PluginInfo;
+// import org.springblade.modules.iot.pojo.entity.ResourceConnection;
 // import org.springblade.modules.iot.databridge.core.enums.PluginStatus;
 // import org.springblade.modules.iot.databridge.plugin.DataBridgePlugin;
 // import org.springblade.modules.iot.databridge.plugin.SourceScope;

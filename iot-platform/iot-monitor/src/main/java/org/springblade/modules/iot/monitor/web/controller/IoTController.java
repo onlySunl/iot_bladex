@@ -11,7 +11,7 @@ import org.springblade.modules.iot.common.message.UnifiedDownlinkCommand;
 import org.springblade.modules.iot.common.metadata.AbstractFunctionMetadata;
 import org.springblade.modules.iot.common.metadata.DeviceMetadata;
 import org.springblade.modules.iot.common.service.IoTDownlFactory;
-import org.springblade.modules.iot.pojo.framework.bo.IoTDevicePropertiesBO;
+import org.springblade.modules.iot.pojo.bo.IoTDevicePropertiesBO;
 import org.springblade.modules.iot.dm.device.service.impl.IoTDeviceService;
 import org.springblade.modules.iot.dm.device.service.impl.IoTDeviceShadowService;
 import org.springblade.modules.iot.dm.device.service.impl.IoTProductDeviceService;

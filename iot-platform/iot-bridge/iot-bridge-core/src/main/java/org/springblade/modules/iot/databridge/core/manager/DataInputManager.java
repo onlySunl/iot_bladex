@@ -5,9 +5,9 @@ import org.springblade.modules.iot.common.enums.Status;
 import Status;
 
 import cn.hutool.core.collection.CollectionUtil;
-import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.pojo.bridge.entity.DataInputLog;
-import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
+import org.springblade.modules.iot.pojo.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.entity.DataInputLog;
+import org.springblade.modules.iot.pojo.entity.ResourceConnection;
 import org.springblade.modules.iot.databridge.logger.DataBridgeLogger;
 import org.springblade.modules.iot.databridge.plugin.DataInputPlugin;
 import org.springblade.modules.iot.databridge.core.service.DataBridgeConfigService;

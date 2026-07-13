@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.dm.device.service;
 
-import org.springblade.modules.iot.pojo.framework.entity.IoTPushResult;
+import org.springblade.modules.iot.pojo.entity.IoTPushResult;
 import org.springblade.modules.iot.dm.device.service.push.PushStrategyManager;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;

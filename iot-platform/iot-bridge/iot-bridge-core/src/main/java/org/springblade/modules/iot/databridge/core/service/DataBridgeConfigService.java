@@ -16,8 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.hutool.json.JSONUtil;
-import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
+import org.springblade.modules.iot.pojo.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.entity.ResourceConnection;
 import org.springblade.modules.iot.databridge.core.exception.DataBridgeException;
 import org.springblade.modules.iot.databridge.logger.DataBridgeLogger;
 import org.springblade.modules.iot.databridge.core.mapper.DataBridgeConfigMapper;

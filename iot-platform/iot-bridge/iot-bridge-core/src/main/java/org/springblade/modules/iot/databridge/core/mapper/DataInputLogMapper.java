@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.databridge.core.mapper;
 
-import org.springblade.modules.iot.pojo.bridge.entity.DataInputLog;
+import org.springblade.modules.iot.pojo.entity.DataInputLog;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;

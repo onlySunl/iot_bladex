@@ -10,7 +10,7 @@ import cn.hutool.http.HttpException;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
-import org.springblade.modules.iot.pojo.framework.entity.IoTPushResult;
+import org.springblade.modules.iot.pojo.entity.IoTPushResult;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import org.springblade.modules.iot.pojo.bo.UPPushBO;
 import com.github.benmanes.caffeine.cache.Cache;

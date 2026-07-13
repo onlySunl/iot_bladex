@@ -13,7 +13,7 @@ import cn.hutool.json.JSONObject;
 import org.springblade.modules.iot.common.constant.MessageType;
 import org.springblade.modules.iot.core.message.UPRequest;
 import org.springblade.modules.iot.core.metadata.AbstractPropertyMetadata;
-import org.springblade.modules.iot.pojo.framework.bo.IoTDevicePropertiesBO;
+import org.springblade.modules.iot.pojo.bo.IoTDevicePropertiesBO;
 import org.springblade.modules.iot.dm.device.service.impl.IoTDeviceService;
 import org.springblade.modules.iot.dm.device.service.impl.IoTProductDeviceService;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;

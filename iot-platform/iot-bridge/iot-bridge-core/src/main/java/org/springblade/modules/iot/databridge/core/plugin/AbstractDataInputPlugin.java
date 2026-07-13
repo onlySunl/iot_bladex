@@ -4,8 +4,8 @@ package org.springblade.modules.iot.databridge.core.plugin;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
-import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
+import org.springblade.modules.iot.pojo.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.entity.ResourceConnection;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 

@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.protocol.http.handle;
 
-import org.springblade.modules.iot.pojo.framework.entity.IoTPushResult;
+import org.springblade.modules.iot.pojo.entity.IoTPushResult;
 import org.springblade.modules.iot.dm.device.service.IoTUPPushAdapter;
 import org.springblade.modules.iot.pojo.protocol.http.HttpUPRequest;
 import java.util.List;

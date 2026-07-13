@@ -2,8 +2,8 @@
 
 package org.springblade.modules.iot.databridge.web.web;
 
-import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
-import org.springblade.modules.iot.pojo.bridge.entity.DataInputLog;
+import org.springblade.modules.iot.pojo.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.entity.DataInputLog;
 import org.springblade.modules.iot.databridge.core.manager.DataInputManager;
 import org.springblade.modules.iot.databridge.core.service.DataBridgeConfigService;
 import org.springblade.modules.iot.databridge.core.service.DataInputLogService;

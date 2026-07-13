@@ -6,7 +6,7 @@ import org.springblade.modules.iot.common.enums.BridgeType;
 import SourceScope;
 import BridgeType;
 
-import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.entity.DataBridgeConfig;
 import org.springblade.modules.iot.pojo.bo.IoTProductBO;
 import java.io.Serializable;
 import java.time.LocalDateTime;

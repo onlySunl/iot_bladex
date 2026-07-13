@@ -1,0 +1,86 @@
+/*
+ *
+ *
+ *
+ *
+ */
+
+package org.springblade.modules.iot.pojo.entity;
+
+import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import org.springblade.common.entity.CustomBaseEntity;
+/**
+ * 插件信息
+ *
+ * @author gitee.com/NexIoT
+ * @version 1.0
+ * @since 2025/1/15
+ */
+@TableName("iot_plugin_info")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class PluginInfo extends CustomBaseEntity {
+
+  /** 插件名称 */
+  private String name;
+
+  /** 插件版本 */
+  private String version;
+
+  /** 插件描述 */
+  private String description;
+
+  /** 插件作者 */
+  private String author;
+
+  /** 插件类型 */
+  private String pluginType;
+
+  /** 支持的资源类型 */
+  private List<String> supportedResourceTypes;
+
+  /** 数据流向 - INPUT: 仅输入, OUTPUT: 仅输出, BIDIRECTIONAL: 双向 */
+  private DataDirection dataDirection;
+
+  /** 插件分类 - 用于前端分组显示 */
+  private String category;
+
+  /** 图标名称 - 用于前端显示 */
+  private String icon;
+
+  /** 是否启用 */
+  @Builder.Default private Boolean enabled = true;
+
+  /** 数据流向枚举 */
+  public enum DataDirection {
+    INPUT("INPUT", "数据输入"),
+
+    OUTPUT("OUTPUT", "数据输出"),
+
+    BIDIRECTIONAL("BIDIRECTIONAL", "双向流转");
+
+    private final String code;
+    private final String description;
+
+    DataDirection(String code, String description) {
+      this.code = code;
+      this.description = description;
+    }
+
+    public String getCode() {
+      return code;
+    }
+
+    public String getDescription() {
+      return description;
+    }
+  }
+}

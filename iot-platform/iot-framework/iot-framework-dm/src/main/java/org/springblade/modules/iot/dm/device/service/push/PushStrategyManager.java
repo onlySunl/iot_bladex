@@ -4,7 +4,7 @@ package org.springblade.modules.iot.dm.device.service.push;
 
 import cn.hutool.json.JSONUtil;
 import org.springblade.modules.iot.core.message.UPRequest;
-import org.springblade.modules.iot.pojo.framework.entity.IoTPushResult;
+import org.springblade.modules.iot.pojo.entity.IoTPushResult;
 import org.springblade.modules.iot.dm.device.service.push.processor.PushRetryProcessor;
 import org.springblade.modules.iot.dm.device.service.push.processor.PushStatisticsProcessor;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
