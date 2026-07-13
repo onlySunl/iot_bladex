@@ -30,8 +30,7 @@ public class DataInputLog extends CustomBaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
 
     /** 配置ID */
     @TableField(value = "config_id")
@@ -77,7 +76,7 @@ public class DataInputLog extends CustomBaseEntity {
     /** 状态 */
     @TableField(value = "status")
     @AutoColumn(comment = "状态", defaultValueType = DefaultValueEnum.NULL)
-    @Enumerated(EnumType.STRING)
+  
 
 
 

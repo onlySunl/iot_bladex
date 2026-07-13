@@ -2,7 +2,6 @@
 package org.springblade.modules.iot.monitor.web.service.impl;
 
 import org.springblade.modules.iot.pojo.entity.IoTProduct;
-import org.springblade.modules.iot.pojo.entity.IoTUser;
 import org.springblade.modules.iot.pojo.entity.IoTUserApplication;
 import org.springblade.modules.iot.persistence.mapper.IoTProductMapper;
 import org.springblade.modules.iot.persistence.mapper.IoTUserApplicationMapper;

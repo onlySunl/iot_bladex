@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class IoTDeviceFenceRel extends CustomBaseEntity {
 
-  @Id private Long id;
+  
 
   /** 围栏id */
 @TableField(value = "fence_id")

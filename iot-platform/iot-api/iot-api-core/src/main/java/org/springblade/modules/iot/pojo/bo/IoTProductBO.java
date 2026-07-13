@@ -22,7 +22,7 @@ public class IoTProductBO implements Serializable {
   private static final long serialVersionUID = 1L;
 
   /** 主键ID */
-  @Id private Long id;
+  
 
   /** 产品编号 */
   @Column(name = "product_id")

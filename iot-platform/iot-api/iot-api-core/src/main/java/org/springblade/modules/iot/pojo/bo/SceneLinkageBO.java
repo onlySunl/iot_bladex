@@ -24,7 +24,7 @@ public class SceneLinkageBO extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   /** $column.columnComment */
-  @Id private Long id;
+  
 
   /** 场景名称 */
   @Excel(name = "场景名称")

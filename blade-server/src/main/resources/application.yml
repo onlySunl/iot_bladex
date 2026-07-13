@@ -76,7 +76,8 @@ mybatis-plus:
     cache-enabled: false
     jdbc-type-for-null: 'null'
     #log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
-
+    # 指定全局默认枚举处理器，代替默认的EnumOrdinalTypeHandler
+    default-enum-type-handler: org.springblade.modules.iot.common.handler.UniversalEnumTypeHandler
 #springdoc-openapi配置
 springdoc:
   default-flat-param-object: false

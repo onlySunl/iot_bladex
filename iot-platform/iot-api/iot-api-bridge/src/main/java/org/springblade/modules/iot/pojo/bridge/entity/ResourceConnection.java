@@ -30,8 +30,7 @@ public class ResourceConnection extends CustomBaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
 
     /** 资源名称 */
     @TableField(value = "name")
@@ -41,7 +40,7 @@ public class ResourceConnection extends CustomBaseEntity {
     /** 资源类型 */
     @TableField(value = "type")
     @AutoColumn(comment = "资源类型", defaultValueType = DefaultValueEnum.NULL)
-    @Enumerated(EnumType.STRING)
+  
     private ResourceType type;
 
     /** 插件类型 */
@@ -94,27 +93,16 @@ public class ResourceConnection extends CustomBaseEntity {
     /** 方向：IN-输入，OUT-输出，BOTH-双向 */
     @TableField(value = "direction")
     @AutoColumn(comment = "方向：IN-输入，OUT-输出，BOTH-双向", defaultValueType = DefaultValueEnum.NULL)
-    @Enumerated(EnumType.STRING)
+  
     private Direction direction;
 
     /** 数据流向：INPUT-输入，OUTPUT-输出，BIDIRECTIONAL-双向 */
     @TableField(value = "data_direction")
     @AutoColumn(comment = "数据流向：INPUT-输入，OUTPUT-输出，BIDIRECTIONAL-双向", defaultValueType = DefaultValueEnum.NULL)
-    @Enumerated(EnumType.STRING)
+  
     private DataDirection dataDirection;
 
     /** 动态配置JSON - 使用现有的extra_config字段存储 */
     private String dynamicConfig;
 
-    /**
-     * 资源类型枚举
-     */
-
-    /**
-     * 方向枚举
-     */
-
-    /**
-     * 数据流向枚举
-     */
 }

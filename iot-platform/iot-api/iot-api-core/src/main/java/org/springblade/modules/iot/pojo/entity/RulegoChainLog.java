@@ -32,9 +32,7 @@ public class RulegoChainLog extends CustomBaseEntity {
 
   private static final long serialVersionUID = 1L;
 
-  /** 主键ID */
-  @KeySql(genId = SQenGenId.class)
-  @Schema(description = "主键ID")
+
 
   /** rulego规则链ID */
   @Schema(description = "rulego规则链ID")

@@ -1,7 +1,6 @@
 package org.springblade.modules.iot.monitor.web.service;
 
 import org.springblade.modules.iot.pojo.entity.IoTProduct;
-import org.springblade.modules.iot.pojo.entity.IoTUser;
 import org.springblade.modules.iot.pojo.entity.IoTUserApplication;
 import java.util.List;
 

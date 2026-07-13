@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springblade.modules.iot.common.enums.SourceScope;
 
 /**
  * 数据桥接配置实体
@@ -30,8 +31,7 @@ public class DataBridgeConfig extends CustomBaseEntity {
 
   private static final long serialVersionUID = 1L;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+
 
   /** 配置名称 */
   @TableField(value = "name")
@@ -41,7 +41,7 @@ public class DataBridgeConfig extends CustomBaseEntity {
   /** 源范围：ALL_PRODUCTS-所有产品，SPECIFIC_PRODUCTS-指定产品，APPLICATION-应用 */
   @TableField(value = "source_scope")
   @AutoColumn(comment = "源范围：ALL_PRODUCTS-所有产品，SPECIFIC_PRODUCTS-指定产品，APPLICATION-应用", defaultValueType = DefaultValueEnum.NULL)
-  @Enumerated(EnumType.STRING)
+
   private SourceScope sourceScope;
 
   /** 源产品KEY列表JSON（当source_scope=SPECIFIC_PRODUCTS时使用） */
@@ -62,7 +62,6 @@ public class DataBridgeConfig extends CustomBaseEntity {
   /** 桥接类型(JDBC,KAFKA,MQTT,HTTP,IOTDB,INFLUXDB等) */
   @TableField(value = "bridge_type")
   @AutoColumn(comment = "桥接类型(JDBC,KAFKA,MQTT,HTTP,IOTDB,INFLUXDB等)", defaultValueType = DefaultValueEnum.NULL)
-  @Enumerated(EnumType.STRING)
   private BridgeType bridgeType;
 
   /** 模板内容（SQL、JSON等） */

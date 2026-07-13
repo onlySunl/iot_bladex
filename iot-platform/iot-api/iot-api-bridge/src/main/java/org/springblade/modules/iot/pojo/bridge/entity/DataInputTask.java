@@ -30,8 +30,7 @@ public class DataInputTask extends CustomBaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
 
     /** 配置ID */
     @TableField(value = "config_id")
@@ -46,7 +45,7 @@ public class DataInputTask extends CustomBaseEntity {
     /** 任务类型 */
     @TableField(value = "task_type")
     @AutoColumn(comment = "任务类型", defaultValueType = DefaultValueEnum.NULL)
-    @Enumerated(EnumType.STRING)
+  
     private TaskType taskType;
 
     /** Cron表达式 */
@@ -67,7 +66,7 @@ public class DataInputTask extends CustomBaseEntity {
     /** 状态 */
     @TableField(value = "status")
     @AutoColumn(comment = "状态", defaultValueType = DefaultValueEnum.NULL)
-    @Enumerated(EnumType.STRING)
+  
 
     /** 错误信息 */
     @TableField(value = "error_message")

@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class IoTUserBO implements Serializable {
 
   private static final long serialVersionUID = 1L;
-  @Id private Long id;
+  
 
   /** 归属组织机构 */
   @Column(name = "org_id")
