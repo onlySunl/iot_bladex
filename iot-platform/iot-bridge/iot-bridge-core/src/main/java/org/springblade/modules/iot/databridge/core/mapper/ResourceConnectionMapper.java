@@ -2,10 +2,12 @@
 
 package org.springblade.modules.iot.databridge.core.mapper;
 
-import org.springblade.modules.iot.pojo.entity.ResourceConnection;
-import org.springblade.modules.iot.persistence.common.BaseMapper;
-import java.util.List;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
+
+import java.util.List;
 
 /**
  * 资源连接Mapper接口
@@ -14,6 +16,7 @@ import org.apache.ibatis.annotations.Param;
  * @version 1.0
  * @since 2025/1/15
  */
+@Mapper
 public interface ResourceConnectionMapper extends BaseMapper<ResourceConnection> {
 
     /**

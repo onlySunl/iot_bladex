@@ -3,9 +3,9 @@
 package org.springblade.modules.iot.databridge.core.plugin;
 import org.springblade.modules.iot.common.enums.SourceScope;
 
-import org.springblade.modules.iot.pojo.entity.DataBridgeConfig;
-import org.springblade.modules.iot.pojo.entity.PluginInfo;
-import org.springblade.modules.iot.pojo.entity.ResourceConnection;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.PluginInfo;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 import java.util.List;
 
 /**

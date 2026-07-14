@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springblade.modules.iot.common.constant.IoTConstant;
+import org.springblade.modules.iot.core.metadata.DeviceMetadata;
 
 @Data
 @AllArgsConstructor
@@ -34,7 +36,7 @@ public class IoTDeviceDTO {
   private String deviceId;
   private String extDeviceId;
   private String deviceName;
-  private DeviceNode deviceNode;
+  private IoTConstant.DeviceNode deviceNode;
   private String productKey;
   private String productName;
   private String thirdPlatform;

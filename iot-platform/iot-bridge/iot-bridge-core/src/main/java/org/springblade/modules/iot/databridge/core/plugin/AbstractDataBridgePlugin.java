@@ -7,8 +7,8 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.springblade.modules.iot.common.constant.IoTConstant;
 import org.springblade.modules.iot.databridge.core.engine.DataBridgeMagicScriptEngine;
-import org.springblade.modules.iot.pojo.entity.DataBridgeConfig;
-import org.springblade.modules.iot.pojo.entity.ResourceConnection;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 import org.springblade.modules.iot.databridge.core.enums.PluginStatus;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import jakarta.annotation.Resource;
@@ -88,7 +88,7 @@ public abstract class AbstractDataBridgePlugin implements DataBridgePlugin {
 
   /** 执行Magic脚本 - 输入方向 (外部系统 -> IoT) */
   protected Object executeYourToIotScript(
-      String script, Object externalData, DataBridgeConfig config, ResourceConnection connection) {
+          String script, Object externalData, DataBridgeConfig config, ResourceConnection connection) {
     try {
       return magicScriptEngine.executeYourToIotScript(script, externalData, config, connection);
     } catch (Exception e) {

@@ -35,8 +35,6 @@ public class Network extends CustomBaseEntity {
   /** 详细描述 */
   private String description;
 
-  @TableField("create_date")
-  private Date createDate;
 
   /** enable,disable */
   private Boolean state;
@@ -44,7 +42,4 @@ public class Network extends CustomBaseEntity {
   /** 配置内容 */
   private String configuration;
 
-  /** 创建用户 */
-  @TableField("create_user")
-  private String createUser;
 }

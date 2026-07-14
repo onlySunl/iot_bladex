@@ -2,6 +2,7 @@
 
 package org.springblade.modules.iot.databridge.core.service;
 
+import org.springblade.modules.iot.pojo.bridge.entity.DataInputLog;
 import org.springblade.modules.iot.pojo.entity.DataInputLog;
 import org.springblade.modules.iot.databridge.core.mapper.DataInputLogMapper;
 import jakarta.annotation.Resource;
@@ -27,9 +28,6 @@ public class DataInputLogService {
   /** 保存日志 */
   @Transactional(rollbackFor = Exception.class)
   public void save(DataInputLog log) {
-    if (log.getCreateTime() == null) {
-      log.setCreateTime(LocalDateTime.now());
-    }
     dataInputLogMapper.insertSelective(log);
   }
 

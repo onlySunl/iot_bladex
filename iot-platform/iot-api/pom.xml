@@ -10,7 +10,10 @@
     </parent>
     <artifactId>iot-api</artifactId>
     <packaging>pom</packaging>
-
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.api</module.name>
+    </properties>
     <modules>
         <module>iot-api-persistence</module>
         <module>iot-api-bridge</module>

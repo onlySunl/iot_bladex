@@ -8,6 +8,8 @@ import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.HexUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
+import org.springblade.modules.iot.common.exception.CodecException;
+import org.springblade.modules.iot.common.exception.IoTException;
 import org.springblade.modules.iot.core.protocol.request.ProtocolDecodeRequest;
 import org.springblade.modules.iot.core.protocol.request.ProtocolEncodeRequest;
 import org.springblade.modules.iot.core.protocol.support.ProtocolCodecLoader;

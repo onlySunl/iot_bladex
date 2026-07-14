@@ -11,7 +11,6 @@
 
 package org.springblade.modules.iot.databridge.core.util;
 
-import org.springblade.modules.iot.pojo.entity.ResourceConnection;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,6 +20,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.sql.DataSource;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 
 /**
  * 数据桥接连接池管理器

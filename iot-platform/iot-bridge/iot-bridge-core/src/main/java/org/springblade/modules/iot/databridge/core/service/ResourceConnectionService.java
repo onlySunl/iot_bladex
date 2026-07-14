@@ -1,29 +1,26 @@
 
 
 package org.springblade.modules.iot.databridge.core.service;
-import org.springblade.modules.iot.common.enums.ResourceType;
-import org.springblade.modules.iot.common.enums.Direction;
-import ResourceType;
-import Direction;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import org.springblade.modules.iot.common.cache.annotation.MultiLevelCacheable;
-import org.springblade.modules.iot.pojo.entity.DataBridgeConfig;
-import org.springblade.modules.iot.pojo.entity.ResourceConnection;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.modules.iot.common.enums.Direction;
+import org.springblade.modules.iot.common.enums.ResourceType;
 import org.springblade.modules.iot.databridge.core.mapper.ResourceConnectionMapper;
 import org.springblade.modules.iot.databridge.core.util.ConfigValidator;
 import org.springblade.modules.iot.databridge.core.util.ConnectionTester;
 import org.springblade.modules.iot.databridge.core.util.ConnectionTester.ConnectionTestResult;
 import org.springblade.modules.iot.databridge.core.util.ResourceConnectionUtils;
-import jakarta.annotation.Resource;
-import java.time.LocalDateTime;
-import java.util.List;
-import lombok.extern.slf4j.Slf4j;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 资源连接服务
@@ -47,7 +44,6 @@ public class ResourceConnectionService {
   public Long createResourceConnection(ResourceConnection connection) {
     // 1. 设置默认插件类型（如果未设置）
     ResourceConnectionUtils.setDefaultPluginTypeIfMissing(connection);
-
     // 2. 验证连接（使用ConfigValidator进行基本验证）
     ConfigValidator.validateResourceConnection(connection);
 
@@ -55,13 +51,10 @@ public class ResourceConnectionService {
     if (isNameExists(connection.getName(), null)) {
       throw new RuntimeException("资源连接名称已存在");
     }
-
     // 4. 设置默认值
     if (connection.getStatus() == null) {
       connection.setStatus(1); // 默认启用
     }
-    connection.setCreateTime(LocalDateTime.now());
-    connection.setUpdateTime(LocalDateTime.now());
     if (StrUtil.isNotBlank(connection.getExtraConfig())
         && JSONUtil.isTypeJSON(connection.getExtraConfig())) {
       JSONObject extraConfig = JSONUtil.parseObj(connection.getExtraConfig());
@@ -94,8 +87,6 @@ public class ResourceConnectionService {
       throw new RuntimeException("资源连接名称已存在");
     }
 
-    // 3. 设置更新时间
-    connection.setUpdateTime(LocalDateTime.now());
     if (StrUtil.isNotBlank(connection.getExtraConfig())
         && JSONUtil.isTypeJSON(connection.getExtraConfig())) {
       JSONObject extraConfig = JSONUtil.parseObj(connection.getExtraConfig());

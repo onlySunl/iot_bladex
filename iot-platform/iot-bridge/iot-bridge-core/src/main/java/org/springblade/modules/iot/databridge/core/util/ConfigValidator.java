@@ -2,13 +2,14 @@
 
 package org.springblade.modules.iot.databridge.core.util;
 
-import org.springblade.modules.iot.pojo.entity.DataBridgeConfig;
-import org.springblade.modules.iot.pojo.entity.ResourceConnection;
-import org.springblade.modules.iot.databridge.core.exception.DataBridgeException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.modules.iot.databridge.core.exception.DataBridgeException;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
+
+import java.util.regex.Pattern;
 
 /**
  * 配置验证工具类

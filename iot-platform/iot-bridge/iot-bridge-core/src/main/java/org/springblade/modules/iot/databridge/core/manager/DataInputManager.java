@@ -1,29 +1,28 @@
 
 
 package org.springblade.modules.iot.databridge.core.manager;
-import org.springblade.modules.iot.common.enums.Status;
-import Status;
 
 import cn.hutool.core.collection.CollectionUtil;
-import org.springblade.modules.iot.pojo.entity.DataBridgeConfig;
-import org.springblade.modules.iot.pojo.entity.DataInputLog;
-import org.springblade.modules.iot.pojo.entity.ResourceConnection;
-import org.springblade.modules.iot.databridge.logger.DataBridgeLogger;
-import org.springblade.modules.iot.databridge.plugin.DataInputPlugin;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.modules.iot.common.enums.Status;
+import org.springblade.modules.iot.databridge.core.logger.DataBridgeLogger;
+import org.springblade.modules.iot.databridge.core.plugin.DataInputPlugin;
 import org.springblade.modules.iot.databridge.core.service.DataBridgeConfigService;
 import org.springblade.modules.iot.databridge.core.service.DataInputLogService;
 import org.springblade.modules.iot.databridge.core.service.ResourceConnectionService;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
-import jakarta.annotation.Resource;
-import java.time.LocalDateTime;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.DataInputLog;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Component;
 
 /**
  * 数据输入管理器
@@ -237,11 +236,9 @@ public class DataInputManager {
                 .failedCount(failedCount)
                 .errorMessage(errorMessage)
                 .executionTime(executionTime)
-                .status(failedCount > 0 ? Status.FAILED : Status.SUCCESS)
-                .createTime(LocalDateTime.now())
-                .createBy(config.getCreateBy())
-                .build();
 
+                .build();
+            log.setStatus(failedCount > 0 ? Status.FAILED.getCode() : Status.SUCCESS.getCode());
             dataInputLogService.save(log);
         } catch (Exception e) {
             log.error("记录输入执行日志失败: {}", e.getMessage(), e);

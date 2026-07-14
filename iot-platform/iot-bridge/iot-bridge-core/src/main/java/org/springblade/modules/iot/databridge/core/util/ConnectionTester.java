@@ -4,6 +4,7 @@ package org.springblade.modules.iot.databridge.core.util;
 
 import cn.hutool.db.ds.simple.SimpleDataSource;
 import cn.hutool.json.JSONUtil;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 import org.springblade.modules.iot.pojo.entity.ResourceConnection;
 import java.io.IOException;
 import java.net.HttpURLConnection;

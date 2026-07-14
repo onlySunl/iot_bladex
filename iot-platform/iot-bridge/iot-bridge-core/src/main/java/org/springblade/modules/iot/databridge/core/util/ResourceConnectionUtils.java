@@ -1,11 +1,10 @@
 
 
 package org.springblade.modules.iot.databridge.core.util;
-import org.springblade.modules.iot.common.enums.ResourceType;
-import ResourceType;
 
-import org.springblade.modules.iot.pojo.entity.ResourceConnection;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.modules.iot.common.enums.ResourceType;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 
 /**
  * 资源连接工具类 提供资源连接相关的工具方法

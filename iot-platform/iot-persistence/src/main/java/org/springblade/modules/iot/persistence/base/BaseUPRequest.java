@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.persistence.base;
 
-import org.springblade.modules.iot.common.message.UPRequest;
+import org.springblade.modules.iot.core.message.UPRequest;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
 import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import lombok.AllArgsConstructor;

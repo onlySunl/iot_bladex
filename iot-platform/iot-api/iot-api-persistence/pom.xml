@@ -10,7 +10,10 @@
     </parent>
     <artifactId>iot-api-persistence</artifactId>
     <packaging>jar</packaging>
-
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.api.persistence</module.name>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>

@@ -1,37 +1,34 @@
 
 
 package org.springblade.modules.iot.databridge.core.service;
-import org.springblade.modules.iot.common.enums.SourceScope;
+
+import cn.hutool.json.JSONUtil;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springblade.modules.iot.common.enums.BridgeType;
-import SourceScope;
-import BridgeType;
+import org.springblade.modules.iot.common.enums.SourceScope;
+import org.springblade.modules.iot.databridge.core.exception.DataBridgeException;
+import org.springblade.modules.iot.databridge.core.logger.DataBridgeLogger;
+import org.springblade.modules.iot.databridge.core.mapper.DataBridgeConfigMapper;
+import org.springblade.modules.iot.databridge.core.plugin.DataBridgePlugin;
+import org.springblade.modules.iot.databridge.core.util.ConfigValidator;
+import org.springblade.modules.iot.databridge.core.vo.DataBridgeConfigVO;
+import org.springblade.modules.iot.persistence.entity.bo.IoTProductBO;
+import org.springblade.modules.iot.persistence.mapper.IoTDeviceMapper;
+import org.springblade.modules.iot.persistence.mapper.IoTProductMapper;
+import org.springblade.modules.iot.persistence.mapper.IoTUserApplicationMapper;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
+import org.springblade.modules.iot.pojo.entity.IoTDevice;
+import org.springblade.modules.iot.pojo.entity.IoTUserApplication;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import cn.hutool.json.JSONUtil;
-import org.springblade.modules.iot.pojo.entity.DataBridgeConfig;
-import org.springblade.modules.iot.pojo.entity.ResourceConnection;
-import org.springblade.modules.iot.databridge.core.exception.DataBridgeException;
-import org.springblade.modules.iot.databridge.logger.DataBridgeLogger;
-import org.springblade.modules.iot.databridge.core.mapper.DataBridgeConfigMapper;
-import org.springblade.modules.iot.databridge.plugin.DataBridgePlugin;
-import org.springblade.modules.iot.databridge.core.util.ConfigValidator;
-import org.springblade.modules.iot.databridge.core.vo.DataBridgeConfigVO;
-import org.springblade.modules.iot.pojo.entity.IoTDevice;
-import org.springblade.modules.iot.pojo.entity.IoTUserApplication;
-import org.springblade.modules.iot.persistence.entity.bo.IoTProductBO;
-import org.springblade.modules.iot.persistence.mapper.IoTDeviceMapper;
-import org.springblade.modules.iot.persistence.mapper.IoTProductMapper;
-import org.springblade.modules.iot.persistence.mapper.IoTUserApplicationMapper;
-import jakarta.annotation.Resource;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * 数据桥接配置服务
@@ -84,13 +81,6 @@ public class DataBridgeConfigService {
         if (isNameExists(config.getName(), null)) {
             throw new RuntimeException("桥接配置名称已存在");
         }
-
-        // 3. 设置默认值
-        if (config.getStatus() == null) {
-            config.setStatus(1); // 默认启用
-        }
-        config.setCreateTime(LocalDateTime.now());
-        config.setUpdateTime(LocalDateTime.now());
 
         // 4. 保存配置
         int result = dataBridgeConfigMapper.insertSelective(config);
@@ -317,9 +307,6 @@ public class DataBridgeConfigService {
         DataBridgeConfig config = new DataBridgeConfig();
         config.setId(id);
         config.setStatus(status);
-        config.setUpdateBy(updateBy);
-        config.setUpdateTime(LocalDateTime.now());
-
         int result = dataBridgeConfigMapper.updateByPrimaryKeySelective(config);
         if (result <= 0) {
             throw new RuntimeException("更新桥接配置状态失败");
