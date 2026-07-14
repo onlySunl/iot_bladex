@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springblade.common.entity.CustomBaseEntity;
-import org.springblade.modules.iot.common.annotation.Excel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,23 +23,18 @@ public class IoTProductSort extends CustomBaseEntity {
   /** id */
 
   /** 父id */
-  @Excel(name = "父id")
   private String parentId;
 
   /** 是否有子节点 */
-  @Excel(name = "是否有子节点")
   private Integer hasChild;
 
   /** 标识 */
-  @Excel(name = "标识")
   private String identification;
 
   /** 分类名称 */
-  @Excel(name = "分类名称")
   private String classifiedName;
 
   /** 说明 */
-  @Excel(name = "说明")
   private String description;
 
   /** 子分类 */

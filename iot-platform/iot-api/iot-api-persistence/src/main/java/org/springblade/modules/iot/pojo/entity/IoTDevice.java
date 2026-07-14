@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;
 import org.springblade.common.entity.CustomBaseEntity;
-import org.springblade.modules.iot.common.annotation.Excel;
 
 @TableName("iot_device")
 @Data
@@ -28,12 +27,10 @@ public class IoTDevice extends CustomBaseEntity {
   private String iotId;
 
   /** 设备自身序号 */
-  @Excel(name = "设备序列号")
   @TableField("device_id")
   private String deviceId;
 
   /** 实例名称 */
-  // @Excel(name = "实例名称")
   @TableField("instance")
   private String instance;
 
@@ -58,12 +55,10 @@ public class IoTDevice extends CustomBaseEntity {
   private String productName;
 
   /** 网关产品ProductKey */
-  @Excel(name = "网关产品ProductKey")
   @TableField("gw_product_key")
   private String gwProductKey;
 
   /** 设备密钥 */
-  @Excel(name = "设备密钥")
   @TableField("device_secret")
   private String deviceSecret;
 
@@ -72,7 +67,6 @@ public class IoTDevice extends CustomBaseEntity {
   private String productKey;
 
   /** 设备实例名称 */
-  @Excel(name = "设备名称")
   @TableField("device_name")
   private String deviceName;
 
@@ -108,11 +102,9 @@ public class IoTDevice extends CustomBaseEntity {
   private String deviceAddress;
 
   /** 0-离线，1-在线 */
-  @Excel(name = "在线状态")
   private Boolean state;
 
   /** 说明 */
-  @Excel(name = "备注")
   private String detail;
 
   /** 派生元数据,有的设备的属性，功能，事件可能会动态的添加 */
@@ -127,22 +119,18 @@ public class IoTDevice extends CustomBaseEntity {
   private String areasId;
 
   /** 坐标 */
-  // @Excel(name = "设备坐标")
   private String coordinate;
 
   /** 纬度 */
-  @Excel(name = "纬度")
   private transient String latitude;
 
   /** 经度 */
-  @Excel(name = "经度")
   private transient String longitude;
 
   /** 请求参数 */
   @Builder.Default private Map<String, Object> params = new HashMap<>();
 
   /** 接收额外参数 */
-  @Excel(name = "其他配置")
   @Builder.Default
   private Map<String, Object> otherParams = new HashMap<>();
 }
