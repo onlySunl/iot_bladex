@@ -33,7 +33,7 @@
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-api</artifactId>
+            <artifactId>iot-api-persistence</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>

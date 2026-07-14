@@ -9,34 +9,12 @@
         <version>4.2.0.RELEASE</version>
     </parent>
     <artifactId>iot-api</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
-    <dependencies>
-        <!-- BladeX Common -->
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-common</artifactId>
-        </dependency>
-        <!-- MyBatis-Plus -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
-        </dependency>
-        <!-- AutoTable -->
-        <dependency>
-            <groupId>com.github.barrywangfree</groupId>
-            <artifactId>mybatis-plus-ext</artifactId>
-        </dependency>
-        <!-- Lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <!-- Jackson -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-        </dependency>
-    </dependencies>
+    <modules>
+        <module>iot-api-persistence</module>
+        <module>iot-api-bridge</module>
+        <module>iot-api-framework</module>
+        <module>iot-api-protocol</module>
+    </modules>
 </project>

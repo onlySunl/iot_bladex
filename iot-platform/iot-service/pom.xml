@@ -18,7 +18,7 @@
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-api</artifactId>
+            <artifactId>iot-api-persistence</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>

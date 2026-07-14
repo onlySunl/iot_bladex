@@ -28,7 +28,11 @@
 ├── blade-api/                # BladeX 系统 API 模块
 ├── iot-platform/             # IoT 管理平台模块 (NexIoT 迁移)
 │   ├── iot-common/           # IoT 公共模块 (实体基类, 工具类, SQL DDL)
-│   ├── iot-api/              # IoT API 模块 (实体/VO/BO/DTO - 42实体+23VO+22BO+1DTO+13协议对象, 单jar模块)
+│   ├── iot-api/              # IoT API 模块 (父 pom + 4 子模块)
+│   │   ├── iot-api-persistence/  # 核心实体/VO/BO/DTO (37实体+23VO+20BO+1DTO)
+│   │   ├── iot-api-bridge/       # 数据桥接实体 (5实体)
+│   │   ├── iot-api-framework/    # 框架实体/BO (2BO)
+│   │   └── iot-api-protocol/     # 协议对象 (13: MQTT/HTTP/WebSocket)
 │   ├── iot-service/          # IoT 服务模块 (Mapper/Service/Wrapper/Controller)
 │   ├── iot-rule/             # IoT 规则引擎模块 (规则引擎 + 推送策略 + 地理围栏 + Rulego)
 │   ├── iot-persistence/      # IoT 持久化模块 (NexIoT 数据层迁移)
@@ -139,7 +143,7 @@ docker build -t blade-iot .
 从 NexIoT 项目完整迁移的 IoT 物联网管理平台，包含产品管理、设备管理、规则引擎、场景联动、设备影子、设备日志、设备标签、设备证书、协议管理等功能，以及完整的协议层（MQTT/HTTP/编解码/推送策略），全部按 BladeX 4.2.0 标准重构。共 13 个实体、13 个 VO、13 个 Mapper、13 个 Service、11 个 Controller、7 个规则引擎类、15 个协议层类。
 
 ### 代码位置
-- **实体类/VO**: `iot-platform/iot-api/src/main/java/org/springblade/modules/iot/pojo/`
+- **实体类/VO**: `iot-platform/iot-api/iot-api-persistence/src/main/java/org/springblade/modules/iot/pojo/`
 - **Mapper**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/mapper/`
 - **Service**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/service/`
 - **Controller**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/controller/`
