@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springblade.common.entity.CustomBaseEntity;
 import org.springblade.modules.iot.common.annotation.Excel;
@@ -15,6 +16,7 @@ import org.springblade.modules.iot.common.annotation.Excel;
 import java.util.Date;
 @TableName("iot_user_application")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

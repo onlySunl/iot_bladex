@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import org.springblade.common.entity.CustomBaseEntity;
@@ -21,6 +22,7 @@ import org.springblade.modules.iot.common.enums.DataDirection;
  */
 @TableName("iot_plugin_info")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

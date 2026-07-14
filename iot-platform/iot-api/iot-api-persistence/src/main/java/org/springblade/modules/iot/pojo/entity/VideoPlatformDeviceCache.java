@@ -8,6 +8,7 @@ import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -15,6 +16,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import org.springblade.common.entity.CustomBaseEntity;
 @TableName("video_platform_device_cache")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

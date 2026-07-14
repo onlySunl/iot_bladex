@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springblade.common.entity.CustomBaseEntity;
 import org.springblade.modules.iot.common.annotation.Excel;
@@ -18,6 +19,7 @@ import org.springblade.modules.iot.common.annotation.Excel;
  */
 @TableName("scene_linkage")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

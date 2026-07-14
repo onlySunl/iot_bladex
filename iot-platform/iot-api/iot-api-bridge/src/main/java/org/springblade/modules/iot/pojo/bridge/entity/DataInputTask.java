@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -21,6 +22,7 @@ import org.springblade.modules.iot.common.enums.TaskType;
  * @since 2025/1/15
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

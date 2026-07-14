@@ -5,10 +5,12 @@ package org.springblade.modules.iot.pojo.entity;
 import lombok.Builder;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import org.springblade.common.entity.CustomBaseEntity;
 @TableName("iot_device_function")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Builder
 public class IoTDeviceFunction extends CustomBaseEntity {
 

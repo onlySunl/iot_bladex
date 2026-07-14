@@ -10,12 +10,14 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springblade.common.entity.CustomBaseEntity;
 
 import java.util.stream.Collectors;
 @TableName("iot_device_protocol")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class IoTDeviceProtocol extends CustomBaseEntity {

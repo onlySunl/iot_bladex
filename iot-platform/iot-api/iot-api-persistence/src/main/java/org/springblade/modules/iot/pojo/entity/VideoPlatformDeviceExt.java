@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
@@ -30,6 +31,7 @@ import org.springblade.common.entity.CustomBaseEntity;
  */
 @TableName("video_platform_device_ext")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

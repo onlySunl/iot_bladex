@@ -7,6 +7,7 @@ import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -19,6 +20,7 @@ import org.springblade.common.entity.CustomBaseEntity;
  * @date 2025-10-26
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @TableName("iot_gateway_polling_config")
 @NoArgsConstructor
 @AllArgsConstructor

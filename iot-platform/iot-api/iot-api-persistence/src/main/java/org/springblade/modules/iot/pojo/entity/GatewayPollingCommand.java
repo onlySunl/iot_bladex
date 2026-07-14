@@ -7,12 +7,14 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springblade.common.entity.CustomBaseEntity;
 /**
  * 网关轮询指令实
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @TableName("iot_gateway_polling_command")
 @NoArgsConstructor
 @AllArgsConstructor

@@ -7,6 +7,7 @@ import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -16,6 +17,7 @@ import org.springblade.modules.iot.common.annotation.Excel;
 
 @TableName("iot_device")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import org.springblade.common.entity.CustomBaseEntity;
@@ -15,6 +16,7 @@ import org.springblade.common.entity.CustomBaseEntity;
  * @since 2025/3/21
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @TableName("iot_device_function_history")
 public class IoTDeviceFunctionHistory extends CustomBaseEntity {
 

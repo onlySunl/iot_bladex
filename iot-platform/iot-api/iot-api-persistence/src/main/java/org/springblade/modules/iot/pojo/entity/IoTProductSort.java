@@ -4,6 +4,7 @@ package org.springblade.modules.iot.pojo.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springblade.common.entity.CustomBaseEntity;
 import org.springblade.modules.iot.common.annotation.Excel;
 
@@ -17,6 +18,7 @@ import java.util.List;
  */
 @TableName("iot_product_sort")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class IoTProductSort extends CustomBaseEntity {
 
   /** id */
