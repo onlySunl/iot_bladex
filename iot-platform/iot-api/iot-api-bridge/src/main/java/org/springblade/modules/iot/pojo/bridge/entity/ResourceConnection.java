@@ -41,7 +41,6 @@ public class ResourceConnection extends CustomBaseEntity {
 
     /** 资源类型 */
     @TableField("type")
-    @Enumerated(EnumType.STRING)
     private ResourceType type;
 
     /** 插件类型 */
@@ -88,12 +87,10 @@ public class ResourceConnection extends CustomBaseEntity {
 
     /** 方向：IN-输入，OUT-输出，BOTH-双向 */
     @TableField("direction")
-    @Enumerated(EnumType.STRING)
     private Direction direction;
 
     /** 数据流向：INPUT-输入，OUTPUT-输出，BIDIRECTIONAL-双向 */
     @TableField("data_direction")
-    @Enumerated(EnumType.STRING)
     private DataDirection dataDirection;
 
     /** 动态配置JSON - 使用现有的extra_config字段存储 */

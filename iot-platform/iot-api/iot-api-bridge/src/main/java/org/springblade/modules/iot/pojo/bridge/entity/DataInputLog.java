@@ -69,7 +69,6 @@ public class DataInputLog extends CustomBaseEntity {
 
     /** 状态 */
     @TableField("status")
-    @Enumerated(EnumType.STRING)
 
     /** 创建时间 */
 

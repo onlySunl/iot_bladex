@@ -45,7 +45,6 @@ public class DataInputTask extends CustomBaseEntity {
 
     /** 任务类型 */
     @TableField("task_type")
-    @Enumerated(EnumType.STRING)
     private TaskType taskType;
 
     /** Cron表达式 */
@@ -62,7 +61,6 @@ public class DataInputTask extends CustomBaseEntity {
 
     /** 状态 */
     @TableField("status")
-    @Enumerated(EnumType.STRING)
 
     /** 错误信息 */
     @TableField("error_message")

@@ -41,7 +41,6 @@ public class DataBridgeConfig extends CustomBaseEntity {
 
   /** 源范围：ALL_PRODUCTS-所有产品，SPECIFIC_PRODUCTS-指定产品，APPLICATION-应用 */
   @TableField("source_scope")
-  @Enumerated(EnumType.STRING)
   private SourceScope sourceScope;
 
   /** 源产品KEY列表JSON（当source_scope=SPECIFIC_PRODUCTS时使用） */
@@ -58,7 +57,6 @@ public class DataBridgeConfig extends CustomBaseEntity {
 
   /** 桥接类型(JDBC,KAFKA,MQTT,HTTP,IOTDB,INFLUXDB等) */
   @TableField("bridge_type")
-  @Enumerated(EnumType.STRING)
   private BridgeType bridgeType;
 
   /** 模板内容（SQL、JSON等） */
