@@ -3,7 +3,7 @@
 package org.springblade.modules.iot.protocol.websocket.processor.down;
 
 import org.springblade.modules.iot.dm.device.service.plugin.BaseMessageProcessor;
-import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketDownRequest;
+import org.springblade.modules.iot.protocol.websocket.entity.WebSocketDownRequest;
 
 /**
  * WebSocket 下行处理器接口

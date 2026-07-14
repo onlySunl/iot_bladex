@@ -1,0 +1,47 @@
+
+
+package org.springblade.modules.iot.persistence.entity.vo;
+
+import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * 微信用户信息对象 wx_user_info @Author gitee.com/NexIoT
+ *
+ * @since 2025-10-19
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class WxMiniUserInfoVO implements Serializable {
+
+  private static final long serialVersionUID = 1L;
+
+  /** $column.columnComment */
+  private Long uuid;
+
+  // 用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号。
+  private Integer subscribe;
+
+  /** 用户微信openid */
+    private String openId;
+
+  /** 开放平台id */
+    private String unionId;
+
+  /** 微信名 */
+    private String nickName;
+
+  /** 公众号id */
+    private String appId;
+
+  /** 微信头像 */
+    private String headImgUrl;
+
+  /** 手机 */
+    private String phone;
+}

@@ -2,13 +2,11 @@
 
 package org.springblade.modules.iot.protocol.websocket.service;
 
-import org.springblade.modules.iot.protocol.websocket.config.WebSocketConstant;
-import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketSession;
+import org.springblade.modules.iot.protocol.websocket.entity.WebSocketSession;
 import org.springblade.modules.iot.protocol.websocket.enums.WebSocketStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketMessage;
 
 import java.time.LocalDateTime;
 import java.util.*;

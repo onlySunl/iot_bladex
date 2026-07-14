@@ -1,14 +1,4 @@
-/*
- *
- * Copyright (c) 2025, NexIoT. All Rights Reserved.
- *
- * @Description: 本文件由 gitee.com/NexIoT 开发并拥有版权，未经授权严禁擅自商用、复制或传播。
- * @Author: gitee.com/NexIoT
- * @Email: wo8335224@gmail.com
- * @Wechat: outlookFil
- *
- *
- */
+
 
 package org.springblade.modules.iot.pojo.bridge.entity;
 
@@ -20,6 +10,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.modules.iot.common.enums.DataDirection;
+
 /**
  * 插件信息
  *
@@ -62,33 +54,7 @@ public class PluginInfo extends CustomBaseEntity {
   private String icon;
 
   /** 是否启用 */
-  @Builder.Default private Boolean enabled = true;
+  @Builder.Default
+  private Boolean enabled = true;
 
-  /** 数据流向枚举 */
-  public enum DataDirection {
-    /** 仅数据输入（从外部系统拉取数据） */
-    INPUT("INPUT", "数据输入"),
-
-    /** 仅数据输出（向外部系统推送数据） */
-    OUTPUT("OUTPUT", "数据输出"),
-
-    /** 双向流转（既可输入也可输出） */
-    BIDIRECTIONAL("BIDIRECTIONAL", "双向流转");
-
-    private final String code;
-    private final String description;
-
-    DataDirection(String code, String description) {
-      this.code = code;
-      this.description = description;
-    }
-
-    public String getCode() {
-      return code;
-    }
-
-    public String getDescription() {
-      return description;
-    }
-  }
 }

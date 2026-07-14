@@ -15,5 +15,11 @@
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-boot</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-api-persistence</artifactId>
+            <version>4.2.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>

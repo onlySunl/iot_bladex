@@ -3,7 +3,7 @@ package org.springblade.modules.iot.protocol.mqtt.third;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
-import org.springblade.modules.iot.pojo.protocol.mqtt.MQTTProductConfig;
+import org.springblade.modules.iot.protocol.mqtt.entity.MQTTProductConfig;
 import org.springblade.modules.iot.protocol.mqtt.topic.MQTTTopicManager;
 import org.springblade.modules.iot.pojo.entity.Network;
 import java.time.LocalDateTime;

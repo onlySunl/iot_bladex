@@ -19,7 +19,7 @@
         <result property="tag" column="tag"/>
     </resultMap>
 
-    <resultMap type="org.springblade.modules.iot.pojo.vo.IoTDeviceGroupVO" id="DevGroupVoResult">
+    <resultMap type="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceGroupVO" id="DevGroupVoResult">
         <result property="id" column="id"/>
         <result property="groupName" column="group_name"/>
         <result property="groupCode" column="group_code"/>
@@ -51,7 +51,7 @@
     </select>
 
     <select id="selectDevGroupList"
-            parameterType="org.springblade.modules.iot.pojo.vo.IoTDeviceGroupVO"
+            parameterType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceGroupVO"
             resultMap="DevGroupVoResult">
         select id, group_name, has_child, group_level, parent_id
         from iot_device_group

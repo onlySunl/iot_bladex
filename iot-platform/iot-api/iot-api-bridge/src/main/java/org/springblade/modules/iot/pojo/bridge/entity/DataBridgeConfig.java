@@ -1,14 +1,4 @@
-/*
- *
- * Copyright (c) 2025, NexIoT. All Rights Reserved.
- *
- * @Description: 本文件由 gitee.com/NexIoT 开发并拥有版权，未经授权严禁擅自商用、复制或传播。
- * @Author: gitee.com/NexIoT
- * @Email: wo8335224@gmail.com
- * @Wechat: outlookFil
- *
- *
- */
+
 
 package org.springblade.modules.iot.pojo.bridge.entity;
 
@@ -21,6 +11,9 @@ import lombok.NoArgsConstructor;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;
 import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.modules.iot.common.enums.BridgeType;
+import org.springblade.modules.iot.common.enums.SourceScope;
+
 /**
  * 数据桥接配置实体
  *
@@ -77,30 +70,4 @@ public class DataBridgeConfig extends CustomBaseEntity {
   @TableField("description")
   private String description;
 
-  /** 创建者 */
-
-  /** 创建时间 */
-
-  /** 更新者 */
-
-  /** 更新时间 */
-
-  /** 源范围枚举 */
-  public enum SourceScope {
-    ALL_PRODUCTS, // 所有产品
-    SPECIFIC_PRODUCTS, // 指定产品
-    APPLICATION // 应用级别
-  }
-
-  /** 桥接类型枚举 */
-  public enum BridgeType {
-    JDBC,
-    KAFKA,
-    IOTDB,
-    INFLUXDB,
-    MQTT,
-    HTTP,
-    REDIS,
-    ELASTICSEARCH
-  }
 }

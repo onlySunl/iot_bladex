@@ -18,7 +18,7 @@ import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
 import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import org.springblade.modules.iot.persistence.query.IoTDeviceQuery;
 import org.springblade.modules.iot.protocol.websocket.config.WebSocketModuleInfo;
-import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketDownRequest;
+import org.springblade.modules.iot.protocol.websocket.entity.WebSocketDownRequest;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 

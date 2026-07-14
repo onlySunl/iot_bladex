@@ -10,7 +10,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import org.springblade.modules.iot.dm.device.service.IoTUPPushAdapter;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
-import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketUPRequest;
+import org.springblade.modules.iot.protocol.websocket.entity.WebSocketUPRequest;
 import lombok.extern.slf4j.Slf4j;
 
 /**

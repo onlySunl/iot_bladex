@@ -21,7 +21,7 @@ import org.springblade.modules.iot.dm.device.service.AbstratIoTService;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
 import org.springblade.modules.iot.pojo.entity.IoTProduct;
-import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketUPRequest;
+import org.springblade.modules.iot.protocol.websocket.entity.WebSocketUPRequest;
 import org.springblade.modules.iot.protocol.websocket.processor.up.WebSocketUPProcessor;
 import lombok.extern.slf4j.Slf4j;
 

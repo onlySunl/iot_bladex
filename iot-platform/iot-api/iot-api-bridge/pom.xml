@@ -25,5 +25,9 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-common</artifactId>
+        </dependency>
     </dependencies>
 </project>

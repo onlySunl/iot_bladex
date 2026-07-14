@@ -3,8 +3,8 @@
 package org.springblade.modules.iot.core.protocol.support;
 
 import org.springblade.modules.iot.common.exception.CodecException;
-import org.springblade.modules.iot.core.protocol.request.ProtocolDecodeRequest;
-import org.springblade.modules.iot.core.protocol.request.ProtocolEncodeRequest;
+import org.springblade.modules.iot.common.request.ProtocolDecodeRequest;
+import org.springblade.modules.iot.common.request.ProtocolEncodeRequest;
 
 /**
  * 编解码接口

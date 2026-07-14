@@ -18,7 +18,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import org.springblade.modules.iot.pojo.entity.Network;
-import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketUPRequest;
+import org.springblade.modules.iot.protocol.websocket.entity.WebSocketUPRequest;
 import org.springblade.modules.iot.protocol.websocket.enums.WebSocketMessageType;
 import org.springblade.modules.iot.protocol.websocket.processor.up.WebSocketUPProcessorChain;
 

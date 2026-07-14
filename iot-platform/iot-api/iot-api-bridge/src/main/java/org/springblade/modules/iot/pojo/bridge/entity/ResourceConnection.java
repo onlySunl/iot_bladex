@@ -1,14 +1,4 @@
-/*
- *
- * Copyright (c) 2025, NexIoT. All Rights Reserved.
- *
- * @Description: 本文件由 gitee.com/NexIoT 开发并拥有版权，未经授权严禁擅自商用、复制或传播。
- * @Author: gitee.com/NexIoT
- * @Email: wo8335224@gmail.com
- * @Wechat: outlookFil
- *
- *
- */
+
 
 package org.springblade.modules.iot.pojo.bridge.entity;
 
@@ -21,6 +11,10 @@ import lombok.NoArgsConstructor;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;
 import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.modules.iot.common.enums.DataDirection;
+import org.springblade.modules.iot.common.enums.Direction;
+import org.springblade.modules.iot.common.enums.ResourceType;
+
 /**
  * 资源连接配置实体
  *
@@ -77,13 +71,6 @@ public class ResourceConnection extends CustomBaseEntity {
     @TableField("description")
     private String description;
 
-    /** 创建者 */
-
-    /** 创建时间 */
-
-    /** 更新者 */
-
-    /** 更新时间 */
 
     /** 方向：IN-输入，OUT-输出，BOTH-双向 */
     @TableField("direction")
@@ -93,30 +80,4 @@ public class ResourceConnection extends CustomBaseEntity {
     @TableField("data_direction")
     private DataDirection dataDirection;
 
-    /** 动态配置JSON - 使用现有的extra_config字段存储 */
-
-    /**
-     * 资源类型枚举
-     */
-    public enum ResourceType {
-        MYSQL, POSTGRESQL, H2, ORACLE, SQLSERVER, KAFKA, IOTDB, INFLUXDB, MQTT, HTTP, REDIS, ELASTICSEARCH, ALIYUN_IOT, TENCENT_IOT, HUAWEI_IOT
-    }
-
-    /**
-     * 方向枚举
-     */
-    public enum Direction {
-        IN,     // 输入
-        OUT,    // 输出
-        BOTH    // 双向
-    }
-
-    /**
-     * 数据流向枚举
-     */
-    public enum DataDirection {
-        INPUT,          // 数据输入
-        OUTPUT,         // 数据输出
-        BIDIRECTIONAL   // 双向流转
-    }
 }

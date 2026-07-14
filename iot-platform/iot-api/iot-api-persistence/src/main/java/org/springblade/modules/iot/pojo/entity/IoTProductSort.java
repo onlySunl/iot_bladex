@@ -1,26 +1,15 @@
-/*
- *
- * Copyright (c) 2025, NexIoT. All Rights Reserved.
- *
- * @Description: 本文件由 gitee.com/NexIoT 开发并拥有版权，未经授权严禁擅自商用、复制或传播。
- * @Author: gitee.com/NexIoT
- * @Email: wo8335224@gmail.com
- * @Wechat: outlookFil
- *
- *
- */
+
 
 package org.springblade.modules.iot.pojo.entity;
 
-import cn.universal.common.annotation.Excel;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-
 import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.modules.iot.common.annotation.Excel;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 产品分类对象 iot_product_sort @Author gitee.com/NexIoT
  *
@@ -52,89 +41,10 @@ public class IoTProductSort extends CustomBaseEntity {
   @Excel(name = "说明")
   private String description;
 
-  /** 创建时间 */
-  @Excel(name = "创建时间")
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-
-  /** 创建者 */
-  @Excel(name = "创建者")
-
   /** 子分类 */
   private List<IoTProductSort> children = new ArrayList<IoTProductSort>();
 
   public List<IoTProductSort> getChildren() {
     return children;
-  }
-
-  public void setChildren(List<IoTProductSort> children) {
-    this.children = children;
-  }
-
-  public static long getSerialVersionUID() {
-    return serialVersionUID;
-  }
-
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public String getParentId() {
-    return parentId;
-  }
-
-  public void setParentId(String parentId) {
-    this.parentId = parentId;
-  }
-
-  public Integer getHasChild() {
-    return hasChild;
-  }
-
-  public void setHasChild(Integer hasChild) {
-    this.hasChild = hasChild;
-  }
-
-  public String getIdentification() {
-    return identification;
-  }
-
-  public void setIdentification(String identification) {
-    this.identification = identification;
-  }
-
-  public String getClassifiedName() {
-    return classifiedName;
-  }
-
-  public void setClassifiedName(String classifiedName) {
-    this.classifiedName = classifiedName;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public Date getCreateTime() {
-    return createTime;
-  }
-
-  public void setCreateTime(Date createTime) {
-    this.createTime = createTime;
-  }
-
-  public String getCreateBy() {
-    return createBy;
-  }
-
-  public void setCreateBy(String createBy) {
-    this.createBy = createBy;
   }
 }

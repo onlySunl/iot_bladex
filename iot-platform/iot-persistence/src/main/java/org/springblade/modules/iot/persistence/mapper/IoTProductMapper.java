@@ -4,10 +4,10 @@ package org.springblade.modules.iot.persistence.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.pojo.entity.IoTProduct;
-import org.springblade.modules.iot.pojo.bo.IoTProductBO;
-import org.springblade.modules.iot.pojo.vo.IoTDeviceModelVO;
-import org.springblade.modules.iot.pojo.vo.IoTProductExportVO;
-import org.springblade.modules.iot.pojo.vo.IoTProductVO;
+import org.springblade.modules.iot.persistence.entity.bo.IoTProductBO;
+import org.springblade.modules.iot.persistence.entity.vo.IoTDeviceModelVO;
+import org.springblade.modules.iot.persistence.entity.vo.IoTProductExportVO;
+import org.springblade.modules.iot.persistence.entity.vo.IoTProductVO;
 import org.springblade.modules.iot.persistence.query.IoTAPIQuery;
 import org.springblade.modules.iot.persistence.query.IoTProductQuery;
 import java.util.List;

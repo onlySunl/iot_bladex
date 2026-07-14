@@ -3,7 +3,7 @@
 package org.springblade.modules.iot.persistence.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.springblade.modules.iot.pojo.bo.IoTUserBO;
+import org.springblade.modules.iot.persistence.entity.bo.IoTUserBO;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
  

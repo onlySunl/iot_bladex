@@ -17,8 +17,8 @@ import org.springblade.modules.iot.dm.device.service.impl.IoTDeviceShadowService
 import org.springblade.modules.iot.dm.device.service.impl.IoTProductDeviceService;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
 import org.springblade.modules.iot.pojo.entity.IoTProduct;
-import org.springblade.modules.iot.pojo.vo.IoTDeviceVO;
-import org.springblade.modules.iot.pojo.vo.IoTProductVO;
+import org.springblade.modules.iot.persistence.entity.vo.IoTDeviceVO;
+import org.springblade.modules.iot.persistence.entity.vo.IoTProductVO;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceMapper;
 import org.springblade.modules.iot.persistence.query.IoTAPIQuery;
 import org.springblade.modules.iot.persistence.query.PageRet;

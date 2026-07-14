@@ -31,13 +31,13 @@
         <result column="areas_id" jdbcType="BIGINT" property="areasId"/>
         <result column="coordinate" property="coordinate"/>
     </resultMap>
-    <resultMap id="group" type="org.springblade.modules.iot.pojo.vo.IoTDeviceCompanyVO">
+    <resultMap id="group" type="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceCompanyVO">
         <result property="companyNo" column="company_no"/>
         <result property="companyName" column="company_name"/>
-        <collection property="devices" ofType="org.springblade.modules.iot.pojo.vo.IoTDeviceTypeVO">
+        <collection property="devices" ofType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceTypeVO">
             <result property="deviceType" column="device_type"/>
             <result property="deviceTypeName" column="device_type_name"/>
-            <collection property="models" ofType="org.springblade.modules.iot.pojo.vo.IoTDeviceModelVO">
+            <collection property="models" ofType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceModelVO">
                 <result property="deviceModel" column="device_model"/>
                 <result property="deviceModelName" column="device_model_name"/>
                 <result property="protocol" column="protocol"/>
@@ -235,7 +235,7 @@
     </select>
 
     <select id="countDevByApplication" parameterType="String"
-            resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceCountVO">
+            resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceCountVO">
         select application , count( application ) as `devNum` from iot_device
         <where>
             <if test="appUniqueId!=null and appUniqueId!=''">
@@ -274,7 +274,7 @@
         WHERE product_key = #{productKey}
     </select>
 
-    <select id="apiDeviceInfo" resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceVO">
+    <select id="apiDeviceInfo" resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceVO">
         SELECT a.iot_id iotId
         , a.device_id deviceId
         , a.coordinate coordinate
@@ -316,7 +316,7 @@
         </where>
     </select>
 
-    <select id="apiDeviceList" resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceVO">
+    <select id="apiDeviceList" resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceVO">
         SELECT a.iot_id iotId,
         a.device_id deviceId,
         a.product_name productName,
@@ -764,7 +764,7 @@
           AND device_id = #{deviceId} limit 1
     </select>
     <select id="getModelByProductKey"
-            resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceModelVO">
+            resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceModelVO">
         select *
         from iot_device_model
         where product_key = #{productKey}
@@ -868,7 +868,7 @@
     </select>
 
     <insert id="insertDevInstanceHistory"
-            parameterType="org.springblade.modules.iot.pojo.bo.IoTDeviceHistoryBO">
+            parameterType="org.springblade.modules.iot.persistence.entity.bo.IoTDeviceHistoryBO">
         insert into dev_instance_history
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="deviceId != null">device_id,</if>
@@ -893,7 +893,7 @@
     </insert>
 
     <select id="selectDevInstanceHistory"
-            parameterType="org.springblade.modules.iot.pojo.bo.IoTDeviceHistoryBO" resultType="int">
+            parameterType="org.springblade.modules.iot.persistence.entity.bo.IoTDeviceHistoryBO" resultType="int">
         select count(1)
         from dev_instance_history
         <where>
@@ -927,8 +927,8 @@
         where id = #{id}
     </update>
 
-    <select id="selectFenceDevice" parameterType="org.springblade.modules.iot.pojo.bo.IoTDeviceBO"
-            resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceVO">
+    <select id="selectFenceDevice" parameterType="org.springblade.modules.iot.persistence.entity.bo.IoTDeviceBO"
+            resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceVO">
         select i.id,i.state,i.device_id,i.iot_id,i.device_name,p.classified_name,p.name from
         iot_device i
         left join iot_device_fence_rel f on i.iot_id=f.iot_id
@@ -973,7 +973,7 @@
     </select>
 
     <select id="getGatewayDeviceList"
-            resultType="org.springblade.modules.iot.pojo.vo.GwIoTDeviceVo">
+            resultType="org.springblade.modules.iot.persistence.entity.vo.GwIoTDeviceVo">
         select device_id, device_name, product_key, iot_id, product_name, state, online_time, ext1, signal_strength, device_tag, device_address
         from iot_device
         <where>
@@ -1163,7 +1163,7 @@
           AND ext_device_id = #{gwDeviceId}
     </select>
 
-    <select id="selectSubDeviceRelationByGw" resultType="org.springblade.modules.iot.pojo.vo.GwIoTDeviceVo">
+    <select id="selectSubDeviceRelationByGw" resultType="org.springblade.modules.iot.persistence.entity.vo.GwIoTDeviceVo">
         SELECT
             d.iot_id,
             d.product_key,

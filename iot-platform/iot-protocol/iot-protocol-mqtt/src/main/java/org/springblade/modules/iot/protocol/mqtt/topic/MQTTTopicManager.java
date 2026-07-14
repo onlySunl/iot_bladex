@@ -16,7 +16,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.springblade.modules.iot.protocol.mqtt.config.MqttConstant;
-import org.springblade.modules.iot.pojo.protocol.mqtt.MQTTProductConfig;
+import org.springblade.modules.iot.protocol.mqtt.entity.MQTTProductConfig;
 import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Collections;

@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.protocol.mqtt.system;
 
-import org.springblade.modules.iot.pojo.protocol.mqtt.MQTTProductConfig;
+import org.springblade.modules.iot.protocol.mqtt.entity.MQTTProductConfig;
 
 /**
  * 系统MQTT状态提供者接口

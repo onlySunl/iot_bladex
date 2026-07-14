@@ -2,7 +2,6 @@
 
 package org.springblade.modules.iot.core.protocol.support;
 
-import org.springblade.modules.iot.core.protocol.support.ProtocolCodecSupport.CodecMethod;
 import java.util.Map;
 import java.util.Set;
 import lombok.Data;
@@ -24,7 +23,7 @@ public class ProtocolSupportDefinition {
   private Map<String, Object> configuration;
   private Set<String> supportMethods;
 
-  public boolean supportMethod(CodecMethod method) {
+  public boolean supportMethod(ProtocolCodecSupport.CodecMethod method) {
     if (supportMethods == null) {
       return false;
     }

@@ -20,7 +20,7 @@
         <result column="content" jdbcType="LONGVARCHAR" property="content"/>
     </resultMap>
 
-    <select id="queryLogPageV2List" resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceLogVO">
+    <select id="queryLogPageV2List" resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceLogVO">
         select *
         from iot_device_log
         <where>
@@ -54,7 +54,7 @@
         </where>
         order by create_time desc
     </select>
-    <select id="queryLogById" resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceLogVO">
+    <select id="queryLogById" resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceLogVO">
         select *
         from iot_device_log
         <where>
@@ -72,7 +72,7 @@
 
     </select>
 
-    <select id="queryLogPageList" resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceLogVO">
+    <select id="queryLogPageList" resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceLogVO">
         select *
         from iot_device_log
         <where>

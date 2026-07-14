@@ -4,7 +4,7 @@ package org.springblade.modules.iot.persistence.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.pojo.entity.IoTDeviceRuleLog;
-import org.springblade.modules.iot.pojo.vo.SceneLinkageLogVO;
+import org.springblade.modules.iot.persistence.entity.vo.SceneLinkageLogVO;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;

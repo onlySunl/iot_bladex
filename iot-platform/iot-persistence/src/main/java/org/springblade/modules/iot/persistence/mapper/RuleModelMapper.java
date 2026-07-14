@@ -4,8 +4,8 @@ package org.springblade.modules.iot.persistence.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.pojo.entity.RuleModel;
-import org.springblade.modules.iot.pojo.bo.RuleModelBO;
-import org.springblade.modules.iot.pojo.vo.RuleModelVO;
+import org.springblade.modules.iot.persistence.entity.bo.RuleModelBO;
+import org.springblade.modules.iot.persistence.entity.vo.RuleModelVO;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;

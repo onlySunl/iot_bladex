@@ -72,7 +72,7 @@
         </where>
     </select>
 
-    <select id="selectAllocatedList" parameterType="org.springblade.modules.iot.pojo.bo.IoTUserBO"
+    <select id="selectAllocatedList" parameterType="org.springblade.modules.iot.persistence.entity.bo.IoTUserBO"
             resultMap="BaseResultMap">
         select distinct u.id, u.org_id, u.username, u.union_id,u.alias, u.email, u.mobile, u.status,
         u.create_date
@@ -94,7 +94,7 @@
         where mobile = #{mobile}
     </select>
 
-    <select id="selectUnallocatedList" parameterType="org.springblade.modules.iot.pojo.bo.IoTUserBO"
+    <select id="selectUnallocatedList" parameterType="org.springblade.modules.iot.persistence.entity.bo.IoTUserBO"
             resultMap="BaseResultMap">
         select distinct u.id, u.org_id, u.username, u.union_id,u.alias, u.email, u.mobile, u.status,
         u.create_date

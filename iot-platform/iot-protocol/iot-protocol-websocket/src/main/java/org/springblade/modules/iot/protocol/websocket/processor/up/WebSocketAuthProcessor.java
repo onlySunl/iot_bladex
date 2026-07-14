@@ -11,8 +11,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springblade.modules.iot.protocol.websocket.config.WebSocketProperties;
-import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketSession;
-import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketUPRequest;
+import org.springblade.modules.iot.protocol.websocket.entity.WebSocketSession;
+import org.springblade.modules.iot.protocol.websocket.entity.WebSocketUPRequest;
 import org.springblade.modules.iot.protocol.websocket.enums.WebSocketStatus;
 import org.springblade.modules.iot.protocol.websocket.service.WebSocketSessionManager;
 import lombok.extern.slf4j.Slf4j;

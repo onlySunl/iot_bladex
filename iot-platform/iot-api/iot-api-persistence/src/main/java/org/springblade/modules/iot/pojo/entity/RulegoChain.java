@@ -1,14 +1,4 @@
-/*
- *
- * Copyright (c) 2025, NexIoT. All Rights Reserved.
- *
- * @Description: 本文件由 gitee.com/NexIoT 开发并拥有版权，未经授权严禁擅自商用、复制或传播。
- * @Author: gitee.com/NexIoT
- * @Email: wo8335224@gmail.com
- * @Wechat: outlookFil
- *
- *
- */
+
 
 package org.springblade.modules.iot.pojo.entity;
 
@@ -62,8 +52,6 @@ public class RulegoChain extends CustomBaseEntity {
   @TableField("creator_name")
   private String creatorName;
 
-  /** 状态：draft-草稿，deployed-已部署，stopped-已停止 */
-  @Schema(description = "状态")
 
   /** 规则链DSL内容(JSON格式) */
   @Schema(description = "规则链DSL内容")
@@ -75,11 +63,6 @@ public class RulegoChain extends CustomBaseEntity {
   @TableField("last_sync_time")
   private Date lastSyncTime;
 
-  /** 创建时间 */
-  @Schema(description = "创建时间")
-
-  /** 更新时间 */
-  @Schema(description = "更新时间")
 
   /** 是否删除：0-未删除，1-已删除 */
   @Schema(description = "是否删除")

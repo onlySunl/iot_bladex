@@ -19,7 +19,7 @@
     </resultMap>
 
     <!-- 关联查询场景联动执行日志 -->
-    <select id="selectSceneLinkageLogs" resultType="org.springblade.modules.iot.pojo.vo.SceneLinkageLogVO">
+    <select id="selectSceneLinkageLogs" resultType="org.springblade.modules.iot.persistence.entity.vo.SceneLinkageLogVO">
         SELECT
         l.id,
         l.c_id,

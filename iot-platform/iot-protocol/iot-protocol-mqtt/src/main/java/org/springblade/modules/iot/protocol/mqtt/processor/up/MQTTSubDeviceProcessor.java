@@ -4,7 +4,7 @@ package org.springblade.modules.iot.protocol.mqtt.processor.up;
 
 import org.springblade.modules.iot.common.constant.IoTConstant;
 import org.springblade.modules.iot.dm.device.service.sub.bridge.SubDeviceBridgeProcessor;
-import org.springblade.modules.iot.pojo.protocol.mqtt.MQTTUPRequest;
+import org.springblade.modules.iot.protocol.mqtt.entity.MQTTUPRequest;
 import org.springblade.modules.iot.protocol.mqtt.processor.MqttMessageProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

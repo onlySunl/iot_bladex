@@ -20,7 +20,7 @@
         <result column="content" jdbcType="LONGVARCHAR" property="content"/>
     </resultMap>
     <select id="queryLogPageV2ByIdList"
-            resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceLogVO">
+            resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceLogVO">
         SELECT * FROM (
         (SELECT * FROM iot_device_log
         <where>
@@ -42,7 +42,7 @@
 
     </select>
 
-    <select id="queryLogPageV2List" resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceLogVO">
+    <select id="queryLogPageV2List" resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceLogVO">
         select *
         from iot_device_log
         <where>
@@ -76,7 +76,7 @@
         </where>
         order by create_time desc
     </select>
-    <select id="queryLogById" resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceLogVO">
+    <select id="queryLogById" resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceLogVO">
         select *
         from iot_device_log
         <where>
@@ -94,7 +94,7 @@
 
     </select>
 
-    <select id="queryLogPageList" resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceLogVO">
+    <select id="queryLogPageList" resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceLogVO">
         select *
         from iot_device_log
         <where>
@@ -139,7 +139,7 @@
     </select>
 
 
-    <insert id="addFunctionLog" parameterType="org.springblade.modules.iot.pojo.vo.IoTDeviceLogVO"
+    <insert id="addFunctionLog" parameterType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceLogVO"
             useGeneratedKeys="true" keyProperty="id">
         insert into iot_device_log
         <trim prefix="(" suffix=")" suffixOverrides=",">

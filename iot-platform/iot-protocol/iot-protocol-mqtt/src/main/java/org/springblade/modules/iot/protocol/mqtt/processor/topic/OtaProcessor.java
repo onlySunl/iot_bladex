@@ -4,7 +4,7 @@ package org.springblade.modules.iot.protocol.mqtt.processor.topic;
 
 import org.springblade.modules.iot.dm.device.service.ota.api.OtaService;
 import org.springblade.modules.iot.protocol.mqtt.config.MqttConstant;
-import org.springblade.modules.iot.pojo.protocol.mqtt.MQTTUPRequest;
+import org.springblade.modules.iot.protocol.mqtt.entity.MQTTUPRequest;
 import org.springblade.modules.iot.protocol.mqtt.processor.MqttMessageProcessor;
 import org.springblade.modules.iot.protocol.mqtt.topic.MQTTTopicManager;
 import com.fasterxml.jackson.databind.JsonNode;

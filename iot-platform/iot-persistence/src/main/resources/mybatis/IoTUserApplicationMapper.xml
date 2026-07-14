@@ -24,7 +24,7 @@
         <result property="deleted" column="deleted"/>
         <result property="cfg" column="cfg"/>
     </resultMap>
-    <resultMap type="org.springblade.modules.iot.pojo.vo.IoTUserApplicationVO"
+    <resultMap type="org.springblade.modules.iot.persistence.entity.vo.IoTUserApplicationVO"
                id="IotUserApplicationVoResult">
         <!--        <result property="uuid"    column="uuid"    />-->
         <result property="unionId" column="union_id"/>

@@ -12,7 +12,7 @@
 
     </select>
 
-    <select id="selectList" resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceGeoFenceVO">
+    <select id="selectList" resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceGeoFenceVO">
         SELECT a.*,ifnull(b.deviceNum,0) as deviceNum from iot_device_geo_fence a
         LEFT JOIN (select count(1) deviceNum,fence_id from iot_device_fence_rel GROUP BY fence_id) b
         on a.id=b.fence_id

@@ -4,7 +4,7 @@ package org.springblade.modules.iot.protocol.mqtt.processor;
 
 import org.springblade.modules.iot.common.domain.R;
 import org.springblade.modules.iot.dm.device.service.plugin.ProcessorExecutor;
-import org.springblade.modules.iot.pojo.protocol.mqtt.MQTTDownRequest;
+import org.springblade.modules.iot.protocol.mqtt.entity.MQTTDownRequest;
 import java.util.List;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;

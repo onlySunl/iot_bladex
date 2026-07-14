@@ -4,7 +4,7 @@
 <mapper namespace="org.springblade.modules.iot.persistence.mapper.RulegoChainMapper">
 
     <select id="selectRulegoChainListByBo"
-            resultType="org.springblade.modules.iot.pojo.vo.RulegoChainVO">
+            resultType="org.springblade.modules.iot.persistence.entity.vo.RulegoChainVO">
         SELECT
         id,
         rulego_id,

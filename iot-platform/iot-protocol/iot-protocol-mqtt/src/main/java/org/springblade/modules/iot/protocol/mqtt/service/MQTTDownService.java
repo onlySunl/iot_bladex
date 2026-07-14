@@ -8,7 +8,7 @@ import org.springblade.modules.iot.common.downlink.DownlinkInterceptorChain;
 import org.springblade.modules.iot.common.service.IDown;
 import org.springblade.modules.iot.dm.device.service.AbstractDownService;
 import org.springblade.modules.iot.protocol.mqtt.config.MqttModuleInfo;
-import org.springblade.modules.iot.pojo.protocol.mqtt.MQTTDownRequest;
+import org.springblade.modules.iot.protocol.mqtt.entity.MQTTDownRequest;
 import org.springblade.modules.iot.protocol.mqtt.processor.MQTTDownProcessorChain;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

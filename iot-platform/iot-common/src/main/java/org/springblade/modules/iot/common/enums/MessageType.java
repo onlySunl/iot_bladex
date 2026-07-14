@@ -1,10 +1,15 @@
 package org.springblade.modules.iot.common.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
 public enum MessageType {
-// 属性
-properties,
-// 事件
-event,
-// 功能调用回复
-functions;
+    // 属性
+    properties,
+    // 事件
+    event,
+    // 功能调用回复
+    functions;
 }

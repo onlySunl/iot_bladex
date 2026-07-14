@@ -8,7 +8,6 @@ import MessageType;
 
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
-import org.springblade.modules.iot.common.constant.IoTConstant;
 import org.springblade.modules.iot.common.message.UPRequest;
 import org.springblade.modules.iot.pojo.bo.TriggerBO;
 import org.springblade.modules.iot.pojo.bo.Operator;

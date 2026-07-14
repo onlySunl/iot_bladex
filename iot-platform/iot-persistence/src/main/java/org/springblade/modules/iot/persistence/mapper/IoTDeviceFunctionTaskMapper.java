@@ -4,10 +4,10 @@ package org.springblade.modules.iot.persistence.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.pojo.entity.IoTDeviceFunctionTask;
-import org.springblade.modules.iot.pojo.bo.IoTDeviceFunctionHistoryBO;
-import org.springblade.modules.iot.pojo.bo.IoTDeviceFunctionTaskBO;
-import org.springblade.modules.iot.pojo.vo.IoTDeviceFunctionHistoryVO;
-import org.springblade.modules.iot.pojo.vo.IoTDeviceFunctionTaskVO;
+import org.springblade.modules.iot.persistence.entity.bo.IoTDeviceFunctionHistoryBO;
+import org.springblade.modules.iot.persistence.entity.bo.IoTDeviceFunctionTaskBO;
+import org.springblade.modules.iot.persistence.entity.vo.IoTDeviceFunctionHistoryVO;
+import org.springblade.modules.iot.persistence.entity.vo.IoTDeviceFunctionTaskVO;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;

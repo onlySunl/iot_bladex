@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import org.springblade.modules.iot.pojo.entity.IoTPushResult;
 import org.springblade.modules.iot.dm.device.service.IoTUPPushAdapter;
-import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketUPRequest;
+import org.springblade.modules.iot.protocol.websocket.entity.WebSocketUPRequest;
 
 /**
  * WebSocket 上行消息处理类

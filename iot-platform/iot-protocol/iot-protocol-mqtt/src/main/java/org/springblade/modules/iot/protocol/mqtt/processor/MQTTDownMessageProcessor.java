@@ -4,7 +4,7 @@ package org.springblade.modules.iot.protocol.mqtt.processor;
 
 import org.springblade.modules.iot.common.domain.R;
 import org.springblade.modules.iot.dm.device.service.plugin.BaseMessageProcessor;
-import org.springblade.modules.iot.pojo.protocol.mqtt.MQTTDownRequest;
+import org.springblade.modules.iot.protocol.mqtt.entity.MQTTDownRequest;
 
 /**
  * MQTT消息下行处理器接口

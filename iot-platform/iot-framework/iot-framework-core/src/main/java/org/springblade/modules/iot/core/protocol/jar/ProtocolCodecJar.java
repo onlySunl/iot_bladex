@@ -17,7 +17,7 @@ import org.springblade.modules.iot.core.protocol.support.ProtocolCodecSupport;
 import org.springblade.modules.iot.core.protocol.support.ProtocolCodecSupportWrapper;
 import org.springblade.modules.iot.core.protocol.support.ProtocolCodecWrapper;
 import org.springblade.modules.iot.core.protocol.support.ProtocolSupportDefinition;
-import org.springblade.modules.iot.core.protocol.jar.JarDriverCodecService;
+
 import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URL;

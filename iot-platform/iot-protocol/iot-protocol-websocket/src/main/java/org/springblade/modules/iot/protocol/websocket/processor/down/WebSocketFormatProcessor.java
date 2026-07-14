@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketDownRequest;
+import org.springblade.modules.iot.protocol.websocket.entity.WebSocketDownRequest;
 import lombok.extern.slf4j.Slf4j;
 
 /**

@@ -26,7 +26,7 @@ import org.springblade.modules.iot.databridge.core.util.ConfigValidator;
 import org.springblade.modules.iot.databridge.core.vo.DataBridgeConfigVO;
 import org.springblade.modules.iot.pojo.entity.IoTDevice;
 import org.springblade.modules.iot.pojo.entity.IoTUserApplication;
-import org.springblade.modules.iot.pojo.bo.IoTProductBO;
+import org.springblade.modules.iot.persistence.entity.bo.IoTProductBO;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceMapper;
 import org.springblade.modules.iot.persistence.mapper.IoTProductMapper;
 import org.springblade.modules.iot.persistence.mapper.IoTUserApplicationMapper;

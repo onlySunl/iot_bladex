@@ -1,27 +1,16 @@
-/*
- *
- * Copyright (c) 2025, NexIoT. All Rights Reserved.
- *
- * @Description: 本文件由 gitee.com/NexIoT 开发并拥有版权，未经授权严禁擅自商用、复制或传播。
- * @Author: gitee.com/NexIoT
- * @Email: wo8335224@gmail.com
- * @Wechat: outlookFil
- *
- *
- */
+
 
 package org.springblade.modules.iot.pojo.entity;
 
-import cn.universal.common.annotation.Excel;
-import cn.universal.common.domain.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.TableField;
 import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.modules.iot.common.annotation.Excel;
+
 /**
  * scene_linkage表 SceneLinkage @Author gitee.com/NexIoT
  *
@@ -32,7 +21,7 @@ import org.springblade.common.entity.CustomBaseEntity;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SceneLinkage extends BaseEntity {
+public class SceneLinkage extends CustomBaseEntity {
 
   /** 场景名称 */
   @Excel(name = "场景名称")
@@ -58,9 +47,6 @@ public class SceneLinkage extends BaseEntity {
   @Excel(name = "沉默周期")
   @TableField("sleep_cycle")
   private Integer sleepCycle;
-
-  /** 0启用 1停用 */
-  @Excel(name = "0启用 1停用")
 
   /** 设备id */
   @Excel(name = "设备序列号")

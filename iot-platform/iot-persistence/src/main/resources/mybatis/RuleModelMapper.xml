@@ -19,7 +19,7 @@
         </where>
 
     </select>
-    <select id="selectRuleListByBo" resultType="org.springblade.modules.iot.pojo.vo.RuleModelVO">
+    <select id="selectRuleListByBo" resultType="org.springblade.modules.iot.persistence.entity.vo.RuleModelVO">
         select id, rule_name, description, status, creator_id, create_time
         from rule_model
         <where>

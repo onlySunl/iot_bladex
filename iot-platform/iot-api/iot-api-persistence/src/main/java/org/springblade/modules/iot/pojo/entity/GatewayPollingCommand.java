@@ -1,32 +1,16 @@
-/*
- *
- * Copyright (c) 2025, IoT-Universal. All Rights Reserved.
- *
- * @Description: 本文件由 Aleo 开发并拥有版权，未经授权严禁擅自商用、复制或传播。
- * @Author: Aleo
- * @Email: wo8335224@gmail.com
- * @Wechat: outlookFil
- *
- *
- */
+
 
 package org.springblade.modules.iot.pojo.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import java.util.Date;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.TableField;
 import org.springblade.common.entity.CustomBaseEntity;
 /**
- * 网关轮询指令实体
- * 
- * @author Aleo
- * @date 2025-10-26
+ * 网关轮询指令实
  */
 @Data
 @TableName("iot_gateway_polling_command")
@@ -89,9 +73,5 @@ public class GatewayPollingCommand extends CustomBaseEntity {
   @TableField("description")
   private String description;
 
-  /** 创建时间 */
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-
-  /** 更新时间 */
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+ 
 }

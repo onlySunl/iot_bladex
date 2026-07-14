@@ -1,14 +1,4 @@
-/*
- *
- * Copyright (c) 2025, NexIoT. All Rights Reserved.
- *
- * @Description: 本文件由 gitee.com/NexIoT 开发并拥有版权，未经授权严禁擅自商用、复制或传播。
- * @Author: gitee.com/NexIoT
- * @Email: wo8335224@gmail.com
- * @Wechat: outlookFil
- *
- *
- */
+
 
 package org.springblade.modules.iot.pojo.bridge.entity;
 
@@ -21,6 +11,8 @@ import lombok.NoArgsConstructor;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;
 import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.modules.iot.common.enums.TaskType;
+
 /**
  * 数据输入任务实体
  *
@@ -59,35 +51,8 @@ public class DataInputTask extends CustomBaseEntity {
     @TableField("next_execution_time")
     private LocalDateTime nextExecutionTime;
 
-    /** 状态 */
-    @TableField("status")
-
     /** 错误信息 */
     @TableField("error_message")
     private String errorMessage;
 
-    /** 创建时间 */
-
-    /** 更新时间 */
-
-    /** 创建者 */
-
-    /** 更新者 */
-
-    /**
-     * 任务类型枚举
-     */
-    public enum TaskType {
-        SCHEDULED,  // 定时任务
-        REALTIME    // 实时任务
-    }
-
-    /**
-     * 状态枚举
-     */
-    public enum Status {
-        RUNNING,    // 运行中
-        STOPPED,    // 已停止
-        ERROR       // 错误状态
-    }
 }

@@ -4,7 +4,6 @@ package org.springblade.modules.iot.rule.scene.deviceUp;
 import org.springblade.modules.iot.common.enums.MessageType;
 import MessageType;
 
-import org.springblade.modules.iot.common.constant.IoTConstant;
 import org.springblade.modules.iot.common.message.UPRequest;
 import org.springblade.modules.iot.pojo.bo.TriggerBO;
 import java.util.HashMap;

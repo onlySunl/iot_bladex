@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import org.springblade.modules.iot.pojo.protocol.websocket.WebSocketDownRequest;
+import org.springblade.modules.iot.protocol.websocket.entity.WebSocketDownRequest;
 import org.springblade.modules.iot.protocol.websocket.processor.down.WebSocketDownProcessorChain;
 
 /**

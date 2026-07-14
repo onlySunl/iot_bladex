@@ -2,8 +2,6 @@
 
 package org.springblade.modules.iot.core.protocol.loader;
 
-import org.springblade.modules.iot.common.exception.CodecException;
-import org.springblade.modules.iot.core.protocol.support.ProtocolCodecSupport.CodecMethod;
 
 /**
  * 协议编解码加载器接口

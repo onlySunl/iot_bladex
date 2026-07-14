@@ -4,8 +4,8 @@ package org.springblade.modules.iot.persistence.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.pojo.entity.Network;
-import org.springblade.modules.iot.pojo.bo.NetworkBO;
-import org.springblade.modules.iot.pojo.vo.NetworkVO;
+import org.springblade.modules.iot.persistence.entity.bo.NetworkBO;
+import org.springblade.modules.iot.persistence.entity.vo.NetworkVO;
 import org.springblade.modules.iot.persistence.query.NetworkQuery;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;

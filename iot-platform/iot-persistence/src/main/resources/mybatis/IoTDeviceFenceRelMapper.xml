@@ -16,7 +16,7 @@
 
     </delete>
     <select id="selectFenceByIotId"
-            resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceGeoFenceVO">
+            resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceGeoFenceVO">
         select df.*
         from iot_device_fence_rel dif
                  left join iot_device_geo_fence df on dif.fence_id = df.id

@@ -22,7 +22,7 @@
     </resultMap>
 
     <select id="selectLogMetaList"
-            resultType="org.springblade.modules.iot.pojo.vo.IoTDeviceLogMetadataVO">
+            resultType="org.springblade.modules.iot.persistence.entity.vo.IoTDeviceLogMetadataVO">
         select * from iot_device_log_metadata
         <where>
             <if test="iotId != null and iotId != ''">
