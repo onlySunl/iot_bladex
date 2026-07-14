@@ -98,7 +98,6 @@ public class IoTDeviceAutoInsertIntercept implements IoTDownWrapper {
     // 修改设备信息
     ioTDevice.setId(dev.getId());
     ioTDevice.setCreatorId(downRequest.getAppUnionId());
-    ioTDevice.setCreateTime(System.currentTimeMillis() / 1000);
     ioTDevice.setDeviceName(object.getStr("deviceName"));
     ioTDevice.setApplication(downRequest.getApplicationId());
     ioTDevice.setDetail(downRequest.getDetail());

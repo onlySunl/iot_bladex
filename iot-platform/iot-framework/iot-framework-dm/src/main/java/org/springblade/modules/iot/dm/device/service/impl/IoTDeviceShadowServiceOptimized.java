@@ -358,7 +358,7 @@ public class IoTDeviceShadowServiceOptimized {
 
     // 批量插入
     for (IoTDeviceShadow shadow : shadows) {
-      ioTDeviceShadowMapper.insertSelective(shadow);
+      ioTDeviceShadowMapper.insert(shadow);
       // 插入成功后更新缓存状态
       updateShadowCacheStatus(shadow.getIotId(), true);
     }
@@ -380,7 +380,7 @@ public class IoTDeviceShadowServiceOptimized {
   /** 批量更新影子 */
   private void batchUpdate(List<IoTDeviceShadow> shadows) {
     for (IoTDeviceShadow shadow : shadows) {
-      ioTDeviceShadowMapper.updateByPrimaryKeySelective(shadow);
+      ioTDeviceShadowMapper.updateById(shadow);
     }
   }
 

@@ -28,14 +28,14 @@ public class DataInputLogService {
   /** 保存日志 */
   @Transactional(rollbackFor = Exception.class)
   public void save(DataInputLog log) {
-    dataInputLogMapper.insertSelective(log);
+    dataInputLogMapper.insert(log);
   }
 
   /** 根据配置ID查询日志 */
   public List<DataInputLog> getByConfigId(Long configId) {
     DataInputLog condition = new DataInputLog();
     condition.setConfigId(configId);
-    return dataInputLogMapper.select(condition);
+    return dataInputLogMapper.selectList(new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<>(condition));
   }
 
   /** 查询最近的日志 */

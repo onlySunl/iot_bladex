@@ -77,7 +77,7 @@ public class MysqlDeviceLogService extends AbstractIoTDeviceLogService {
       try {
         IoTDeviceLog log = build(upRequest, ioTDeviceDTO);
         if (enable) {
-          ioTDeviceLogShardMapper.insertSelective(log);
+          ioTDeviceLogShardMapper.insert(log);
         }
       } catch (Exception e) {
         log.error("保存设备日志报错={}", e);
@@ -103,7 +103,7 @@ public class MysqlDeviceLogService extends AbstractIoTDeviceLogService {
     if (StrUtil.isNotBlank(ioTProduct.getStorePolicy())) {
       try {
         if (enable) {
-          ioTDeviceLogShardMapper.insertSelective(ioTDeviceLog);
+          ioTDeviceLogShardMapper.insert(ioTDeviceLog);
         }
       } catch (Exception e) {
         log.error("保存设备日志报错={}", e);

@@ -73,7 +73,6 @@ public class RuleController extends BladeController {
 	@Operation(summary = "修改规则", description = "修改规则")
 	@ApiOperationSupport(order = 4)
 	public R<Boolean> update(@RequestBody RuleModel ruleModel) {
-		ruleModel.setUpdateTime(new Date());
 		return R.data(ruleModelServiceImpl.updateById(ruleModel));
 	}
 
@@ -97,7 +96,6 @@ public class RuleController extends BladeController {
 		RuleModel update = new RuleModel();
 		update.setId(ruleModel.getId());
 		update.setStatus(ruleModel.getStatus());
-		update.setUpdateTime(new Date());
 		return R.data(ruleModelServiceImpl.updateById(update));
 	}
 }

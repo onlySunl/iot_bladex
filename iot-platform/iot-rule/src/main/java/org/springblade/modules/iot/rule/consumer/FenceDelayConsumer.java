@@ -48,7 +48,7 @@ public class FenceDelayConsumer extends IoTUPPushAdapter {
     String[] lastCoordinate = jsonObject.getStr("coordinate").split(",");
     IoTDeviceDTO instanceBO =
         BeanUtil.toBean(JSONUtil.parseObj(jsonObject.getStr("instanceBO")), IoTDeviceDTO.class);
-    IoTDeviceGeoFence ioTDeviceGeoFence = ioTDeviceGeoFenceMapper.selectByPrimaryKey(fenceId);
+    IoTDeviceGeoFence ioTDeviceGeoFence = ioTDeviceGeoFenceMapper.selectById(fenceId);
     IoTDeviceLog ioTDeviceLog =
         ioTDeviceLogShardMapper.queryLatestCoordinatesLogByIotId(instanceBO.getIotId());
     double lastLng = Double.parseDouble(lastCoordinate[0]);

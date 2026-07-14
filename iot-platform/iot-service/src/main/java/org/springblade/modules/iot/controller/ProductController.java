@@ -86,7 +86,6 @@ public class ProductController extends BladeController {
 	@Operation(summary = "修改产品", description = "修改产品")
 	@ApiOperationSupport(order = 5)
 	public R<Boolean> update(@RequestBody Product product) {
-		product.setUpdateTime(new Date());
 		return R.data(productServiceImpl.updateById(product));
 	}
 
@@ -110,7 +109,6 @@ public class ProductController extends BladeController {
 		Product product = new Product();
 		product.setId(id);
 		product.setStatus(1);
-		product.setUpdateTime(new Date());
 		return R.data(productServiceImpl.updateById(product));
 	}
 }

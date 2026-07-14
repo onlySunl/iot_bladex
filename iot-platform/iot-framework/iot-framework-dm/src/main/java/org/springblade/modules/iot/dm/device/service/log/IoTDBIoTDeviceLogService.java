@@ -1192,7 +1192,6 @@ public class IoTDBIoTDeviceLogService extends AbstractIoTDeviceLogService {
             // 设置时间戳（IoTDB 自动返回）
             vo.setId(record.getTimestamp());
             // 转换为 LocalDateTime
-            vo.setCreateTime(
                 java.time.LocalDateTime.ofInstant(
                     java.time.Instant.ofEpochMilli(record.getTimestamp()),
                     java.time.ZoneId.systemDefault()));
@@ -1286,7 +1285,6 @@ public class IoTDBIoTDeviceLogService extends AbstractIoTDeviceLogService {
 
           // 设置时间戳
           vo.setId(record.getTimestamp());
-          vo.setCreateTime(
               java.time.LocalDateTime.ofInstant(
                   java.time.Instant.ofEpochMilli(record.getTimestamp()),
                   java.time.ZoneId.systemDefault()));
@@ -1602,7 +1600,6 @@ public class IoTDBIoTDeviceLogService extends AbstractIoTDeviceLogService {
             IoTDeviceLogMetadataVO vo = new IoTDeviceLogMetadataVO();
 
             // 设置时间戳
-            vo.setCreateTime(
                 java.time.LocalDateTime.ofInstant(
                     java.time.Instant.ofEpochMilli(record.getTimestamp()),
                     java.time.ZoneId.systemDefault()));
@@ -1714,7 +1711,6 @@ public class IoTDBIoTDeviceLogService extends AbstractIoTDeviceLogService {
         // 设置时间戳（从RowRecord直接获取）
         long timestamp = record.getTimestamp();
         deviceLog.setId(timestamp);
-        deviceLog.setCreateTime(
             LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault()));
 
         // 从记录中提取字段并设置到IoTDeviceLog对象中

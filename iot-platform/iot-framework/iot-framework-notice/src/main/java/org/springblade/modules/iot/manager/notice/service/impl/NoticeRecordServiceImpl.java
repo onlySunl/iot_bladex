@@ -20,12 +20,12 @@ public class NoticeRecordServiceImpl implements NoticeRecordService {
   @Override
   public void save(NoticeSendRecord record) {
     record.setSendTime(new java.util.Date());
-    recordMapper.insertSelective(record);
+    recordMapper.insert(record);
   }
 
   @Override
   public List<NoticeSendRecord> list() {
-    return recordMapper.selectAll();
+    return recordMapper.selectList(null);
   }
 
   @Override

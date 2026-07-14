@@ -514,7 +514,6 @@ public class InfluxDBDeviceLogService extends AbstractIoTDeviceLogService {
 
         IoTDeviceLogVO vo = new IoTDeviceLogVO();
         vo.setId(time.toEpochMilli());
-        vo.setCreateTime(LocalDateTime.ofInstant(time, ZoneId.systemDefault()));
 
         // 从tags中提取字段
         vo.setProductKey(getStringValue(record.getValueByKey("productKey")));
@@ -781,7 +780,6 @@ public class InfluxDBDeviceLogService extends AbstractIoTDeviceLogService {
         if (time == null) continue;
 
         IoTDeviceLogMetadataVO vo = new IoTDeviceLogMetadataVO();
-        vo.setCreateTime(LocalDateTime.ofInstant(time, ZoneId.systemDefault()));
 
         // 从tags中提取字段
         vo.setProductKey(getStringValue(record.getValueByKey("productKey")));

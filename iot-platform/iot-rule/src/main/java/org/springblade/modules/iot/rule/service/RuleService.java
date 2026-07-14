@@ -146,7 +146,7 @@ public class RuleService {
   public RuleModelVO queryVoByIdAndCreator(Long id, String creator) {
     RuleModel ruleModel = queryByIdAndCreator(id, creator);
     List<RuleModelInstance> instances =
-        ruleModelInstanceMapper.select(RuleModelInstance.builder().modelId(id).build());
+        ruleModelInstanceMapper.selectList(new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<>(RuleModelInstance.builder().modelId(id).build()));
 
     return new RuleModelVO(ruleModel, instances);
   }
@@ -159,8 +159,7 @@ public class RuleService {
   public void changeStatus(RuleModelBO ruleModelBo) {
     RuleModel ruleModel = queryByIdAndCreator(ruleModelBo.getId(), ruleModelBo.getCreatorId());
     ruleModel.setStatus(ruleModelBo.getStatus());
-    ruleModel.setUpdateTime(new Date());
-    ruleModelMapper.updateByPrimaryKeySelective(ruleModel);
+    ruleModelMapper.updateById(ruleModel);
   }
 
   /**
@@ -174,7 +173,6 @@ public class RuleService {
     ruleModel.setRuleName(ruleBo.getRuleName());
     ruleModel.setCreatorId(ruleBo.getCreatorId());
     ruleModel.setConfig(JSONUtil.toJsonStr(ruleBo.getConfig()));
-    ruleModel.setCreateTime(new Date());
 
     ruleModel.setDataLevel(ruleBo.getDataLevel());
     ruleModel.setProductKey(ruleBo.getProductKey());
@@ -206,7 +204,7 @@ public class RuleService {
       instance.setModelId(ruleModel.getId());
       instance.setRelationType(ruleModel.getDataLevel());
       instance.setRelationId(ruleModel.getProductKey());
-      ruleModelInstanceMapper.insertSelective(instance);
+      ruleModelInstanceMapper.insert(instance);
     } else if (RuleDataLevel.group.name().equals(ruleBo.getDataLevel())) {
       if (StringUtils.isEmpty(ruleBo.getGroupId())) {
         throw new IoTException("关联设备不能为空");
@@ -215,7 +213,7 @@ public class RuleService {
       instance.setModelId(ruleModel.getId());
       instance.setRelationType(ruleModel.getDataLevel());
       instance.setRelationId(ruleBo.getGroupId());
-      ruleModelInstanceMapper.insertSelective(instance);
+      ruleModelInstanceMapper.insert(instance);
     } else {
       if (CollectionUtils.isEmpty(ruleBo.getRelationIds())) {
         throw new IoTException("关联设备不能为空");
@@ -228,7 +226,7 @@ public class RuleService {
                 instance.setModelId(ruleModel.getId());
                 instance.setRelationType(ruleModel.getDataLevel());
                 instance.setRelationId(id);
-                ruleModelInstanceMapper.insertSelective(instance);
+                ruleModelInstanceMapper.insert(instance);
               });
     }
   }
@@ -246,7 +244,6 @@ public class RuleService {
     ruleModel.setDataLevel(ruleBo.getDataLevel());
     ruleModel.setCreatorId(ruleBo.getCreatorId());
     ruleModel.setConfig(JSONUtil.toJsonStr(ruleBo.getConfig()));
-    ruleModel.setUpdateTime(new Date());
     ruleModel.setDescription(ruleBo.getDescription());
     ruleModelMapper.updateByPrimaryKey(ruleModel);
 
@@ -281,8 +278,7 @@ public class RuleService {
     RuleConfig ruleConfig = JSONUtil.toBean(ruleModel.getConfig(), RuleConfig.class);
     ruleConfig.setTargets(ruleBo.getConfig().getTargets());
     ruleModel.setConfig(JSONUtil.toJsonStr(ruleConfig));
-    ruleModel.setUpdateTime(new Date());
 
-    ruleModelMapper.updateByPrimaryKeySelective(ruleModel);
+    ruleModelMapper.updateById(ruleModel);
   }
 }

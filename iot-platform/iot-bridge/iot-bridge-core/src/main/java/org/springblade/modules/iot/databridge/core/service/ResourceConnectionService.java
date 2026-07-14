@@ -66,7 +66,7 @@ public class ResourceConnectionService {
       connection.setDatabaseName(extraConfig.getStr("databaseName", ""));
     }
     // 4. 保存连接
-    int result = resourceConnectionMapper.insertSelective(connection);
+    int result = resourceConnectionMapper.insert(connection);
     if (result <= 0) {
       throw new RuntimeException("创建资源连接失败");
     }
@@ -98,7 +98,7 @@ public class ResourceConnectionService {
       connection.setDatabaseName(extraConfig.getStr("databaseName", ""));
     }
     // 4. 更新连接
-    int result = resourceConnectionMapper.updateByPrimaryKeySelective(connection);
+    int result = resourceConnectionMapper.updateById(connection);
     if (result <= 0) {
       throw new RuntimeException("更新资源连接失败");
     }
@@ -107,7 +107,7 @@ public class ResourceConnectionService {
   }
 
   public ResourceConnection getById(Long id) {
-    return resourceConnectionMapper.selectByPrimaryKey(id);
+    return resourceConnectionMapper.selectById(id);
   }
 
   /** 根据ID获取连接 */
@@ -117,12 +117,12 @@ public class ResourceConnectionService {
       l1Expire = 900,
       l2Expire = 3600)
   public ResourceConnection getResouceForRunning(Long id) {
-    return resourceConnectionMapper.selectByPrimaryKey(id);
+    return resourceConnectionMapper.selectById(id);
   }
 
   /** 获取所有连接 */
   public List<ResourceConnection> getAllConnections() {
-    return resourceConnectionMapper.selectAll();
+    return resourceConnectionMapper.selectList(null);
   }
 
   /** 根据类型获取活跃连接 */
@@ -136,7 +136,7 @@ public class ResourceConnectionService {
     ResourceConnection condition = new ResourceConnection();
     condition.setDirection(direction);
     condition.setStatus(1); // 只查询启用的连接
-    return resourceConnectionMapper.select(condition);
+    return resourceConnectionMapper.selectList(new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<>(condition));
   }
 
   /** 更新连接状态 */
@@ -146,9 +146,8 @@ public class ResourceConnectionService {
     connection.setId(id);
     connection.setStatus(status);
     connection.setUpdateBy(updateBy);
-    connection.setUpdateTime(LocalDateTime.now());
 
-    int result = resourceConnectionMapper.updateByPrimaryKeySelective(connection);
+    int result = resourceConnectionMapper.updateById(connection);
     if (result <= 0) {
       throw new RuntimeException("更新连接状态失败");
     }
@@ -173,7 +172,7 @@ public class ResourceConnectionService {
       throw new RuntimeException("无法删除资源连接，该连接正在被以下桥接配置使用: " + configNames.toString());
     }
 
-    int result = resourceConnectionMapper.deleteByPrimaryKey(id);
+    int result = resourceConnectionMapper.deleteById(id);
     if (result <= 0) {
       throw new RuntimeException("删除资源连接失败");
     }

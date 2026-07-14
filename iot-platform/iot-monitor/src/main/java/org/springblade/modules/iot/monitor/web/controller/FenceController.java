@@ -216,7 +216,7 @@ public class FenceController extends BaseController {
   public R selectFenceById(@RequestBody String downRequest, HttpServletRequest request) {
     JSONObject jsonObject = ioTInnerAuthContext.checkAndDecryptMsg(downRequest, request);
     Long id = jsonObject.getLong("id");
-    IoTDeviceGeoFence ioTDeviceGeoFence = ioTDeviceGeoFenceMapper.selectByPrimaryKey(id);
+    IoTDeviceGeoFence ioTDeviceGeoFence = ioTDeviceGeoFenceMapper.selectById(id);
     return R.ok(ioTDeviceGeoFence);
   }
 
@@ -226,7 +226,7 @@ public class FenceController extends BaseController {
 
     JSONObject jsonObject = ioTInnerAuthContext.checkAndDecryptMsg(downRequest, request);
     Long id = jsonObject.getLong("id");
-    IoTDeviceGeoFence ioTDeviceGeoFence = ioTDeviceGeoFenceMapper.selectByPrimaryKey(id);
+    IoTDeviceGeoFence ioTDeviceGeoFence = ioTDeviceGeoFenceMapper.selectById(id);
     ioTDeviceGeoFence.setId(null);
     ioTDeviceGeoFence.setCreateDate(new Date());
     ioTDeviceGeoFence.setUpdateDate(new Date());

@@ -366,7 +366,7 @@ public class IoTDeviceShadowService {
               .build();
       doDesired(shadow, ioTDeviceDTO, upRequest);
       ioTDeviceShadow.setMetadata(JSONUtil.toJsonStr(shadow));
-      ioTDeviceShadowMapper.insertSelective(ioTDeviceShadow);
+      ioTDeviceShadowMapper.insert(ioTDeviceShadow);
       // 代理调用内部方法，清除缓存
       //      iotCacheRemoveService.removeDevInstanceBOCache();
     } else {
@@ -384,7 +384,7 @@ public class IoTDeviceShadowService {
       ioTDeviceShadow.setMetadata(JSONUtil.toJsonStr(shadow));
       ioTDeviceShadow.setLastTime(new Date());
       ioTDeviceShadow.setUpdateDate(new Date());
-      ioTDeviceShadowMapper.updateByPrimaryKeySelective(ioTDeviceShadow);
+      ioTDeviceShadowMapper.updateById(ioTDeviceShadow);
     }
   }
 

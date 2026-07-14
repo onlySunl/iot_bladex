@@ -34,7 +34,7 @@ public class NoticeTemplateServiceImpl implements NoticeTemplateService {
 
   @Override
   public List<NoticeTemplate> list() {
-    return templateMapper.selectAll();
+    return templateMapper.selectList(null);
   }
 
   @Override
@@ -42,13 +42,10 @@ public class NoticeTemplateServiceImpl implements NoticeTemplateService {
     Date now = new Date();
     if (template.getId() == null) {
       // 新增
-      template.setCreateTime(now);
-      template.setUpdateTime(now);
-      templateMapper.insertSelective(template);
+      templateMapper.insert(template);
     } else {
       // 更新
-      template.setUpdateTime(now);
-      templateMapper.updateByPrimaryKeySelective(template);
+      templateMapper.updateById(template);
     }
   }
 
@@ -66,32 +63,29 @@ public class NoticeTemplateServiceImpl implements NoticeTemplateService {
     template.setReceivers(templateDTO.getReceivers());
     template.setStatus(templateDTO.getStatus());
     template.setRemark(templateDTO.getRemark());
-    template.setUpdateTime(now);
     
     if (template.getId() == null) {
       // 新增：设置创建者和创建时间
       template.setCreator(currentUser);
-      template.setCreateTime(now);
-      templateMapper.insertSelective(template);
+      templateMapper.insert(template);
     } else {
       // 修改：保持原有创建者信息，只更新其他字段
-      NoticeTemplate existingTemplate = templateMapper.selectByPrimaryKey(template.getId());
+      NoticeTemplate existingTemplate = templateMapper.selectById(template.getId());
       if (existingTemplate != null) {
         template.setCreator(existingTemplate.getCreator());
-        template.setCreateTime(existingTemplate.getCreateTime());
       }
-      templateMapper.updateByPrimaryKeySelective(template);
+      templateMapper.updateById(template);
     }
   }
 
   @Override
   public void delete(Long id) {
-    templateMapper.deleteByPrimaryKey(id);
+    templateMapper.deleteById(id);
   }
 
   @Override
   public NoticeTemplate getById(Long id) {
-    return templateMapper.selectByPrimaryKey(id);
+    return templateMapper.selectById(id);
   }
 
   @Override

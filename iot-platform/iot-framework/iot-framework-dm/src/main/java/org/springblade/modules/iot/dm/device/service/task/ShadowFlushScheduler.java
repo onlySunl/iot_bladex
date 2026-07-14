@@ -171,14 +171,14 @@ public class ShadowFlushScheduler {
       entity.setUpdateDate(new Date());
       entity.setLastTime(new Date());
       entity.setActiveTime(new Date());
-      ioTDeviceShadowMapper.insertSelective(entity);
+      ioTDeviceShadowMapper.insert(entity);
     } else {
       String merged = mergeShadowJson(existed.getMetadata(), cacheJson, existed);
       existed.setMetadata(merged);
       existed.setUpdateDate(new Date());
       existed.setLastTime(new Date());
 
-      ioTDeviceShadowMapper.updateByPrimaryKeySelective(existed);
+      ioTDeviceShadowMapper.updateById(existed);
     }
     return true;
   }

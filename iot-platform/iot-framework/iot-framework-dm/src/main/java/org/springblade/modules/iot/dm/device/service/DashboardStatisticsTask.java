@@ -417,7 +417,7 @@ public class DashboardStatisticsTask implements ApplicationRunner {
               .metricType(MetricType.MESSAGE_TOTAL.getCode())
               .build();
 
-      List<IoTDashboardStatistics> existingStats = dashboardStatisticsMapper.select(query);
+      List<IoTDashboardStatistics> existingStats = dashboardStatisticsMapper.selectList(new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<>(query));
       return !existingStats.isEmpty();
     } catch (Exception e) {
       log.error("[仪表盘统计] 检查统计数据存在性失败", e);

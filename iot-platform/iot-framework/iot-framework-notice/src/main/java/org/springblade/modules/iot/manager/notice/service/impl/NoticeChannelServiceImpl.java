@@ -16,7 +16,7 @@ public class NoticeChannelServiceImpl implements NoticeChannelService {
 
   @Override
   public List<NoticeChannel> list() {
-    return noticeChannelMapper.selectAll();
+    return noticeChannelMapper.selectList(null);
   }
 
   @Override
@@ -45,19 +45,16 @@ public class NoticeChannelServiceImpl implements NoticeChannelService {
     Date now = new Date();
     if (channel.getId() == null) {
       // 新增
-      channel.setCreateTime(now);
-      channel.setUpdateTime(now);
       noticeChannelMapper.insert(channel);
     } else {
       // 更新
-      channel.setUpdateTime(now);
-      noticeChannelMapper.updateByPrimaryKeySelective(channel);
+      noticeChannelMapper.updateById(channel);
     }
   }
 
   @Override
   public void delete(Long id) {
-    noticeChannelMapper.deleteByPrimaryKey(id);
+    noticeChannelMapper.deleteById(id);
   }
 
   @Override
@@ -69,6 +66,6 @@ public class NoticeChannelServiceImpl implements NoticeChannelService {
 
   @Override
   public NoticeChannel getById(Long id) {
-    return noticeChannelMapper.selectByPrimaryKey(id);
+    return noticeChannelMapper.selectById(id);
   }
 }

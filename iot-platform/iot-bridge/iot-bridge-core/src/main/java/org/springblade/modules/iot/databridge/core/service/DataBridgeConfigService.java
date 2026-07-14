@@ -83,7 +83,7 @@ public class DataBridgeConfigService {
         }
 
         // 4. 保存配置
-        int result = dataBridgeConfigMapper.insertSelective(config);
+        int result = dataBridgeConfigMapper.insert(config);
         if (result <= 0) {
             throw new RuntimeException("创建桥接配置失败");
         }
@@ -111,7 +111,7 @@ public class DataBridgeConfigService {
         DataBridgeConfig condition = new DataBridgeConfig();
         condition.setSourceScope(sourceScope);
         condition.setStatus(1); // 只查询启用的配置
-        return dataBridgeConfigMapper.select(condition);
+        return dataBridgeConfigMapper.selectList(new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<>(condition));
     }
 
     /**
@@ -136,7 +136,7 @@ public class DataBridgeConfigService {
      * 获取所有配置
      */
     public List<DataBridgeConfig> getAllConfigs() {
-        return dataBridgeConfigMapper.selectAll();
+        return dataBridgeConfigMapper.selectList(null);
     }
 
     /**
@@ -153,7 +153,7 @@ public class DataBridgeConfigService {
      * 获取所有配置的VO列表
      */
     public List<DataBridgeConfigVO> getAllConfigVOs() {
-        List<DataBridgeConfig> configs = dataBridgeConfigMapper.selectAll();
+        List<DataBridgeConfig> configs = dataBridgeConfigMapper.selectList(null);
         return convertToVOs(configs);
     }
 
@@ -307,7 +307,7 @@ public class DataBridgeConfigService {
         DataBridgeConfig config = new DataBridgeConfig();
         config.setId(id);
         config.setStatus(status);
-        int result = dataBridgeConfigMapper.updateByPrimaryKeySelective(config);
+        int result = dataBridgeConfigMapper.updateById(config);
         if (result <= 0) {
             throw new RuntimeException("更新桥接配置状态失败");
         }
@@ -325,12 +325,12 @@ public class DataBridgeConfigService {
         }
 
         // 检查配置是否存在
-        DataBridgeConfig existing = dataBridgeConfigMapper.selectByPrimaryKey(id);
+        DataBridgeConfig existing = dataBridgeConfigMapper.selectById(id);
         if (existing == null) {
             throw new RuntimeException("桥接配置不存在");
         }
 
-        int result = dataBridgeConfigMapper.deleteByPrimaryKey(id);
+        int result = dataBridgeConfigMapper.deleteById(id);
         if (result <= 0) {
             throw new RuntimeException("删除桥接配置失败");
         }
@@ -345,7 +345,7 @@ public class DataBridgeConfigService {
         if (id == null) {
             throw new IllegalArgumentException("配置ID不能为空");
         }
-        return dataBridgeConfigMapper.selectByPrimaryKey(id);
+        return dataBridgeConfigMapper.selectById(id);
     }
 
     /**
@@ -368,10 +368,9 @@ public class DataBridgeConfigService {
         }
 
         // 3. 设置更新时间
-        config.setUpdateTime(LocalDateTime.now());
 
         // 4. 更新配置
-        int result = dataBridgeConfigMapper.updateByPrimaryKeySelective(config);
+        int result = dataBridgeConfigMapper.updateById(config);
         if (result <= 0) {
             throw new RuntimeException("更新桥接配置失败");
         }

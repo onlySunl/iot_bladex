@@ -263,7 +263,7 @@ public class IoTProductDeviceService {
   public List<IoTDeviceOfflineThesholdBO> getProductOfflineThresholds() {
     // status-0 正常
     IoTProduct ioTProduct = IoTProduct.builder().state(IoTConstant.NORMAL.byteValue()).build();
-    List<IoTProduct> select = ioTProductMapper.select(ioTProduct);
+    List<IoTProduct> select = ioTProductMapper.selectList(new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<>(ioTProduct));
     List<IoTDeviceOfflineThesholdBO> productsMap = new ArrayList<>();
     if (!CollectionUtil.isEmpty(select)) {
       for (IoTProduct s : select) {
@@ -303,7 +303,7 @@ public class IoTProductDeviceService {
   public List<IoTDeviceLogMaxStorageTime> getProductLogMaxStorage() {
     // status-0 正常
     IoTProduct ioTProduct = IoTProduct.builder().state(IoTConstant.NORMAL.byteValue()).build();
-    List<IoTProduct> select = ioTProductMapper.select(ioTProduct);
+    List<IoTProduct> select = ioTProductMapper.selectList(new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<>(ioTProduct));
     List<IoTDeviceLogMaxStorageTime> productsMap = new ArrayList<>();
     if (!CollectionUtil.isEmpty(select)) {
       for (IoTProduct s : select) {

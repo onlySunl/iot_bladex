@@ -53,7 +53,7 @@ public class RulegoChainService {
    * @return 规则链详情
    */
   public RulegoChainVO queryRulegoChainById(Long id, String creatorId) {
-    RulegoChain rulegoChain = rulegoChainMapper.selectByPrimaryKey(id);
+    RulegoChain rulegoChain = rulegoChainMapper.selectById(id);
     if (rulegoChain == null || !creatorId.equals(rulegoChain.getCreatorId())) {
       throw new IoTException("规则链不存在或无权限访问");
     }
@@ -114,8 +114,6 @@ public class RulegoChainService {
     rulegoChain.setCreatorName(bo.getCreatorName());
     rulegoChain.setStatus("draft");
     rulegoChain.setDslContent(bo.getDslContent());
-    rulegoChain.setCreateTime(new Date());
-    rulegoChain.setUpdateTime(new Date());
     rulegoChain.setDeleted(0);
 
     rulegoChainMapper.insert(rulegoChain);
@@ -132,7 +130,7 @@ public class RulegoChainService {
    */
   @Transactional(rollbackFor = Exception.class)
   public boolean updateRulegoChain(RulegoChainBO bo) {
-    RulegoChain existingChain = rulegoChainMapper.selectByPrimaryKey(bo.getId());
+    RulegoChain existingChain = rulegoChainMapper.selectById(bo.getId());
     if (existingChain == null || !bo.getCreatorId().equals(existingChain.getCreatorId())) {
       throw new IoTException("规则链不存在或无权限访问");
     }
@@ -148,9 +146,8 @@ public class RulegoChainService {
     updateChain.setCreatorName(bo.getCreatorName());
     updateChain.setStatus(bo.getStatus());
     updateChain.setDslContent(bo.getDslContent());
-    updateChain.setUpdateTime(new Date());
 
-    int result = rulegoChainMapper.updateByPrimaryKeySelective(updateChain);
+    int result = rulegoChainMapper.updateById(updateChain);
     return result > 0;
   }
 
@@ -163,7 +160,7 @@ public class RulegoChainService {
    */
   @Transactional(rollbackFor = Exception.class)
   public boolean deleteRulegoChain(Long id, String creatorId) {
-    RulegoChain rulegoChain = rulegoChainMapper.selectByPrimaryKey(id);
+    RulegoChain rulegoChain = rulegoChainMapper.selectById(id);
     if (rulegoChain == null || !creatorId.equals(rulegoChain.getCreatorId())) {
       throw new IoTException("规则链不存在或无权限访问");
     }
@@ -183,9 +180,8 @@ public class RulegoChainService {
     RulegoChain updateChain = new RulegoChain();
     updateChain.setId(id);
     updateChain.setDeleted(1);
-    updateChain.setUpdateTime(new Date());
 
-    int result = rulegoChainMapper.updateByPrimaryKeySelective(updateChain);
+    int result = rulegoChainMapper.updateById(updateChain);
     return result > 0;
   }
 
@@ -198,7 +194,7 @@ public class RulegoChainService {
    */
   @Transactional(rollbackFor = Exception.class)
   public boolean deployRulegoChain(Long id, String creatorId) {
-    RulegoChain rulegoChain = rulegoChainMapper.selectByPrimaryKey(id);
+    RulegoChain rulegoChain = rulegoChainMapper.selectById(id);
     if (rulegoChain == null || !creatorId.equals(rulegoChain.getCreatorId())) {
       throw new IoTException("规则链不存在或无权限访问");
     }
@@ -219,9 +215,8 @@ public class RulegoChainService {
     RulegoChain updateChain = new RulegoChain();
     updateChain.setId(id);
     updateChain.setStatus("deployed");
-    updateChain.setUpdateTime(new Date());
 
-    int result = rulegoChainMapper.updateByPrimaryKeySelective(updateChain);
+    int result = rulegoChainMapper.updateById(updateChain);
     return result > 0;
   }
 
@@ -234,7 +229,7 @@ public class RulegoChainService {
    */
   @Transactional(rollbackFor = Exception.class)
   public boolean stopRulegoChain(Long id, String creatorId) {
-    RulegoChain rulegoChain = rulegoChainMapper.selectByPrimaryKey(id);
+    RulegoChain rulegoChain = rulegoChainMapper.selectById(id);
     if (rulegoChain == null || !creatorId.equals(rulegoChain.getCreatorId())) {
       throw new IoTException("规则链不存在或无权限访问");
     }
@@ -255,9 +250,8 @@ public class RulegoChainService {
     RulegoChain updateChain = new RulegoChain();
     updateChain.setId(id);
     updateChain.setStatus("stopped");
-    updateChain.setUpdateTime(new Date());
 
-    int result = rulegoChainMapper.updateByPrimaryKeySelective(updateChain);
+    int result = rulegoChainMapper.updateById(updateChain);
     return result > 0;
   }
 
@@ -328,10 +322,8 @@ public class RulegoChainService {
     // 格式化日期字段
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     if (rulegoChain.getCreateTime() != null) {
-      vo.setCreateTime(sdf.format(rulegoChain.getCreateTime()));
     }
     if (rulegoChain.getUpdateTime() != null) {
-      vo.setUpdateTime(sdf.format(rulegoChain.getUpdateTime()));
     }
     if (rulegoChain.getLastSyncTime() != null) {
       vo.setLastSyncTime(sdf.format(rulegoChain.getLastSyncTime()));

@@ -76,7 +76,7 @@ public class IoTDeviceSubscribeService {
     } else {
       build.setMsgType(messageType.getValue().toUpperCase());
     }
-    ioTDeviceSubscribeMapper.insertSelective(build);
+    ioTDeviceSubscribeMapper.insert(build);
     iotCacheRemoveService.removeIotDeviceSubscribeCache();
     return R.ok("订阅成功");
   }
@@ -105,7 +105,7 @@ public class IoTDeviceSubscribeService {
     }
     IoTDeviceSubscribe query =
         IoTDeviceSubscribe.builder().enabled(Boolean.TRUE).productKey(productkey).build();
-    List<IoTDeviceSubscribe> ioTDeviceSubscribeList = ioTDeviceSubscribeMapper.select(query);
+    List<IoTDeviceSubscribe> ioTDeviceSubscribeList = ioTDeviceSubscribeMapper.selectList(new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<>(query));
     List<IoTDeviceSubscribe> subscribes = new ArrayList<>();
     if (CollectionUtil.isNotEmpty(ioTDeviceSubscribeList)) {
       for (IoTDeviceSubscribe sub : ioTDeviceSubscribeList) {

@@ -144,7 +144,7 @@ public class IoTDeviceService {
       }
     }
 
-    ioTDeviceMapper.updateByPrimaryKeySelective(instance);
+    ioTDeviceMapper.updateById(instance);
     // 组件返回字段
     Map<String, Object> result = new HashMap<>();
     result.put("deviceId", instance.getDeviceId());

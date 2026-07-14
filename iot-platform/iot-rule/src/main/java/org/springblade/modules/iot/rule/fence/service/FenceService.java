@@ -119,9 +119,9 @@ public class FenceService extends IoTUPPushAdapter {
       // 数据不存在
       return R.error(ERROR_CODE.DATA_NOT_FIND.getCode(), ERROR_CODE.DATA_NOT_FIND.getName());
     }
-    ioTDeviceFenceRelMapper.deleteByPrimaryKey(ins.getId());
+    ioTDeviceFenceRelMapper.deleteById(ins.getId());
 
-    ioTDeviceGeoFenceMapper.deleteByPrimaryKey(ins.getFenceId());
+    ioTDeviceGeoFenceMapper.deleteById(ins.getFenceId());
     return R.ok();
   }
 
@@ -135,18 +135,18 @@ public class FenceService extends IoTUPPushAdapter {
       ioTDeviceGeoFence.setCreatorId(ioTDevice.getCreatorId());
       ioTDeviceGeoFence.setCreateDate(new Date());
       ioTDeviceGeoFence.setUpdateDate(new Date());
-      ioTDeviceGeoFenceMapper.insertSelective(ioTDeviceGeoFence);
+      ioTDeviceGeoFenceMapper.insert(ioTDeviceGeoFence);
       IoTDeviceFenceRel instanceFence = new IoTDeviceFenceRel();
       instanceFence.setFenceId(ioTDeviceGeoFence.getId());
       instanceFence.setIotId(ioTDevice.getIotId());
       instanceFence.setDeviceId(downRequest.getDeviceId());
       instanceFence.setCreateDate(new Date());
       instanceFence.setCreatorId(ioTDevice.getCreatorId());
-      ioTDeviceFenceRelMapper.insertSelective(instanceFence);
+      ioTDeviceFenceRelMapper.insert(instanceFence);
     } else {
       ioTDeviceGeoFence.setCreatorId(ioTDevice.getCreatorId());
       ioTDeviceGeoFence.setUpdateDate(new Date());
-      ioTDeviceGeoFenceMapper.updateByPrimaryKeySelective(ioTDeviceGeoFence);
+      ioTDeviceGeoFenceMapper.updateById(ioTDeviceGeoFence);
     }
     return R.ok();
   }

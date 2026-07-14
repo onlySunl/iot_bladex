@@ -79,7 +79,6 @@ public class DeviceController extends BladeController {
 	@Operation(summary = "新增设备", description = "新增设备")
 	@ApiOperationSupport(order = 4)
 	public R<Boolean> save(@RequestBody Device device) {
-		device.setCreateTime(new Date());
 		device.setState(0);
 		return R.data(deviceServiceImpl.save(device));
 	}
@@ -91,7 +90,6 @@ public class DeviceController extends BladeController {
 	@Operation(summary = "修改设备", description = "修改设备")
 	@ApiOperationSupport(order = 5)
 	public R<Boolean> update(@RequestBody Device device) {
-		device.setUpdateTime(new Date());
 		return R.data(deviceServiceImpl.updateById(device));
 	}
 
@@ -117,7 +115,6 @@ public class DeviceController extends BladeController {
 		update.setState(device.getState());
 		if (device.getState() != null && device.getState() == 1) {
 			update.setOnlineTime(System.currentTimeMillis());
-		update.setUpdateTime(new Date());
 		return R.data(deviceServiceImpl.updateById(update));
 	}
 }

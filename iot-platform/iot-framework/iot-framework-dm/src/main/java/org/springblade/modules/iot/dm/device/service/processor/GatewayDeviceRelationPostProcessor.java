@@ -120,7 +120,7 @@ public class GatewayDeviceRelationPostProcessor implements IoTDevicePostProcesso
     updateDevice.setId(ioTDevice.getId());
     updateDevice.setExt1(downRequest.getSlaveAddress());
     // 根据主键id只更新ext1字段
-    ioTDeviceMapper.updateByPrimaryKeySelective(updateDevice);
+    ioTDeviceMapper.updateById(updateDevice);
   }
 
   /** 处理设备删除操作 */

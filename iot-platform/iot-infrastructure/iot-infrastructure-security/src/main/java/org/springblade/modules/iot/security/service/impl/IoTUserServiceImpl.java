@@ -61,7 +61,7 @@ public class IoTUserServiceImpl implements IoTUserService {
 
   @Override
   public IoTUser selectUserById(Long userId) {
-    return iotUserMapper.selectByPrimaryKey(userId);
+    return iotUserMapper.selectById(userId);
   }
 
   @Override
@@ -169,7 +169,7 @@ public class IoTUserServiceImpl implements IoTUserService {
       deleteUserRoleByUnionId(userbo);
       insertUserRole(userbo);
     }
-    return iotUserMapper.updateByPrimaryKeySelective(iotUser);
+    return iotUserMapper.updateById(iotUser);
   }
 
   @Override
@@ -177,12 +177,12 @@ public class IoTUserServiceImpl implements IoTUserService {
       cacheNames = {"iot_user_info"},
       key = "#iotUser.unionId",allEntries = true)
   public void updateUserById(IoTUser iotUser) {
-    iotUserMapper.updateByPrimaryKeySelective(iotUser);
+    iotUserMapper.updateById(iotUser);
   }
 
   @Override
   public int deleteUserById(Long userId) {
-    return iotUserMapper.deleteByPrimaryKey(userId);
+    return iotUserMapper.deleteById(userId);
   }
 
   @Override

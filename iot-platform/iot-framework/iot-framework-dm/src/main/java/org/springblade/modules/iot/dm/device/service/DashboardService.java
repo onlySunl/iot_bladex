@@ -55,8 +55,6 @@ public class DashboardService {
 
       if (existing == null) {
         // 不存在则插入新记录
-        statistics.setCreateTime(LocalDateTime.now());
-        statistics.setUpdateTime(LocalDateTime.now());
         dashboardStatisticsMapper.insert(statistics);
         log.debug("[仪表盘统计] 插入新记录: {}", statistics);
       } else {

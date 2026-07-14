@@ -565,7 +565,6 @@ public class CkDeviceLogService extends AbstractIoTDeviceLogService {
       vo.setPoint(rs.getString("point"));
       Timestamp createTime = rs.getTimestamp("create_time");
       if (createTime != null) {
-        vo.setCreateTime(createTime.toLocalDateTime());
       }
       return vo;
     }
@@ -590,7 +589,6 @@ public class CkDeviceLogService extends AbstractIoTDeviceLogService {
       vo.setExt3(rs.getString("ext3"));
       Timestamp createTime = rs.getTimestamp("create_time");
       if (createTime != null) {
-        vo.setCreateTime(createTime.toLocalDateTime());
       }
       return vo;
     }

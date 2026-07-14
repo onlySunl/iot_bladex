@@ -115,8 +115,6 @@ public class SceneLinkageService {
       sysJob.setCreateBy(sceneLinkage.getCreateBy());
       sysJob.setUpdateBy(sceneLinkage.getCreateBy());
       Date date = new Date();
-      sysJob.setUpdateTime(date);
-      sysJob.setCreateTime(date);
       sceneLinkage.setId(sceneLinkage1.getId());
       // 定时任务结果 -1为没有定时触发  0新增失败 1成功
       addJob(sceneLinkage, sysJob);
@@ -144,8 +142,6 @@ public class SceneLinkageService {
         sysJob.setCreateBy(sceneLinkage.getCreateBy());
         sysJob.setUpdateBy(sceneLinkage.getCreateBy());
         Date date = new Date();
-        sysJob.setUpdateTime(date);
-        sysJob.setCreateTime(date);
         addJob(sceneLinkage, sysJob);
       }
       // 只更改了场景启用状态
@@ -205,7 +201,7 @@ public class SceneLinkageService {
             .content(JSONUtil.toJsonStr(runContexts))
             .cStatus(senceIoTDeviceDownService.matchSuccess(runContexts).code)
             .build();
-    ioTDeviceRuleLogMapper.insertSelective(logRule);
+    ioTDeviceRuleLogMapper.insert(logRule);
     return runContexts;
   }
 
@@ -233,7 +229,7 @@ public class SceneLinkageService {
             .content(JSONUtil.toJsonStr(runContexts))
             .cStatus(senceIoTDeviceDownService.matchSuccess(runContexts).code)
             .build();
-    ioTDeviceRuleLogMapper.insertSelective(logRule);
+    ioTDeviceRuleLogMapper.insert(logRule);
     return runContexts;
   }
 
