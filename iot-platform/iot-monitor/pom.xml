@@ -41,5 +41,10 @@
             <artifactId>iot-persistence</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-infrastructure-security</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>
