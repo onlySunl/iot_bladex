@@ -96,7 +96,7 @@ public class MqttMockDataService {
     mockDataThread.setName("MockDataSender");
     // 虚拟线程不需要设置为守护线程，会随着载体线程退出
 
-    return R.ok("Mock数据自动发送已启动，每秒发送10条");
+    return R.data("Mock数据自动发送已启动，每秒发送10条");
   }
 
   /**
@@ -138,7 +138,7 @@ public class MqttMockDataService {
     mockDataThread.setDaemon(true);
     mockDataThread.start();
 
-    return R.ok("Mock数据自动发送已启动，每2秒发送一次");
+    return R.data("Mock数据自动发送已启动，每2秒发送一次");
   }
 
   /**
@@ -159,7 +159,7 @@ public class MqttMockDataService {
     }
 
     log.debug("[MQTT_MOCK] 已停止自动发送Mock数据");
-    return R.ok("Mock数据自动发送已停止");
+    return R.data("Mock数据自动发送已停止");
   }
 
   /**
@@ -173,7 +173,7 @@ public class MqttMockDataService {
     status.put("threadAlive", mockDataThread != null && mockDataThread.isAlive());
     status.put("timestamp", System.currentTimeMillis());
 
-    return R.ok(status);
+    return R.data(status);
   }
 
   /**
@@ -305,7 +305,7 @@ public class MqttMockDataService {
         result.put("payloadLength", payload.length());
         result.put("timestamp", System.currentTimeMillis());
 
-        return R.ok(result);
+        return R.data(result);
       } else {
         return R.error("Mock数据发送失败，请检查MQTT连接状态");
       }

@@ -147,7 +147,7 @@ public class DataBridgeController extends BaseController {
   public R<Void> testResource(@PathVariable Long id) {
     ConnectionTestResult connectionTestResult = resourceConnectionService.testConnection(id);
     if (connectionTestResult.isSuccess()) {
-      return R.ok(connectionTestResult.getMessage());
+      return R.data(connectionTestResult.getMessage());
     }
     return R.fail(connectionTestResult.getMessage());
   }
@@ -158,7 +158,7 @@ public class DataBridgeController extends BaseController {
     try {
       ConnectionTester.ConnectionTestResult result = connectionTester.testConnection(connection);
       if (result.isSuccess()) {
-        return R.ok(result.getMessage());
+        return R.data(result.getMessage());
       }
       return R.fail(result.getMessage());
     } catch (Exception e) {
@@ -185,7 +185,7 @@ public class DataBridgeController extends BaseController {
                 .toList();
       }
 
-      return R.ok(connections);
+      return R.data(connections);
     } catch (Exception e) {
       logger.error("获取资源连接列表失败", e);
       R<List<ResourceConnection>> result = new R<>();
@@ -236,7 +236,7 @@ public class DataBridgeController extends BaseController {
       connection.setId(id);
       connection.setUpdateBy(SecurityUtils.getUnionId());
       resourceConnectionService.updateResourceConnection(connection);
-      return R.ok("更新资源连接成功");
+      return R.data("更新资源连接成功");
     } catch (Exception e) {
       logger.error("更新资源连接失败", e);
       return R.fail("更新资源连接失败: " + e.getMessage());
@@ -260,7 +260,7 @@ public class DataBridgeController extends BaseController {
       }
 
       resourceConnectionService.updateConnectionStatus(id, status, SecurityUtils.getUnionId());
-      return R.ok("更新资源连接状态成功");
+      return R.data("更新资源连接状态成功");
     } catch (Exception e) {
       logger.error("更新资源连接状态失败", e);
       return R.fail("更新资源连接状态失败: " + e.getMessage());
@@ -283,7 +283,7 @@ public class DataBridgeController extends BaseController {
       }
 
       resourceConnectionService.deleteConnection(id);
-      return R.ok("删除资源连接成功");
+      return R.data("删除资源连接成功");
     } catch (Exception e) {
       logger.error("删除资源连接失败", e);
       return R.fail("删除资源连接失败: " + e.getMessage());
@@ -305,7 +305,7 @@ public class DataBridgeController extends BaseController {
         configs = dataBridgeConfigService.getConfigVOsByCreateBy(SecurityUtils.getUnionId());
       }
 
-      return R.ok(configs);
+      return R.data(configs);
     } catch (Exception e) {
       logger.error("获取桥接配置列表失败", e);
       R<List<DataBridgeConfigVO>> result = new R<>();
@@ -356,7 +356,7 @@ public class DataBridgeController extends BaseController {
       config.setId(id);
       config.setUpdateBy(SecurityUtils.getUnionId());
       dataBridgeConfigService.updateDataBridgeConfig(config);
-      return R.ok("更新桥接配置成功");
+      return R.data("更新桥接配置成功");
     } catch (Exception e) {
       logger.error("更新桥接配置失败", e);
       return R.fail("更新桥接配置失败: " + e.getMessage());
@@ -379,7 +379,7 @@ public class DataBridgeController extends BaseController {
       }
 
       dataBridgeConfigService.updateConfigStatus(id, status, SecurityUtils.getUnionId());
-      return R.ok("更新桥接配置状态成功");
+      return R.data("更新桥接配置状态成功");
     } catch (Exception e) {
       logger.error("更新桥接配置状态失败", e);
       return R.fail("更新桥接配置状态失败: " + e.getMessage());
@@ -402,7 +402,7 @@ public class DataBridgeController extends BaseController {
       }
 
       dataBridgeConfigService.deleteConfig(id);
-      return R.ok("删除桥接配置成功");
+      return R.data("删除桥接配置成功");
     } catch (Exception e) {
       logger.error("删除桥接配置失败", e);
       return R.fail("删除桥接配置失败: " + e.getMessage());
@@ -467,7 +467,7 @@ public class DataBridgeController extends BaseController {
         configs = List.of(); // 临时返回空列表
       }
 
-      return R.ok(configs);
+      return R.data(configs);
     } catch (Exception e) {
       logger.error("根据方向获取配置列表失败", e);
       return R.fail("根据方向获取配置列表失败: " + e.getMessage(), (List<DataBridgeConfig>) null);
@@ -493,7 +493,7 @@ public class DataBridgeController extends BaseController {
                 .toList();
       }
 
-      return R.ok(connections);
+      return R.data(connections);
     } catch (Exception e) {
       logger.error("根据方向获取资源连接列表失败", e);
       return R.fail("根据方向获取资源连接列表失败: " + e.getMessage(), (List<ResourceConnection>) null);
@@ -505,7 +505,7 @@ public class DataBridgeController extends BaseController {
   public R<List<String>> getBidirectionalResourceTypes() {
     try {
       List<String> bidirectionalTypes = dataBridgeManager.getBidirectionalPluginTypes();
-      return R.ok(bidirectionalTypes);
+      return R.data(bidirectionalTypes);
     } catch (Exception e) {
       logger.error("获取双向资源类型失败", e);
       return R.fail("获取双向资源类型失败: " + e.getMessage(), (List<String>) null);
@@ -517,7 +517,7 @@ public class DataBridgeController extends BaseController {
   public R<List<String>> getOutputOnlyResourceTypes() {
     try {
       List<String> outputOnlyTypes = dataBridgeManager.getOutputOnlyPluginTypes();
-      return R.ok(outputOnlyTypes);
+      return R.data(outputOnlyTypes);
     } catch (Exception e) {
       logger.error("获取仅输出资源类型失败", e);
       return R.fail("获取仅输出资源类型失败: " + e.getMessage(), (List<String>) null);
@@ -603,7 +603,7 @@ public class DataBridgeController extends BaseController {
           getResourceTypesByDirection(pluginInfos, DataDirection.BIDIRECTIONAL));
       result.putAll(directionTypes);
 
-      return R.ok(result);
+      return R.data(result);
     } catch (Exception e) {
       logger.error("获取资源类型失败", e);
       return R.fail("获取资源类型失败: " + e.getMessage(), (Map<String, Object>) null);
@@ -787,7 +787,7 @@ public class DataBridgeController extends BaseController {
 
       // 使用通用的配置验证方法
       Boolean isValid = dataBridgeManager.validateBridgeConfig(config);
-      return R.ok(isValid);
+      return R.data(isValid);
     } catch (Exception e) {
       logger.error("验证输入配置失败", e);
       return R.fail("验证输入配置失败: " + e.getMessage(), (Boolean) null);

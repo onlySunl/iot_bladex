@@ -113,7 +113,7 @@ public class HttpDownHandle extends IoTDownAdapter<HttpDownRequest> {
       }
       // 操作数据库
       Map<String, Object> saveResult = saveIoTDevice(downRequest);
-      return R.ok(saveResult);
+      return R.data(saveResult);
     } else {
       // 添加失败
       return R.error(
@@ -151,7 +151,7 @@ public class HttpDownHandle extends IoTDownAdapter<HttpDownRequest> {
         iotDeviceService.selectDevInstanceBO(
             downRequest.getProductKey(), downRequest.getDeviceId());
     ioTDeviceLifeCycle.command(ioTDeviceDTO, requestId, function);
-    return R.ok();
+    return R.data();
   }
 
   private Map<String, Object> saveIoTDevice(HttpDownRequest downRequest) {
@@ -236,7 +236,7 @@ public class HttpDownHandle extends IoTDownAdapter<HttpDownRequest> {
       }
       // 操作数据库
       deleteDevInstance(instance, downRequest);
-      return R.ok("删除成功");
+      return R.data("删除成功");
     } else {
       // 添加失败
       return R.error(
@@ -280,7 +280,7 @@ public class HttpDownHandle extends IoTDownAdapter<HttpDownRequest> {
       Map<String, Object> updateResult = updateDevInstance(dev, downRequest);
       // 设备生命周期-修改
       ioTDeviceLifeCycle.update(dev.getProductKey(), dev.getDeviceId(), downRequest);
-      return R.ok(updateResult);
+      return R.data(updateResult);
     } else {
       // 添加失败
       return R.error(

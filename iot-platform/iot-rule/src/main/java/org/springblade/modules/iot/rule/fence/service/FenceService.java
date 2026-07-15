@@ -122,7 +122,7 @@ public class FenceService extends IoTUPPushAdapter {
     ioTDeviceFenceRelMapper.deleteById(ins.getId());
 
     ioTDeviceGeoFenceMapper.deleteById(ins.getFenceId());
-    return R.ok();
+    return R.data();
   }
 
   /** 设置围栏 */
@@ -148,7 +148,7 @@ public class FenceService extends IoTUPPushAdapter {
       ioTDeviceGeoFence.setUpdateDate(new Date());
       ioTDeviceGeoFenceMapper.updateById(ioTDeviceGeoFence);
     }
-    return R.ok();
+    return R.data();
   }
 
   /** 获取电子围栏 */
@@ -158,7 +158,7 @@ public class FenceService extends IoTUPPushAdapter {
         ioTDeviceGeoFenceMapper.selectByIotId(ioTDevice.getIotId(), ioTDevice.getCreatorId());
     Map<String, Object> map = new HashMap<>();
     map.put("fences", res);
-    return R.ok(map);
+    return R.data(map);
   }
 
   public static void main(String[] args) {

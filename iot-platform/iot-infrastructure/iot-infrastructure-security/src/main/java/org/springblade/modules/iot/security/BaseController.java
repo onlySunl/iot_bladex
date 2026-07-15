@@ -99,7 +99,7 @@ public class BaseController {
 
   /** 返回成功 */
   public R<Void> success() {
-    return R.ok();
+    return R.data();
   }
 
   /** 返回失败消息 */
@@ -109,7 +109,7 @@ public class BaseController {
 
   /** 返回成功消息 */
   public R<Void> success(String message) {
-    return R.ok(message);
+    return R.data(message);
   }
 
   /** 返回失败消息 */

@@ -79,7 +79,7 @@ public class IoTController extends BaseApiController {
   @GetMapping(value = "/product/{productKey}")
   public R queryProduct(@PathVariable("productKey") String productKey) {
     IoTProductVO devProduct = iotProductDeviceService.apiProductDetail(productKey);
-    return R.ok(devProduct);
+    return R.data(devProduct);
   }
 
   /** 设备列表查询 */
@@ -102,7 +102,7 @@ public class IoTController extends BaseApiController {
     }
     checkDevSelf(iotId);
     List<IoTDevicePropertiesBO> propertiesBOS = iotDeviceShadowService.getDevState(iotId);
-    return R.ok(propertiesBOS);
+    return R.data(propertiesBOS);
   }
 
   /** 设备增加 */
@@ -161,7 +161,7 @@ public class IoTController extends BaseApiController {
     apiQuery.setApplicationId(iotApplicationId());
     apiQuery.setIotId(iotId);
     Map<String, Object> objectMap = iotDeviceService.apiUpdateDevInfo(apiQuery);
-    return R.ok(objectMap);
+    return R.data(objectMap);
   }
 
   /** 设备删除 */
@@ -206,7 +206,7 @@ public class IoTController extends BaseApiController {
       return R.error(IoTErrorCode.DEV_NOT_FIND.getCode(), IoTErrorCode.DEV_NOT_FIND.getName());
     }
     checkDevSelf(iotId);
-    return R.ok(ioTDeviceVO);
+    return R.data(ioTDeviceVO);
   }
 
   /** 设备查询,通过deviceId */
@@ -220,7 +220,7 @@ public class IoTController extends BaseApiController {
       return R.error(IoTErrorCode.DEV_NOT_FIND.getCode(), IoTErrorCode.DEV_NOT_FIND.getName());
     }
     checkDevSelf(query);
-    return R.ok(ioTDeviceVO);
+    return R.data(ioTDeviceVO);
   }
 
   /** 设备绑定 */
@@ -231,7 +231,7 @@ public class IoTController extends BaseApiController {
     checkAPPSelf(appid);
     int i = iotDeviceService.apiAppBind(appid, iotId);
     if (i > 0) {
-      return R.ok("绑定成功");
+      return R.data("绑定成功");
     }
     return R.error(
         IoTErrorCode.APPLICATION_BIND_FAILURE.getCode(),
@@ -245,7 +245,7 @@ public class IoTController extends BaseApiController {
     checkDevSelf(iotId);
     int i = iotDeviceService.apiAppUnBind(iotId);
     if (i > 0) {
-      return R.ok("解绑成功");
+      return R.data("解绑成功");
     }
     return R.error(
         IoTErrorCode.APPLICATION_BIND_FAILURE.getCode(),

@@ -102,7 +102,7 @@ public class MQTTDownUpdate extends AbstratIoTService implements MQTTDownMessage
       // 设备生命周期-修改
       ioTDeviceLifeCycle.update(ioTDevice.getProductKey(), ioTDevice.getDeviceId(), downRequest);
       result.put("success", true);
-      return R.ok(result);
+      return R.data(result);
     }
     return R.error("删除失败");
   }

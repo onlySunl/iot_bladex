@@ -134,7 +134,7 @@ public class MQTTDownAdd extends IoTDownAdapter<MQTTDownRequest>
       }
       result.put("productKey", downRequest.getProductKey());
       result.put("deviceNode", downRequest.getIoTProduct().getDeviceNode());
-      return R.ok(result);
+      return R.data(result);
     } else {
       return R.error("设备增加失败");
     }

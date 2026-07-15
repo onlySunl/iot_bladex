@@ -2,8 +2,8 @@
 
 package org.springblade.modules.iot.databridge.web.web;
 
-import org.springblade.modules.iot.pojo.entity.DataBridgeConfig;
-import org.springblade.modules.iot.pojo.entity.DataInputLog;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.DataInputLog;
 import org.springblade.modules.iot.databridge.core.manager.DataInputManager;
 import org.springblade.modules.iot.databridge.core.service.DataBridgeConfigService;
 import org.springblade.modules.iot.databridge.core.service.DataInputLogService;
@@ -44,10 +44,10 @@ public class DataInputController extends BaseController {
   public R<Void> startInputTask(@PathVariable Long configId) {
     try {
       dataInputManager.startInputTask(configId);
-      return success("数据输入任务启动成功");
+      return R.success("数据输入任务启动成功");
     } catch (Exception e) {
       log.error("启动数据输入任务失败: {}", e.getMessage(), e);
-      return error("启动数据输入任务失败: " + e.getMessage());
+      return R.fail("启动数据输入任务失败: " + e.getMessage());
     }
   }
 
@@ -57,10 +57,10 @@ public class DataInputController extends BaseController {
   public R<Void> stopInputTask(@PathVariable Long configId) {
     try {
       dataInputManager.stopInputTask(configId);
-      return success("数据输入任务停止成功");
+      return R.success("数据输入任务停止成功");
     } catch (Exception e) {
       log.error("停止数据输入任务失败: {}", e.getMessage(), e);
-      return error("停止数据输入任务失败: " + e.getMessage());
+      return R.fail("停止数据输入任务失败: " + e.getMessage());
     }
   }
 
@@ -70,7 +70,7 @@ public class DataInputController extends BaseController {
   public R<Boolean> getTaskStatus(@PathVariable Long configId) {
     try {
       Boolean isRunning = dataInputManager.isTaskRunning(configId);
-      return R.ok(isRunning);
+      return R.data(isRunning);
     } catch (Exception e) {
       log.error("查询任务状态失败: {}", e.getMessage(), e);
       return R.fail("查询任务状态失败: " + e.getMessage());
@@ -105,7 +105,7 @@ public class DataInputController extends BaseController {
         // TODO: 实现查询所有日志的方法
         logs = List.of();
       }
-      return getDataTable(logs);
+      return PageUtils.getDataTable(logs);
     } catch (Exception e) {
       log.error("查询输入日志失败: {}", e.getMessage(), e);
       return PageUtils.getDataTable(List.of());
@@ -119,7 +119,7 @@ public class DataInputController extends BaseController {
       @PathVariable Long configId, @RequestParam(defaultValue = "10") int limit) {
     try {
       List<DataInputLog> logs = dataInputLogService.getRecentLogs(configId, limit);
-      return R.ok(logs);
+      return R.data(logs);
     } catch (Exception e) {
       log.error("查询最近日志失败: {}", e.getMessage(), e);
       return R.fail("查询最近日志失败: " + e.getMessage());
@@ -142,7 +142,7 @@ public class DataInputController extends BaseController {
       }
 
       Double successRate = dataInputLogService.getSuccessRate(configId, startTime, endTime);
-      return R.ok(successRate != null ? successRate : 0.0);
+      return R.data(successRate != null ? successRate : 0.0);
     } catch (Exception e) {
       log.error("查询成功率失败: {}", e.getMessage(), e);
       return R.fail("查询成功率失败: " + e.getMessage());
@@ -167,10 +167,10 @@ public class DataInputController extends BaseController {
         }
       }
 
-      return success(String.format("批量启动完成，成功: %d, 失败: %d", successCount, failCount));
+      return R.success(String.format("批量启动完成，成功: %d, 失败: %d", successCount, failCount));
     } catch (Exception e) {
       log.error("批量启动输入任务失败: {}", e.getMessage(), e);
-      return error("批量启动输入任务失败: " + e.getMessage());
+      return R.fail("批量启动输入任务失败: " + e.getMessage());
     }
   }
 
@@ -192,10 +192,10 @@ public class DataInputController extends BaseController {
         }
       }
 
-      return success(String.format("批量停止完成，成功: %d, 失败: %d", successCount, failCount));
+      return R.success(String.format("批量停止完成，成功: %d, 失败: %d", successCount, failCount));
     } catch (Exception e) {
       log.error("批量停止输入任务失败: {}", e.getMessage(), e);
-      return error("批量停止输入任务失败: " + e.getMessage());
+      return R.fail("批量停止输入任务失败: " + e.getMessage());
     }
   }
 
@@ -213,7 +213,7 @@ public class DataInputController extends BaseController {
       overview.put("todayMessages", 0);
       overview.put("successRate", 0.0);
 
-      return R.ok(overview);
+      return R.data(overview);
     } catch (Exception e) {
       log.error("查询输入任务概览失败: {}", e.getMessage(), e);
       return R.fail("查询输入任务概览失败: " + e.getMessage());

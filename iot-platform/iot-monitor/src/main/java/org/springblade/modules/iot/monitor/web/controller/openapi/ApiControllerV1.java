@@ -119,7 +119,7 @@ public class ApiControllerV1 extends BaseApiController {
         }
         result.put("productKey", productKey);
         result.put("deviceNode", ioTProduct.getDeviceNode());
-        return R.ok(result);
+        return R.data(result);
       }
     }
     // 转换为UnifiedDownlinkCommand（保持所有参数）
@@ -154,7 +154,7 @@ public class ApiControllerV1 extends BaseApiController {
         log.warn("设备添加失败={}", JSONUtil.toJsonStr(arr));
       }
     }
-    return R.ok(reasons);
+    return R.data(reasons);
   }
 
   /** 设备上线 */
@@ -170,7 +170,7 @@ public class ApiControllerV1 extends BaseApiController {
     }
     checkDevOrProductSelf(query);
     ioTDeviceLifeCycle.online(productKey, deviceId);
-    return R.ok();
+    return R.data();
   }
 
   /** 设备删除 */
@@ -215,7 +215,7 @@ public class ApiControllerV1 extends BaseApiController {
     apiQuery.setApplicationId(iotApplicationId());
     apiQuery.setIotId(ioTDeviceDTO.getIotId());
     Map<String, Object> objectMap = iotDeviceService.apiUpdateDevInfo(apiQuery);
-    return R.ok(objectMap);
+    return R.data(objectMap);
   }
 
   /** 设备查询,通过deviceId */
@@ -229,7 +229,7 @@ public class ApiControllerV1 extends BaseApiController {
       return R.error(IoTErrorCode.DEV_NOT_FIND.getCode(), IoTErrorCode.DEV_NOT_FIND.getName());
     }
     checkDevSelf(query);
-    return R.ok(ioTDeviceVO);
+    return R.data(ioTDeviceVO);
   }
 
   /** 设备影子查询，设备状态数据查询 */
@@ -245,7 +245,7 @@ public class ApiControllerV1 extends BaseApiController {
     checkDevSelf(ioTDeviceDTO.getIotId());
     List<IoTDevicePropertiesBO> propertiesBOS =
         iotDeviceShadowService.getDevState(ioTDeviceDTO.getIotId());
-    return R.ok(propertiesBOS);
+    return R.data(propertiesBOS);
   }
 
   /** 属性上报 */
@@ -267,7 +267,7 @@ public class ApiControllerV1 extends BaseApiController {
     properties.set("messageType", MessageType.PROPERTIES);
     properties.set("iotId", ioTDeviceDTO.getIotId());
     httpUPService.asyncUP(properties.toString());
-    return R.ok();
+    return R.data();
   }
 
   /** 事件上报 */
@@ -289,7 +289,7 @@ public class ApiControllerV1 extends BaseApiController {
     events.set("messageType", MessageType.EVENT);
     events.set("iotId", ioTDeviceDTO.getIotId());
     httpUPService.asyncUP(events.toString());
-    return R.ok();
+    return R.data();
   }
 
   /** 功能调用 */
@@ -337,7 +337,7 @@ public class ApiControllerV1 extends BaseApiController {
       json.set("productKey", productKey);
       httpUPService.asyncUP(msg);
     }
-    return R.ok();
+    return R.data();
   }
 
   /** 设备消息订阅 */
@@ -401,7 +401,7 @@ public class ApiControllerV1 extends BaseApiController {
 
     IPage<IoTDeviceLogMetadataVO> devLogMetaVoIPage =
         iIoTDeviceDataService.queryLogMeta(logQuery);
-    return R.ok(devLogMetaVoIPage.getList());
+    return R.data(devLogMetaVoIPage.getList());
   }
 
   /** 设备绑定 */
@@ -412,7 +412,7 @@ public class ApiControllerV1 extends BaseApiController {
     checkAPPSelf(appid);
     int i = iotDeviceService.apiAppBind(appid, iotId);
     if (i > 0) {
-      return R.ok("绑定成功");
+      return R.data("绑定成功");
     }
     return R.error(
         IoTErrorCode.APPLICATION_BIND_FAILURE.getCode(),
@@ -426,7 +426,7 @@ public class ApiControllerV1 extends BaseApiController {
     checkDevSelf(iotId);
     int i = iotDeviceService.apiAppUnBind(iotId);
     if (i > 0) {
-      return R.ok("解绑成功");
+      return R.data("解绑成功");
     }
     return R.error(
         IoTErrorCode.APPLICATION_BIND_FAILURE.getCode(),
@@ -444,7 +444,7 @@ public class ApiControllerV1 extends BaseApiController {
   @GetMapping(value = "/product/{productKey}")
   public R queryProduct(@PathVariable("productKey") String productKey) {
     IoTProductVO devProduct = iotProductDeviceService.apiProductDetail(productKey);
-    return R.ok(devProduct);
+    return R.data(devProduct);
   }
 
   /** 设备列表查询 */

@@ -90,10 +90,10 @@ public class IoTDeviceShareIntercept implements IoTDownWrapper {
         }
         resultAdd.put("productKey", downRequest.getProductKey());
         resultAdd.put("deviceNode", product.getDeviceNode());
-        return R.ok(resultAdd);
+        return R.data(resultAdd);
       case DEV_DEL:
         if (Objects.isNull(ioTDevice)) {
-          return R.ok();
+          return R.data();
         }
         // 删除订阅
         IoTUserApplication applicationDel =
@@ -107,7 +107,7 @@ public class IoTDeviceShareIntercept implements IoTDownWrapper {
         if (!R.SUCCESS.equals(rDel.getCode())) {
           return rDel;
         }
-        return R.ok();
+        return R.data();
       case DEV_UPDATE:
         if (Objects.isNull(ioTDevice)) {
           return R.error(IoTErrorCode.DEV_MASTER_NOT_EXIST_ERROR.getCode(), "主设备不存在");
@@ -126,7 +126,7 @@ public class IoTDeviceShareIntercept implements IoTDownWrapper {
         Map<String, Object> resultUp = new HashMap<>();
         resultUp.put("deviceId", ioTDevice.getDeviceId());
         resultUp.put("areasId", ioTDevice.getAreasId() == null ? "" : ioTDevice.getAreasId());
-        return R.ok(resultUp);
+        return R.data(resultUp);
       case DEV_FUNCTION:
         if (Objects.isNull(ioTDevice)) {
           return R.error(IoTErrorCode.DEV_MASTER_NOT_EXIST_ERROR.getCode(), "主设备不存在");

@@ -64,7 +64,7 @@ public class MQTTDownDel extends AbstratIoTService implements MQTTDownMessagePro
     boolean isSuccess = deleteDevInstance(instance, downRequest);
     // TODO 设置集群标记、清除缓存消息标记、清理mqtt、连接
     if (isSuccess) {
-      return R.ok("删除成功");
+      return R.data("删除成功");
     }
     return R.error("删除失败");
   }

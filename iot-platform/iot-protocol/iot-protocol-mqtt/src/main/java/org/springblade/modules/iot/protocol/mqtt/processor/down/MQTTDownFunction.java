@@ -211,7 +211,7 @@ public class MQTTDownFunction extends IoTDownAdapter<MQTTDownRequest>
         ioTDeviceLifeCycle.offline(ioTDevice.getProductKey(), ioTDevice.getDeviceId());
         rs.put("msg", "设备可能不在线");
       }
-      return R.ok(rs);
+      return R.data(rs);
     }
     return R.error(
         ERROR_CODE.DEV_DOWN_NO_MQTT_TOPIC.getCode(), ERROR_CODE.DEV_DOWN_NO_MQTT_TOPIC.getName());

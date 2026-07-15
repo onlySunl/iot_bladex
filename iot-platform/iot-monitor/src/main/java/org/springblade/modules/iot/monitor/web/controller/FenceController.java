@@ -104,7 +104,7 @@ public class FenceController extends BaseController {
         ioTDeviceGeoFenceMapper.selectList(ioTDeviceGeoFence);
     IPage page =
         PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(page, size), devInstanceVOList, devInstanceVOList.size());
-    return R.ok(pageBean);
+    return R.data(pageBean);
   }
 
   /**
@@ -141,7 +141,7 @@ public class FenceController extends BaseController {
     ioTDeviceGeoFence.setCreateDate(new Date());
     ioTDeviceGeoFence.setUpdateDate(new Date());
     ioTDeviceGeoFenceMapper.insert(ioTDeviceGeoFence);
-    return R.ok(ioTDeviceGeoFence.getId());
+    return R.data(ioTDeviceGeoFence.getId());
   }
 
   /**
@@ -182,7 +182,7 @@ public class FenceController extends BaseController {
     ioTDeviceGeoFence.setDelayTime(jsonObject.getInt("delayTime"));
     ioTDeviceGeoFence.setUpdateDate(new Date());
     Integer result = ioTDeviceGeoFenceMapper.updateFence(ioTDeviceGeoFence);
-    return R.ok(result);
+    return R.data(result);
   }
 
   /**
@@ -199,7 +199,7 @@ public class FenceController extends BaseController {
     IoTDeviceFenceRel ioTDeviceFenceRel = new IoTDeviceFenceRel();
     ioTDeviceFenceRel.setFenceId(Long.parseLong(id));
     ioTDeviceFenceRelMapper.delete(ioTDeviceFenceRel);
-    return R.ok(result);
+    return R.data(result);
   }
 
   /**
@@ -216,7 +216,7 @@ public class FenceController extends BaseController {
     JSONObject jsonObject = ioTInnerAuthContext.checkAndDecryptMsg(downRequest, request);
     Long id = jsonObject.getLong("id");
     IoTDeviceGeoFence ioTDeviceGeoFence = ioTDeviceGeoFenceMapper.selectById(id);
-    return R.ok(ioTDeviceGeoFence);
+    return R.data(ioTDeviceGeoFence);
   }
 
   /** 复制围栏 */
@@ -231,7 +231,7 @@ public class FenceController extends BaseController {
     ioTDeviceGeoFence.setUpdateDate(new Date());
     ioTDeviceGeoFence.setName("复制-" + ioTDeviceGeoFence.getName());
     ioTDeviceGeoFenceMapper.insert(ioTDeviceGeoFence);
-    return R.ok(ioTDeviceGeoFence);
+    return R.data(ioTDeviceGeoFence);
   }
 
   /** 查询绑定围栏设备列表 */
@@ -256,7 +256,7 @@ public class FenceController extends BaseController {
         iIotDeviceService.selectFenceDevice(ioTDeviceBO, page, size);
     IPage page =
         PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(page, size), ioTDeviceVOList, ioTDeviceVOList.size());
-    return R.ok(pageBean);
+    return R.data(pageBean);
   }
 
   /** 根据设备iotId与创建者查询围栏 */
@@ -268,7 +268,7 @@ public class FenceController extends BaseController {
         ioTDeviceFenceRelMapper.selectFenceByIotId(iotId);
     IPage page =
         PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(1, 999), ioTDeviceGeoFenceVOS, ioTDeviceGeoFenceVOS.size());
-    return R.ok(pageBean);
+    return R.data(pageBean);
   }
 
   /** 绑定设备 */
@@ -288,7 +288,7 @@ public class FenceController extends BaseController {
       ioTDeviceFenceRel.setCreatorId(ioTDevice.getCreatorId());
       ioTDeviceFenceRelMapper.insert(ioTDeviceFenceRel);
     }
-    return R.ok();
+    return R.data();
   }
 
   /** 解绑设备 */
@@ -300,6 +300,6 @@ public class FenceController extends BaseController {
     for (String id : ids) {
       ioTDeviceFenceRelMapper.deleteDeviceIdAndFenceId(id, fenceId);
     }
-    return R.ok();
+    return R.data();
   }
 }

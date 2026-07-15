@@ -135,7 +135,7 @@ public class WebSocketDownHandle extends IoTDownAdapter<WebSocketDownRequest> {
         // 保存设备
         Map<String, Object> saveResult = saveIoTDevice(downRequest);
         log.info("[WebSocket下行][DEV_ADD] 设备添加成功, deviceId={}", downRequest.getDeviceId());
-        return R.ok(saveResult);
+        return R.data(saveResult);
     }
 
     /**
@@ -164,7 +164,7 @@ public class WebSocketDownHandle extends IoTDownAdapter<WebSocketDownRequest> {
         // 删除设备
         ioTDeviceMapper.delete(device);
         log.info("[WebSocket下行][DEV_DEL] 设备删除成功, deviceId={}", downRequest.getDeviceId());
-        return R.ok();
+        return R.data();
     }
 
     /**
@@ -214,7 +214,7 @@ public class WebSocketDownHandle extends IoTDownAdapter<WebSocketDownRequest> {
 
         ioTDeviceMapper.updateByPrimaryKey(device);
         log.info("[WebSocket下行][DEV_UPDATE] 设备更新成功, deviceId={}", downRequest.getDeviceId());
-        return R.ok();
+        return R.data();
     }
 
     /**
@@ -276,7 +276,7 @@ public class WebSocketDownHandle extends IoTDownAdapter<WebSocketDownRequest> {
             if (sendSuccess) {
                 log.info("[WebSocket下行][DEV_FUNCTION] 功能调用成功, deviceId={}", 
                         downRequest.getDeviceId());
-                return R.ok();
+                return R.data();
             } else {
                 log.error("[WebSocket下行][DEV_FUNCTION] 消息发送失败, deviceId={}", 
                         downRequest.getDeviceId());

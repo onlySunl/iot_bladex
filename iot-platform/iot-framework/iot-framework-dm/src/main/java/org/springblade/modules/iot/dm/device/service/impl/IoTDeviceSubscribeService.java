@@ -78,7 +78,7 @@ public class IoTDeviceSubscribeService {
     }
     ioTDeviceSubscribeMapper.insert(build);
     iotCacheRemoveService.removeIotDeviceSubscribeCache();
-    return R.ok("订阅成功");
+    return R.data("订阅成功");
   }
 
   public R deleteSubscribe(String iotId, String creater, String instance) {
@@ -90,7 +90,7 @@ public class IoTDeviceSubscribeService {
             .build();
     ioTDeviceSubscribeMapper.delete(build);
     iotCacheRemoveService.removeIotDeviceSubscribeCache();
-    return R.ok("删除成功");
+    return R.data("删除成功");
   }
 
   @Cacheable(

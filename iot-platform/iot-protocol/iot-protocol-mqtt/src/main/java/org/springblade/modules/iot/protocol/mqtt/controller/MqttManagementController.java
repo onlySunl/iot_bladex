@@ -235,7 +235,7 @@ public class MqttManagementController {
       result.put("retained", retained);
       result.put("timestamp", System.currentTimeMillis());
 
-      return R.ok(result);
+      return R.data(result);
     } catch (Exception e) {
       log.error("[THIRD_MQTT_MGMT] 发布消息失败: productKey={}, topic={}", productKey, topic, e);
 

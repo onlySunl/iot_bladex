@@ -51,7 +51,7 @@ public class CodecDecoratorProcessor implements HttpDownMessageProcessor {
       log.error("[编解码装饰器] 处理请求 {} 异常", httpDownRequest.getDeviceId(), e);
     }
 
-    return R.ok();
+    return R.data();
   }
 
   /**
@@ -181,7 +181,7 @@ public class CodecDecoratorProcessor implements HttpDownMessageProcessor {
     }
 
     // 返回成功结果
-    return R.ok(result);
+    return R.data(result);
   }
 
   /**

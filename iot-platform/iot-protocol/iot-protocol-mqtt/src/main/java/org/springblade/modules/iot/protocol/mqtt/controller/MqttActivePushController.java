@@ -128,7 +128,7 @@ public class MqttActivePushController {
                 result.put("retained", retained);
                 result.put("timestamp", System.currentTimeMillis());
 
-                return R.ok(result);
+                return R.data(result);
             } else {
                 return R.error("消息推送失败，请检查MQTT连接状态");
             }
@@ -214,7 +214,7 @@ public class MqttActivePushController {
                 result.put("retained", publishMessage.isRetained());
                 result.put("timestamp", System.currentTimeMillis());
 
-                return R.ok(result);
+                return R.data(result);
             } else {
                 return R.error("消息推送失败，请检查MQTT连接状态");
             }
@@ -281,7 +281,7 @@ public class MqttActivePushController {
                 result.put("retained", publishMessage.isRetained());
                 result.put("timestamp", System.currentTimeMillis());
 
-                return R.ok(result);
+                return R.data(result);
             } else {
                 return R.error("广播消息推送失败，请检查MQTT连接状态");
             }
@@ -322,7 +322,7 @@ public class MqttActivePushController {
                 }
             }
 
-            return R.ok(status);
+            return R.data(status);
 
         } catch (Exception e) {
             log.error("[MQTT_PUSH] 获取产品状态异常 - 产品: {}, 异常: ", productKey, e);
@@ -345,7 +345,7 @@ public class MqttActivePushController {
             result.put("total", productKeys.size());
             result.put("timestamp", System.currentTimeMillis());
 
-            return R.ok(result);
+            return R.data(result);
 
         } catch (Exception e) {
             log.error("[MQTT_PUSH] 获取产品列表异常: ", e);

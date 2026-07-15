@@ -80,7 +80,7 @@ public class NoCodecDecoratorProcessor implements HttpDownMessageProcessor {
               iotDeviceService.selectDevInstanceBO(
                   downRequest.getProductKey(), downRequest.getDeviceId());
           ioTDeviceLifeCycle.command(ioTDeviceDTO, requestId, function);
-          return R.ok("访问成功", rs);
+          return R.data("访问成功", rs);
         }
       }
       // 保存指令下发日志---开始
@@ -93,7 +93,7 @@ public class NoCodecDecoratorProcessor implements HttpDownMessageProcessor {
       log.error("[{}] 处理请求 {} 异常", getName(), downRequest.getDeviceId(), e);
     }
 
-    return R.ok();
+    return R.data();
   }
 
   /**

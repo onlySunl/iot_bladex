@@ -93,7 +93,7 @@ public class IoTApiController extends BaseController {
   @RequestMapping(value = "/product/{productKey}")
   public R queryProduct(@PathVariable("productKey") String productKey) {
     IoTProduct ioTProduct = iotProductDeviceService.getProduct(productKey);
-    return R.ok(ioTProduct);
+    return R.data(ioTProduct);
   }
 
   /**
@@ -107,7 +107,7 @@ public class IoTApiController extends BaseController {
   @RequestMapping(value = "/device/shadow/{iotId}")
   public R shadow(@PathVariable("iotId") String iotId) {
     List<IoTDevicePropertiesBO> propertiesBOS = iotDeviceShadowService.getDevState(iotId);
-    return R.ok(propertiesBOS);
+    return R.data(propertiesBOS);
   }
 
   /**

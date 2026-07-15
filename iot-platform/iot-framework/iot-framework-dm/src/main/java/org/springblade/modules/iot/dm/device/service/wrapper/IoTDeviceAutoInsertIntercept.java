@@ -78,7 +78,7 @@ public class IoTDeviceAutoInsertIntercept implements IoTDownWrapper {
     if (row == 0) {
       return R.error(ERROR_CODE.DEV_DEL_ERROR.getCode(), ERROR_CODE.DEV_DEL_ERROR.getName());
     }
-    return R.ok("删除成功");
+    return R.data("删除成功");
   }
 
   // 更新设备拥有者
@@ -121,6 +121,6 @@ public class IoTDeviceAutoInsertIntercept implements IoTDownWrapper {
     }
     result.put("productKey", downRequest.getProductKey());
     result.put("deviceNode", product.getDeviceNode());
-    return R.ok(result);
+    return R.data(result);
   }
 }
