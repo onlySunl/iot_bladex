@@ -3,13 +3,13 @@
 package org.springblade.modules.iot.databridge.plugin.influxdb;
 import org.springblade.modules.iot.common.enums.SourceScope;
 import org.springblade.modules.iot.common.enums.DataDirection;
-import DataDirection;
 
-import org.springblade.modules.iot.pojo.entity.DataBridgeConfig;
-import org.springblade.modules.iot.pojo.entity.PluginInfo;
-import org.springblade.modules.iot.pojo.entity.ResourceConnection;
-import org.springblade.modules.iot.databridge.plugin.AbstractDataInputPlugin;
-import org.springblade.modules.iot.databridge.plugin.SourceScope;
+
+import org.springblade.modules.iot.databridge.core.plugin.AbstractDataInputPlugin;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.PluginInfo;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
+
 import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.InfluxDBClientFactory;
 import com.influxdb.query.FluxTable;

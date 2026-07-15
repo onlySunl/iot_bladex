@@ -5,8 +5,8 @@ package org.springblade.modules.iot.databridge.core.plugin;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
-import org.springblade.modules.iot.pojo.entity.DataBridgeConfig;
-import org.springblade.modules.iot.pojo.entity.ResourceConnection;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +28,7 @@ public abstract class AbstractDataOutputPlugin extends AbstractDataBridgePlugin
 
   @Override
   public void batchProcessOutput(
-      List<BaseUPRequest> requests, DataBridgeConfig config, ResourceConnection connection) {
+          List<BaseUPRequest> requests, DataBridgeConfig config, ResourceConnection connection) {
     if (CollectionUtil.isEmpty(requests)) {
       return;
     }

@@ -1,16 +1,16 @@
 package org.springblade.modules.iot.databridge.plugin.kafka;
 import org.springblade.modules.iot.common.enums.SourceScope;
 import org.springblade.modules.iot.common.enums.DataDirection;
-import DataDirection;
+
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import org.springblade.modules.iot.pojo.entity.DataBridgeConfig;
-import org.springblade.modules.iot.pojo.entity.PluginInfo;
-import org.springblade.modules.iot.pojo.entity.ResourceConnection;
-import org.springblade.modules.iot.databridge.plugin.AbstractDataOutputPlugin;
-import org.springblade.modules.iot.databridge.plugin.SourceScope;
+import org.springblade.modules.iot.databridge.core.plugin.AbstractDataOutputPlugin;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.PluginInfo;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
+
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import java.util.HashMap;
 import java.util.List;

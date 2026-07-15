@@ -2,18 +2,22 @@ package org.springblade.modules.iot.databridge.plugin.jdbc;
 import org.springblade.modules.iot.common.enums.SourceScope;
 import org.springblade.modules.iot.common.enums.ResourceType;
 import org.springblade.modules.iot.common.enums.DataDirection;
-import ResourceType;
-import DataDirection;
+
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import org.springblade.modules.iot.databridge.core.engine.ParamSql;
 import org.springblade.modules.iot.databridge.core.engine.ParamTemplateEngine;
-import org.springblade.modules.iot.pojo.entity.DataBridgeConfig;
-import org.springblade.modules.iot.pojo.entity.PluginInfo;
-import org.springblade.modules.iot.pojo.entity.ResourceConnection;
-import org.springblade.modules.iot.databridge.plugin.AbstractDataOutputPlugin;
-import org.springblade.modules.iot.databridge.plugin.SourceScope;
+import org.springblade.modules.iot.databridge.core.engine.SqlDialectAdapter;
+import org.springblade.modules.iot.databridge.core.engine.dialect.MySqlDialectAdapter;
+import org.springblade.modules.iot.databridge.core.engine.dialect.OracleDialectAdapter;
+import org.springblade.modules.iot.databridge.core.engine.dialect.PostgresDialectAdapter;
+import org.springblade.modules.iot.databridge.core.engine.dialect.SqlServerDialectAdapter;
+import org.springblade.modules.iot.databridge.core.plugin.AbstractDataOutputPlugin;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
+import org.springblade.modules.iot.pojo.bridge.entity.PluginInfo;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
+
 import org.springblade.modules.iot.databridge.core.util.DataBridgeConnectionManager;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import java.sql.Connection;
@@ -138,7 +142,7 @@ public class DefaultJdbcOutPlugin extends AbstractDataOutputPlugin {
       // 构建变量并进行参数化模板解析（避免引号问题，兼容多方言）
       java.util.Map<String, Object> variables = buildTemplateVariables(request, parseConfig(config));
       ParamTemplateEngine engine = new ParamTemplateEngine();
-      org.springblade.modules.iot.databridge.engine.SqlDialectAdapter adapter = getAdapter(connection.getType());
+      SqlDialectAdapter adapter = getAdapter(connection.getType());
       ParamSql ps = engine.process(config.getTemplate(), variables, adapter);
 
       executeParamSql(jdbcTemplate, ps);
@@ -149,20 +153,20 @@ public class DefaultJdbcOutPlugin extends AbstractDataOutputPlugin {
     }
   }
 
-  private org.springblade.modules.iot.databridge.engine.SqlDialectAdapter getAdapter(
-      org.springblade.modules.iot.databridge.entity.ResourceType type) {
+  private SqlDialectAdapter getAdapter(
+      ResourceType type) {
     switch (type) {
       case MYSQL:
       case H2:
-        return new org.springblade.modules.iot.databridge.engine.dialect.MySqlDialectAdapter();
+        return new MySqlDialectAdapter();
       case POSTGRESQL:
-        return new org.springblade.modules.iot.databridge.engine.dialect.PostgresDialectAdapter();
+        return new PostgresDialectAdapter();
       case ORACLE:
-        return new org.springblade.modules.iot.databridge.engine.dialect.OracleDialectAdapter();
+        return new OracleDialectAdapter();
       case SQLSERVER:
-        return new org.springblade.modules.iot.databridge.engine.dialect.SqlServerDialectAdapter();
+        return new SqlServerDialectAdapter();
       default:
-        return new org.springblade.modules.iot.databridge.engine.dialect.MySqlDialectAdapter();
+        return new MySqlDialectAdapter();
     }
   }
 

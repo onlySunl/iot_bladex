@@ -193,12 +193,7 @@ public class DataBridgeConfigService {
                 .template(config.getTemplate())
                 .magicScript(config.getMagicScript())
                 .config(config.getConfig())
-                .status(config.getStatus())
                 .description(config.getDescription())
-                .createBy(config.getCreateBy())
-                .createTime(config.getCreateTime())
-                .updateBy(config.getUpdateBy())
-                .updateTime(config.getUpdateTime())
                 .build();
     }
 

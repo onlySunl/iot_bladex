@@ -7,6 +7,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.modules.iot.cache.annotation.MultiLevelCacheable;
 import org.springblade.modules.iot.common.enums.Direction;
 import org.springblade.modules.iot.common.enums.ResourceType;
 import org.springblade.modules.iot.databridge.core.mapper.ResourceConnectionMapper;
@@ -14,6 +15,7 @@ import org.springblade.modules.iot.databridge.core.util.ConfigValidator;
 import org.springblade.modules.iot.databridge.core.util.ConnectionTester;
 import org.springblade.modules.iot.databridge.core.util.ConnectionTester.ConnectionTestResult;
 import org.springblade.modules.iot.databridge.core.util.ResourceConnectionUtils;
+import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
 import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
@@ -145,7 +147,6 @@ public class ResourceConnectionService {
     ResourceConnection connection = new ResourceConnection();
     connection.setId(id);
     connection.setStatus(status);
-    connection.setUpdateBy(updateBy);
 
     int result = resourceConnectionMapper.updateById(connection);
     if (result <= 0) {
