@@ -22,7 +22,7 @@ import org.springblade.modules.iot.databridge.core.service.ResourceConnectionSer
 import org.springblade.modules.iot.databridge.core.util.ConnectionTester;
 import org.springblade.modules.iot.databridge.core.util.ConnectionTester.ConnectionTestResult;
 import org.springblade.modules.iot.databridge.core.vo.DataBridgeConfigVO;
-import org.springblade.modules.iot.persistence.query.AjaxResult;
+import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.security.BaseController;
 import org.springblade.modules.iot.security.utils.SecurityUtils;
 import jakarta.annotation.Resource;
@@ -56,7 +56,7 @@ public class DataBridgeController extends BaseController {
 
   /** 根据资源类型获取支持的插件类型选项 */
   @GetMapping("/resource-types/{resourceType}/plugin-types")
-  public AjaxResult<List<Map<String, Object>>> getPluginTypesByResourceType(
+  public R<List<Map<String, Object>>> getPluginTypesByResourceType(
       @PathVariable String resourceType) {
     try {
       ResourceType type =
@@ -80,16 +80,16 @@ public class DataBridgeController extends BaseController {
         }
       }
 
-      return AjaxResult.success("获取插件类型选项成功", options);
+      return R.data(options);
     } catch (Exception e) {
       logger.error("获取插件类型选项失败", e);
-      return AjaxResult.error("获取插件类型选项失败: " + e.getMessage(), new ArrayList<>());
+      return R.fail("获取插件类型选项失败: " + e.getMessage());
     }
   }
 
   /** 获取所有资源类型和插件类型的映射关系 */
   @GetMapping("/resource-plugin-mappings")
-  public AjaxResult<Map<String, List<String>>> getResourcePluginMappings() {
+  public R<Map<String, List<String>>> getResourcePluginMappings() {
     try {
       Map<String, List<String>> mappings = new HashMap<>();
 
@@ -106,16 +106,16 @@ public class DataBridgeController extends BaseController {
         }
       }
 
-      return AjaxResult.success("获取映射关系成功", mappings);
+      return R.data(mappings);
     } catch (Exception e) {
       logger.error("获取映射关系失败", e);
-      return AjaxResult.error("获取映射关系失败: " + e.getMessage(), new HashMap<>());
+      return R.fail("获取映射关系失败: " + e.getMessage());
     }
   }
 
   //
   //  @GetMapping("/plugins/debug")
-  //  public AjaxResult<Map<String, Object>> debugPlugins() {
+  //  public R<Map<String, Object>> debugPlugins() {
   //    try {
   //      Map<String, Object> result = new HashMap<>();
   //
@@ -135,41 +135,41 @@ public class DataBridgeController extends BaseController {
   //      }
   //      result.put("pluginBeanNames", pluginBeanNames);
   //
-  //      return AjaxResult.success("插件调试信息获取成功", result);
+  //      return R.data(result);
   //    } catch (Exception e) {
   //      logger.error("获取插件调试信息失败", e);
-  //      return AjaxResult.error("获取插件调试信息失败: " + e.getMessage());
+  //      return R.fail("获取插件调试信息失败: " + e.getMessage());
   //    }
   //  }
 
   @Log(title = "测试资源连接", businessType = BusinessType.OTHER)
   @PostMapping("/resources/{id}/test")
-  public AjaxResult<Void> testResource(@PathVariable Long id) {
+  public R<Void> testResource(@PathVariable Long id) {
     ConnectionTestResult connectionTestResult = resourceConnectionService.testConnection(id);
     if (connectionTestResult.isSuccess()) {
-      return AjaxResult.success(connectionTestResult.getMessage());
+      return R.ok(connectionTestResult.getMessage());
     }
-    return AjaxResult.error(connectionTestResult.getMessage());
+    return R.fail(connectionTestResult.getMessage());
   }
 
   /** 测试资源连接配置（未保存的配置） */
   @PostMapping("/resources/test")
-  public AjaxResult<Void> testResourceConfig(@RequestBody ResourceConnection connection) {
+  public R<Void> testResourceConfig(@RequestBody ResourceConnection connection) {
     try {
       ConnectionTester.ConnectionTestResult result = connectionTester.testConnection(connection);
       if (result.isSuccess()) {
-        return AjaxResult.success(result.getMessage());
+        return R.ok(result.getMessage());
       }
-      return AjaxResult.error(result.getMessage());
+      return R.fail(result.getMessage());
     } catch (Exception e) {
       logger.error("测试资源连接配置失败", e);
-      return AjaxResult.error("测试连接失败: " + e.getMessage());
+      return R.fail("测试连接失败: " + e.getMessage());
     }
   }
 
   // 资源连接管理
   @GetMapping("/resources")
-  public AjaxResult<List<ResourceConnection>> listResources() {
+  public R<List<ResourceConnection>> listResources() {
     try {
       IoTUser currentUser = loginIoTUnionUser(SecurityUtils.getUnionId());
       List<ResourceConnection> connections;
@@ -185,10 +185,10 @@ public class DataBridgeController extends BaseController {
                 .toList();
       }
 
-      return AjaxResult.success(connections);
+      return R.ok(connections);
     } catch (Exception e) {
       logger.error("获取资源连接列表失败", e);
-      AjaxResult<List<ResourceConnection>> result = new AjaxResult<>();
+      R<List<ResourceConnection>> result = new R<>();
       result.setCode(500);
       result.setMsg("获取资源连接列表失败: " + e.getMessage());
       return result;
@@ -197,15 +197,15 @@ public class DataBridgeController extends BaseController {
 
   @Log(title = "创建资源连接", businessType = BusinessType.INSERT)
   @PostMapping("/resources")
-  public AjaxResult<Long> createResource(@RequestBody ResourceConnection connection) {
+  public R<Long> createResource(@RequestBody ResourceConnection connection) {
     try {
       // 设置创建者
       connection.setCreateBy(SecurityUtils.getUnionId());
       Long id = resourceConnectionService.createResourceConnection(connection);
-      return AjaxResult.success("创建资源连接成功", id);
+      return R.data(id);
     } catch (Exception e) {
       logger.error("创建资源连接失败", e);
-      AjaxResult<Long> result = new AjaxResult<>();
+      R<Long> result = new R<>();
       result.setCode(500);
       result.setMsg("创建资源连接失败: " + e.getMessage());
       return result;
@@ -219,80 +219,80 @@ public class DataBridgeController extends BaseController {
 
   @Log(title = "更新资源连接", businessType = BusinessType.UPDATE)
   @PutMapping("/resources/{id}")
-  public AjaxResult<Void> updateResource(
+  public R<Void> updateResource(
       @PathVariable Long id, @RequestBody ResourceConnection connection) {
     try {
       // 检查权限：只有创建者或管理员可以更新
       ResourceConnection existing = resourceConnectionService.getById(id);
       if (existing == null) {
-        return AjaxResult.error("资源连接不存在");
+        return R.fail("资源连接不存在");
       }
 
       IoTUser currentUser = loginIoTUnionUser(SecurityUtils.getUnionId());
       if (!currentUser.isAdmin() && !SecurityUtils.getUnionId().equals(existing.getCreateBy())) {
-        return AjaxResult.error("无权限更新此资源连接");
+        return R.fail("无权限更新此资源连接");
       }
 
       connection.setId(id);
       connection.setUpdateBy(SecurityUtils.getUnionId());
       resourceConnectionService.updateResourceConnection(connection);
-      return AjaxResult.success("更新资源连接成功");
+      return R.ok("更新资源连接成功");
     } catch (Exception e) {
       logger.error("更新资源连接失败", e);
-      return AjaxResult.error("更新资源连接失败: " + e.getMessage());
+      return R.fail("更新资源连接失败: " + e.getMessage());
     }
   }
 
   @Log(title = "更新资源连接状态", businessType = BusinessType.UPDATE)
   @PutMapping("/resources/{id}/status")
-  public AjaxResult<Void> updateResourceStatus(
+  public R<Void> updateResourceStatus(
       @PathVariable Long id, @RequestParam Integer status) {
     try {
       // 检查权限：只有创建者或管理员可以更新状态
       ResourceConnection existing = resourceConnectionService.getById(id);
       if (existing == null) {
-        return AjaxResult.error("资源连接不存在");
+        return R.fail("资源连接不存在");
       }
 
       IoTUser currentUser = loginIoTUnionUser(SecurityUtils.getUnionId());
       if (!currentUser.isAdmin() && !SecurityUtils.getUnionId().equals(existing.getCreateBy())) {
-        return AjaxResult.error("无权限更新此资源连接状态");
+        return R.fail("无权限更新此资源连接状态");
       }
 
       resourceConnectionService.updateConnectionStatus(id, status, SecurityUtils.getUnionId());
-      return AjaxResult.success("更新资源连接状态成功");
+      return R.ok("更新资源连接状态成功");
     } catch (Exception e) {
       logger.error("更新资源连接状态失败", e);
-      return AjaxResult.error("更新资源连接状态失败: " + e.getMessage());
+      return R.fail("更新资源连接状态失败: " + e.getMessage());
     }
   }
 
   @Log(title = "删除资源连接", businessType = BusinessType.DELETE)
   @DeleteMapping("/resources/{id}")
-  public AjaxResult<Void> deleteResource(@PathVariable Long id) {
+  public R<Void> deleteResource(@PathVariable Long id) {
     try {
       // 检查权限：只有创建者或管理员可以删除
       ResourceConnection existing = resourceConnectionService.getById(id);
       if (existing == null) {
-        return AjaxResult.error("资源连接不存在");
+        return R.fail("资源连接不存在");
       }
 
       IoTUser currentUser = loginIoTUnionUser(SecurityUtils.getUnionId());
       if (!currentUser.isAdmin() && !SecurityUtils.getUnionId().equals(existing.getCreateBy())) {
-        return AjaxResult.error("无权限删除此资源连接");
+        return R.fail("无权限删除此资源连接");
       }
 
       resourceConnectionService.deleteConnection(id);
-      return AjaxResult.success("删除资源连接成功");
+      return R.ok("删除资源连接成功");
     } catch (Exception e) {
       logger.error("删除资源连接失败", e);
-      return AjaxResult.error("删除资源连接失败: " + e.getMessage());
+      return R.fail("删除资源连接失败: " + e.getMessage());
     }
   }
 
   // 桥接配置管理
   @GetMapping("/configs")
-  public AjaxResult<List<DataBridgeConfigVO>> listConfigs() {
+  public R<List<DataBridgeConfigVO>> listConfigs() {
     try {
       IoTUser currentUser = loginIoTUnionUser(SecurityUtils.getUnionId());
       List<DataBridgeConfigVO> configs;
@@ -305,10 +305,10 @@ public class DataBridgeController extends BaseController {
         configs = dataBridgeConfigService.getConfigVOsByCreateBy(SecurityUtils.getUnionId());
       }
 
-      return AjaxResult.success(configs);
+      return R.ok(configs);
     } catch (Exception e) {
       logger.error("获取桥接配置列表失败", e);
-      AjaxResult<List<DataBridgeConfigVO>> result = new AjaxResult<>();
+      R<List<DataBridgeConfigVO>> result = new R<>();
       result.setCode(500);
       result.setMsg("获取桥接配置列表失败: " + e.getMessage());
       return result;
@@ -317,15 +317,15 @@ public class DataBridgeController extends BaseController {
 
   @Log(title = "创建桥接配置", businessType = BusinessType.INSERT)
   @PostMapping("/configs")
-  public AjaxResult<Long> createConfig(@RequestBody DataBridgeConfig config) {
+  public R<Long> createConfig(@RequestBody DataBridgeConfig config) {
     try {
       // 设置创建者
       config.setCreateBy(SecurityUtils.getUnionId());
       Long id = dataBridgeConfigService.createDataBridgeConfig(config);
-      return AjaxResult.success("创建桥接配置成功", id);
+      return R.data(id);
     } catch (Exception e) {
       logger.error("创建桥接配置失败", e);
-      AjaxResult<Long> result = new AjaxResult<>();
+      R<Long> result = new R<>();
       result.setCode(500);
       result.setMsg("创建桥接配置失败: " + e.getMessage());
       return result;
@@ -339,94 +339,94 @@ public class DataBridgeController extends BaseController {
 
   @Log(title = "更新桥接配置", businessType = BusinessType.UPDATE)
   @PutMapping("/configs/{id}")
-  public AjaxResult<Void> updateConfig(
+  public R<Void> updateConfig(
       @PathVariable Long id, @RequestBody DataBridgeConfig config) {
     try {
       // 检查权限：只有创建者或管理员可以更新
       DataBridgeConfig existing = dataBridgeConfigService.getById(id);
       if (existing == null) {
-        return AjaxResult.error("桥接配置不存在");
+        return R.fail("桥接配置不存在");
       }
 
       IoTUser currentUser = loginIoTUnionUser(SecurityUtils.getUnionId());
       if (!currentUser.isAdmin() && !SecurityUtils.getUnionId().equals(existing.getCreateBy())) {
-        return AjaxResult.error("无权限更新此桥接配置");
+        return R.fail("无权限更新此桥接配置");
       }
 
       config.setId(id);
       config.setUpdateBy(SecurityUtils.getUnionId());
       dataBridgeConfigService.updateDataBridgeConfig(config);
-      return AjaxResult.success("更新桥接配置成功");
+      return R.ok("更新桥接配置成功");
     } catch (Exception e) {
       logger.error("更新桥接配置失败", e);
-      return AjaxResult.error("更新桥接配置失败: " + e.getMessage());
+      return R.fail("更新桥接配置失败: " + e.getMessage());
     }
   }
 
   @Log(title = "更新桥接配置状态", businessType = BusinessType.UPDATE)
   @PutMapping("/configs/{id}/status")
-  public AjaxResult<Void> updateConfigStatus(@PathVariable Long id, @RequestParam Integer status) {
+  public R<Void> updateConfigStatus(@PathVariable Long id, @RequestParam Integer status) {
     try {
       // 检查权限：只有创建者或管理员可以更新状态
       DataBridgeConfig existing = dataBridgeConfigService.getById(id);
       if (existing == null) {
-        return AjaxResult.error("桥接配置不存在");
+        return R.fail("桥接配置不存在");
       }
 
       IoTUser currentUser = loginIoTUnionUser(SecurityUtils.getUnionId());
       if (!currentUser.isAdmin() && !SecurityUtils.getUnionId().equals(existing.getCreateBy())) {
-        return AjaxResult.error("无权限更新此桥接配置状态");
+        return R.fail("无权限更新此桥接配置状态");
       }
 
       dataBridgeConfigService.updateConfigStatus(id, status, SecurityUtils.getUnionId());
-      return AjaxResult.success("更新桥接配置状态成功");
+      return R.ok("更新桥接配置状态成功");
     } catch (Exception e) {
       logger.error("更新桥接配置状态失败", e);
-      return AjaxResult.error("更新桥接配置状态失败: " + e.getMessage());
+      return R.fail("更新桥接配置状态失败: " + e.getMessage());
     }
   }
 
   @Log(title = "删除桥接配置", businessType = BusinessType.DELETE)
   @DeleteMapping("/configs/{id}")
-  public AjaxResult<Void> deleteConfig(@PathVariable Long id) {
+  public R<Void> deleteConfig(@PathVariable Long id) {
     try {
       // 检查权限：只有创建者或管理员可以删除
       DataBridgeConfig existing = dataBridgeConfigService.getById(id);
       if (existing == null) {
-        return AjaxResult.error("桥接配置不存在");
+        return R.fail("桥接配置不存在");
       }
 
       IoTUser currentUser = loginIoTUnionUser(SecurityUtils.getUnionId());
       if (!currentUser.isAdmin() && !SecurityUtils.getUnionId().equals(existing.getCreateBy())) {
-        return AjaxResult.error("无权限删除此桥接配置");
+        return R.fail("无权限删除此桥接配置");
       }
 
       dataBridgeConfigService.deleteConfig(id);
-      return AjaxResult.success("删除桥接配置成功");
+      return R.ok("删除桥接配置成功");
     } catch (Exception e) {
       logger.error("删除桥接配置失败", e);
-      return AjaxResult.error("删除桥接配置失败: " + e.getMessage());
+      return R.fail("删除桥接配置失败: " + e.getMessage());
     }
   }
 
   @Log(title = "验证桥接配置", businessType = BusinessType.OTHER)
   @PostMapping("/configs/{id}/validate")
-  public AjaxResult<Boolean> validateConfig(@PathVariable Long id) {
+  public R<Boolean> validateConfig(@PathVariable Long id) {
     try {
       DataBridgeConfig config = dataBridgeConfigService.getById(id);
       if (config == null) {
-        return AjaxResult.error("桥接配置不存在", false);
+        return R.fail("false);
       }
 
       Boolean isValid = dataBridgeManager.validateBridgeConfig(config);
       if (isValid) {
-        return AjaxResult.success("配置验证成功", true);
+        return R.data(true);
       } else {
-        return AjaxResult.error("配置验证失败", false);
+        return R.fail("false);
       }
     } catch (Exception e) {
       logger.error("验证桥接配置失败", e);
-      return AjaxResult.error("验证桥接配置失败: " + e.getMessage(), false);
+      return R.fail("验证桥接配置失败: " + e.getMessage(), false);
     }
   }
 
@@ -452,7 +452,7 @@ public class DataBridgeController extends BaseController {
 
   /** 根据源范围获取配置列表 */
   @GetMapping("/configs/scope/{scope}")
-  public AjaxResult<List<DataBridgeConfig>> getConfigsByScope(@PathVariable String scope) {
+  public R<List<DataBridgeConfig>> getConfigsByScope(@PathVariable String scope) {
     try {
       IoTUser currentUser = loginIoTUnionUser(SecurityUtils.getUnionId());
       SourceScope sourceScope =
@@ -467,16 +467,16 @@ public class DataBridgeController extends BaseController {
         configs = List.of(); // 临时返回空列表
       }
 
-      return AjaxResult.success(configs);
+      return R.ok(configs);
     } catch (Exception e) {
       logger.error("根据方向获取配置列表失败", e);
-      return AjaxResult.error("根据方向获取配置列表失败: " + e.getMessage(), (List<DataBridgeConfig>) null);
+      return R.fail("根据方向获取配置列表失败: " + e.getMessage(), (List<DataBridgeConfig>) null);
     }
   }
 
   /** 根据方向获取资源连接列表 */
   @GetMapping("/resources/direction/{direction}")
-  public AjaxResult<List<ResourceConnection>> getResourcesByDirection(
+  public R<List<ResourceConnection>> getResourcesByDirection(
       @PathVariable String direction) {
     try {
       IoTUser currentUser = loginIoTUnionUser(SecurityUtils.getUnionId());
@@ -493,40 +493,40 @@ public class DataBridgeController extends BaseController {
                 .toList();
       }
 
-      return AjaxResult.success(connections);
+      return R.ok(connections);
     } catch (Exception e) {
       logger.error("根据方向获取资源连接列表失败", e);
-      return AjaxResult.error("根据方向获取资源连接列表失败: " + e.getMessage(), (List<ResourceConnection>) null);
+      return R.fail("根据方向获取资源连接列表失败: " + e.getMessage(), (List<ResourceConnection>) null);
     }
   }
 
   /** 获取支持双向的资源类型（动态从插件获取） */
   @GetMapping("/resources/bidirectional-types")
-  public AjaxResult<List<String>> getBidirectionalResourceTypes() {
+  public R<List<String>> getBidirectionalResourceTypes() {
     try {
       List<String> bidirectionalTypes = dataBridgeManager.getBidirectionalPluginTypes();
-      return AjaxResult.success(bidirectionalTypes);
+      return R.ok(bidirectionalTypes);
     } catch (Exception e) {
       logger.error("获取双向资源类型失败", e);
-      return AjaxResult.error("获取双向资源类型失败: " + e.getMessage(), (List<String>) null);
+      return R.fail("获取双向资源类型失败: " + e.getMessage(), (List<String>) null);
     }
   }
 
   /** 获取仅支持输出的资源类型（动态从插件获取） */
   @GetMapping("/resources/output-only-types")
-  public AjaxResult<List<String>> getOutputOnlyResourceTypes() {
+  public R<List<String>> getOutputOnlyResourceTypes() {
     try {
       List<String> outputOnlyTypes = dataBridgeManager.getOutputOnlyPluginTypes();
-      return AjaxResult.success(outputOnlyTypes);
+      return R.ok(outputOnlyTypes);
     } catch (Exception e) {
       logger.error("获取仅输出资源类型失败", e);
-      return AjaxResult.error("获取仅输出资源类型失败: " + e.getMessage(), (List<String>) null);
+      return R.fail("获取仅输出资源类型失败: " + e.getMessage(), (List<String>) null);
     }
   }
 
   /** 获取所有可用的资源类型（动态从插件获取，带兜底数据） */
   @GetMapping("/resources/types")
-  public AjaxResult<Map<String, Object>> getAllResourceTypes(
+  public R<Map<String, Object>> getAllResourceTypes(
       @RequestParam(required = false) String direction) {
     try {
       Map<String, Object> result = new HashMap<>();
@@ -603,10 +603,10 @@ public class DataBridgeController extends BaseController {
           getResourceTypesByDirection(pluginInfos, DataDirection.BIDIRECTIONAL));
       result.putAll(directionTypes);
 
-      return AjaxResult.success(result);
+      return R.ok(result);
     } catch (Exception e) {
       logger.error("获取资源类型失败", e);
-      return AjaxResult.error("获取资源类型失败: " + e.getMessage(), (Map<String, Object>) null);
+      return R.fail("获取资源类型失败: " + e.getMessage(), (Map<String, Object>) null);
     }
   }
 
@@ -761,11 +761,11 @@ public class DataBridgeController extends BaseController {
 
   /** 验证输入配置 */
   @PostMapping("/configs/{id}/validate-input")
-  public AjaxResult<Boolean> validateInputConfig(@PathVariable Long id) {
+  public R<Boolean> validateInputConfig(@PathVariable Long id) {
     try {
       DataBridgeConfig config = dataBridgeConfigService.getById(id);
       if (config == null) {
-        return AjaxResult.error("配置不存在", (Boolean) null);
+        return R.fail("(Boolean) null);
       }
 
       // 根据插件信息判断是否支持输入
@@ -773,7 +773,7 @@ public class DataBridgeController extends BaseController {
       PluginInfo pluginInfo = pluginInfos.get(config.getBridgeType().name());
 
       if (pluginInfo == null) {
-        return AjaxResult.error("未找到对应的插件信息", false);
+        return R.fail("false);
       }
 
       // 检查插件是否支持输入
@@ -782,28 +782,28 @@ public class DataBridgeController extends BaseController {
               || pluginInfo.getDataDirection() == DataDirection.BIDIRECTIONAL;
 
       if (!supportsInput) {
-        return AjaxResult.error("该插件不支持输入功能", false);
+        return R.fail("false);
       }
 
       // 使用通用的配置验证方法
       Boolean isValid = dataBridgeManager.validateBridgeConfig(config);
-      return AjaxResult.success(isValid);
+      return R.ok(isValid);
     } catch (Exception e) {
       logger.error("验证输入配置失败", e);
-      return AjaxResult.error("验证输入配置失败: " + e.getMessage(), (Boolean) null);
+      return R.fail("验证输入配置失败: " + e.getMessage(), (Boolean) null);
     }
   }
 
   /** 获取输入配置模板 */
   @GetMapping("/configs/input-template/{bridgeType}")
-  public AjaxResult<String> getInputConfigTemplate(@PathVariable String bridgeType) {
+  public R<String> getInputConfigTemplate(@PathVariable String bridgeType) {
     try {
       // 根据插件信息判断是否支持输入
       Map<String, PluginInfo> pluginInfos = dataBridgeManager.getPluginInfos();
       PluginInfo pluginInfo = pluginInfos.get(bridgeType);
 
       if (pluginInfo == null) {
-        return AjaxResult.error("未找到对应的插件信息", "{}");
+        return R.fail(""{}");
       }
 
       // 检查插件是否支持输入
@@ -812,7 +812,7 @@ public class DataBridgeController extends BaseController {
               || pluginInfo.getDataDirection() == DataDirection.BIDIRECTIONAL;
 
       if (!supportsInput) {
-        return AjaxResult.error("该插件不支持输入功能", "{}");
+        return R.fail(""{}");
       }
 
       // 返回默认的输入配置模板
@@ -825,10 +825,10 @@ public class DataBridgeController extends BaseController {
               + "  }\n"
               + "}";
 
-      return AjaxResult.success("获取输入配置模板成功", template);
+      return R.data(template);
     } catch (Exception e) {
       logger.error("获取输入配置模板失败", e);
-      return AjaxResult.error("获取输入配置模板失败: " + e.getMessage(), (String) null);
+      return R.fail("获取输入配置模板失败: " + e.getMessage(), (String) null);
     }
   }
 }

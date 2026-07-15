@@ -33,7 +33,7 @@ import org.springblade.modules.iot.pojo.vo.IoTDeviceLogMetadataVO;
 import org.springblade.modules.iot.pojo.vo.IoTDeviceLogVO;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceMapper;
 import org.springblade.modules.iot.persistence.query.LogQuery;
-import org.springblade.modules.iot.persistence.query.PageBean;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import jakarta.annotation.Resource;
 import java.util.HashSet;
 import java.util.Map;
@@ -146,13 +146,13 @@ public class DefaultIoTDeviceLogService implements IIoTDeviceDataService, Applic
   }
 
   @Override
-  public PageBean<IoTDeviceLogVO> pageList(LogQuery logQuery) {
+  public IPage<IoTDeviceLogVO> pageList(LogQuery logQuery) {
     IoTProduct product = iotProductDeviceService.getProduct(logQuery.getProductKey());
     IIoTDeviceLogService logService =
         policies.getOrDefault(product.getStorePolicy(), policies.get("none"));
-    PageBean<IoTDeviceLogVO> ioTDeviceLogVOPageBean = logService.pageList(logQuery);
-    if (CollectionUtil.isNotEmpty(ioTDeviceLogVOPageBean.getList())) {
-      ioTDeviceLogVOPageBean.getList().stream()
+    IPage<IoTDeviceLogVO> ioTDeviceLogVOIPage = logService.pageList(logQuery);
+    if (CollectionUtil.isNotEmpty(ioTDeviceLogVOIPage.getList())) {
+      ioTDeviceLogVOIPage.getList().stream()
           .forEach(
               ioTDeviceLogVO -> {
                 if (ioTDeviceLogVO.getEvent() != null) {
@@ -165,7 +165,7 @@ public class DefaultIoTDeviceLogService implements IIoTDeviceDataService, Applic
                 }
               });
     }
-    return ioTDeviceLogVOPageBean;
+    return ioTDeviceLogVOIPage;
   }
 
   @Override
@@ -177,7 +177,7 @@ public class DefaultIoTDeviceLogService implements IIoTDeviceDataService, Applic
   }
 
   @Override
-  public PageBean<IoTDeviceEvents> queryEventTotal(String productKey, String iotId) {
+  public IPage<IoTDeviceEvents> queryEventTotal(String productKey, String iotId) {
     IoTProduct product = iotProductDeviceService.getProduct(productKey);
     IIoTDeviceLogService logService =
         policies.getOrDefault(product.getStorePolicy(), policies.get("none"));
@@ -185,7 +185,7 @@ public class DefaultIoTDeviceLogService implements IIoTDeviceDataService, Applic
   }
 
   @Override
-  public PageBean<IoTDeviceLogMetadataVO> queryLogMeta(LogQuery logQuery) {
+  public IPage<IoTDeviceLogMetadataVO> queryLogMeta(LogQuery logQuery) {
     IoTProduct product = iotProductDeviceService.getProduct(logQuery.getProductKey());
     IIoTDeviceLogService logService =
         policies.getOrDefault(product.getStorePolicy(), policies.get("none"));

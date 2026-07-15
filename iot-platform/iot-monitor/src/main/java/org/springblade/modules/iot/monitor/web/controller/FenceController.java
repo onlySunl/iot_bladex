@@ -16,7 +16,7 @@ import org.springblade.modules.iot.persistence.mapper.IoTDeviceFenceRelMapper;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceGeoFenceMapper;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceMapper;
 import org.springblade.modules.iot.persistence.query.IoTDeviceQuery;
-import org.springblade.modules.iot.persistence.query.PageBean;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springblade.modules.iot.security.BaseController;
 import org.springblade.modules.iot.monitor.web.context.IoTInnerAuthContext;
 import com.github.pagehelper.Page;
@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springblade.modules.iot.common.util.PageUtil;
 /**
  * IoT设备位置和地理围栏管理控制器
  *
@@ -103,8 +104,8 @@ public class FenceController extends BaseController {
     Page<IoTDeviceGeoFence> p = PageHelper.startPage(page, size);
     List<IoTDeviceGeoFenceVO> devInstanceVOList =
         ioTDeviceGeoFenceMapper.selectList(ioTDeviceGeoFence);
-    PageBean pageBean =
-        new PageBean(devInstanceVOList, new PageInfo(devInstanceVOList).getTotal(), size, page);
+    IPage page =
+        PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(page, size), devInstanceVOList, new PageInfo(devInstanceVOList).getTotal());
     return R.ok(pageBean);
   }
 
@@ -255,8 +256,8 @@ public class FenceController extends BaseController {
     }
     Page<IoTDeviceVO> ioTDeviceVOList =
         iIotDeviceService.selectFenceDevice(ioTDeviceBO, page, size);
-    PageBean pageBean =
-        new PageBean(ioTDeviceVOList, new PageInfo(ioTDeviceVOList).getTotal(), size, page);
+    IPage page =
+        PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(page, size), ioTDeviceVOList, new PageInfo(ioTDeviceVOList).getTotal());
     return R.ok(pageBean);
   }
 
@@ -267,8 +268,8 @@ public class FenceController extends BaseController {
     String iotId = jsonObject.getStr("iotId");
     List<IoTDeviceGeoFenceVO> ioTDeviceGeoFenceVOS =
         ioTDeviceFenceRelMapper.selectFenceByIotId(iotId);
-    PageBean pageBean =
-        new PageBean(ioTDeviceGeoFenceVOS, new PageInfo(ioTDeviceGeoFenceVOS).getTotal(), 999, 1);
+    IPage page =
+        PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(1, 999), ioTDeviceGeoFenceVOS, new PageInfo(ioTDeviceGeoFenceVOS).getTotal());
     return R.ok(pageBean);
   }
 

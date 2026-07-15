@@ -10,11 +10,12 @@ import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import org.springblade.modules.iot.pojo.vo.IoTDeviceLogMetadataVO;
 import org.springblade.modules.iot.pojo.vo.IoTDeviceLogVO;
 import org.springblade.modules.iot.persistence.query.LogQuery;
-import org.springblade.modules.iot.persistence.query.PageBean;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.ArrayList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import org.springblade.modules.iot.common.util.PageUtil;
 /**
  * 不存储任何设备日志
  *
@@ -38,9 +39,8 @@ public class NoneIoTDeviceLogService extends AbstractIoTDeviceLogService {
       BaseUPRequest upRequest, IoTDeviceDTO ioTDeviceDTO, IoTProduct ioTProduct) {}
 
   @Override
-  public PageBean<IoTDeviceLogVO> pageList(LogQuery logQuery) {
-    return new PageBean(
-        new ArrayList(), Long.parseLong(0 + ""), logQuery.getPageSize(), logQuery.getPageNum());
+  public IPage<IoTDeviceLogVO> pageList(LogQuery logQuery) {
+    return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageNum(), logQuery.getPageSize()), new ArrayList(), Long.parseLong(0 + "")));
   }
 
   @Override
@@ -49,14 +49,13 @@ public class NoneIoTDeviceLogService extends AbstractIoTDeviceLogService {
   }
 
   @Override
-  public PageBean<IoTDeviceEvents> queryEventTotal(String productKey, String iotId) {
-    return new PageBean(new ArrayList(), Long.parseLong(0 + ""), 10, 1);
+  public IPage<IoTDeviceEvents> queryEventTotal(String productKey, String iotId) {
+    return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(1, 10), new ArrayList(), Long.parseLong(0 + ""));
   }
 
   @Override
-  public PageBean<IoTDeviceLogMetadataVO> queryLogMeta(LogQuery logQuery) {
-    return new PageBean(
-        new ArrayList(), Long.parseLong(0 + ""), logQuery.getPageSize(), logQuery.getPageNum());
+  public IPage<IoTDeviceLogMetadataVO> queryLogMeta(LogQuery logQuery) {
+    return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageNum(), logQuery.getPageSize()), new ArrayList(), Long.parseLong(0 + "")));
   }
 
   @Override

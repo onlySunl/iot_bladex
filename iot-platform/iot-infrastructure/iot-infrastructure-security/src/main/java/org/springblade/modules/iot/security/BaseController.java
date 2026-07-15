@@ -7,7 +7,7 @@ import org.springblade.modules.iot.persistence.page.PageDomain;
 import org.springblade.modules.iot.persistence.page.PageUtils;
 import org.springblade.modules.iot.persistence.page.TableDataInfo;
 import org.springblade.modules.iot.persistence.page.TableSupport;
-import org.springblade.modules.iot.persistence.query.AjaxResult;
+import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.security.service.IoTUserService;
 import org.springblade.modules.iot.security.utils.SecurityUtils;
 import com.github.pagehelper.PageHelper;
@@ -100,23 +100,23 @@ public class BaseController {
   }
 
   /** 返回成功 */
-  public AjaxResult<Void> success() {
-    return AjaxResult.success();
+  public R<Void> success() {
+    return R.ok();
   }
 
   /** 返回失败消息 */
-  public AjaxResult<Void> error() {
-    return AjaxResult.error();
+  public R<Void> error() {
+    return R.fail();
   }
 
   /** 返回成功消息 */
-  public AjaxResult<Void> success(String message) {
-    return AjaxResult.success(message);
+  public R<Void> success(String message) {
+    return R.ok(message);
   }
 
   /** 返回失败消息 */
-  public AjaxResult<Void> error(String message) {
-    return AjaxResult.error(message);
+  public R<Void> error(String message) {
+    return R.fail(message);
   }
 
   /**
@@ -125,8 +125,8 @@ public class BaseController {
    * @param rows 影响行数
    * @return 操作结果
    */
-  protected AjaxResult<Void> toAjax(int rows) {
-    return rows > 0 ? AjaxResult.success() : AjaxResult.error();
+  protected R<Void> toAjax(int rows) {
+    return rows > 0 ? R.ok() : R.fail();
   }
 
   /**
@@ -135,7 +135,7 @@ public class BaseController {
    * @param result 结果
    * @return 操作结果
    */
-  protected AjaxResult<Void> toAjax(boolean result) {
+  protected R<Void> toAjax(boolean result) {
     return result ? success() : error();
   }
 

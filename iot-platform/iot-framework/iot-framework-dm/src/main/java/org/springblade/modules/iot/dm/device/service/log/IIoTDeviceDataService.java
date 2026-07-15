@@ -10,7 +10,7 @@ import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import org.springblade.modules.iot.pojo.vo.IoTDeviceLogMetadataVO;
 import org.springblade.modules.iot.pojo.vo.IoTDeviceLogVO;
 import org.springblade.modules.iot.persistence.query.LogQuery;
-import org.springblade.modules.iot.persistence.query.PageBean;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 /**
  * @author gitee.com/NexIoT
@@ -37,7 +37,7 @@ public interface IIoTDeviceDataService {
    * @param logQuery 查询条件
    * @return list
    */
-  default PageBean<IoTDeviceLogVO> pageList(LogQuery logQuery) {
+  default IPage<IoTDeviceLogVO> pageList(LogQuery logQuery) {
     return null;
   }
 
@@ -51,11 +51,11 @@ public interface IIoTDeviceDataService {
    *
    * @param productKey 产品标志
    */
-  default PageBean<IoTDeviceEvents> queryEventTotal(String productKey, String iotId) {
+  default IPage<IoTDeviceEvents> queryEventTotal(String productKey, String iotId) {
     return null;
   }
 
-  default PageBean<IoTDeviceLogMetadataVO> queryLogMeta(LogQuery logQuery) {
+  default IPage<IoTDeviceLogMetadataVO> queryLogMeta(LogQuery logQuery) {
     return null;
   }
 }

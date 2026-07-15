@@ -29,7 +29,7 @@ public class PageDomain {
     return StringUtils.toUnderScoreCase(orderByColumn) + " " + isAsc;
   }
 
-  public Integer getPageNum() {
+  public Integer getPageNum(), {
     return pageNum;
   }
 

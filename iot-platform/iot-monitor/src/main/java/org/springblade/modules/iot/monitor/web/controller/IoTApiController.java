@@ -14,7 +14,7 @@ import org.springblade.modules.iot.dm.device.service.log.IIoTDeviceDataService;
 import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import org.springblade.modules.iot.persistence.entity.vo.IoTDeviceLogMetadataVO;
 import org.springblade.modules.iot.persistence.query.LogQuery;
-import org.springblade.modules.iot.persistence.query.PageBean;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springblade.modules.iot.security.BaseController;
 import org.springblade.modules.iot.monitor.web.context.IoTInnerAuthContext;
 import jakarta.annotation.Resource;
@@ -120,9 +120,9 @@ public class IoTApiController extends BaseController {
    */
   @PostMapping("/device/meta/list")
   public Object logMeta(@RequestBody LogQuery logQuery) {
-    PageBean<IoTDeviceLogMetadataVO> devLogMetaVoPageBean =
+    IPage<IoTDeviceLogMetadataVO> devLogMetaVoIPage =
         iIoTDeviceDataService.queryLogMeta(logQuery);
-    return devLogMetaVoPageBean;
+    return devLogMetaVoIPage;
   }
 
   /**

@@ -28,7 +28,7 @@ import org.springblade.modules.iot.persistence.mapper.IoTDeviceLogMetadataMapper
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceLogMetadataShardMapper;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceLogShardMapper;
 import org.springblade.modules.iot.persistence.query.LogQuery;
-import org.springblade.modules.iot.persistence.query.PageBean;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
@@ -38,6 +38,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+import org.springblade.modules.iot.common.util.PageUtil;
 /**
  * 设备日志
  *
@@ -155,23 +156,15 @@ public class MysqlDeviceLogService extends AbstractIoTDeviceLogService {
   }
 
   @Override
-  public PageBean<IoTDeviceLogVO> pageList(LogQuery bo) {
+  public IPage<IoTDeviceLogVO> pageList(LogQuery bo) {
     bo.setProductKey(null);
     PageHelper.startPage(bo.getPageNum(), bo.getPageSize());
     if (ObjectUtil.isNull(bo.getId())) {
       List<IoTDeviceLogVO> ioTDeviceLogVOS = ioTDeviceLogShardMapper.queryLogPageV2List(bo);
-      return new PageBean(
-          ioTDeviceLogVOS,
-          new PageInfo(ioTDeviceLogVOS).getTotal(),
-          bo.getPageSize(),
-          bo.getPageNum());
+      return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(bo.getPageNum(), bo.getPageSize()), ioTDeviceLogVOS, new PageInfo(ioTDeviceLogVOS).getTotal()));
     } else {
       List<IoTDeviceLogVO> ioTDeviceLogVOS = ioTDeviceLogShardMapper.queryLogPageV2ByIdList(bo);
-      return new PageBean(
-          ioTDeviceLogVOS,
-          new PageInfo(ioTDeviceLogVOS).getTotal(),
-          bo.getPageSize(),
-          bo.getPageNum());
+      return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(bo.getPageNum(), bo.getPageSize()), ioTDeviceLogVOS, new PageInfo(ioTDeviceLogVOS).getTotal()));
     }
   }
 
@@ -182,7 +175,7 @@ public class MysqlDeviceLogService extends AbstractIoTDeviceLogService {
   }
 
   @Override
-  public PageBean<IoTDeviceEvents> queryEventTotal(String productKey, String iotId) {
+  public IPage<IoTDeviceEvents> queryEventTotal(String productKey, String iotId) {
     List<IoTDeviceEvents> list = selectDevEvents(productKey);
     for (IoTDeviceEvents devEvent : list) {
       List<String> events;
@@ -199,11 +192,11 @@ public class MysqlDeviceLogService extends AbstractIoTDeviceLogService {
         devEvent.setQty(size >= 100 ? "99+" : String.valueOf(size));
       }
     }
-    return new PageBean(list, new PageInfo(list).getTotal(), 1, 100);
+    return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(100, 1), list, new PageInfo(list).getTotal());
   }
 
   @Override
-  public PageBean<IoTDeviceLogMetadataVO> queryLogMeta(LogQuery logQuery) {
+  public IPage<IoTDeviceLogMetadataVO> queryLogMeta(LogQuery logQuery) {
     PageHelper.startPage(logQuery.getPageNum(), logQuery.getPageSize());
     List<IoTDeviceLogMetadataVO> list;
     if (metaEnable) {
@@ -212,8 +205,7 @@ public class MysqlDeviceLogService extends AbstractIoTDeviceLogService {
       list = ioTDeviceLogMetadataMapper.selectLogMetaList(logQuery);
     }
 
-    return new PageBean(
-        list, new PageInfo(list).getTotal(), logQuery.getPageSize(), logQuery.getPageNum());
+    return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageNum(), logQuery.getPageSize()), list, new PageInfo(list).getTotal()));
   }
 
   @Override

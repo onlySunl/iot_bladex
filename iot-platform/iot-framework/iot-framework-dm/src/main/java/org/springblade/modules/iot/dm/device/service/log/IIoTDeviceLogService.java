@@ -11,7 +11,7 @@ import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import org.springblade.modules.iot.pojo.vo.IoTDeviceLogMetadataVO;
 import org.springblade.modules.iot.pojo.vo.IoTDeviceLogVO;
 import org.springblade.modules.iot.persistence.query.LogQuery;
-import org.springblade.modules.iot.persistence.query.PageBean;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 /**
  * @author gitee.com/NexIoT
@@ -50,7 +50,7 @@ public interface IIoTDeviceLogService {
    * @param logQuery 查询条件
    * @return list
    */
-  PageBean<IoTDeviceLogVO> pageList(LogQuery logQuery);
+  IPage<IoTDeviceLogVO> pageList(LogQuery logQuery);
 
   /** 日志详情 */
   IoTDeviceLogVO queryById(LogQuery logQuery);
@@ -60,10 +60,10 @@ public interface IIoTDeviceLogService {
    *
    * @param productKey 产品标志
    */
-  PageBean<IoTDeviceEvents> queryEventTotal(String productKey, String iotId);
+  IPage<IoTDeviceEvents> queryEventTotal(String productKey, String iotId);
 
   /** 查询单属性或事件日志 */
-  PageBean<IoTDeviceLogMetadataVO> queryLogMeta(LogQuery logQuery);
+  IPage<IoTDeviceLogMetadataVO> queryLogMeta(LogQuery logQuery);
 
   /**
    * @return 存储配置信息

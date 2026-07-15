@@ -26,7 +26,7 @@ import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import org.springblade.modules.iot.pojo.vo.IoTDeviceLogMetadataVO;
 import org.springblade.modules.iot.pojo.vo.IoTDeviceLogVO;
 import org.springblade.modules.iot.persistence.query.LogQuery;
-import org.springblade.modules.iot.persistence.query.PageBean;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.annotation.PostConstruct;
@@ -47,6 +47,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+import org.springblade.modules.iot.common.util.PageUtil;
 /**
  * ClickHouse 存储日志服务
  *
@@ -376,7 +377,7 @@ public class CkDeviceLogService extends AbstractIoTDeviceLogService {
   }
 
   @Override
-  public PageBean<IoTDeviceLogVO> pageList(LogQuery logQuery) {
+  public IPage<IoTDeviceLogVO> pageList(LogQuery logQuery) {
     StringBuilder sql = new StringBuilder("SELECT * FROM " + devLogTableName + " WHERE 1=1");
     List<Object> params = new ArrayList<>();
 
@@ -430,15 +431,14 @@ public class CkDeviceLogService extends AbstractIoTDeviceLogService {
       // 分页查询
       String pageSql = sql + " LIMIT ? OFFSET ?";
       List<Object> pageParams = new ArrayList<>(params);
-      int offset = (logQuery.getPageNum() - 1) * logQuery.getPageSize();
+      int offset = (logQuery.getPageNum(), - 1) * logQuery.getPageSize();
       pageParams.add(logQuery.getPageSize());
       pageParams.add(offset);
 
       List<IoTDeviceLogVO> list =
           jdbcTemplate.query(pageSql, new DeviceLogRowMapper(), pageParams.toArray());
 
-      return new PageBean<>(
-          list, total != null ? total : 0L, logQuery.getPageSize(), logQuery.getPageNum());
+      return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageNum(), logQuery.getPageSize()), list, total != null ? total : 0L));
 
     } catch (Exception e) {
       log.warn("ClickHouse 查询日志错误", e);
@@ -458,7 +458,7 @@ public class CkDeviceLogService extends AbstractIoTDeviceLogService {
   }
 
   @Override
-  public PageBean<IoTDeviceEvents> queryEventTotal(String productKey, String iotId) {
+  public IPage<IoTDeviceEvents> queryEventTotal(String productKey, String iotId) {
     List<IoTDeviceEvents> list = selectDevEvents(productKey);
     for (IoTDeviceEvents devEvent : list) {
       String sql =
@@ -477,11 +477,11 @@ public class CkDeviceLogService extends AbstractIoTDeviceLogService {
         log.warn("ClickHouse 查询事件统计错误", e);
       }
     }
-    return new PageBean<>(list, 100L, 1, 100);
+    return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(100, 1), list, 100L);
   }
 
   @Override
-  public PageBean<IoTDeviceLogMetadataVO> queryLogMeta(LogQuery logQuery) {
+  public IPage<IoTDeviceLogMetadataVO> queryLogMeta(LogQuery logQuery) {
     StringBuilder sql = new StringBuilder("SELECT * FROM " + devLogMetaTableName + " WHERE 1=1");
     List<Object> params = new ArrayList<>();
 
@@ -520,15 +520,14 @@ public class CkDeviceLogService extends AbstractIoTDeviceLogService {
       // 分页查询
       String pageSql = sql + " LIMIT ? OFFSET ?";
       List<Object> pageParams = new ArrayList<>(params);
-      int offset = (logQuery.getPageNum() - 1) * logQuery.getPageSize();
+      int offset = (logQuery.getPageNum(), - 1) * logQuery.getPageSize();
       pageParams.add(logQuery.getPageSize());
       pageParams.add(offset);
 
       List<IoTDeviceLogMetadataVO> list =
           jdbcTemplate.query(pageSql, new DeviceLogMetadataRowMapper(), pageParams.toArray());
 
-      return new PageBean<>(
-          list, total != null ? total : 0L, logQuery.getPageSize(), logQuery.getPageNum());
+      return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageNum(), logQuery.getPageSize()), list, total != null ? total : 0L));
 
     } catch (Exception e) {
       log.warn("ClickHouse 查询元数据日志错误", e);

@@ -34,7 +34,7 @@ import org.springblade.modules.iot.persistence.entity.vo.IoTDeviceVO;
 import org.springblade.modules.iot.persistence.entity.vo.IoTProductVO;
 import org.springblade.modules.iot.persistence.query.IoTAPIQuery;
 import org.springblade.modules.iot.persistence.query.LogQuery;
-import org.springblade.modules.iot.persistence.query.PageBean;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springblade.modules.iot.persistence.query.PageRet;
 import org.springblade.modules.iot.monitor.web.config.annotation.CodeKey;
 import org.springblade.modules.iot.monitor.web.config.annotation.Codec;
@@ -398,9 +398,9 @@ public class ApiControllerV1 extends BaseApiController {
       logQuery.setEvent(property);
     }
 
-    PageBean<IoTDeviceLogMetadataVO> devLogMetaVoPageBean =
+    IPage<IoTDeviceLogMetadataVO> devLogMetaVoIPage =
         iIoTDeviceDataService.queryLogMeta(logQuery);
-    return R.ok(devLogMetaVoPageBean.getList());
+    return R.ok(devLogMetaVoIPage.getList());
   }
 
   /** 设备绑定 */

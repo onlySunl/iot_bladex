@@ -23,7 +23,7 @@ import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import org.springblade.modules.iot.pojo.vo.IoTDeviceLogMetadataVO;
 import org.springblade.modules.iot.pojo.vo.IoTDeviceLogVO;
 import org.springblade.modules.iot.persistence.query.LogQuery;
-import org.springblade.modules.iot.persistence.query.PageBean;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import jakarta.annotation.Resource;
@@ -44,6 +44,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+import org.springblade.modules.iot.common.util.PageUtil;
 /**
  * IoTDB 存储日志
  *
@@ -1062,13 +1063,13 @@ public class IoTDBIoTDeviceLogService extends AbstractIoTDeviceLogService {
   }
 
   @Override
-  public PageBean<IoTDeviceLogVO> pageList(LogQuery logQuery) {
+  public IPage<IoTDeviceLogVO> pageList(LogQuery logQuery) {
     try {
       // 统一获取 session
       Session currentSession = getSession();
       if (currentSession == null) {
         log.warn("IoTDB session不可用且重连失败，返回空结果");
-        return new PageBean<>(new ArrayList<>(), 0L, logQuery.getPageSize(), logQuery.getPageNum());
+        return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageSize(, logQuery.getPageNum(), new java.util.ArrayList<>(), 0L)));
       }
 
       // 构建查询路径，使用与写入相同的路径清理逻辑
@@ -1088,8 +1089,7 @@ public class IoTDBIoTDeviceLogService extends AbstractIoTDeviceLogService {
           log.debug("IoTDB从 iotId 解析路径: iotId={}, 解析后={}", logQuery.getIotId(), queryPath);
         } else {
           log.warn("IoTDB无法解析 iotId: {}", logQuery.getIotId());
-          return new PageBean<>(
-              new ArrayList<>(), 0L, logQuery.getPageSize(), logQuery.getPageNum());
+          return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageNum(), logQuery.getPageSize()), new ArrayList<>(), 0L));
         }
       }
       // 优先级 3: 如果只有 productKey，模糊查询
@@ -1101,7 +1101,7 @@ public class IoTDBIoTDeviceLogService extends AbstractIoTDeviceLogService {
       // 无法构建查询路径
       else {
         log.warn("IoTDB查询参数不足，需要 productKey+deviceId 或 iotId");
-        return new PageBean<>(new ArrayList<>(), 0L, logQuery.getPageSize(), logQuery.getPageNum());
+        return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageSize(, logQuery.getPageNum(), new java.util.ArrayList<>(), 0L)));
       }
 
       // 构建 SQL
@@ -1139,7 +1139,7 @@ public class IoTDBIoTDeviceLogService extends AbstractIoTDeviceLogService {
       sql.append(" ORDER BY time DESC LIMIT ")
           .append(logQuery.getPageSize())
           .append(" OFFSET ")
-          .append((logQuery.getPageNum() - 1) * logQuery.getPageSize());
+          .append((logQuery.getPageNum(), - 1) * logQuery.getPageSize());
 
       log.debug("IoTDB查询SQL: {}", sql);
 
@@ -1234,11 +1234,11 @@ public class IoTDBIoTDeviceLogService extends AbstractIoTDeviceLogService {
         }
       }
 
-      return new PageBean<>(resultList, total, logQuery.getPageSize(), logQuery.getPageNum());
+      return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageNum(), logQuery.getPageSize()), resultList, total));
 
     } catch (Exception e) {
       log.error("IoTDB查询设备日志失败", e);
-      return new PageBean<>(new ArrayList<>(), 0L, logQuery.getPageSize(), logQuery.getPageNum());
+      return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageSize(, logQuery.getPageNum(), new java.util.ArrayList<>(), 0L)));
     }
   }
 
@@ -1329,7 +1329,7 @@ public class IoTDBIoTDeviceLogService extends AbstractIoTDeviceLogService {
   }
 
   @Override
-  public PageBean<IoTDeviceEvents> queryEventTotal(String productKey, String iotId) {
+  public IPage<IoTDeviceEvents> queryEventTotal(String productKey, String iotId) {
     List<IoTDeviceEvents> list = selectDevEvents(productKey);
     for (IoTDeviceEvents devEvent : list) {
       try {
@@ -1432,17 +1432,17 @@ public class IoTDBIoTDeviceLogService extends AbstractIoTDeviceLogService {
         devEvent.setTime("");
       }
     }
-    return new PageBean<>(list, 100L, 1, 100);
+    return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(100, 1), list, 100L);
   }
 
   @Override
-  public PageBean<IoTDeviceLogMetadataVO> queryLogMeta(LogQuery logQuery) {
+  public IPage<IoTDeviceLogMetadataVO> queryLogMeta(LogQuery logQuery) {
     try {
       // 统一获取 session
       Session currentSession = getSession();
       if (currentSession == null) {
         log.warn("IoTDB session不可用且重连失败，返回空结果");
-        return new PageBean<>(new ArrayList<>(), 0L, logQuery.getPageSize(), logQuery.getPageNum());
+        return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageSize(, logQuery.getPageNum(), new java.util.ArrayList<>(), 0L)));
       }
 
       // 构建查询路径 - 查询属性和事件的元数据
@@ -1463,8 +1463,7 @@ public class IoTDBIoTDeviceLogService extends AbstractIoTDeviceLogService {
           log.debug("IoTDB从 iotId 解析元数据路径: iotId={}, 解析后={}", logQuery.getIotId(), basePath);
         } else {
           log.warn("IoTDB无法解析 iotId: {}", logQuery.getIotId());
-          return new PageBean<>(
-              new ArrayList<>(), 0L, logQuery.getPageSize(), logQuery.getPageNum());
+          return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageNum(), logQuery.getPageSize()), new ArrayList<>(), 0L));
         }
       }
       // 优先级 3: 如果只有 productKey
@@ -1492,7 +1491,7 @@ public class IoTDBIoTDeviceLogService extends AbstractIoTDeviceLogService {
         log.debug("IoTDB使用产品模糊查询元数据");
       } else {
         log.warn("IoTDB查询元数据参数不足");
-        return new PageBean<>(new ArrayList<>(), 0L, logQuery.getPageSize(), logQuery.getPageNum());
+        return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageSize(, logQuery.getPageNum(), new java.util.ArrayList<>(), 0L)));
       }
 
       // 如果有基础路径，添加属性或事件序列路径（按参数/类型选择）
@@ -1581,7 +1580,7 @@ public class IoTDBIoTDeviceLogService extends AbstractIoTDeviceLogService {
         sql.append(" ORDER BY time DESC LIMIT ")
             .append(logQuery.getPageSize())
             .append(" OFFSET ")
-            .append((logQuery.getPageNum() - 1) * logQuery.getPageSize());
+            .append((logQuery.getPageNum(), - 1) * logQuery.getPageSize());
 
         log.debug("IoTDB查询元数据SQL: {}", sql);
 
@@ -1660,11 +1659,11 @@ public class IoTDBIoTDeviceLogService extends AbstractIoTDeviceLogService {
         total = resultList.size();
       }
 
-      return new PageBean<>(resultList, total, logQuery.getPageSize(), logQuery.getPageNum());
+      return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageNum(), logQuery.getPageSize()), resultList, total));
 
     } catch (Exception e) {
       log.error("IoTDB查询设备元数据失败", e);
-      return new PageBean<>(new ArrayList<>(), 0L, logQuery.getPageSize(), logQuery.getPageNum());
+      return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageSize(, logQuery.getPageNum(), new java.util.ArrayList<>(), 0L)));
     }
   }
 

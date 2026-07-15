@@ -9,7 +9,7 @@ import org.springblade.modules.iot.databridge.core.service.DataBridgeConfigServi
 import org.springblade.modules.iot.databridge.core.service.DataInputLogService;
 import org.springblade.modules.iot.persistence.page.PageUtils;
 import org.springblade.modules.iot.persistence.page.TableDataInfo;
-import org.springblade.modules.iot.persistence.query.AjaxResult;
+import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.security.BaseController;
 import jakarta.annotation.Resource;
 import java.time.LocalDateTime;
@@ -41,7 +41,7 @@ public class DataInputController extends BaseController {
   /** 启动数据输入任务 */
   @PostMapping("/start/{configId}")
   @PreAuthorize("@ss.hasPermi('databridge:input:start')")
-  public AjaxResult<Void> startInputTask(@PathVariable Long configId) {
+  public R<Void> startInputTask(@PathVariable Long configId) {
     try {
       dataInputManager.startInputTask(configId);
       return success("数据输入任务启动成功");
@@ -54,7 +54,7 @@ public class DataInputController extends BaseController {
   /** 停止数据输入任务 */
   @PostMapping("/stop/{configId}")
   @PreAuthorize("@ss.hasPermi('databridge:input:stop')")
-  public AjaxResult<Void> stopInputTask(@PathVariable Long configId) {
+  public R<Void> stopInputTask(@PathVariable Long configId) {
     try {
       dataInputManager.stopInputTask(configId);
       return success("数据输入任务停止成功");
@@ -67,13 +67,13 @@ public class DataInputController extends BaseController {
   /** 检查任务运行状态 */
   @GetMapping("/status/{configId}")
   @PreAuthorize("@ss.hasPermi('databridge:input:query')")
-  public AjaxResult<Boolean> getTaskStatus(@PathVariable Long configId) {
+  public R<Boolean> getTaskStatus(@PathVariable Long configId) {
     try {
       Boolean isRunning = dataInputManager.isTaskRunning(configId);
-      return AjaxResult.success(isRunning);
+      return R.ok(isRunning);
     } catch (Exception e) {
       log.error("查询任务状态失败: {}", e.getMessage(), e);
-      return AjaxResult.error("查询任务状态失败: " + e.getMessage(), (Boolean) null);
+      return R.fail("查询任务状态失败: " + e.getMessage());
     }
   }
 
@@ -115,21 +115,21 @@ public class DataInputController extends BaseController {
   /** 获取最近的输入日志 */
   @GetMapping("/logs/recent/{configId}")
   @PreAuthorize("@ss.hasPermi('databridge:input:log')")
-  public AjaxResult<List<DataInputLog>> getRecentLogs(
+  public R<List<DataInputLog>> getRecentLogs(
       @PathVariable Long configId, @RequestParam(defaultValue = "10") int limit) {
     try {
       List<DataInputLog> logs = dataInputLogService.getRecentLogs(configId, limit);
-      return AjaxResult.success(logs);
+      return R.ok(logs);
     } catch (Exception e) {
       log.error("查询最近日志失败: {}", e.getMessage(), e);
-      return AjaxResult.error("查询最近日志失败: " + e.getMessage(), (List<DataInputLog>) null);
+      return R.fail("查询最近日志失败: " + e.getMessage());
     }
   }
 
   /** 获取成功率统计 */
   @GetMapping("/stats/success-rate/{configId}")
   @PreAuthorize("@ss.hasPermi('databridge:input:stats')")
-  public AjaxResult<Double> getSuccessRate(
+  public R<Double> getSuccessRate(
       @PathVariable Long configId,
       @RequestParam(required = false) LocalDateTime startTime,
       @RequestParam(required = false) LocalDateTime endTime) {
@@ -142,17 +142,17 @@ public class DataInputController extends BaseController {
       }
 
       Double successRate = dataInputLogService.getSuccessRate(configId, startTime, endTime);
-      return AjaxResult.success(successRate != null ? successRate : 0.0);
+      return R.ok(successRate != null ? successRate : 0.0);
     } catch (Exception e) {
       log.error("查询成功率失败: {}", e.getMessage(), e);
-      return AjaxResult.error("查询成功率失败: " + e.getMessage(), (Double) null);
+      return R.fail("查询成功率失败: " + e.getMessage());
     }
   }
 
   /** 批量启动输入任务 */
   @PostMapping("/batch/start")
   @PreAuthorize("@ss.hasPermi('databridge:input:start')")
-  public AjaxResult<Void> batchStartInputTasks(@RequestBody List<Long> configIds) {
+  public R<Void> batchStartInputTasks(@RequestBody List<Long> configIds) {
     try {
       int successCount = 0;
       int failCount = 0;
@@ -177,7 +177,7 @@ public class DataInputController extends BaseController {
   /** 批量停止输入任务 */
   @PostMapping("/batch/stop")
   @PreAuthorize("@ss.hasPermi('databridge:input:stop')")
-  public AjaxResult<Void> batchStopInputTasks(@RequestBody List<Long> configIds) {
+  public R<Void> batchStopInputTasks(@RequestBody List<Long> configIds) {
     try {
       int successCount = 0;
       int failCount = 0;
@@ -202,7 +202,7 @@ public class DataInputController extends BaseController {
   /** 获取输入任务概览统计 */
   @GetMapping("/overview")
   @PreAuthorize("@ss.hasPermi('databridge:input:overview')")
-  public AjaxResult<Object> getInputOverview() {
+  public R<Object> getInputOverview() {
     try {
       // TODO: 实现输入任务概览统计
       // 包括：总任务数、运行中任务数、今日处理消息数、成功率等
@@ -213,10 +213,10 @@ public class DataInputController extends BaseController {
       overview.put("todayMessages", 0);
       overview.put("successRate", 0.0);
 
-      return AjaxResult.success(overview);
+      return R.ok(overview);
     } catch (Exception e) {
       log.error("查询输入任务概览失败: {}", e.getMessage(), e);
-      return AjaxResult.error("查询输入任务概览失败: " + e.getMessage(), (Object) null);
+      return R.fail("查询输入任务概览失败: " + e.getMessage());
     }
   }
 }

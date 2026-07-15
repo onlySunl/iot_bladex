@@ -33,7 +33,7 @@ import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import org.springblade.modules.iot.pojo.vo.IoTDeviceLogMetadataVO;
 import org.springblade.modules.iot.pojo.vo.IoTDeviceLogVO;
 import org.springblade.modules.iot.persistence.query.LogQuery;
-import org.springblade.modules.iot.persistence.query.PageBean;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.InfluxDBClientFactory;
 import com.influxdb.client.QueryApi;
@@ -57,6 +57,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+import org.springblade.modules.iot.common.util.PageUtil;
 /**
  * InfluxDB 存储日志
  *
@@ -357,11 +358,11 @@ public class InfluxDBDeviceLogService extends AbstractIoTDeviceLogService {
   }
 
   @Override
-  public PageBean<IoTDeviceLogVO> pageList(LogQuery logQuery) {
+  public IPage<IoTDeviceLogVO> pageList(LogQuery logQuery) {
     try {
       if (influxDBClient == null) {
         log.warn("InfluxDB client未初始化");
-        return new PageBean<>(new ArrayList<>(), 0L, logQuery.getPageSize(), logQuery.getPageNum());
+        return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageSize(, logQuery.getPageNum(), new java.util.ArrayList<>(), 0L)));
       }
 
       // 构建 Flux 查询语句
@@ -408,7 +409,7 @@ public class InfluxDBDeviceLogService extends AbstractIoTDeviceLogService {
       flux.append("  |> sort(columns: [\"_time\"], desc: true)\n");
 
       // InfluxDB 分页实现：limit + offset
-      int offset = (logQuery.getPageNum() - 1) * logQuery.getPageSize();
+      int offset = (logQuery.getPageNum(), - 1) * logQuery.getPageSize();
       flux.append("  |> limit(n: ")
           .append(logQuery.getPageSize())
           .append(", offset: ")
@@ -433,11 +434,11 @@ public class InfluxDBDeviceLogService extends AbstractIoTDeviceLogService {
 
       log.info("InfluxDB查询成功，返回 {} 条记录，总数 {}", resultList.size(), total);
 
-      return new PageBean<>(resultList, total, logQuery.getPageSize(), logQuery.getPageNum());
+      return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageNum(), logQuery.getPageSize()), resultList, total));
 
     } catch (Exception e) {
       log.error("InfluxDB查询设备日志失败", e);
-      return new PageBean<>(new ArrayList<>(), 0L, logQuery.getPageSize(), logQuery.getPageNum());
+      return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageSize(, logQuery.getPageNum(), new java.util.ArrayList<>(), 0L)));
     }
   }
 
@@ -587,7 +588,7 @@ public class InfluxDBDeviceLogService extends AbstractIoTDeviceLogService {
   }
 
   @Override
-  public PageBean<IoTDeviceEvents> queryEventTotal(String productKey, String iotId) {
+  public IPage<IoTDeviceEvents> queryEventTotal(String productKey, String iotId) {
     List<IoTDeviceEvents> list = selectDevEvents(productKey);
 
     for (IoTDeviceEvents devEvent : list) {
@@ -649,15 +650,15 @@ public class InfluxDBDeviceLogService extends AbstractIoTDeviceLogService {
       }
     }
 
-    return new PageBean<>(list, 100L, 1, 100);
+    return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(100, 1), list, 100L);
   }
 
   @Override
-  public PageBean<IoTDeviceLogMetadataVO> queryLogMeta(LogQuery logQuery) {
+  public IPage<IoTDeviceLogMetadataVO> queryLogMeta(LogQuery logQuery) {
     try {
       if (influxDBClient == null) {
         log.warn("InfluxDB client未初始化");
-        return new PageBean<>(new ArrayList<>(), 0L, logQuery.getPageSize(), logQuery.getPageNum());
+        return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageSize(, logQuery.getPageNum(), new java.util.ArrayList<>(), 0L)));
       }
 
       // 根据查询条件选择 measurement
@@ -682,7 +683,7 @@ public class InfluxDBDeviceLogService extends AbstractIoTDeviceLogService {
       long total = parseCountResult(countTables);
 
       // 2. 再查询分页数据（包含pivot转换）
-      int offset = (logQuery.getPageNum() - 1) * logQuery.getPageSize();
+      int offset = (logQuery.getPageNum(), - 1) * logQuery.getPageSize();
       String dataFlux =
           baseFilterFlux
               + "  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\n"
@@ -701,11 +702,11 @@ public class InfluxDBDeviceLogService extends AbstractIoTDeviceLogService {
 
       log.info("InfluxDB查询元数据成功，总数: {}, 当前页: {} 条记录", total, resultList.size());
 
-      return new PageBean<>(resultList, total, logQuery.getPageSize(), logQuery.getPageNum());
+      return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageNum(), logQuery.getPageSize()), resultList, total));
 
     } catch (Exception e) {
       log.error("InfluxDB查询设备元数据失败", e);
-      return new PageBean<>(new ArrayList<>(), 0L, logQuery.getPageSize(), logQuery.getPageNum());
+      return PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(logQuery.getPageSize(, logQuery.getPageNum(), new java.util.ArrayList<>(), 0L)));
     }
   }
 
