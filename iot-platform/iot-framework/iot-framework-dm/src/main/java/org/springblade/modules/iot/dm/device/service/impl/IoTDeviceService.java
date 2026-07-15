@@ -4,19 +4,17 @@ package org.springblade.modules.iot.dm.device.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
-import org.springblade.modules.iot.cache.annotation.MultiLevelCacheable;
 import org.springblade.modules.iot.common.exception.IoTErrorCode;
 import org.springblade.modules.iot.common.exception.IoTException;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceMetadataBO;
+import org.springblade.modules.iot.persistence.entity.vo.IoTDeviceVO;
 import org.springblade.modules.iot.pojo.entity.IoTDevice;
 import org.springblade.modules.iot.pojo.entity.IoTDeviceShadow;
 import org.springblade.modules.iot.pojo.entity.IoTDeviceSubscribe;
 import org.springblade.modules.iot.pojo.entity.IoTDeviceTags;
 import org.springblade.modules.iot.pojo.entity.IoTUserApplication;
 import org.springblade.modules.iot.pojo.entity.SupportMapAreas;
-import org.springblade.modules.iot.pojo.bo.IoTDeviceHistoryBO;
-import org.springblade.modules.iot.pojo.vo.IoTDeviceVO;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceFenceRelMapper;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceMapper;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceShadowMapper;
@@ -62,8 +60,8 @@ public class IoTDeviceService {
 
   @Resource private IoTCacheRemoveService iotCacheRemoveService;
 
-  public Page<IoTDeviceVO> apiDeviceList(IoTAPIQuery iotAPIQuery) {
-    
+  public List<IoTDeviceVO> apiDeviceList(IoTAPIQuery iotAPIQuery) {
+
     List<IoTDeviceVO> ioTDeviceVOList = ioTDeviceMapper.apiDeviceList(iotAPIQuery);
     return page;
   }

@@ -58,7 +58,7 @@ public interface DataBridgeConfigMapper extends BladeMapper<DataBridgeConfig> {
      * @param updateBy 更新者
      * @return 更新数量
      */
-    int batchUpdateStatus(@Param("ids") List<Long> ids, @Param("status") Integer status, @Param("updateBy") String updateBy);
+    int batchUpdateStatus(@Param("ids") List<Long> ids, @Param("status") Integer status, @Param("updateBy") Long updateBy);
 
     /**
      * 根据名称查询配置（用于重名检查）
@@ -75,5 +75,5 @@ public interface DataBridgeConfigMapper extends BladeMapper<DataBridgeConfig> {
      * @param createBy 创建者
      * @return 配置列表
      */
-    List<DataBridgeConfig> selectByCreateBy(@Param("createBy") String createBy);
+    List<DataBridgeConfig> selectByCreateBy(@Param("createBy") Long createBy);
 }

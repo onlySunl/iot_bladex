@@ -10,10 +10,18 @@
     </parent>
     <artifactId>iot-infrastructure-cache</artifactId>
     <packaging>jar</packaging>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.infrastructure.cache</module.name>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-boot</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
         </dependency>
     </dependencies>
 </project>

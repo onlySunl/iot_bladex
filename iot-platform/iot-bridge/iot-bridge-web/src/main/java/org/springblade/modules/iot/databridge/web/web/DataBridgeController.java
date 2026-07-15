@@ -2,6 +2,7 @@ package org.springblade.modules.iot.databridge.web.web;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.secure.utils.AuthUtil;
 import org.springblade.modules.iot.common.enums.SourceScope;
 import org.springblade.modules.iot.common.enums.ResourceType;
 import org.springblade.modules.iot.common.enums.Direction;
@@ -243,7 +244,7 @@ public class DataBridgeController extends BladeController {
             if (existing == null) {
                 return R.fail("资源连接不存在");
             }
-            resourceConnectionService.updateConnectionStatus(id, status, SecurityUtils.getUnionId());
+            resourceConnectionService.updateConnectionStatus(id, status);
             return R.success("更新资源连接状态成功");
         } catch (Exception e) {
             log.error("更新资源连接状态失败", e);
@@ -272,7 +273,7 @@ public class DataBridgeController extends BladeController {
     @GetMapping("/configs")
     public R<List<DataBridgeConfigVO>> listConfigs() {
         try {
-            List<DataBridgeConfigVO> configs = dataBridgeConfigService.getConfigVOsByCreateBy(SecurityUtils.getUnionId());
+            List<DataBridgeConfigVO> configs = dataBridgeConfigService.getConfigVOsByCreateBy(AuthUtil.getUser().getUserId());
             return R.data(configs);
         } catch (Exception e) {
             log.error("获取桥接配置列表失败", e);
@@ -332,7 +333,7 @@ public class DataBridgeController extends BladeController {
                 return R.fail("桥接配置不存在");
             }
 
-            dataBridgeConfigService.updateConfigStatus(id, status, SecurityUtils.getUnionId());
+            dataBridgeConfigService.updateConfigStatus(id, status, AuthUtil.getUserId());
             return R.success("更新桥接配置状态成功");
         } catch (Exception e) {
             log.error("更新桥接配置状态失败", e);

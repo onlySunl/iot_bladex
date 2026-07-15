@@ -17,6 +17,7 @@ import org.springblade.modules.iot.persistence.dto.IoTDeviceLogMaxStorageTime;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceOfflineThesholdBO;
 import org.springblade.modules.iot.persistence.dto.LogStorePolicyDTO;
 import org.springblade.modules.iot.persistence.dto.LogStorePolicyDTO.StorePolicy;
+import org.springblade.modules.iot.persistence.entity.vo.IoTProductVO;
 import org.springblade.modules.iot.pojo.entity.IoTDeviceProtocol;
 import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import org.springblade.modules.iot.pojo.bo.IoTProductBO;

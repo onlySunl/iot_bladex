@@ -1,13 +1,17 @@
 
 
 package org.springblade.modules.iot.databridge.core.service.impl;
+
+import org.springblade.core.mp.service.impl.BladeServiceImpl;
 import org.springblade.modules.iot.databridge.core.service.DataInputLogService;
 
 import org.springblade.modules.iot.pojo.bridge.entity.DataInputLog;
 import org.springblade.modules.iot.databridge.core.mapper.DataInputLogMapper;
 import jakarta.annotation.Resource;
+
 import java.time.LocalDateTime;
 import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,36 +25,50 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Slf4j
-public class DataInputLogServiceImpl extends org.springblade.core.mp.service.impl.BladeServiceImpl<DataInputLogMapper, DataInputLog> implements DataInputLogService {
+public class DataInputLogServiceImpl extends BladeServiceImpl<DataInputLogMapper, DataInputLog> implements DataInputLogService {
 
-  @Resource private DataInputLogMapper dataInputLogMapper;
+    @Resource
+    private DataInputLogMapper dataInputLogMapper;
 
-  /** 保存日志 */
-  @Transactional(rollbackFor = Exception.class)
-  public void save(DataInputLog log) {
-    dataInputLogMapper.insert(log);
-  }
+    /**
+     * 保存日志
+     *
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public boolean save(DataInputLog log) {
+        if (dataInputLogMapper.insert(log) > 0) return true;
+        return false;
+    }
 
-  /** 根据配置ID查询日志 */
-  public List<DataInputLog> getByConfigId(Long configId) {
-    DataInputLog condition = new DataInputLog();
-    condition.setConfigId(configId);
-    return dataInputLogMapper.selectList(new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<>(condition));
-  }
+    /**
+     * 根据配置ID查询日志
+     */
+    public List<DataInputLog> getByConfigId(Long configId) {
+        DataInputLog condition = new DataInputLog();
+        condition.setConfigId(configId);
+        return dataInputLogMapper.selectList(new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<>(condition));
+    }
 
-  /** 查询最近的日志 */
-  public List<DataInputLog> getRecentLogs(Long configId, int limit) {
-    return dataInputLogMapper.selectRecentLogs(configId, limit);
-  }
+    /**
+     * 查询最近的日志
+     */
+    public List<DataInputLog> getRecentLogs(Long configId, int limit) {
+        return dataInputLogMapper.selectRecentLogs(configId, limit);
+    }
 
-  /** 统计成功率 */
-  public Double getSuccessRate(Long configId, LocalDateTime startTime, LocalDateTime endTime) {
-    return dataInputLogMapper.calculateSuccessRate(configId, startTime, endTime);
-  }
+    /**
+     * 统计成功率
+     */
+    public Double getSuccessRate(Long configId, LocalDateTime startTime, LocalDateTime endTime) {
+        return dataInputLogMapper.calculateSuccessRate(configId, startTime, endTime);
+    }
 
-  /** 删除过期日志 */
-  @Transactional(rollbackFor = Exception.class)
-  public int deleteExpiredLogs(LocalDateTime expireTime) {
-    return dataInputLogMapper.deleteExpiredLogs(expireTime);
-  }
+    /**
+     * 删除过期日志
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public int deleteExpiredLogs(LocalDateTime expireTime) {
+        return dataInputLogMapper.deleteExpiredLogs(expireTime);
+    }
 }

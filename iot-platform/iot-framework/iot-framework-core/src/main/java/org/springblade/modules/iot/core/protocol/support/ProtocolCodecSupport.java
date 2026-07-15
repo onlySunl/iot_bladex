@@ -2,6 +2,7 @@
 
 package org.springblade.modules.iot.core.protocol.support;
 
+import org.springblade.modules.iot.common.enums.CodecMethod;
 import org.springblade.modules.iot.common.exception.CodecException;
 import org.springblade.modules.iot.core.protocol.request.ProtocolDecodeRequest;
 import org.springblade.modules.iot.core.protocol.request.ProtocolEncodeRequest;
@@ -56,20 +57,4 @@ public interface ProtocolCodecSupport {
 
   boolean isLoaded(String provider, CodecMethod codecMethod);
 
-  static enum CodecMethod {
-    /** 解码 */
-    decode,
-    /** 编码 */
-    encode,
-    /** 预解码 */
-    preDecode,
-    codecAdd,
-    codecDelete,
-    codecUpdate,
-    codecQuery,
-    iotToYour,
-    yourToIot,
-    codecFunction,
-    codecOther
-  }
 }
