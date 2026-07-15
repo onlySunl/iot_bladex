@@ -2,6 +2,7 @@
 
 package org.springblade.modules.iot.databridge.core.manager;
 import org.springblade.modules.iot.common.enums.DataDirection;
+import org.springblade.modules.iot.common.enums.BridgeType;
 
 
 import cn.hutool.core.collection.CollectionUtil;

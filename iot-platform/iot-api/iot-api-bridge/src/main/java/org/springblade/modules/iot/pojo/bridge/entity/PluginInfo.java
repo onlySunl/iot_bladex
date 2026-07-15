@@ -3,6 +3,8 @@
 package org.springblade.modules.iot.pojo.bridge.entity;
 
 import java.util.List;
+import org.springblade.modules.iot.pojo.bridge.entity.PluginInfo;
+import org.springblade.modules.iot.common.enums.ResourceType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import com.baomidou.mybatisplus.annotation.TableName;

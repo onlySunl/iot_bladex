@@ -1,7 +1,6 @@
 package org.springblade.modules.iot.service.impl;
 
 import org.springblade.core.mp.service.impl.BladeServiceImpl;
-import org.springblade.core.mp.service.impl.BladeServiceImpl;
 import org.springblade.modules.iot.mapper.DeviceGroupMapper;
 import org.springblade.modules.iot.pojo.entity.DeviceGroup;
 import org.springblade.modules.iot.service.IDeviceGroupService;

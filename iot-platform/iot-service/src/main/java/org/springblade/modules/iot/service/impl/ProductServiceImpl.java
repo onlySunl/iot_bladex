@@ -1,7 +1,6 @@
 package org.springblade.modules.iot.service.impl;
 
 import org.springblade.core.mp.service.impl.BladeServiceImpl;
-import org.springblade.core.mp.service.impl.BladeServiceImpl;
 import org.springblade.modules.iot.mapper.ProductMapper;
 import org.springblade.modules.iot.pojo.entity.Product;
 import org.springblade.modules.iot.service.IProductService;

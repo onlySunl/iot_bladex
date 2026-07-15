@@ -3,6 +3,7 @@
 package org.springblade.modules.iot.pojo.bridge.entity;
 
 import java.time.LocalDateTime;
+import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

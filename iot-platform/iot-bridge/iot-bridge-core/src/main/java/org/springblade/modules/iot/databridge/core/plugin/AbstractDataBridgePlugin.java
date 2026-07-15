@@ -3,6 +3,7 @@
 package org.springblade.modules.iot.databridge.core.plugin;
 
 import cn.hutool.core.util.StrUtil;
+import org.springblade.modules.iot.pojo.bridge.entity.PluginInfo;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.springblade.modules.iot.common.constant.IoTConstant;

@@ -3,8 +3,6 @@
 package org.springblade.modules.iot.databridge.core.vo;
 import org.springblade.modules.iot.common.enums.SourceScope;
 import org.springblade.modules.iot.common.enums.BridgeType;
-import SourceScope;
-import BridgeType;
 
 import org.springblade.modules.iot.pojo.entity.DataBridgeConfig;
 import org.springblade.modules.iot.persistence.entity.bo.IoTProductBO;

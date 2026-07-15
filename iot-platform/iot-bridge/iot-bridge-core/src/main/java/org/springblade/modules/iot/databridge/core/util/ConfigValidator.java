@@ -3,6 +3,9 @@
 package org.springblade.modules.iot.databridge.core.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springblade.modules.iot.common.enums.BridgeType;
+import org.springblade.modules.iot.common.enums.DataDirection;
+import org.springblade.modules.iot.common.enums.SourceScope;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springblade.modules.iot.databridge.core.exception.DataBridgeException;

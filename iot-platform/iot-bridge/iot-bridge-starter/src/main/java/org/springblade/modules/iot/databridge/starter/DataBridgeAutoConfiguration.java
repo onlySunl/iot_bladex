@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.databridge.starter;
 
 import org.springblade.modules.iot.databridge.core.plugin.DataBridgePlugin;
+import org.springblade.modules.iot.pojo.bridge.entity.PluginInfo;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executor;

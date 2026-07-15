@@ -35,7 +35,6 @@ import org.springblade.modules.iot.persistence.entity.vo.IoTProductVO;
 import org.springblade.modules.iot.persistence.query.IoTAPIQuery;
 import org.springblade.modules.iot.persistence.query.LogQuery;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.monitor.web.config.annotation.CodeKey;
 import org.springblade.modules.iot.monitor.web.config.annotation.Codec;

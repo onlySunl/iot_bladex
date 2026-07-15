@@ -1,5 +1,6 @@
 package org.springblade.modules.iot.databridge.plugin.kafka;
 import org.springblade.modules.iot.common.enums.SourceScope;
+import org.springblade.modules.iot.common.enums.ResourceType;
 import org.springblade.modules.iot.common.enums.MessageType;
 import org.springblade.modules.iot.common.enums.DataDirection;
 

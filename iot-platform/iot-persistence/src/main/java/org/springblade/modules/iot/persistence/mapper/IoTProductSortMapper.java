@@ -5,9 +5,6 @@ package org.springblade.modules.iot.persistence.mapper;
 import org.springblade.modules.iot.pojo.entity.IoTProductSort;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 产品分类Mapper接口 @Author gitee.com/NexIoT

@@ -2,6 +2,7 @@
 
 package org.springblade.modules.iot.databridge.plugin.influxdb;
 import org.springblade.modules.iot.common.enums.SourceScope;
+import org.springblade.modules.iot.common.enums.ResourceType;
 import org.springblade.modules.iot.common.enums.DataDirection;
 
 

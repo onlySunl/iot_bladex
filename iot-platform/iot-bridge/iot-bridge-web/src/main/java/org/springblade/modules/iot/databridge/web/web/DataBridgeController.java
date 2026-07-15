@@ -4,11 +4,6 @@ import org.springblade.modules.iot.common.enums.ResourceType;
 import org.springblade.modules.iot.common.enums.Direction;
 import org.springblade.modules.iot.common.enums.DataDirection;
 import org.springblade.modules.iot.common.enums.BridgeType;
-import SourceScope;
-import ResourceType;
-import Direction;
-import DataDirection;
-import BridgeType;
 
 import org.springblade.modules.iot.common.annotation.Log;
 import org.springblade.modules.iot.common.enums.BusinessType;
