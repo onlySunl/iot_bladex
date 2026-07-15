@@ -8,8 +8,8 @@ import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
 import org.springblade.modules.iot.pojo.bridge.entity.DataInputLog;
 import org.springblade.modules.iot.databridge.core.manager.DataInputManager;
-import org.springblade.modules.iot.databridge.core.service.IDataBridgeConfigService;
-import org.springblade.modules.iot.databridge.core.service.IDataInputLogService;
+import org.springblade.modules.iot.databridge.core.service.DataBridgeConfigService;
+import org.springblade.modules.iot.databridge.core.service.DataInputLogService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.binarywang.java.emoji.EmojiConverter;
@@ -37,9 +37,9 @@ public class DataInputController extends BladeController {
 
   @Resource private DataInputManager dataInputManager;
 
-  @Resource private IDataBridgeConfigService dataBridgeConfigService;
+  @Resource private DataBridgeConfigService dataBridgeConfigService;
 
-  @Resource private IDataInputLogService dataInputLogService;
+  @Resource private DataInputLogService dataInputLogService;
 
   /** 启动数据输入任务 */
   @PostMapping("/start/{configId}")
