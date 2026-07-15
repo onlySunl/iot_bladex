@@ -2,6 +2,7 @@
 
 package org.springblade.modules.iot.databridge.web.web;
 
+import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
 import org.springblade.modules.iot.pojo.bridge.entity.DataInputLog;
 import org.springblade.modules.iot.databridge.core.manager.DataInputManager;
@@ -10,14 +11,12 @@ import org.springblade.modules.iot.databridge.core.service.DataInputLogService;
 import org.springblade.modules.iot.persistence.page.PageUtils;
 import org.springblade.modules.iot.persistence.page.TableDataInfo;
 import org.springblade.core.tool.api.R;
-import org.springblade.modules.iot.security.BaseController;
 import jakarta.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -30,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/databridge/input")
 @Slf4j
-public class DataInputController extends BaseController {
+public class DataInputController extends BladeController {
 
   @Resource private DataInputManager dataInputManager;
 
@@ -40,7 +39,6 @@ public class DataInputController extends BaseController {
 
   /** 启动数据输入任务 */
   @PostMapping("/start/{configId}")
-  @PreAuthorize("@ss.hasPermi('databridge:input:start')")
   public R<Void> startInputTask(@PathVariable Long configId) {
     try {
       dataInputManager.startInputTask(configId);
@@ -53,7 +51,6 @@ public class DataInputController extends BaseController {
 
   /** 停止数据输入任务 */
   @PostMapping("/stop/{configId}")
-  @PreAuthorize("@ss.hasPermi('databridge:input:stop')")
   public R<Void> stopInputTask(@PathVariable Long configId) {
     try {
       dataInputManager.stopInputTask(configId);
@@ -66,7 +63,6 @@ public class DataInputController extends BaseController {
 
   /** 检查任务运行状态 */
   @GetMapping("/status/{configId}")
-  @PreAuthorize("@ss.hasPermi('databridge:input:query')")
   public R<Boolean> getTaskStatus(@PathVariable Long configId) {
     try {
       Boolean isRunning = dataInputManager.isTaskRunning(configId);
@@ -79,7 +75,6 @@ public class DataInputController extends BaseController {
 
   /** 获取输入配置列表 */
   @GetMapping("/configs")
-  @PreAuthorize("@ss.hasPermi('databridge:input:list')")
   public TableDataInfo<DataBridgeConfig> getInputConfigs(DataBridgeConfig config) {
     try {
       PageUtils.startPage();
@@ -94,7 +89,6 @@ public class DataInputController extends BaseController {
 
   /** 获取输入日志列表 */
   @GetMapping("/logs")
-  @PreAuthorize("@ss.hasPermi('databridge:input:log')")
   public TableDataInfo<DataInputLog> getInputLogs(@RequestParam(required = false) Long configId) {
     try {
       PageUtils.startPage();
@@ -114,7 +108,6 @@ public class DataInputController extends BaseController {
 
   /** 获取最近的输入日志 */
   @GetMapping("/logs/recent/{configId}")
-  @PreAuthorize("@ss.hasPermi('databridge:input:log')")
   public R<List<DataInputLog>> getRecentLogs(
       @PathVariable Long configId, @RequestParam(defaultValue = "10") int limit) {
     try {
@@ -128,7 +121,6 @@ public class DataInputController extends BaseController {
 
   /** 获取成功率统计 */
   @GetMapping("/stats/success-rate/{configId}")
-  @PreAuthorize("@ss.hasPermi('databridge:input:stats')")
   public R<Double> getSuccessRate(
       @PathVariable Long configId,
       @RequestParam(required = false) LocalDateTime startTime,
@@ -151,7 +143,6 @@ public class DataInputController extends BaseController {
 
   /** 批量启动输入任务 */
   @PostMapping("/batch/start")
-  @PreAuthorize("@ss.hasPermi('databridge:input:start')")
   public R<Void> batchStartInputTasks(@RequestBody List<Long> configIds) {
     try {
       int successCount = 0;
@@ -176,7 +167,6 @@ public class DataInputController extends BaseController {
 
   /** 批量停止输入任务 */
   @PostMapping("/batch/stop")
-  @PreAuthorize("@ss.hasPermi('databridge:input:stop')")
   public R<Void> batchStopInputTasks(@RequestBody List<Long> configIds) {
     try {
       int successCount = 0;
@@ -201,7 +191,6 @@ public class DataInputController extends BaseController {
 
   /** 获取输入任务概览统计 */
   @GetMapping("/overview")
-  @PreAuthorize("@ss.hasPermi('databridge:input:overview')")
   public R<Object> getInputOverview() {
     try {
       // TODO: 实现输入任务概览统计

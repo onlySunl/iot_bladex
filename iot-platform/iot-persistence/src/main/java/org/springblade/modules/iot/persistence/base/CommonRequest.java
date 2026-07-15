@@ -75,7 +75,7 @@ public class CommonRequest {
   /** 最大延迟时间（分钟） */
   private static final int MAX_DELAY_MINUTES = 10;
 
-  private static ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
+  private static ExecutorService executor = Executors.newCachedThreadPool();
 
   public static void downTransfer(String url, String body) {
     executor.execute(() -> doRequest(url, body));

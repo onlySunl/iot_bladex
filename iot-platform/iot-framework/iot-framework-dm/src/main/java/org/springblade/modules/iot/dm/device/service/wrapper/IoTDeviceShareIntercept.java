@@ -1,32 +1,31 @@
 
 
 package org.springblade.modules.iot.dm.device.service.wrapper;
-import org.springblade.modules.iot.common.enums.MessageType;
-import MessageType;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import org.springblade.modules.iot.common.constant.MessageType;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springblade.modules.iot.common.domain.R;
+import org.springblade.modules.iot.common.enums.MessageType;
 import org.springblade.modules.iot.common.exception.IoTErrorCode;
 import org.springblade.modules.iot.core.message.DownRequest;
 import org.springblade.modules.iot.dm.device.service.impl.IoTDeviceSubscribeService;
 import org.springblade.modules.iot.persistence.base.IoTDownWrapper;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceSubscribeBO;
+import org.springblade.modules.iot.persistence.mapper.IoTDeviceMapper;
+import org.springblade.modules.iot.persistence.mapper.IoTUserApplicationMapper;
+import org.springblade.modules.iot.persistence.mapper.SupportMapAreasMapper;
 import org.springblade.modules.iot.pojo.entity.IoTDevice;
 import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import org.springblade.modules.iot.pojo.entity.IoTUserApplication;
 import org.springblade.modules.iot.pojo.entity.SupportMapAreas;
-import org.springblade.modules.iot.persistence.mapper.IoTDeviceMapper;
-import org.springblade.modules.iot.persistence.mapper.IoTUserApplicationMapper;
-import org.springblade.modules.iot.persistence.mapper.SupportMapAreasMapper;
-import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
 /** 设备分享，实际上是绑定了订阅 */
 @Service("ioTDeviceShareIntercept")

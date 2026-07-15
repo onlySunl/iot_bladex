@@ -147,7 +147,6 @@ public class ResourceConnectionService {
     ResourceConnection connection = new ResourceConnection();
     connection.setId(id);
     connection.setStatus(status);
-
     int result = resourceConnectionMapper.updateById(connection);
     if (result <= 0) {
       throw new RuntimeException("更新连接状态失败");

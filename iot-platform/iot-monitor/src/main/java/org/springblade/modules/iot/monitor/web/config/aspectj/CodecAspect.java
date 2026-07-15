@@ -2,7 +2,6 @@
 
 package org.springblade.modules.iot.monitor.web.config.aspectj;
 
-import org.springblade.modules.iot.admin.system.service.impl.IoTDeviceMessageCodecService;
 import org.springblade.modules.iot.common.exception.CodeKeyException;
 import org.springblade.modules.iot.persistence.codec.CodecParam;
 import org.springblade.modules.iot.monitor.web.config.annotation.CodeBody;
@@ -29,7 +28,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Slf4j
 public class CodecAspect {
 
-  @Resource private IoTDeviceMessageCodecService ioTDeviceMessageCodecService;
+  @Resource
+  private IoTDeviceMessageCodecService ioTDeviceMessageCodecService;
 
   /** 设置切入点 */
   @Pointcut("@annotation(org.springblade.modules.iot.monitor.web.config.annotation.Codec)")

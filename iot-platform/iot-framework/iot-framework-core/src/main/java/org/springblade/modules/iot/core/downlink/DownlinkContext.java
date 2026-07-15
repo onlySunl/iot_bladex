@@ -3,7 +3,7 @@
 package org.springblade.modules.iot.core.downlink;
 
 import cn.hutool.json.JSONObject;
-import org.springblade.modules.iot.common.domain.R;
+import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.core.message.UnifiedDownlinkCommand;
 import java.util.HashMap;
 import java.util.Map;

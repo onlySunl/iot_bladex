@@ -2,12 +2,13 @@
 
 package org.springblade.modules.iot.persistence.base;
 
-import org.springblade.modules.iot.common.message.DownRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import org.springblade.modules.iot.core.message.DownRequest;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.persistence.base;
 
-import org.springblade.modules.iot.common.message.DownRequest;
+import org.springblade.modules.iot.core.message.DownRequest;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
 
 /**

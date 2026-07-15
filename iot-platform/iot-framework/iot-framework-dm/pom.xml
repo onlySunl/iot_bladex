@@ -15,5 +15,13 @@
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-boot</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-persistence</artifactId>
+        </dependency>
     </dependencies>
 </project>

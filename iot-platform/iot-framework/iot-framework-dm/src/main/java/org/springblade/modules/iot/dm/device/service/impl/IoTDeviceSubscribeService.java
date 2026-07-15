@@ -1,6 +1,8 @@
 
 
 package org.springblade.modules.iot.dm.device.service.impl;
+import com.amazonaws.services.kms.model.MessageType;
+import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.common.enums.MessageType;
 import MessageType;
 
@@ -61,7 +63,7 @@ public class IoTDeviceSubscribeService {
     if (ioTDeviceSubscribeBO == null
         || (StrUtil.isBlank(ioTDeviceSubscribeBO.getUrl())
             && StrUtil.isBlank(ioTDeviceSubscribeBO.getTopic()))) {
-      return R.error(IoTErrorCode.DATA_CAN_NOT_NULL.getCode(), "订阅url和topic要求至少有一个");
+      return R.fail(IoTErrorCode.DATA_CAN_NOT_NULL.getCode(), "订阅url和topic要求至少有一个");
     }
     build.setUrl(ioTDeviceSubscribeBO.getUrl());
     build.setTopic(ioTDeviceSubscribeBO.getTopic());

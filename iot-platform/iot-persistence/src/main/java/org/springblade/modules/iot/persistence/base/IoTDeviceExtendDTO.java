@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.persistence.base;
 
-import org.springblade.modules.iot.common.message.DownRequest;
+import org.springblade.modules.iot.core.message.DownRequest;
 
 /** 根据产品自定义扩展实现 */
 public interface IoTDeviceExtendDTO {

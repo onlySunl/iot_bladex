@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springblade.modules.iot.common.support.ProtocolSupportDefinition;
+import org.springblade.modules.iot.core.protocol.support.ProtocolSupportDefinition;
 
 /**
  * @author gitee.com/NexIoT

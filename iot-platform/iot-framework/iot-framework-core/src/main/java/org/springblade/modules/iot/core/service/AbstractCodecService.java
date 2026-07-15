@@ -2,13 +2,11 @@
 
 package org.springblade.modules.iot.core.service;
 import org.springblade.modules.iot.common.enums.MessageType;
-import MessageType;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import org.springblade.modules.iot.common.constant.MessageType;
 import org.springblade.modules.iot.common.exception.CodecException;
 import org.springblade.modules.iot.core.message.UPRequest;
 import org.springblade.modules.iot.core.protocol.jar.ProtocolCodecJar;
