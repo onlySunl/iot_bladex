@@ -1,6 +1,7 @@
 
 
-package org.springblade.modules.iot.databridge.core.service;
+package org.springblade.modules.iot.databridge.core.service.impl;
+import org.springblade.modules.iot.databridge.core.service.ResourceConnectionService;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;

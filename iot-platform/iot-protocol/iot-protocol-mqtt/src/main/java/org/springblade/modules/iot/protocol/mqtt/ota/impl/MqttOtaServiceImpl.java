@@ -1,6 +1,6 @@
 
 
-package org.springblade.modules.iot.protocol.mqtt.ota;
+package org.springblade.modules.iot.protocol.mqtt.ota.impl;
 
 import org.springblade.modules.iot.dm.device.service.ota.api.OtaService;
 import java.time.LocalDateTime;

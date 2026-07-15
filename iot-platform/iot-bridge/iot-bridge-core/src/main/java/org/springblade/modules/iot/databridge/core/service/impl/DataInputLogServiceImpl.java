@@ -1,6 +1,7 @@
 
 
-package org.springblade.modules.iot.databridge.core.service;
+package org.springblade.modules.iot.databridge.core.service.impl;
+import org.springblade.modules.iot.databridge.core.service.DataInputLogService;
 
 import org.springblade.modules.iot.pojo.bridge.entity.DataInputLog;
 import org.springblade.modules.iot.databridge.core.mapper.DataInputLogMapper;
