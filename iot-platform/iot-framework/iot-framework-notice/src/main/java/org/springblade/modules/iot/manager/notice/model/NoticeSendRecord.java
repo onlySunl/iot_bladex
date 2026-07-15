@@ -1,15 +1,15 @@
 package org.springblade.modules.iot.manager.notice.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 
-@Table(name = "notice_send_record")
+@TableName("notice_send_record")
 public class NoticeSendRecord implements Serializable {
 
-  @Id private Long id;
+  @TableId private Long id;
   private Long templateId;
   private Long configId;
   private String receivers;
@@ -18,7 +18,7 @@ public class NoticeSendRecord implements Serializable {
   private String result;
   private Date sendTime;
   
-  @Column(name = "creator")
+  @TableField("creator")
   private String creator;
 
   public Long getId() {

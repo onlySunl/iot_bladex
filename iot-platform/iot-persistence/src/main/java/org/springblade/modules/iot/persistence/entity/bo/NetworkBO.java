@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.persistence.entity.bo;
 
-import cn.universal.persistence.entity.Network;
+import org.springblade.modules.iot.pojo.entity.Network;
 import java.util.List;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

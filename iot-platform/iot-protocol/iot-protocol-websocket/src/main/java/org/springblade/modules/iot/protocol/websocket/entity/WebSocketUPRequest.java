@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import cn.universal.persistence.base.BaseUPRequest;
-import cn.universal.websocket.protocol.enums.WebSocketMessageType;
+import org.springblade.modules.iot.pojo.base.BaseUPRequest;
+import org.springblade.modules.iot.protocol.websocket.enums.WebSocketMessageType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

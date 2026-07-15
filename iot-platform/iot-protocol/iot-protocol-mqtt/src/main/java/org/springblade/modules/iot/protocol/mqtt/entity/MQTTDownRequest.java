@@ -3,8 +3,8 @@
 package org.springblade.modules.iot.protocol.mqtt.entity;
 
 import cn.hutool.json.JSONUtil;
-import cn.universal.core.message.DownCommonData;
-import cn.universal.persistence.base.BaseDownRequest;
+import org.springblade.modules.iot.core.message.DownCommonData;
+import org.springblade.modules.iot.pojo.base.BaseDownRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

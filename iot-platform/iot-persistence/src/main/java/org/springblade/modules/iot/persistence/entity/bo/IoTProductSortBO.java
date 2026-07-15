@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.persistence.entity.bo;
 
-import cn.universal.persistence.entity.IoTProductSort;
+import org.springblade.modules.iot.pojo.entity.IoTProductSort;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;

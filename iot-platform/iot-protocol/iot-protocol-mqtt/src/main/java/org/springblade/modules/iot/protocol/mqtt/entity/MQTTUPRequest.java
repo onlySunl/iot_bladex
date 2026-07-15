@@ -2,8 +2,8 @@
 
 package org.springblade.modules.iot.protocol.mqtt.entity;
 
-import cn.universal.mqtt.protocol.config.MqttConstant;
-import cn.universal.persistence.base.BaseUPRequest;
+import org.springblade.modules.iot.protocol.mqtt.config.MqttConstant;
+import org.springblade.modules.iot.pojo.base.BaseUPRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

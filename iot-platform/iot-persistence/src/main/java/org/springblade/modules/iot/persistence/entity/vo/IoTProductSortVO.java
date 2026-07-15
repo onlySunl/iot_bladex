@@ -4,7 +4,6 @@ package org.springblade.modules.iot.persistence.entity.vo;
 
 import org.springblade.modules.iot.pojo.entity.IoTProductSort;
 
-import cn.universal.common.annotation.Excel;
 
 import java.util.Date;
 import java.util.List;
@@ -19,7 +18,6 @@ public class IoTProductSortVO extends IoTProductSort {
   /** id */
 
   /** 分类名称 */
-  @Excel(name = "分类名称")
   private String label;
 
   /** 创建时间 */

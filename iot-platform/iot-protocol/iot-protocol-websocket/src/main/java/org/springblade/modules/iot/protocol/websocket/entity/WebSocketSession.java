@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.protocol.websocket.entity;
 
-import cn.universal.websocket.protocol.enums.WebSocketStatus;
+import org.springblade.modules.iot.protocol.websocket.enums.WebSocketStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

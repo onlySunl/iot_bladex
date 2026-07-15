@@ -165,7 +165,7 @@ public class MQTTProductConfig {
     private String productKey;
 
     /** 主题分类：THING_MODEL（物模型）或 PASSTHROUGH（透传） 用于第三方MQTT时，明确指定主题类型，确保消息能正确路由到对应的处理器 */
-    private cn.universal.mqtt.protocol.config.MqttConstant.TopicCategory topicCategory;
+    private org.springblade.modules.iot.protocol.mqtt.config.MqttConstant.TopicCategory topicCategory;
 
     /** 兼容方法，获取主题 */
     public String getTopic() {

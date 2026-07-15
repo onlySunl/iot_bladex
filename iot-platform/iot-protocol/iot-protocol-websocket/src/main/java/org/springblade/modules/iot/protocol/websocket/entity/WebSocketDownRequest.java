@@ -4,8 +4,8 @@ package org.springblade.modules.iot.protocol.websocket.entity;
 
 import java.time.LocalDateTime;
 
-import cn.universal.persistence.base.BaseDownRequest;
-import cn.universal.websocket.protocol.enums.WebSocketMessageType;
+import org.springblade.modules.iot.pojo.base.BaseDownRequest;
+import org.springblade.modules.iot.protocol.websocket.enums.WebSocketMessageType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

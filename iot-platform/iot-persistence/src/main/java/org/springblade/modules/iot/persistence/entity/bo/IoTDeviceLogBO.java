@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.persistence.entity.bo;
 
-import cn.universal.common.domain.BaseEntity;
+import org.springblade.common.entity.CustomBaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

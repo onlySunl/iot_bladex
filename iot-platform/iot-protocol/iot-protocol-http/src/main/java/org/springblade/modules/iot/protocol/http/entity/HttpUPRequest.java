@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.protocol.http.entity;
 
-import cn.universal.persistence.base.BaseUPRequest;
+import org.springblade.modules.iot.pojo.base.BaseUPRequest;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder

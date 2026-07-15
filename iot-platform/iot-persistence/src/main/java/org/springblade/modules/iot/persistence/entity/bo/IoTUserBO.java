@@ -2,7 +2,6 @@
 
 package org.springblade.modules.iot.persistence.entity.bo;
 
-import cn.universal.common.annotation.Excel;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -51,11 +50,9 @@ public class IoTUserBO implements Serializable {
   private Integer status;
 
   /** 上级用户唯一id */
-  @Excel(name = "上级用户唯一id")
   private String parentUnionId;
 
   /** 账号身份 0.超级管理员 1.普通用户 2.子用户 */
-  @Excel(name = "账号身份 0.超级管理员 1.普通用户 2.子用户")
   private Integer identity;
 
   /** 头像 */

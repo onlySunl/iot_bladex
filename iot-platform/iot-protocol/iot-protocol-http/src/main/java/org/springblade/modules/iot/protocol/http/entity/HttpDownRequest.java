@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.protocol.http.entity;
 
-import cn.universal.persistence.base.BaseDownRequest;
+import org.springblade.modules.iot.pojo.base.BaseDownRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

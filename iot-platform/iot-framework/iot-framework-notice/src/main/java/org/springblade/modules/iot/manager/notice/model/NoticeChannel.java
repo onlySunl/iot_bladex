@@ -1,31 +1,31 @@
 package org.springblade.modules.iot.manager.notice.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 
-@Table(name = "notice_channel")
+@TableName("notice_channel")
 public class NoticeChannel implements Serializable {
 
-  @Id private Long id;
+  @TableId private Long id;
   private String name;
 
-  @Column(name = "channel_type")
+  @TableField("channel_type")
   private String channelType;
 
-  @Column(columnDefinition = "TEXT")
+  @TableField(columnDefinition = "TEXT")
   private String config;
 
   private String status;
   private String remark;
   private String creator;
 
-  @Column(name = "create_time")
+  @TableField("create_time")
   private Date createTime;
 
-  @Column(name = "update_time")
+  @TableField("update_time")
   private Date updateTime;
 
   public Long getId() {
