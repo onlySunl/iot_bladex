@@ -21,11 +21,12 @@ import org.springblade.modules.iot.persistence.entity.vo.IoTDeviceVO;
 import org.springblade.modules.iot.persistence.entity.vo.IoTProductVO;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceMapper;
 import org.springblade.modules.iot.persistence.query.IoTAPIQuery;
-import org.springblade.modules.iot.persistence.query.PageRet;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.monitor.web.context.IoTInnerAuthContext;
 import org.springblade.modules.iot.monitor.web.context.TtlAuthContextHolder;
 import org.springblade.modules.iot.monitor.web.controller.common.BaseApiController;
-import com.github.pagehelper.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
@@ -61,17 +62,17 @@ public class IoTController extends BaseApiController {
 
   /** 产品列表查询 */
   @GetMapping(value = "/product/list")
-  public PageRet queryProduct(IoTAPIQuery iotAPIQuery) {
+  public R queryProduct(IoTAPIQuery iotAPIQuery) {
     iotAPIQuery.setIotUnionId(iotUnionId());
     Page<IoTProductVO> deviceList = iotProductDeviceService.apiProductList(iotAPIQuery);
-    return PageRet.ok(deviceList);
+    return R.data(deviceList);
   }
 
   /** 产品列表查询 */
   @GetMapping(value = "/product/list/v2")
-  public PageRet queryProductV2(IoTAPIQuery iotAPIQuery) {
+  public R queryProductV2(IoTAPIQuery iotAPIQuery) {
     Page<IoTProductVO> deviceList = iotProductDeviceService.apiProductList(iotAPIQuery);
-    return PageRet.ok(deviceList);
+    return R.data(deviceList);
   }
 
   /** 产品详情 */
@@ -83,12 +84,12 @@ public class IoTController extends BaseApiController {
 
   /** 设备列表查询 */
   @GetMapping(value = "/device/list")
-  public PageRet deviceList(IoTAPIQuery iotAPIQuery) {
+  public R deviceList(IoTAPIQuery iotAPIQuery) {
     String iotUnionId = iotUnionId();
     iotAPIQuery.setIotUnionId(iotUnionId);
     iotAPIQuery.setApplicationId(iotApplicationId());
     Page<IoTDeviceVO> deviceList = iotDeviceService.apiDeviceList(iotAPIQuery);
-    return PageRet.ok(deviceList);
+    return R.data(deviceList);
   }
 
   /** 设备影子查询，设备状态数据查询 */

@@ -140,8 +140,6 @@ public class MQTTDownAdd extends IoTDownAdapter<MQTTDownRequest>
     }
   }
 
-
-
   @Override
   public boolean supports(MQTTDownRequest request) {
     if (!DownCmd.DEV_ADD.equals(request.getCmd())) {

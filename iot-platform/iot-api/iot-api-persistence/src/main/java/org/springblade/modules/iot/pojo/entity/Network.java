@@ -35,7 +35,6 @@ public class Network extends CustomBaseEntity {
   /** 详细描述 */
   private String description;
 
-
   /** enable,disable */
   private Boolean state;
 

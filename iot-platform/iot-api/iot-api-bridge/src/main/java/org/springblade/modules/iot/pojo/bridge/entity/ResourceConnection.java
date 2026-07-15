@@ -73,7 +73,6 @@ public class ResourceConnection extends CustomBaseEntity {
     @TableField("description")
     private String description;
 
-
     /** 方向：IN-输入，OUT-输出，BOTH-双向 */
     @TableField("direction")
     private Direction direction;

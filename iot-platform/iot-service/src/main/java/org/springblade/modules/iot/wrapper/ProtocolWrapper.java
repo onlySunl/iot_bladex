@@ -18,7 +18,6 @@ public class ProtocolWrapper extends BaseEntityWrapper< Protocol,ProtocolVO> {
         return new ProtocolWrapper();
     }
 
-
     @Override
     public ProtocolVO entityVO(Protocol entity) {
         ProtocolVO vo =  Func.copyProperties(entity, ProtocolVO.class);

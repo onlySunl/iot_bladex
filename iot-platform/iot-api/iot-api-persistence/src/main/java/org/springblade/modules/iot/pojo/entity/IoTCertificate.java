@@ -39,7 +39,6 @@ public class IoTCertificate extends CustomBaseEntity {
   @TableField("expire_time")
   private Date expireTime;
 
-
   @TableField("cert_info")
   private String certInfo; // 证书详细信息（JSON）
 }

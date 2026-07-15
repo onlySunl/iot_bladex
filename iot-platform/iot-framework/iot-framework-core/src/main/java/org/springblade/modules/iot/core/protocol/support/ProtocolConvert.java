@@ -1,11 +1,9 @@
 package org.springblade.modules.iot.core.protocol.support;
 
-
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-
 
 import java.util.Set;
 import java.util.stream.Collectors;

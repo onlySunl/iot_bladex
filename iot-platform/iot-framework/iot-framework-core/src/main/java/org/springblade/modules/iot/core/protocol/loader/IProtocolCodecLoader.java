@@ -2,7 +2,6 @@
 
 package org.springblade.modules.iot.core.protocol.loader;
 
-
 /**
  * 协议编解码加载器接口
  *

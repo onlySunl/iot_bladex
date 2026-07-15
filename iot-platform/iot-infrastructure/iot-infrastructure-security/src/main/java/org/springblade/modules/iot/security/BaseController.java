@@ -10,8 +10,7 @@ import org.springblade.modules.iot.persistence.page.TableSupport;
 import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.security.service.IoTUserService;
 import org.springblade.modules.iot.security.utils.SecurityUtils;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+
 import jakarta.annotation.Resource;
 import java.beans.PropertyEditorSupport;
 import java.util.Date;
@@ -73,8 +72,7 @@ public class BaseController {
     PageDomain pageDomain = TableSupport.buildPageRequest();
     if (StringUtils.isNotEmpty(pageDomain.getOrderBy())) {
       String orderBy = pageDomain.getOrderBy();
-      PageHelper.orderBy(orderBy);
-    }
+          }
   }
 
   /** 响应请求分页数据 */
@@ -95,7 +93,7 @@ public class BaseController {
     rspData.setCode(0);
     rspData.setMsg("查询成功");
     rspData.setRows(list);
-    rspData.setTotal((int) new PageInfo(list).getTotal());
+    rspData.setTotal((int) list.size());
     return rspData;
   }
 

@@ -19,9 +19,8 @@ import org.springblade.modules.iot.persistence.query.IoTDeviceQuery;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springblade.modules.iot.security.BaseController;
 import org.springblade.modules.iot.monitor.web.context.IoTInnerAuthContext;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
@@ -101,11 +100,10 @@ public class FenceController extends BaseController {
               .map(Object::toString)
               .collect(Collectors.toList()));
     }
-    Page<IoTDeviceGeoFence> p = PageHelper.startPage(page, size);
-    List<IoTDeviceGeoFenceVO> devInstanceVOList =
+    Page<IoTDeviceGeoFence> p =     List<IoTDeviceGeoFenceVO> devInstanceVOList =
         ioTDeviceGeoFenceMapper.selectList(ioTDeviceGeoFence);
     IPage page =
-        PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(page, size), devInstanceVOList, new PageInfo(devInstanceVOList).getTotal());
+        PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(page, size), devInstanceVOList, devInstanceVOList.size());
     return R.ok(pageBean);
   }
 
@@ -257,7 +255,7 @@ public class FenceController extends BaseController {
     Page<IoTDeviceVO> ioTDeviceVOList =
         iIotDeviceService.selectFenceDevice(ioTDeviceBO, page, size);
     IPage page =
-        PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(page, size), ioTDeviceVOList, new PageInfo(ioTDeviceVOList).getTotal());
+        PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(page, size), ioTDeviceVOList, ioTDeviceVOList.size());
     return R.ok(pageBean);
   }
 
@@ -269,7 +267,7 @@ public class FenceController extends BaseController {
     List<IoTDeviceGeoFenceVO> ioTDeviceGeoFenceVOS =
         ioTDeviceFenceRelMapper.selectFenceByIotId(iotId);
     IPage page =
-        PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(1, 999), ioTDeviceGeoFenceVOS, new PageInfo(ioTDeviceGeoFenceVOS).getTotal());
+        PageUtil.initPage(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(1, 999), ioTDeviceGeoFenceVOS, ioTDeviceGeoFenceVOS.size());
     return R.ok(pageBean);
   }
 

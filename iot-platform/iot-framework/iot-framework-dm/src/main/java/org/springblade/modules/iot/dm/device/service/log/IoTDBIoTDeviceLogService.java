@@ -1672,7 +1672,6 @@ public class IoTDBIoTDeviceLogService extends AbstractIoTDeviceLogService {
     return storePolicy;
   }
 
-
   /** 根据 iotId 构建查询路径 路径格式: root.device.{productKey}.{deviceId}.log 如果无法解析，使用通配符查询 */
   private String buildQueryPathFromIotId(String iotId) {
     if (StrUtil.isBlank(iotId)) {

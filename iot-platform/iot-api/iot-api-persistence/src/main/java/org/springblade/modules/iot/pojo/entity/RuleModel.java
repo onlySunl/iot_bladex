@@ -43,7 +43,6 @@ public class RuleModel extends CustomBaseEntity {
   @TableField("description")
   private String description;
 
-
   /** 产品KEY */
   @Schema(description = "产品KEY")
   @TableField("product_key")

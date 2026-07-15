@@ -24,8 +24,8 @@ import org.springblade.modules.iot.pojo.vo.IoTProductVO;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceProtocolMapper;
 import org.springblade.modules.iot.persistence.mapper.IoTProductMapper;
 import org.springblade.modules.iot.persistence.query.IoTAPIQuery;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import jakarta.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,13 +52,13 @@ public class IoTProductDeviceService {
   @Resource private IoTDeviceProtocolMapper ioTDeviceProtocolMapper;
 
   public Page<IoTProductVO> apiProductList(IoTAPIQuery iotAPIQuery) {
-    Page<IoTProductVO> page = PageHelper.startPage(iotAPIQuery.getPage(), iotAPIQuery.getSize());
+    
     List<IoTProductVO> devProducts = ioTProductMapper.openAPIProductList(iotAPIQuery);
     return page;
   }
 
   public Page<IoTProductVO> apiProductListV2(IoTAPIQuery iotAPIQuery) {
-    Page<IoTProductVO> page = PageHelper.startPage(iotAPIQuery.getPage(), iotAPIQuery.getSize());
+    
     List<IoTProductVO> devProducts = ioTProductMapper.openAPIProductList(iotAPIQuery);
     List<IoTProductVO> results =
         ioTProductMapper.countDevNumberByProductKey(iotAPIQuery.getIotUnionId());

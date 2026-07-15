@@ -54,7 +54,6 @@ public class RulegoChain extends CustomBaseEntity {
   @TableField("creator_name")
   private String creatorName;
 
-
   /** 规则链DSL内容(JSON格式) */
   @Schema(description = "规则链DSL内容")
   @TableField("dsl_content")
@@ -64,7 +63,6 @@ public class RulegoChain extends CustomBaseEntity {
   @Schema(description = "最后同步时间")
   @TableField("last_sync_time")
   private Date lastSyncTime;
-
 
   /** 是否删除：0-未删除，1-已删除 */
   @Schema(description = "是否删除")

@@ -26,8 +26,8 @@ import org.springblade.modules.iot.persistence.mapper.IoTUserApplicationMapper;
 import org.springblade.modules.iot.persistence.mapper.SupportMapAreasMapper;
 import org.springblade.modules.iot.persistence.query.IoTAPIQuery;
 import org.springblade.modules.iot.persistence.query.IoTDeviceQuery;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import jakarta.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
@@ -63,7 +63,7 @@ public class IoTDeviceService {
   @Resource private IoTCacheRemoveService iotCacheRemoveService;
 
   public Page<IoTDeviceVO> apiDeviceList(IoTAPIQuery iotAPIQuery) {
-    Page<IoTDeviceVO> page = PageHelper.startPage(iotAPIQuery.getPage(), iotAPIQuery.getSize());
+    
     List<IoTDeviceVO> ioTDeviceVOList = ioTDeviceMapper.apiDeviceList(iotAPIQuery);
     return page;
   }

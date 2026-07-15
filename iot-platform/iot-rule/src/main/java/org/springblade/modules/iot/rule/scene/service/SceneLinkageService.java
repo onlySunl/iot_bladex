@@ -19,7 +19,7 @@ import org.springblade.modules.iot.quartz.service.ISysJobService;
 import org.springblade.modules.iot.rule.model.ExeRunContext;
 import org.springblade.modules.iot.rule.scene.deviceDown.SenceIoTDeviceDownService;
 import org.springblade.modules.iot.rule.scene.deviceUp.DeviceUp;
-import com.github.pagehelper.PageHelper;
+
 import jakarta.annotation.Resource;
 import java.util.Date;
 import java.util.List;
@@ -319,8 +319,7 @@ public class SceneLinkageService {
   /** 分页查询场景联动执行日志 */
   public List<IoTDeviceRuleLog> getSceneLinkageLogPage(String sceneId, int pageNum, int pageSize) {
     // 分页
-    PageHelper.startPage(pageNum, pageSize);
-    Example example = new Example(IoTDeviceRuleLog.class);
+        Example example = new Example(IoTDeviceRuleLog.class);
     example.createCriteria().andEqualTo("cId", sceneId).andEqualTo("cType", (byte) 1);
     example.orderBy("createTime").desc();
     List<IoTDeviceRuleLog> logs = ioTDeviceRuleLogMapper.selectByExample(example);
