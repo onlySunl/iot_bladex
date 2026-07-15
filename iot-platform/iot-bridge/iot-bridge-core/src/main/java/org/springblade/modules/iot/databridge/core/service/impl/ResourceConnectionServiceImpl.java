@@ -1,6 +1,8 @@
 
 
 package org.springblade.modules.iot.databridge.core.service.impl;
+import org.springblade.core.mp.service.impl.BladeServiceImpl;
+import org.springblade.modules.iot.databridge.core.service.DataBridgeConfigService;
 import org.springblade.modules.iot.databridge.core.service.ResourceConnectionService;
 
 import cn.hutool.core.util.StrUtil;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class ResourceConnectionServiceImpl extends org.springblade.core.mp.service.impl.BladeServiceImpl<ResourceConnectionMapper, ResourceConnection> implements ResourceConnectionService {
+public class ResourceConnectionServiceImpl extends BladeServiceImpl<ResourceConnectionMapper, ResourceConnection> implements ResourceConnectionService {
 
   @Resource private ResourceConnectionMapper resourceConnectionMapper;
 
@@ -134,8 +136,7 @@ public class ResourceConnectionServiceImpl extends org.springblade.core.mp.servi
   }
 
   /** 根据方向获取资源连接列表 */
-  public List<ResourceConnection> getConnectionsByDirection(
-      Direction direction) {
+  public List<ResourceConnection> getConnectionsByDirection(Direction direction) {
     ResourceConnection condition = new ResourceConnection();
     condition.setDirection(direction);
     condition.setStatus(1); // 只查询启用的连接
@@ -144,7 +145,7 @@ public class ResourceConnectionServiceImpl extends org.springblade.core.mp.servi
 
   /** 更新连接状态 */
   @Transactional(rollbackFor = Exception.class)
-  public void updateConnectionStatus(Long id, Integer status, String updateBy) {
+  public void updateConnectionStatus(Long id, Integer status) {
     ResourceConnection connection = new ResourceConnection();
     connection.setId(id);
     connection.setStatus(status);
@@ -205,8 +206,9 @@ public class ResourceConnectionServiceImpl extends org.springblade.core.mp.servi
   }
 
   /** 检查名称是否存在 */
-  private boolean isNameExists(String name, Long excludeId) {
+  public boolean isNameExists(String name, Long excludeId) {
     ResourceConnection existing = resourceConnectionMapper.selectByName(name, excludeId);
     return existing != null;
   }
+
 }

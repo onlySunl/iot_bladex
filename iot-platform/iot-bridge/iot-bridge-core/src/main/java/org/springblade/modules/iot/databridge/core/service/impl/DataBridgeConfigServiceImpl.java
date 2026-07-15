@@ -1,6 +1,7 @@
 
 
 package org.springblade.modules.iot.databridge.core.service.impl;
+import org.springblade.core.mp.service.impl.BladeServiceImpl;
 import org.springblade.modules.iot.databridge.core.service.DataBridgeConfigService;
 
 import cn.hutool.json.JSONUtil;
@@ -12,6 +13,7 @@ import org.springblade.modules.iot.databridge.core.exception.DataBridgeException
 import org.springblade.modules.iot.databridge.core.logger.DataBridgeLogger;
 import org.springblade.modules.iot.databridge.core.mapper.DataBridgeConfigMapper;
 import org.springblade.modules.iot.databridge.core.plugin.DataBridgePlugin;
+import org.springblade.modules.iot.databridge.core.service.ResourceConnectionService;
 import org.springblade.modules.iot.databridge.core.util.ConfigValidator;
 import org.springblade.modules.iot.databridge.core.vo.DataBridgeConfigVO;
 import org.springblade.modules.iot.persistence.entity.bo.IoTProductBO;
@@ -40,7 +42,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Slf4j
-public class DataBridgeConfigServiceImpl extends org.springblade.core.mp.service.impl.BladeServiceImpl<DataBridgeConfigMapper, DataBridgeConfig> implements DataBridgeConfigService {
+public class DataBridgeConfigServiceImpl extends BladeServiceImpl<DataBridgeConfigMapper, DataBridgeConfig> implements DataBridgeConfigService {
 
     @Resource
     private Map<String, DataBridgePlugin> bridgePlugins;
@@ -143,8 +145,8 @@ public class DataBridgeConfigServiceImpl extends org.springblade.core.mp.service
     /**
      * 根据创建者获取配置列表
      */
-    public List<DataBridgeConfig> getConfigsByCreateBy(String createBy) {
-        if (createBy == null || createBy.trim().isEmpty()) {
+    public List<DataBridgeConfig> getConfigsByCreateBy(Long createBy) {
+        if (createBy == null ) {
             throw new IllegalArgumentException("创建者不能为空");
         }
         return dataBridgeConfigMapper.selectByCreateBy(createBy);
@@ -161,8 +163,8 @@ public class DataBridgeConfigServiceImpl extends org.springblade.core.mp.service
     /**
      * 根据创建者获取配置VO列表
      */
-    public List<DataBridgeConfigVO> getConfigVOsByCreateBy(String createBy) {
-        if (createBy == null || createBy.trim().isEmpty()) {
+    public List<DataBridgeConfigVO> getConfigVOsByCreateBy(Long createBy) {
+        if (createBy == null) {
             throw new IllegalArgumentException("创建者不能为空");
         }
         List<DataBridgeConfig> configs = dataBridgeConfigMapper.selectByCreateBy(createBy);
@@ -292,7 +294,7 @@ public class DataBridgeConfigServiceImpl extends org.springblade.core.mp.service
      * 更新配置状态
      */
     @Transactional(rollbackFor = Exception.class)
-    public void updateConfigStatus(Long id, Integer status, String updateBy) {
+    public void updateConfigStatus(Long id, Integer status, Long updateBy) {
         if (id == null) {
             throw new IllegalArgumentException("配置ID不能为空");
         }
@@ -398,7 +400,7 @@ public class DataBridgeConfigServiceImpl extends org.springblade.core.mp.service
      * 批量更新配置状态
      */
     @Transactional(rollbackFor = Exception.class)
-    public void batchUpdateConfigStatus(List<Long> ids, Integer status, String updateBy) {
+    public void batchUpdateConfigStatus(List<Long> ids, Integer status, Long updateBy) {
         if (ids == null || ids.isEmpty()) {
             throw new IllegalArgumentException("配置ID列表不能为空");
         }

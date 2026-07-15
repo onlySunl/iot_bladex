@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.core.service;
 
-import org.springblade.modules.iot.common.domain.R;
+import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.core.downlink.DownlinkContext;
 import org.springblade.modules.iot.core.downlink.DownlinkInterceptorChain;
 import org.springblade.modules.iot.core.message.UnifiedDownlinkCommand;
@@ -78,7 +78,7 @@ public interface IDown {
   default R doProcess(DownlinkContext<?> context) {
     // 默认实现：向后兼容，调用原有逻辑
     // 子类可以重写此方法以使用拦截器模式
-    return R.error("请实现 doProcess 方法或重写 doAction 方法");
+    return R.fail("请实现 doProcess 方法或重写 doAction 方法");
   }
 
   /**
@@ -99,12 +99,12 @@ public interface IDown {
 
       // 1. 执行前置拦截器（在消息转换之前）
       if (chain != null && !chain.executePreInterceptors(context)) {
-        return R.error("请求被拦截: " + context.getInterruptReason());
+        return R.fail("请求被拦截: " + context.getInterruptReason());
       }
 
       // 2. 执行中置拦截器（在消息转换之后，核心处理之前）
       if (chain != null && !chain.executeMidInterceptors(context)) {
-        return R.error("请求被拦截: " + context.getInterruptReason());
+        return R.fail("请求被拦截: " + context.getInterruptReason());
       }
 
       // 3. 执行核心处理逻辑
@@ -121,7 +121,7 @@ public interface IDown {
     } catch (Exception e) {
       exception = e;
       context.setException(e);
-      return R.error("处理异常: " + e.getMessage());
+      return R.fail("处理异常: " + e.getMessage());
     } finally {
       // 记录结束时间
       context.setEndTime(System.currentTimeMillis());

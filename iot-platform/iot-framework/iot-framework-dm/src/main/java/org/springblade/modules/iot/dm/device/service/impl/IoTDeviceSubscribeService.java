@@ -1,17 +1,14 @@
 
 
 package org.springblade.modules.iot.dm.device.service.impl;
-import com.amazonaws.services.kms.model.MessageType;
+import org.springblade.core.mp.support.Condition;
 import org.springblade.core.tool.api.R;
-import org.springblade.modules.iot.common.enums.MessageType;
-import MessageType;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import org.springblade.modules.iot.common.constant.IoTConstant;
 import org.springblade.modules.iot.common.constant.IoTConstant.DeviceSubscribe;
-import org.springblade.modules.iot.common.constant.MessageType;
-import org.springblade.modules.iot.common.domain.R;
+import org.springblade.modules.iot.common.enums.MessageType;
 import org.springblade.modules.iot.common.exception.IoTErrorCode;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceSubscribeBO;
 import org.springblade.modules.iot.pojo.entity.IoTDeviceSubscribe;
@@ -54,9 +51,9 @@ public class IoTDeviceSubscribeService {
             .iotId(iotId)
             .productKey(productKey)
             .build();
-    int i = ioTDeviceSubscribeMapper.selectCount(build);
+    Long i = ioTDeviceSubscribeMapper.selectCount(Condition.getQueryWrapper(build));
     if (i > IoTConstant.MAX_DEV_MSG_SUBSCRIBE_NUM) {
-      return R.error(
+      return R.fail(
           IoTErrorCode.DEV_SUBSCRIBE_REPEAT_ERROR.getCode(),
           IoTErrorCode.DEV_SUBSCRIBE_REPEAT_ERROR.getName());
     }
@@ -72,7 +69,7 @@ public class IoTDeviceSubscribeService {
     build.setCreateDate(new Date());
     build.setSubType(DeviceSubscribe.DEVICE.name());
     build.setEnabled(true);
-    MessageType messageType = MessageType.find(ioTDeviceSubscribeBO.getMsgType());
+    MessageType messageType = MessageType.find(ioTDeviceSubscribeBO.getMsgType()).get();
     if (messageType == null) {
       build.setMsgType(MessageType.ALL.getValue());
     } else {
@@ -90,7 +87,7 @@ public class IoTDeviceSubscribeService {
             .creater(creater)
             .instance(StrUtil.isBlank(instance) ? "0" : instance)
             .build();
-    ioTDeviceSubscribeMapper.delete(build);
+    ioTDeviceSubscribeMapper.delete(Condition.getQueryWrapper(build));
     iotCacheRemoveService.removeIotDeviceSubscribeCache();
     return R.data("删除成功");
   }
