@@ -26,59 +26,39 @@
 │       └── application.yml    # 主配置文件
 ├── blade-common/             # 公共模块
 ├── blade-api/                # BladeX 系统 API 模块
-├── iot-platform/             # IoT 管理平台模块 (NexIoT 迁移)
-│   ├── iot-common/           # IoT 公共模块 (实体基类, 工具类, SQL DDL)
-│   ├── iot-api/              # IoT API 模块 (父 pom + 4 子模块)
-│   │   ├── iot-api-persistence/  # 核心实体/VO/BO/DTO (37实体+23VO+20BO+1DTO)
-│   │   ├── iot-api-bridge/       # 数据桥接实体 (5实体)
-│   │   ├── iot-api-framework/    # 框架实体/BO (2BO)
-│   │   └── iot-api-protocol/     # 协议对象 (13: MQTT/HTTP/WebSocket)
-│   ├── iot-service/          # IoT 服务模块 (Mapper/Service/Wrapper/Controller)
-│   ├── iot-rule/             # IoT 规则引擎模块 (规则引擎 + 推送策略 + 地理围栏 + Rulego)
-│   ├── iot-persistence/      # IoT 持久化模块 (NexIoT 数据层迁移)
-│   ├── iot-bridge/           # IoT 数据桥接模块
-│   │   ├── iot-bridge-core/      # 桥接核心 (引擎/模板/插件抽象)
-│   │   ├── iot-bridge-plugin-jdbc/   # JDBC 插件
-│   │   ├── iot-bridge-plugin-kafka/  # Kafka 插件
-│   │   ├── iot-bridge-plugin-mqtt/   # MQTT 插件
-│   │   ├── iot-bridge-plugin-http/   # HTTP 插件
-│   │   ├── iot-bridge-plugin-iotdb/  # IoTDB 插件
-│   │   ├── iot-bridge-plugin-influxdb/ # InfluxDB 插件
-│   │   ├── iot-bridge-starter/   # 桥接自动配置
-│   │   └── iot-bridge-web/       # 桥接 Web 接口
-│   ├── iot-monitor/          # IoT 监控模块 (NexIoT Web 层迁移)
-│   │   ├── monitor/              # 缓存/线程监控
-│   │   ├── listener/             # 应用启动监听
-│   │   ├── web/config/           # Web 配置 (XSS/编解码/日志/拦截器)
-│   │   ├── web/controller/       # 通用/OpenAPI 控制器
-│   │   └── web/service/          # Web 服务层
-│   ├── iot-infrastructure/   # IoT 基础设施模块
-│   │   ├── iot-infrastructure-cache/     # 缓存 (Redis 策略/管理器)
-│   │   ├── iot-infrastructure-database/  # 数据库配置
-│   │   ├── iot-infrastructure-message/   # 消息模块
-│   │   ├── iot-infrastructure-security/  # 安全认证 (Token/Provider)
-│   │   └── iot-infrastructure-storage/   # 存储模块
-│   ├── iot-framework/        # IoT 框架模块
-│   │   ├── iot-framework-common/   # 公共工具/配置/注解/POI
-│   │   ├── iot-framework-config/   # 配置模块
-│   │   ├── iot-framework-core/     # 核心引擎 (下行/元数据/规则解析)
-│   │   ├── iot-framework-dm/       # 设备管理 (设备/视频/下行)
-│   │   ├── iot-framework-exception/ # 异常处理
-│   │   ├── iot-framework-notice/   # 通知管理
-│   │   ├── iot-framework-oss/      # 对象存储管理
-│   │   └── iot-framework-rocketmq/ # RocketMQ 集成
-│   └── iot-protocol/         # IoT 协议模块 (独立子模块)
-│       ├── iot-protocol-common/  # 协议核心抽象 (ProtocolCodec/DeviceMessage)
-│       ├── iot-protocol-mqtt/    # MQTT 协议 (完整实现: 处理器/Topic/OTA/第三方)
-│       ├── iot-protocol-http/    # HTTP 协议 (完整实现: 处理器/编解码/服务)
-│       ├── iot-protocol-codec/   # 通用编解码 (JSON)
-│       └── iot-protocol-websocket/ # WebSocket 协议 (完整实现: 处理器/会话管理)
-├── iot-monitor/              # IoT 监控模块 (NexIoT Web 层迁移)
-│   ├── monitor/              # 缓存/线程监控
-│   ├── listener/             # 应用启动监听
-│   ├── web/config/           # Web 配置 (XSS/编解码/日志/拦截器)
-│   ├── web/controller/       # 通用/OpenAPI 控制器
-│   └── web/service/          # Web 服务层
+├── iot-platform/             # IoT 管理平台模块 (迁移自 enjoy-iot)
+│   ├── module-eiot-api/      # IoT API 层 (实体/VO/DTO/枚举, 54 Java 文件)
+│   ├── module-eiot-biz/      # IoT 业务层 (Controller/Service/Mapper, 255 Java 文件)
+│   ├── module-eiot-core/     # IoT 核心模块
+│   │   ├── iot-common-core/      # 公共核心 (框架适配器/BaseDO/工具类)
+│   │   ├── iot-common-thing/     # 物模型 (ThingModel/属性/事件/服务)
+│   │   ├── iot-message-bus/      # 消息总线
+│   │   │   ├── iot-message-core/     # 消息核心抽象
+│   │   │   ├── iot-message-spring/   # Spring Event 实现
+│   │   │   ├── iot-message-kafka/    # Kafka 实现
+│   │   │   ├── iot-message-rocketmq/ # RocketMQ 实现
+│   │   │   ├── iot-message-actor/    # Akka Actor 实现
+│   │   │   └── iot-message-vertx/    # Vert.x 实现
+│   │   ├── iot-message-notify/   # 消息通知 (邮件/短信/语音)
+│   │   ├── iot-rule-engine/      # 规则引擎
+│   │   ├── iot-script-engine/    # 脚本引擎 (JavaScript/Groovy)
+│   │   └── iot-virtual-device/   # 虚拟设备
+│   ├── iot-components/       # 协议组件
+│   │   ├── iot-component-core/       # 组件核心抽象
+│   │   ├── iot-component-mqtt/       # MQTT 组件
+│   │   ├── iot-component-emqx/       # EMQX 组件
+│   │   ├── iot-component-http/       # HTTP 组件
+│   │   ├── iot-component-tcp/        # TCP 组件
+│   │   ├── iot-component-udp/        # UDP 组件
+│   │   ├── iot-component-coap/       # CoAP 组件
+│   │   └── iot-component-modbus-custom/ # Modbus 自定义组件
+│   ├── module-eiot-task/     # 定时任务 (设备超时/告警检查, 9 Java 文件)
+│   └── module-eiot-temporal/ # 时序数据存储
+│       ├── iot-temporal-service/         # 时序服务抽象
+│       ├── iot-temporal-serviceimpl-td/  # TDengine 实现
+│       ├── iot-temporal-serviceimpl-iotdb/   # IoTDB 实现
+│       ├── iot-temporal-serviceimpl-timescaledb/ # TimescaleDB 实现
+│       └── iot-temporal-serviceimpl-kw/  # Kingbase 实现
 ├── nvr-platform/             # NVR 平台业务模块
 │   ├── nvr-common/           # NVR 公共模块 (实体基类, 工具类)
 │   ├── nvr-api/              # NVR API 接口模块
@@ -137,24 +117,60 @@ docker build -t blade-iot .
 - **SPS/PPS 与 IDR 时间戳对齐**：fragmentBuffer 机制导致 SPS/PPS 和 IDR 可能被分到不同的 `processPSData` 调用。PlaybackStreamHandler 使用 `pendingNalUnits` 缓冲 non-VCL NAL（SPS/PPS/SEI），等 VCL NAL（IDR/Non-IDR）到达后一起发送，确保同一 Access Unit 的所有 NAL 使用相同 RTP 时间戳。
 - **RTP Marker bit 规范**：Marker bit 仅在 Access Unit 的最后一个 RTP 包设为 1。SPS/PPS 等 non-VCL NAL 不设 M=1，VCL NAL（IDR/Non-IDR）设为 M=1。FU-A 分片仅在最后一个分片设 M=1。
 
-## IoT 管理模块（迁移自 NexIoT）
+## IoT 管理模块（迁移自 enjoy-iot）
 
 ### 概述
-从 NexIoT 项目完整迁移的 IoT 物联网管理平台，包含产品管理、设备管理、规则引擎、场景联动、设备影子、设备日志、设备标签、设备证书、协议管理等功能，以及完整的协议层（MQTT/HTTP/编解码/推送策略），全部按 BladeX 4.2.0 标准重构。共 13 个实体、13 个 VO、13 个 Mapper、13 个 Service、11 个 Controller、7 个规则引擎类、15 个协议层类。
+从 enjoy-iot 项目（https://gitee.com/open-enjoy/enjoy-iot.git）完整迁移的 IoT 物联网管理平台，包含设备管理、产品管理、告警管理、规则引擎、消息总线、协议组件、时序数据存储等功能。全部按 BladeX 4.2.0 标准重构，共 662 个 Java 文件。
 
 ### 代码位置
-- **实体类/VO**: `iot-platform/iot-api/iot-api-persistence/src/main/java/org/springblade/modules/iot/pojo/`
-- **Mapper**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/mapper/`
-- **Service**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/service/`
-- **Controller**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/controller/`
-- **Wrapper**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/wrapper/`
-- **规则引擎**: `iot-platform/iot-rule/src/main/java/org/springblade/modules/iot/rule/`
-- **协议核心抽象**: `iot-platform/iot-common/src/main/java/org/springblade/modules/iot/common/protocol/`
-- **设备消息模型**: `iot-platform/iot-common/src/main/java/org/springblade/modules/iot/common/message/`
-- **MQTT 协议**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/protocol/mqtt/`
-- **HTTP 协议**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/protocol/http/`
-- **设备通信服务**: `iot-platform/iot-service/src/main/java/org/springblade/modules/iot/device/`
-- **推送策略**: `iot-platform/iot-rule/src/main/java/org/springblade/modules/iot/push/`
+- **实体类/VO/DTO**: `iot-platform/module-eiot-api/src/main/java/org/springblade/modules/iot/`
+- **Controller/Service/Mapper**: `iot-platform/module-eiot-biz/src/main/java/org/springblade/modules/iot/`
+- **框架适配器**: `iot-platform/module-eiot-core/iot-common-core/src/main/java/org/springblade/modules/iot/framework/`
+- **物模型**: `iot-platform/module-eiot-core/iot-common-thing/`
+- **消息总线**: `iot-platform/module-eiot-core/iot-message-bus/`
+- **规则引擎**: `iot-platform/module-eiot-core/iot-rule-engine/`
+- **协议组件**: `iot-platform/iot-components/`
+- **定时任务**: `iot-platform/module-eiot-task/`
+- **时序存储**: `iot-platform/module-eiot-temporal/`
+
+### 包名映射
+| 原包名 | 新包名 |
+|---|---|
+| `com.enjoyiot.module.eiot` | `org.springblade.modules.iot` |
+| `com.enjoyiot.eiot` | `org.springblade.modules.iot` |
+| `com.enjoyiot.framework.*` | `org.springblade.modules.iot.framework.*` (适配器) |
+
+### 框架适配层
+迁移代码使用适配器模式桥接 enjoy-iot 框架到 BladeX：
+- `BaseDO` → 独立基类（id/createTime/updateTime/creator/updater/deleted/tenantId）
+- `BaseMapperX` → 扩展 `BladeMapper`
+- `CommonResult` → 兼容响应封装
+- `PageParam/PageResult` → 分页参数/结果封装
+- `ServiceException/ErrorCode` → 异常封装
+- `LambdaQueryWrapperX/MPJLambdaWrapperX` → MyBatis-Plus 查询封装
+- `JsonUtils/BeanUtils/CollectionUtils` → 工具类封装
+- `TenantBaseDO/TenantIgnore/TenantContextHolder` → 租户适配
+
+### 迁移统计
+- **module-eiot-api**: 54 Java 文件（实体/VO/DTO/枚举）
+- **module-eiot-biz**: 255 Java 文件（Controller/Service/Mapper）
+- **module-eiot-core**: 149 Java 文件（核心/消息/规则/脚本/物模型）
+- **iot-components**: 88 Java 文件（协议组件）
+- **module-eiot-task**: 9 Java 文件（定时任务）
+- **module-eiot-temporal**: 107 Java 文件（时序数据存储）
+- **总计**: 662 Java 文件
+
+## enjoy-iot 源码迁移（enjoy-iot → BladeX）
+
+### 迁移映射表
+| 源模块 (enjoy-iot) | 目标模块 | 说明 |
+|---|---|---|
+| `module-eiot/module-eiot-api` | `iot-platform/module-eiot-api` | API 层（实体/VO/DTO） |
+| `module-eiot/module-eiot-biz` | `iot-platform/module-eiot-biz` | 业务层（Controller/Service/Mapper） |
+| `module-eiot/module-eiot-core` | `iot-platform/module-eiot-core` | 核心模块（物模型/消息总线/规则引擎） |
+| `module-eiot/iot-components` | `iot-platform/iot-components` | 协议组件（MQTT/HTTP/CoAP/Modbus/TCP/UDP） |
+| `module-eiot/module-eiot-task` | `iot-platform/module-eiot-task` | 定时任务 |
+| `module-eiot/module-eiot-temporal` | `iot-platform/module-eiot-temporal` | 时序数据存储 |
 - **DDL**: `iot-platform/iot-common/src/main/resources/sql/nexiot-migration.sql`
 
 ### 数据表
@@ -246,48 +262,3 @@ docker build -t blade-iot .
 - Wrapper 继承 `BaseEntityWrapper`，使用 `BeanUtil.copyProperties` 转换
 - Service 继承 `IService<T>` / `ServiceImpl<M, T>`
 - Mapper 继承 `BaseMapper<T>`
-
-## NexIoT 源码迁移（cn-universal → BladeX）
-
-### 迁移映射表
-| 源模块 (nexiot-source) | 目标模块 | 说明 |
-|---|---|---|
-| `cn-universal-rule` | `iot-platform/iot-rule` | 规则引擎 + 推送策略 + 地理围栏 + Rulego + 场景联动 |
-| `cn-universal-protocol/cn-universal-mqtt-protocol` | `iot-protocol/iot-protocol-mqtt` | MQTT 完整协议实现（处理器/Topic/OTA） |
-| `cn-universal-protocol/cn-universal-http-protocol` | `iot-protocol/iot-protocol-http` | HTTP 完整协议实现（处理器/编解码） |
-| `cn-universal-protocol/cn-universal-websocket-protocol` | `iot-protocol/iot-protocol-websocket` | WebSocket 协议（新建模块） |
-| `cn-universal-persistence` | `iot-platform/iot-persistence` | 数据持久化层（实体/Mapper/DTO/MyBatis XML） |
-| `cn-universal-data-bridge` | `iot-platform/iot-bridge` | 数据桥接（core + 6 个插件 + starter + web） |
-| `cn-universal-web` | `iot-platform/iot-monitor` | Web 层（监控/配置/控制器/服务） |
-| `cn-universal-infrastructure` | `iot-platform/iot-infrastructure` | 基础设施（缓存/数据库/消息/安全/存储） |
-| `cn-universal-framework` | `iot-platform/iot-framework` | 框架层（公共/配置/核心/设备管理/异常/通知/OSS/RocketMQ） |
-
-### 包名映射
-| 原包名 | 新包名 |
-|---|---|
-| `cn.universal.rule` | `org.springblade.modules.iot.rule` |
-| `cn.universal.mqtt.protocol` | `org.springblade.modules.iot.protocol.mqtt` |
-| `cn.universal.http.protocol` | `org.springblade.modules.iot.protocol.http` |
-| `cn.universal.websocket.protocol` | `org.springblade.modules.iot.protocol.websocket` |
-| `cn.universal.persistence` | `org.springblade.modules.iot.persistence` |
-| `cn.universal.databridge` | `org.springblade.modules.iot.databridge` |
-| `cn.universal.web` | `org.springblade.modules.iot.monitor.web` |
-| `cn.universal.monitor` | `org.springblade.modules.iot.monitor.monitor` |
-| `cn.universal.common` | `org.springblade.modules.iot.common` |
-| `cn.universal.dm.*` | `org.springblade.modules.iot.dm.*` |
-| `cn.universal.manager` | `org.springblade.modules.iot.manager` |
-| `cn.universal.cache` | `org.springblade.modules.iot.cache` |
-| `cn.universal.security` | `org.springblade.modules.iot.security` |
-| `cn.universal.core` | `org.springblade.modules.iot.core` |
-| `cn.universal.ossm` | `org.springblade.modules.iot.ossm` |
-| `cn.universal.rocketmq` | `org.springblade.modules.iot.rocketmq` |
-
-### 迁移统计
-- **iot-rule**: 62 Java 文件（规则引擎/推送策略/地理围栏/Rulego/场景联动）
-- **iot-protocol**: 164 Java 文件（common 8 + mqtt 64 + http 36 + codec 1 + websocket 55）
-- **iot-persistence**: 203 Java 文件 + 46 资源文件（实体/Mapper/DTO/MyBatis XML）
-- **iot-bridge**: 54 Java 文件（core 40 + 6 插件 13 + starter 1）
-- **iot-monitor**: 68 Java 文件（监控/配置/控制器/服务）
-- **iot-infrastructure**: 36 Java 文件（cache 10 + security 26）
-- **iot-framework**: 551 Java 文件（common 73 + core 319 + dm 93 + notice 33 + oss 22 + rocketmq 11）
-- **总计**: 1138 Java 文件

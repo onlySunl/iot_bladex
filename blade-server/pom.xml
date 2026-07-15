@@ -35,64 +35,30 @@
             <artifactId>nvr-common</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
+        <!-- IoT Platform (enjoy-iot migration) -->
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-api-persistence</artifactId>
+            <artifactId>module-eiot-api</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-service</artifactId>
+            <artifactId>module-eiot-biz</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-rule</artifactId>
+            <artifactId>iot-common-core</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-protocol-common</artifactId>
+            <artifactId>iot-common-thing</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-protocol-mqtt</artifactId>
-            <version>4.2.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-protocol-http</artifactId>
-            <version>4.2.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-protocol-codec</artifactId>
-            <version>4.2.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-protocol-websocket</artifactId>
-            <version>4.2.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-persistence</artifactId>
-            <version>4.2.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-bridge-core</artifactId>
-            <version>4.2.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-bridge-starter</artifactId>
-            <version>4.2.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-monitor</artifactId>
+            <artifactId>iot-component-core</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
