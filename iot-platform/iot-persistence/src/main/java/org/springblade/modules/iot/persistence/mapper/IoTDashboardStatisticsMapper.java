@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springblade.core.mp.mapper.BladeMapper;
 
 /**
  * 仪表盘统计Mapper接口
@@ -16,7 +16,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2025/1/9
  */
 @Mapper
-public interface IoTDashboardStatisticsMapper extends BaseMapper<IoTDashboardStatistics> {
+public interface IoTDashboardStatisticsMapper extends BladeMapper<IoTDashboardStatistics> {
 
   /**
    * 根据日期和指标类型查询统计数据

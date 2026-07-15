@@ -24,7 +24,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/websocket")
 @Tag(name = "WebSocket管理", description = "WebSocket连接和消息管理接口")
-public class WebSocketController {
+public class WebSocketController extends org.springblade.core.boot.ctrl.BladeController {
 
     @Autowired
     private WebSocketSessionManager sessionManager;

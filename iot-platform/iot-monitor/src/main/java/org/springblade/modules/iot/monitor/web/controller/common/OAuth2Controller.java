@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class OAuth2Controller {
+public class OAuth2Controller extends org.springblade.core.boot.ctrl.BladeController {
 
   /** 向后兼容的 /oauth/token 端点 转发到新的 Spring Authorization Server 的 /oauth2/token 端点 */
   @PostMapping("/oauth/token")

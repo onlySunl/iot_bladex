@@ -36,7 +36,7 @@ import java.util.Map;
 @Slf4j(topic = "mqtt")
 @RestController
 @RequestMapping("/monitor/mqtt/v2/push")
-public class MqttActivePushController {
+public class MqttActivePushController extends org.springblade.core.boot.ctrl.BladeController {
 
     @Autowired
     private ThirdMQTTServerManager mqttServerManager;

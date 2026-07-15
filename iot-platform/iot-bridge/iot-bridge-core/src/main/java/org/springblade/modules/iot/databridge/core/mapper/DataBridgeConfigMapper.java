@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.databridge.core.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.common.enums.BridgeType;
 import org.apache.ibatis.annotations.Mapper;
 import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
@@ -17,7 +17,7 @@ import org.apache.ibatis.annotations.Param;
  * @since 2025/1/15
  */
 @Mapper
-public interface DataBridgeConfigMapper extends BaseMapper<DataBridgeConfig> {
+public interface DataBridgeConfigMapper extends BladeMapper<DataBridgeConfig> {
 
     /**
      * 根据产品KEY获取活跃配置

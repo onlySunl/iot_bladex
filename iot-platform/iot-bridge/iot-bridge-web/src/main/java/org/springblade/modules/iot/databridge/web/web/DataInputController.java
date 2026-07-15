@@ -3,20 +3,24 @@
 package org.springblade.modules.iot.databridge.web.web;
 
 import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.tool.api.R;
+import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.iot.pojo.bridge.entity.DataBridgeConfig;
 import org.springblade.modules.iot.pojo.bridge.entity.DataInputLog;
 import org.springblade.modules.iot.databridge.core.manager.DataInputManager;
-import org.springblade.modules.iot.databridge.core.service.DataBridgeConfigService;
-import org.springblade.modules.iot.databridge.core.service.DataInputLogService;
-import org.springblade.modules.iot.persistence.page.PageUtils;
-import org.springblade.modules.iot.persistence.page.TableDataInfo;
-import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.databridge.core.service.IDataBridgeConfigService;
+import org.springblade.modules.iot.databridge.core.service.IDataInputLogService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.binarywang.java.emoji.EmojiConverter;
 import jakarta.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.tenant.mp.dto.Query;
+import org.springblade.core.tenant.mp.utils.Condition;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -33,9 +37,9 @@ public class DataInputController extends BladeController {
 
   @Resource private DataInputManager dataInputManager;
 
-  @Resource private DataBridgeConfigService dataBridgeConfigService;
+  @Resource private IDataBridgeConfigService dataBridgeConfigService;
 
-  @Resource private DataInputLogService dataInputLogService;
+  @Resource private IDataInputLogService dataInputLogService;
 
   /** 启动数据输入任务 */
   @PostMapping("/start/{configId}")
@@ -75,34 +79,32 @@ public class DataInputController extends BladeController {
 
   /** 获取输入配置列表 */
   @GetMapping("/configs")
-  public TableDataInfo<DataBridgeConfig> getInputConfigs(DataBridgeConfig config) {
+  public R<IPage<DataBridgeConfig>> getInputConfigs(Query query, DataBridgeConfig config) {
     try {
-      PageUtils.startPage();
-      // TODO: 需要重新实现输入配置查询逻辑，因为Direction枚举已被移除
-      List<DataBridgeConfig> list = dataBridgeConfigService.getAllConfigs();
-      return PageUtils.<DataBridgeConfig>getDataTable(list);
+      QueryWrapper<DataBridgeConfig> qw = Condition.getQueryWrapper(config);
+      IPage<DataBridgeConfig> pages = dataBridgeConfigService.page(Condition.getPage(query), qw);
+      return R.data(pages);
     } catch (Exception e) {
       log.error("查询输入配置列表失败: {}", e.getMessage(), e);
-      return PageUtils.getDataTable(List.of());
+      return R.fail("查询输入配置列表失败: " + e.getMessage());
     }
   }
 
   /** 获取输入日志列表 */
   @GetMapping("/logs")
-  public TableDataInfo<DataInputLog> getInputLogs(@RequestParam(required = false) Long configId) {
+  public R<IPage<DataInputLog>> getInputLogs(Query query, @RequestParam(required = false) Long configId) {
     try {
-      PageUtils.startPage();
-      List<DataInputLog> logs;
+      DataInputLog logQuery = new DataInputLog();
       if (configId != null) {
-        logs = dataInputLogService.getByConfigId(configId);
-      } else {
-        // TODO: 实现查询所有日志的方法
-        logs = List.of();
+        logQuery.setConfigId(configId);
       }
-      return PageUtils.getDataTable(logs);
+      QueryWrapper<DataInputLog> qw = Condition.getQueryWrapper(logQuery);
+      qw.orderByDesc("create_time");
+      IPage<DataInputLog> pages = dataInputLogService.page(Condition.getPage(query), qw);
+      return R.data(pages);
     } catch (Exception e) {
       log.error("查询输入日志失败: {}", e.getMessage(), e);
-      return PageUtils.getDataTable(List.of());
+      return R.fail("查询输入日志失败: " + e.getMessage());
     }
   }
 

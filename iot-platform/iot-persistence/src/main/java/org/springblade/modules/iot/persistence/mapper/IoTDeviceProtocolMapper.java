@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.persistence.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.pojo.entity.IoTDeviceProtocol;
 import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface IoTDeviceProtocolMapper extends BaseMapper<IoTDeviceProtocol> {
+public interface IoTDeviceProtocolMapper extends BladeMapper<IoTDeviceProtocol> {
 
   /**
    * 查询设备协议

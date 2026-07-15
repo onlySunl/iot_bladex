@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/emqx")
-public class EmqxAuthController {
+public class EmqxAuthController extends org.springblade.core.boot.ctrl.BladeController {
   @Autowired private EmqxAclService emqxAclService;
   @Autowired private EmqxHeaderValidationService emqxHeaderValidationService;
   @Autowired private EmqxAuthService emqxAuthService;

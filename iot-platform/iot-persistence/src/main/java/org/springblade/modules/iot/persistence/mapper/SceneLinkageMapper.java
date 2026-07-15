@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.persistence.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.pojo.entity.SceneLinkage;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2023-03-01
  */
 @Mapper
-public interface SceneLinkageMapper extends BaseMapper<SceneLinkage> {
+public interface SceneLinkageMapper extends BladeMapper<SceneLinkage> {
 
     List<SceneLinkage> selectTriggerByDevId(String deviceId);
 

@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j(topic = "mqtt")
 @RestController
 @RequestMapping("/monitor/mqtt/v2/management")
-public class MqttManagementController {
+public class MqttManagementController extends org.springblade.core.boot.ctrl.BladeController {
 
   @Autowired private IoTProductDeviceService ioTProductDeviceService;
 

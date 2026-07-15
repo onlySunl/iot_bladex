@@ -2,13 +2,13 @@
 
 package org.springblade.modules.iot.persistence.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.pojo.entity.SupportMapAreas;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface SupportMapAreasMapper extends BaseMapper<SupportMapAreas> {
+public interface SupportMapAreasMapper extends BladeMapper<SupportMapAreas> {
 
   /**
    * 根据经纬度查询区域id

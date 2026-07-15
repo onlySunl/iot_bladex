@@ -2,7 +2,7 @@ package org.springblade.modules.iot.monitor.web.controller;
 
 import org.springblade.modules.iot.dm.device.service.DashboardService;
 import org.springblade.modules.iot.dm.device.service.DashboardStatisticsTask;
-import org.springblade.modules.iot.security.BaseController;
+import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.modules.iot.security.utils.SecurityUtils;
 import java.time.LocalDate;
 import java.util.Map;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/dashboard")
-public class DashboardController extends BaseController {
+public class DashboardController extends BladeController {
 
   @Autowired private DashboardService dashboardService;
 

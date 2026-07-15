@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.persistence.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.pojo.entity.IoTDeviceFunctionTask;
 import org.springblade.modules.iot.persistence.entity.bo.IoTDeviceFunctionHistoryBO;
 import org.springblade.modules.iot.persistence.entity.bo.IoTDeviceFunctionTaskBO;
@@ -18,7 +18,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2025-12-30
  */
 @Mapper
-public interface IoTDeviceFunctionTaskMapper extends BaseMapper<IoTDeviceFunctionTask> {
+public interface IoTDeviceFunctionTaskMapper extends BladeMapper<IoTDeviceFunctionTask> {
 
   List<IoTDeviceFunctionTaskVO> selectTaskList(
       @Param("bo") IoTDeviceFunctionTaskBO bo, @Param("unionId") String unionId);

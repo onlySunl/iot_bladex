@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/monitor/cache")
-public class CacheMonitorController {
+public class CacheMonitorController extends org.springblade.core.boot.ctrl.BladeController {
 
   private final CacheManager cacheManager;
   private final ThreadMonitor threadMonitor;

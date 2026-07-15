@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.persistence.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.persistence.consistent.DeviceMetaShardingRouter;
 import org.springblade.modules.iot.persistence.consistent.TableShard;
 import org.springblade.modules.iot.pojo.entity.IoTDeviceLogMetadata;
@@ -18,7 +18,7 @@ import org.apache.ibatis.annotations.Mapper;
     fieldFlag = true,
     shardStrategy = DeviceMetaShardingRouter.class)
 @Mapper
-public interface IoTDeviceLogMetadataShardMapper extends BaseMapper<IoTDeviceLogMetadata> {
+public interface IoTDeviceLogMetadataShardMapper extends BladeMapper<IoTDeviceLogMetadata> {
 
   /**
    * 获取属性最大的条数

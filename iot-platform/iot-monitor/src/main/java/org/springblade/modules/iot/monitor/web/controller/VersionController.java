@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/test")
 @Slf4j(topic = "api_log")
-public class VersionController {
+public class VersionController extends org.springblade.core.boot.ctrl.BladeController {
 
   @GetMapping("/v1/debug/log")
   public Object update(@RequestParam String name, @RequestParam LogLevel level) {

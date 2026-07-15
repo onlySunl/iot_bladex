@@ -15,7 +15,7 @@ import org.springblade.modules.iot.pojo.entity.IoTProduct;
 import org.springblade.modules.iot.persistence.entity.vo.IoTDeviceLogMetadataVO;
 import org.springblade.modules.iot.persistence.query.LogQuery;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.modules.iot.security.BaseController;
+import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.modules.iot.monitor.web.context.IoTInnerAuthContext;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -43,7 +43,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("iot")
 @Slf4j(topic = "api_log")
-public class IoTApiController extends BaseController {
+public class IoTApiController extends BladeController {
 
   /** IoT产品设备服务 */
   @Resource private IoTProductDeviceService iotProductDeviceService;

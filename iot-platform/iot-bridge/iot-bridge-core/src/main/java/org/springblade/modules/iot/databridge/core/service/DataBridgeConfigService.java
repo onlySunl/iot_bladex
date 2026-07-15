@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Slf4j
-public class DataBridgeConfigService {
+public class DataBridgeConfigService extends org.springblade.core.mp.service.impl.BladeServiceImpl<DataBridgeConfigMapper, DataBridgeConfig> implements IDataBridgeConfigService {
 
     @Resource
     private Map<String, DataBridgePlugin> bridgePlugins;

@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.persistence.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceDTO;
 import org.springblade.modules.iot.persistence.dto.IoTDeviceMetadataBO;
 import org.springblade.modules.iot.pojo.entity.IoTDevice;
@@ -25,7 +25,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface IoTDeviceMapper extends BaseMapper<IoTDevice> {
+public interface IoTDeviceMapper extends BladeMapper<IoTDevice> {
 
   /**
    * deviceId 设备编号,extDeviceId 扩展设备编号,iotId 设备统一编号

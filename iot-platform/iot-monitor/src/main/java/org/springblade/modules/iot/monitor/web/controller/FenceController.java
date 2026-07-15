@@ -17,7 +17,7 @@ import org.springblade.modules.iot.persistence.mapper.IoTDeviceGeoFenceMapper;
 import org.springblade.modules.iot.persistence.mapper.IoTDeviceMapper;
 import org.springblade.modules.iot.persistence.query.IoTDeviceQuery;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.modules.iot.security.BaseController;
+import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.modules.iot.monitor.web.context.IoTInnerAuthContext;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
@@ -49,7 +49,7 @@ import org.springblade.modules.iot.common.util.PageUtil;
 @RestController
 @RequestMapping("iot/location")
 @Slf4j
-public class FenceController extends BaseController {
+public class FenceController extends BladeController {
 
   /** IoT内部认证上下文 */
   @Resource private IoTInnerAuthContext ioTInnerAuthContext;

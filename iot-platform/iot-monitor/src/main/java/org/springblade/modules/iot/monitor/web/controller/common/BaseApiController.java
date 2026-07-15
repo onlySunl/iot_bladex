@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  * @since 2025/11/15
  */
-public class BaseApiController {
+public class BaseApiController extends org.springblade.core.boot.ctrl.BladeController {
 
   @Resource protected IoTDeviceService iotDeviceService;
 

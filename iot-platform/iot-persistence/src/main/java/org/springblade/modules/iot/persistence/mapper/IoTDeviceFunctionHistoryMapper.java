@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.persistence.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.pojo.entity.IoTDeviceFunctionHistory;
 import org.springblade.modules.iot.persistence.entity.bo.IoTDeviceFunctionTaskBO;
 import java.util.List;
@@ -15,7 +15,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2025-12-30
  */
 @Mapper
-public interface IoTDeviceFunctionHistoryMapper extends BaseMapper<IoTDeviceFunctionHistory> {
+public interface IoTDeviceFunctionHistoryMapper extends BladeMapper<IoTDeviceFunctionHistory> {
 
   int retryHistory(@Param("bo") IoTDeviceFunctionTaskBO ioTDeviceFunctionTaskBO);
 

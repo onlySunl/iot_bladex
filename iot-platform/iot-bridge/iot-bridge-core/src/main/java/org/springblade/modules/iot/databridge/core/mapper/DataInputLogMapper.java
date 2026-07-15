@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.databridge.core.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springblade.core.mp.mapper.BladeMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springblade.modules.iot.pojo.bridge.entity.DataInputLog;
@@ -18,7 +18,7 @@ import java.util.List;
  * @since 2025/1/15
  */
 @Mapper
-public interface DataInputLogMapper extends BaseMapper<DataInputLog> {
+public interface DataInputLogMapper extends BladeMapper<DataInputLog> {
 
   /** 查询最近的日志 */
   List<DataInputLog> selectRecentLogs(@Param("configId") Long configId, @Param("limit") int limit);

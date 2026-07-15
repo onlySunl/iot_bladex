@@ -16,8 +16,8 @@ import org.springblade.modules.iot.pojo.bridge.entity.ResourceConnection;
 
 import org.springblade.modules.iot.databridge.core.enums.PluginStatus;
 import org.springblade.modules.iot.databridge.core.manager.DataBridgeManager;
-import org.springblade.modules.iot.databridge.core.service.DataBridgeConfigService;
-import org.springblade.modules.iot.databridge.core.service.ResourceConnectionService;
+import org.springblade.modules.iot.databridge.core.service.IDataBridgeConfigService;
+import org.springblade.modules.iot.databridge.core.service.IResourceConnectionService;
 import org.springblade.modules.iot.databridge.core.util.ConnectionTester;
 import org.springblade.modules.iot.databridge.core.util.ConnectionTester.ConnectionTestResult;
 import org.springblade.modules.iot.databridge.core.vo.DataBridgeConfigVO;
@@ -40,10 +40,10 @@ public class DataBridgeController extends BladeController {
     private DataBridgeManager dataBridgeManager;
 
     @Resource
-    private ResourceConnectionService resourceConnectionService;
+    private IResourceConnectionService resourceConnectionService;
 
     @Resource
-    private DataBridgeConfigService dataBridgeConfigService;
+    private IDataBridgeConfigService dataBridgeConfigService;
 
     @Resource
     private ConnectionTester connectionTester;

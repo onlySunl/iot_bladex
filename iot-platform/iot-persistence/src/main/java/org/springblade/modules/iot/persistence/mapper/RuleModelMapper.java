@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.persistence.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.pojo.entity.RuleModel;
 import org.springblade.modules.iot.persistence.entity.bo.RuleModelBO;
 import org.springblade.modules.iot.persistence.entity.vo.RuleModelVO;
@@ -16,7 +16,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2023/1/13 14:31
  */
 @Mapper
-public interface RuleModelMapper extends BaseMapper<RuleModel> {
+public interface RuleModelMapper extends BladeMapper<RuleModel> {
 
   /**
    * 查询设备相关的规则模型

@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j(topic = "mqtt")
 @RestController
 @RequestMapping("/monitor/mqtt/v2/statistics")
-public class MqttStatisticsController {
+public class MqttStatisticsController extends org.springblade.core.boot.ctrl.BladeController {
 
   @Autowired private ThirdMQTTConfigService mqttConfigService;
 

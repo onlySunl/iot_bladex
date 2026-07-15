@@ -2,13 +2,13 @@
 
 package org.springblade.modules.iot.persistence.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.pojo.entity.IoTDeviceSubscribe;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface IoTDeviceSubscribeMapper extends BaseMapper<IoTDeviceSubscribe> {
+public interface IoTDeviceSubscribeMapper extends BladeMapper<IoTDeviceSubscribe> {
 
   List<IoTDeviceSubscribe> selectSubscribeBO(IoTDeviceSubscribe ioTDeviceSubscribe);
 

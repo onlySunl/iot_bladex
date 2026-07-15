@@ -1,6 +1,8 @@
 package org.springblade.modules.iot.manager.notice.mapper;
 
 import org.springblade.modules.iot.manager.notice.model.NoticeChannel;
-import tk.mybatis.mapper.common.Mapper;
+import org.springblade.core.mp.mapper.BladeMapper;
+import org.apache.ibatis.annotations.Mapper;
 
-public interface NoticeChannelMapper extends Mapper<NoticeChannel> {}
+@Mapper
+public interface NoticeChannelMapper extends BladeMapper<NoticeChannel> {}

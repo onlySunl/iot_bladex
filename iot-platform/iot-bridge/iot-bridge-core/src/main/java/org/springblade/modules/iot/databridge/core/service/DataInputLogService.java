@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Slf4j
-public class DataInputLogService {
+public class DataInputLogService extends org.springblade.core.mp.service.impl.BladeServiceImpl<DataInputLogMapper, DataInputLog> implements IDataInputLogService {
 
   @Resource private DataInputLogMapper dataInputLogMapper;
 

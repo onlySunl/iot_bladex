@@ -33,7 +33,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class ResourceConnectionService {
+public class ResourceConnectionService extends org.springblade.core.mp.service.impl.BladeServiceImpl<ResourceConnectionMapper, ResourceConnection> implements IResourceConnectionService {
 
   @Resource private ResourceConnectionMapper resourceConnectionMapper;
 

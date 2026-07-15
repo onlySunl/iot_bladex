@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/api/http/down")
-public class HttpDownController {
+public class HttpDownController extends org.springblade.core.boot.ctrl.BladeController {
 
   @Autowired private HttpDownService httpDownService;
 }

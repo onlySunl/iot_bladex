@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.persistence.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.pojo.entity.IoTUserApplication;
 import org.springblade.modules.iot.persistence.entity.vo.IoTUserApplicationVO;
 import java.util.List;
@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2025-12-30
  */
 @Mapper
-public interface IoTUserApplicationMapper extends BaseMapper<IoTUserApplication> {
+public interface IoTUserApplicationMapper extends BladeMapper<IoTUserApplication> {
 
   /**
    * 查询用户应用信息
