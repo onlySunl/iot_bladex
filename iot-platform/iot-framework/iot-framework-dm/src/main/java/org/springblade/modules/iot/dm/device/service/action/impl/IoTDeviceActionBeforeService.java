@@ -1,6 +1,6 @@
 
 
-package org.springblade.modules.iot.dm.device.service.action;
+package org.springblade.modules.iot.dm.device.service.action.impl;
 
 import org.springblade.modules.iot.core.message.DownRequest;
 import org.springblade.modules.iot.persistence.base.IoTDeviceLifeCycle;

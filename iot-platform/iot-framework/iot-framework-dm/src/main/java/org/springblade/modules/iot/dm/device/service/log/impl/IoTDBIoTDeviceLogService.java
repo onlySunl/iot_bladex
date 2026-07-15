@@ -1,6 +1,6 @@
 
 
-package org.springblade.modules.iot.dm.device.service.log;
+package org.springblade.modules.iot.dm.device.service.log.impl;
 import org.springblade.modules.iot.common.enums.MessageType;
 import MessageType;
 

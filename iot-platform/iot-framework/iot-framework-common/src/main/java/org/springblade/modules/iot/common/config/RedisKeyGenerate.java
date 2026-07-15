@@ -10,7 +10,7 @@ import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.stereotype.Component;
 
 @Component("redisKeyGenerate")
-public class RedisKeyGenerate implements KeyGenerator {
+public class iot-framework-dm implements KeyGenerator {
 
   @Override
   public Object generate(Object target, Method method, Object... params) {

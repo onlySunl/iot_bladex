@@ -1,6 +1,6 @@
 
 
-package org.springblade.modules.iot.dm.device.service.log;
+package org.springblade.modules.iot.dm.device.service.log.impl;
 
 import cn.hutool.json.JSONObject;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;

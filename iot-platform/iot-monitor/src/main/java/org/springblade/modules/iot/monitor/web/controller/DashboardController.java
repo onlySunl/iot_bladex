@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.monitor.web.controller;
 
-import org.springblade.modules.iot.dm.device.service.DashboardService;
+import org.springblade.modules.iot.dm.device.service.impl.DashboardService;
 import org.springblade.modules.iot.dm.device.service.DashboardStatisticsTask;
 import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.modules.iot.security.utils.SecurityUtils;

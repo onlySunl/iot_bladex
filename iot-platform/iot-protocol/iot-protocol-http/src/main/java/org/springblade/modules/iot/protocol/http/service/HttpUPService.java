@@ -8,7 +8,7 @@ import cn.hutool.json.JSONUtil;
 import org.springblade.modules.iot.common.message.UPRequest;
 import org.springblade.modules.iot.common.service.ICodecService;
 import org.springblade.modules.iot.dm.device.service.AbstractUPService;
-import org.springblade.modules.iot.dm.device.service.action.IoTDeviceActionAfterService;
+import org.springblade.modules.iot.dm.device.service.action.impl.IoTDeviceActionAfterService;
 import org.springblade.modules.iot.protocol.http.config.HttpModuleInfo;
 import org.springblade.modules.iot.pojo.protocol.http.HttpUPRequest;
 import org.springblade.modules.iot.protocol.http.handle.HttpUPHandle;

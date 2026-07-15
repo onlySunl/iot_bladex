@@ -17,7 +17,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import org.springblade.modules.iot.dm.device.service.action.IoTDeviceActionAfterService;
+import org.springblade.modules.iot.dm.device.service.action.impl.IoTDeviceActionAfterService;
 import org.springblade.modules.iot.dm.device.service.push.RuleEngineProcessor;
 import org.springblade.modules.iot.persistence.base.BaseUPRequest;
 import org.springblade.modules.iot.protocol.websocket.entity.WebSocketUPRequest;

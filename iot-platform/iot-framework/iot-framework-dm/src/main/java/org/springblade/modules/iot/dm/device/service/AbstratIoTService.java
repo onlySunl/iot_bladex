@@ -18,7 +18,7 @@ import org.springblade.modules.iot.core.metadata.AbstractEventMetadata;
 import org.springblade.modules.iot.core.metadata.AbstractFunctionMetadata;
 import org.springblade.modules.iot.core.metadata.DeviceMetadata;
 import org.springblade.modules.iot.core.service.ICodecService;
-import org.springblade.modules.iot.dm.device.service.action.IoTDeviceActionAfterService;
+import org.springblade.modules.iot.dm.device.service.action.impl.IoTDeviceActionAfterService;
 import org.springblade.modules.iot.dm.device.service.impl.IoTDeviceService;
 import org.springblade.modules.iot.dm.device.service.impl.IoTDeviceShadowService;
 import org.springblade.modules.iot.dm.device.service.impl.IoTDeviceSubscribeService;
