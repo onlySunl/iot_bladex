@@ -27,7 +27,7 @@ import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.framework.mybatis.core.mapper.BaseMapperX;
 import org.springblade.modules.iot.framework.mybatis.core.query.LambdaQueryWrapperX;
 import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTemplatePageReqVO;
-import org.springblade.modules.iot.dal.dataobject.channeltemplate.ChannelTemplateDO;
+import org.springblade.modules.iot.entity.ChannelTemplateDO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

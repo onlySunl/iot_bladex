@@ -34,7 +34,7 @@ import org.springblade.modules.iot.api.thingmodel.dto.ThingModel;
 import org.springblade.modules.iot.controller.admin.product.vo.IotThingModelSaveReqVO;
 import org.springblade.modules.iot.controller.admin.thingmodel.vo.ThingModelSaveReqVO;
 import org.springblade.modules.iot.convert.ThingModelConvert;
-import org.springblade.modules.iot.dal.dataobject.thingmodel.ThingModelDO;
+import org.springblade.modules.iot.entity.ThingModelDO;
 import org.springblade.modules.iot.dal.mysql.thingmodel.ThingModelMapper;
 import org.springblade.modules.iot.dal.redis.RedisKeyConstants;
 import org.apache.commons.lang3.StringUtils;

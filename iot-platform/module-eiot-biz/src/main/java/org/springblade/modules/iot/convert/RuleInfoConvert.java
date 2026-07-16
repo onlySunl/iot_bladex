@@ -32,7 +32,7 @@ import org.springblade.modules.iot.api.rule.dto.RuleInfo;
 import org.springblade.modules.iot.api.rule.dto.TriggerOptions;
 import org.springblade.modules.iot.api.task.dto.RuleAction;
 import org.springblade.modules.iot.controller.admin.rule.vo.EiotRuleInfoSaveReqVO;
-import org.springblade.modules.iot.dal.dataobject.ruleinfo.EiotRuleInfoDO;
+import org.springblade.modules.iot.entity.EiotRuleInfoDO;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 

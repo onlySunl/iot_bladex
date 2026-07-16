@@ -26,7 +26,7 @@ package org.springblade.modules.iot.convert;
 import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.api.virtualdevice.dto.VirtualDevice;
 import org.springblade.modules.iot.controller.admin.virtualdevice.vo.EiotVirtualDeviceSaveReqVO;
-import org.springblade.modules.iot.dal.dataobject.virtualdevice.VirtualDeviceDO;
+import org.springblade.modules.iot.entity.VirtualDeviceDO;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

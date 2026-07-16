@@ -27,7 +27,7 @@ import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.api.rule.dto.RuleLog;
 import org.springblade.modules.iot.controller.admin.channelconfig.vo.Channel;
 import org.springblade.modules.iot.controller.admin.rule.vo.RuleLogVo;
-import org.springblade.modules.iot.dal.dataobject.ChannelDO;
+import org.springblade.modules.iot.entity.ChannelDO;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

@@ -27,7 +27,7 @@ import org.springblade.modules.iot.framework.mybatis.core.query.LambdaQueryWrapp
 import org.springblade.modules.iot.controller.admin.alert.vo.ChannelReqVO;
 import org.springblade.modules.iot.controller.admin.channelconfig.vo.Channel;
 import org.springblade.modules.iot.convert.ChannelConvert;
-import org.springblade.modules.iot.dal.dataobject.ChannelDO;
+import org.springblade.modules.iot.entity.ChannelDO;
 import org.springblade.modules.iot.dal.mysql.ChannelMapper;
 import org.springframework.stereotype.Service;
 

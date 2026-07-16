@@ -26,7 +26,7 @@ package org.springblade.modules.iot.service.device;
 
 import org.springblade.modules.iot.api.device.dto.DeviceConfig;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
-import org.springblade.modules.iot.dal.dataobject.deviceconfig.DeviceConfigDO;
+import org.springblade.modules.iot.entity.DeviceConfigDO;
 import org.springblade.modules.iot.dal.mysql.deviceconfig.DeviceConfigMapper;
 import org.springblade.modules.iot.framework.common.exception.ServiceException;
 import org.springblade.modules.iot.framework.common.util.object.BeanUtils;

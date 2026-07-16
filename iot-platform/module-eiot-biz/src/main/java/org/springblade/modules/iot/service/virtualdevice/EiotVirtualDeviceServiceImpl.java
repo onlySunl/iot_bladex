@@ -36,8 +36,8 @@ import org.springblade.modules.iot.controller.admin.virtualdevice.vo.EiotVirtual
 import org.springblade.modules.iot.controller.admin.virtualdevice.vo.EiotVirtualSaveScriptVo;
 import org.springblade.modules.iot.controller.admin.virtualdevice.vo.VirtualDevicePageReqVO;
 import org.springblade.modules.iot.convert.VirtualDeviceConvert;
-import org.springblade.modules.iot.dal.dataobject.virtualdevice.VirtualDeviceDO;
-import org.springblade.modules.iot.dal.dataobject.virtualdevice.VirtualDeviceMappingDO;
+import org.springblade.modules.iot.entity.VirtualDeviceDO;
+import org.springblade.modules.iot.entity.VirtualDeviceMappingDO;
 import org.springblade.modules.iot.dal.mysql.virtualdevice.EiotVirtualDeviceMapper;
 import org.springblade.modules.iot.dal.mysql.virtualdevice.EiotVirtualDeviceMappingMapper;
 import lombok.extern.slf4j.Slf4j;

@@ -29,7 +29,7 @@ import org.springblade.modules.iot.controller.admin.component.vo.ComponentCreate
 import org.springblade.modules.iot.controller.admin.component.vo.ComponentPageReqVO;
 import org.springblade.modules.iot.controller.admin.component.vo.ComponentUpdateReqVO;
 import org.springblade.modules.iot.convert.ComponentConvert;
-import org.springblade.modules.iot.dal.dataobject.component.ComponentDO;
+import org.springblade.modules.iot.entity.ComponentDO;
 import org.springblade.modules.iot.dal.mysql.component.ComponentMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;

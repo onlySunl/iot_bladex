@@ -25,7 +25,7 @@ package org.springblade.modules.iot.convert;
 
 import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTemplate;
-import org.springblade.modules.iot.dal.dataobject.channeltemplate.ChannelTemplateDO;
+import org.springblade.modules.iot.entity.ChannelTemplateDO;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

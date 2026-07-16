@@ -28,7 +28,7 @@ import org.springblade.modules.iot.api.component.dto.ComponentInfo;
 import org.springblade.modules.iot.controller.admin.component.vo.ComponentCreateReqVO;
 import org.springblade.modules.iot.controller.admin.component.vo.ComponentRespVO;
 import org.springblade.modules.iot.controller.admin.component.vo.ComponentUpdateReqVO;
-import org.springblade.modules.iot.dal.dataobject.component.ComponentDO;
+import org.springblade.modules.iot.entity.ComponentDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

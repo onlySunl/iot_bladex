@@ -28,7 +28,7 @@ import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.controller.admin.sip.vo.SipRelation;
 import org.springblade.modules.iot.controller.admin.sip.vo.SipRelationPageReqVO;
 import org.springblade.modules.iot.convert.SipRelationConvert;
-import org.springblade.modules.iot.dal.dataobject.sip.SipRelationDO;
+import org.springblade.modules.iot.entity.SipRelationDO;
 import org.springblade.modules.iot.dal.mysql.sip.SipRelationMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

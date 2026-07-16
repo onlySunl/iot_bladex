@@ -34,7 +34,7 @@ import org.springblade.modules.iot.controller.admin.alertconfig.vo.AlertConfigSa
 import org.springblade.modules.iot.controller.admin.alertconfig.vo.AlertRecordPageReq;
 import org.springblade.modules.iot.convert.AlertConfigConvert;
 import org.springblade.modules.iot.convert.AlertRecordConvert;
-import org.springblade.modules.iot.dal.dataobject.alertconfig.AlertConfigDO;
+import org.springblade.modules.iot.entity.AlertConfigDO;
 import org.springblade.modules.iot.dal.mysql.AlertRecordMapper;
 import org.springblade.modules.iot.dal.mysql.alertconfig.AlertConfigMapper;
 import org.springframework.stereotype.Service;

@@ -29,9 +29,9 @@ import org.springblade.modules.iot.framework.mybatis.core.mapper.BaseMapperX;
 import org.springblade.modules.iot.framework.mybatis.core.query.MPJLambdaWrapperX;
 import org.springblade.modules.iot.api.device.dto.DeviceShortInfo;
 import org.springblade.modules.iot.controller.admin.device.vo.DeviceInfoPageReqVO;
-import org.springblade.modules.iot.dal.dataobject.DeviceGroupDO;
-import org.springblade.modules.iot.dal.dataobject.deviceinfo.EiotDeviceInfoDO;
-import org.springblade.modules.iot.dal.dataobject.product.ProductDO;
+import org.springblade.modules.iot.entity.DeviceGroupDO;
+import org.springblade.modules.iot.entity.EiotDeviceInfoDO;
+import org.springblade.modules.iot.entity.ProductDO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

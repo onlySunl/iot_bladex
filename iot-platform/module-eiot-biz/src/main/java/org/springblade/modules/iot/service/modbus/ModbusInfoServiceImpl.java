@@ -26,7 +26,7 @@ import org.springblade.modules.iot.controller.admin.modbus.vo.ModbusThingModelVo
 import org.springblade.modules.iot.controller.admin.product.vo.ProductSaveReqVO;
 import org.springblade.modules.iot.controller.admin.thingmodel.vo.ThingModelSaveReqVO;
 import org.springblade.modules.iot.convert.ModbusInfoConvert;
-import org.springblade.modules.iot.dal.dataobject.modbus.ModbusInfoDO;
+import org.springblade.modules.iot.entity.ModbusInfoDO;
 import org.springblade.modules.iot.dal.mysql.modbus.ModbusInfoMapper;
 import org.springblade.modules.iot.service.product.ProductService;
 import org.springblade.modules.iot.service.product.ThingModelService;

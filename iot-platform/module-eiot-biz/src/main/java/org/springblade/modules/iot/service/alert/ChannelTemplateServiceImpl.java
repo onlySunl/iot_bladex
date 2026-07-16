@@ -31,8 +31,8 @@ import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTe
 import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTemplatePageReqVO;
 import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTemplateSaveReqVO;
 import org.springblade.modules.iot.convert.ChannelTemplateConvert;
-import org.springblade.modules.iot.dal.dataobject.channelconfig.ChannelConfigDO;
-import org.springblade.modules.iot.dal.dataobject.channeltemplate.ChannelTemplateDO;
+import org.springblade.modules.iot.entity.ChannelConfigDO;
+import org.springblade.modules.iot.entity.ChannelTemplateDO;
 import org.springblade.modules.iot.dal.mysql.alertconfig.AlertConfigMapper;
 import org.springblade.modules.iot.dal.mysql.channelconfig.ChannelConfigMapper;
 import org.springblade.modules.iot.dal.mysql.channeltemplate.ChannelTemplateMapper;

@@ -33,7 +33,7 @@ import org.springblade.modules.iot.controller.admin.channelconfig.vo.ChannelConf
 import org.springblade.modules.iot.controller.admin.channelconfig.vo.ChannelConfigReqVO;
 import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTemplate;
 import org.springblade.modules.iot.convert.ChannelConfigConvert;
-import org.springblade.modules.iot.dal.dataobject.channelconfig.ChannelConfigDO;
+import org.springblade.modules.iot.entity.ChannelConfigDO;
 import org.springblade.modules.iot.dal.mysql.channelconfig.ChannelConfigMapper;
 import org.springblade.modules.iot.dal.mysql.channeltemplate.ChannelTemplateMapper;
 import org.springframework.stereotype.Service;

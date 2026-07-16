@@ -31,7 +31,7 @@ import org.springblade.modules.iot.api.task.dto.RuleAction;
 import org.springblade.modules.iot.api.task.dto.TaskInfo;
 import org.springblade.modules.iot.controller.admin.rule.vo.TaskInfoSaveReqVo;
 import org.springblade.modules.iot.controller.admin.rule.vo.TaskInfoVo;
-import org.springblade.modules.iot.dal.dataobject.TaskInfoDO;
+import org.springblade.modules.iot.entity.TaskInfoDO;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -25,7 +25,7 @@ package org.springblade.modules.iot.convert;
 
 import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.api.alert.dto.AlertConfig;
-import org.springblade.modules.iot.dal.dataobject.alertconfig.AlertConfigDO;
+import org.springblade.modules.iot.entity.AlertConfigDO;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

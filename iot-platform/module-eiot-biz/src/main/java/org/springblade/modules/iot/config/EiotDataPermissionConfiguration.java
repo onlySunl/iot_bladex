@@ -24,7 +24,7 @@
 package org.springblade.modules.iot.config;
 
 import org.springblade.modules.iot.framework.datapermission.core.rule.dept.DeptDataPermissionRuleCustomizer;
-import org.springblade.modules.iot.dal.dataobject.deviceinfo.EiotDeviceInfoDO;
+import org.springblade.modules.iot.entity.EiotDeviceInfoDO;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

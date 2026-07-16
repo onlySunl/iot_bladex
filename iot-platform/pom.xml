@@ -15,6 +15,7 @@
 
     <modules>
         <module>module-eiot-api</module>
+        <module>iot-entity</module>
         <module>module-eiot-biz</module>
         <module>module-eiot-core</module>
         <module>iot-components</module>

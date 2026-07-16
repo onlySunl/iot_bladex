@@ -25,7 +25,7 @@ package org.springblade.modules.iot.dal.mysql.virtualdevice;
 
 import org.springblade.modules.iot.framework.mybatis.core.mapper.BaseMapperX;
 import org.springblade.modules.iot.framework.mybatis.core.query.LambdaQueryWrapperX;
-import org.springblade.modules.iot.dal.dataobject.virtualdevice.VirtualDeviceMappingDO;
+import org.springblade.modules.iot.entity.VirtualDeviceMappingDO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

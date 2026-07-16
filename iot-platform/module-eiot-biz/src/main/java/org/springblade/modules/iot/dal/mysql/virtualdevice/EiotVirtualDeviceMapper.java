@@ -29,7 +29,7 @@ import org.springblade.modules.iot.framework.mybatis.core.mapper.BaseMapperX;
 import org.springblade.modules.iot.framework.mybatis.core.query.LambdaQueryWrapperX;
 import org.springblade.modules.iot.controller.admin.virtualdevice.vo.EiotVirtualSaveScriptVo;
 import org.springblade.modules.iot.controller.admin.virtualdevice.vo.VirtualDevicePageReqVO;
-import org.springblade.modules.iot.dal.dataobject.virtualdevice.VirtualDeviceDO;
+import org.springblade.modules.iot.entity.VirtualDeviceDO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

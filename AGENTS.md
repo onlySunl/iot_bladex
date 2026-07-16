@@ -27,7 +27,18 @@
 ├── blade-common/             # 公共模块
 ├── blade-api/                # BladeX 系统 API 模块
 ├── iot-platform/             # IoT 管理平台模块 (迁移自 enjoy-iot)
-│   ├── module-eiot-api/      # IoT API 层 (实体/VO/DTO/枚举, 54 Java 文件)
+│   ├── iot-entity/           # IoT 实体类模块 (按域拆分, 29 个实体)
+│   │   ├── iot-entity-product/       # 产品实体 (ProductDO, CategoryDO)
+│   │   ├── iot-entity-device/        # 设备实体 (DeviceInfoDO, DeviceConfigDO, DeviceGroupDO 等)
+│   │   ├── iot-entity-alert/         # 告警实体 (AlertConfigDO, AlertRecordDO, ChannelDO 等)
+│   │   ├── iot-entity-rule/          # 规则实体 (EiotRuleInfoDO)
+│   │   ├── iot-entity-component/     # 组件实体 (ComponentDO, ModbusInfoDO 等)
+│   │   ├── iot-entity-sip/           # SIP 实体 (SipConfigDO, SipDeviceDO, MediaServerDO 等)
+│   │   ├── iot-entity-ota/           # OTA 实体 (OtaPackageDO, OtaDetailDO)
+│   │   ├── iot-entity-thingmodel/    # 物模型实体 (ThingModelDO)
+│   │   ├── iot-entity-virtual/       # 虚拟设备实体 (VirtualDeviceDO, VirtualDeviceMappingDO)
+│   │   └── iot-entity-common/        # 通用实体 (GroupDO, ShowModelDO, TaskInfoDO 等)
+│   ├── module-eiot-api/      # IoT API 层 (VO/DTO/枚举, 54 Java 文件)
 │   ├── module-eiot-biz/      # IoT 业务层 (Controller/Service/Mapper, 255 Java 文件)
 │   ├── module-eiot-core/     # IoT 核心模块
 │   │   ├── iot-common-core/      # 公共核心 (框架适配器/BaseDO/工具类)
@@ -150,6 +161,30 @@ docker build -t blade-iot .
 - `LambdaQueryWrapperX/MPJLambdaWrapperX` → MyBatis-Plus 查询封装
 - `JsonUtils/BeanUtils/CollectionUtils` → 工具类封装
 - `TenantBaseDO/TenantIgnore/TenantContextHolder` → 租户适配
+
+### iot-entity 实体类模块
+从 `module-eiot-biz/dal/dataobject/` 拆分为独立的 `iot-entity` 模块，按业务域拆分为 10 个子模块，共 29 个实体类。
+
+**改造规则：**
+- 实体类继承 `CustomBaseEntity`（替代 `TenantBaseDO`/`BaseDO`）
+- 删除公共字段（id、status、remark、createUser、updateUser、createTime、updateTime、tenantId、deleted）
+- 所有字段添加 `@TableField("snake_case")` 和 `@AutoColumn` 注解
+- 注释掉 `@KeySequence` 注解
+- 包名统一为 `org.springblade.modules.iot.entity`
+
+**子模块映射：**
+| 子模块 | 实体类 | 说明 |
+|---|---|---|
+| `iot-entity-product` | ProductDO, CategoryDO | 产品管理 |
+| `iot-entity-device` | EiotDeviceInfoDO, DeviceConfigDO, DeviceGroupDO, DeviceChannelDO, DeviceOtaInfoDO | 设备管理 |
+| `iot-entity-alert` | AlertConfigDO, AlertRecordDO, ChannelDO, ChannelConfigDO, ChannelTemplateDO | 告警管理 |
+| `iot-entity-rule` | EiotRuleInfoDO | 规则引擎 |
+| `iot-entity-component` | ComponentDO, ModbusInfoDO, ModbusThingModelDO | 协议组件 |
+| `iot-entity-sip` | SipConfigDO, SipDeviceDO, SipRelationDO, MediaServerDO | SIP/流媒体 |
+| `iot-entity-ota` | OtaPackageDO, OtaDetailDO | OTA 升级 |
+| `iot-entity-thingmodel` | ThingModelDO | 物模型 |
+| `iot-entity-virtual` | VirtualDeviceDO, VirtualDeviceMappingDO | 虚拟设备 |
+| `iot-entity-common` | GroupDO, ShowModelDO, TaskInfoDO, IotNotifyMessageDO | 通用实体 |
 
 ### 迁移统计
 - **module-eiot-api**: 54 Java 文件（实体/VO/DTO/枚举）

@@ -27,7 +27,7 @@ import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.framework.mybatis.core.mapper.BaseMapperX;
 import org.springblade.modules.iot.framework.mybatis.core.query.LambdaQueryWrapperX;
 import org.springblade.modules.iot.api.task.dto.TaskInfoPageReq;
-import org.springblade.modules.iot.dal.dataobject.TaskInfoDO;
+import org.springblade.modules.iot.entity.TaskInfoDO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

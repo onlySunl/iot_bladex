@@ -51,8 +51,8 @@ import org.springblade.modules.iot.controller.admin.device.vo.devicegroup.Device
 import org.springblade.modules.iot.controller.admin.device.vo.devicegroup.GroupImportRespVO;
 import org.springblade.modules.iot.controller.admin.product.vo.PropertyVO;
 import org.springblade.modules.iot.convert.DeviceGroupConvert;
-import org.springblade.modules.iot.dal.dataobject.DeviceGroupDO;
-import org.springblade.modules.iot.dal.dataobject.GroupDO;
+import org.springblade.modules.iot.entity.DeviceGroupDO;
+import org.springblade.modules.iot.entity.GroupDO;
 import org.springblade.modules.iot.dal.mysql.EiotIotDeviceGroupMapper;
 import org.springblade.modules.iot.dal.mysql.EiotIotGroupMapper;
 import org.springblade.modules.iot.service.product.ThingModelService;

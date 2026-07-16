@@ -30,7 +30,7 @@ import org.springblade.modules.iot.controller.admin.category.vo.Category;
 import org.springblade.modules.iot.controller.admin.category.vo.CategoryListReqVO;
 import org.springblade.modules.iot.controller.admin.category.vo.CategorySaveReqVO;
 import org.springblade.modules.iot.convert.ProductConvert;
-import org.springblade.modules.iot.dal.dataobject.category.CategoryDO;
+import org.springblade.modules.iot.entity.CategoryDO;
 import org.springblade.modules.iot.dal.mysql.category.CategoryMapper;
 import org.springblade.modules.iot.dal.mysql.product.ProductMapper;
 import org.springframework.stereotype.Service;

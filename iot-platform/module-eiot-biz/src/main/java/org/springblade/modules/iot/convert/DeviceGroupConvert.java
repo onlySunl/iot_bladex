@@ -25,7 +25,7 @@ package org.springblade.modules.iot.convert;
 
 import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.api.device.dto.DeviceGroup;
-import org.springblade.modules.iot.dal.dataobject.GroupDO;
+import org.springblade.modules.iot.entity.GroupDO;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

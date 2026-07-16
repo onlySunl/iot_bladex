@@ -2,7 +2,7 @@ package org.springblade.modules.iot.convert;
 
 import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.api.modbus.dto.ModbusInfo;
-import org.springblade.modules.iot.dal.dataobject.modbus.ModbusInfoDO;
+import org.springblade.modules.iot.entity.ModbusInfoDO;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

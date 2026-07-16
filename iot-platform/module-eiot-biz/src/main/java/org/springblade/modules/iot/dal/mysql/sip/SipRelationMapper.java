@@ -29,8 +29,8 @@ import org.springblade.modules.iot.framework.mybatis.core.mapper.BaseMapperX;
 import org.springblade.modules.iot.framework.mybatis.core.query.MPJLambdaWrapperX;
 import org.springblade.modules.iot.controller.admin.sip.vo.SipRelation;
 import org.springblade.modules.iot.controller.admin.sip.vo.SipRelationPageReqVO;
-import org.springblade.modules.iot.dal.dataobject.DeviceChannelDO;
-import org.springblade.modules.iot.dal.dataobject.sip.SipRelationDO;
+import org.springblade.modules.iot.entity.DeviceChannelDO;
+import org.springblade.modules.iot.entity.SipRelationDO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

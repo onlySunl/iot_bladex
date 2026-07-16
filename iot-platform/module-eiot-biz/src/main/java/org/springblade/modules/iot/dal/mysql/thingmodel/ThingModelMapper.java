@@ -24,7 +24,7 @@
 package org.springblade.modules.iot.dal.mysql.thingmodel;
 
 import org.springblade.modules.iot.framework.mybatis.core.mapper.BaseMapperX;
-import org.springblade.modules.iot.dal.dataobject.thingmodel.ThingModelDO;
+import org.springblade.modules.iot.entity.ThingModelDO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

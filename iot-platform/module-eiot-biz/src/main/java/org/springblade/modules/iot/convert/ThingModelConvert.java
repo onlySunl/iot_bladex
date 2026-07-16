@@ -25,7 +25,7 @@ package org.springblade.modules.iot.convert;
 
 
 import org.springblade.modules.iot.api.thingmodel.dto.ThingModel;
-import org.springblade.modules.iot.dal.dataobject.thingmodel.ThingModelDO;
+import org.springblade.modules.iot.entity.ThingModelDO;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -31,7 +31,7 @@ import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
 import org.springblade.modules.iot.controller.admin.showmodel.vo.ShowModelRespVO;
 import org.springblade.modules.iot.controller.admin.showmodel.vo.ShowModelSaveReqVO;
 import org.springblade.modules.iot.convert.ShowModelConvert;
-import org.springblade.modules.iot.dal.dataobject.showmodel.ShowModelDO;
+import org.springblade.modules.iot.entity.ShowModelDO;
 import org.springblade.modules.iot.dal.mysql.showmodel.ShowModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;

@@ -27,7 +27,7 @@ import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.framework.mybatis.core.mapper.BaseMapperX;
 import org.springblade.modules.iot.framework.mybatis.core.query.LambdaQueryWrapperX;
 import org.springblade.modules.iot.controller.admin.component.vo.ComponentPageReqVO;
-import org.springblade.modules.iot.dal.dataobject.component.ComponentDO;
+import org.springblade.modules.iot.entity.ComponentDO;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

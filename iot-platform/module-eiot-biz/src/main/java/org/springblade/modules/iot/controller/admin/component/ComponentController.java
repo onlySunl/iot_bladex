@@ -27,7 +27,7 @@ import org.springblade.modules.iot.framework.common.pojo.CommonResult;
 import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.controller.admin.component.vo.*;
 import org.springblade.modules.iot.convert.ComponentConvert;
-import org.springblade.modules.iot.dal.dataobject.component.ComponentDO;
+import org.springblade.modules.iot.entity.ComponentDO;
 import org.springblade.modules.iot.service.component.ComponentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
