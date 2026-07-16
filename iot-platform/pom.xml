@@ -228,10 +228,6 @@
                 <version>0.2.23</version>
             </dependency>
         </dependencies>
-            <dependency>
-                <groupId>com.tangzc</groupId>
-                <artifactId>autotable-annotation</artifactId>
-                <version>2.6.1</version>
-            </dependency>
+
     </dependencyManagement>
 </project>
