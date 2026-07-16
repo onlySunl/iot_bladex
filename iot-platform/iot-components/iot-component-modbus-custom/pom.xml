@@ -21,7 +21,7 @@
 
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>module-eiot-api</artifactId>
+            <artifactId>module-iot-api</artifactId>
         </dependency>
 
         <dependency>

@@ -38,12 +38,12 @@
         <!-- IoT Platform (enjoy-iot migration) -->
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>module-eiot-api</artifactId>
+            <artifactId>module-iot-api</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>module-eiot-biz</artifactId>
+            <artifactId>module-iot-biz</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>

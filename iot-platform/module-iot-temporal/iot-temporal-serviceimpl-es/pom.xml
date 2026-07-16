@@ -5,55 +5,44 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springblade</groupId>
-        <artifactId>iot-components</artifactId>
+        <artifactId>module-iot-temporal</artifactId>
         <version>4.2.0.RELEASE</version>
+
     </parent>
 
-    <artifactId>iot-component-emqx</artifactId>
-
+    <artifactId>iot-temporal-serviceimpl-es</artifactId>
 
 
     <dependencies>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-common</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-component-core</artifactId>
+            <artifactId>iot-temporal-service</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>module-iot-api</artifactId>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-elasticsearch</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-core</artifactId>
+            <groupId>org.dromara.easy-es</groupId>
+            <artifactId>easy-es-boot-starter</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-mqtt</artifactId>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
         </dependency>
-
-
         <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-web-proxy</artifactId>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-web</artifactId>
-        </dependency>
 
     </dependencies>
 

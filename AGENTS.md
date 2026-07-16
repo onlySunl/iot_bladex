@@ -38,9 +38,9 @@
 │   │   ├── iot-entity-thingmodel/    # 物模型实体 (ThingModelDO)
 │   │   ├── iot-entity-virtual/       # 虚拟设备实体 (VirtualDeviceDO, VirtualDeviceMappingDO)
 │   │   └── iot-entity-common/        # 通用实体 (GroupDO, ShowModelDO, TaskInfoDO 等)
-│   ├── module-eiot-api/      # IoT API 层 (VO/DTO/枚举, 54 Java 文件)
-│   ├── module-eiot-biz/      # IoT 业务层 (Controller/Service/Mapper, 255 Java 文件)
-│   ├── module-eiot-core/     # IoT 核心模块
+│   ├── module-iot-api/      # IoT API 层 (VO/DTO/枚举, 54 Java 文件)
+│   ├── module-iot-biz/      # IoT 业务层 (Controller/Service/Mapper, 255 Java 文件)
+│   ├── module-iot-core/     # IoT 核心模块
 │   │   ├── iot-common-core/      # 公共核心 (框架适配器/BaseDO/工具类)
 │   │   ├── iot-common-thing/     # 物模型 (ThingModel/属性/事件/服务)
 │   │   ├── iot-message-bus/      # 消息总线
@@ -63,8 +63,8 @@
 │   │   ├── iot-component-udp/        # UDP 组件
 │   │   ├── iot-component-coap/       # CoAP 组件
 │   │   └── iot-component-modbus-custom/ # Modbus 自定义组件
-│   ├── module-eiot-task/     # 定时任务 (设备超时/告警检查, 9 Java 文件)
-│   └── module-eiot-temporal/ # 时序数据存储
+│   ├── module-iot-task/     # 定时任务 (设备超时/告警检查, 9 Java 文件)
+│   └── module-iot-temporal/ # 时序数据存储
 │       ├── iot-temporal-service/         # 时序服务抽象
 │       ├── iot-temporal-serviceimpl-td/  # TDengine 实现
 │       ├── iot-temporal-serviceimpl-iotdb/   # IoTDB 实现
@@ -134,15 +134,15 @@ docker build -t blade-iot .
 从 enjoy-iot 项目（https://gitee.com/open-enjoy/enjoy-iot.git）完整迁移的 IoT 物联网管理平台，包含设备管理、产品管理、告警管理、规则引擎、消息总线、协议组件、时序数据存储等功能。全部按 BladeX 4.2.0 标准重构，共 662 个 Java 文件。
 
 ### 代码位置
-- **实体类/VO/DTO**: `iot-platform/module-eiot-api/src/main/java/org/springblade/modules/iot/`
-- **Controller/Service/Mapper**: `iot-platform/module-eiot-biz/src/main/java/org/springblade/modules/iot/`
-- **框架适配器**: `iot-platform/module-eiot-core/iot-common-core/src/main/java/org/springblade/modules/iot/framework/`
-- **物模型**: `iot-platform/module-eiot-core/iot-common-thing/`
-- **消息总线**: `iot-platform/module-eiot-core/iot-message-bus/`
-- **规则引擎**: `iot-platform/module-eiot-core/iot-rule-engine/`
+- **实体类/VO/DTO**: `iot-platform/module-iot-api/src/main/java/org/springblade/modules/iot/`
+- **Controller/Service/Mapper**: `iot-platform/module-iot-biz/src/main/java/org/springblade/modules/iot/`
+- **框架适配器**: `iot-platform/module-iot-core/iot-common-core/src/main/java/org/springblade/modules/iot/framework/`
+- **物模型**: `iot-platform/module-iot-core/iot-common-thing/`
+- **消息总线**: `iot-platform/module-iot-core/iot-message-bus/`
+- **规则引擎**: `iot-platform/module-iot-core/iot-rule-engine/`
 - **协议组件**: `iot-platform/iot-components/`
-- **定时任务**: `iot-platform/module-eiot-task/`
-- **时序存储**: `iot-platform/module-eiot-temporal/`
+- **定时任务**: `iot-platform/module-iot-task/`
+- **时序存储**: `iot-platform/module-iot-temporal/`
 
 ### 包名映射
 | 原包名 | 新包名 |
@@ -163,7 +163,7 @@ docker build -t blade-iot .
 - `TenantBaseDO/TenantIgnore/TenantContextHolder` → 租户适配
 
 ### iot-entity 实体类模块
-从 `module-eiot-biz/dal/dataobject/` 拆分为独立的 `iot-entity` 模块，按业务域拆分为 10 个子模块，共 29 个实体类。
+从 `module-iot-biz/dal/dataobject/` 拆分为独立的 `iot-entity` 模块，按业务域拆分为 10 个子模块，共 29 个实体类。
 
 **改造规则：**
 - 实体类继承 `CustomBaseEntity`（替代 `TenantBaseDO`/`BaseDO`）
@@ -187,12 +187,12 @@ docker build -t blade-iot .
 | `iot-entity-common` | GroupDO, ShowModelDO, TaskInfoDO, IotNotifyMessageDO | 通用实体 |
 
 ### 迁移统计
-- **module-eiot-api**: 54 Java 文件（实体/VO/DTO/枚举）
-- **module-eiot-biz**: 255 Java 文件（Controller/Service/Mapper）
-- **module-eiot-core**: 149 Java 文件（核心/消息/规则/脚本/物模型）
+- **module-iot-api**: 54 Java 文件（实体/VO/DTO/枚举）
+- **module-iot-biz**: 255 Java 文件（Controller/Service/Mapper）
+- **module-iot-core**: 149 Java 文件（核心/消息/规则/脚本/物模型）
 - **iot-components**: 88 Java 文件（协议组件）
-- **module-eiot-task**: 9 Java 文件（定时任务）
-- **module-eiot-temporal**: 107 Java 文件（时序数据存储）
+- **module-iot-task**: 9 Java 文件（定时任务）
+- **module-iot-temporal**: 107 Java 文件（时序数据存储）
 - **总计**: 662 Java 文件
 
 ## enjoy-iot 源码迁移（enjoy-iot → BladeX）
@@ -200,12 +200,12 @@ docker build -t blade-iot .
 ### 迁移映射表
 | 源模块 (enjoy-iot) | 目标模块 | 说明 |
 |---|---|---|
-| `module-eiot/module-eiot-api` | `iot-platform/module-eiot-api` | API 层（实体/VO/DTO） |
-| `module-eiot/module-eiot-biz` | `iot-platform/module-eiot-biz` | 业务层（Controller/Service/Mapper） |
-| `module-eiot/module-eiot-core` | `iot-platform/module-eiot-core` | 核心模块（物模型/消息总线/规则引擎） |
-| `module-eiot/iot-components` | `iot-platform/iot-components` | 协议组件（MQTT/HTTP/CoAP/Modbus/TCP/UDP） |
-| `module-eiot/module-eiot-task` | `iot-platform/module-eiot-task` | 定时任务 |
-| `module-eiot/module-eiot-temporal` | `iot-platform/module-eiot-temporal` | 时序数据存储 |
+| `module-iot/module-iot-api` | `iot-platform/module-iot-api` | API 层（实体/VO/DTO） |
+| `module-iot/module-iot-biz` | `iot-platform/module-iot-biz` | 业务层（Controller/Service/Mapper） |
+| `module-iot/module-iot-core` | `iot-platform/module-iot-core` | 核心模块（物模型/消息总线/规则引擎） |
+| `module-iot/iot-components` | `iot-platform/iot-components` | 协议组件（MQTT/HTTP/CoAP/Modbus/TCP/UDP） |
+| `module-iot/module-iot-task` | `iot-platform/module-iot-task` | 定时任务 |
+| `module-iot/module-iot-temporal` | `iot-platform/module-iot-temporal` | 时序数据存储 |
 - **DDL**: `iot-platform/iot-common/src/main/resources/sql/nexiot-migration.sql`
 
 ### 数据表

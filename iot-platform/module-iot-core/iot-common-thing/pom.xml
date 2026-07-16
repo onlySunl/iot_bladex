@@ -5,29 +5,18 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springblade</groupId>
-        <artifactId>iot-components</artifactId>
+        <artifactId>module-iot-core</artifactId>
         <version>4.2.0.RELEASE</version>
+
     </parent>
 
-    <artifactId>iot-component-http</artifactId>
-
+    <artifactId>iot-common-thing</artifactId>
     <dependencies>
-
         <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-component-core</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>module-iot-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-web</artifactId>
-        </dependency>
-
     </dependencies>
+
 
 </project>

@@ -14,13 +14,13 @@
     <version>4.2.0.RELEASE</version>
 
     <modules>
-        <module>module-eiot-api</module>
+        <module>module-iot-api</module>
         <module>iot-entity</module>
-        <module>module-eiot-biz</module>
-        <module>module-eiot-core</module>
+        <module>module-iot-biz</module>
+        <module>module-iot-core</module>
         <module>iot-components</module>
-        <module>module-eiot-task</module>
-        <module>module-eiot-temporal</module>
+        <module>module-iot-task</module>
+        <module>module-iot-temporal</module>
     </modules>
 
     <properties>
@@ -47,12 +47,12 @@
             <!-- Internal IoT modules -->
             <dependency>
                 <groupId>org.springblade</groupId>
-                <artifactId>module-eiot-api</artifactId>
+                <artifactId>module-iot-api</artifactId>
                 <version>4.2.0.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>org.springblade</groupId>
-                <artifactId>module-eiot-biz</artifactId>
+                <artifactId>module-iot-biz</artifactId>
                 <version>4.2.0.RELEASE</version>
             </dependency>
             <dependency>
@@ -157,7 +157,7 @@
             </dependency>
             <dependency>
                 <groupId>org.springblade</groupId>
-                <artifactId>module-eiot-task</artifactId>
+                <artifactId>module-iot-task</artifactId>
                 <version>4.2.0.RELEASE</version>
             </dependency>
             <dependency>
