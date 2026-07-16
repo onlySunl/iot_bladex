@@ -48,21 +48,21 @@ public class ComponentDO extends CustomBaseEntity {
     /**
      * 组件名称
      */
-    @AutoColumn
+    @AutoColumn(comment = "组件名称")
     @TableField("name")
     private String name;
 
     /**
      * 组件类型
      */
-    @AutoColumn
+    @AutoColumn(comment = "组件类型")
     @TableField("type")
     private String type;
 
     /**
      * 组件配置(JSON格式)
      */
-    @AutoColumn
+    @AutoColumn(comment = "组件配置(JSON格式)")
     @TableField("config")
     private String config;
 

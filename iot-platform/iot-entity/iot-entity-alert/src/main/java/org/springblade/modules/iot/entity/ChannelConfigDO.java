@@ -52,25 +52,25 @@ public class ChannelConfigDO extends CustomBaseEntity {
     /**
      * 配置名称
      */
-    @AutoColumn
+    @AutoColumn(comment = "配置名称")
     @TableField("title")
     private String title;
     /**
      * 通道编码
      */
-    @AutoColumn
+    @AutoColumn(comment = "通道编码")
     @TableField("code")
     private String code;
     /**
      * 通道配置参数
      */
-    @AutoColumn
+    @AutoColumn(comment = "通道配置参数")
     @TableField("param")
     private String param;
     /**
      * 机构id
      */
-    @AutoColumn
+    @AutoColumn(comment = "机构id")
     @TableField("dept_id")
     private Long deptId;
 

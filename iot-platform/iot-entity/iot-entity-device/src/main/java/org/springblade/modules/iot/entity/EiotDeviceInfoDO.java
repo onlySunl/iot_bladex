@@ -51,96 +51,96 @@ public class EiotDeviceInfoDO extends CustomBaseEntity {
     /**
      * 设备唯一标识
      */
-    @AutoColumn
+    @AutoColumn(comment = "设备唯一标识")
     @TableField("dn")
     private String dn;
     /**
      * 产品key
      */
-    @AutoColumn
+    @AutoColumn(comment = "产品key")
     @TableField("product_key")
     private String productKey;
     /**
      * 机构id
      */
-    @AutoColumn
+    @AutoColumn(comment = "机构id")
     @TableField("dept_id")
     private Long deptId;
     /**
      * 设备属性
      */
-    @AutoColumn
+    @AutoColumn(comment = "设备属性")
     @TableField("properties")
     private String properties;
     /**
      * 别名
      */
-    @AutoColumn
+    @AutoColumn(comment = "别名")
     @TableField("name")
     private String name;
     /**
      *(0:否, 1:在线, 3-未激活，4-禁用)设备状态
      */
-    @AutoColumn
+    @AutoColumn(comment = "(0:否, 1:在线, 3-未激活，4-禁用)设备状态")
     @TableField("state")
     private Integer state;
     /**
      * 离线时间
      */
-    @AutoColumn
+    @AutoColumn(comment = "离线时间")
     @TableField("offline_time")
     private Long offlineTime;
     /**
      * 在线时间
      */
-    @AutoColumn
+    @AutoColumn(comment = "在线时间")
     @TableField("online_time")
     private Long onlineTime;
     /**
      * 设备序列号
      */
-    @AutoColumn
+    @AutoColumn(comment = "设备序列号")
     @TableField("serial_no")
     private String serialNo;
     /**
      * 经纬度
      */
-    @AutoColumn
+    @AutoColumn(comment = "经纬度")
     @TableField("lat")
     private Double lat;
     /**
      * 经纬度
      */
-    @AutoColumn
+    @AutoColumn(comment = "经纬度")
     @TableField("lon")
     private Double lon;
     
-    @AutoColumn
+    @AutoColumn(comment = "model")
     @TableField("model")
     private String model;
 
-    @AutoColumn
+    @AutoColumn(comment = "parent Id")
     @TableField("parent_id")
     private Long parentId;
 
-    @AutoColumn
+    @AutoColumn(comment = "secret")
     @TableField("secret")
     private String secret;
 
 
-    @AutoColumn
+    @AutoColumn(comment = "addr")
     @TableField("addr")
     private String addr;
 
-    @AutoColumn
+    @AutoColumn(comment = "firm Version")
     @TableField("firm_version")
     private String firmVersion;
 
-    @AutoColumn
+    @AutoColumn(comment = "node Type")
     @TableField("node_type")
     private Integer nodeType;
 
-    @AutoColumn
+    @AutoColumn(comment = "transparent")
     @TableField("transparent")
     private Boolean transparent;
 }

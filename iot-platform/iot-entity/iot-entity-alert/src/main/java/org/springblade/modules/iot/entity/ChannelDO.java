@@ -52,25 +52,25 @@ public class ChannelDO extends CustomBaseEntity {
     /**
      * 通道名称
      */
-    @AutoColumn
+    @AutoColumn(comment = "通道名称")
     @TableField("code")
     private String code;
     /**
      * 图标
      */
-    @AutoColumn
+    @AutoColumn(comment = "图标")
     @TableField("icon")
     private String icon;
     /**
      * 标题
      */
-    @AutoColumn
+    @AutoColumn(comment = "标题")
     @TableField("title")
     private String title;
     /**
      * 机构id
      */
-    @AutoColumn
+    @AutoColumn(comment = "机构id")
     @TableField("dept_id")
     private Long deptId;
 

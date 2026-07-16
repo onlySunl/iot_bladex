@@ -52,13 +52,13 @@ public class ThingModelDO extends CustomBaseEntity {
     /**
      * 产品key
      */
-    @AutoColumn
+    @AutoColumn(comment = "产品key")
     @TableField("product_key")
     private String productKey;
     /**
      * 物模型
      */
-    @AutoColumn
+    @AutoColumn(comment = "物模型")
     @TableField("model")
     private String model;
 

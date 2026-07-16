@@ -52,55 +52,55 @@ public class OtaDetailDO extends CustomBaseEntity {
     /**
      * 设备id
      */
-    @AutoColumn
+    @AutoColumn(comment = "设备id")
     @TableField("device_id")
     private Long deviceId;
     /**
      * 设备名称
      */
-    @AutoColumn
+    @AutoColumn(comment = "设备名称")
     @TableField("device_name")
     private String deviceName;
     /**
      * 模块
      */
-    @AutoColumn
+    @AutoColumn(comment = "模块")
     @TableField("module")
     private String module;
     /**
      * ota信息id
      */
-    @AutoColumn
+    @AutoColumn(comment = "ota信息id")
     @TableField("ota_info_id")
     private Long otaInfoId;
     /**
      * 产品key
      */
-    @AutoColumn
+    @AutoColumn(comment = "产品key")
     @TableField("product_key")
     private String productKey;
     /**
      * 步骤
      */
-    @AutoColumn
+    @AutoColumn(comment = "步骤")
     @TableField("step")
     private Integer step;
     /**
      * 任务id
      */
-    @AutoColumn
+    @AutoColumn(comment = "任务id")
     @TableField("task_id")
     private Long taskId;
     /**
      * 版本
      */
-    @AutoColumn
+    @AutoColumn(comment = "版本")
     @TableField("version")
     private String version;
     /**
      * 机构id
      */
-    @AutoColumn
+    @AutoColumn(comment = "机构id")
     @TableField("dept_id")
     private Long deptId;
 

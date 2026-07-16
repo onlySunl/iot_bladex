@@ -52,37 +52,37 @@ public class AlertRecordDO extends CustomBaseEntity {
     /**
      * 告警时间
      */
-    @AutoColumn
+    @AutoColumn(comment = "告警时间")
     @TableField("alert_time")
     private Long alertTime;
     /**
      * 告警详情
      */
-    @AutoColumn
+    @AutoColumn(comment = "告警详情")
     @TableField("details")
     private String details;
     /**
      * 告警等级
      */
-    @AutoColumn
+    @AutoColumn(comment = "告警等级")
     @TableField("level")
     private String level;
     /**
      * 告警名称
      */
-    @AutoColumn
+    @AutoColumn(comment = "告警名称")
     @TableField("name")
     private String name;
     /**
      * 是否已读
      */
-    @AutoColumn
+    @AutoColumn(comment = "是否已读")
     @TableField("read_flg")
     private Boolean readFlg;
     /**
      * 机构id
      */
-    @AutoColumn
+    @AutoColumn(comment = "机构id")
     @TableField("dept_id")
     private Long deptId;
 

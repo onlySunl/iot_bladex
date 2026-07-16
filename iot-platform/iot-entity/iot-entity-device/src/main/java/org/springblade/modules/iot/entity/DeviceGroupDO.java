@@ -52,13 +52,13 @@ public class DeviceGroupDO extends CustomBaseEntity {
     /**
      * 设备ID
      */
-    @AutoColumn
+    @AutoColumn(comment = "设备ID")
     @TableField("device_id")
     private Long deviceId;
     /**
      * 分组ID
      */
-    @AutoColumn
+    @AutoColumn(comment = "分组ID")
     @TableField("group_id")
     private Long groupId;
 

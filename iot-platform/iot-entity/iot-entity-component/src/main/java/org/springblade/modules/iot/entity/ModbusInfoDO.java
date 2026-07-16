@@ -26,14 +26,14 @@ public class ModbusInfoDO extends CustomBaseEntity {
     /**
      * 产品名称
      */
-    @AutoColumn
+    @AutoColumn(comment = "产品名称")
     @TableField("name")
     private String name;
 
     /**
      * productKey
      */
-    @AutoColumn
+    @AutoColumn(comment = "productKey")
     @TableField("product_key")
     private String productKey;
 

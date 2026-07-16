@@ -54,14 +54,14 @@ public class VirtualDeviceMappingDO extends CustomBaseEntity {
     /**
      * 虚拟设备id
      */
-    @AutoColumn
+    @AutoColumn(comment = "虚拟设备id")
     @TableField("virtual_device_id")
     private Long virtualDeviceId;
 
     /**
      * 设备id
      */
-    @AutoColumn
+    @AutoColumn(comment = "设备id")
     @TableField("device_id")
     private Long deviceId;
 

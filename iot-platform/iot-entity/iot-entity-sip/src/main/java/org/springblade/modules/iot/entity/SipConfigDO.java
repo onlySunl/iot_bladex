@@ -52,61 +52,61 @@ public class SipConfigDO extends CustomBaseEntity {
     /**
      * 产品ID
      */
-    @AutoColumn
+    @AutoColumn(comment = "产品ID")
     @TableField("product_key")
     private String productKey;
     /**
      * 产品名称
      */
-    @AutoColumn
+    @AutoColumn(comment = "产品名称")
     @TableField("product_name")
     private String productName;
     /**
      * 使能开关
      */
-    @AutoColumn
+    @AutoColumn(comment = "使能开关")
     @TableField("enabled")
     private Integer enabled;
     /**
      * 系统默认配置
      */
-    @AutoColumn
+    @AutoColumn(comment = "系统默认配置")
     @TableField("isdefault")
     private Integer isdefault;
     /**
      * 拓展sdp
      */
-    @AutoColumn
+    @AutoColumn(comment = "拓展sdp")
     @TableField("senior_sdp")
     private Integer seniorSdp;
     /**
      * 服务器域
      */
-    @AutoColumn
+    @AutoColumn(comment = "服务器域")
     @TableField("domain")
     private String domain;
     /**
      * 服务器sipid
      */
-    @AutoColumn
+    @AutoColumn(comment = "服务器sipid")
     @TableField("server_sipid")
     private String serverSipid;
     /**
      * sip认证密码
      */
-    @AutoColumn
+    @AutoColumn(comment = "sip认证密码")
     @TableField("password")
     private String password;
     /**
      * sip接入IP
      */
-    @AutoColumn
+    @AutoColumn(comment = "sip接入IP")
     @TableField("ip")
     private String ip;
     /**
      * sip接入端口号
      */
-    @AutoColumn
+    @AutoColumn(comment = "sip接入端口号")
     @TableField("port")
     private Long port;
 

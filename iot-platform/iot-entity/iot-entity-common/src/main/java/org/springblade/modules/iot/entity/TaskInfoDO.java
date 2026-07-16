@@ -52,35 +52,35 @@ public class TaskInfoDO extends CustomBaseEntity {
     /**
      * 任务名称
      */
-    @AutoColumn
+    @AutoColumn(comment = "任务名称")
     @TableField("name")
     private String name;
     /**
      * 任务输出
      */
-    @AutoColumn
+    @AutoColumn(comment = "任务输出")
     @TableField("actions")
     private String actions;
     /**
      * 状态
      */
-    @AutoColumn
+    @AutoColumn(comment = "状态")
     @TableField("state")
     private String state;
     /**
      * 任务类型
      */
-    @AutoColumn
+    @AutoColumn(comment = "任务类型")
     @TableField("type")
     private String type;
     /**
      * 机构id
      */
-    @AutoColumn
+    @AutoColumn(comment = "机构id")
     @TableField("dept_id")
     private Long deptId;
 
-    @AutoColumn
+    @AutoColumn(comment = "expression")
     @TableField("expression")
     private String expression;
 

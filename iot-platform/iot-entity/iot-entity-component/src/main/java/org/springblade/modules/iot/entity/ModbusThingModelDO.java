@@ -24,14 +24,14 @@ public class ModbusThingModelDO extends CustomBaseEntity {
     /**
      * productKey
      */
-    @AutoColumn
+    @AutoColumn(comment = "productKey")
     @TableField("product_key")
     private String productKey;
 
     /**
      * 模型内容
      */
-    @AutoColumn
+    @AutoColumn(comment = "模型内容")
     @TableField("model")
     private String model;
 }

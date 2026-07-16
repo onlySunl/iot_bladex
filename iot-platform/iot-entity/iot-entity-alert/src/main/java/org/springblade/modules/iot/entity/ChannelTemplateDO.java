@@ -52,30 +52,30 @@ public class ChannelTemplateDO extends CustomBaseEntity {
     /**
      * 通道模板名称
      */
-    @AutoColumn
+    @AutoColumn(comment = "通道模板名称")
     @TableField("title")
     private String title;
     /**
      * 通道配置id
      */
-    @AutoColumn
+    @AutoColumn(comment = "通道配置id")
     @TableField("channel_config_id")
     private Long channelConfigId;
     /**
      * 通道模板内容
      */
-    @AutoColumn
+    @AutoColumn(comment = "通道模板内容")
     @TableField("content")
     private String content;
     /**
      * 机构id
      */
-    @AutoColumn
+    @AutoColumn(comment = "机构id")
     @TableField("dept_id")
     private Long deptId;
 
 
-    @AutoColumn
+    @AutoColumn(comment = "template Code")
     @TableField("template_code")
     private String templateCode;
 

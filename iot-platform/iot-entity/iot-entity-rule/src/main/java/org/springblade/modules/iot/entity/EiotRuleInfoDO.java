@@ -52,49 +52,49 @@ public class EiotRuleInfoDO extends CustomBaseEntity {
     /**
      * 规则名称
      */
-    @AutoColumn
+    @AutoColumn(comment = "规则名称")
     @TableField("name")
     private String name;
     /**
      * 监听器
      */
-    @AutoColumn
+    @AutoColumn(comment = "监听器")
     @TableField("listeners")
     private String listeners;
     /**
      * 过滤器
      */
-    @AutoColumn
+    @AutoColumn(comment = "过滤器")
     @TableField("filters")
     private String filters;
     /**
      * 动作
      */
-    @AutoColumn
+    @AutoColumn(comment = "动作")
     @TableField("actions")
     private String actions;
     /**
      * 触发控制配置(JSON)：频率限制/延时/告警解除
      */
-    @AutoColumn
+    @AutoColumn(comment = "触发控制配置(JSON)：频率限制/延时/告警解除")
     @TableField("trigger_options")
     private String triggerOptions;
     /**
      * 类型(1数据流转 2场景联动)
      */
-    @AutoColumn
+    @AutoColumn(comment = "类型(1数据流转 2场景联动)")
     @TableField("typ")
     private String typ;
     /**
      * 状态(0启用 1禁用)
      */
-    @AutoColumn
+    @AutoColumn(comment = "状态(0启用 1禁用)")
     @TableField("state")
     private Integer state;
     /**
      * 机构id
      */
-    @AutoColumn
+    @AutoColumn(comment = "机构id")
     @TableField("dept_id")
     private Long deptId;
 

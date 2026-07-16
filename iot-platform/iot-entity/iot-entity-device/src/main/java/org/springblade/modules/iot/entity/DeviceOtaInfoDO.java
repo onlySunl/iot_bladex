@@ -52,49 +52,49 @@ public class DeviceOtaInfoDO extends CustomBaseEntity {
     /**
      * 识别数量
      */
-    @AutoColumn
+    @AutoColumn(comment = "识别数量")
     @TableField("fail")
     private Integer fail;
     /**
      * 模块
      */
-    @AutoColumn
+    @AutoColumn(comment = "模块")
     @TableField("module")
     private String module;
     /**
      * 升级包id
      */
-    @AutoColumn
+    @AutoColumn(comment = "升级包id")
     @TableField("package_id")
     private Long packageId;
     /**
      * 产品key
      */
-    @AutoColumn
+    @AutoColumn(comment = "产品key")
     @TableField("product_key")
     private String productKey;
     /**
      * 成功数量
      */
-    @AutoColumn
+    @AutoColumn(comment = "成功数量")
     @TableField("success")
     private Integer success;
     /**
      * 总数
      */
-    @AutoColumn
+    @AutoColumn(comment = "总数")
     @TableField("total")
     private Integer total;
     /**
      * 版本
      */
-    @AutoColumn
+    @AutoColumn(comment = "版本")
     @TableField("version")
     private String version;
     /**
      * 机构id
      */
-    @AutoColumn
+    @AutoColumn(comment = "机构id")
     @TableField("dept_id")
     private Long deptId;
 

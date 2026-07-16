@@ -54,31 +54,31 @@ public class CategoryDO extends CustomBaseEntity {
     /**
      * 父分类id
      */
-    @AutoColumn
+    @AutoColumn(comment = "父分类id")
     @TableField("parent_id")
     private Long parentId;
     /**
      * 分类名称
      */
-    @AutoColumn
+    @AutoColumn(comment = "分类名称")
     @TableField("name")
     private String name;
     /**
      * 分类排序
      */
-    @AutoColumn
+    @AutoColumn(comment = "分类排序")
     @TableField("sort")
     private Integer sort;
     /**
      * 图片地址
      */
-    @AutoColumn
+    @AutoColumn(comment = "图片地址")
     @TableField("img_url")
     private String imgUrl;
     /**
      * 是否系统通用（0-否，1-是）
      */
-    @AutoColumn
+    @AutoColumn(comment = "是否系统通用（0-否，1-是）")
     @TableField("is_sys")
     private Integer isSys;
 

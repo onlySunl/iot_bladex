@@ -47,21 +47,21 @@ public class DeviceConfigDO extends CustomBaseEntity {
     /**
      * 配置内容（JSON）
      */
-    @AutoColumn
+    @AutoColumn(comment = "配置内容（JSON）")
     @TableField("config")
     private String config;
 
     /**
      * 产品key
      */
-    @AutoColumn
+    @AutoColumn(comment = "产品key")
     @TableField("product_key")
     private String productKey;
 
     /**
      * 设备唯一编码
      */
-    @AutoColumn
+    @AutoColumn(comment = "设备唯一编码")
     @TableField("dn")
     private String dn;
 }

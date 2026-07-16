@@ -52,19 +52,19 @@ public class IotNotifyMessageDO extends CustomBaseEntity {
     /**
      * 内容
      */
-    @AutoColumn
+    @AutoColumn(comment = "内容")
     @TableField("content")
     private String content;
     /**
      * 消息类型
      */
-    @AutoColumn
+    @AutoColumn(comment = "消息类型")
     @TableField("message_type")
     private String messageType;
     /**
      * 机构id
      */
-    @AutoColumn
+    @AutoColumn(comment = "机构id")
     @TableField("dept_id")
     private Long deptId;
 

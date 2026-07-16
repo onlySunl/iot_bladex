@@ -52,25 +52,25 @@ public class AlertConfigDO extends CustomBaseEntity {
     /**
      * 告警名称
      */
-    @AutoColumn
+    @AutoColumn(comment = "告警名称")
     @TableField("name")
     private String name;
     /**
      * 关联消息转发模板ID
      */
-    @AutoColumn
+    @AutoColumn(comment = "关联消息转发模板ID")
     @TableField("message_template_id")
     private Long messageTemplateId;
     /**
      * 规则引擎id
      */
-    @AutoColumn
+    @AutoColumn(comment = "规则引擎id")
     @TableField("rule_info_id")
     private Long ruleInfoId;
     /**
      * 告警等级
      */
-    @AutoColumn
+    @AutoColumn(comment = "告警等级")
     @TableField("level")
     private String level;
 

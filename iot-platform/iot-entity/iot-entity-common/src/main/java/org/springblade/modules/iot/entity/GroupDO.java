@@ -52,37 +52,37 @@ public class GroupDO extends CustomBaseEntity {
     /**
      * 分组名称
      */
-    @AutoColumn
+    @AutoColumn(comment = "分组名称")
     @TableField("name")
     private String name;
     /**
      * 分组排序
      */
-    @AutoColumn
+    @AutoColumn(comment = "分组排序")
     @TableField("group_order")
     private Integer groupOrder;
     /**
      * 用户ID
      */
-    @AutoColumn
+    @AutoColumn(comment = "用户ID")
     @TableField("uid")
     private Long uid;
     /**
      * 用户昵称
      */
-    @AutoColumn
+    @AutoColumn(comment = "用户昵称")
     @TableField("user_name")
     private String userName;
     /**
      * 机构id
      */
-    @AutoColumn
+    @AutoColumn(comment = "机构id")
     @TableField("dept_id")
     private Long deptId;
     /**
      * 分组类型(0系统, 1用户, 字典)
      */
-    @AutoColumn
+    @AutoColumn(comment = "分组类型(0系统, 1用户, 字典)")
     @TableField("typ")
     private Integer typ;
 

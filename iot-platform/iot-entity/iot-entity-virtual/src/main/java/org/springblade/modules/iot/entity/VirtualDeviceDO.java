@@ -51,28 +51,28 @@ public class VirtualDeviceDO extends CustomBaseEntity {
     /**
      * 虚拟设备名称
      */
-    @AutoColumn
+    @AutoColumn(comment = "虚拟设备名称")
     @TableField("name")
     private String name;
 
     /**
      * 产品key
      */
-    @AutoColumn
+    @AutoColumn(comment = "产品key")
     @TableField("product_key")
     private String productKey;
 
     /**
      * 虚拟类型
      */
-    @AutoColumn
+    @AutoColumn(comment = "虚拟类型")
     @TableField("type")
     private String type;
 
     /**
      * 设备行为脚本
      */
-    @AutoColumn
+    @AutoColumn(comment = "设备行为脚本")
     @TableField("script")
     private String script;
 
@@ -80,20 +80,20 @@ public class VirtualDeviceDO extends CustomBaseEntity {
      * 触发方式执行方式
      */
     @TableField("`trigger`") //TODO 启用 PostgreSQL、KaiwuDB 需要注释掉这个注解
-    @AutoColumn
+    @AutoColumn(comment = "触发方式执行方式")
     private String trigger;
 
     /**
      * 触发表达式
      */
-    @AutoColumn
+    @AutoColumn(comment = "触发表达式")
     @TableField("trigger_expression")
     private String triggerExpression;
 
     /**
      * 运行状态
      */
-    @AutoColumn
+    @AutoColumn(comment = "运行状态")
     @TableField("state")
     private String state;
 

@@ -52,19 +52,19 @@ public class SipRelationDO extends CustomBaseEntity {
     /**
      * 监控设备编号
      */
-    @AutoColumn
+    @AutoColumn(comment = "监控设备编号")
     @TableField("channel_id")
     private String channelId;
     /**
      * 关联的设备id
      */
-    @AutoColumn
+    @AutoColumn(comment = "关联的设备id")
     @TableField("re_device_id")
     private Long reDeviceId;
     /**
      * 关联的场景id
      */
-    @AutoColumn
+    @AutoColumn(comment = "关联的场景id")
     @TableField("re_scene_model_id")
     private Long reSceneModelId;
 

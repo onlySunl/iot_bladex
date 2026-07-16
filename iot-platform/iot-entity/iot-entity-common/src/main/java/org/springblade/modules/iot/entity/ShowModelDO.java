@@ -52,29 +52,29 @@ public class ShowModelDO extends CustomBaseEntity {
     /**
      * 显示内容
      */
-    @AutoColumn
+    @AutoColumn(comment = "显示内容")
     @TableField("cnf")
     private String cnf;
     /**
      * 类型 0:详情页, 1配置页
      */
-    @AutoColumn
+    @AutoColumn(comment = "类型 0:详情页, 1配置页")
     @TableField("typ")
     private Integer typ;
     /**
      * 配置名称
      */
-    @AutoColumn
+    @AutoColumn(comment = "配置名称")
     @TableField("name")
     private String name;
     /**
      * 模型code
      */
-    @AutoColumn
+    @AutoColumn(comment = "模型code")
     @TableField("model_code")
     private String modelCode;
 
-    @AutoColumn
+    @AutoColumn(comment = "product Key")
     @TableField("product_key")
     private String productKey;
 

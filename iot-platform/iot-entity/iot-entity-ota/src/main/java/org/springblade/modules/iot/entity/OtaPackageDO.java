@@ -52,67 +52,67 @@ public class OtaPackageDO extends CustomBaseEntity {
     /**
      * 产品key
      */
-    @AutoColumn
+    @AutoColumn(comment = "产品key")
     @TableField("product_key")
     private String productKey;
     /**
      * 名称
      */
-    @AutoColumn
+    @AutoColumn(comment = "名称")
     @TableField("name")
     private String name;
     /**
      * 升级包地址
      */
-    @AutoColumn
+    @AutoColumn(comment = "升级包地址")
     @TableField("url")
     private String url;
     /**
      * 版本
      */
-    @AutoColumn
+    @AutoColumn(comment = "版本")
     @TableField("version")
     private String version;
     /**
      * 升级包大小
      */
-    @AutoColumn
+    @AutoColumn(comment = "升级包大小")
     @TableField("size")
     private Long size;
     /**
      * 签名方式
      */
-    @AutoColumn
+    @AutoColumn(comment = "签名方式")
     @TableField("sign_method")
     private String signMethod;
     /**
      * 签名内容
      */
-    @AutoColumn
+    @AutoColumn(comment = "签名内容")
     @TableField("sign")
     private String sign;
     /**
      * 额外内容
      */
-    @AutoColumn
+    @AutoColumn(comment = "额外内容")
     @TableField("ext_data")
     private String extData;
     /**
      * 是否差分包
      */
-    @AutoColumn
+    @AutoColumn(comment = "是否差分包")
     @TableField("is_diff")
     private Boolean isDiff;
     /**
      * md5
      */
-    @AutoColumn
+    @AutoColumn(comment = "md5")
     @TableField("md5")
     private String md5;
     /**
      * 模块
      */
-    @AutoColumn
+    @AutoColumn(comment = "模块")
     @TableField("module")
     private String module;
 
