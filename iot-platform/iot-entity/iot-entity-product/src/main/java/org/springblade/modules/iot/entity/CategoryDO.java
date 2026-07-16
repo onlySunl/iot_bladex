@@ -23,7 +23,7 @@
  */
 package org.springblade.modules.iot.entity;
 
-import com.tangzc.mybatisflex.autotable.annotations.AutoColumn;
+import com.tangzc.autotable.annotation.AutoColumn;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 
