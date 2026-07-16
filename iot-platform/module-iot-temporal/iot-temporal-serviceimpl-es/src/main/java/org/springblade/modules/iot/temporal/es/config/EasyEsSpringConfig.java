@@ -16,7 +16,7 @@ import java.util.Map;
  * @author lzh
  * @since 2.1.0
  */
-@EsMapperScan("${platform.info.base-package}.eiot")
+@EsMapperScan("${platform.info.base-package}")
 @ComponentScan("org.dromara.easyes")
 @Configuration
 public class EasyEsSpringConfig {
