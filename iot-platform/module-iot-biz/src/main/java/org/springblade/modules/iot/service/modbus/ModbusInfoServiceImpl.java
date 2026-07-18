@@ -11,7 +11,7 @@ import org.springblade.modules.iot.framework.common.exception.ServiceException;
 import org.springblade.modules.iot.framework.common.exception.util.ServiceExceptionUtil;
 import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
-import org.springblade.modules.iot.framework.excel.core.util.ExcelUtils;
+import org.springblade.modules.iot.excel.core.util.ExcelUtils;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
 import org.springblade.modules.iot.api.modbus.ModbusInfoApi;
 import org.springblade.modules.iot.api.modbus.ModbusThingModelApi;

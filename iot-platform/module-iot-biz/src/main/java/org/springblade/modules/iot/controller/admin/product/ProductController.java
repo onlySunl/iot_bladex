@@ -31,7 +31,7 @@ import org.springblade.modules.iot.framework.common.util.object.BeanUtils;
 import static org.springblade.modules.iot.common.entity.CommonResult.success;
 import static org.springblade.modules.iot.framework.common.pojo.CommonResult.success;
 
-import org.springblade.modules.iot.framework.excel.core.util.ExcelUtils;
+import org.springblade.modules.iot.excel.core.util.ExcelUtils;
 
 import org.springblade.modules.iot.framework.apilog.core.annotation.ApiAccessLog;
 import static org.springblade.modules.iot.framework.apilog.core.enums.OperateTypeEnum.*;
