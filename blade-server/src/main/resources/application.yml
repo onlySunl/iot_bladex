@@ -329,3 +329,118 @@ feign:
 logging:
   level:
     feign: DEBUG
+# IoT 平台配置
+iot:
+  # 消息总线配置
+  message:
+    # 消息类型: spring(本地事件), kafka, rocketmq, vertx, actor
+    type: spring
+    # Kafka 配置 (当 type=kafka 时生效)
+    kafka:
+      bootstrap-servers: localhost:9092
+      producer:
+        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+        value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      consumer:
+        group-id: iot-consumer-group
+        key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+        value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    # RocketMQ 配置 (当 type=rocketmq 时生效)
+    rocketmq:
+      name-server: localhost:9876
+      producer:
+        group: iot-producer-group
+      consumer:
+        group: iot-consumer-group
+
+  # 时序数据存储配置
+  temporal:
+    # 存储类型: td(TDengine), iotdb(IoTDB), timescaledb(TimescaleDB), es(Elasticsearch), kw(Kingbase)
+    type: td
+    # TDengine 配置 (当 type=td 时生效)
+    td:
+      enabled: false
+      url: jdbc:TAOS-RS://localhost:6041/iot
+      username: root
+      password: taosdata
+      driver-class-name: com.taosdata.jdbc.rs.TSDBDriver
+    # IoTDB 配置 (当 type=iotdb 时生效)
+    iotdb:
+      enabled: false
+      host: localhost
+      port: 6667
+      username: root
+      password: root
+    # TimescaleDB 配置 (当 type=timescaledb 时生效)
+    timescaledb:
+      enabled: false
+      url: jdbc:postgresql://localhost:5432/iot_timescale
+      username: postgres
+      password: postgres
+    # Elasticsearch 配置 (当 type=es 时生效)
+    es:
+      enabled: false
+      hosts: localhost:9200
+      username:
+      password:
+      index-prefix: iot
+
+  # MQTT 配置
+  mqtt:
+    enabled: false
+    # MQTT Broker 地址
+    broker-url: tcp://localhost:1883
+    # 客户端 ID 前缀
+    client-id-prefix: iot-server-
+    # 用户名
+    username: admin
+    # 密码
+    password: admin
+    # 默认 Topic 前缀
+    topic-prefix: /iot/
+    # 连接超时(秒)
+    connection-timeout: 30
+    # 心跳间隔(秒)
+    keep-alive-interval: 60
+    # 自动重连
+    automatic-reconnect: true
+    # 清除会话
+    clean-session: true
+
+  # EMQX 集成配置
+  emqx:
+    enabled: false
+    # EMQX API 地址
+    api-url: http://localhost:18083
+    # API Key
+    api-key:
+    # API Secret
+    api-secret:
+
+  # 规则引擎配置
+  rule:
+    # 规则执行线程池大小
+    thread-pool-size: 10
+    # 规则执行超时(毫秒)
+    execution-timeout: 5000
+
+  # 设备配置
+  device:
+    # 设备超时检查间隔(秒)
+    timeout-check-interval: 60
+    # 设备离线超时(秒)
+    offline-timeout: 300
+
+# Easy-ES 配置
+easy-es:
+  enabled: false
+  # Elasticsearch 地址
+  address: localhost:9200
+  # 用户名
+  username:
+  # 密码
+  password:
+  # 索引策略: manually(手动), smoothly(平滑), not_smoothly(非平滑), keep_index(保留索引)
+  global-index-strategy: smoothly
+  # 是否打印 ES 日志
+  print-dsl: true

@@ -2,57 +2,41 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springblade</groupId>
         <artifactId>module-iot-temporal</artifactId>
+        <groupId>org.springblade</groupId>
         <version>4.2.0.RELEASE</version>
-
     </parent>
+    <modelVersion>4.0.0</modelVersion>
 
     <artifactId>iot-temporal-serviceimpl-es</artifactId>
-    <description>
-        iot-temporal-serviceimpl-es 时序数据库接口
-    </description>
-    <properties>
-        <!-- 增加自动模块名称，解决空模块名报错 -->
-        <module.name>iot.temporal.serviceimpl.es</module.name>
-    </properties>
+    <name>iot-temporal-serviceimpl-es</name>
+    <description>时序数据存储 Elasticsearch 实现</description>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-temporal-service</artifactId>
+            <version>${blade.project.version}</version>
+        </dependency>
+
+        <!-- Spring Boot Data Elasticsearch (Spring Boot 3.x managed version) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
+
+        <!-- Easy-ES -->
+        <dependency>
+            <groupId>cn.easy-es</groupId>
+            <artifactId>easy-es-boot-starter</artifactId>
+        </dependency>
+
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-temporal-service</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-elasticsearch</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.dromara.easy-es</groupId>
-            <artifactId>easy-es-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.elasticsearch.client</groupId>
-            <artifactId>elasticsearch-rest-high-level-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.elasticsearch</groupId>
-            <artifactId>elasticsearch</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId> <!-- use mapstruct-jdk8 for Java 8 or higher -->
-        </dependency>
-
     </dependencies>
-
 </project>
