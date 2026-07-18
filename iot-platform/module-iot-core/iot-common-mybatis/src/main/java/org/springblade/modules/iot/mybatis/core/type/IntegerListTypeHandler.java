@@ -46,6 +46,8 @@ public class IntegerListTypeHandler implements TypeHandler<List<Integer>> {
         if (StrUtil.isBlank(value)) {
             return CollUtil.newArrayList();
         }
-        return CollUtil.convertToIntArray(StrUtil.split(value, SEPARATOR));
+        return StrUtil.split(value, SEPARATOR).stream()
+                .map(Integer::parseInt)
+                .collect(java.util.stream.Collectors.toList());
     }
 }
