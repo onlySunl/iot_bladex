@@ -24,6 +24,7 @@
 package org.springblade.modules.iot.message.kafka;
 
 
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.message.core.MqProducer;
 import org.springblade.modules.iot.message.kafka.partitioner.ProductKeyPartitioner;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -36,9 +37,6 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.springblade.modules.iot.message.core.ErrorCodeConstants.INIT_PRODUCER_ERROR;
-import static org.springblade.modules.iot.message.core.ErrorCodeConstants.SEND_MSG_ERROR;
-import static org.springblade.modules.iot.framework.common.exception.util.ServiceExceptionUtil.exception;
 
 public class KafkaProducer<T> implements MqProducer<T> {
 
@@ -50,10 +48,10 @@ public class KafkaProducer<T> implements MqProducer<T> {
             try {
                 kafkaTemplate = createProducer(bootstrapServers, "iot-producer-" + System.currentTimeMillis());
             } catch (Throwable e) {
-                throw exception(INIT_PRODUCER_ERROR);
+                throw new ServiceException("初始化MQ生产者失败");
             }
         } catch (Throwable e) {
-            throw exception(INIT_PRODUCER_ERROR);
+            throw new ServiceException("初始化MQ生产者失败");
         }
     }
 
@@ -62,7 +60,7 @@ public class KafkaProducer<T> implements MqProducer<T> {
         try {
             kafkaTemplate.send(new ProducerRecord<String, T>(topic, msg));
         } catch (Throwable e) {
-            throw exception(SEND_MSG_ERROR);
+            throw new ServiceException("发送消息失败");
         }
     }
 

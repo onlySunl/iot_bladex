@@ -399,7 +399,7 @@
         </plugins>
     </build>
 
-    <repositories>
+   <!-- <repositories>
         <repository>
             <id>maven-releases</id>
             <name>sunlin Release Repository</name>
@@ -413,7 +413,7 @@
                 <updatePolicy>always</updatePolicy>
             </snapshots>
         </repository>
-    </repositories>
+    </repositories>-->
 
     <distributionManagement>
         <repository>

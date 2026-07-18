@@ -24,8 +24,8 @@
 package org.springblade.modules.iot.service.device;
 
 
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.api.device.dto.DeviceConfig;
 import org.springblade.modules.iot.api.device.dto.DeviceGroup;
 import org.springblade.modules.iot.api.device.dto.DeviceProperty;

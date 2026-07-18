@@ -8,11 +8,14 @@
         <artifactId>module-iot-temporal</artifactId>
         <version>4.2.0.RELEASE</version>
     </parent>
-
     <artifactId>iot-temporal-serviceimpl-timescaledb</artifactId>
-
-    <description>时间序列服务实现-timescaledb (postgresql)</description>
-
+    <description>
+        iot-temporal-serviceimpl-timescaledb 时间序列服务实现
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.temporal.serviceimpl.timescaledb</module.name>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>

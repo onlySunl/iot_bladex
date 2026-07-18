@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.temporal.iotdb.dao;
 
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.api.device.dto.DevicePropertyCache;
 import org.apache.iotdb.isession.SessionDataSet;
 import org.apache.iotdb.isession.pool.SessionDataSetWrapper;

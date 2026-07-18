@@ -9,8 +9,14 @@
         <version>4.2.0.RELEASE</version>
 
     </parent>
-
     <artifactId>iot-common-thing</artifactId>
+    <description>
+        iot-common-thing 告警接口模块
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.common.thing</module.name>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>

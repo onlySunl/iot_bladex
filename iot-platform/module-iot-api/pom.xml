@@ -11,37 +11,33 @@
 
     <artifactId>module-iot-api</artifactId>
 
-
+    <description>
+        module-iot-api 告警接口模块
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>module.iot.api</module.name>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-common</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-common-thing</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- 参数校验 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
             <optional>true</optional>
         </dependency>
-
-        <!-- 测试依赖 -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-common-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-common-thing</artifactId>
+        </dependency>
+
     </dependencies>
 
 

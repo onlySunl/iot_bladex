@@ -10,7 +10,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>iot-message-rocketmq</artifactId>
-
+    <description>
+        iot-message-rocketmq 告警接口模块
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.message.rocketmq</module.name>
+    </properties>
     <dependencies>
 
         <dependency>
@@ -46,6 +52,10 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-common-thing</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-common-core</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,30 +1,11 @@
 
-/*
- *
- *  * | Licensed 未经许可不能去掉「Enjoy-iot」相关版权
- *  * +----------------------------------------------------------------------
- *  * | Author: xw2sy@163.com | Tel: 19918996474
- *  * +----------------------------------------------------------------------
- *
- *  Copyright [2025] [Enjoy-iot] | Tel: 19918996474
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- * /
- */
+
 package org.springblade.modules.iot.component.mqtt.service;
 
 import cn.hutool.crypto.digest.MD5;
 import cn.hutool.json.JSONUtil;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.component.core.ComponentServices;
 import org.springblade.modules.iot.component.core.ThingComponent;
 import org.springblade.modules.iot.common.enums.DeviceState;
@@ -34,8 +15,6 @@ import org.springblade.modules.iot.component.core.model.up.EventReport;
 import org.springblade.modules.iot.component.core.model.up.PropertyReport;
 import org.springblade.modules.iot.component.core.model.up.ServiceReply;
 import org.springblade.modules.iot.component.mqtt.model.MqttConfig;
-import org.springblade.modules.iot.framework.common.exception.ServiceException;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
 import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.RegisterDevice;
@@ -211,7 +190,7 @@ public class MqttComponent extends ThingComponent implements Handler<MqttEndpoin
     public void publish(String pk, String dn, String topic, String msg) {
         MqttEndpoint endpoint = endpointMap.get(getEndpointKey(pk, dn));
         if (endpoint == null) {
-            throw new ServiceException(500, "mqtt endpoint not found,pk:" + pk + ",dn:" + dn);
+            throw new ServiceException("mqtt endpoint not found,pk:" + pk + ",dn:" + dn);
         }
         try {
             Future<Integer> result = endpoint.publish(topic, Buffer.buffer(msg),
@@ -223,7 +202,7 @@ public class MqttComponent extends ThingComponent implements Handler<MqttEndpoin
             result.onSuccess(integer -> log.info("publish success,topic:{},payload:{}", topic, msg));
         } catch (IllegalStateException e) {
             removeEndpoint(pk, dn);
-            throw new ServiceException(500, "mqtt endpoint disconnected,pk:" + pk + ",dn:" + dn);
+            throw new ServiceException("mqtt endpoint disconnected,pk:" + pk + ",dn:" + dn);
         }
     }
 

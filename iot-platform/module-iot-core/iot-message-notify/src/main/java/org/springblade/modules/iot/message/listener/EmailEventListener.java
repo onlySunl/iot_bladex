@@ -24,7 +24,7 @@
 package org.springblade.modules.iot.message.listener;
 
 
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.message.event.MessageEvent;
 import org.springblade.modules.iot.message.model.EmailConfig;
 import org.springblade.modules.iot.api.alert.dto.Message;

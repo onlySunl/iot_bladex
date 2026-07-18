@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.component.http.service;
 
 import org.springblade.modules.iot.common.enums.DeviceState;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.component.core.ComponentServices;
 import org.springblade.modules.iot.component.core.ThingComponent;
 import org.springblade.modules.iot.component.core.model.down.*;
@@ -8,7 +9,6 @@ import org.springblade.modules.iot.component.core.model.up.DeviceStateChange;
 import org.springblade.modules.iot.component.core.model.up.EventReport;
 import org.springblade.modules.iot.component.core.model.up.PropertyReport;
 import org.springblade.modules.iot.component.http.model.HttpConfig;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
 import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.DevicePropertyCache;

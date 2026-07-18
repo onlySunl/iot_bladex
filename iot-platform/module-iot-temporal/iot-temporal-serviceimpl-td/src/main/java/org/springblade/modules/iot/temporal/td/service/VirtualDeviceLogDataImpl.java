@@ -24,9 +24,9 @@ package org.springblade.modules.iot.temporal.td.service;
 
 
 import org.springblade.modules.iot.IVirtualDeviceLogData;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.temporal.td.dao.TdTemplate;
 import org.springblade.modules.iot.temporal.td.model.TbVirtualDeviceLog;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.api.virtualdevice.dto.VirtualDeviceLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

@@ -22,7 +22,6 @@
  */
 package org.springblade.modules.iot.api.thingmodel.dto;
 
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springblade.modules.iot.api.TenantModel;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -32,6 +31,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;

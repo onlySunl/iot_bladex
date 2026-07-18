@@ -10,7 +10,13 @@
     </parent>
 
     <artifactId>iot-message-vertx</artifactId>
-
+    <description>
+        iot-message-vertx 告警接口模块
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.message.vertx</module.name>
+    </properties>
     <dependencies>
 
         <dependency>
@@ -45,6 +51,10 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-common-core</artifactId>
         </dependency>
     </dependencies>
 </project>

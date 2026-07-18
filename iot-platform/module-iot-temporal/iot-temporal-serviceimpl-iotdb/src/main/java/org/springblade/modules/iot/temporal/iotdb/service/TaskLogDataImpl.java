@@ -1,10 +1,10 @@
 package org.springblade.modules.iot.temporal.iotdb.service;
 
 import org.springblade.modules.iot.ITaskLogData;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.temporal.iotdb.config.Constants;
 import org.springblade.modules.iot.temporal.iotdb.config.IotdbDatasourceConfig;
 import org.springblade.modules.iot.temporal.iotdb.dao.IotdbBaseService;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.api.device.dto.DevicePropertyCache;
 import org.springblade.modules.iot.api.task.dto.TaskLog;
 import org.apache.iotdb.isession.SessionDataSet;

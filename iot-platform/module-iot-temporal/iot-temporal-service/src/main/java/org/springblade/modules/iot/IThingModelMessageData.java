@@ -24,8 +24,8 @@
 package org.springblade.modules.iot;
 
 
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
 
 import java.util.List;
 

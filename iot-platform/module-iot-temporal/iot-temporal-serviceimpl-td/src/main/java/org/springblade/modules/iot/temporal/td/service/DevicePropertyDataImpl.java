@@ -23,10 +23,10 @@
 package org.springblade.modules.iot.temporal.td.service;
 
 import org.springblade.modules.iot.IDevicePropertyData;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.temporal.td.config.Constants;
 import org.springblade.modules.iot.temporal.td.dao.TdTemplate;
 import org.springblade.modules.iot.temporal.td.model.TbDeviceProperty;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
 import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.DeviceProperty;

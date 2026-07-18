@@ -23,7 +23,7 @@
 package org.springblade.modules.iot.controller.admin.iot;
 
 
-import org.springblade.modules.iot.framework.common.pojo.CommonResult;
+import org.springblade.modules.iot.common.entity.CommonResult;
 import org.springblade.modules.iot.controller.admin.iot.vo.GetDeviceServicePropertyBo;
 import org.springblade.modules.iot.controller.admin.iot.vo.DeviceIdReqVo;
 import org.springblade.modules.iot.controller.admin.iot.vo.ServiceInvokeReqVo;
@@ -37,7 +37,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springblade.modules.iot.framework.common.pojo.CommonResult.success;
+import static org.springblade.modules.iot.common.entity.CommonResult.success;
 
 @Tag(name = "管理后台-设备控制接口")
 @Slf4j

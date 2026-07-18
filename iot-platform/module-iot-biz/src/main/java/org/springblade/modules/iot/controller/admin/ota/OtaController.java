@@ -26,8 +26,9 @@ package org.springblade.modules.iot.controller.admin.ota;
 
 import cn.hutool.core.util.ObjectUtil;
 
-import org.springblade.modules.iot.framework.common.pojo.CommonResult;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
+import org.springblade.modules.iot.common.entity.CommonResult;
+import org.springblade.modules.iot.common.entity.PageResult;
+
 import org.springblade.modules.iot.api.IdReqVo;
 import org.springblade.modules.iot.controller.admin.ota.vo.*;
 import org.springblade.modules.iot.service.ota.OtaService;
@@ -35,6 +36,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -43,8 +45,8 @@ import org.springframework.web.multipart.MultipartFile;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 
-import static org.springblade.modules.iot.framework.common.exception.util.ServiceExceptionUtil.exception;
 import static org.springblade.modules.iot.api.enums.ErrorCodeConstants.FILE_NOT_NULL;
+import static org.springblade.modules.iot.common.utils.ServiceExceptionUtil.exception;
 
 /**
  * @Author: Enjoy-iot

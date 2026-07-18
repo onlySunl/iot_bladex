@@ -25,14 +25,13 @@ package org.springblade.modules.iot.message.kafka.config;
 
 
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.message.core.MqConsumer;
 import org.springblade.modules.iot.message.core.MqProducer;
 import org.springblade.modules.iot.message.kafka.KafkaProducer;
 import org.springblade.modules.iot.message.kafka.KafkaConsumer;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

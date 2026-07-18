@@ -10,7 +10,13 @@
     </parent>
 
     <artifactId>iot-temporal-service</artifactId>
-    <description>时序数据库接口</description>
+    <description>
+        iot-temporal-service 时序数据库接口
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.temporal.service</module.name>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>

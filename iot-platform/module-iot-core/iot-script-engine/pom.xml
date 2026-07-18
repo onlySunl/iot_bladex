@@ -10,8 +10,14 @@
     </parent>
 
     <artifactId>iot-script-engine</artifactId>
-    <properties></properties>
 
+    <description>
+        iot-script-engine 告警接口模块
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.script.engine</module.name>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>
@@ -21,7 +27,15 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.graalvm.js</groupId>
+            <artifactId>js</artifactId>
+            <version>22.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-common-core</artifactId>
+        </dependency>
     </dependencies>
 
 

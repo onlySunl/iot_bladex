@@ -26,8 +26,9 @@ package org.springblade.modules.iot.service.ota;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.IdUtil;
-import org.springblade.modules.iot.framework.common.exception.ServiceException;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.core.tool.utils.FileUtil;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.ota.dto.DeviceOtaDetail;
 import org.springblade.modules.iot.controller.admin.ota.vo.*;
@@ -39,7 +40,6 @@ import org.springblade.modules.iot.dal.mysql.OtaDetailMapper;
 import org.springblade.modules.iot.dal.mysql.OtaPackageMapper;
 import org.springblade.modules.iot.service.device.DeviceCtrlService;
 import org.springblade.modules.iot.service.device.DeviceInfoService;
-import org.springblade.modules.iot.infra.api.file.FileApi;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
@@ -83,15 +83,15 @@ public class OtaServiceImpl implements OtaService {
     @Resource
     private OtaDetailMapper otaDetailMapper;
 
-    @Resource
-    private FileApi fileApi;
+
 
     public OtaPackageUploadVo uploadFile(MultipartFile file) throws Exception {
         String originalFileName = file.getOriginalFilename();
         if (originalFileName == null) {
-            throw new ServiceException(400, "文件名为空，获取失败");
+            throw new ServiceException("文件名为空，获取失败");
         }
-        String avatar = fileApi.createFile(IoUtil.readBytes(file.getInputStream()));
+        String avatar = "";
+                //FileUtil.createFile(IoUtil.readBytes(file.getInputStream()));
 
         String md5 = md5OfFile(file);
         OtaPackageUploadVo otaPackageUploadVo = new OtaPackageUploadVo();
@@ -161,7 +161,7 @@ public class OtaServiceImpl implements OtaService {
     public String startUpgrade(Long otaPackageId, List<Long> deviceIds) {
         OtaPackageDO otaPackageDO = otaPackageMapper.selectById(otaPackageId);
         if (Objects.isNull(otaPackageDO)) {
-            throw new ServiceException(400, "ota包不存在");
+            throw new ServiceException("ota包不存在");
         }
 
         DeviceOtaInfoDO deviceOtaInfo = DeviceOtaInfoDO.builder()
@@ -169,9 +169,9 @@ public class OtaServiceImpl implements OtaService {
                 .packageId(otaPackageId)
                 .productKey(otaPackageDO.getProductKey())
                 .module(otaPackageDO.getModule())
-                .remark(otaPackageDO.getRemark())
-                .version(otaPackageDO.getVersion())
                 .build();
+        deviceOtaInfo.setRemark(otaPackageDO.getRemark());
+        deviceOtaInfo.setVersion(otaPackageDO.getVersion());
         deviceOtaInfoMapper.insert(deviceOtaInfo);
 
         List<DeviceOtaDetail> deviceOtaDetails = new ArrayList<>();

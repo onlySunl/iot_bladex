@@ -10,8 +10,13 @@
     </parent>
 
     <artifactId>iot-component-core</artifactId>
-
+    <description>
+        iot-component-core 告警接口模块
+    </description>
     <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.component.core</module.name>
+
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,11 +27,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-message-core</artifactId>
         </dependency>
 
         <dependency>
@@ -47,6 +47,10 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-message-core</artifactId>
         </dependency>
 
     </dependencies>

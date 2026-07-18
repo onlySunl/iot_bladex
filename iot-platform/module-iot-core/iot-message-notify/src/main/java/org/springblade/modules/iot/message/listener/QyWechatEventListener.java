@@ -24,7 +24,7 @@
 package org.springblade.modules.iot.message.listener;
 
 
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.message.config.VertxManager;
 import org.springblade.modules.iot.message.event.MessageEvent;
 import org.springblade.modules.iot.message.model.QyWechatConfig;

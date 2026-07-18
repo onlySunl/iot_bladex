@@ -10,7 +10,13 @@
     </parent>
 
     <artifactId>iot-temporal-serviceimpl-kw</artifactId>
-
+    <description>
+        iot-temporal-serviceimpl-kw 时序数据库接口
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.temporal.serviceimpl.kw</module.name>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>
@@ -56,6 +62,12 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>module-iot-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring</artifactId>
+            <version>4.3.1</version>
+            <scope>compile</scope>
         </dependency>
 
 

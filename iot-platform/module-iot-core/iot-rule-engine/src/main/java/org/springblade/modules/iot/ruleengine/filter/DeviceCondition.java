@@ -23,9 +23,9 @@
 package org.springblade.modules.iot.ruleengine.filter;
 
 
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.ruleengine.expression.Expression;
 import org.springblade.modules.iot.ruleengine.util.PathValueResolver;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
 import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.DevicePropertyCache;

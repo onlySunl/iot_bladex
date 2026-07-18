@@ -2,9 +2,8 @@ package org.springblade.modules.iot.ruleengine.rule;
 
 import com.alibaba.ttl.TtlRunnable;
 import com.alibaba.ttl.threadpool.TtlExecutors;
+import org.springblade.modules.iot.common.context.TenantContextHolder;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
-import org.springblade.modules.iot.framework.tenant.core.context.TenantContextHolder;
 import org.springblade.modules.iot.api.rule.dto.TriggerOptions;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +14,7 @@ import org.redisson.api.RRateLimiter;
 import org.redisson.api.RateIntervalUnit;
 import org.redisson.api.RateType;
 import org.redisson.api.RedissonClient;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 

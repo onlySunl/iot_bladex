@@ -1,26 +1,5 @@
 
-/*
- *
- *  * | Licensed 未经许可不能去掉「Enjoy-iot」相关版权
- *  * +----------------------------------------------------------------------
- *  * | Author: xw2sy@163.com | Tel: 19918996474
- *  * +----------------------------------------------------------------------
- *
- *  Copyright [2025] [Enjoy-iot] | Tel: 19918996474
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- * /
- */
+
 package org.springblade.modules.iot.service.device;
 
 import cn.hutool.core.bean.BeanUtil;
@@ -28,19 +7,20 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import org.springblade.common.query.LambdaQueryWrapperX;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.IDevicePropertyData;
 import org.springblade.modules.iot.IThingModelMessageData;
 import org.springblade.modules.iot.common.constant.Constants;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.common.utils.UniqueIdUtil;
+import org.springblade.modules.iot.common.utils.WebFrameworkUtils;
+import org.springblade.modules.iot.common.validate.ValidationUtils;
+import org.springblade.modules.iot.entity.DeviceGroupDO;
+import org.springblade.modules.iot.entity.GroupDO;
 import org.springblade.modules.iot.message.core.MqProducer;
-import org.springblade.modules.iot.framework.common.exception.ServiceException;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
-import org.springblade.modules.iot.framework.common.util.object.BeanUtils;
-import org.springblade.modules.iot.framework.common.util.validation.ValidationUtils;
-import org.springblade.modules.iot.framework.mybatis.core.query.LambdaQueryWrapperX;
-import org.springblade.modules.iot.framework.web.core.util.WebFrameworkUtils;
 import org.springblade.modules.iot.api.device.dto.*;
 import org.springblade.modules.iot.api.thingmodel.dto.ThingModel;
 import org.springblade.modules.iot.controller.admin.device.vo.*;
@@ -51,12 +31,9 @@ import org.springblade.modules.iot.controller.admin.device.vo.devicegroup.Device
 import org.springblade.modules.iot.controller.admin.device.vo.devicegroup.GroupImportRespVO;
 import org.springblade.modules.iot.controller.admin.product.vo.PropertyVO;
 import org.springblade.modules.iot.convert.DeviceGroupConvert;
-import org.springblade.modules.iot.entity.DeviceGroupDO;
-import org.springblade.modules.iot.entity.GroupDO;
 import org.springblade.modules.iot.dal.mysql.EiotIotDeviceGroupMapper;
 import org.springblade.modules.iot.dal.mysql.EiotIotGroupMapper;
 import org.springblade.modules.iot.service.product.ThingModelService;
-import org.springblade.modules.iot.service.device.DeviceConfigService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -175,7 +152,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
     public Boolean clearGroup(Long id) {
         GroupDO groupDO = iotGroupMapper.selectById(id);
         if (groupDO == null) {
-            throw new ServiceException(400, "分组不存在");
+            throw new ServiceException("分组不存在");
         }
 
         //移除设备信息中的分组
@@ -190,7 +167,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
         if (config == null) {
             return null;
         }
-        DeviceConfigVo vo = BeanUtils.toBean(config, DeviceConfigVo.class);
+        DeviceConfigVo vo = BeanUtil.copyProperties(config, DeviceConfigVo.class);
         vo.setDeviceId(String.valueOf(config.getDeviceId()));
         vo.setCreateAt(config.getCreateAt());
         return vo;
@@ -213,7 +190,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
         GroupDO groupDO = iotGroupMapper.selectById(groupId);
 
         if (groupDO == null) {
-            throw new ServiceException(400, "分组不存在");
+            throw new ServiceException("分组不存在");
         }
 
         for (Long deviceId : deviceIds) {
@@ -296,13 +273,13 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
     public GroupImportRespVO importGroup(List<DeviceGroupImportVo> list, Boolean updateSupport) {
         // 1.1 参数校验
         if (CollUtil.isEmpty(list)) {
-            new ServiceException(400, "导入数据不许为空");
+            new ServiceException("导入数据不许为空");
         }
         // 2. 遍历，逐个创建 or 更新
         GroupImportRespVO respVO = GroupImportRespVO.builder().createGroupnames(new ArrayList<>())
                 .updateGroupnames(new ArrayList<>()).failureGroupnames(new LinkedHashMap<>()).build();
         list.forEach(groupInfo -> {
-            DeviceGroupBo deviceGroupBo = BeanUtils.toBean(groupInfo, DeviceGroupBo.class);
+            DeviceGroupBo deviceGroupBo = BeanUtil.copyProperties(groupInfo, DeviceGroupBo.class);
             try {
                 ValidationUtils.validate(deviceGroupBo);
             } catch (ConstraintViolationException ex) {

@@ -1,66 +1,60 @@
-
-/*
- *
- *  * | Licensed 未经许可不能去掉「Enjoy-iot」相关版权
- *  * +----------------------------------------------------------------------
- *  * | Author: xw2sy@163.com | Tel: 19918996474
- *  * +----------------------------------------------------------------------
- *
- *  Copyright [2025] [Enjoy-iot] | Tel: 19918996474
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- * /
- */
 package org.springblade.modules.iot.common.enums;
 
-import org.springblade.modules.iot.framework.common.exception.ErrorCode;
+import org.springblade.core.tool.api.IResultCode;
 
-public interface ErrorCodeConstants {
+/**
+ * IoT模块错误码枚举，适配BladeX IResultCode规范
+ */
+public enum ErrorCodeConstants implements IResultCode {
 
-    // ========== 产品信息 2_006_001_000 ==========
+    // ========== 产品信息 2007001xxx ==========
+    PRODUCT_NOT_EXISTS(2007001000, "产品不存在"),
 
-    ErrorCode PRODUCT_NOT_EXISTS = new ErrorCode(2_007_001_000, "产品不存在");
+    // ========== 设备信息 2007002xxx ==========
+    DEVICE_INFO_NOT_EXISTS(2007002000, "设备信息不存在"),
+    DN_NOT_EXISTS(2007002001, "设备DN不存在"),
+    DEVICE_CLIENT_WRONG(2007002002, "client_id异常"),
+    DN_WRONG(2007002003, "DN错误"),
+    DEVICE_PASSWORD_WRONG(2007002004, "密码错误"),
+    DEVICE_AUTH_EXCEPTION(2007002005, "认证异常"),
+    PARAMS_EXCEPTION(2007002006, "参数错误"),
+    DEVICE_ACTION_FAILED(2007002007, "设备动作执行失败"),
+    ROUTER_NOT_EXISTS(2007002008, "未找到设备路由"),
+    COMPONENT_NOT_EXISTS(2007002009, "设备组件未找到"),
 
-    // ========== 设备信息 2_006_002_000 ==========
-    ErrorCode DEVICE_INFO_NOT_EXISTS = new ErrorCode(2_007_002_000, "设备信息不存在");
-    ErrorCode DN_NOT_EXISTS = new ErrorCode(2_007_002_000, "设备信息不存在");
-    ErrorCode DEVICE_CLIENT_WRONG = new ErrorCode(2_007_002_000, "client_id异常");
-    ErrorCode DN_WRONG = new ErrorCode(2_007_002_000, "DN错误");
-    ErrorCode DEVICE_PASSWORD_WRONG = new ErrorCode(2_007_002_000, "密码错误");
-    ErrorCode DEVICE_AUTH_EXCEPTION = new ErrorCode(2_007_002_000, "认证异常");
+    // ========== 产品物模型 2007003xxx ==========
+    THING_MODEL_NOT_EXISTS(2007003000, "物模型信息不存在"),
 
-    // ========== 产品物模型 2_006_003_000 ==========
-    ErrorCode NOT_EXISTS = new ErrorCode(2_007_003_000, "信息不存在");
+    // ========== 请求发送、规则引擎、时序库 2007007xxx ==========
+    SEND_REQUEST_ERROR(2007007000, "发送请求失败"),
+    DATA_BLANK(2007007001, "规则引擎符号为空"),
+    FILED_DEFINE(2007007002, "字段定义异常"),
+    TABLE_DEFINE(2007007003, "表定义异常"),
+    TABLE_DELETE(2007007004, "表删除异常"),
+    TABLE_GET(2007007005, "表获取异常"),
+    COLUMN_ADD(2007007006, "添加字段异常"),
+    COLUMN_UPDATE(2007007007, "字段修改异常"),
+    COLUMN_DEL(2007007008, "字段删除异常");
 
-    //
-    ErrorCode PARAMS_EXCEPTION = new ErrorCode(2_007_002_000, "参数错误");
-    ErrorCode DEVICE_ACTION_FAILED = new ErrorCode(2_007_002_000, "设备动作执行失败");
-    ErrorCode ROUTER_NOT_EXISTS = new ErrorCode(2_007_002_000, "未找到设备路由");
-    ErrorCode COMPONENT_NOT_EXISTS = new ErrorCode(2_007_002_000, "设备组件未找到");
+    private final int code;
+    private final String msg;
 
-//
-    ErrorCode SEND_REQUEST_ERROR = new ErrorCode(2_007_007_000, "发送请求失败");
-    ErrorCode DATA_BLANK = new ErrorCode(2_007_007_000, "规则引擎符号为空");
+    ErrorCodeConstants(int code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
 
-    // 时序数据库数据库
-    ErrorCode FILED_DEFINE = new ErrorCode(2_007_007_000, "字段定义异常");
-    ErrorCode TABLE_DEFINE = new ErrorCode(2_007_007_000, "表定义异常");
-    ErrorCode TABLE_DELETE = new ErrorCode(2_007_007_000, "表删除异常");
-    ErrorCode TABLE_GET = new ErrorCode(2_007_007_000, "表获取异常");
-    ErrorCode COLUMN_ADD = new ErrorCode(2_007_007_000, "添加字段异常");
-    ErrorCode COLUMN_UPDATE = new ErrorCode(2_007_007_000, "字段修改异常");
-    ErrorCode COLUMN_DEL = new ErrorCode(2_007_007_000, "字段删除异常");
+    @Override
+    public String getMessage() {
+        return getMsg();
+    }
 
+    @Override
+    public int getCode() {
+        return code;
+    }
 
-
+    public String getMsg() {
+        return msg;
+    }
 }

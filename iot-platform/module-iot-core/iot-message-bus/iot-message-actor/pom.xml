@@ -10,7 +10,13 @@
     </parent>
 
     <artifactId>iot-message-actor</artifactId>
-
+    <description>
+        iot-message-actor 告警接口模块
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.message.actor</module.name>
+    </properties>
     <dependencies>
 
         <dependency>

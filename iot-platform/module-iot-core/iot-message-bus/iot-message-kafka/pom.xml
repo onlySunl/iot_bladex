@@ -11,7 +11,13 @@
     </parent>
 
     <artifactId>iot-message-kafka</artifactId>
-
+    <description>
+        iot-message-kafka 告警接口模块
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.message.kafka</module.name>
+    </properties>
     <dependencies>
 
         <dependency>
@@ -46,6 +52,10 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-common-thing</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-common-core</artifactId>
         </dependency>
 
 

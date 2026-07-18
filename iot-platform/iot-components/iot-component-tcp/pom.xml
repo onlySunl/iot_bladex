@@ -10,7 +10,13 @@
     </parent>
 
     <artifactId>iot-component-tcp</artifactId>
-
+    <description>
+        iot-component-tcp
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.component.tcp</module.name>
+    </properties>
 
     <dependencies>
 

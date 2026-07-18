@@ -11,7 +11,13 @@
 
     <artifactId>iot-virtual-device</artifactId>
 
-    <properties></properties>
+    <description>
+        iot-virtual-device 告警接口模块
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.virtual.device</module.name>
+    </properties>
 
     <dependencies>
         <dependency>

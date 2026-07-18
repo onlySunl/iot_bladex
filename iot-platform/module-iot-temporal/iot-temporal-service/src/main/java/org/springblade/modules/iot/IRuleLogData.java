@@ -24,7 +24,7 @@
 package org.springblade.modules.iot;
 
 
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.api.rule.dto.RuleLog;
 
 public interface IRuleLogData {

@@ -23,6 +23,8 @@
 package org.springblade.modules.iot.ruleengine.rule;
 
 
+import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.ruleengine.action.Action;
 import org.springblade.modules.iot.ruleengine.action.alert.AlertAction;
 import org.springblade.modules.iot.ruleengine.action.alert.AlertService;
@@ -42,8 +44,6 @@ import org.springblade.modules.iot.ruleengine.link.LinkFactory;
 import org.springblade.modules.iot.ruleengine.listener.DeviceCondition;
 import org.springblade.modules.iot.ruleengine.listener.DeviceListener;
 import org.springblade.modules.iot.ruleengine.listener.Listener;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
 import org.springblade.modules.iot.message.service.MessageService;
 import org.springblade.modules.iot.api.alert.AlertApi;
 import org.springblade.modules.iot.api.alert.dto.AlertConfig;
@@ -55,7 +55,6 @@ import org.springblade.modules.iot.api.rule.dto.RuleInfo;
 import org.springblade.modules.iot.api.task.dto.RuleAction;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.Resource;

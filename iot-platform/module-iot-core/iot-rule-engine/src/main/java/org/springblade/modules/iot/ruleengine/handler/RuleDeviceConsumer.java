@@ -25,10 +25,10 @@ package org.springblade.modules.iot.ruleengine.handler;
 
 import org.springblade.modules.iot.common.constant.Constants;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
+import org.springblade.modules.iot.common.utils.TenantUtils;
+import org.springblade.modules.iot.common.utils.ThreadUtil;
 import org.springblade.modules.iot.message.core.ConsumerHandler;
 import org.springblade.modules.iot.message.core.MqConsumer;
-import org.springblade.modules.iot.framework.common.util.thread.ThreadUtil;
-import org.springblade.modules.iot.framework.tenant.core.util.TenantUtils;
 import com.google.common.collect.Lists;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

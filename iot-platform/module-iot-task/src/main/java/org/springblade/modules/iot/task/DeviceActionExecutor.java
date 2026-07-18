@@ -24,9 +24,9 @@ package org.springblade.modules.iot.task;
 
 
 import org.springblade.modules.iot.common.thing.ThingService;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.common.utils.UniqueIdUtil;
 import org.springblade.modules.iot.task.model.DeviceActionMsg;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
 import org.springblade.modules.iot.api.device.DeviceApi;
 import com.google.common.collect.Maps;
 

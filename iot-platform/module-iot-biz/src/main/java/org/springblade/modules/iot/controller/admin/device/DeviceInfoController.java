@@ -1,32 +1,17 @@
 
-/*
- *
- *  * | Licensed 未经许可不能去掉「Enjoy-iot」相关版权
- *  * +----------------------------------------------------------------------
- *  * | Author: xw2sy@163.com | Tel: 19918996474
- *  * +----------------------------------------------------------------------
- *
- *  Copyright [2025] [Enjoy-iot] | Tel: 19918996474
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- * /
- */
+
 package org.springblade.modules.iot.controller.admin.device;
 
 import cn.hutool.core.util.ObjectUtil;
+import org.springblade.core.tool.api.R;
+import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.modules.iot.common.entity.CommonResult;
+import org.springblade.modules.iot.common.entity.PageParam;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
 import org.springblade.modules.iot.api.IdReqVo;
 import org.springblade.modules.iot.api.device.dto.*;
+import org.springblade.modules.iot.common.utils.BeanUtils;
 import org.springblade.modules.iot.controller.admin.device.vo.DeviceInfoRespVO;
 import org.springblade.modules.iot.controller.admin.device.vo.*;
 import org.springblade.modules.iot.controller.admin.device.vo.deviceconfig.DeviceConfigAddBo;
@@ -39,10 +24,10 @@ import org.springblade.modules.iot.service.device.DeviceCtrlService;
 import org.springblade.modules.iot.service.device.DeviceInfoService;
 import org.springblade.modules.iot.service.device.DeviceManagerService;
 import org.springblade.modules.iot.service.sip.SipRelationService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Operation;
@@ -52,18 +37,11 @@ import jakarta.servlet.http.*;
 import java.util.*;
 import java.io.IOException;
 
-import org.springblade.modules.iot.framework.common.pojo.PageParam;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.framework.common.pojo.CommonResult;
-import org.springblade.modules.iot.framework.common.util.object.BeanUtils;
-import static org.springblade.modules.iot.framework.common.pojo.CommonResult.success;
 
-import org.springblade.modules.iot.framework.excel.core.util.ExcelUtils;
-
-import org.springblade.modules.iot.framework.apilog.core.annotation.ApiAccessLog;
-import static org.springblade.modules.iot.framework.apilog.core.enums.OperateTypeEnum.*;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import static org.springblade.modules.iot.common.entity.CommonResult.success;
 
 @Tag(name = "管理后台 - 设备信息")
 @RestController
@@ -99,7 +77,7 @@ public class DeviceInfoController {
     public CommonResult<DeviceImportRespVO> importDevice(@RequestPart("file") MultipartFile file, @RequestParam("productId") Long productId) throws IOException {
         List<DeviceInfoImportVo> list = ExcelUtils.read(file, DeviceInfoImportVo.class);
 
-        return CommonResult.success(deviceInfoService.importDevice(list, productId));
+        return success(deviceInfoService.importDevice(list, productId));
     }
 
     /**
@@ -155,7 +133,7 @@ public class DeviceInfoController {
     @PreAuthorize("@ss.hasPermission('iot:device-info:query')")
     public CommonResult<DeviceInfoRespVO> getDeviceBySerialNumber(@PathVariable("serialNumber") String serialNumber) {
         DeviceInfo deviceInfo = deviceInfoService.getDeviceBySerialNo(serialNumber);
-        DeviceInfoRespVO ret = BeanUtils.toBean(deviceInfo, DeviceInfoRespVO.class);
+        DeviceInfoRespVO ret = BeanUtil.copy(deviceInfo, DeviceInfoRespVO.class);
 
         if (ObjectUtil.isNotNull(deviceInfo)){
             //查询关联的监控设备
@@ -179,14 +157,13 @@ public class DeviceInfoController {
     @GetMapping("/export-excel")
     @Operation(summary = "导出设备信息 Excel")
     @PreAuthorize("@ss.hasPermission('iot:device-info:export')")
-    @ApiAccessLog(operateType = EXPORT)
     public void exportDeviceInfoExcel(@Valid DeviceInfoPageReqVO pageReqVO,
               HttpServletResponse response) throws IOException {
         pageReqVO.setPageSize(PageParam.PAGE_SIZE_NONE);
         List<DeviceShortInfo> list = deviceInfoService.getDeviceInfoPage(pageReqVO).getList();
         // 导出 Excel
         ExcelUtils.write(response, "设备信息.xls", "数据", DeviceInfoRespVO.class,
-                        BeanUtils.toBean(list, DeviceInfoRespVO.class));
+                BeanUtils.toBean(list, DeviceInfoRespVO.class));
     }
 
     @Operation(summary = "子设备列表")

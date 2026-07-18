@@ -1,9 +1,9 @@
 package org.springblade.modules.iot.message.vertx;
 
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.eventbus.MessageCodec;
 import io.vertx.core.json.Json;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 
 public class BeanCodec<T> implements MessageCodec<T, T> {
     private final Class<T> beanType;

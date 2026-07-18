@@ -24,7 +24,6 @@ package org.springblade.modules.iot.task;
 
 
 import cn.hutool.core.util.ObjectUtil;
-import org.springblade.modules.iot.framework.tenant.core.util.TenantUtils;
 import org.springblade.modules.iot.api.task.dto.RuleAction;
 import org.springblade.modules.iot.api.task.dto.TaskInfo;
 import lombok.AllArgsConstructor;
@@ -33,6 +32,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
+import org.springblade.modules.iot.common.utils.TenantUtils;
 
 import java.util.List;
 

@@ -30,7 +30,6 @@ import org.springblade.modules.iot.common.enums.DeviceState;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
 import org.springblade.modules.iot.message.core.MqProducer;
 import org.springblade.modules.iot.ruleengine.handler.DeviceMessageHandler;
-import org.springblade.modules.iot.framework.common.util.collection.CollectionUtils;
 import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.product.ProductApi;

@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.controller.admin.modbus.vo;
 
-import org.springblade.modules.iot.framework.common.pojo.PageParam;
+import org.springblade.modules.iot.common.entity.PageParam;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

@@ -24,11 +24,11 @@
 package org.springblade.modules.iot.api.task.dto;
 
 
-import org.springblade.modules.iot.framework.common.pojo.PageParam;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import jakarta.validation.constraints.Size;
+import org.springblade.modules.iot.common.entity.PageParam;
 
 @Schema(description = "TaskInfoPageReq")
 @Data

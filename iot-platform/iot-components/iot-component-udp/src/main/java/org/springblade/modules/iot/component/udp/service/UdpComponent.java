@@ -2,6 +2,7 @@ package org.springblade.modules.iot.component.udp.service;
 
 import com.alibaba.fastjson.JSON;
 import org.springblade.modules.iot.common.enums.DeviceState;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.component.core.ComponentServices;
 import org.springblade.modules.iot.component.core.ThingComponent;
 import org.springblade.modules.iot.component.core.model.down.*;
@@ -15,7 +16,6 @@ import org.springblade.modules.iot.component.udp.enums.UDPReportTypeEnum;
 import org.springblade.modules.iot.component.udp.model.DeviceData;
 import org.springblade.modules.iot.component.udp.model.UdpConfig;
 import org.springblade.modules.iot.component.udp.parser.uwb.UWBMessageParserFactory;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
 import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.RegisterDevice;

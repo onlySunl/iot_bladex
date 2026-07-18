@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.service.modbus;
 
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.api.modbus.dto.ModbusInfo;
 import org.springblade.modules.iot.api.modbus.dto.ModbusThingModel;
 import org.springblade.modules.iot.controller.admin.modbus.vo.ModbusInfoVo;

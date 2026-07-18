@@ -23,8 +23,9 @@
 package org.springblade.modules.iot.temporal.td.service;
 
 
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.IDbStructureData;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.temporal.td.config.Constants;
 import org.springblade.modules.iot.temporal.td.dm.*;
 import org.springblade.modules.iot.api.thingmodel.dto.ThingModel;
@@ -39,7 +40,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.springblade.modules.iot.common.enums.ErrorCodeConstants.*;
-import static org.springblade.modules.iot.framework.common.exception.util.ServiceExceptionUtil.exception;
+import static org.springblade.modules.iot.common.utils.ServiceExceptionUtil.exception;
 
 @Slf4j
 @Service
@@ -71,7 +72,7 @@ public class DbStructureDataImpl implements IDbStructureData {
         //执行sql
         TdResponse response = tdRestApi.execSql(sql);
         if (TdResponse.CODE_SUCCESS != response.getCode()) {
-            throw exception(TABLE_DEFINE, String.format(
+            throw new ServiceException(String.format(
                     "create td stable failed,code:%s,desc:%s"
                     , response.getCode(), response.getDesc()));
         }
@@ -94,7 +95,7 @@ public class DbStructureDataImpl implements IDbStructureData {
                     return;
                 }
 
-                throw exception(TABLE_GET,"get des table error:" + JsonUtils.toJsonString(response));
+                throw new ServiceException("get des table error:" + JsonUtils.toJsonString(response));
             }
 
             List<TdField> oldFields = FieldParser.parse(response.getData());
@@ -109,7 +110,7 @@ public class DbStructureDataImpl implements IDbStructureData {
                 sql = TableManager.getAddSTableColumnSql(tbName, addFields);
                 response = tdRestApi.execSql(sql);
                 if (response.getCode() != TdResponse.CODE_SUCCESS) {
-                    throw exception(COLUMN_ADD,"add table column error:" + JsonUtils.toJsonString(response));
+                    throw new ServiceException("add table column error:" + JsonUtils.toJsonString(response));
                 }
             }
 
@@ -126,7 +127,7 @@ public class DbStructureDataImpl implements IDbStructureData {
                 sql = TableManager.getModifySTableColumnSql(tbName, modifyFields);
                 response = tdRestApi.execSql(sql);
                 if (response.getCode() != TdResponse.CODE_SUCCESS) {
-                    throw exception(COLUMN_UPDATE,"modify table column error:" + JsonUtils.toJsonString(response));
+                    throw new ServiceException("modify table column error:" + JsonUtils.toJsonString(response));
                 }
             }
 
@@ -141,14 +142,14 @@ public class DbStructureDataImpl implements IDbStructureData {
                 sql = TableManager.getDropStableSql(tbName);
                 response = tdRestApi.execSql(sql);
                 if (response.getCode() != TdResponse.CODE_SUCCESS) {
-                    throw exception(TABLE_DELETE,"drop table error:" + JsonUtils.toJsonString(response));
+                    throw new ServiceException("drop table error:" + JsonUtils.toJsonString(response));
                 }
             }else{
                 if (!dropFields.isEmpty()) {
                     sql = TableManager.getDropSTableColumnSql(tbName, dropFields);
                     response = tdRestApi.execSql(sql);
                     if (response.getCode() != TdResponse.CODE_SUCCESS) {
-                        throw exception(COLUMN_DEL,"drop table column error:" + JsonUtils.toJsonString(response));
+                        throw new ServiceException("drop table column error:" + JsonUtils.toJsonString(response));
                     }
                 }
             }
@@ -174,7 +175,7 @@ public class DbStructureDataImpl implements IDbStructureData {
         ), new TdField("rule_id", "NCHAR", 50));
         TdResponse response = tdRestApi.execSql(sql);
         if (response.getCode() != TdResponse.CODE_SUCCESS) {
-            throw exception(TABLE_DEFINE,"create stable rule_log error:" + JsonUtils.toJsonString(response));
+            throw new ServiceException("create stable rule_log error:" + JsonUtils.toJsonString(response));
         }
 
         //创建规则日志超级表
@@ -184,7 +185,7 @@ public class DbStructureDataImpl implements IDbStructureData {
         ), new TdField("task_id", "NCHAR", 50));
         response = tdRestApi.execSql(sql);
         if (response.getCode() != TdResponse.CODE_SUCCESS) {
-            throw exception(TABLE_DEFINE,"create stable task_log error:" + JsonUtils.toJsonString(response));
+            throw new ServiceException("create stable task_log error:" + JsonUtils.toJsonString(response));
         }
 
         //创建物模型消息超级表
@@ -201,7 +202,7 @@ public class DbStructureDataImpl implements IDbStructureData {
         ), new TdField("device_id", "NCHAR", 50));
         response = tdRestApi.execSql(sql);
         if (response.getCode() != TdResponse.CODE_SUCCESS) {
-            throw exception(TABLE_DEFINE,"create stable thing_model_message error:" + JsonUtils.toJsonString(response));
+            throw new ServiceException("create stable thing_model_message error:" + JsonUtils.toJsonString(response));
         }
 
         //创建虚拟设备日志超级表
@@ -212,7 +213,7 @@ public class DbStructureDataImpl implements IDbStructureData {
         ), new TdField("virtual_device_id", "NCHAR", 50));
         response = tdRestApi.execSql(sql);
         if (response.getCode() != TdResponse.CODE_SUCCESS) {
-            throw exception(TABLE_DEFINE,"create stable virtual_device_log error:" + JsonUtils.toJsonString(response));
+            throw new ServiceException("create stable virtual_device_log error:" + JsonUtils.toJsonString(response));
         }
         log.info("td init db structure end");
 

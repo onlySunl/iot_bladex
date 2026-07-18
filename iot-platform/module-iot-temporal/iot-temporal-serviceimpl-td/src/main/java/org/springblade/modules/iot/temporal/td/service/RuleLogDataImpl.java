@@ -23,7 +23,7 @@
 package org.springblade.modules.iot.temporal.td.service;
 
 import org.springblade.modules.iot.IRuleLogData;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.temporal.td.dao.TdTemplate;
 import org.springblade.modules.iot.temporal.td.dm.TableManager;
 import org.springblade.modules.iot.temporal.td.model.TbRuleLog;

@@ -24,11 +24,11 @@
 package org.springblade.modules.iot.message.listener;
 
 
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.message.config.VertxManager;
 import org.springblade.modules.iot.message.event.MessageEvent;
 import org.springblade.modules.iot.api.alert.ChannelSmsStrategy;
 import org.springblade.modules.iot.api.alert.dto.SmsConfig;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
 import org.springblade.modules.iot.api.alert.dto.Message;
 import io.vertx.ext.web.client.WebClient;
 import jakarta.annotation.Resource;

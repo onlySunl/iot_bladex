@@ -22,10 +22,10 @@
  */
 package org.springblade.modules.iot.ruleengine.action.alert;
 
+import org.springblade.modules.iot.common.context.TenantContextHolder;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
 import org.springblade.modules.iot.ruleengine.action.ScriptService;
 import org.springblade.modules.iot.message.service.MessageService;
-import org.springblade.modules.iot.framework.tenant.core.context.TenantContextHolder;
 import org.springblade.modules.iot.api.alert.dto.Message;
 import org.springblade.modules.iot.api.device.DeviceApi;
 import com.fasterxml.jackson.core.type.TypeReference;

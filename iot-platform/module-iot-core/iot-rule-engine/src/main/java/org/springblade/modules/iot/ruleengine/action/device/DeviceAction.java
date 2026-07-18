@@ -23,9 +23,9 @@
 package org.springblade.modules.iot.ruleengine.action.device;
 
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.ruleengine.action.Action;
 import org.springblade.modules.iot.ruleengine.action.device.DeviceActionService.Service;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -24,8 +24,8 @@
 package org.springblade.modules.iot;
 
 
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.api.task.dto.TaskLog;
+import org.springblade.modules.iot.common.entity.PageResult;
 
 public interface ITaskLogData {
     void deleteByTaskId(Long taskId);

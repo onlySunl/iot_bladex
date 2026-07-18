@@ -22,9 +22,9 @@
  */
 package org.springblade.modules.iot.ruleengine.listener;
 
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.ruleengine.expression.Expression;
 import org.springblade.modules.iot.ruleengine.util.PathValueResolver;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 

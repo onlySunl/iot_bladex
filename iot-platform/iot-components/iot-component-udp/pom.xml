@@ -8,7 +8,13 @@
     </parent>
 
     <artifactId>iot-component-udp</artifactId>
-
+    <description>
+        iot-component-udp
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.component.udp</module.name>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>

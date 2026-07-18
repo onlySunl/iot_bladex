@@ -10,7 +10,13 @@
     </parent>
 
     <artifactId>iot-rule-engine</artifactId>
-
+    <description>
+        iot-rule-engine 告警接口模块
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.rule.engine</module.name>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>
@@ -82,10 +88,6 @@
             <artifactId>iot-temporal-service</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
 
         </dependencies>
 </project>

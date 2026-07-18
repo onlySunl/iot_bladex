@@ -24,8 +24,8 @@ package org.springblade.modules.iot.temporal.td.dm;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

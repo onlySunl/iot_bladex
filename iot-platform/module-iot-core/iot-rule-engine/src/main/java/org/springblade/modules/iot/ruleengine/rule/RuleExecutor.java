@@ -25,11 +25,11 @@ package org.springblade.modules.iot.ruleengine.rule;
 
 import org.springblade.modules.iot.IRuleLogData;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.ruleengine.action.Action;
 import org.springblade.modules.iot.ruleengine.action.alert.AlertAction;
 import org.springblade.modules.iot.ruleengine.filter.Filter;
 import org.springblade.modules.iot.ruleengine.listener.Listener;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
 import org.springblade.modules.iot.api.rule.dto.RuleLog;
 import org.springblade.modules.iot.api.rule.dto.TriggerOptions;
 import lombok.extern.slf4j.Slf4j;

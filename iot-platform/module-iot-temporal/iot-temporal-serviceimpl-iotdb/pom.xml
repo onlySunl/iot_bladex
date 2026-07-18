@@ -11,7 +11,13 @@
     </parent>
 
     <artifactId>iot-temporal-serviceimpl-iotdb</artifactId>
-
+    <description>
+        iot-temporal-serviceimpl-iotdb 时序数据库接口
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.temporal.serviceimpl.iotdb</module.name>
+    </properties>
 
     <dependencies>
         <dependency>

@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.component.coap.service;
 
 import org.springblade.modules.iot.common.enums.DeviceState;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.component.coap.model.CoapRequestInfo;
 import org.springblade.modules.iot.component.core.ComponentServices;
 import org.springblade.modules.iot.component.core.ThingComponent;
@@ -9,7 +10,6 @@ import org.springblade.modules.iot.component.core.model.up.DeviceStateChange;
 import org.springblade.modules.iot.component.core.model.up.EventReport;
 import org.springblade.modules.iot.component.core.model.up.PropertyReport;
 import org.springblade.modules.iot.component.coap.model.CoapConfig;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
 import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.DevicePropertyCache;

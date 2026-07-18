@@ -1,29 +1,9 @@
 
-/*
- *
- *  * | Licensed 未经许可不能去掉「Enjoy-iot」相关版权
- *  * +----------------------------------------------------------------------
- *  * | Author: xw2sy@163.com | Tel: 19918996474
- *  * +----------------------------------------------------------------------
- *
- *  Copyright [2025] [Enjoy-iot] | Tel: 19918996474
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- * /
- */
+
 package org.springblade.modules.iot.component.core;
 
 import cn.hutool.core.util.IdUtil;
+import com.aliyun.oss.ServiceException;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
 import org.springblade.modules.iot.component.core.model.ActionType;
 import org.springblade.modules.iot.common.enums.DeviceState;
@@ -41,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.springblade.modules.iot.common.enums.ErrorCodeConstants.PARAMS_EXCEPTION;
-import static org.springblade.modules.iot.framework.common.exception.util.ServiceExceptionUtil.exception;
 
 public abstract class ThingComponent extends AbstractComponent {
 
@@ -103,7 +82,7 @@ public abstract class ThingComponent extends AbstractComponent {
 
     private void doServiceInvoke(ThingModelMessage message) {
         if (!(message.getData() instanceof Map)) {
-            throw exception(PARAMS_EXCEPTION);
+            throw new ServiceException("参数错误");
         }
         serviceInvoke(ServiceInvoke.builder()
                 .id(message.getId())
@@ -118,7 +97,7 @@ public abstract class ThingComponent extends AbstractComponent {
         String identifier = message.getIdentifier();
         if (ThingModelMessage.ID_PROPERTY_GET.equals(identifier)) {
             if (!(message.getData() instanceof List)) {
-                throw exception(PARAMS_EXCEPTION);
+                throw new ServiceException("参数错误");
             }
             //属性获取
             propertyGet(PropertyGet.builder()
@@ -204,7 +183,7 @@ public abstract class ThingComponent extends AbstractComponent {
                 message = getSubDeviceRegister((SubDeviceRegister) action);
                 break;
             default:
-                throw exception(PARAMS_EXCEPTION);
+                throw new ServiceException("参数错误");
         }
 
         if (!StringUtils.hasText(action.getId())) {

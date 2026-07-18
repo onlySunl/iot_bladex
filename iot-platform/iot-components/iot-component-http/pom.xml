@@ -10,7 +10,13 @@
     </parent>
 
     <artifactId>iot-component-http</artifactId>
-
+    <description>
+        iot-component-http 告警接口模块
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.component.http</module.name>
+    </properties>
     <dependencies>
 
         <dependency>

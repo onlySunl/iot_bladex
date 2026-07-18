@@ -1,74 +1,75 @@
-
-/*
- *
- *  * | Licensed 未经许可不能去掉「Enjoy-iot」相关版权
- *  * +----------------------------------------------------------------------
- *  * | Author: xw2sy@163.com | Tel: 19918996474
- *  * +----------------------------------------------------------------------
- *
- *  Copyright [2025] [Enjoy-iot] | Tel: 19918996474
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- * /
- */
 package org.springblade.modules.iot.api.enums;
 
-import org.springblade.modules.iot.framework.common.exception.ErrorCode;
+import org.springblade.core.tool.api.IResultCode;
 
-public interface ErrorCodeConstants {
+/**
+ * IoT 模块错误码枚举，遵循 BladeX IResultCode 规范
+ */
+public enum ErrorCodeConstants implements IResultCode {
+    NOT_EXISTS(2006003000, "信息不存在"),
     // ========== 产品分类 2_006_000_000 补充编号 ==========
-    ErrorCode CATEGORY_NOT_EXISTS = new ErrorCode(2_006_000_000, "产品分类不存在");
-    ErrorCode CATEGORY_EXITS_CHILDREN = new ErrorCode(2_006_000_000, "存在下级产品分类，无法删除");
-    ErrorCode CATEGORY_PARENT_NOT_EXITS = new ErrorCode(2_006_000_000, "父级产品分类不存在");
-    ErrorCode CATEGORY_PARENT_ERROR = new ErrorCode(2_006_000_000, "不能设置自己为父产品分类");
-    ErrorCode CATEGORY_NAME_DUPLICATE = new ErrorCode(2_006_000_000, "已经存在该分类名称的产品分类");
-    ErrorCode CATEGORY_PARENT_IS_CHILD = new ErrorCode(2_006_000_000, "不能设置自己的子Category为父Category");
-    ErrorCode CATEGORY_EXITS_PRODUCT = new ErrorCode(2_006_000_000, "分类下存在产品");
+    CATEGORY_NOT_EXISTS(2006000000, "产品分类不存在"),
+    CATEGORY_EXITS_CHILDREN(2006000001, "存在下级产品分类，无法删除"),
+    CATEGORY_PARENT_NOT_EXITS(2006000002, "父级产品分类不存在"),
+    CATEGORY_PARENT_ERROR(2006000003, "不能设置自己为父产品分类"),
+    CATEGORY_NAME_DUPLICATE(2006000004, "已经存在该分类名称的产品分类"),
+    CATEGORY_PARENT_IS_CHILD(2006000005, "不能设置自己的子Category为父Category"),
+    CATEGORY_EXITS_PRODUCT(2006000006, "分类下存在产品"),
 
     // ========== 产品信息 2_006_001_000 ==========
-
-    ErrorCode PRODUCT_NOT_EXISTS = new ErrorCode(2_006_001_000, "物联网产品不存在");
-    ErrorCode PRODUCT_KEY_REPEAT = new ErrorCode(2_006_001_000, "productKey重复");
-    ErrorCode PRODUCT_DEVICE_EXISTS = new ErrorCode(2_006_001_000, "产品下存在设备");;
+    PRODUCT_NOT_EXISTS(2006001000, "物联网产品不存在"),
+    PRODUCT_KEY_REPEAT(2006001001, "productKey重复"),
+    PRODUCT_DEVICE_EXISTS(2006001002, "产品下存在设备"),
 
     // ========== 设备信息 2_006_002_000 ==========
-    ErrorCode DEVICE_INFO_NOT_EXISTS = new ErrorCode(2_006_002_000, "设备信息不存在");
-    ErrorCode DEVICE_DN_REPEAT = new ErrorCode(2_006_002_000, "设备DN重复");
-    ErrorCode DEVICE_SERIAL_REPEAT = new ErrorCode(2_006_002_000, "设备序列号重复");
+    DEVICE_INFO_NOT_EXISTS(2006002000, "设备信息不存在"),
+    DEVICE_DN_REPEAT(2006002001, "设备DN重复"),
+    DEVICE_SERIAL_REPEAT(2006002002, "设备序列号重复"),
 
     // ========== 产品物模型 2_006_003_000 ==========
-    ErrorCode NOT_EXISTS = new ErrorCode(2_006_003_000, "信息不存在");
-    // ========== 规则引擎 2_006_004_000 ==========
+    THING_MODEL_NOT_EXISTS(2006003000, "物模型信息不存在"),
 
-    ErrorCode RULE_INFO_NOT_EXISTS = new ErrorCode(2_006_004_000, "规则引擎不存在");
-    // ========== 通道配置 2_006_004_000 ==========
-    ErrorCode CHANNEL_CONFIG_NOT_EXISTS = new ErrorCode(2_006_004_000, "规则引擎不存在");
-    ErrorCode CHANNEL_CONFIG_USED = new ErrorCode(2_006_004_000, "通道配置已被使用");
-    ErrorCode CHANNEL_TEMPLATE_USED = new ErrorCode(2_006_004_000, "通道模板已被使用");
+    // ========== 规则引擎 / 通道配置 2_006_004_000 ==========
+    RULE_INFO_NOT_EXISTS(2006004000, "规则引擎不存在"),
+    CHANNEL_CONFIG_NOT_EXISTS(2006004001, "通道配置不存在"),
+    CHANNEL_CONFIG_USED(2006004002, "通道配置已被使用"),
+    CHANNEL_TEMPLATE_USED(2006004003, "通道模板已被使用"),
+    FILE_NOT_NULL(2006004004, "文件不许为空"),
+    DATA_NOT_EXIST(2006004005, "数据不存在"),
+    TEMPLATE_NAME_ALREADY(2006004006, "模板名称已存在"),
+    RELATED_PRODUCTS_EXIST(2006004007, "关联产品已存在"),
 
-
-    ErrorCode FILE_NOT_NULL = new ErrorCode(2_006_004_000, "文件不许为空");
-    ErrorCode DATA_NOT_EXIST = new ErrorCode(2_006_004_000, "数据不存在");
-
-    ErrorCode TEMPLATE_NAME_ALREADY = new ErrorCode(2_006_004_000, "模板名称已存在");
-    ErrorCode RELATED_PRODUCTS_EXIST = new ErrorCode(2_006_004_000, "关联产品已存在");
-    
     // ========== SMS模板相关 2_006_005_000 ==========
-    ErrorCode CHANNEL_CONFIG_PARAM_ERROR = new ErrorCode(2_006_005_000, "通道配置参数错误");
-    ErrorCode SMS_TEMPLATE_CREATE_FAILED = new ErrorCode(2_006_005_001, "短信模板创建失败");
-    ErrorCode SMS_TEMPLATE_UPDATE_FAILED = new ErrorCode(2_006_005_002, "短信模板更新失败");
-    ErrorCode SMS_TEMPLATE_DELETE_FAILED = new ErrorCode(2_006_005_003, "短信模板删除失败");
-    ErrorCode SMS_TEMPLATE_UPDATE_ERROR_IN_AUDIT = new ErrorCode(2_006_005_004, "待审核状态无法更新模板内容");
-    ErrorCode SMS_TEMPLATE_DELETE_ERROR_IN_AUDIT = new ErrorCode(2_006_005_004, "待审核状态无法删除");
-    ErrorCode SMS_SEND_FAILED = new ErrorCode(2_006_005_005, "短信发送失败");
+    CHANNEL_CONFIG_PARAM_ERROR(2006005000, "通道配置参数错误"),
+    SMS_TEMPLATE_CREATE_FAILED(2006005001, "短信模板创建失败"),
+    SMS_TEMPLATE_UPDATE_FAILED(2006005002, "短信模板更新失败"),
+    SMS_TEMPLATE_DELETE_FAILED(2006005003, "短信模板删除失败"),
+    SMS_TEMPLATE_UPDATE_ERROR_IN_AUDIT(2006005004, "待审核状态无法更新模板内容"),
+    SMS_TEMPLATE_DELETE_ERROR_IN_AUDIT(2006005005, "待审核状态无法删除"),
+    SMS_SEND_FAILED(2006005006, "短信发送失败");
+
+    private final int code;
+    private final String msg;
+
+    ErrorCodeConstants(int code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+
+    @Override
+    public String getMessage() {
+        return getMsg();
+    }
+
+    /**
+     * 实现 IResultCode 接口方法
+     */
+    @Override
+    public int getCode() {
+        return this.code;
+    }
+
+    public String getMsg() {
+        return this.msg;
+    }
 }

@@ -10,8 +10,13 @@
     </parent>
 
     <artifactId>iot-component-modbus-custom</artifactId>
-    <description>定制化的modbus组件，专门用于指定的产品，虽然不通用，但是具有一定的参考意义</description>
-
+    <description>
+        iot-component-modbus-custom 定制化的modbus组件，专门用于指定的产品，虽然不通用，但是具有一定的参考意义
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.component.modbus.custom</module.name>
+    </properties>
     <dependencies>
 
         <dependency>
@@ -29,6 +34,10 @@
             <artifactId>modbus-master-tcp</artifactId>
             <version>1.2.2</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.digitalpetri.modbus</groupId>
+            <artifactId>modbus-codec</artifactId>
+            <version>1.2.2</version>
+        </dependency>
     </dependencies>
 </project>

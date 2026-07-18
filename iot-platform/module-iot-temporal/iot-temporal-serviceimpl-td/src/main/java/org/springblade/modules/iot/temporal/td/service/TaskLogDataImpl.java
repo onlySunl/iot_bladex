@@ -24,10 +24,10 @@ package org.springblade.modules.iot.temporal.td.service;
 
 
 import org.springblade.modules.iot.ITaskLogData;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.temporal.td.dao.TdTemplate;
 import org.springblade.modules.iot.temporal.td.dm.TableManager;
 import org.springblade.modules.iot.temporal.td.model.TbTaskLog;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.api.task.dto.TaskLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

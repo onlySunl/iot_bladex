@@ -1,34 +1,13 @@
 
-/*
- *
- *  * | Licensed 未经许可不能去掉「Enjoy-iot」相关版权
- *  * +----------------------------------------------------------------------
- *  * | Author: xw2sy@163.com | Tel: 19918996474
- *  * +----------------------------------------------------------------------
- *
- *  Copyright [2025] [Enjoy-iot] | Tel: 19918996474
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- * /
- */
+
 package org.springblade.modules.iot.service.virtualdevice;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import org.springblade.common.query.LambdaQueryWrapperX;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.IVirtualDeviceLogData;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.virtualdevice.VirtualManager;
-import org.springblade.modules.iot.framework.common.exception.ServiceException;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.framework.mybatis.core.query.LambdaQueryWrapperX;
 import org.springblade.modules.iot.api.virtualdevice.dto.VirtualDevice;
 import org.springblade.modules.iot.api.virtualdevice.dto.VirtualDeviceLog;
 import org.springblade.modules.iot.controller.admin.virtualdevice.vo.EiotVirtualDeviceSaveReqVO;
@@ -101,7 +80,7 @@ public class EiotVirtualDeviceServiceImpl implements VirtualDeviceService {
                     mapping.setDeviceId(deviceId);
                     return mapping;
                 }).collect(Collectors.toSet());
-        virtualDeviceMappingMapper.insertBatch(mappingList);
+        virtualDeviceMappingMapper.insertOrUpdate(mappingList);
     }
 
     @Override
@@ -182,7 +161,7 @@ public class EiotVirtualDeviceServiceImpl implements VirtualDeviceService {
     private VirtualDevice validateVirtualDeviceExists(Long id) {
         VirtualDeviceDO virtualDeviceDO = virtualDeviceMapper.selectById(id);
         if (virtualDeviceDO == null) {
-            throw new ServiceException(400, "规则不存在");
+            throw new ServiceException("规则不存在");
             // throw exception(ErrorCodeConstants.VIRTUAL_DEVICE_NOT_EXISTS);
         }
         return VirtualDeviceConvert.INSTANCE.convert(virtualDeviceDO);

@@ -23,19 +23,7 @@
 package org.springblade.modules.iot.ruleengine.expression;
 
 
-import org.springblade.modules.iot.engine.IScriptEngine;
-import org.springblade.modules.iot.engine.ScriptEngineFactory;
-import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.IOUtils;
-
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.springblade.modules.iot.common.enums.ErrorCodeConstants.DATA_BLANK;
-import static org.springblade.modules.iot.framework.common.exception.util.ServiceExceptionUtil.exception;
 
 /**
  * @author sjg

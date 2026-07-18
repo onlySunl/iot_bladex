@@ -10,7 +10,13 @@
     </parent>
 
     <artifactId>iot-component-coap</artifactId>
-
+    <description>
+        iot-component-coap
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.component.coap</module.name>
+    </properties>
     <dependencies>
 
         <dependency>

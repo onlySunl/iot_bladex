@@ -23,9 +23,10 @@
 package org.springblade.modules.iot.ruleengine.action.http;
 
 
+import com.aliyun.oss.ServiceException;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.ruleengine.action.ScriptService;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -38,7 +39,6 @@ import java.io.IOException;
 import java.util.Map;
 
 import static org.springblade.modules.iot.common.enums.ErrorCodeConstants.SEND_REQUEST_ERROR;
-import static org.springblade.modules.iot.framework.common.exception.util.ServiceExceptionUtil.exception;
 import org.apache.commons.beanutils.BeanUtils;
 
 
@@ -99,7 +99,7 @@ public class HttpService extends ScriptService {
             responseBody = body == null ? "" : body.string();
             log.info("send result,code:{},response:{}", responseCode, responseBody);
         } catch (IOException e) {
-            throw exception(SEND_REQUEST_ERROR, e);
+            throw new ServiceException("发送请求失败");
         }
 
         return String.format("send request,url:%s,method:%s,receive response,code:%s,body:%s",
