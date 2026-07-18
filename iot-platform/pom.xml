@@ -72,11 +72,6 @@
             </dependency>
             <dependency>
                 <groupId>org.springblade</groupId>
-                <artifactId>iot-common-mybatis</artifactId>
-                <version>4.2.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
                 <artifactId>iot-message-core</artifactId>
                 <version>4.2.0.RELEASE</version>
             </dependency>
@@ -298,5 +293,15 @@
                 <version>${fastexcel.verion}</version>
             </dependency>
         </dependencies>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-common-excel</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-common-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
     </dependencyManagement>
 </project>
