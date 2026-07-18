@@ -23,6 +23,7 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
         </dependency>
+
         <!-- MyBatis Plus Join -->
         <dependency>
             <groupId>com.github.yulichang</groupId>
@@ -47,27 +48,17 @@
             <artifactId>mysql-connector-j</artifactId>
         </dependency>
 
-        <!-- Easy Trans (数据翻译) -->
+        <!-- BladeX MyBatis -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-mybatis</artifactId>
+        </dependency>
+
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-starter-mybatis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-common-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-starter-mybatis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-common-core</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -26,13 +26,11 @@
     <properties>
         <vertx.version>4.5.13</vertx.version>
         <apache.commons>3.14.0</apache.commons>
-        <mybatis-plus-join.version>1.4.13</mybatis-plus-join.version>
         <akka.version>2.6.21</akka.version>
         <fastjson.version>1.2.83</fastjson.version>
         <transmittable-thread-local.version>2.14.5</transmittable-thread-local.version>
         <kaiwudb.jdbc.version>2.2.0</kaiwudb.jdbc.version>
         <dynamic-datasource.version>4.3.1</dynamic-datasource.version>
-        <mybatis-plus-join.version>1.4.13</mybatis-plus-join.version>
         <graalvm.version>22.0.0</graalvm.version>
         <fastexcel.verion>1.1.0</fastexcel.verion>
 
@@ -249,11 +247,6 @@
                 <groupId>com.kaiwudb</groupId>
                 <artifactId>kaiwudb-jdbc</artifactId>
                 <version>${kaiwudb.jdbc.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.yulichang</groupId>
-                <artifactId>mybatis-plus-join-boot-starter</artifactId> <!-- MyBatis 联表查询 -->
-                <version>${mybatis-plus-join.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
