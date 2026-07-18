@@ -3,11 +3,11 @@
 package org.springblade.modules.iot.service.component;
 
 import org.springblade.modules.iot.api.component.dto.ComponentInfo;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.controller.admin.component.vo.ComponentCreateReqVO;
 import org.springblade.modules.iot.controller.admin.component.vo.ComponentUpdateReqVO;
 import org.springblade.modules.iot.controller.admin.component.vo.ComponentPageReqVO;
 import org.springblade.modules.iot.entity.ComponentDO;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
 
 import jakarta.validation.Valid;
 

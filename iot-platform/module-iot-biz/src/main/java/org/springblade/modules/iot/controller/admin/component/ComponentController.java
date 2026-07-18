@@ -2,8 +2,8 @@
 
 package org.springblade.modules.iot.controller.admin.component;
 
-import org.springblade.modules.iot.framework.common.pojo.CommonResult;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
+import org.springblade.modules.iot.common.entity.CommonResult;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.controller.admin.component.vo.*;
 import org.springblade.modules.iot.convert.ComponentConvert;
 import org.springblade.modules.iot.entity.ComponentDO;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 
-import static org.springblade.modules.iot.framework.common.pojo.CommonResult.success;
+import static org.springblade.modules.iot.common.entity.CommonResult.success;
 
 @Tag(name = "管理后台 - 组件配置")
 @RestController

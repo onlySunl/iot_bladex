@@ -2,7 +2,9 @@
 
 package org.springblade.modules.iot.service.component;
 
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.api.component.dto.ComponentInfo;
 import org.springblade.modules.iot.controller.admin.component.vo.ComponentCreateReqVO;
 import org.springblade.modules.iot.controller.admin.component.vo.ComponentPageReqVO;
@@ -16,7 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import jakarta.annotation.Resource;
 
 import static org.springblade.modules.iot.common.enums.ErrorCodeConstants.COMPONENT_NOT_EXISTS;
-import static org.springblade.modules.iot.framework.common.exception.util.ServiceExceptionUtil.exception;
+import static org.springblade.modules.iot.common.utils.ServiceExceptionUtil.exception;
 
 /**
  * 组件配置 Service 实现类

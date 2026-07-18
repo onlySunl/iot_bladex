@@ -1,12 +1,6 @@
 package org.springblade.modules.iot.mybatis.core.mapper;
 
 import cn.hutool.core.collection.CollUtil;
-import org.springblade.modules.iot.common.entity.PageParam;
-import org.springblade.modules.iot.common.entity.PageResult;
-import org.springblade.modules.iot.common.entity.SortablePageParam;
-import org.springblade.modules.iot.common.entity.SortingField;
-import org.springblade.modules.iot.mybatis.core.util.JdbcUtils;
-import org.springblade.modules.iot.mybatis.core.util.MyBatisUtils;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -18,12 +12,20 @@ import com.github.yulichang.base.MPJBaseMapper;
 import com.github.yulichang.interfaces.MPJBaseJoin;
 import com.github.yulichang.wrapper.MPJLambdaWrapper;
 import org.apache.ibatis.annotations.Param;
+import org.springblade.modules.iot.common.entity.PageParam;
+import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.common.entity.SortablePageParam;
+import org.springblade.modules.iot.common.entity.SortingField;
+import org.springblade.modules.iot.mybatis.core.util.JdbcUtil;
+import org.springblade.modules.iot.mybatis.core.util.MyBatisUtils;
 
 import java.util.Collection;
 import java.util.List;
-
 /**
  * 在 MyBatis Plus 的 BaseMapper 的基础上拓展，提供更多的能力
+ *
+ * 1. 为 MyBatis Plus 的基础接口，提供基础的 CRUD 能力
+ * 2. {@link MPJBaseMapper} 为 MyBatis Plus Join 的基础接口，提供连表 Join 能力
  */
 public interface BaseMapperX<T> extends MPJBaseMapper<T> {
 
@@ -36,28 +38,37 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
     }
 
     default PageResult<T> selectPage(PageParam pageParam, Collection<SortingField> sortingFields, @Param("ew") Wrapper<T> queryWrapper) {
+        // 特殊：不分页，直接查询全部
         if (PageParam.PAGE_SIZE_NONE.equals(pageParam.getPageSize())) {
             List<T> list = selectList(queryWrapper);
             return new PageResult<>(list, (long) list.size());
         }
+
+        // MyBatis Plus 查询
         IPage<T> mpPage = MyBatisUtils.buildPage(pageParam, sortingFields);
         selectPage(mpPage, queryWrapper);
+        // 转换返回
         return new PageResult<>(mpPage.getRecords(), mpPage.getTotal());
     }
 
     default <D> PageResult<D> selectJoinPage(PageParam pageParam, Class<D> clazz, MPJLambdaWrapper<T> lambdaWrapper) {
+        // 特殊：不分页，直接查询全部
         if (PageParam.PAGE_SIZE_NONE.equals(pageParam.getPageSize())) {
             List<D> list = selectJoinList(clazz, lambdaWrapper);
             return new PageResult<>(list, (long) list.size());
         }
+
+        // MyBatis Plus Join 查询
         IPage<D> mpPage = MyBatisUtils.buildPage(pageParam);
         mpPage = selectJoinPage(mpPage, clazz, lambdaWrapper);
+        // 转换返回
         return new PageResult<>(mpPage.getRecords(), mpPage.getTotal());
     }
 
     default <DTO> PageResult<DTO> selectJoinPage(PageParam pageParam, Class<DTO> resultTypeClass, MPJBaseJoin<T> joinQueryWrapper) {
         IPage<DTO> mpPage = MyBatisUtils.buildPage(pageParam);
         selectJoinPage(mpPage, resultTypeClass, joinQueryWrapper);
+        // 转换返回
         return new PageResult<>(mpPage.getRecords(), mpPage.getTotal());
     }
 
@@ -79,7 +90,8 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
 
     default T selectOne(SFunction<T, ?> field1, Object value1, SFunction<T, ?> field2, Object value2,
                         SFunction<T, ?> field3, Object value3) {
-        return selectOne(new LambdaQueryWrapper<T>().eq(field1, value1).eq(field2, value2).eq(field3, value3));
+        return selectOne(new LambdaQueryWrapper<T>().eq(field1, value1).eq(field2, value2)
+                .eq(field3, value3));
     }
 
     default Long selectCount() {
@@ -124,18 +136,31 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
         return selectList(new LambdaQueryWrapper<T>().eq(field1, value1).eq(field2, value2));
     }
 
+    /**
+     * 批量插入，适合大量数据插入
+     *
+     * @param entities 实体们
+     */
     default Boolean insertBatch(Collection<T> entities) {
-        DbType dbType = JdbcUtils.getDbType();
-        if (JdbcUtils.isSQLServer(dbType)) {
+        // 特殊：SQL Server 批量插入后，获取 id 会报错，因此通过循环处理
+        DbType dbType = JdbcUtil.getDbType();
+        if (JdbcUtil.isSQLServer(dbType)) {
             entities.forEach(this::insert);
             return CollUtil.isNotEmpty(entities);
         }
         return Db.saveBatch(entities);
     }
 
+    /**
+     * 批量插入，适合大量数据插入
+     *
+     * @param entities 实体们
+     * @param size     插入数量 Db.saveBatch 默认为 1000
+     */
     default Boolean insertBatch(Collection<T> entities, int size) {
-        DbType dbType = JdbcUtils.getDbType();
-        if (JdbcUtils.isSQLServer(dbType)) {
+        // 特殊：SQL Server 批量插入后，获取 id 会报错，因此通过循环处理
+        DbType dbType = JdbcUtil.getDbType();
+        if (JdbcUtil.isSQLServer(dbType)) {
             entities.forEach(this::insert);
             return CollUtil.isNotEmpty(entities);
         }
@@ -161,4 +186,5 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T> {
     default int delete(SFunction<T, ?> field, Object value) {
         return delete(new LambdaQueryWrapper<T>().eq(field, value));
     }
+
 }

@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springblade.modules.iot.common.entity.PageParam;
 import org.springblade.modules.iot.common.entity.SortingField;
 
+import java.util.Collection;
+
 public class MyBatisUtils {
 
     public static <T> Page<T> buildPage(PageParam pageParam) {
@@ -18,7 +20,7 @@ public class MyBatisUtils {
             for (SortingField field : sortingFields) {
                 OrderItem orderItem = new OrderItem();
                 orderItem.setColumn(field.getField());
-                orderItem.setAsc(field.isAsc());
+                //orderItem.setAsc(field.isAsc());
                 page.addOrder(orderItem);
             }
         }
