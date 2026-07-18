@@ -3,7 +3,7 @@
 package org.springblade.modules.iot.dal.mysql.category;
 
 import org.springblade.common.query.LambdaQueryWrapperX;
-import org.springblade.modules.iot.common.mapper.BaseMapperX;
+import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
 import org.springblade.modules.iot.controller.admin.category.vo.CategoryListReqVO;
 import org.springblade.modules.iot.entity.CategoryDO;
 import org.apache.ibatis.annotations.Mapper;

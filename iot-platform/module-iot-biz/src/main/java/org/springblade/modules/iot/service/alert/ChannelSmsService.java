@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import org.springblade.modules.iot.api.alert.dto.SmsConfig;
 import org.springblade.modules.iot.framework.common.exception.util.ServiceExceptionUtil;
 import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
-import org.springblade.modules.iot.framework.mybatis.core.query.LambdaQueryWrapperX;
+import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
 import org.springblade.modules.iot.framework.tenant.core.aop.TenantIgnore;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
 import org.springblade.modules.iot.controller.admin.channelconfig.vo.ChannelConfig;

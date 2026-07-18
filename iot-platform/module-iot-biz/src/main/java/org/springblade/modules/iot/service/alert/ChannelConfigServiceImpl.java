@@ -5,7 +5,7 @@ package org.springblade.modules.iot.service.alert;
 import org.springblade.modules.iot.framework.common.exception.util.ServiceExceptionUtil;
 import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.framework.common.util.object.BeanUtils;
-import org.springblade.modules.iot.framework.mybatis.core.query.LambdaQueryWrapperX;
+import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
 import org.springblade.modules.iot.controller.admin.channelconfig.vo.ChannelConfig;
 import org.springblade.modules.iot.controller.admin.channelconfig.vo.ChannelConfigPageReqVO;

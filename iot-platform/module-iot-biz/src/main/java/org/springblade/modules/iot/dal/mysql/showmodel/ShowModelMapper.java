@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.dal.mysql.showmodel;
 
-import org.springblade.modules.iot.framework.mybatis.core.mapper.BaseMapperX;
+import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
 import org.springblade.modules.iot.entity.ShowModelDO;
 import org.apache.ibatis.annotations.Mapper;
 

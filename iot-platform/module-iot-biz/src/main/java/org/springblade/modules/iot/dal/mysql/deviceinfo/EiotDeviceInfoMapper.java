@@ -4,10 +4,10 @@ package org.springblade.modules.iot.dal.mysql.deviceinfo;
 
 import cn.hutool.core.util.ObjectUtil;
 import org.springblade.modules.iot.common.entity.PageResult;
-import org.springblade.modules.iot.common.mapper.BaseMapperX;
+import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
 import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.framework.mybatis.core.mapper.BaseMapperX;
-import org.springblade.modules.iot.framework.mybatis.core.query.MPJLambdaWrapperX;
+import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
+import org.springblade.modules.iot.mybatis.core.query.MPJLambdaWrapperX;
 import org.springblade.modules.iot.api.device.dto.DeviceShortInfo;
 import org.springblade.modules.iot.controller.admin.device.vo.DeviceInfoPageReqVO;
 import org.springblade.modules.iot.entity.DeviceGroupDO;

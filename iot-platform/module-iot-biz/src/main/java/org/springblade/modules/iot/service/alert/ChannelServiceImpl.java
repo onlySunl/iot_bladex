@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.service.alert;
 
-import org.springblade.modules.iot.framework.mybatis.core.query.LambdaQueryWrapperX;
+import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
 import org.springblade.modules.iot.controller.admin.alert.vo.ChannelReqVO;
 import org.springblade.modules.iot.controller.admin.channelconfig.vo.Channel;
 import org.springblade.modules.iot.convert.ChannelConvert;

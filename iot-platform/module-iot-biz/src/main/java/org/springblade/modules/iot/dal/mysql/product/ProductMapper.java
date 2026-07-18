@@ -3,8 +3,8 @@
 package org.springblade.modules.iot.dal.mysql.product;
 
 import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.framework.mybatis.core.mapper.BaseMapperX;
-import org.springblade.modules.iot.framework.mybatis.core.query.LambdaQueryWrapperX;
+import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
+import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
 import org.springblade.modules.iot.controller.admin.product.vo.ProductPageReqVO;
 import org.springblade.modules.iot.entity.ProductDO;
 import org.apache.ibatis.annotations.Mapper;

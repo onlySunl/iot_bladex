@@ -12,7 +12,7 @@ import org.springblade.modules.iot.framework.common.exception.util.ServiceExcept
 import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.framework.common.util.object.BeanUtils;
 import org.springblade.modules.iot.framework.common.util.validation.ValidationUtils;
-import org.springblade.modules.iot.framework.mybatis.core.query.LambdaQueryWrapperX;
+import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
 import org.springblade.modules.iot.framework.tenant.core.aop.TenantIgnore;
 import org.springblade.modules.iot.framework.security.core.util.SecurityFrameworkUtils;
 import org.springblade.modules.iot.api.device.dto.*;

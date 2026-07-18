@@ -4,8 +4,8 @@ package org.springblade.modules.iot.dal.mysql.sip;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.framework.mybatis.core.mapper.BaseMapperX;
-import org.springblade.modules.iot.framework.mybatis.core.query.MPJLambdaWrapperX;
+import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
+import org.springblade.modules.iot.mybatis.core.query.MPJLambdaWrapperX;
 import org.springblade.modules.iot.controller.admin.sip.vo.SipRelation;
 import org.springblade.modules.iot.controller.admin.sip.vo.SipRelationPageReqVO;
 import org.springblade.modules.iot.entity.DeviceChannelDO;
