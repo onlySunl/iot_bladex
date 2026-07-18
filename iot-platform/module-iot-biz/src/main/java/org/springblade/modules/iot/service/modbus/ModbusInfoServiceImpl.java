@@ -5,13 +5,10 @@ import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
-import cn.idev.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import org.springblade.modules.iot.framework.common.exception.ServiceException;
-import org.springblade.modules.iot.framework.common.exception.util.ServiceExceptionUtil;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
-import org.springblade.modules.iot.excel.core.util.ExcelUtils;
+import jakarta.annotation.Resource;
+import org.apache.commons.lang3.StringUtils;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
 import org.springblade.modules.iot.api.modbus.ModbusInfoApi;
 import org.springblade.modules.iot.api.modbus.ModbusThingModelApi;
@@ -20,23 +17,22 @@ import org.springblade.modules.iot.api.modbus.dto.ModbusThingModel;
 import org.springblade.modules.iot.api.product.ProductApi;
 import org.springblade.modules.iot.api.product.dto.Product;
 import org.springblade.modules.iot.api.thingmodel.dto.ThingModel;
+import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.common.utils.JsonUtils;
+import org.springblade.modules.iot.common.utils.ServiceExceptionUtil;
 import org.springblade.modules.iot.controller.admin.modbus.vo.ModbusInfoVo;
 import org.springblade.modules.iot.controller.admin.modbus.vo.ModbusThingModelImportVo;
 import org.springblade.modules.iot.controller.admin.modbus.vo.ModbusThingModelVo;
 import org.springblade.modules.iot.controller.admin.product.vo.ProductSaveReqVO;
 import org.springblade.modules.iot.controller.admin.thingmodel.vo.ThingModelSaveReqVO;
 import org.springblade.modules.iot.convert.ModbusInfoConvert;
-import org.springblade.modules.iot.entity.ModbusInfoDO;
 import org.springblade.modules.iot.dal.mysql.modbus.ModbusInfoMapper;
+import org.springblade.modules.iot.entity.ModbusInfoDO;
 import org.springblade.modules.iot.service.product.ProductService;
 import org.springblade.modules.iot.service.product.ThingModelService;
-import lombok.SneakyThrows;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -170,10 +166,10 @@ public class ModbusInfoServiceImpl implements ModbusInfoService {
             //属性标识符合法性校验
             String identifier = property.getIdentifier();
             if (StringUtils.isBlank(identifier)) {
-                throw new ServiceException(400, "属性标识符不能为空");
+                throw new ServiceException( "属性标识符不能为空");
             }
             if (!identifier.matches("^[a-zA-Z].*")) {
-                throw new ServiceException(400, "属性标识符【" + identifier + "】不合法");
+                throw new ServiceException( "属性标识符【" + identifier + "】不合法");
             }
         }
         if (oldTm != null) {

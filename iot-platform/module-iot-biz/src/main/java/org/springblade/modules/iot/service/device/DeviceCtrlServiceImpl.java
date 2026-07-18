@@ -27,21 +27,19 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import org.springblade.modules.iot.common.thing.ThingModelMessage;
-import org.springblade.modules.iot.virtualdevice.VirtualManager;
-import org.springblade.modules.iot.framework.common.exception.ServiceException;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.api.device.dto.DeviceConfig;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.DeviceTopoChangeDTO;
+import org.springblade.modules.iot.common.thing.ThingModelMessage;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.service.component.ComponentManager;
 import org.springblade.modules.iot.service.iot.ParseThingModelService;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Lazy;
+import org.springblade.modules.iot.virtualdevice.VirtualManager;
 import org.springframework.stereotype.Service;
 
-import jakarta.annotation.Resource;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -136,7 +134,7 @@ public class DeviceCtrlServiceImpl implements DeviceCtrlService {
         DeviceInfo device = getAndCheckDevice(deviceId, checkOwner);
         DeviceConfig config = deviceConfigService.findByDeviceId(deviceId);
         if (config == null || StrUtil.isBlank(config.getConfig())) {
-            throw new ServiceException(400, "device config is empty, cannot send");
+            throw new ServiceException("device config is empty, cannot send");
         }
         Map data = JsonUtils.parseObject(config.getConfig(), Map.class);
         send(deviceId, device.getProductKey(), device.getDn(), data,

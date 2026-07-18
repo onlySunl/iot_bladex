@@ -2,9 +2,9 @@ package org.springblade.modules.iot.api.modbus;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
-import org.springblade.modules.iot.framework.tenant.core.util.TenantUtils;
 import org.springblade.modules.iot.api.modbus.dto.ModbusThingModel;
+import org.springblade.modules.iot.common.utils.JsonUtils;
+import org.springblade.modules.iot.common.utils.TenantUtils;
 import org.springblade.modules.iot.entity.ModbusThingModelDO;
 import org.springblade.modules.iot.dal.mysql.modbus.ModbusThingModelMapper;
 import org.springframework.stereotype.Service;

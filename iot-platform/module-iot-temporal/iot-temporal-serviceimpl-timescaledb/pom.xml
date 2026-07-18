@@ -60,6 +60,10 @@
             <groupId>org.springblade</groupId>
             <artifactId>module-iot-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-common-mybatis</artifactId>
+        </dependency>
 
     </dependencies>
 

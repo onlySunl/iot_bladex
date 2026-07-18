@@ -2,20 +2,19 @@
 
 package org.springblade.modules.iot.api.alert;
 
-import org.springblade.modules.iot.common.entity.PageResult;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springblade.modules.iot.api.alert.dto.AlertConfig;
 import org.springblade.modules.iot.api.alert.dto.AlertConfigPageReqVO;
 import org.springblade.modules.iot.api.alert.dto.Message;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.controller.admin.channelconfig.vo.ChannelConfig;
 import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTemplate;
 import org.springblade.modules.iot.service.alert.AlertConfigService;
 import org.springblade.modules.iot.service.alert.ChannelConfigService;
 import org.springblade.modules.iot.service.alert.ChannelTemplateService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import jakarta.annotation.Resource;
 import java.util.Objects;
 
 @Slf4j

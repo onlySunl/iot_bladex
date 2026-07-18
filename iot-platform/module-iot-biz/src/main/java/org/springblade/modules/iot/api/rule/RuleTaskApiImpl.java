@@ -1,11 +1,9 @@
-
-
 package org.springblade.modules.iot.api.rule;
 
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.api.task.RuleTaskApi;
 import org.springblade.modules.iot.api.task.dto.TaskInfo;
 import org.springblade.modules.iot.api.task.dto.TaskInfoPageReq;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.controller.admin.rule.vo.TaskInfoVo;
 import org.springblade.modules.iot.convert.TaskInfoConvert;
 import org.springblade.modules.iot.service.rule.EiotRuleInfoService;

@@ -7,32 +7,38 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
-import org.springblade.modules.iot.framework.common.exception.ServiceException;
-import org.springblade.modules.iot.framework.common.exception.util.ServiceExceptionUtil;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.framework.common.util.object.BeanUtils;
-import org.springblade.modules.iot.framework.common.util.validation.ValidationUtils;
-import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
-import org.springblade.modules.iot.framework.tenant.core.aop.TenantIgnore;
-import org.springblade.modules.iot.framework.security.core.util.SecurityFrameworkUtils;
-import org.springblade.modules.iot.api.device.dto.*;
+import jakarta.annotation.Resource;
+import jakarta.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.core.tenant.annotation.TenantIgnore;
+import org.springblade.core.tool.utils.Func;
+import org.springblade.modules.iot.api.device.dto.DeviceInfo;
+import org.springblade.modules.iot.api.device.dto.DevicePropertyCache;
+import org.springblade.modules.iot.api.device.dto.DeviceShortInfo;
+import org.springblade.modules.iot.api.device.dto.RegisterDevice;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
 import org.springblade.modules.iot.api.product.dto.Product;
+import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.common.utils.BeanUtils;
+import org.springblade.modules.iot.common.utils.ServiceExceptionUtil;
+import org.springblade.modules.iot.common.validate.ValidationUtils;
 import org.springblade.modules.iot.controller.admin.device.vo.*;
 import org.springblade.modules.iot.controller.admin.device.vo.devicegroup.DeviceImportRespVO;
 import org.springblade.modules.iot.convert.DeviceInfoConvert;
 import org.springblade.modules.iot.convert.ProductConvert;
-import org.springblade.modules.iot.entity.EiotDeviceInfoDO;
-import org.springblade.modules.iot.entity.ProductDO;
 import org.springblade.modules.iot.dal.mysql.EiotIotDeviceGroupMapper;
 import org.springblade.modules.iot.dal.mysql.deviceinfo.EiotDeviceInfoMapper;
 import org.springblade.modules.iot.dal.mysql.product.ProductMapper;
 import org.springblade.modules.iot.dal.redis.RedisKeyConstants;
 import org.springblade.modules.iot.dal.redis.no.EiotRedisDAO;
+import org.springblade.modules.iot.entity.EiotDeviceInfoDO;
+import org.springblade.modules.iot.entity.ProductDO;
+import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
 import org.springblade.modules.iot.service.product.ProductService;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
@@ -41,13 +47,10 @@ import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import jakarta.annotation.Resource;
-import jakarta.validation.ConstraintViolationException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.springblade.modules.iot.framework.common.exception.util.ServiceExceptionUtil.exception;
-
+import static org.springblade.modules.iot.common.utils.ServiceExceptionUtil.exception;
 
 /**
  * 设备信息 Service 实现类
@@ -85,11 +88,11 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
 
         ProductDO productDO = productMapper.getByProductKey(productKey);
         if (ObjectUtils.isNull(productDO)) {
-            throw ServiceExceptionUtil.exception(ErrorCodeConstants.PRODUCT_NOT_EXISTS);
+            throw exception(ErrorCodeConstants.PRODUCT_NOT_EXISTS);
         }
         // 若未显式传递机构，则默认使用当前登录用户机构，确保数据权限生效
         if (createReqVO.getDeptId() == null) {
-            createReqVO.setDeptId(SecurityFrameworkUtils.getLoginUserDeptId());
+            createReqVO.setDeptId(Func.toLong(AuthUtil.getDeptId()));
         }
         // 插入
         EiotDeviceInfoDO deviceInfo = BeanUtils.toBean(createReqVO, EiotDeviceInfoDO.class);
@@ -116,7 +119,7 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
 
         ProductDO productDO = productMapper.getByProductKey(updateReqVO.getProductKey());
         if (ObjectUtils.isNull(productDO)) {
-            throw ServiceExceptionUtil.exception(ErrorCodeConstants.PRODUCT_NOT_EXISTS);
+            throw exception(ErrorCodeConstants.PRODUCT_NOT_EXISTS);
         }
         // 更新
         EiotDeviceInfoDO updateObj = BeanUtils.toBean(updateReqVO, EiotDeviceInfoDO.class);
@@ -212,11 +215,11 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
     public DeviceImportRespVO importDevice(List<DeviceInfoImportVo> list, Long productId) {
         // 1.1 参数校验
         if (CollUtil.isEmpty(list)) {
-            throw new ServiceException(400, "导入数据不许为空");
+            throw new ServiceException("导入数据不许为空");
         }
         Product product = ProductConvert.INSTANCE.convert(productMapper.selectById(productId));
         if (Objects.isNull(product)) {
-            throw new ServiceException(400, "产品不存在");
+            throw new ServiceException("产品不存在");
         }
 
         // 2. 遍历，逐个创建 or 更新
@@ -267,7 +270,7 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
         }
         EiotDeviceInfoDO device = deviceInfoMapper.selectById(id);
         if (device == null) {
-            throw ServiceExceptionUtil.exception(ErrorCodeConstants.DEVICE_INFO_NOT_EXISTS);
+            throw exception(ErrorCodeConstants.DEVICE_INFO_NOT_EXISTS);
         }
         return device;
     }
@@ -285,7 +288,7 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
         }
         DeviceInfo obj = getDeviceBySerialNo(serialNo);
         if (ObjectUtil.isNotNull(obj) && !obj.getId().equals(id)) {
-            throw ServiceExceptionUtil.exception(ErrorCodeConstants.DEVICE_SERIAL_REPEAT);
+            throw exception(ErrorCodeConstants.DEVICE_SERIAL_REPEAT);
         }
 
     }
@@ -296,7 +299,7 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
         }
         DeviceInfo deviceByPkDnByCache = getDeviceByPkDnByCache(productKey, dn);
         if (ObjectUtil.isNotNull(deviceByPkDnByCache) && !deviceByPkDnByCache.getId().equals(id)) {
-            throw ServiceExceptionUtil.exception(ErrorCodeConstants.DEVICE_DN_REPEAT);
+            throw exception(ErrorCodeConstants.DEVICE_DN_REPEAT);
         }
 
     }

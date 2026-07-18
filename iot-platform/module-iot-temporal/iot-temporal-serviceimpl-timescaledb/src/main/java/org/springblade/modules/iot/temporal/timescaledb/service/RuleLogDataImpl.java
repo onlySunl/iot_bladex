@@ -24,11 +24,11 @@ package org.springblade.modules.iot.temporal.timescaledb.service;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springblade.modules.iot.IRuleLogData;
+import org.springblade.modules.iot.common.entity.PageParam;
+import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.common.utils.BeanUtils;
 import org.springblade.modules.iot.temporal.timescaledb.dao.PgRuleLogMapper;
 import org.springblade.modules.iot.temporal.timescaledb.model.PgRuleLog;
-import org.springblade.modules.iot.framework.common.pojo.PageParam;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.framework.common.util.object.BeanUtils;
 import org.springblade.modules.iot.api.rule.dto.RuleLog;
 import org.postgresql.util.PGTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,9 +3,9 @@
 package org.springblade.modules.iot.service.product;
 
 import cn.hutool.core.lang.UUID;
-import org.springblade.modules.iot.framework.common.exception.util.ServiceExceptionUtil;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.framework.common.util.object.BeanUtils;
+import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.common.utils.BeanUtils;
+import org.springblade.modules.iot.common.utils.ServiceExceptionUtil;
 import org.springblade.modules.iot.mybatis.core.query.MPJLambdaWrapperX;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
 import org.springblade.modules.iot.api.product.dto.Product;

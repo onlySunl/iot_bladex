@@ -3,6 +3,8 @@
 package org.springblade.modules.iot.api.device;
 
 import cn.hutool.core.util.ObjectUtil;
+import org.springblade.core.tenant.annotation.TenantIgnore;
+import org.springblade.modules.iot.common.entity.CommonResult;
 import org.springblade.modules.iot.common.utils.TenantUtils;
 import org.springblade.modules.iot.common.thing.ThingService;
 import org.springblade.modules.iot.common.utils.CodecUtil;
@@ -22,6 +24,8 @@ import jakarta.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
+import static org.springblade.modules.iot.common.constant.GlobalErrorCodeConstants.BAD_REQUEST;
 
 @Slf4j
 @Service

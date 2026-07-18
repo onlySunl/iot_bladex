@@ -2,7 +2,6 @@
 
 package org.springblade.modules.iot.config;
 
-import org.springblade.modules.iot.framework.swagger.config.EnjoySwaggerAutoConfiguration;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,15 +11,19 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author EnjoyIot
  */
+/*
 @Configuration(proxyBeanMethods = false)
 public class EiotWebConfiguration {
 
-    /**
+    */
+/**
      * iot 模块的 API 分组
-     */
+     *//*
+
     @Bean
     public GroupedOpenApi eiotGroupedOpenApi() {
         return EnjoySwaggerAutoConfiguration.buildGroupedOpenApi("eiot");
     }
 
 }
+*/

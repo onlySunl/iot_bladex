@@ -2,14 +2,15 @@
 
 package org.springblade.modules.iot.controller.admin.showmodel.vo;
 
-import lombok.*;
-import java.util.*;
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.springblade.modules.iot.framework.common.pojo.PageParam;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import org.springblade.core.tool.utils.DateUtil;
+import org.springblade.modules.iot.common.entity.PageParam;
 import org.springframework.format.annotation.DateTimeFormat;
-import java.time.LocalDateTime;
 
-import static org.springblade.modules.iot.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
+import java.time.LocalDateTime;
 
 @Schema(description = "管理后台 - 产品显示模型分页 Request VO")
 @Data
@@ -30,7 +31,7 @@ public class ShowModelPageReqVO extends PageParam {
     private Integer status;
 
     @Schema(description = "创建时间")
-    @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    @DateTimeFormat(pattern = DateUtil.PATTERN_DATETIME)
     private LocalDateTime[] createTime;
 
 }

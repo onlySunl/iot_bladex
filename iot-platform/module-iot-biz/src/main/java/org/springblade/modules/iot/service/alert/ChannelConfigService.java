@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.service.alert;
 
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.controller.admin.channelconfig.vo.ChannelConfig;
 import org.springblade.modules.iot.controller.admin.channelconfig.vo.ChannelConfigPageReqVO;
 import org.springblade.modules.iot.controller.admin.channelconfig.vo.ChannelConfigReqVO;

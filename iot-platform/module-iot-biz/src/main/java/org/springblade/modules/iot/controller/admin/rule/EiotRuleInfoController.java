@@ -7,6 +7,9 @@ import org.springblade.modules.iot.api.rule.dto.RuleInfo;
 import org.springblade.modules.iot.api.rule.dto.RuleInfoPageReqVO;
 import org.springblade.modules.iot.api.task.dto.TaskInfoPageReq;
 import org.springblade.modules.iot.api.task.dto.TaskLog;
+import org.springblade.modules.iot.common.entity.CommonResult;
+import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.common.utils.BeanUtils;
 import org.springblade.modules.iot.service.rule.EiotRuleInfoService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,16 +19,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
-
 import jakarta.validation.*;
-
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.framework.common.pojo.CommonResult;
-import org.springblade.modules.iot.framework.common.util.object.BeanUtils;
-
-import static org.springblade.modules.iot.framework.common.pojo.CommonResult.success;
-
 import org.springblade.modules.iot.controller.admin.rule.vo.*;
+
+import static org.springblade.modules.iot.common.entity.CommonResult.success;
 
 @Tag(name = "管理后台 - 规则引擎")
 @RestController
@@ -95,7 +92,7 @@ public class EiotRuleInfoController {
     @PostMapping("/ruleLog/clear")
     public CommonResult<Boolean> clearRuleLogs(@Validated @RequestBody RuleIdReq request) {
         Long ruleId = request.getId();
-        return CommonResult.success(ruleEngineService.clearRuleLogByRuleId(ruleId));
+        return success(ruleEngineService.clearRuleLogByRuleId(ruleId));
     }
 
     @Operation(summary = "定时任务列表")

@@ -3,11 +3,11 @@ package org.springblade.modules.iot.temporal.es.service;
 
 
 import org.springblade.modules.iot.ITaskLogData;
-import org.springblade.modules.iot.temporal.es.dao.TaskLogRepository;
-import org.springblade.modules.iot.temporal.es.convert.EsTaskLogConvert;
-import org.springblade.modules.iot.temporal.es.document.DocTaskLog;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
 import org.springblade.modules.iot.api.task.dto.TaskLog;
+import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.temporal.es.convert.EsTaskLogConvert;
+import org.springblade.modules.iot.temporal.es.dao.TaskLogRepository;
+import org.springblade.modules.iot.temporal.es.document.DocTaskLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

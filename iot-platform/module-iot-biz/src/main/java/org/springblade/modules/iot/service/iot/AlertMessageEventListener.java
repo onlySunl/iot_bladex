@@ -3,9 +3,9 @@
 package org.springblade.modules.iot.service.iot;
 
 
+import org.springblade.modules.iot.common.context.TenantContextHolder;
 import org.springblade.modules.iot.message.event.MessageEvent;
 import org.springblade.modules.iot.message.listener.MessageEventListener;
-import org.springblade.modules.iot.framework.tenant.core.context.TenantContextHolder;
 import org.springblade.modules.iot.api.alert.dto.AlertConfig;
 import org.springblade.modules.iot.api.alert.dto.Message;
 import org.springblade.modules.iot.service.alert.AlertConfigService;

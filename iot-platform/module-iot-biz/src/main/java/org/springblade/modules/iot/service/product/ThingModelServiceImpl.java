@@ -2,14 +2,14 @@
 package org.springblade.modules.iot.service.product;
 
 import cn.hutool.core.util.ObjectUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.IDbStructureData;
-import org.springblade.modules.iot.framework.common.exception.ServiceException;
-import org.springblade.modules.iot.framework.common.exception.util.ServiceExceptionUtil;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
-import org.springblade.modules.iot.framework.common.util.object.BeanUtils;
 import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
 import org.springblade.modules.iot.api.thingmodel.dto.ThingModel;
+import org.springblade.modules.iot.common.utils.BeanUtils;
+import org.springblade.modules.iot.common.utils.JsonUtils;
+import org.springblade.modules.iot.common.utils.ServiceExceptionUtil;
 import org.springblade.modules.iot.controller.admin.product.vo.IotThingModelSaveReqVO;
 import org.springblade.modules.iot.controller.admin.thingmodel.vo.ThingModelSaveReqVO;
 import org.springblade.modules.iot.convert.ThingModelConvert;
@@ -190,7 +190,7 @@ public class ThingModelServiceImpl implements ThingModelService {
                 continue;
             }
             if (!identifiers.add(identifier)) {
-                throw new ServiceException(400, scope + " identifier duplicated: " + identifier);
+                throw new ServiceException(scope + " identifier duplicated: " + identifier);
             }
         }
     }
@@ -205,7 +205,7 @@ public class ThingModelServiceImpl implements ThingModelService {
         for (ThingModel.Parameter parameter : parameters) {
             validateIdentifier(path, parameter.getIdentifier());
             if (!identifiers.add(parameter.getIdentifier())) {
-                throw new ServiceException(400, path + " duplicated identifier: " + parameter.getIdentifier());
+                throw new ServiceException(path + " duplicated identifier: " + parameter.getIdentifier());
             }
             validateDataType(path + "[" + parameter.getIdentifier() + "]", parameter.getDataType());
         }
@@ -213,16 +213,16 @@ public class ThingModelServiceImpl implements ThingModelService {
 
     private void validateIdentifier(String scope, String identifier) {
         if (StringUtils.isBlank(identifier)) {
-            throw new ServiceException(400, scope + " identifier cannot be blank");
+            throw new ServiceException( scope + " identifier cannot be blank");
         }
         if (!identifier.matches("^[a-zA-Z][a-zA-Z0-9_:.\\-]*$")) {
-            throw new ServiceException(400, scope + " identifier illegal: " + identifier);
+            throw new ServiceException(scope + " identifier illegal: " + identifier);
         }
     }
 
     private void validateDataType(String path, ThingModel.DataType dataType) {
         if (dataType == null || StringUtils.isBlank(dataType.getType())) {
-            throw new ServiceException(400, path + " dataType is required");
+            throw new ServiceException(path + " dataType is required");
         }
         Map<String, Object> specs = dataType.getSpecMap();
         switch (dataType.normalizedType()) {
@@ -233,7 +233,7 @@ public class ThingModelServiceImpl implements ThingModelService {
                 return;
             case ThingModel.DataType.TYPE_ENUM:
                 if (specs.isEmpty()) {
-                    throw new ServiceException(400, path + " enum specs cannot be empty");
+                    throw new ServiceException(path + " enum specs cannot be empty");
                 }
                 return;
             case ThingModel.DataType.TYPE_STRING:
@@ -249,19 +249,19 @@ public class ThingModelServiceImpl implements ThingModelService {
             case ThingModel.DataType.TYPE_OBJECT:
                 List<ThingModel.Parameter> fields = dataType.getPropertySpecs();
                 if (fields.isEmpty()) {
-                    throw new ServiceException(400, path + " object type requires nested properties");
+                    throw new ServiceException(path + " object type requires nested properties");
                 }
                 validateParameters(fields, path + ".properties");
                 return;
             case ThingModel.DataType.TYPE_ARRAY:
                 ThingModel.DataType itemType = dataType.getItemTypeSpec();
                 if (itemType == null) {
-                    throw new ServiceException(400, path + " array type requires itemType");
+                    throw new ServiceException(path + " array type requires itemType");
                 }
                 validateDataType(path + ".items", itemType);
                 return;
             default:
-                throw new ServiceException(400, path + " unsupported dataType: " + dataType.getType());
+                throw new ServiceException(path + " unsupported dataType: " + dataType.getType());
         }
     }
 
@@ -273,10 +273,10 @@ public class ThingModelServiceImpl implements ThingModelService {
         try {
             int parsed = Integer.parseInt(String.valueOf(length));
             if (parsed <= 0) {
-                throw new ServiceException(400, path + " length must be positive");
+                throw new ServiceException(path + " length must be positive");
             }
         } catch (NumberFormatException ex) {
-            throw new ServiceException(400, path + " length must be numeric");
+            throw new ServiceException(path + " length must be numeric");
         }
     }
 
@@ -284,7 +284,7 @@ public class ThingModelServiceImpl implements ThingModelService {
         BigDecimal min = toBigDecimal(specs.get("min"), path + ".min");
         BigDecimal max = toBigDecimal(specs.get("max"), path + ".max");
         if (min != null && max != null && min.compareTo(max) > 0) {
-            throw new ServiceException(400, path + " min cannot exceed max");
+            throw new ServiceException( path + " min cannot exceed max");
         }
     }
 
@@ -295,7 +295,7 @@ public class ThingModelServiceImpl implements ThingModelService {
         try {
             return new BigDecimal(String.valueOf(value).trim());
         } catch (NumberFormatException ex) {
-            throw new ServiceException(400, field + " must be numeric");
+            throw new ServiceException(field + " must be numeric");
         }
     }
 }

@@ -1,14 +1,11 @@
 
 
 package org.springblade.modules.iot.controller.admin.category.vo;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import org.springblade.core.tool.utils.DateUtil;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDateTime;
-
-import static org.springblade.modules.iot.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
 @Schema(description = "管理后台 - IOT产品分类列表 Request VO")
 @Data
@@ -27,7 +24,7 @@ public class CategoryListReqVO {
     private Integer status;
 
     @Schema(description = "创建时间")
-    @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    @DateTimeFormat(pattern = DateUtil.PATTERN_DATETIME)
     private LocalDateTime[] createTime;
 
     @Schema(description = "是否系统通用（0-否，1-是）")

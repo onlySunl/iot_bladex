@@ -1,42 +1,31 @@
-
-
 package org.springblade.modules.iot.controller.admin.product;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springblade.modules.iot.api.product.dto.Product;
 import org.springblade.modules.iot.api.product.dto.ProductConfig;
+import org.springblade.modules.iot.common.annotation.ApiAccessLog;
 import org.springblade.modules.iot.common.entity.CommonResult;
 import org.springblade.modules.iot.common.entity.PageParam;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.common.utils.BeanUtils;
+import org.springblade.modules.iot.controller.admin.product.vo.*;
 import org.springblade.modules.iot.controller.convert.ProductBizConvert;
+import org.springblade.modules.iot.excel.core.util.ExcelUtils;
 import org.springblade.modules.iot.service.product.ProductService;
-import org.springframework.web.bind.annotation.*;
-import jakarta.annotation.Resource;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.security.access.prepost.PreAuthorize;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.*;
-import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 
-import org.springblade.modules.iot.framework.common.pojo.PageParam;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.framework.common.pojo.CommonResult;
-import org.springblade.modules.iot.framework.common.util.object.BeanUtils;
-
 import static org.springblade.modules.iot.common.entity.CommonResult.success;
-import static org.springblade.modules.iot.framework.common.pojo.CommonResult.success;
-
-import org.springblade.modules.iot.excel.core.util.ExcelUtils;
-
-import org.springblade.modules.iot.framework.apilog.core.annotation.ApiAccessLog;
-import static org.springblade.modules.iot.framework.apilog.core.enums.OperateTypeEnum.*;
-
-import org.springblade.modules.iot.controller.admin.product.vo.*;
+import static org.springblade.modules.iot.common.enums.OperateTypeEnum.EXPORT;
 
 @Tag(name = "管理后台 - 物联网产品")
 @RestController

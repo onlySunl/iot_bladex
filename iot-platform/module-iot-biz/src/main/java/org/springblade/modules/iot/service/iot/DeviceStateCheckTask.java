@@ -4,23 +4,22 @@ package org.springblade.modules.iot.service.iot;
 
 
 import cn.hutool.core.util.IdUtil;
-import org.springblade.modules.iot.common.constant.Constants;
-import org.springblade.modules.iot.common.enums.DeviceState;
-import org.springblade.modules.iot.common.thing.ThingModelMessage;
-import org.springblade.modules.iot.message.core.MqProducer;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.framework.tenant.core.aop.TenantIgnore;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.tenant.annotation.TenantIgnore;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.DeviceShortInfo;
 import org.springblade.modules.iot.api.product.dto.Product;
+import org.springblade.modules.iot.common.constant.Constants;
+import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.common.thing.ThingModelMessage;
 import org.springblade.modules.iot.controller.admin.device.vo.DeviceInfoPageReqVO;
+import org.springblade.modules.iot.message.core.MqProducer;
 import org.springblade.modules.iot.service.device.DeviceInfoService;
 import org.springblade.modules.iot.service.product.ProductService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import jakarta.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 /**

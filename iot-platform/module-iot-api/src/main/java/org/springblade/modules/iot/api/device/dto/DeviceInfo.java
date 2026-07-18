@@ -38,16 +38,16 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DeviceInfo  extends BaseModel {
+public class DeviceInfo extends BaseModel {
 
-    public static Integer ONLINE= 1;
-    public static Integer OFFLINE=0;
-    public static Integer STATE_NOT_ACTIVE=2;
-    public static Integer STATE_LOCK=3;
-    public static Integer NODE_TYPE_GATEWAY=0;
-    public static Integer NODE_TYPE_DEVICE=1;
-    public static Integer NODE_TYPE_SUB_DEVICE=2;
-    public static Integer NODE_TYPE_VIDEO=2;
+    public static Integer ONLINE = 1;
+    public static Integer OFFLINE = 0;
+    public static Integer STATE_NOT_ACTIVE = 2;
+    public static Integer STATE_LOCK = 3;
+    public static Integer NODE_TYPE_GATEWAY = 0;
+    public static Integer NODE_TYPE_DEVICE = 1;
+    public static Integer NODE_TYPE_SUB_DEVICE = 2;
+    public static Integer NODE_TYPE_VIDEO = 2;
 
     private Long id;
 
@@ -109,11 +109,11 @@ public class DeviceInfo  extends BaseModel {
 
 
     public boolean isOnline() {
-        return state != null && state==1;
+        return state != null && state == 1;
     }
 
-    public void setOnline(Boolean online){
-        if (online){
+    public void setOnline(Boolean online) {
+        if (online) {
             this.state = 1;
             return;
         }
@@ -129,7 +129,8 @@ public class DeviceInfo  extends BaseModel {
      * 在线时间
      */
     private Long onlineTime;
-//    @Data
+
+    //    @Data
 //    @NoArgsConstructor
 //    @AllArgsConstructor
 //    public static class Locate {
@@ -160,13 +161,12 @@ public class DeviceInfo  extends BaseModel {
 //    }
 
 
-
     private String addr;
 
 
     private String firmVersion;
 
-    private Long tenantId;
+    private String tenantId;
 
     private String serialNo;
 

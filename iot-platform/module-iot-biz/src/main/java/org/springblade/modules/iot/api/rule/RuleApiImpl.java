@@ -2,13 +2,12 @@
 
 package org.springblade.modules.iot.api.rule;
 
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
+import jakarta.annotation.Resource;
 import org.springblade.modules.iot.api.rule.dto.RuleInfo;
 import org.springblade.modules.iot.api.rule.dto.RuleInfoPageReqVO;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.service.rule.EiotRuleInfoService;
 import org.springframework.stereotype.Service;
-
-import jakarta.annotation.Resource;
 
 @Service
 public class RuleApiImpl implements RuleApi {

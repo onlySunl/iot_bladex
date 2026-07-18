@@ -3,24 +3,23 @@
 package org.springblade.modules.iot.service.component;
 
 import cn.hutool.core.util.IdUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.Constants;
 import org.springblade.modules.iot.common.thing.ComponentMessage;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
+import org.springblade.modules.iot.controller.admin.component.vo.ComponentCreateReqVO;
 import org.springblade.modules.iot.message.core.ConsumerHandler;
 import org.springblade.modules.iot.message.core.MqConsumer;
 import org.springblade.modules.iot.message.core.MqProducer;
-import org.springblade.modules.iot.framework.common.exception.ServiceException;
-import org.springblade.modules.iot.controller.admin.component.vo.ComponentCreateReqVO;
-import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
-
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.springblade.modules.iot.common.constant.Constants.*;
+import static org.springblade.modules.iot.common.constant.Constants.COMPONENT_DISCOVER_REPLY_TOPIC;
+import static org.springblade.modules.iot.common.constant.Constants.COMPONENT_DISCOVER_TOPIC;
 import static org.springblade.modules.iot.common.enums.ErrorCodeConstants.ROUTER_NOT_EXISTS;
 
 @Service

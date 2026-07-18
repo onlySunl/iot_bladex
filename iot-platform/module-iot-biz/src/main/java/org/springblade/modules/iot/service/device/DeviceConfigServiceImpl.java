@@ -3,12 +3,12 @@
 package org.springblade.modules.iot.service.device;
 
 
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.api.device.dto.DeviceConfig;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
+import org.springblade.modules.iot.common.utils.BeanUtils;
 import org.springblade.modules.iot.entity.DeviceConfigDO;
 import org.springblade.modules.iot.dal.mysql.deviceconfig.DeviceConfigMapper;
-import org.springblade.modules.iot.framework.common.exception.ServiceException;
-import org.springblade.modules.iot.framework.common.util.object.BeanUtils;
 import org.springblade.modules.iot.dal.redis.RedisKeyConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -61,7 +61,7 @@ public class DeviceConfigServiceImpl implements DeviceConfigService {
     public Boolean saveConfig(DeviceConfig config) {
         DeviceInfo deviceInfo = deviceInfoService.getDeviceInfo(config.getDeviceId());
         if (deviceInfo == null) {
-            throw new ServiceException(400, "设备不存在");
+            throw new ServiceException("设备不存在");
         }
         // 确保产品key/dn写入
         config.setProductKey(deviceInfo.getProductKey());

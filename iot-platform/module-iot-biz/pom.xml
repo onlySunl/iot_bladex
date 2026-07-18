@@ -10,7 +10,13 @@
     </parent>
 
     <artifactId>module-iot-biz</artifactId>
-
+    <description>
+        module-iot-biz 告警接口模块
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>module.iot.biz</module.name>
+    </properties>
     <dependencies>
         <!-- BladeX Core -->
         <dependency>

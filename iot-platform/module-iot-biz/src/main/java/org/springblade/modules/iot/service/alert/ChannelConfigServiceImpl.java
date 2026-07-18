@@ -2,23 +2,22 @@
 
 package org.springblade.modules.iot.service.alert;
 
-import org.springblade.modules.iot.framework.common.exception.util.ServiceExceptionUtil;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.framework.common.util.object.BeanUtils;
-import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
+import jakarta.annotation.Resource;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
+import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.common.utils.BeanUtils;
+import org.springblade.modules.iot.common.utils.ServiceExceptionUtil;
 import org.springblade.modules.iot.controller.admin.channelconfig.vo.ChannelConfig;
 import org.springblade.modules.iot.controller.admin.channelconfig.vo.ChannelConfigPageReqVO;
 import org.springblade.modules.iot.controller.admin.channelconfig.vo.ChannelConfigReqVO;
-import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTemplate;
 import org.springblade.modules.iot.convert.ChannelConfigConvert;
-import org.springblade.modules.iot.entity.ChannelConfigDO;
 import org.springblade.modules.iot.dal.mysql.channelconfig.ChannelConfigMapper;
 import org.springblade.modules.iot.dal.mysql.channeltemplate.ChannelTemplateMapper;
+import org.springblade.modules.iot.entity.ChannelConfigDO;
+import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import jakarta.annotation.Resource;
 import java.util.List;
 
 /**

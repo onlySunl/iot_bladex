@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.api.modbus;
 
-import org.springblade.modules.iot.framework.tenant.core.util.TenantUtils;
 import org.springblade.modules.iot.api.modbus.dto.ModbusInfo;
+import org.springblade.modules.iot.common.utils.TenantUtils;
 import org.springblade.modules.iot.convert.ModbusInfoConvert;
 import org.springblade.modules.iot.entity.ModbusInfoDO;
 import org.springblade.modules.iot.dal.mysql.modbus.ModbusInfoMapper;

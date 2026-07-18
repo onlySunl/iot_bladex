@@ -4,9 +4,9 @@ package org.springblade.modules.iot.service.product;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import org.springblade.modules.iot.framework.common.exception.util.ServiceExceptionUtil;
-import org.springblade.modules.iot.framework.common.util.object.BeanUtils;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
+import org.springblade.modules.iot.common.utils.BeanUtils;
+import org.springblade.modules.iot.common.utils.ServiceExceptionUtil;
 import org.springblade.modules.iot.controller.admin.showmodel.vo.ShowModelRespVO;
 import org.springblade.modules.iot.controller.admin.showmodel.vo.ShowModelSaveReqVO;
 import org.springblade.modules.iot.convert.ShowModelConvert;

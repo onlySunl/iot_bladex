@@ -2,8 +2,8 @@
 
 package org.springblade.modules.iot.dal.redis.no;
 
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
 import org.springblade.modules.iot.api.device.dto.DevicePropertyCache;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.dal.redis.RedisKeyConstants;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.AllArgsConstructor;

@@ -1,27 +1,28 @@
 
 package org.springblade.modules.iot.service.alert;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.modules.iot.api.alert.ChannelSmsStrategy;
 import org.springblade.modules.iot.api.alert.dto.SmsConfig;
-import org.springblade.modules.iot.framework.common.exception.util.ServiceExceptionUtil;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
-import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
-import org.springblade.modules.iot.framework.tenant.core.aop.TenantIgnore;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
+import org.springblade.modules.iot.common.utils.JsonUtils;
+import org.springblade.modules.iot.common.utils.ServiceExceptionUtil;
 import org.springblade.modules.iot.controller.admin.channelconfig.vo.ChannelConfig;
 import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTemplateSaveReqVO;
-import org.springblade.modules.iot.entity.ChannelConfigDO;
-import org.springblade.modules.iot.entity.ChannelTemplateDO;
 import org.springblade.modules.iot.dal.mysql.channelconfig.ChannelConfigMapper;
 import org.springblade.modules.iot.dal.mysql.channeltemplate.ChannelTemplateMapper;
-import org.springblade.modules.iot.service.alert.ChannelConfigService;
-import org.springblade.modules.iot.api.alert.ChannelSmsStrategy;
-import lombok.extern.slf4j.Slf4j;
+import org.springblade.modules.iot.entity.ChannelConfigDO;
+import org.springblade.modules.iot.entity.ChannelTemplateDO;
+import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import jakarta.annotation.Resource;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -114,13 +115,12 @@ public class ChannelSmsService {
      * 每5分钟同步一次短信模板状态
      */
     @Scheduled(fixedRate = 5 * 60 * 1000)
-    @TenantIgnore
     public void syncSmsTemplateStatus() {
         log.info("开始同步短信模板状态");
 
         try {
             // 先查询所有SMS类型的通道配置
-            LambdaQueryWrapperX<ChannelConfigDO> channelConfigQuery = new LambdaQueryWrapperX<ChannelConfigDO>()
+            LambdaQueryWrapper<ChannelConfigDO> channelConfigQuery = new LambdaQueryWrapperX<ChannelConfigDO>()
                     .eq(ChannelConfigDO::getCode, "SMS");
             List<ChannelConfigDO> smsChannelConfigs = channelConfigMapper.selectList(channelConfigQuery);
 
@@ -138,7 +138,7 @@ public class ChannelSmsService {
                     .collect(Collectors.toList());
 
             // 查询所有待审核且属于SMS通道的短信模板
-            LambdaQueryWrapperX<ChannelTemplateDO> templateQuery = new LambdaQueryWrapperX<ChannelTemplateDO>()
+            LambdaQueryWrapper<ChannelTemplateDO> templateQuery = new LambdaQueryWrapperX<ChannelTemplateDO>()
                     .eq(ChannelTemplateDO::getStatus, 0) // 0-待审核状态
                     .in(ChannelTemplateDO::getChannelConfigId, channelConfigIds);
 

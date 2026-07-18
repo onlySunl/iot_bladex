@@ -1,14 +1,13 @@
 
 package org.springblade.modules.iot.controller.admin.alert;
 
-
-import org.springblade.modules.iot.framework.common.pojo.CommonResult;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.framework.common.util.object.BeanUtils;
 import org.springblade.modules.iot.api.IdReqVo;
 import org.springblade.modules.iot.api.alert.dto.AlertConfig;
 import org.springblade.modules.iot.api.alert.dto.AlertConfigPageReqVO;
 import org.springblade.modules.iot.api.alert.dto.AlertRecord;
+import org.springblade.modules.iot.common.entity.CommonResult;
+import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.common.utils.BeanUtils;
 import org.springblade.modules.iot.controller.admin.alertconfig.vo.AlertConfigRespVO;
 import org.springblade.modules.iot.controller.admin.alertconfig.vo.AlertConfigSaveReqVO;
 import org.springblade.modules.iot.controller.admin.alertconfig.vo.AlertRecordPageReq;
@@ -24,9 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 
-import static org.springblade.modules.iot.framework.common.pojo.CommonResult.success;
-
-
+import static org.springblade.modules.iot.common.entity.CommonResult.success;
 @Tag(name = "告警中心")
 @Slf4j
 @RestController

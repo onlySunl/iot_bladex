@@ -4,31 +4,31 @@ package org.springblade.modules.iot.service.rule;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.core.secure.utils.AuthUtil;
 import org.springblade.modules.iot.IRuleLogData;
 import org.springblade.modules.iot.ITaskLogData;
-import org.springblade.modules.iot.ruleengine.rule.RuleManager;
-import org.springblade.modules.iot.framework.common.exception.ServiceException;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.framework.security.core.util.SecurityFrameworkUtils;
 import org.springblade.modules.iot.api.rule.dto.RuleInfo;
 import org.springblade.modules.iot.api.rule.dto.RuleInfoPageReqVO;
 import org.springblade.modules.iot.api.task.TaskService;
 import org.springblade.modules.iot.api.task.dto.TaskInfo;
 import org.springblade.modules.iot.api.task.dto.TaskInfoPageReq;
 import org.springblade.modules.iot.api.task.dto.TaskLog;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.controller.admin.rule.vo.*;
 import org.springblade.modules.iot.convert.RuleInfoConvert;
 import org.springblade.modules.iot.convert.RuleLogConvert;
 import org.springblade.modules.iot.convert.TaskInfoConvert;
-import org.springblade.modules.iot.entity.TaskInfoDO;
-import org.springblade.modules.iot.entity.EiotRuleInfoDO;
 import org.springblade.modules.iot.dal.mysql.TaskInfoMapper;
 import org.springblade.modules.iot.dal.mysql.ruleinfo.EiotRuleInfoMapper;
-import lombok.extern.slf4j.Slf4j;
+import org.springblade.modules.iot.entity.EiotRuleInfoDO;
+import org.springblade.modules.iot.entity.TaskInfoDO;
+import org.springblade.modules.iot.ruleengine.rule.RuleManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.annotation.Resource;
 import java.util.stream.Collectors;
 
 
@@ -79,7 +79,7 @@ public class EiotRuleInfoServiceImpl implements EiotRuleInfoService {
             validateRuleInfoExists(id);
 
             if (RuleInfo.STATE_RUNNING.equals(ruleInfo.getState())) {
-                throw new ServiceException(400, "规则已运行");
+                throw new ServiceException("规则已运行");
             }
             EiotRuleInfoDO obj = RuleInfoConvert.INSTANCE.toDo(ruleInfo);
             ruleInfoMapper.updateById(obj);
@@ -139,7 +139,7 @@ public class EiotRuleInfoServiceImpl implements EiotRuleInfoService {
     public Boolean pauseTask(Long taskId) {
         validateTaskExists(taskId);
 //        dataOwnerService.checkOwner(taskInfo);
-        taskService.pauseTask(taskId, "stop by " + SecurityFrameworkUtils.getLoginUserId());
+        taskService.pauseTask(taskId, "stop by " + AuthUtil.getUserId());
         return true;
     }
 
@@ -147,7 +147,7 @@ public class EiotRuleInfoServiceImpl implements EiotRuleInfoService {
     public Boolean resumeTask(Long taskId) {
         validateTaskExists(taskId);
 //        dataOwnerService.checkOwner(taskInfo);
-        taskService.resumeTask(taskId, "resume by " + SecurityFrameworkUtils.getLoginUserId());
+        taskService.resumeTask(taskId, "resume by " + AuthUtil.getUserId());
         return true;
     }
 
@@ -157,10 +157,10 @@ public class EiotRuleInfoServiceImpl implements EiotRuleInfoService {
         TaskInfo taskInfo = TaskInfoConvert.INSTANCE.convert(taskInfoDO);
         try {
             taskService.renewTask(taskInfo);
-            taskService.updateTaskState(taskId, TaskInfo.STATE_RUNNING, "renew by " + SecurityFrameworkUtils.getLoginUserId());
+            taskService.updateTaskState(taskId, TaskInfo.STATE_RUNNING, "renew by " + AuthUtil.getUserId());
         } catch (Exception e) {
             log.error("renew task error", e);
-            throw new ServiceException(400, "任务重启异常");
+            throw new ServiceException("任务重启异常");
         }
         return true;
     }
@@ -169,7 +169,7 @@ public class EiotRuleInfoServiceImpl implements EiotRuleInfoService {
     public Boolean deleteTask(Long taskId) {
         validateTaskExists(taskId);
 
-        taskService.deleteTask(taskId, "delete by " + SecurityFrameworkUtils.getLoginUserId());
+        taskService.deleteTask(taskId, "delete by " + AuthUtil.getUserId());
         taskInfoMapper.deleteById(taskId);
         try {
             taskLogData.deleteByTaskId(taskId);
@@ -248,7 +248,7 @@ public class EiotRuleInfoServiceImpl implements EiotRuleInfoService {
     private TaskInfoDO validateTaskExists(Long taskId) {
         TaskInfoDO oldTask = taskInfoMapper.selectById(taskId);
         if (oldTask == null) {
-            throw new ServiceException(400, "任务不存在");
+            throw new ServiceException("任务不存在");
         }
         return oldTask;
     }
@@ -256,7 +256,7 @@ public class EiotRuleInfoServiceImpl implements EiotRuleInfoService {
     private EiotRuleInfoDO validateRuleInfoExists(Long id) {
         EiotRuleInfoDO eiotRuleInfoDO = ruleInfoMapper.selectById(id);
         if (eiotRuleInfoDO == null) {
-            throw new ServiceException(400, "规则不存在");
+            throw new ServiceException("规则不存在");
         }
         return eiotRuleInfoDO;
     }

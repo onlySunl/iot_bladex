@@ -1,9 +1,9 @@
 package org.springblade.modules.iot.service;
 
 import org.springblade.modules.iot.IDbStructureData;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
-import org.springblade.modules.iot.framework.tenant.core.util.TenantUtils;
 import org.springblade.modules.iot.api.thingmodel.dto.ThingModel;
+import org.springblade.modules.iot.common.utils.JsonUtils;
+import org.springblade.modules.iot.common.utils.TenantUtils;
 import org.springblade.modules.iot.convert.ThingModelConvert;
 import org.springblade.modules.iot.dal.mysql.thingmodel.ThingModelMapper;
 import lombok.extern.slf4j.Slf4j;

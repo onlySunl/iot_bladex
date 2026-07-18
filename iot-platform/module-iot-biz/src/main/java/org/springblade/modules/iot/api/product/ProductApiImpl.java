@@ -2,8 +2,8 @@
 
 package org.springblade.modules.iot.api.product;
 
-import org.springblade.modules.iot.framework.tenant.core.util.TenantUtils;
 import org.springblade.modules.iot.api.product.dto.Product;
+import org.springblade.modules.iot.common.utils.TenantUtils;
 import org.springblade.modules.iot.service.product.ProductService;
 import org.springframework.stereotype.Service;
 
