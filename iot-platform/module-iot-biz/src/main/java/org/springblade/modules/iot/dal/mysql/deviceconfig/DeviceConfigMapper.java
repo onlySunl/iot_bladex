@@ -22,10 +22,10 @@
  */
 package org.springblade.modules.iot.dal.mysql.deviceconfig;
 
-import org.springblade.modules.iot.framework.mybatis.core.mapper.BaseMapperX;
-import org.springblade.modules.iot.framework.mybatis.core.query.LambdaQueryWrapperX;
-import org.springblade.modules.iot.entity.DeviceConfigDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springblade.common.query.LambdaQueryWrapperX;
+import org.springblade.modules.iot.common.mapper.BaseMapperX;
+import org.springblade.modules.iot.entity.DeviceConfigDO;
 
 /**
  * 设备配置 Mapper

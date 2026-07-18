@@ -3,6 +3,7 @@
 package org.springblade.modules.iot.controller.admin.thingmodel;
 
 import org.springblade.modules.iot.api.thingmodel.dto.ThingModel;
+import org.springblade.modules.iot.common.entity.CommonResult;
 import org.springblade.modules.iot.controller.admin.thingmodel.vo.ThingModelSaveReqVO;
 import org.springblade.modules.iot.service.product.ThingModelService;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Operation;
 
 import jakarta.validation.*;
-
-import org.springblade.modules.iot.framework.common.pojo.CommonResult;
-
-import static org.springblade.modules.iot.framework.common.pojo.CommonResult.success;
+import static org.springblade.modules.iot.common.entity.CommonResult.success;
 
 
 @Tag(name = "管理后台 - 产品物模型")

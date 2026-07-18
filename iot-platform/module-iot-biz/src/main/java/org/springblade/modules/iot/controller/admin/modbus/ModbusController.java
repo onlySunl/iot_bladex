@@ -11,6 +11,9 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springblade.modules.iot.api.modbus.dto.ModbusInfo;
 import org.springblade.modules.iot.api.modbus.dto.ModbusThingModel;
+import org.springblade.modules.iot.common.annotation.ApiAccessLog;
+import org.springblade.modules.iot.common.constant.ErrorCode;
+import org.springblade.modules.iot.common.constant.GlobalErrorCodeConstants;
 import org.springblade.modules.iot.common.entity.CommonResult;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.common.utils.BeanUtils;
@@ -18,6 +21,7 @@ import org.springblade.modules.iot.controller.admin.modbus.vo.ModbusInfoRespVo;
 import org.springblade.modules.iot.controller.admin.modbus.vo.ModbusInfoVo;
 import org.springblade.modules.iot.controller.admin.modbus.vo.ModbusThingModelImportVo;
 import org.springblade.modules.iot.controller.admin.modbus.vo.ModbusThingModelVo;
+import org.springblade.modules.iot.excel.core.util.ExcelUtils;
 import org.springblade.modules.iot.service.modbus.ModbusInfoService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -26,6 +30,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+import static org.springblade.modules.iot.common.enums.OperateTypeEnum.IMPORT;
+import static org.springblade.modules.iot.common.utils.ServiceExceptionUtil.exception;
 
 
 @Tag(name = "管理后台 - Modbus管理")
@@ -93,7 +99,7 @@ public class ModbusController {
     @Parameter(name = "productKey", description = "productKey", required = true, example = "1024")
     public CommonResult<String> importData(@RequestPart("file") MultipartFile file, String productKey) {
         if(StrUtil.isBlank(productKey)){
-           throw new ServiceException(400, "缺少productKey");
+           throw exception(GlobalErrorCodeConstants.BAD_REQUEST, "缺少productKey");
         }
         List<ModbusThingModelImportVo> objects = ExcelUtils.read(file, ModbusThingModelImportVo.class);
         return CommonResult.success(modbusInfoService.importData(objects,productKey));

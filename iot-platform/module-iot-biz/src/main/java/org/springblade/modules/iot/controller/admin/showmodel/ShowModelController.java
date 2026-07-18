@@ -2,6 +2,7 @@
 
 package org.springblade.modules.iot.controller.admin.showmodel;
 
+import org.springblade.modules.iot.common.entity.CommonResult;
 import org.springblade.modules.iot.controller.admin.showmodel.vo.ShowModelRespVO;
 import org.springblade.modules.iot.controller.admin.showmodel.vo.ShowModelSaveReqVO;
 import org.springblade.modules.iot.service.product.ShowModelService;
@@ -18,9 +19,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.*;
 import java.util.*;
 
-import org.springblade.modules.iot.framework.common.pojo.CommonResult;
+import static org.springblade.modules.iot.common.entity.CommonResult.success;
 
-import static org.springblade.modules.iot.framework.common.pojo.CommonResult.success;
 
 @Tag(name = "管理后台 - 产品显示模型")
 @RestController

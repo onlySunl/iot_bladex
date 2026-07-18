@@ -3,7 +3,7 @@
 package org.springblade.modules.iot.service.sip;
 
 
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.controller.admin.sip.vo.SipRelation;
 import org.springblade.modules.iot.controller.admin.sip.vo.SipRelationPageReqVO;
 

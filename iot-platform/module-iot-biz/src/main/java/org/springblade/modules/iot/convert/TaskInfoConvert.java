@@ -4,18 +4,17 @@ package org.springblade.modules.iot.convert;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
-import org.springblade.modules.iot.api.task.dto.RuleAction;
-import org.springblade.modules.iot.api.task.dto.TaskInfo;
-import org.springblade.modules.iot.controller.admin.rule.vo.TaskInfoSaveReqVo;
-import org.springblade.modules.iot.controller.admin.rule.vo.TaskInfoVo;
-import org.springblade.modules.iot.entity.TaskInfoDO;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
+import org.springblade.modules.iot.api.task.dto.RuleAction;
+import org.springblade.modules.iot.api.task.dto.TaskInfo;
+import org.springblade.modules.iot.common.utils.JsonUtils;
+import org.springblade.modules.iot.controller.admin.rule.vo.TaskInfoSaveReqVo;
+import org.springblade.modules.iot.controller.admin.rule.vo.TaskInfoVo;
+import org.springblade.modules.iot.entity.TaskInfoDO;
 
 import java.util.Collections;
 import java.util.List;

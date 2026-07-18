@@ -22,29 +22,27 @@
  */
 package org.springblade.modules.iot.controller.admin.virtualdevice;
 
-import org.springblade.modules.iot.IVirtualDeviceLogData;
-import org.springblade.modules.iot.framework.common.pojo.CommonResult;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.framework.common.util.object.BeanUtils;
-import org.springblade.modules.iot.api.IdReqVo;
-import org.springblade.modules.iot.api.virtualdevice.dto.VirtualDevice;
-import org.springblade.modules.iot.api.virtualdevice.dto.VirtualDeviceLog;
-import org.springblade.modules.iot.controller.admin.virtualdevice.vo.*;
-import org.springblade.modules.iot.service.virtualdevice.VirtualDeviceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.modules.iot.api.IdReqVo;
+import org.springblade.modules.iot.api.virtualdevice.dto.VirtualDevice;
+import org.springblade.modules.iot.api.virtualdevice.dto.VirtualDeviceLog;
+import org.springblade.modules.iot.common.entity.CommonResult;
+import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.common.utils.BeanUtils;
+import org.springblade.modules.iot.controller.admin.virtualdevice.vo.*;
+import org.springblade.modules.iot.service.virtualdevice.VirtualDeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
-
 import java.util.List;
 
-import static org.springblade.modules.iot.framework.common.pojo.CommonResult.success;
+import static org.springblade.modules.iot.common.entity.CommonResult.success;
 
 @Slf4j
 @Tag(name = "管理后台 - 虚拟设备")

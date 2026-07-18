@@ -1,5 +1,12 @@
 package org.springblade.modules.iot.common.annotation;
 
+import org.springblade.modules.iot.common.enums.OperateTypeEnum;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
  * 访问日志注解
  *

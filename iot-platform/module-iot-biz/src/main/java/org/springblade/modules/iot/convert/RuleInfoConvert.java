@@ -4,16 +4,16 @@ package org.springblade.modules.iot.convert;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
+import org.mapstruct.*;
+import org.mapstruct.factory.Mappers;
 import org.springblade.modules.iot.api.rule.dto.FilterConfig;
 import org.springblade.modules.iot.api.rule.dto.RuleInfo;
 import org.springblade.modules.iot.api.rule.dto.TriggerOptions;
 import org.springblade.modules.iot.api.task.dto.RuleAction;
+import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.controller.admin.rule.vo.EiotRuleInfoSaveReqVO;
 import org.springblade.modules.iot.entity.EiotRuleInfoDO;
-import org.mapstruct.*;
-import org.mapstruct.factory.Mappers;
 
 import java.util.Collections;
 import java.util.List;

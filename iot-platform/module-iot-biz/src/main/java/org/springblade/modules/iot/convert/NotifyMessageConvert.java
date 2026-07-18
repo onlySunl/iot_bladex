@@ -2,12 +2,12 @@
 
 package org.springblade.modules.iot.convert;
 
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.controller.admin.alert.vo.NotifyMessage;
-import org.springblade.modules.iot.entity.IotNotifyMessageDO;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.controller.admin.alert.vo.NotifyMessage;
+import org.springblade.modules.iot.entity.IotNotifyMessageDO;
 
 /**
  * @Author: EnjoyIot

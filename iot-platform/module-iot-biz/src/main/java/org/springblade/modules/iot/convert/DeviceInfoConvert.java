@@ -2,14 +2,14 @@
 
 package org.springblade.modules.iot.convert;
 
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.api.device.dto.DeviceInfo;
-import org.springblade.modules.iot.api.product.dto.Product;
-import org.springblade.modules.iot.entity.EiotDeviceInfoDO;
-import org.springblade.modules.iot.entity.ProductDO;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+import org.springblade.modules.iot.api.device.dto.DeviceInfo;
+import org.springblade.modules.iot.api.product.dto.Product;
+import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.entity.EiotDeviceInfoDO;
+import org.springblade.modules.iot.entity.ProductDO;
 
 import java.util.List;
 

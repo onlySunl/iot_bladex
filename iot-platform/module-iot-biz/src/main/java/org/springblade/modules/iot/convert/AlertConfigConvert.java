@@ -4,6 +4,7 @@ package org.springblade.modules.iot.convert;
 
 
 import org.springblade.modules.iot.api.alert.dto.AlertConfig;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.entity.AlertConfigDO;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
