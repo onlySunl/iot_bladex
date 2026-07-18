@@ -124,12 +124,6 @@
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-common-excel</artifactId>
-            <version>4.2.0.RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
             <artifactId>iot-entity-component</artifactId>
             <version>4.2.0.RELEASE</version>
             <scope>compile</scope>

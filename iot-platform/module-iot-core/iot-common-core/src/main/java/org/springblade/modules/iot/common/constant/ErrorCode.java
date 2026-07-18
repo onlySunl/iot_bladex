@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springblade.core.tool.api.IResultCode;
 
 /**
- * 错误码对象
+ * 错误码对象（适配BladeX IResultCode规范）
  *
  * 全局错误码，占用 [0, 999], 参见 {@link GlobalErrorCodeConstants}
  * 业务异常错误码，占用 [1 000 000 000, +∞)，参见 {@link ServiceErrorCodeRange}
@@ -26,6 +26,11 @@ public class ErrorCode implements IResultCode {
     public ErrorCode(Integer code, String message) {
         this.code = code;
         this.msg = message;
+    }
+
+    @Override
+    public int getCode() {
+        return this.code == null ? 0 : this.code;
     }
 
     @Override
