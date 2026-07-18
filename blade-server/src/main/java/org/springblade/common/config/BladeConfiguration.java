@@ -26,13 +26,13 @@
 package org.springblade.common.config;
 
 
+import org.springblade.common.interceptor.InternalCallInterceptor;
 import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.oauth2.endpoint.OAuth2SocialEndpoint;
 import org.springblade.core.oauth2.endpoint.OAuth2TokenEndPoint;
 import org.springblade.core.secure.registry.SecureRegistry;
 import org.springblade.core.tool.utils.StringPool;
 import org.springblade.modules.auth.endpoint.Oauth2SmsEndpoint;
-import org.springblade.modules.nvr.common.interceptor.InternalCallInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;

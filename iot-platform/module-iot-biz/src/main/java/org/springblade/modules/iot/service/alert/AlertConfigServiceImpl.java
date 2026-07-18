@@ -9,6 +9,7 @@ import org.springblade.modules.iot.api.alert.dto.AlertConfig;
 import org.springblade.modules.iot.api.alert.dto.AlertConfigPageReqVO;
 import org.springblade.modules.iot.api.alert.dto.AlertRecord;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
+import org.springblade.modules.iot.common.utils.ServiceExceptionUtil;
 import org.springblade.modules.iot.controller.admin.alertconfig.vo.AlertConfigSaveReqVO;
 import org.springblade.modules.iot.controller.admin.alertconfig.vo.AlertRecordPageReq;
 import org.springblade.modules.iot.convert.AlertConfigConvert;

@@ -24,11 +24,11 @@
 package org.springblade.modules.iot.controller.admin.alert.vo;
 
 
-import org.springblade.modules.iot.framework.common.pojo.PageParam;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springblade.modules.iot.common.entity.PageParam;
 
 /**
  * @author: EnjoyIot

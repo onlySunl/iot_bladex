@@ -1,11 +1,8 @@
 package org.springblade.modules.iot.dal.mysql.modbus;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import org.springblade.modules.iot.entity.ComponentDO;
-import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
-import org.springblade.modules.iot.entity.ModbusThingModelDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springblade.modules.iot.entity.ModbusThingModelDO;
+import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
 
 @Mapper
 public interface ModbusThingModelMapper extends BaseMapperX<ModbusThingModelDO> {

@@ -9,6 +9,7 @@ import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.api.alert.dto.AlertConfigPageReqVO;
 import org.springblade.modules.iot.entity.AlertConfigDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
 
 /**
  * 报警配置 Mapper
@@ -16,7 +17,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @author EnjoyIot
  */
 @Mapper
-public interface AlertConfigMapper extends BladeMapper<AlertConfigDO> {
+public interface AlertConfigMapper extends BaseMapperX<AlertConfigDO> {
 
     default PageResult<AlertConfigDO> selectPage(AlertConfigPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<AlertConfigDO>()

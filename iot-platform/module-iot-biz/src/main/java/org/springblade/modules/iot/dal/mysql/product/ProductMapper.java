@@ -2,12 +2,12 @@
 
 package org.springblade.modules.iot.dal.mysql.product;
 
-import org.springblade.modules.iot.framework.common.pojo.PageResult;
-import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
-import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
+import org.apache.ibatis.annotations.Mapper;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.controller.admin.product.vo.ProductPageReqVO;
 import org.springblade.modules.iot.entity.ProductDO;
-import org.apache.ibatis.annotations.Mapper;
+import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
+import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
 
 /**
  * 物联网产品 Mapper
@@ -24,7 +24,7 @@ public interface ProductMapper extends BaseMapperX<ProductDO> {
                 .eqIfPresent(ProductDO::getProductKey, reqVO.getProductKey())
                 .eqIfPresent(ProductDO::getMcuCode, reqVO.getMcuCode())
                 .eqIfPresent(ProductDO::getStatus, reqVO.getStatus())
-                .betweenIfPresent(ProductDO::getCreateTime, reqVO.getCreateTime())
+                //.betweenIfPresent(ProductDO::getCreateTime, reqVO.getCreateTime())
                 .eqIfPresent(ProductDO::getNodeType, reqVO.getNodeType())
                 .eqIfPresent(ProductDO::getProtocolCode, reqVO.getProtocolCode())
                 .eqIfPresent(ProductDO::getTransparent, reqVO.getTransparent())

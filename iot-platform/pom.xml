@@ -33,7 +33,8 @@
         <dynamic-datasource.version>4.3.1</dynamic-datasource.version>
         <graalvm.version>22.0.0</graalvm.version>
         <fastexcel.verion>1.1.0</fastexcel.verion>
-
+        <mybatis-plus-join.version>1.4.13</mybatis-plus-join.version>
+        <druid.version>1.2.24</druid.version>
     </properties>
 
     <dependencyManagement>
@@ -67,6 +68,11 @@
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-common-thing</artifactId>
+                <version>4.2.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-common-mybatis</artifactId>
                 <version>4.2.0.RELEASE</version>
             </dependency>
             <dependency>
@@ -235,6 +241,11 @@
                 <groupId>io.vertx</groupId>
                 <artifactId>vertx-web-proxy</artifactId>
                 <version>${vertx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
