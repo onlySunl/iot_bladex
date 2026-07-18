@@ -5,7 +5,8 @@ import cn.idev.excel.enums.CellDataTypeEnum;
 import cn.idev.excel.metadata.GlobalConfiguration;
 import cn.idev.excel.metadata.data.WriteCellData;
 import cn.idev.excel.metadata.property.ExcelContentProperty;
-import org.springblade.core.tool.utils.JsonUtil;
+import org.apache.logging.log4j.core.util.JsonUtils;
+import org.springblade.core.tool.jackson.JsonUtil;
 
 /**
  * Excel Json 转换器

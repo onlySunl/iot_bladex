@@ -12,8 +12,13 @@
     <artifactId>iot-common-excel</artifactId>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
-    <description>Excel 拓展模块</description>
-
+    <description>
+        iot-common-excel Excel 拓展模块
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.common.excel</module.name>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>

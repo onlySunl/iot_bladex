@@ -46,6 +46,7 @@ public class LongListTypeHandler implements TypeHandler<List<Long>> {
         if (StrUtil.isBlank(value)) {
             return CollUtil.newArrayList();
         }
+
         return CollUtil.convertToLongArray(StrUtil.split(value, SEPARATOR));
     }
 }

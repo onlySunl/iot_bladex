@@ -10,8 +10,13 @@
     </parent>
 
     <artifactId>iot-common-mybatis</artifactId>
-    <description>MyBatis 扩展组件（BaseMapperX、QueryWrapperX、TypeHandler 等）</description>
-
+    <description>
+        iot-common-mybatis  MyBatis 扩展组件（BaseMapperX、QueryWrapperX、TypeHandler 等）
+    </description>
+    <properties>
+        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <module.name>iot.common.mybatis</module.name>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>
