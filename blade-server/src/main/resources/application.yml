@@ -77,7 +77,7 @@ mybatis-plus:
     jdbc-type-for-null: 'null'
     #log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
     # 指定全局默认枚举处理器，代替默认的EnumOrdinalTypeHandler
-    default-enum-type-handler: org.springblade.modules.iot.common.handler.UniversalEnumTypeHandler
+    #default-enum-type-handler: org.springblade.modules.iot.common.handler.UniversalEnumTypeHandler
 #springdoc-openapi配置
 springdoc:
   default-flat-param-object: false
@@ -315,7 +315,7 @@ auto-table:
   show-banner: true
   mode: update
   auto-drop-column: true
-  model-package: org.springblade.modules.nvr.domain
+  model-package: org.springblade.modules.nvr.domain,org.springblade.modules.iot.entity
   strict-extends: true
   index-prefix: IDX_
   super-insert-position: after

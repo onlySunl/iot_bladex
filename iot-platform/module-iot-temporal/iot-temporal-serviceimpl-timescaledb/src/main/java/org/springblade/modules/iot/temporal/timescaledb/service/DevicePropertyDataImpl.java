@@ -24,12 +24,12 @@ package org.springblade.modules.iot.temporal.timescaledb.service;
 
 import cn.hutool.core.convert.Convert;
 import org.springblade.modules.iot.IDevicePropertyData;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.temporal.timescaledb.config.Constants;
 import org.springblade.modules.iot.temporal.timescaledb.dao.PgTemplate;
 import org.springblade.modules.iot.temporal.timescaledb.dm.FieldParser;
 import org.springblade.modules.iot.temporal.timescaledb.dm.PgField;
 import org.springblade.modules.iot.temporal.timescaledb.model.PgDeviceProperty;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
 import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.DeviceProperty;

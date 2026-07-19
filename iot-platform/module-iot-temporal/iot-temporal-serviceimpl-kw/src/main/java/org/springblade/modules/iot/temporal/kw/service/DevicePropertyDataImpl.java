@@ -3,12 +3,12 @@ package org.springblade.modules.iot.temporal.kw.service;
 
 import cn.hutool.core.convert.Convert;
 import org.springblade.modules.iot.IDevicePropertyData;
+import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.temporal.kw.config.Constants;
 import org.springblade.modules.iot.temporal.kw.dao.KwJdbcTemplate;
 import org.springblade.modules.iot.temporal.kw.dm.FieldParser;
 import org.springblade.modules.iot.temporal.kw.dm.KwField;
 import org.springblade.modules.iot.temporal.kw.model.KwDeviceProperty;
-import org.springblade.modules.iot.framework.common.util.json.JsonUtils;
 import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.DeviceProperty;

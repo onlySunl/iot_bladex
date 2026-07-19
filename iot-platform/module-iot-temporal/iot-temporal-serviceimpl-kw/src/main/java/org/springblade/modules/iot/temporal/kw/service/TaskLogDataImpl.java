@@ -2,6 +2,7 @@ package org.springblade.modules.iot.temporal.kw.service;
 
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.kaiwudb.util.KWTimestamp;
 import org.springblade.core.tool.utils.BeanUtil;
 import org.springblade.modules.iot.ITaskLogData;
 import org.springblade.modules.iot.common.entity.PageParam;
