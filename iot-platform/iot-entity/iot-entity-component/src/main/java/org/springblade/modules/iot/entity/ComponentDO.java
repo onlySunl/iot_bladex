@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 /**
  * 组件配置 DO
  */
-@TableName("eiot_component")
+@TableName("iot_component")
 // @KeySequence("eiot_component_seq") 
 @Data
 @EqualsAndHashCode(callSuper = true)

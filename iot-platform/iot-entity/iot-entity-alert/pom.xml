@@ -4,43 +4,40 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- 父工程：iot-entity实体聚合模块，version必须字面量，禁止变量 -->
+    <!-- 父工程：iot-entity 实体聚合模块，version必须字面量，禁止${}变量 -->
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>iot-entity</artifactId>
         <version>4.2.0.RELEASE</version>
-        <!-- 本地快速寻址父pom，加速构建 -->
+        <!-- 本地直接寻址父pom，不用拉仓库 -->
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>iot-entity-component</artifactId>
-    <name>IoT-协议组件实体模块</name>
-    <description>存放MQTT/Modbus/CoAP/TCP/UDP等各类协议组件DO、DTO、VO、数据库注解实体</description>
+    <artifactId>iot-entity-alert</artifactId>
+    <name>IoT-告警实体模块</name>
+    <description>存放告警、短信、语音通知相关DO、DTO、VO实体类</description>
 
     <properties>
-        <!-- 日志链路、Spring环境识别模块标识 -->
-        <module.name>iot.entity.component</module.name>
-        <!-- 统一源码文件编码 -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- 模块唯一标识，用于日志/链路区分 -->
+        <module.name>iot.entity.alert</module.name>
+        <!-- 全局版本统一复用，子模块依赖可直接${project.version} -->
+        <project.version>4.2.0.RELEASE</project.version>
     </properties>
 
     <dependencies>
-        <!-- 1. Blade底层通用工具、基础DTO、常量、序列化工具 -->
+        <!-- Blade基础工具、常量、通用DTO -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-common</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <!-- 2. Lombok编译期生成get/set/构造，运行时无需依赖 -->
+        <!-- Lombok编译期注解，打包不输出 -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <!-- 3. AutoTable自动建表数据库注解，仅编译期生效 -->
+        <!-- AutoTable数据库建表注解，仅编译使用 -->
         <dependency>
             <groupId>com.tangzc</groupId>
             <artifactId>auto-table-annotation</artifactId>

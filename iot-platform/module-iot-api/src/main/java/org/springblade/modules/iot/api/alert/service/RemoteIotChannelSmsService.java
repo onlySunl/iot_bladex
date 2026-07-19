@@ -22,9 +22,9 @@ public interface RemoteIotChannelSmsService {
 
     /** 发送短信 */
     @PostMapping("/channelSms/sendSms")
-    void sendSms(@RequestBody Map<String, Object> templateParam,
-                 @RequestParam("templateId") String templateId,
-                 @RequestBody SmsConfig smsConfig);
+    void sendSms(Map<String, Object> templateParam,
+                  String templateId,
+                SmsConfig smsConfig);
 
     /** 创建短信模板 */
     @PostMapping("/channelSms/createSmsTemplate")

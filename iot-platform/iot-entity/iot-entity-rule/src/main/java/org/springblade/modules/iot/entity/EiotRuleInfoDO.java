@@ -18,7 +18,7 @@ import lombok.*;
  *
  * @author EnjoyIot
  */
-@TableName("eiot_rule_info")
+@TableName("iot_rule_info")
 // @KeySequence("eiot_rule_info_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
 @EqualsAndHashCode(callSuper = true)

@@ -18,7 +18,7 @@ import lombok.*;
  *
  * @author EnjoyIot
  */
-@TableName("eiot_device_info")
+@TableName("iot_device_info")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)

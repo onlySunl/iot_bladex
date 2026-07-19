@@ -3,34 +3,48 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- 父工程：iot-entity聚合模块，version必须字面量，禁止变量 -->
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>iot-entity</artifactId>
         <version>4.2.0.RELEASE</version>
+        <!-- 本地优先读取上层iot-entity/pom.xml，无需远程拉取 -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>iot-entity-ota</artifactId>
-    <description>
-        iot-entity-ota 告警接口模块
-    </description>
+    <name>IoT-OTA升级实体模块</name>
+    <description>存放固件包、升级任务、升级记录相关DO、DTO、VO、数据库注解实体类</description>
+
     <properties>
-        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <!-- 日志、链路追踪区分模块唯一标识 -->
         <module.name>iot.entity.ota</module.name>
+        <!-- 统一源码/报告输出编码，防止中文乱码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
     <dependencies>
+        <!-- 1. Blade公共基础工具、通用DTO、基础注解（仅编译依赖） -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-common</artifactId>
+            <scope>provided</scope>
         </dependency>
 
+        <!-- 2. Lombok编译期生成get/set，运行时不传递依赖 -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <!-- 3. AutoTable自动建表数据库注解，仅编译阶段生效 -->
         <dependency>
             <groupId>com.tangzc</groupId>
             <artifactId>auto-table-annotation</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

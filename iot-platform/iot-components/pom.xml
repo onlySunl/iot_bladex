@@ -3,47 +3,103 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- 顶层总聚合父工程，版本字面量不可使用变量 -->
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>iot-platform</artifactId>
         <version>4.2.0.RELEASE</version>
+        <!-- 本地优先加载父pom，加速多模块编译 -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>iot-components</artifactId>
     <packaging>pom</packaging>
-    <modules>
-        <module>iot-component-core</module>
-        <module>iot-component-mqtt</module>
-        <module>iot-component-emqx</module>
-        <module>iot-component-tcp</module>
-        <module>iot-component-http</module>
-        <module>iot-component-udp</module>
-        <module>iot-component-modbus-custom</module>
-        <module>iot-component-coap</module>
-    </modules>
+    <name>IoT-协议组件聚合模块</name>
+    <description>
+        聚合各类物联网设备接入协议组件；
+        iot-component-core 为所有协议公共基础包，MQTT/TCP/UDP/HTTP/CoAP/Modbus/EMQX 均依赖 core。
+    </description>
 
+    <properties>
+        <!-- 链路追踪、日志模块唯一标识 -->
+        <module.name>iot.components</module.name>
+        <!-- 统一文件编码，避免Windows/Linux中文乱码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <!-- 子模块统一版本管控：所有内部组件版本由顶层iot-platform统一管理，本层不写版本 -->
     <dependencyManagement>
-
         <dependencies>
-
+            <!-- 协议公共核心基础包 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-component-core</artifactId>
-                <version>4.2.0.RELEASE</version>
             </dependency>
-
+            <!-- EMQX MQTT客户端组件 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-component-emqx</artifactId>
+            </dependency>
+            <!-- 标准MQTT协议组件 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-component-mqtt</artifactId>
+            </dependency>
+            <!-- TCP设备接入组件 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-component-tcp</artifactId>
+            </dependency>
+            <!-- HTTP设备上报接入组件 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-component-http</artifactId>
+            </dependency>
+            <!-- UDP短报文组件 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-component-udp</artifactId>
+            </dependency>
+            <!-- 工业Modbus自定义协议 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-component-modbus-custom</artifactId>
+            </dependency>
+            <!-- CoAP低功耗物联网协议 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-component-coap</artifactId>
+            </dependency>
         </dependencies>
-
     </dependencyManagement>
+
+    <!-- 聚合层全局公共依赖，所有协议子模块自动继承 -->
     <dependencies>
+        <!-- 1.Vert.x 高性能事件驱动框架（版本顶层统一管控） -->
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-mqtt</artifactId>
+        </dependency>
+
+        <!-- 2.Spring 基础上下文 -->
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>
+
+        <!-- 3.通用工具类 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <!-- 4.仅编译期注解依赖（provided，不传递运行时，解决javax.annotation冲突） -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -52,17 +108,19 @@
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
-            <scope>provided</scope> <!-- 设置为 provided，主要是 PageParam 使用到 -->
-        </dependency>
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-mqtt</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
-
+    <!-- 协议子模块清单，每行标注业务用途 -->
+    <modules>
+        <module>iot-component-core</module>        <!-- 协议公共抽象、工具、基类 -->
+        <module>iot-component-mqtt</module>         <!-- 标准MQTT设备接入 -->
+        <module>iot-component-emqx</module>         <!-- EMQX Broker专用客户端 -->
+        <module>iot-component-tcp</module>          <!-- TCP透传工业设备 -->
+        <module>iot-component-http</module>         <!-- HTTP/HTTPS设备上报 -->
+        <module>iot-component-udp</module>          <!-- 低功耗UDP短报文 -->
+        <module>iot-component-modbus-custom</module><!-- Modbus RTU/TCP工业协议 -->
+        <module>iot-component-coap</module>         <!-- CoAP窄带物联网协议 -->
+    </modules>
 </project>

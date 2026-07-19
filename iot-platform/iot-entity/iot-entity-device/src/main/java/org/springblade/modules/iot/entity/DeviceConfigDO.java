@@ -37,7 +37,7 @@ import lombok.EqualsAndHashCode;
 /**
  * 设备配置 DO
  */
-@TableName("eiot_device_config")
+@TableName("iot_device_config")
 // @KeySequence("eiot_device_config_seq") // 兼容 Oracle/PostgreSQL 等，MySQL 可忽略
 @Data
 @EqualsAndHashCode(callSuper = true)

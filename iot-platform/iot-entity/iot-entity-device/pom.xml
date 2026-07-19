@@ -3,38 +3,55 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- 父工程：iot-entity实体聚合模块，version必须字面量，禁止变量 -->
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>iot-entity</artifactId>
         <version>4.2.0.RELEASE</version>
+        <!-- 本地优先读取父pom，不用远程拉取，构建更快 -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>iot-entity-device</artifactId>
+    <name>IoT-设备实体模块</name>
+    <description>存放产品、网关、子设备、虚拟设备相关DO、DTO、VO、数据库注解实体类</description>
 
-    <description>
-        iot-entity-device 告警接口模块
-    </description>
     <properties>
-        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <!-- 链路追踪、日志区分模块标识 -->
         <module.name>iot.entity.device</module.name>
+        <!-- 统一源码/报告编码，中文不乱码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
     <dependencies>
+        <!-- 1. Blade基础公共工具、常量、通用DTO、基础注解 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-common</artifactId>
+            <scope>provided</scope>
         </dependency>
 
+        <!-- 2. Lombok编译期生成get/set/构造器，运行时无需依赖 -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
+
+        <!-- 3. AutoTable自动建表数据库注解，仅编译阶段生效 -->
         <dependency>
             <groupId>com.tangzc</groupId>
             <artifactId>auto-table-annotation</artifactId>
+            <scope>provided</scope>
         </dependency>
+
+        <!-- 4. IOT通用基础实体、分页、异常、工具类 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-common-core</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

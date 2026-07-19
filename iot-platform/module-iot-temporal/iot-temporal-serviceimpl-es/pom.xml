@@ -17,7 +17,7 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-temporal-service</artifactId>
-            <version>${blade.project.version}</version>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- Spring Boot Data Elasticsearch (Spring Boot 3.x managed version) -->

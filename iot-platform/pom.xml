@@ -3,174 +3,228 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- 父工程：SpringBlade IOT顶层父依赖，统一基础框架版本 -->
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>BLADE_IOT</artifactId>
         <version>4.2.0.RELEASE</version>
     </parent>
+
+    <!-- 当前聚合工程坐标 -->
     <groupId>org.springblade</groupId>
     <artifactId>iot-platform</artifactId>
-    <packaging>pom</packaging>
     <version>4.2.0.RELEASE</version>
-
-    <modules>
-        <module>module-iot-api</module>
-        <module>iot-entity</module>
-        <module>module-iot-biz</module>
-        <module>module-iot-core</module>
-        <module>iot-components</module>
-        <module>module-iot-task</module>
-        <module>module-iot-temporal</module>
-    </modules>
-
+    <!-- 聚合pom打包类型，仅用于管理子模块，无业务jar输出 -->
+    <packaging>pom</packaging>
+    <!-- 项目全局唯一版本变量，全模块统一复用 -->
     <properties>
+        <project.version>4.2.0.RELEASE</project.version>
+
+        <!-- 框架内置中间件/组件版本 -->
         <vertx.version>4.5.13</vertx.version>
-        <apache.commons>3.14.0</apache.commons>
         <akka.version>2.6.21</akka.version>
         <fastjson.version>1.2.83</fastjson.version>
         <transmittable-thread-local.version>2.14.5</transmittable-thread-local.version>
         <kaiwudb.jdbc.version>2.2.0</kaiwudb.jdbc.version>
         <dynamic-datasource.version>4.3.1</dynamic-datasource.version>
         <graalvm.version>22.0.0</graalvm.version>
-        <fastexcel.verion>1.1.0</fastexcel.verion>
+        <fastexcel.version>1.1.0</fastexcel.version>
         <mybatis-plus-join.version>1.4.13</mybatis-plus-join.version>
         <druid.version>1.2.24</druid.version>
+        <modbus.version>3.1.0</modbus.version>
+        <easy-es.version>2.1.0</easy-es.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
+        <es.version>7.17.15</es.version>
+        <aliyun-tea.version>0.3.2</aliyun-tea.version>
+        <aliyun-tea-util.version>0.2.23</aliyun-tea-util.version>
     </properties>
 
+    <!-- 聚合子模块列表：IOT平台分层模块 -->
+    <modules>
+        <module>module-iot-api</module>        <!-- Feign远程调用、对外API接口模块 -->
+        <module>iot-entity</module>            <!-- 实体、DTO、VO、通用模型 -->
+        <module>module-iot-biz</module>       <!-- 业务核心实现层 -->
+        <module>module-iot-core</module>       <!-- 通用工具、缓存、安全、基础能力 -->
+        <module>iot-components</module>        <!-- 多协议组件(MQTT/Modbus/CoAP/HTTP等) -->
+        <module>module-iot-task</module>       <!-- 定时任务、规则任务 -->
+        <module>module-iot-temporal</module>  <!-- 时序数据库(TD/IoTDB/ES)业务模块 -->
+    </modules>
+
+    <!-- 依赖版本统一管控：所有子模块仅写groupId+artifactId，无需指定version -->
     <dependencyManagement>
         <dependencies>
+            <!-- ====================== 1.SpringBlade 基础公共框架 ====================== -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>blade-common</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>blade-core-boot</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
-            <!-- Internal IoT modules -->
+
+            <!-- ====================== 2.IOT平台内部子模块 ====================== -->
+            <!-- 对外Feign API模块 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>module-iot-api</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- 业务实现模块 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>module-iot-biz</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- IOT通用核心工具包 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-common-core</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- 物模型基础封装 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-common-thing</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- 消息总线核心抽象 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-message-core</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- Spring事件总线实现 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-message-spring</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- Kafka消息实现 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-message-kafka</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- Actor消息模型 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-message-actor</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- Vert.x事件总线 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-message-vertx</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- RocketMQ消息实现 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-message-rocketmq</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- 消息通知(短信/语音/邮件)模块 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-message-notify</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- 规则引擎核心 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-rule-engine</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- 脚本引擎(GraalJS) -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-script-engine</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- 虚拟设备管理 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-virtual-device</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- 协议组件基础包 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-component-core</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- CoAP协议组件 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-component-coap</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- EMQX MQTT组件 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-component-emqx</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- HTTP设备接入组件 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-component-http</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- MQTT客户端组件 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-component-mqtt</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- TCP设备接入 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-component-tcp</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- UDP设备接入 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-component-udp</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- Modbus自定义协议组件 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-component-modbus-custom</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- 定时任务模块 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>module-iot-task</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
+            <!-- 时序数据服务 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-temporal-service</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <version>${project.version}</version>
             </dependency>
-            <!-- Vert.x -->
+            <!-- Mybatis公共工具 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-common-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- Excel导出工具 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-common-excel</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- ====================== 3.Vert.x 高性能事件驱动框架 ====================== -->
             <dependency>
                 <groupId>io.vertx</groupId>
                 <artifactId>vertx-kafka-client</artifactId>
@@ -192,117 +246,125 @@
                 <version>${vertx.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.vertx</groupId>
+                <groupId>io.vertx-web-client</groupId>
                 <artifactId>vertx-web-client</artifactId>
                 <version>${vertx.version}</version>
-            </dependency>
-            <!-- Third-party dependencies -->
-            <dependency>
-                <groupId>com.github.yulichang</groupId>
-                <artifactId>mybatis-plus-join-boot-starter</artifactId>
-                <version>${mybatis-plus-join.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.typesafe.akka</groupId>
-                <artifactId>akka-actor-typed_2.13</artifactId>
-                <version>${akka.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${fastjson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>transmittable-thread-local</artifactId>
-                <version>${transmittable-thread-local.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.digitalpetri.modbus</groupId>
-                <artifactId>modbus-codec</artifactId>
-                <version>3.1.0</version>
-            </dependency>
-            <dependency>
-                <groupId>com.aliyun</groupId>
-                <artifactId>tea-openapi</artifactId>
-                <version>0.3.2</version>
-            </dependency>
-            <dependency>
-                <groupId>com.aliyun</groupId>
-                <artifactId>tea-util</artifactId>
-                <version>0.2.23</version>
             </dependency>
             <dependency>
                 <groupId>io.vertx</groupId>
                 <artifactId>vertx-web-proxy</artifactId>
                 <version>${vertx.version}</version>
             </dependency>
+
+            <!-- ====================== 4.ORM & 数据源相关 ====================== -->
+            <!-- Mybatis Plus Join 连表插件 -->
+            <dependency>
+                <groupId>com.github.yulichang</groupId>
+                <artifactId>mybatis-plus-join-boot-starter</artifactId>
+                <version>${mybatis-plus-join.version}</version>
+            </dependency>
+            <!-- Druid 数据库连接池 -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
             </dependency>
+            <!-- 动态多数据源 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
+                <version>${dynamic-datasource.version}</version>
+            </dependency>
+            <!-- Mybatis Plus 注解(仅编译依赖) -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-annotation</artifactId>
                 <version>3.5.14</version>
                 <scope>provided</scope>
             </dependency>
-            <!-- KaiwuDB JDBC -->
+            <!-- 人大金仓驱动 -->
             <dependency>
                 <groupId>com.kaiwudb</groupId>
                 <artifactId>kaiwudb-jdbc</artifactId>
                 <version>${kaiwudb.jdbc.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>dynamic-datasource-spring-boot3-starter</artifactId> <!-- 多数据源 -->
-                <version>${dynamic-datasource.version}</version>
-            </dependency>
+
+            <!-- ====================== 5.搜索引擎 Elasticsearch ====================== -->
             <dependency>
                 <groupId>org.elasticsearch.client</groupId>
                 <artifactId>elasticsearch-rest-high-level-client</artifactId>
-                <version>7.17.15</version>
+                <version>${es.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.elasticsearch</groupId>
                 <artifactId>elasticsearch</artifactId>
-                <version>7.17.15</version>
+                <version>${es.version}</version>
             </dependency>
-
+            <!-- Easy-ES ORM封装 -->
             <dependency>
                 <groupId>org.dromara.easy-es</groupId>
                 <artifactId>easy-es-boot-starter</artifactId>
-                <version>2.1.0</version>
+                <version>${easy-es.version}</version>
             </dependency>
 
+            <!-- ====================== 6.序列化、工具类 ====================== -->
+            <!-- fastjson JSON序列化 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <!-- 线程上下文透传(异步/多线程传递Trace、租户) -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${transmittable-thread-local.version}</version>
+            </dependency>
+            <!-- MapStruct DTO实体映射 -->
             <dependency>
                 <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct</artifactId> <!-- use mapstruct-jdk8 for Java 8 or higher -->
-                <version>1.6.3</version>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <!-- Excel解析 -->
+            <dependency>
+                <groupId>cn.idev.excel</groupId>
+                <artifactId>fastexcel</artifactId>
+                <version>${fastexcel.version}</version>
             </dependency>
 
+            <!-- ====================== 7.协议、第三方硬件SDK ====================== -->
+            <!-- Modbus TCP/RTU 协议编解码 -->
+            <dependency>
+                <groupId>com.digitalpetri.modbus</groupId>
+                <artifactId>modbus-codec</artifactId>
+                <version>${modbus.version}</version>
+            </dependency>
+            <!-- 阿里云短信/语音SDK -->
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>tea-openapi</artifactId>
+                <version>${aliyun-tea.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>tea-util</artifactId>
+                <version>${aliyun-tea-util.version}</version>
+            </dependency>
+
+            <!-- ====================== 8.脚本、并发模型 ====================== -->
+            <!-- Akka Actor并发模型 -->
+            <dependency>
+                <groupId>com.typesafe.akka</groupId>
+                <artifactId>akka-actor-typed_2.13</artifactId>
+                <version>${akka.version}</version>
+            </dependency>
+            <!-- GraalJS JS脚本引擎 -->
             <dependency>
                 <groupId>org.graalvm.js</groupId>
                 <artifactId>js</artifactId>
                 <version>${graalvm.version}</version>
             </dependency>
-            <dependency>
-                <groupId>cn.idev.excel</groupId>
-                <artifactId>fastexcel</artifactId>
-                <version>${fastexcel.verion}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-common-excel</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-common-mybatis</artifactId>
-                <version>${project.version}</version>
-            </dependency>
         </dependencies>
-
     </dependencyManagement>
 </project>

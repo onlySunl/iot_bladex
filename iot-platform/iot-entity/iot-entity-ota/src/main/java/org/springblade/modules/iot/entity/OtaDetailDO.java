@@ -18,7 +18,7 @@ import lombok.*;
  *
  * @author EnjoyIot
  */
-@TableName("device_ota_detail")
+@TableName("iot_device_ota_detail")
 // @KeySequence("device_ota_detail_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
 @EqualsAndHashCode(callSuper = true)

@@ -3,6 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- 顶层聚合父工程：统一所有IoT模块版本、全局依赖管理 -->
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>iot-platform</artifactId>
@@ -11,40 +13,45 @@
 
     <artifactId>iot-entity</artifactId>
     <packaging>pom</packaging>
-    <description>IoT 实体类模块（按域拆分子模块）</description>
+    <name>IoT 实体聚合模块</name>
+    <description>
+        聚合所有业务域实体DTO/DO/VO模块，按业务领域拆分，解耦各业务实体；
+        仅做版本管控与依赖锁定，无业务代码输出。
+    </description>
 
+    <!-- 各业务域实体子模块 -->
     <modules>
-        <module>iot-entity-product</module>
-        <module>iot-entity-device</module>
-        <!--<module>iot-entity-alert</module>-->
-        <module>iot-entity-rule</module>
-        <module>iot-entity-component</module>
-        <module>iot-entity-sip</module>
-        <module>iot-entity-ota</module>
-        <module>iot-entity-thingmodel</module>
-        <module>iot-entity-virtual</module>
-        <module>iot-entity-common</module>
+        <module>iot-entity-common</module>        <!-- 公共基类、分页、通用DTO -->
+        <module>iot-entity-product</module>       <!-- 产品相关DO/DTO -->
+        <module>iot-entity-device</module>        <!-- 设备、网关实体 -->
+        <module>iot-entity-alert</module>         <!-- 告警、短信、语音通知实体 -->
+        <module>iot-entity-rule</module>           <!-- 规则、任务实体 -->
+        <module>iot-entity-component</module>      <!-- 协议组件(Modbus/MQTT/CoAP等)实体 -->
+        <module>iot-entity-sip</module>            <!-- SIP视频设备实体 -->
+        <module>iot-entity-ota</module>            <!-- 升级包OTA实体 -->
+        <module>iot-entity-thingmodel</module>     <!-- 物模型实体 -->
+        <module>iot-entity-virtual</module>        <!-- 虚拟设备实体 -->
     </modules>
 
-
+    <!-- 实体模块统一依赖版本锁定（继承父pom全局版本，仅声明不重复写version） -->
     <dependencyManagement>
         <dependencies>
+            <!-- Blade基础公共包，提供工具类、基础注解 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>blade-common</artifactId>
-                <version>4.2.0.RELEASE</version>
                 <scope>provided</scope>
             </dependency>
+            <!-- AutoTable 数据库自动建表注解 -->
             <dependency>
                 <groupId>com.tangzc</groupId>
                 <artifactId>auto-table-annotation</artifactId>
-                <version>1.8.3</version>
                 <scope>provided</scope>
             </dependency>
+            <!-- MyBatis-Plus 数据库实体注解 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-annotation</artifactId>
-                <version>3.5.14</version>
                 <scope>provided</scope>
             </dependency>
         </dependencies>

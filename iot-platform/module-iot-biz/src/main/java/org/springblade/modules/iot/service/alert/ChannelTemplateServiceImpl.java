@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.service.alert;
 
 import jakarta.annotation.Resource;
+import org.springblade.core.mp.service.impl.BladeServiceImpl;
 import org.springblade.core.tool.utils.CollectionUtil;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
 import org.springblade.modules.iot.common.entity.PageResult;
@@ -29,7 +30,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Validated
-public class ChannelTemplateServiceImpl implements ChannelTemplateService {
+public class ChannelTemplateServiceImpl extends BladeServiceImpl<ChannelTemplateMapper,ChannelTemplateDO> implements ChannelTemplateService {
 
     @Resource
     private ChannelTemplateMapper channelTemplateMapper;
