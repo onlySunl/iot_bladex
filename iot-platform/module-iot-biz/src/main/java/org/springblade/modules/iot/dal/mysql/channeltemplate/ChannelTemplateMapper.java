@@ -23,12 +23,12 @@
  */
 package org.springblade.modules.iot.dal.mysql.channeltemplate;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTemplatePageReqVO;
+import org.springblade.modules.iot.entity.ChannelTemplateDO;
 import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
 import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
-import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTemplatePageReqVO;
-import org.springblade.modules.iot.dal.dataobject.channeltemplate.ChannelTemplateDO;
-import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 通道模板 Mapper
@@ -43,7 +43,7 @@ public interface ChannelTemplateMapper extends BaseMapperX<ChannelTemplateDO> {
                 .likeIfPresent(ChannelTemplateDO::getTitle, reqVO.getTitle())
                 .eqIfPresent(ChannelTemplateDO::getChannelConfigId, reqVO.getChannelConfigId())
                 .eqIfPresent(ChannelTemplateDO::getContent, reqVO.getContent())
-                .betweenIfPresent(ChannelTemplateDO::getCreateTime, reqVO.getCreateTime())
+                //.betweenIfPresent(ChannelTemplateDO::getCreateTime, reqVO.getCreateTime())
                 .eqIfPresent(ChannelTemplateDO::getDeptId, reqVO.getDeptId())
                 .orderByDesc(ChannelTemplateDO::getId));
     }

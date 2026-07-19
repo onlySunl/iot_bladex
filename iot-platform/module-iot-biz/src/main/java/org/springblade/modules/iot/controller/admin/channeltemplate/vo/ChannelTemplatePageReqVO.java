@@ -23,16 +23,14 @@
  */
 package org.springblade.modules.iot.controller.admin.channeltemplate.vo;
 
+import org.springblade.core.tool.utils.DateUtil;
 import org.springblade.modules.iot.common.entity.PageParam;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDateTime;
-
-import static com.enjoyiot.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
 @Schema(description = "管理后台 - 通道模板分页 Request VO")
 @Data
@@ -50,7 +48,7 @@ public class ChannelTemplatePageReqVO extends PageParam {
     private String content;
 
     @Schema(description = "创建时间")
-    @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
+    @DateTimeFormat(pattern = DateUtil.PATTERN_DATETIME)
     private LocalDateTime[] createTime;
 
     @Schema(description = "机构id", example = "25751")

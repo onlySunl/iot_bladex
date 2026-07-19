@@ -24,10 +24,10 @@
 package org.springblade.modules.iot.dal.mysql.alertconfig;
 
 import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.entity.AlertConfigDO;
 import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
 import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
 import org.springblade.modules.iot.api.alert.dto.AlertConfigPageReqVO;
-import org.springblade.modules.iot.dal.dataobject.alertconfig.AlertConfigDO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

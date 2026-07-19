@@ -1,7 +1,6 @@
 package org.springblade.modules.iot.api.alert.vms;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.modules.iot.api.alert.ChannelVmsStrategy;
 import org.springblade.modules.iot.api.alert.dto.VmsConfig;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;

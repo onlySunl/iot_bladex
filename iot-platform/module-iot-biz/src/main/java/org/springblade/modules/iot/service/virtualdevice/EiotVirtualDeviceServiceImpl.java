@@ -3,10 +3,10 @@
 package org.springblade.modules.iot.service.virtualdevice;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import org.springblade.common.query.LambdaQueryWrapperX;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.IVirtualDeviceLogData;
 import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
 import org.springblade.modules.iot.virtualdevice.VirtualManager;
 import org.springblade.modules.iot.api.virtualdevice.dto.VirtualDevice;
 import org.springblade.modules.iot.api.virtualdevice.dto.VirtualDeviceLog;

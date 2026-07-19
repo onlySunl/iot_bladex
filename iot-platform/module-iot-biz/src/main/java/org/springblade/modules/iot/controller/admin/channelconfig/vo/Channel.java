@@ -24,6 +24,7 @@
 package org.springblade.modules.iot.controller.admin.channelconfig.vo;
 
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springblade.modules.iot.api.TenantModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,11 +44,16 @@ public class Channel extends TenantModel {
 
     private Long id;
 
+    @Schema(description = "通道名称")
     private String code;
 
+    @Schema(description = "图标")
+    private String icon;
+
+    @Schema(description = "标题")
     private String title;
 
-    private String icon;
+
 
 
 }

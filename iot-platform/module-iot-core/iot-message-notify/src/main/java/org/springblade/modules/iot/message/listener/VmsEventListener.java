@@ -24,7 +24,7 @@
 package org.springblade.modules.iot.message.listener;
 
 
-import org.springblade.modules.iot.api.alert.ChannelVmsStrategy;
+import org.springblade.modules.iot.api.alert.service.RemoteIotChannelVmsService;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.message.event.MessageEvent;
 import org.springblade.modules.iot.api.alert.dto.Message;
@@ -44,7 +44,7 @@ import jakarta.annotation.Resource;
 @Component
 public class VmsEventListener implements MessageEventListener {
     @Resource
-    private ChannelVmsStrategy channelVmsStrategy;
+    private RemoteIotChannelVmsService channelVmsStrategy;
 
     @Override
     @EventListener(classes = MessageEvent.class, condition = "#event.message.channelCode=='VMS'")

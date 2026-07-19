@@ -25,6 +25,8 @@ package org.springblade.modules.iot.controller.admin.alertconfig;
 
 import org.springblade.modules.iot.api.alert.dto.AlertConfig;
 import org.springblade.modules.iot.api.alert.dto.AlertConfigPageReqVO;
+import org.springblade.modules.iot.common.annotation.ApiAccessLog;
+import org.springblade.modules.iot.excel.core.util.ExcelUtils;
 import org.springblade.modules.iot.service.alert.AlertConfigService;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
@@ -43,14 +45,9 @@ import org.springblade.modules.iot.common.entity.PageParam;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.common.utils.BeanUtils;
-import static com.enjoyiot.framework.common.pojo.R.success;
-
-import org.springblade.modules.iot.excel.util.ExcelUtils;
-
-import org.springblade.modules.iot.common.apilog.core.annotation.ApiAccessLog;
-import static com.enjoyiot.framework.apilog.core.enums.OperateTypeEnum.*;
-
 import org.springblade.modules.iot.controller.admin.alertconfig.vo.*;
+
+import static org.springblade.modules.iot.common.enums.OperateTypeEnum.EXPORT;
 
 @Tag(name = "管理后台 - 报警配置")
 @RestController
@@ -65,7 +62,7 @@ public class AlertConfigController {
     @Operation(summary = "创建报警配置")
     @PreAuthorize("@ss.hasPermission('iot:alert-config:create')")
     public R<Long> createAlertConfig(@Valid @RequestBody AlertConfigSaveReqVO createReqVO) {
-        return success(alertConfigService.createAlertConfig(createReqVO));
+        return R.data(alertConfigService.createAlertConfig(createReqVO));
     }
 
     @PutMapping("/update")
@@ -73,7 +70,7 @@ public class AlertConfigController {
     @PreAuthorize("@ss.hasPermission('iot:alert-config:update')")
     public R<Boolean> updateAlertConfig(@Valid @RequestBody AlertConfigSaveReqVO updateReqVO) {
         alertConfigService.updateAlertConfig(updateReqVO);
-        return success(true);
+        return R.data(true);
     }
 
     @DeleteMapping("/delete")
@@ -82,7 +79,7 @@ public class AlertConfigController {
     @PreAuthorize("@ss.hasPermission('iot:alert-config:delete')")
     public R<Boolean> deleteAlertConfig(@RequestParam("id") Long id) {
         alertConfigService.deleteAlertConfig(id);
-        return success(true);
+        return R.data(true);
     }
 
     @GetMapping("/get")
@@ -91,7 +88,7 @@ public class AlertConfigController {
     @PreAuthorize("@ss.hasPermission('iot:alert-config:query')")
     public R<AlertConfigRespVO> getAlertConfig(@RequestParam("id") Long id) {
         AlertConfig alertConfig = alertConfigService.getAlertConfig(id);
-        return success(BeanUtils.toBean(alertConfig, AlertConfigRespVO.class));
+        return R.data(BeanUtils.toBean(alertConfig, AlertConfigRespVO.class));
     }
 
     @GetMapping("/page")
@@ -99,7 +96,7 @@ public class AlertConfigController {
     @PreAuthorize("@ss.hasPermission('iot:alert-config:query')")
     public R<PageResult<AlertConfigRespVO>> getAlertConfigPage(@Valid AlertConfigPageReqVO pageReqVO) {
         PageResult<AlertConfig> pageResult = alertConfigService.getAlertConfigPage(pageReqVO);
-        return success(BeanUtils.toBean(pageResult, AlertConfigRespVO.class));
+        return R.data(BeanUtils.toBean(pageResult, AlertConfigRespVO.class));
     }
 
     @GetMapping("/export-excel")

@@ -6,8 +6,8 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import org.springblade.common.query.LambdaQueryWrapperX;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.IDevicePropertyData;
@@ -33,6 +33,7 @@ import org.springblade.modules.iot.controller.admin.product.vo.PropertyVO;
 import org.springblade.modules.iot.convert.DeviceGroupConvert;
 import org.springblade.modules.iot.dal.mysql.EiotIotDeviceGroupMapper;
 import org.springblade.modules.iot.dal.mysql.EiotIotGroupMapper;
+import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
 import org.springblade.modules.iot.service.product.ThingModelService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
@@ -156,7 +157,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
         }
 
         //移除设备信息中的分组
-        LambdaQueryWrapperX<DeviceGroupDO> eq = new LambdaQueryWrapperX<DeviceGroupDO>()
+        LambdaQueryWrapper<DeviceGroupDO> eq = new LambdaQueryWrapperX<DeviceGroupDO>()
                 .eq(DeviceGroupDO::getGroupId, id);
         return deviceGroupMapper.delete(eq) > 0;
     }
@@ -200,7 +201,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
             }
 
             //添加设备到组
-            LambdaQueryWrapperX<DeviceGroupDO> q = new LambdaQueryWrapperX<DeviceGroupDO>()
+            LambdaQueryWrapper<DeviceGroupDO> q = new LambdaQueryWrapperX<DeviceGroupDO>()
                     .eq(DeviceGroupDO::getGroupId, groupId)
                     .eq(DeviceGroupDO::getDeviceId, deviceId);
             Long count = deviceGroupMapper.selectCount(q);

@@ -28,10 +28,7 @@ import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.api.IdReqVo;
 import org.springblade.modules.iot.controller.admin.alert.vo.ChannelReqVO;
-import org.springblade.modules.iot.controller.admin.channelconfig.vo.Channel;
-import org.springblade.modules.iot.controller.admin.channelconfig.vo.ChannelConfig;
-import org.springblade.modules.iot.controller.admin.channelconfig.vo.ChannelConfigPageReqVO;
-import org.springblade.modules.iot.controller.admin.channelconfig.vo.ChannelConfigReqVO;
+import org.springblade.modules.iot.controller.admin.channelconfig.vo.*;
 import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTemplate;
 import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTemplatePageReqVO;
 import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTemplateSaveReqVO;
@@ -49,6 +46,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.annotation.Resource;
+
 import java.util.List;
 
 /**
@@ -75,42 +73,37 @@ public class NotifyController {
     @PreAuthorize("@ss.hasPermission('iot:channel:query')")
     @PostMapping("/channel/getList")
     public R<List<Channel>> getChannelList(@RequestBody @Validated ChannelReqVO reqVO) {
-        return R.success(channelService.getChannelList(reqVO));
+        return R.data(channelService.getChannelList(reqVO));
     }
 
     @Operation(summary = "获取通道配置分页列表")
     @PreAuthorize("@ss.hasPermission('iot:channel:query')")
     @PostMapping("/channel/config/getList")
     public R<PageResult<ChannelConfig>> getChannelConfigList(@RequestBody @Validated ChannelConfigPageReqVO request) {
-        return R.success(channelConfigService.getChannelConfigPage(request));
+        return R.data(channelConfigService.getChannelConfigPage(request));
     }
 
-    @Operation(summary = "获取通道配置列表")
-    @PreAuthorize("@ss.hasPermission('iot:channel:query')")
-    @PostMapping("/channel/config/getAll")
-    public R<List<ChannelConfig>> getChannelConfigAll(@RequestBody @Validated ChannelConfigReqVO reqVO) {
-        return R.success(channelConfigService.getChannelConfigAll(reqVO));
-    }
 
     @Operation(summary = "新增通道配置")
     @PreAuthorize("@ss.hasPermission('iot:channel:add')")
     @PostMapping("/channel/config/add")
-    public R<Long> addChannelConfig(@RequestBody @Validated ChannelConfig request) {
-        return R.success(channelConfigService.createChannelConfig(request));
+    public R<Long> addChannelConfig(@RequestBody @Validated ChannelConfigSaveReqVO request) {
+        return R.data(channelConfigService.createChannelConfig(request));
     }
 
     @Operation(summary = "根据ID获取通道配置")
     @PreAuthorize("@ss.hasPermission('iot:channel:query')")
     @PostMapping("/channel/config/getById")
     public R<ChannelConfig> getChannelConfigById(@RequestBody @Validated IdReqVo request) {
-        return R.success(channelConfigService.getChannelConfig(request.getId()));
+        return R.data(channelConfigService.getChannelConfig(request.getId()));
     }
 
     @Operation(summary = "修改通道配置")
     @PreAuthorize("@ss.hasPermission('iot:channel:edit')")
     @PostMapping("/channel/config/updateById")
-    public R<Boolean> updateChannelConfigById(@RequestBody @Validated ChannelConfig request) {
-        return R.success(channelConfigService.updateChannelConfig(request));
+    public R<Boolean> updateChannelConfigById(@RequestBody @Validated ChannelConfigSaveReqVO request) {
+        channelConfigService.updateChannelConfig(request);
+        return R.data(true);
     }
 
     @Operation(summary = "删除通道配置")
@@ -118,28 +111,28 @@ public class NotifyController {
     @PostMapping("/channel/config/delById")
     public R<Boolean> delChannelConfigById(@RequestBody @Validated IdReqVo reqVo) {
         channelConfigService.deleteChannelConfig(reqVo.getId());
-        return R.success(true);
+        return R.data(true);
     }
 
     @Operation(summary = "获取通道模板列表")
     @PreAuthorize("@ss.hasPermission('iot:channel:query')")
     @PostMapping("/channel/template/getList")
     public R<PageResult<ChannelTemplate>> getChannelTemplateList(@RequestBody @Validated ChannelTemplatePageReqVO request) {
-        return R.success(channelTemplateService.getChannelTemplatePage(request));
+        return R.data(channelTemplateService.getChannelTemplatePage(request));
     }
 
     @Operation(summary = "新增通道模板")
     @PreAuthorize("@ss.hasPermission('iot:channel:add')")
     @PostMapping("/channel/template/add")
     public R<Long> addChannelTemplate(@RequestBody @Validated ChannelTemplateSaveReqVO request) {
-        return R.success(channelTemplateService.createChannelTemplate(request));
+        return R.data(channelTemplateService.createChannelTemplate(request));
     }
 
     @Operation(summary = "根据ID获取通道模板")
     @PreAuthorize("@ss.hasPermission('iot:channel:query')")
     @PostMapping("/channel/template/getById")
     public R<ChannelTemplate> getChannelTemplateById(@RequestBody @Validated IdReqVo request) {
-        return R.success(channelTemplateService.getChannelTemplate(request.getId()));
+        return R.data(channelTemplateService.getChannelTemplate(request.getId()));
     }
 
     @Operation(summary = "修改通道模板")
@@ -147,7 +140,7 @@ public class NotifyController {
     @PostMapping("/channel/template/updateById")
     public R<Boolean> updateChannelTemplateById(@RequestBody @Validated ChannelTemplateSaveReqVO request) {
         channelTemplateService.updateChannelTemplate(request);
-        return R.success(true);
+        return R.data(true);
     }
 
     @Operation(summary = "删除通道模板")
@@ -155,7 +148,7 @@ public class NotifyController {
     @PostMapping("/channel/template/delById")
     public R<Boolean> delChannelTemplateById(@RequestBody @Validated IdReqVo request) {
         channelTemplateService.deleteById(request.getId());
-        return R.success(true);
+        return R.data(true);
     }
 
 //    @Operation(summary = "消息列表")

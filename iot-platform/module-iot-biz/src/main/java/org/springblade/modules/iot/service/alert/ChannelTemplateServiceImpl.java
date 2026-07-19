@@ -1,20 +1,21 @@
 package org.springblade.modules.iot.service.alert;
 
-import cn.hutool.core.collection.CollectionUtils;
 import jakarta.annotation.Resource;
+import org.springblade.core.tool.utils.CollectionUtil;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.common.utils.BeanUtils;
+import org.springblade.modules.iot.common.utils.CollectionUtils;
 import org.springblade.modules.iot.common.utils.ServiceExceptionUtil;
 import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTemplate;
 import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTemplatePageReqVO;
 import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTemplateSaveReqVO;
 import org.springblade.modules.iot.convert.ChannelTemplateConvert;
-import org.springblade.modules.iot.entity.ChannelConfigDO;
-import org.springblade.modules.iot.entity.ChannelTemplateDO;
 import org.springblade.modules.iot.dal.mysql.alertconfig.AlertConfigMapper;
 import org.springblade.modules.iot.dal.mysql.channelconfig.ChannelConfigMapper;
 import org.springblade.modules.iot.dal.mysql.channeltemplate.ChannelTemplateMapper;
+import org.springblade.modules.iot.entity.ChannelConfigDO;
+import org.springblade.modules.iot.entity.ChannelTemplateDO;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -96,7 +97,7 @@ public class ChannelTemplateServiceImpl implements ChannelTemplateService {
     @Override
     public PageResult<ChannelTemplate> getChannelTemplatePage(ChannelTemplatePageReqVO pageReqVO) {
         PageResult<ChannelTemplate> pageResult = ChannelTemplateConvert.INSTANCE.convertPage(channelTemplateMapper.selectPage(pageReqVO));
-        if (CollectionUtils.isNotEmpty(pageResult.getList())) {
+        if (CollectionUtil.isNotEmpty(pageResult.getList())) {
             Set<Long> channelConfigIds = pageResult.getList().stream().map(ChannelTemplate::getChannelConfigId).collect(Collectors.toSet());
             List<ChannelConfigDO> channelConfigDOList = channelConfigMapper.selectByIds(channelConfigIds);
             Map<Long, String> channelConfigCodeMap = channelConfigDOList.stream().collect(Collectors.toMap(ChannelConfigDO::getId, ChannelConfigDO::getCode));
