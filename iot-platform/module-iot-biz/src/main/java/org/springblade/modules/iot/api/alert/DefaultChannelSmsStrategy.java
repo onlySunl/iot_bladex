@@ -2,7 +2,6 @@ package org.springblade.modules.iot.api.alert;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springblade.modules.iot.api.alert.dto.SmsConfig;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -10,11 +9,10 @@ import java.util.Map;
 /**
  * 默认短信策略实现（空实现）
  * 当没有自定义 SMS 服务商实现时，使用此默认实现，仅打印日志
- * 用户可通过实现 ChannelSmsStrategy 接口并提供自己的 Bean 来覆盖此默认实现
+ * 用户可通过实现 ChannelSmsStrategy 接口并使用 @Primary 注解来覆盖此默认实现
  */
 @Slf4j
 @Component
-@ConditionalOnMissingBean(ChannelSmsStrategy.class)
 public class DefaultChannelSmsStrategy implements ChannelSmsStrategy {
 
     @Override
