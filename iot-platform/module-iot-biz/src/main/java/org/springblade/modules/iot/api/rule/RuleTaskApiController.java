@@ -10,7 +10,7 @@ import org.springblade.modules.iot.api.task.dto.TaskInfoPageReq;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * 规则任务对外API控制器，与RemoteIotRuleTaskService接口一一对应

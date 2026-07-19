@@ -7,7 +7,7 @@ import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.modules.iot.api.modbus.dto.ModbusThingModel;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 @RestController
 @RequestMapping("/modbusThingModelApi")
