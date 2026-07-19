@@ -24,6 +24,8 @@
 package org.springblade.modules.iot.message.listener;
 
 
+import org.springblade.modules.iot.api.alert.dto.CallByTtsRequest;
+import org.springblade.modules.iot.api.alert.dto.SendSmsRequest;
 import org.springblade.modules.iot.api.alert.service.RemoteIotChannelSmsService;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.message.config.VertxManager;
@@ -56,7 +58,11 @@ public class SmsEventListener implements MessageEventListener {
         Message message = event.getMessage();
         String channelConfig = message.getChannelConfig();
         SmsConfig smsConfig = JsonUtils.parseObject(channelConfig, SmsConfig.class);
-        channelSmsStrategy.sendSms(message.getParam(), message.getTemplateCode(), smsConfig);
+        SendSmsRequest sendSmsRequest = new SendSmsRequest();
+        sendSmsRequest.setSmsConfig(smsConfig);
+        sendSmsRequest.setTemplateParam(message.getParam());
+        sendSmsRequest.setTemplateId( message.getTemplateCode());
+        channelSmsStrategy.sendSms(sendSmsRequest);
     }
 
 }

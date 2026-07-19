@@ -24,6 +24,7 @@
 package org.springblade.modules.iot.message.listener;
 
 
+import org.springblade.modules.iot.api.alert.dto.CallByTtsRequest;
 import org.springblade.modules.iot.api.alert.service.RemoteIotChannelVmsService;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.message.event.MessageEvent;
@@ -52,7 +53,11 @@ public class VmsEventListener implements MessageEventListener {
         Message message = event.getMessage();
         String channelConfig = message.getChannelConfig();
         VmsConfig vmsConfig = JsonUtils.parseObject(channelConfig, VmsConfig.class);
-        channelVmsStrategy.callByTts(message.getParam(), message.getTemplateCode(), vmsConfig);
+        CallByTtsRequest callByTtsRequest = new CallByTtsRequest();
+        callByTtsRequest.setVmsConfig(vmsConfig);
+        callByTtsRequest.setTemplateParam(message.getParam());
+        callByTtsRequest.setTemplateId( message.getTemplateCode());
+        channelVmsStrategy.callByTts(callByTtsRequest);
     }
 
 }
