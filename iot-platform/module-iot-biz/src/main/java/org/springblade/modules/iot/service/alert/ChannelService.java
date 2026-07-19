@@ -1,9 +1,8 @@
 package org.springblade.modules.iot.service.alert;
 
-import org.springblade.modules.iot.controller.admin.channel.vo.Channel;
-import org.springblade.modules.iot.controller.admin.channel.vo.ChannelPageReqVO;
-import org.springblade.modules.iot.controller.admin.channel.vo.ChannelSaveReqVO;
 import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.controller.admin.alert.vo.ChannelReqVO;
+import org.springblade.modules.iot.controller.admin.channelconfig.vo.Channel;
 
 import java.util.List;
 
@@ -18,14 +17,14 @@ public interface ChannelService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    Long createChannel(ChannelSaveReqVO createReqVO);
+    Long createChannel(ChannelReqVO createReqVO);
 
     /**
      * 更新通道
      *
      * @param updateReqVO 更新信息
      */
-    void updateChannel(ChannelSaveReqVO updateReqVO);
+    void updateChannel(ChannelReqVO updateReqVO);
 
     /**
      * 删除通道
@@ -47,13 +46,7 @@ public interface ChannelService {
      *
      * @return 通道列表
      */
-    List<Channel> getChannelList();
+    List<Channel> getChannelList(ChannelReqVO reqVO);
 
-    /**
-     * 获得通道分页
-     *
-     * @param pageReqVO 分页查询
-     * @return 通道分页
-     */
-    PageResult<Channel> getChannelPage(ChannelPageReqVO pageReqVO);
+
 }

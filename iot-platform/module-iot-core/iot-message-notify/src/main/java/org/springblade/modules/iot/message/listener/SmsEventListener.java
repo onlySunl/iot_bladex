@@ -24,7 +24,7 @@
 package org.springblade.modules.iot.message.listener;
 
 
-import org.springblade.modules.iot.api.alert.ChannelSmsStrategy;
+import org.springblade.modules.iot.api.alert.service.RemoteIotChannelSmsService;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.message.config.VertxManager;
 import org.springblade.modules.iot.message.event.MessageEvent;
@@ -48,7 +48,7 @@ import static com.alibaba.fastjson.JSON.toJSONString;
 public class SmsEventListener implements MessageEventListener {
     WebClient client = WebClient.create(VertxManager.INSTANCE.getVertx());
     @Resource
-    private ChannelSmsStrategy channelSmsStrategy;
+    private RemoteIotChannelSmsService channelSmsStrategy;
 
     @Override
     @EventListener(classes = MessageEvent.class, condition = "#event.message.channelCode=='SMS'")

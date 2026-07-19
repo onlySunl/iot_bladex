@@ -1,4 +1,4 @@
-package org.springblade.modules.iot.api.alert;
+package org.springblade.modules.iot.api.alert.sms;
 
 
 import org.springblade.modules.iot.api.alert.dto.SmsConfig;

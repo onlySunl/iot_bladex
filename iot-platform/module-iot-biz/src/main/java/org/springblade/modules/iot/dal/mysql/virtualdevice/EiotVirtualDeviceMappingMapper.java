@@ -2,10 +2,11 @@
 
 package org.springblade.modules.iot.dal.mysql.virtualdevice;
 
-import org.springblade.common.query.LambdaQueryWrapperX;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
 import org.springblade.modules.iot.entity.VirtualDeviceMappingDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public interface EiotVirtualDeviceMappingMapper extends BaseMapperX<VirtualDevic
     }
 
     default int deleteByVirtualDeviceId(Long virtualDeviceId) {
-        LambdaQueryWrapperX<VirtualDeviceMappingDO> queryWrapperX = new LambdaQueryWrapperX<VirtualDeviceMappingDO>()
+        LambdaQueryWrapper<VirtualDeviceMappingDO> queryWrapperX = new LambdaQueryWrapperX<VirtualDeviceMappingDO>()
                 .eq(VirtualDeviceMappingDO::getVirtualDeviceId, virtualDeviceId);
         return delete(queryWrapperX);
     }

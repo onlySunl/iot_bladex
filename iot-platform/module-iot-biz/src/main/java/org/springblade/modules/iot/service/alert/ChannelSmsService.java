@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.modules.iot.api.alert.ChannelSmsStrategy;
 import org.springblade.modules.iot.api.alert.dto.SmsConfig;
+import org.springblade.modules.iot.api.alert.service.RemoteIotChannelSmsService;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.common.utils.ServiceExceptionUtil;
@@ -34,7 +34,7 @@ public class ChannelSmsService {
     private static final String SMS_CONFIG_CODE = "SMS";
 
     @Resource
-    private ChannelSmsStrategy channelSmsStrategy;
+    private RemoteIotChannelSmsService channelSmsStrategy;
 
     @Resource
     private ChannelTemplateMapper channelTemplateMapper;

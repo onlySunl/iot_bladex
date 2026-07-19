@@ -45,8 +45,6 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 
-import static com.enjoyiot.framework.common.pojo.R.success;
-
 
 @Tag(name = "告警中心")
 @Slf4j
@@ -64,7 +62,7 @@ public class AlertController {
     @PreAuthorize("@ss.hasPermission('iot:alertConfig:add')")
     @PostMapping("/createAlertConfig")
     public R<Long> createAlertConfig(@Valid @RequestBody AlertConfigSaveReqVO createReqVO) {
-        return success(alertConfigService.createAlertConfig(createReqVO));
+        return R.data(alertConfigService.createAlertConfig(createReqVO));
     }
 
     @Operation(summary ="编辑告警中心配置")
@@ -72,14 +70,14 @@ public class AlertController {
     @PostMapping("/updateAlertConfig")
     public R<Boolean> updateAlertConfig(@Valid @RequestBody AlertConfigSaveReqVO updateReqVO) {
         alertConfigService.updateAlertConfig(updateReqVO);
-        return success(true);
+        return R.data(true);
     }
     @Operation(summary ="删除告警中心配置")
     @PreAuthorize("@ss.hasPermission('iot:alertConfig:remove')")
     @PostMapping("/deleteAlertConfigById")
     public R<Boolean> deleteAlertConfig(@RequestBody IdReqVo reqVo) {
         alertConfigService.deleteAlertConfig(reqVo.getId());
-        return success(true);
+        return R.data(true);
     }
 
     @Operation(summary ="查询告警中心配置分页")
@@ -87,16 +85,9 @@ public class AlertController {
     @PostMapping("/selectAlertConfigPage")
     public R<PageResult<AlertConfigRespVO>> getAlertConfigPage(@Valid @RequestBody AlertConfigPageReqVO pageReqVO) {
         PageResult<AlertConfig> pageResult = alertConfigService.getAlertConfigPage(pageReqVO);
-        return success(BeanUtils.toBean(pageResult, AlertConfigRespVO.class));
+        return R.data(BeanUtils.toBean(pageResult, AlertConfigRespVO.class));
     }
 
-
-    @Operation(summary ="查询告警消息分页")
-    @PreAuthorize("@ss.hasPermission('iot:alert:query')")
-    @PostMapping("/selectAlertRecordPage")
-    public R<PageResult<AlertRecord>> selectAlertRecordPage(@RequestBody @Validated AlertRecordPageReq request) {
-        return success(alertService.selectAlertRecordPage(request));
-    }
 
 
 }

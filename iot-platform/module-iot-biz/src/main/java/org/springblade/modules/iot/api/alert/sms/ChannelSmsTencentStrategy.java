@@ -1,7 +1,6 @@
 package org.springblade.modules.iot.api.alert.sms;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.modules.iot.api.alert.ChannelSmsStrategy;
 import org.springblade.modules.iot.api.alert.dto.SmsConfig;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;

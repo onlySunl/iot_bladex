@@ -23,7 +23,7 @@
 package org.springblade.modules.iot.ruleengine.rule;
 
 
-import org.springblade.modules.iot.api.alert.AlertApi;
+import org.springblade.modules.iot.api.alert.service.RemoteIotAlertService;
 import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.common.utils.JsonUtils;
@@ -74,7 +74,7 @@ public class RuleManager {
     private DeviceActionService deviceActionService;
 
     @Resource
-    private AlertApi alertApi;
+    private RemoteIotAlertService alertApi;
 
     @Resource
     private RemoteIotDeviceService deviceApi;

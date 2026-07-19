@@ -24,10 +24,10 @@
 package org.springblade.modules.iot.dal.mysql.channelconfig;
 
 import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.entity.ChannelConfigDO;
 import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
 import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
 import org.springblade.modules.iot.controller.admin.channelconfig.vo.ChannelConfigPageReqVO;
-import org.springblade.modules.iot.dal.dataobject.channelconfig.ChannelConfigDO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -42,7 +42,7 @@ public interface ChannelConfigMapper extends BaseMapperX<ChannelConfigDO> {
         return selectPage(reqVO, new LambdaQueryWrapperX<ChannelConfigDO>()
                 .likeIfPresent(ChannelConfigDO::getTitle, reqVO.getTitle())
                 .eqIfPresent(ChannelConfigDO::getCode, reqVO.getCode())
-                .betweenIfPresent(ChannelConfigDO::getCreateTime, reqVO.getCreateTime())
+                //.betweenIfPresent(ChannelConfigDO::getCreateTime, reqVO.getCreateTime())
                 .eqIfPresent(ChannelConfigDO::getDeptId, reqVO.getDeptId())
                 .orderByDesc(ChannelConfigDO::getId));
     }

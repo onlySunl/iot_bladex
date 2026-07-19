@@ -23,6 +23,8 @@
  */
 package org.springblade.modules.iot.controller.admin.channeltemplate;
 
+import org.springblade.modules.iot.common.annotation.ApiAccessLog;
+import org.springblade.modules.iot.excel.core.util.ExcelUtils;
 import org.springblade.modules.iot.service.alert.ChannelTemplateService;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
@@ -41,14 +43,9 @@ import org.springblade.modules.iot.common.entity.PageParam;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.common.utils.BeanUtils;
-import static com.enjoyiot.framework.common.pojo.R.success;
-
-import org.springblade.modules.iot.excel.util.ExcelUtils;
-
-import org.springblade.modules.iot.common.apilog.core.annotation.ApiAccessLog;
-import static com.enjoyiot.framework.apilog.core.enums.OperateTypeEnum.*;
-
 import org.springblade.modules.iot.controller.admin.channeltemplate.vo.*;
+
+import static org.springblade.modules.iot.common.enums.OperateTypeEnum.EXPORT;
 
 @Tag(name = "管理后台 - 通道模板")
 @RestController
@@ -63,7 +60,7 @@ public class ChannelTemplateController {
     @Operation(summary = "创建通道模板")
     @PreAuthorize("@ss.hasPermission('iot:channel-template:create')")
     public R<Long> createChannelTemplate(@Valid @RequestBody ChannelTemplateSaveReqVO createReqVO) {
-        return success(channelTemplateService.createChannelTemplate(createReqVO));
+        return R.data(channelTemplateService.createChannelTemplate(createReqVO));
     }
 
     @PutMapping("/update")
@@ -71,7 +68,7 @@ public class ChannelTemplateController {
     @PreAuthorize("@ss.hasPermission('iot:channel-template:update')")
     public R<Boolean> updateChannelTemplate(@Valid @RequestBody ChannelTemplateSaveReqVO updateReqVO) {
         channelTemplateService.updateChannelTemplate(updateReqVO);
-        return success(true);
+        return R.data(true);
     }
 
     @DeleteMapping("/delete")
@@ -80,7 +77,7 @@ public class ChannelTemplateController {
     @PreAuthorize("@ss.hasPermission('iot:channel-template:delete')")
     public R<Boolean> deleteChannelTemplate(@RequestParam("id") Long id) {
         channelTemplateService.deleteById(id);
-        return success(true);
+        return R.data(true);
     }
 
     @GetMapping("/get")
@@ -89,7 +86,7 @@ public class ChannelTemplateController {
     @PreAuthorize("@ss.hasPermission('iot:channel-template:query')")
     public R<ChannelTemplateRespVO> getChannelTemplate(@RequestParam("id") Long id) {
         ChannelTemplate channelTemplate = channelTemplateService.getChannelTemplate(id);
-        return success(BeanUtils.toBean(channelTemplate, ChannelTemplateRespVO.class));
+        return R.data(BeanUtils.toBean(channelTemplate, ChannelTemplateRespVO.class));
     }
 
     @GetMapping("/page")
@@ -97,7 +94,7 @@ public class ChannelTemplateController {
     @PreAuthorize("@ss.hasPermission('iot:channel-template:query')")
     public R<PageResult<ChannelTemplateRespVO>> getChannelTemplatePage(@Valid ChannelTemplatePageReqVO pageReqVO) {
         PageResult<ChannelTemplate> pageResult = channelTemplateService.getChannelTemplatePage(pageReqVO);
-        return success(BeanUtils.toBean(pageResult, ChannelTemplateRespVO.class));
+        return R.data(BeanUtils.toBean(pageResult, ChannelTemplateRespVO.class));
     }
 
     @GetMapping("/export-excel")

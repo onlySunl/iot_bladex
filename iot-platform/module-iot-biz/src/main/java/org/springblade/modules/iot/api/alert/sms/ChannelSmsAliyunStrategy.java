@@ -1,7 +1,6 @@
 package org.springblade.modules.iot.api.alert.sms;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.modules.iot.api.alert.ChannelSmsStrategy;
 import org.springblade.modules.iot.api.alert.dto.SmsConfig;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
 import org.springblade.modules.iot.common.utils.JsonUtils;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

@@ -1,0 +1,50 @@
+package org.springblade.modules.iot.api.alert.service;
+
+import org.springblade.modules.iot.api.alert.dto.SmsConfig;
+import org.springblade.modules.iot.api.alert.factory.RemoteIotChannelSmsFallbackFactory;
+import org.springblade.modules.iot.common.constant.IotServiceNameConstants;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Map;
+
+/**
+ * 短信渠道远程Feign接口，对齐 {@link ChannelSmsStrategy}
+ */
+@FeignClient(contextId = "remoteIotChannelSmsService",
+        value = IotServiceNameConstants.IOT_ALERT_SMS,
+        fallbackFactory = RemoteIotChannelSmsFallbackFactory.class,
+        url = IotServiceNameConstants.SERVICE_URL
+)
+public interface RemoteIotChannelSmsService {
+
+    /** 发送短信 */
+    @PostMapping("/channelSms/sendSms")
+    void sendSms(@RequestBody Map<String, Object> templateParam,
+                 @RequestParam("templateId") String templateId,
+                 @RequestBody SmsConfig smsConfig);
+
+    /** 创建短信模板 */
+    @PostMapping("/channelSms/createSmsTemplate")
+    String createSmsTemplate(@RequestParam("templateContent") String templateContent,
+                             @RequestParam("templateId") Long templateId,
+                             @RequestBody SmsConfig smsConfig);
+
+    /** 更新短信模板 */
+    @PostMapping("/channelSms/updateSmsTemplate")
+    String updateSmsTemplate(@RequestParam("templateContent") String templateContent,
+                             @RequestParam("templateCode") String templateCode,
+                             @RequestBody SmsConfig smsConfig);
+
+    /** 查询模板审核状态 */
+    @PostMapping("/channelSms/querySmsTemplateStatus")
+    Integer querySmsTemplateStatus(@RequestBody SmsConfig smsConfig,
+                                   @RequestParam("templateCode") String templateCode);
+
+    /** 删除短信模板 */
+    @PostMapping("/channelSms/deleteSmsTemplate")
+    void deleteSmsTemplate(@RequestParam("templateCode") String templateCode,
+                           @RequestBody SmsConfig smsConfig);
+}
