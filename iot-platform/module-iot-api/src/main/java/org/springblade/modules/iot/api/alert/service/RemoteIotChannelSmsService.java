@@ -1,5 +1,6 @@
 package org.springblade.modules.iot.api.alert.service;
 
+import org.springblade.modules.iot.api.alert.dto.SendSmsRequest;
 import org.springblade.modules.iot.api.alert.dto.SmsConfig;
 import org.springblade.modules.iot.api.alert.factory.RemoteIotChannelSmsFallbackFactory;
 import org.springblade.modules.iot.common.constant.IotServiceNameConstants;
@@ -7,8 +8,6 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Map;
 
 /**
  * 短信渠道远程Feign接口，对齐 {@link ChannelSmsStrategy}
@@ -22,9 +21,7 @@ public interface RemoteIotChannelSmsService {
 
     /** 发送短信 */
     @PostMapping("/channelSms/sendSms")
-    void sendSms(Map<String, Object> templateParam,
-                  String templateId,
-                SmsConfig smsConfig);
+    void sendSms(@RequestBody SendSmsRequest request);
 
     /** 创建短信模板 */
     @PostMapping("/channelSms/createSmsTemplate")

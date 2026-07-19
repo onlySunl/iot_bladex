@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.modules.iot.api.alert.sms.ChannelSmsStrategy;
+import org.springblade.modules.iot.api.alert.dto.SendSmsRequest;
 import org.springblade.modules.iot.api.alert.dto.SmsConfig;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.annotation.Resource;
-import java.util.Map;
 
 /**
  * 短信渠道对外API控制器，与RemoteIotChannelSmsService一一对应
@@ -28,10 +28,8 @@ public class ChannelSmsApiController extends BladeController {
 
     @PostMapping("/sendSms")
     @Operation(summary = "发送短信通知")
-    public void sendSms(@RequestBody Map<String, Object> templateParam,
-                        @Parameter(description = "模板ID") @RequestParam String templateId,
-                        @RequestBody SmsConfig smsConfig) {
-        channelSmsStrategy.sendSms(templateParam, templateId, smsConfig);
+    public void sendSms(@RequestBody SendSmsRequest request) {
+        channelSmsStrategy.sendSms(request.getTemplateParam(), request.getTemplateId(), request.getSmsConfig());
     }
 
     @PostMapping("/createSmsTemplate")

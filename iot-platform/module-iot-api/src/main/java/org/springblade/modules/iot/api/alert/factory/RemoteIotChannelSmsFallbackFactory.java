@@ -1,11 +1,10 @@
 package org.springblade.modules.iot.api.alert.factory;
 
+import org.springblade.modules.iot.api.alert.dto.SendSmsRequest;
 import org.springblade.modules.iot.api.alert.dto.SmsConfig;
 import org.springblade.modules.iot.api.alert.service.RemoteIotChannelSmsService;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 /**
  * 短信渠道接口熔断降级工厂
@@ -17,7 +16,7 @@ public class RemoteIotChannelSmsFallbackFactory implements FallbackFactory<Remot
     public RemoteIotChannelSmsService create(Throwable cause) {
         return new RemoteIotChannelSmsService() {
             @Override
-            public void sendSms(Map<String, Object> templateParam, String templateId, SmsConfig smsConfig) {}
+            public void sendSms(SendSmsRequest request) {}
 
             @Override
             public String createSmsTemplate(String templateContent, Long templateId, SmsConfig smsConfig) {

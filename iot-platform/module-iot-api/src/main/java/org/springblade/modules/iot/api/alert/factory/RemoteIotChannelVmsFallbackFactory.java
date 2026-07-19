@@ -1,11 +1,9 @@
 package org.springblade.modules.iot.api.alert.factory;
 
-import org.springblade.modules.iot.api.alert.dto.VmsConfig;
+import org.springblade.modules.iot.api.alert.dto.CallByTtsRequest;
 import org.springblade.modules.iot.api.alert.service.RemoteIotChannelVmsService;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 /**
  * 语音渠道熔断降级工厂
@@ -17,7 +15,7 @@ public class RemoteIotChannelVmsFallbackFactory implements FallbackFactory<Remot
     public RemoteIotChannelVmsService create(Throwable cause) {
         return new RemoteIotChannelVmsService() {
             @Override
-            public void callByTts(Map<String, Object> templateParam, String templateId, VmsConfig vmsConfig) {
+            public void callByTts(CallByTtsRequest request) {
                 // 熔断无操作
             }
         };
