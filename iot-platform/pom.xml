@@ -246,7 +246,7 @@
                 <version>${vertx.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.vertx-web-client</groupId>
+                <groupId>io.vertx</groupId>
                 <artifactId>vertx-web-client</artifactId>
                 <version>${vertx.version}</version>
             </dependency>
@@ -280,6 +280,13 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-annotation</artifactId>
                 <version>3.5.14</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- AutoTable 数据库自动建表注解(仅编译依赖) -->
+            <dependency>
+                <groupId>com.tangzc</groupId>
+                <artifactId>auto-table-annotation</artifactId>
+                <version>2.6.1</version>
                 <scope>provided</scope>
             </dependency>
             <!-- 人大金仓驱动 -->
