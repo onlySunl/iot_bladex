@@ -2,9 +2,9 @@ package org.springblade.modules.iot.temporal.iotdb.service;
 
 
 import org.springblade.modules.iot.IDevicePropertyData;
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
 import org.springblade.modules.iot.temporal.iotdb.config.IotdbDatasourceConfig;
 import org.springblade.modules.iot.temporal.iotdb.dao.IotdbBaseService;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.DeviceProperty;
 import org.springblade.modules.iot.api.device.dto.DevicePropertyCache;
@@ -25,7 +25,7 @@ import java.util.Map;
 public class DevicePropertyDataImpl extends IotdbBaseService<DeviceProperty> implements IDevicePropertyData {
 
     @Resource
-    private DeviceApi deviceApi;
+    private RemoteIotDeviceService deviceApi;
     @Resource
     private IotdbDatasourceConfig config;
 

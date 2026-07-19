@@ -2,14 +2,13 @@
 
 package org.springblade.modules.iot.component.core;
 
+import org.springblade.modules.iot.api.component.service.RemoteIotComponentService;
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
 import org.springblade.modules.iot.common.thing.ComponentMessage;
 import org.springblade.modules.iot.message.core.MqConsumer;
 import org.springblade.modules.iot.message.core.MqProducer;
-import org.springblade.modules.iot.api.component.ComponentApi;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -37,9 +36,9 @@ public class ComponentServices {
     private StringRedisTemplate stringRedisTemplate;
 
     @Resource
-    private ComponentApi componentApi;
+    private RemoteIotComponentService componentApi;
 
     @Resource
-    private DeviceApi deviceApi;
+    private RemoteIotDeviceService deviceApi;
 
 }

@@ -4,13 +4,13 @@ package org.springblade.modules.iot.temporal.iotdb.service;
 import com.alibaba.fastjson.JSON;
 import org.springblade.modules.iot.IThingModelMessageData;
 import org.springblade.modules.iot.TimeData;
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.temporal.iotdb.config.Constants;
 import org.springblade.modules.iot.temporal.iotdb.config.IotdbDatasourceConfig;
 import org.springblade.modules.iot.temporal.iotdb.dao.IotdbBaseService;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.DevicePropertyCache;
 import org.apache.commons.lang3.StringUtils;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 public class ThingModelMessageDataImpl extends IotdbBaseService<ThingModelMessage> implements IThingModelMessageData {
 
     @Resource
-    private DeviceApi deviceApi;
+    private RemoteIotDeviceService deviceApi;
     @Resource
     private IotdbDatasourceConfig config;
 

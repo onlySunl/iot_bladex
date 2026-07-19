@@ -23,12 +23,12 @@
 package org.springblade.modules.iot.ruleengine.handler.sys;
 
 
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
 import org.springblade.modules.iot.common.constant.Constants;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.ruleengine.handler.DeviceMessageHandler;
 import org.springblade.modules.iot.message.core.MqProducer;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ import java.util.Map;
 public class DeviceConfigHandler implements DeviceMessageHandler {
 
     @Autowired
-    private DeviceApi deviceApi;
+    private RemoteIotDeviceService deviceApi;
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;

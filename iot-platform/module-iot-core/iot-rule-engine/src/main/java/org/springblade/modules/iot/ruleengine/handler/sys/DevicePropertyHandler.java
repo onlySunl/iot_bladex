@@ -24,13 +24,13 @@ package org.springblade.modules.iot.ruleengine.handler.sys;
 
 
 import org.springblade.modules.iot.IDevicePropertyData;
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
+import org.springblade.modules.iot.api.thingmodel.service.RemoteIotThingModelService;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.ruleengine.handler.DeviceMessageHandler;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.DevicePropertyCache;
-import org.springblade.modules.iot.api.thingmodel.ThingModelApi;
 import org.springblade.modules.iot.api.thingmodel.dto.ThingModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -51,10 +51,10 @@ public class DevicePropertyHandler implements DeviceMessageHandler {
     private IDevicePropertyData devicePropertyData;
 
     @Resource
-    private ThingModelApi thingModelApi;
+    private RemoteIotThingModelService thingModelApi;
 
     @Resource
-    private DeviceApi deviceApi;
+    private RemoteIotDeviceService deviceApi;
 
     @Override
     public void handle(ThingModelMessage msg) {

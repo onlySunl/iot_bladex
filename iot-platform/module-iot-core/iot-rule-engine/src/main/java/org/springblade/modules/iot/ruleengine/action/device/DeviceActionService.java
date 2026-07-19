@@ -23,11 +23,11 @@
 package org.springblade.modules.iot.ruleengine.action.device;
 
 
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
 import org.springblade.modules.iot.common.thing.ThingService;
 import org.springblade.modules.iot.common.utils.UniqueIdUtil;
 
-import org.springblade.modules.iot.api.device.DeviceApi;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -40,7 +40,7 @@ import java.util.Map;
 public class DeviceActionService {
 
     @Resource
-    private DeviceApi deviceApi;
+    private RemoteIotDeviceService deviceApi;
 
     public String invoke(Service service) {
         String[] pkDn = service.getDevice().split("/");

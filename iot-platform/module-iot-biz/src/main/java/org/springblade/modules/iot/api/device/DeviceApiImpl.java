@@ -3,15 +3,18 @@
 package org.springblade.modules.iot.api.device;
 
 import cn.hutool.core.util.ObjectUtil;
+import org.springblade.core.mp.service.impl.BladeServiceImpl;
 import org.springblade.core.tenant.annotation.TenantIgnore;
+import org.springblade.modules.iot.api.product.service.RemoteIotProductService;
 import org.springblade.modules.iot.common.entity.CommonResult;
 import org.springblade.modules.iot.common.utils.TenantUtils;
 import org.springblade.modules.iot.common.thing.ThingService;
 import org.springblade.modules.iot.common.utils.CodecUtil;
 
 import org.springblade.modules.iot.api.device.dto.*;
-import org.springblade.modules.iot.api.product.ProductApi;
 import org.springblade.modules.iot.api.product.dto.Product;
+import org.springblade.modules.iot.dal.mysql.deviceinfo.EiotDeviceInfoMapper;
+import org.springblade.modules.iot.entity.EiotDeviceInfoDO;
 import org.springblade.modules.iot.service.device.DeviceConfigService;
 import org.springblade.modules.iot.service.device.DeviceCtrlService;
 import org.springblade.modules.iot.service.device.DeviceInfoService;
@@ -29,7 +32,7 @@ import static org.springblade.modules.iot.common.constant.GlobalErrorCodeConstan
 
 @Slf4j
 @Service
-public class DeviceApiImpl implements DeviceApi {
+public class DeviceApiImpl extends BladeServiceImpl<EiotDeviceInfoMapper, EiotDeviceInfoDO> implements DeviceApi {
 
     @Resource
     private DeviceInfoService deviceInfoService;
@@ -41,7 +44,7 @@ public class DeviceApiImpl implements DeviceApi {
     private DeviceCtrlService deviceCtrlService;
 
     @Resource
-    private ProductApi productApi;
+    private RemoteIotProductService productApi;
 
     @Override
     public DeviceInfo getDeviceByPkDnByCache(String pk, String dn) {

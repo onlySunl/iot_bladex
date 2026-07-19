@@ -11,6 +11,7 @@ import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
 import org.springblade.modules.iot.api.IdReqVo;
 import org.springblade.modules.iot.api.device.dto.*;
+import org.springblade.modules.iot.common.thing.ThingService;
 import org.springblade.modules.iot.common.utils.BeanUtils;
 import org.springblade.modules.iot.controller.admin.device.vo.DeviceInfoRespVO;
 import org.springblade.modules.iot.controller.admin.device.vo.*;
@@ -382,5 +383,6 @@ public class DeviceInfoController {
     public CommonResult<String> genSerialNO(Integer nodeType) {
         return success(deviceManagerService.genSerialNO(nodeType));
     }
+
 
 }

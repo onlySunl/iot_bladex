@@ -14,10 +14,10 @@ import io.vertx.core.net.NetSocket;
 import io.vertx.core.parsetools.RecordParser;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.RegisterDevice;
-import org.springblade.modules.iot.api.product.ProductApi;
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
+import org.springblade.modules.iot.api.product.service.RemoteIotProductService;
 import org.springblade.modules.iot.common.enums.DeviceState;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.component.core.ComponentServices;
@@ -55,9 +55,9 @@ public class TcpComponent extends ThingComponent implements Handler<NetSocket> {
 
     private final TcpVerticle tcpVerticle;
 
-    private final ProductApi productApi;
+    private final RemoteIotProductService productApi;
 
-    private final DeviceApi deviceApi;
+    private final RemoteIotDeviceService deviceApi;
 
     /**
      * 服务
@@ -76,8 +76,8 @@ public class TcpComponent extends ThingComponent implements Handler<NetSocket> {
 
     protected TcpComponent(
             TcpVerticle tcpVerticle,
-            ProductApi productApi,
-            DeviceApi deviceApi,
+            RemoteIotProductService productApi,
+            RemoteIotDeviceService deviceApi,
             ComponentServices componentServices
     ) {
         super(componentServices);

@@ -4,7 +4,7 @@ package org.springblade.modules.iot.service.product;
 import cn.hutool.core.util.ObjectUtil;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.IDbStructureData;
-import org.springblade.modules.iot.api.device.DeviceApi;
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
 import org.springblade.modules.iot.api.thingmodel.dto.ThingModel;
 import org.springblade.modules.iot.common.utils.BeanUtils;
@@ -41,7 +41,7 @@ public class ThingModelServiceImpl implements ThingModelService {
     private IDbStructureData dbStructureData;
 
     @Resource
-    private DeviceApi deviceApi;
+    private RemoteIotDeviceService deviceApi;
 
     @Override
     @CacheEvict(cacheNames = RedisKeyConstants.THING_MODEL, key = "#updateReqVO.productKey")

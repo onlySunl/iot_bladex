@@ -1,5 +1,7 @@
 package org.springblade.modules.iot.component.http.service;
 
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
+import org.springblade.modules.iot.api.product.service.RemoteIotProductService;
 import org.springblade.modules.iot.common.enums.DeviceState;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.component.core.ComponentServices;
@@ -9,10 +11,8 @@ import org.springblade.modules.iot.component.core.model.up.DeviceStateChange;
 import org.springblade.modules.iot.component.core.model.up.EventReport;
 import org.springblade.modules.iot.component.core.model.up.PropertyReport;
 import org.springblade.modules.iot.component.http.model.HttpConfig;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.DevicePropertyCache;
-import org.springblade.modules.iot.api.product.ProductApi;
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
@@ -31,13 +31,13 @@ public class HttpComponent extends ThingComponent implements Handler<RoutingCont
 
     private final HttpVerticle httpVerticle;
 
-    private final ProductApi productApi;
+    private final RemoteIotProductService productApi;
 
-    private final DeviceApi deviceApi;
+    private final RemoteIotDeviceService deviceApi;
 
     protected HttpComponent(HttpVerticle httpVerticle,
-                            ProductApi productApi,
-                            DeviceApi deviceApi,
+                            RemoteIotProductService productApi,
+                            RemoteIotDeviceService deviceApi,
                             ComponentServices componentServices
     ) {
         super(componentServices);

@@ -3,17 +3,17 @@ package org.springblade.modules.iot.temporal.kw.service;
 
 import cn.hutool.core.convert.Convert;
 import org.springblade.modules.iot.IDevicePropertyData;
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
+import org.springblade.modules.iot.api.thingmodel.service.RemoteIotThingModelService;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.temporal.kw.config.Constants;
 import org.springblade.modules.iot.temporal.kw.dao.KwJdbcTemplate;
 import org.springblade.modules.iot.temporal.kw.dm.FieldParser;
 import org.springblade.modules.iot.temporal.kw.dm.KwField;
 import org.springblade.modules.iot.temporal.kw.model.KwDeviceProperty;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.DeviceProperty;
 import org.springblade.modules.iot.api.device.dto.DevicePropertyCache;
-import org.springblade.modules.iot.api.thingmodel.ThingModelApi;
 import org.springblade.modules.iot.api.thingmodel.dto.ThingModel;
 import com.kaiwudb.util.KWTimestamp;
 import lombok.extern.slf4j.Slf4j;
@@ -35,10 +35,10 @@ public class DevicePropertyDataImpl implements IDevicePropertyData {
     private KwJdbcTemplate kwJdbcTemplate;
 
     @Resource
-    private DeviceApi deviceApi;
+    private RemoteIotDeviceService deviceApi;
 
     @Resource
-    private ThingModelApi thingModelApi;
+    private RemoteIotThingModelService thingModelApi;
 
     @Override
     public List<DeviceProperty> findDevicePropertyHistory(Long deviceId, String name, long start, long end, int size) {

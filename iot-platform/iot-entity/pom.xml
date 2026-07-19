@@ -16,7 +16,7 @@
     <modules>
         <module>iot-entity-product</module>
         <module>iot-entity-device</module>
-        <module>iot-entity-alert</module>
+        <!--<module>iot-entity-alert</module>-->
         <module>iot-entity-rule</module>
         <module>iot-entity-component</module>
         <module>iot-entity-sip</module>

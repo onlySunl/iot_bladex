@@ -30,6 +30,7 @@ import org.springblade.common.constant.CommonConstant;
 import org.springblade.core.launch.BladeApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
@@ -42,7 +43,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableRedisHttpSession
 @SpringBootApplication
 @EnableAutoTable
-@EnableFeignClients(basePackages = "org.springblade.modules.nvr.service")
+@EnableFeignClients(basePackages = "org.springblade.modules")
 public class Application {
 
 	public static void main(String[] args) {

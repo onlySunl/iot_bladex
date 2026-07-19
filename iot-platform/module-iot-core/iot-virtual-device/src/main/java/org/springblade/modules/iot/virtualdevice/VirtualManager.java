@@ -24,7 +24,10 @@ package org.springblade.modules.iot.virtualdevice;
 
 import cn.hutool.core.util.IdUtil;
 import com.alibaba.fastjson.JSON;
+import jakarta.annotation.Resource;
 import org.springblade.modules.iot.IVirtualDeviceLogData;
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
+import org.springblade.modules.iot.api.virtualdevice.service.RemoteIotVirtualDeviceService;
 import org.springblade.modules.iot.common.constant.Constants;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
 import org.springblade.modules.iot.common.utils.TenantUtils;
@@ -32,9 +35,7 @@ import org.springblade.modules.iot.engine.IScriptEngine;
 import org.springblade.modules.iot.engine.ScriptEngineFactory;
 import org.springblade.modules.iot.message.core.MqProducer;
 import org.springblade.modules.iot.virtualdevice.trigger.RandomScheduleBuilder;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
-import org.springblade.modules.iot.api.virtualdevice.VirtualDeviceApi;
 import org.springblade.modules.iot.api.virtualdevice.dto.VirtualDevice;
 import org.springblade.modules.iot.api.virtualdevice.dto.VirtualDeviceLog;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -53,11 +54,11 @@ public class VirtualManager {
     private final Map<Long, IScriptEngine> virtualScripts = new HashMap<>();
     private final Map<Long, Set<Long>> deviceIdToVirtualId = new HashMap<>();
 
-    @Autowired
-    private VirtualDeviceApi virtualDeviceApi;
+    @Resource
+    private RemoteIotVirtualDeviceService virtualDeviceApi;
 
     @Autowired
-    private DeviceApi deviceApi;
+    private RemoteIotDeviceService deviceApi;
     @Autowired
     @Lazy
     private Scheduler scheduler;
@@ -65,7 +66,7 @@ public class VirtualManager {
     @Autowired
     private MqProducer<ThingModelMessage> producer;
 
-    @Autowired
+    @Resource
     private IVirtualDeviceLogData virtualDeviceLogData;
 
 

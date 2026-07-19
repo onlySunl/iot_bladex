@@ -23,10 +23,10 @@
 package org.springblade.modules.iot.ruleengine.filter;
 
 
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.ruleengine.expression.Expression;
 import org.springblade.modules.iot.ruleengine.util.PathValueResolver;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.DevicePropertyCache;
 import lombok.Data;
@@ -49,7 +49,7 @@ public class DeviceCondition {
 
     private String comparator;
 
-    private DeviceApi deviceApi;
+    private RemoteIotDeviceService deviceApi;
 
     @Override
     public DeviceCondition clone() {

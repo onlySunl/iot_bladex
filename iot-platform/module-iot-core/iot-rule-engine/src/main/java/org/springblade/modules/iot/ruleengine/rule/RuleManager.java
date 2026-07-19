@@ -23,6 +23,8 @@
 package org.springblade.modules.iot.ruleengine.rule;
 
 
+import org.springblade.modules.iot.api.alert.AlertApi;
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.ruleengine.action.Action;
@@ -45,11 +47,9 @@ import org.springblade.modules.iot.ruleengine.listener.DeviceCondition;
 import org.springblade.modules.iot.ruleengine.listener.DeviceListener;
 import org.springblade.modules.iot.ruleengine.listener.Listener;
 import org.springblade.modules.iot.message.service.MessageService;
-import org.springblade.modules.iot.api.alert.AlertApi;
 import org.springblade.modules.iot.api.alert.dto.AlertConfig;
 import org.springblade.modules.iot.api.alert.dto.AlertConfigPageReqVO;
 import org.springblade.modules.iot.api.alert.dto.Message;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.rule.dto.FilterConfig;
 import org.springblade.modules.iot.api.rule.dto.RuleInfo;
 import org.springblade.modules.iot.api.task.dto.RuleAction;
@@ -77,7 +77,7 @@ public class RuleManager {
     private AlertApi alertApi;
 
     @Resource
-    private DeviceApi deviceApi;
+    private RemoteIotDeviceService deviceApi;
 
     @Resource
     private MessageService messageService;
@@ -243,7 +243,6 @@ public class RuleManager {
                     AlertService service = new AlertService();
                     service.setScript(script);
                     service.setRecoverScript(recoverScript);
-                    service.initDeviceApi(deviceApi);
                     service.setMessageService(messageService);
 
                     Message message = alertApi.getNotifyMessage(alertConfig);

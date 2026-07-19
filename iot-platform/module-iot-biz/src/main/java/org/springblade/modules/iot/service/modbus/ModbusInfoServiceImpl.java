@@ -10,12 +10,12 @@ import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
-import org.springblade.modules.iot.api.modbus.ModbusInfoApi;
-import org.springblade.modules.iot.api.modbus.ModbusThingModelApi;
 import org.springblade.modules.iot.api.modbus.dto.ModbusInfo;
 import org.springblade.modules.iot.api.modbus.dto.ModbusThingModel;
-import org.springblade.modules.iot.api.product.ProductApi;
+import org.springblade.modules.iot.api.modbus.service.RemoteIotModbusInfoService;
+import org.springblade.modules.iot.api.modbus.service.RemoteIotModbusThingModelService;
 import org.springblade.modules.iot.api.product.dto.Product;
+import org.springblade.modules.iot.api.product.service.RemoteIotProductService;
 import org.springblade.modules.iot.api.thingmodel.dto.ThingModel;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.common.utils.JsonUtils;
@@ -42,10 +42,10 @@ import java.util.stream.Collectors;
 public class ModbusInfoServiceImpl implements ModbusInfoService {
 
     @Resource
-    private ModbusInfoApi modbusInfoApi;
+    private RemoteIotModbusInfoService modbusInfoApi;
 
     @Resource
-    private ModbusThingModelApi modbusThingModelApi;
+    private RemoteIotModbusThingModelService modbusThingModelApi;
 
     @Resource
     private ProductService productService;
@@ -54,7 +54,7 @@ public class ModbusInfoServiceImpl implements ModbusInfoService {
     private ThingModelService thingModelService;
 
     @Resource
-    private ProductApi productApi;
+    private RemoteIotProductService productApi;
 
     @Resource
     private ModbusInfoMapper modbusInfoMapper;

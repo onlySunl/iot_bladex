@@ -1,5 +1,7 @@
 package org.springblade.modules.iot.component.coap.service;
 
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
+import org.springblade.modules.iot.api.product.service.RemoteIotProductService;
 import org.springblade.modules.iot.common.enums.DeviceState;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.component.coap.model.CoapRequestInfo;
@@ -10,10 +12,8 @@ import org.springblade.modules.iot.component.core.model.up.DeviceStateChange;
 import org.springblade.modules.iot.component.core.model.up.EventReport;
 import org.springblade.modules.iot.component.core.model.up.PropertyReport;
 import org.springblade.modules.iot.component.coap.model.CoapConfig;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.DevicePropertyCache;
-import org.springblade.modules.iot.api.product.ProductApi;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.californium.core.coap.CoAP;
@@ -30,12 +30,12 @@ import java.util.UUID;
 public class CoapComponent extends ThingComponent {
 
     private final CoapVerticle coapVerticle;
-    private final ProductApi productApi;
-    private final DeviceApi deviceApi;
+    private final RemoteIotProductService productApi;
+    private final RemoteIotDeviceService deviceApi;
 
     protected CoapComponent(CoapVerticle coapVerticle,
-                            ProductApi productApi,
-                            DeviceApi deviceApi,
+                            RemoteIotProductService productApi,
+                            RemoteIotDeviceService deviceApi,
                             ComponentServices componentServices) {
         super(componentServices);
         this.coapVerticle = coapVerticle;

@@ -24,13 +24,11 @@
 package org.springblade.modules.iot.message.listener;
 
 
-import org.springblade.modules.iot.common.utils.JsonUtils;
-import org.springblade.modules.iot.message.config.VertxManager;
-import org.springblade.modules.iot.message.event.MessageEvent;
 import org.springblade.modules.iot.api.alert.ChannelVmsStrategy;
+import org.springblade.modules.iot.common.utils.JsonUtils;
+import org.springblade.modules.iot.message.event.MessageEvent;
 import org.springblade.modules.iot.api.alert.dto.Message;
 import org.springblade.modules.iot.api.alert.dto.VmsConfig;
-import io.vertx.ext.web.client.WebClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
