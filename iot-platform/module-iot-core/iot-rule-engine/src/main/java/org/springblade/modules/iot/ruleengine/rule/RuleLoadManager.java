@@ -4,10 +4,10 @@ package org.springblade.modules.iot.ruleengine.rule;
 
 
 import cn.hutool.core.collection.CollectionUtil;
+import org.springblade.modules.iot.api.rule.service.RemoteIotRuleService;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.common.utils.CodecUtil;
 import com.alibaba.fastjson.JSON;
-import org.springblade.modules.iot.api.rule.RuleApi;
 import org.springblade.modules.iot.api.rule.dto.RuleInfo;
 import org.springblade.modules.iot.api.rule.dto.RuleInfoPageReqVO;
 import lombok.SneakyThrows;
@@ -31,7 +31,7 @@ public class RuleLoadManager {
     private RuleManager ruleManager;
 
     @Resource
-    private RuleApi ruleApi;
+    private RemoteIotRuleService ruleApi;
 
     final private Map<Long, String> ruleMd5Map = new HashMap<>();
 

@@ -23,8 +23,8 @@
 package org.springblade.modules.iot.ruleengine.filter;
 
 
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
@@ -43,7 +43,7 @@ public class DeviceFilter implements Filter<DeviceCondition> {
 
     private List<DeviceCondition> conditions;
 
-    private DeviceApi deviceApi;
+    private RemoteIotDeviceService deviceApi;
 
     @Override
     public String getType() {

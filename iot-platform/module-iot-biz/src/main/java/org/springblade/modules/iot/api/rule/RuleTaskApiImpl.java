@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.api.rule;
 
-import org.springblade.modules.iot.api.task.RuleTaskApi;
 import org.springblade.modules.iot.api.task.dto.TaskInfo;
 import org.springblade.modules.iot.api.task.dto.TaskInfoPageReq;
 import org.springblade.modules.iot.common.entity.PageResult;

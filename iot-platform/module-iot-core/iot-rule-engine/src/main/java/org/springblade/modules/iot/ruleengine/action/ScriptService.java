@@ -22,8 +22,8 @@
  */
 package org.springblade.modules.iot.ruleengine.action;
 
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springblade.modules.iot.engine.IScriptEngine;
@@ -41,7 +41,7 @@ public class ScriptService {
     private String script;
 
 
-    private DeviceApi deviceApi;
+    private RemoteIotDeviceService deviceApi;
 
     public void setScript(String script) {
         this.script=script;

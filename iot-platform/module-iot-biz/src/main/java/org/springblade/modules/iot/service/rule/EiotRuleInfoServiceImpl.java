@@ -12,10 +12,10 @@ import org.springblade.modules.iot.IRuleLogData;
 import org.springblade.modules.iot.ITaskLogData;
 import org.springblade.modules.iot.api.rule.dto.RuleInfo;
 import org.springblade.modules.iot.api.rule.dto.RuleInfoPageReqVO;
-import org.springblade.modules.iot.api.task.TaskService;
 import org.springblade.modules.iot.api.task.dto.TaskInfo;
 import org.springblade.modules.iot.api.task.dto.TaskInfoPageReq;
 import org.springblade.modules.iot.api.task.dto.TaskLog;
+import org.springblade.modules.iot.api.task.service.RemoteIotTaskService;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.controller.admin.rule.vo.*;
 import org.springblade.modules.iot.convert.RuleInfoConvert;
@@ -45,7 +45,7 @@ public class EiotRuleInfoServiceImpl implements EiotRuleInfoService {
     private RuleManager ruleManager;
 
     @Resource
-    private TaskService taskService;
+    private RemoteIotTaskService taskService;
 
     @Resource
     private IRuleLogData ruleLogData;

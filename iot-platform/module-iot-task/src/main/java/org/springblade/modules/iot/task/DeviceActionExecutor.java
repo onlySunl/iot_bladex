@@ -27,7 +27,6 @@ import org.springblade.modules.iot.common.thing.ThingService;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.common.utils.UniqueIdUtil;
 import org.springblade.modules.iot.task.model.DeviceActionMsg;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import com.google.common.collect.Maps;
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +34,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.Resource;
+
 import java.util.Map;
 
 /**
@@ -43,11 +43,6 @@ import java.util.Map;
 @Slf4j
 @Component
 public class DeviceActionExecutor implements ActionExecutor<Object> {
-
-    @Resource
-    @org.springframework.context.annotation.Lazy
-    private DeviceApi deviceApi;
-
     private Map<Integer, DeviceActionMsg> actionMap = Maps.newConcurrentMap();
 
     @Override
@@ -81,7 +76,7 @@ public class DeviceActionExecutor implements ActionExecutor<Object> {
         thingService.setType(service.getType());
         thingService.setIdentifier(service.getIdentifier());
         thingService.setParams(service.parseInputData());
-        deviceApi.invoke(thingService);
+        //deviceApi.invoke(thingService);
         return thingService.getMid();
     }
 }

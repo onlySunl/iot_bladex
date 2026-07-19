@@ -12,6 +12,7 @@ import com.github.yulichang.base.MPJBaseMapper;
 import com.github.yulichang.interfaces.MPJBaseJoin;
 import com.github.yulichang.wrapper.MPJLambdaWrapper;
 import org.apache.ibatis.annotations.Param;
+import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.common.entity.PageParam;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.common.entity.SortablePageParam;
@@ -27,7 +28,7 @@ import java.util.List;
  * 1. 为 MyBatis Plus 的基础接口，提供基础的 CRUD 能力
  * 2. {@link MPJBaseMapper} 为 MyBatis Plus Join 的基础接口，提供连表 Join 能力
  */
-public interface BaseMapperX<T> extends MPJBaseMapper<T> {
+public interface BaseMapperX<T> extends MPJBaseMapper<T>, BladeMapper<T> {
 
     default PageResult<T> selectPage(SortablePageParam pageParam, @Param("ew") Wrapper<T> queryWrapper) {
         return selectPage(pageParam, pageParam.getSortingFields(), queryWrapper);

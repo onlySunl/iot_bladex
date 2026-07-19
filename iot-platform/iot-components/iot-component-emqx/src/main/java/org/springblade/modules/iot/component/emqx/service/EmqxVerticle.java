@@ -4,6 +4,7 @@ package org.springblade.modules.iot.component.emqx.service;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.IdUtil;
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
 import org.springblade.modules.iot.common.enums.DeviceState;
 import org.springblade.modules.iot.common.utils.ThreadUtil;
 import org.springblade.modules.iot.component.core.model.up.DeviceStateChange;
@@ -12,7 +13,6 @@ import org.springblade.modules.iot.component.core.model.up.PropertyReport;
 import org.springblade.modules.iot.component.core.model.up.ServiceReply;
 import org.springblade.modules.iot.component.emqx.model.MqttConfig;
 import org.springblade.modules.iot.component.emqx.model.ThingDevice;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.RegisterDevice;
 import io.netty.handler.codec.mqtt.MqttQoS;
 import io.vertx.core.AbstractVerticle;
@@ -62,7 +62,7 @@ public class EmqxVerticle extends AbstractVerticle implements Runnable {
     private MqttClient client;
 
     @Resource
-    private DeviceApi deviceApi;
+    private RemoteIotDeviceService deviceApi;
 
     private Boolean taskStarted = Boolean.FALSE;
 

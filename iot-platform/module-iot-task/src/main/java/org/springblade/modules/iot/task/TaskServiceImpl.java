@@ -25,14 +25,13 @@ package org.springblade.modules.iot.task;
 
 import cn.hutool.core.collection.CollectionUtil;
 import org.springblade.modules.iot.ITaskLogData;
-import org.springblade.modules.iot.api.task.RuleTaskApi;
-import org.springblade.modules.iot.api.task.TaskService;
 import org.springblade.modules.iot.api.task.dto.TaskInfo;
 import org.springblade.modules.iot.api.task.dto.TaskInfoPageReq;
 import org.springblade.modules.iot.api.task.dto.TaskLog;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
+import org.springblade.modules.iot.api.task.service.RemoteIotRuleTaskService;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -55,7 +54,7 @@ public class TaskServiceImpl implements TaskService, ApplicationContextAware {
     private ITaskLogData taskLogData;
 
     @Resource
-    private RuleTaskApi ruleTaskApi;
+    private RemoteIotRuleTaskService ruleTaskApi;
 
     public TaskServiceImpl() {
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);

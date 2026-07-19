@@ -10,6 +10,10 @@ import com.digitalpetri.modbus.responses.ReadCoilsResponse;
 import com.digitalpetri.modbus.responses.ReadDiscreteInputsResponse;
 import com.digitalpetri.modbus.responses.ReadHoldingRegistersResponse;
 import com.digitalpetri.modbus.responses.ReadInputRegistersResponse;
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
+import org.springblade.modules.iot.api.modbus.service.RemoteIotModbusInfoService;
+import org.springblade.modules.iot.api.modbus.service.RemoteIotModbusThingModelService;
+import org.springblade.modules.iot.api.product.service.RemoteIotProductService;
 import org.springblade.modules.iot.common.enums.DeviceState;
 import org.springblade.modules.iot.common.utils.HexUtil;
 import org.springblade.modules.iot.common.utils.JsonUtils;
@@ -21,13 +25,9 @@ import org.springblade.modules.iot.component.core.model.up.PropertyReport;
 import org.springblade.modules.iot.component.modbusCustom.cilent.VertxModbusClient;
 import org.springblade.modules.iot.component.modbusCustom.model.ModbusConfig;
 import org.springblade.modules.iot.component.modbusCustom.parser.*;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.RegisterDevice;
-import org.springblade.modules.iot.api.modbus.ModbusInfoApi;
-import org.springblade.modules.iot.api.modbus.ModbusThingModelApi;
 import org.springblade.modules.iot.api.modbus.dto.ModbusThingModel;
-import org.springblade.modules.iot.api.product.ProductApi;
 import io.netty.buffer.ByteBuf;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
@@ -60,13 +60,13 @@ public class ModbusComponent extends ThingComponent implements Handler<NetSocket
 
     private final ModbusVerticle modbusVerticle;
 
-    private final ProductApi productApi;
+    private final RemoteIotProductService productApi;
 
-    private final DeviceApi deviceApi;
+    private final RemoteIotDeviceService deviceApi;
 
-    private final ModbusInfoApi modbusInfoApi;
+    private final RemoteIotModbusInfoService modbusInfoApi;
 
-    private final ModbusThingModelApi modbusThingModelApi;
+    private final RemoteIotModbusThingModelService modbusThingModelApi;
 
     private final ThreadPoolTaskScheduler taskScheduler;
     private ScheduledFuture<?> readTaskFuture;
@@ -93,10 +93,10 @@ public class ModbusComponent extends ThingComponent implements Handler<NetSocket
     protected ModbusComponent(
             ComponentServices componentServices,
             ModbusVerticle modbusVerticle,
-            ProductApi productApi,
-            DeviceApi deviceApi,
-            ModbusInfoApi modbusInfoApi,
-            ModbusThingModelApi modbusThingModelApi,
+            RemoteIotProductService productApi,
+            RemoteIotDeviceService deviceApi,
+            RemoteIotModbusInfoService modbusInfoApi,
+            RemoteIotModbusThingModelService modbusThingModelApi,
             @Qualifier("ModbusTaskScheduler") ThreadPoolTaskScheduler taskScheduler
     ) {
         super(componentServices);

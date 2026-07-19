@@ -27,7 +27,6 @@ import org.springblade.modules.iot.common.thing.ThingModelMessage;
 import org.springblade.modules.iot.ruleengine.action.ScriptService;
 import org.springblade.modules.iot.message.service.MessageService;
 import org.springblade.modules.iot.api.alert.dto.Message;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -56,11 +55,6 @@ public class AlertService extends ScriptService {
     private String recoverScript;
 
     private final ScriptService recoverExecutor = new ScriptService();
-
-    public void initDeviceApi(DeviceApi deviceApi) {
-        super.setDeviceApi(deviceApi);
-        recoverExecutor.setDeviceApi(deviceApi);
-    }
 
     public void setRecoverScript(String recoverScript) {
         this.recoverScript = recoverScript;

@@ -25,15 +25,13 @@ package org.springblade.modules.iot.ruleengine.handler.sys;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.IdUtil;
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
 import org.springblade.modules.iot.common.constant.Constants;
 import org.springblade.modules.iot.common.enums.DeviceState;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
 import org.springblade.modules.iot.message.core.MqProducer;
 import org.springblade.modules.iot.ruleengine.handler.DeviceMessageHandler;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
-import org.springblade.modules.iot.api.product.ProductApi;
-import org.springblade.modules.iot.api.product.dto.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +48,7 @@ import java.util.List;
 public class DeviceStateCheckHandler implements DeviceMessageHandler {
 
     @Autowired
-    private DeviceApi deviceApi;
+    private RemoteIotDeviceService deviceApi;
 
     @Resource
     private MqProducer<ThingModelMessage> producer;

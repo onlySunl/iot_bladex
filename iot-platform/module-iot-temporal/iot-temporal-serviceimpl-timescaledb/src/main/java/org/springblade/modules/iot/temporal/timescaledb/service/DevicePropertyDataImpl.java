@@ -23,26 +23,26 @@
 package org.springblade.modules.iot.temporal.timescaledb.service;
 
 import cn.hutool.core.convert.Convert;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.postgresql.util.PGTimestamp;
 import org.springblade.modules.iot.IDevicePropertyData;
+import org.springblade.modules.iot.api.device.dto.DeviceInfo;
+import org.springblade.modules.iot.api.device.dto.DeviceProperty;
+import org.springblade.modules.iot.api.device.dto.DevicePropertyCache;
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
+import org.springblade.modules.iot.api.thingmodel.dto.ThingModel;
+import org.springblade.modules.iot.api.thingmodel.service.RemoteIotThingModelService;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.temporal.timescaledb.config.Constants;
 import org.springblade.modules.iot.temporal.timescaledb.dao.PgTemplate;
 import org.springblade.modules.iot.temporal.timescaledb.dm.FieldParser;
 import org.springblade.modules.iot.temporal.timescaledb.dm.PgField;
 import org.springblade.modules.iot.temporal.timescaledb.model.PgDeviceProperty;
-import org.springblade.modules.iot.api.device.DeviceApi;
-import org.springblade.modules.iot.api.device.dto.DeviceInfo;
-import org.springblade.modules.iot.api.device.dto.DeviceProperty;
-import org.springblade.modules.iot.api.device.dto.DevicePropertyCache;
-import org.springblade.modules.iot.api.thingmodel.ThingModelApi;
-import org.springblade.modules.iot.api.thingmodel.dto.ThingModel;
-import lombok.extern.slf4j.Slf4j;
-import org.postgresql.util.PGTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 
-import jakarta.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -56,10 +56,10 @@ public class DevicePropertyDataImpl implements IDevicePropertyData {
     private PgTemplate pgTemplate;
 
     @Resource
-    private DeviceApi deviceApi;
+    private RemoteIotDeviceService deviceApi;
 
     @Resource
-    private ThingModelApi thingModelApi;
+    private RemoteIotThingModelService thingModelApi;
 
     @Override
     public List<DeviceProperty> findDevicePropertyHistory(Long deviceId, String name, long start, long end, int size) {

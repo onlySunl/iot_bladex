@@ -5,6 +5,8 @@ package org.springblade.modules.iot.component.mqtt.service;
 import cn.hutool.crypto.digest.MD5;
 import cn.hutool.json.JSONUtil;
 import org.springblade.core.log.exception.ServiceException;
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
+import org.springblade.modules.iot.api.product.service.RemoteIotProductService;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.component.core.ComponentServices;
 import org.springblade.modules.iot.component.core.ThingComponent;
@@ -15,10 +17,8 @@ import org.springblade.modules.iot.component.core.model.up.EventReport;
 import org.springblade.modules.iot.component.core.model.up.PropertyReport;
 import org.springblade.modules.iot.component.core.model.up.ServiceReply;
 import org.springblade.modules.iot.component.mqtt.model.MqttConfig;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.RegisterDevice;
-import org.springblade.modules.iot.api.product.ProductApi;
 import org.springblade.modules.iot.api.product.dto.Product;
 import io.netty.handler.codec.mqtt.MqttConnectReturnCode;
 import io.netty.handler.codec.mqtt.MqttProperties;
@@ -46,15 +46,15 @@ public class MqttComponent extends ThingComponent implements Handler<MqttEndpoin
 
     private final MqttVerticle mqttVerticle;
 
-    private final ProductApi productApi;
+    private final RemoteIotProductService productApi;
 
-    private final DeviceApi deviceApi;
+    private final RemoteIotDeviceService deviceApi;
 
 
     protected MqttComponent(
             MqttVerticle mqttVerticle,
-            ProductApi productApi,
-            DeviceApi deviceApi,
+            RemoteIotProductService productApi,
+            RemoteIotDeviceService deviceApi,
             ComponentServices componentServices
     ) {
         super(componentServices);

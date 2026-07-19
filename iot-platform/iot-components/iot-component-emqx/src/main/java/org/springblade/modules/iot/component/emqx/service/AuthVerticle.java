@@ -4,8 +4,8 @@
 package org.springblade.modules.iot.component.emqx.service;
 
 
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
 import org.springblade.modules.iot.common.entity.CommonResult;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceAuth;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import io.vertx.core.AbstractVerticle;
@@ -31,7 +31,7 @@ public class AuthVerticle extends AbstractVerticle {
 
 
     @Resource
-    private DeviceApi deviceApi;
+    private RemoteIotDeviceService deviceApi;
 
     private HttpServer backendServer;
 

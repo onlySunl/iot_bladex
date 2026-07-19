@@ -23,11 +23,11 @@
 package org.springblade.modules.iot.temporal.td.service;
 
 import org.springblade.modules.iot.IDevicePropertyData;
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.temporal.td.config.Constants;
 import org.springblade.modules.iot.temporal.td.dao.TdTemplate;
 import org.springblade.modules.iot.temporal.td.model.TbDeviceProperty;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.DeviceProperty;
 import org.springblade.modules.iot.api.device.dto.DevicePropertyCache;
@@ -50,7 +50,7 @@ public class DevicePropertyDataImpl implements IDevicePropertyData {
     private TdTemplate tdTemplate;
 
     @Resource
-    private DeviceApi deviceApi;
+    private RemoteIotDeviceService deviceApi;
 
     @Override
     public List<DeviceProperty> findDevicePropertyHistory(Long deviceId, String name, long start, long end, int size) {

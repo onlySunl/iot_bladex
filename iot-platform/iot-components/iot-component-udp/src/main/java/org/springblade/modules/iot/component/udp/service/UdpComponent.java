@@ -1,6 +1,8 @@
 package org.springblade.modules.iot.component.udp.service;
 
 import com.alibaba.fastjson.JSON;
+import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
+import org.springblade.modules.iot.api.product.service.RemoteIotProductService;
 import org.springblade.modules.iot.common.enums.DeviceState;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.component.core.ComponentServices;
@@ -16,10 +18,8 @@ import org.springblade.modules.iot.component.udp.enums.UDPReportTypeEnum;
 import org.springblade.modules.iot.component.udp.model.DeviceData;
 import org.springblade.modules.iot.component.udp.model.UdpConfig;
 import org.springblade.modules.iot.component.udp.parser.uwb.UWBMessageParserFactory;
-import org.springblade.modules.iot.api.device.DeviceApi;
 import org.springblade.modules.iot.api.device.dto.DeviceInfo;
 import org.springblade.modules.iot.api.device.dto.RegisterDevice;
-import org.springblade.modules.iot.api.product.ProductApi;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 import org.slf4j.Logger;
@@ -45,8 +45,8 @@ public class UdpComponent extends ThingComponent {
     private static final Logger log = LoggerFactory.getLogger(UdpComponent.class);
 
     private final UdpVerticle udpVerticle;
-    private final ProductApi productApi;
-    private final DeviceApi deviceApi;
+    private final RemoteIotProductService productApi;
+    private final RemoteIotDeviceService deviceApi;
     private UdpConfig udpConfigKey;
 
     private final Map<String, String> lastDataHash = new ConcurrentHashMap<>();
@@ -58,8 +58,8 @@ public class UdpComponent extends ThingComponent {
     @Autowired
     public UdpComponent(ComponentServices services,
                         UdpVerticle verticle,
-                        ProductApi productApi,
-                        DeviceApi deviceApi) {
+                        RemoteIotProductService productApi,
+                        RemoteIotDeviceService deviceApi) {
         super(services);
         this.udpVerticle = verticle;
         this.productApi  = productApi;
