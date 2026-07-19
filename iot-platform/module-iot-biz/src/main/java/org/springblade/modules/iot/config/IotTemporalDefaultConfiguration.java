@@ -82,7 +82,7 @@ public class IotTemporalDefaultConfiguration {
             }
 
             @Override
-            public void add(RuleLog log) {
+            public void add(RuleLog taskLog) {
                 log.warn(WARN_MSG);
             }
         };
@@ -104,7 +104,7 @@ public class IotTemporalDefaultConfiguration {
             }
 
             @Override
-            public void add(TaskLog log) {
+            public void add(TaskLog taskLog) {
                 log.warn(WARN_MSG);
             }
         };
@@ -121,19 +121,19 @@ public class IotTemporalDefaultConfiguration {
             }
 
             @Override
-            public List<IThingModelMessageData.TimeData> getDeviceMessageStatsWithUid(String uid, long start, long end) {
+            public List<TimeData> getDeviceMessageStatsWithUid(String uid, long start, long end) {
                 log.warn(WARN_MSG);
                 return Collections.emptyList();
             }
 
             @Override
-            public List<IThingModelMessageData.TimeData> getDeviceUpMessageStatsWithUid(String uid, Long start, Long end) {
+            public List<TimeData> getDeviceUpMessageStatsWithUid(String uid, Long start, Long end) {
                 log.warn(WARN_MSG);
                 return Collections.emptyList();
             }
 
             @Override
-            public List<IThingModelMessageData.TimeData> getDeviceDownMessageStatsWithUid(String uid, Long start, Long end) {
+            public List<TimeData> getDeviceDownMessageStatsWithUid(String uid, Long start, Long end) {
                 log.warn(WARN_MSG);
                 return Collections.emptyList();
             }
@@ -168,7 +168,7 @@ public class IotTemporalDefaultConfiguration {
             }
 
             @Override
-            public void add(VirtualDeviceLog log) {
+            public void add(VirtualDeviceLog taskLog) {
                 log.warn(WARN_MSG);
             }
         };
