@@ -120,7 +120,7 @@ docker build -t blade-iot .
 - 启动前需确保 MySQL 和 Redis 服务可用
 - 多环境配置需根据实际环境修改 application-{profile}.yml
 - Docker 部署端口映射: 8093:8093
-- **SPI 接口默认实现**: `ChannelSmsStrategy`（短信）和 `ChannelVmsStrategy`（语音）是 SPI 接口，项目在 `IotAlertConfiguration` 中提供默认空实现（仅打印日志）。用户可通过定义自己的 `@Bean` 来覆盖默认实现。
+- **SPI 接口默认实现**: `ChannelSmsStrategy`（短信）和 `ChannelVmsStrategy`（语音）是 SPI 接口，项目提供阿里云和腾讯云的实现。通过 `config.alert.sms-provider` 和 `config.alert.vms-provider` 配置项切换服务商，默认使用阿里云（`matchIfMissing = true`）。
 
 ## Elasticsearch API 迁移 (Spring Boot 3.x 适配)
 - **Spring Data Elasticsearch 版本**: 项目使用 Spring Boot 3.2.10，对应 Spring Data Elasticsearch 5.x

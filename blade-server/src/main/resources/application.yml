@@ -444,3 +444,11 @@ easy-es:
   global-index-strategy: smoothly
   # 是否打印 ES 日志
   print-dsl: true
+
+# 告警通道配置
+config:
+  alert:
+    # 短信服务商: aliyun(阿里云, 默认), tencent(腾讯云)
+    sms-provider: aliyun
+    # 语音通知服务商: aliyun(阿里云, 默认), tencent(腾讯云)
+    vms-provider: aliyun
