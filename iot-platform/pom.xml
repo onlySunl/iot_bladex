@@ -38,6 +38,7 @@
         <es.version>7.17.15</es.version>
         <aliyun-tea.version>0.3.2</aliyun-tea.version>
         <aliyun-tea-util.version>0.2.23</aliyun-tea-util.version>
+        <redisson.version>3.41.0</redisson.version>
     </properties>
 
     <!-- 聚合子模块列表：IOT平台分层模块 -->
@@ -289,6 +290,12 @@
                 <artifactId>auto-table-annotation</artifactId>
                 <version>1.8.3</version>
                 <scope>provided</scope>
+            </dependency>
+            <!-- Redisson 分布式锁和队列 -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
             </dependency>
             <!-- 人大金仓驱动 -->
             <dependency>
