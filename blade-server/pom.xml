@@ -61,6 +61,11 @@
             <artifactId>iot-component-core</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
+        <!-- Redisson for rule engine -->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-dahua</artifactId>
