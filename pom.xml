@@ -31,9 +31,9 @@
         <maven.jar.plugin.version>3.3.0</maven.jar.plugin.version>
 
         <!-- 第三方工具统一版本 -->
-        <auto.table.version>1.4.0</auto.table.version>
+        <auto.table.version>1.8.3</auto.table.version>
         <tabula.version>1.0.5</tabula.version>
-        <pdfbox.version>2.1.4</pdfbox.version>
+        <pdfbox.version>2.0.24</pdfbox.version>
         <hutool.version>5.8.32</hutool.version>
         <swagger.version>1.5.22</swagger.version>
         <weixin.miniapp.version>4.6.0</weixin.miniapp.version>
