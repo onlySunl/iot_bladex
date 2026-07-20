@@ -4,29 +4,50 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- 父工程：nvr-protocol协议聚合模块，version固定字面量禁止变量 -->
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>nvr-protocol</artifactId>
         <version>4.2.0.RELEASE</version>
+        <!-- 本地优先加载上层聚合pom，减少远程仓库请求 -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>nvr-protocol-qs</artifactId>
     <packaging>jar</packaging>
-    <description>QS设备协议</description>
+    <name>QS球机协议底层实现模块</name>
+    <description>实现QS标准球机通信、云台控制、视频流交互、设备状态获取底层协议逻辑</description>
+
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- 日志、链路追踪区分模块唯一标识 -->
         <module.name>nvr.protocol.qs</module.name>
+        <!-- 统一源码、报告输出编码，解决Windows/Linux中文乱码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- 第三方组件统一版本，集中维护 -->
+        <oshi.version>6.6.5</oshi.version>
+        <javacv.version>1.5.10</javacv.version>
     </properties>
+
     <dependencies>
+        <!-- ===================== NVR内部公共基础模块 ===================== -->
+        <!-- NVR全局常量、枚举、通用工具、基础DTO -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-common</artifactId>
         </dependency>
+        <!-- 协议通用报文、网络基类、公共解析工具 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>nvr-protocol-common</artifactId>
+        </dependency>
+
+        <!-- ===================== 各厂商/国标/ZLM API接口依赖 ===================== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-qs</artifactId>
         </dependency>
-       <dependency>
+        <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-haikang</artifactId>
         </dependency>
@@ -42,7 +63,7 @@
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-jt1078</artifactId>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-gb28181</artifactId>
         </dependency>
@@ -50,27 +71,23 @@
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-haikang-isup</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-zlm</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-protocol-common</artifactId>
-        </dependency>
 
-        <!-- 获取系统信息 -->
+        <!-- ===================== 第三方工具依赖 ===================== -->
+        <!-- 服务器硬件、系统信息采集工具 -->
         <dependency>
             <groupId>com.github.oshi</groupId>
             <artifactId>oshi-core</artifactId>
-            <version>6.6.5</version>
+            <version>${oshi.version}</version>
         </dependency>
-        <!--JavaCV相关依赖-->
+        <!-- JavaCV音视频编解码、图像处理工具 -->
         <dependency>
             <groupId>org.bytedeco</groupId>
             <artifactId>javacv</artifactId>
-            <version>1.5.10</version>
+            <version>${javacv.version}</version>
         </dependency>
     </dependencies>
 </project>

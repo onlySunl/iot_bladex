@@ -3,42 +3,56 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- 父工程：nvr-api聚合模块，parent内版本必须字面量，禁止变量 -->
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>nvr-api</artifactId>
         <version>4.2.0.RELEASE</version>
+        <!-- 本地优先读取上层聚合pom，减少远程仓库请求，编译提速 -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>nvr-api-gb28181</artifactId>
+    <name>GB28181国标视频对接Feign接口模块</name>
+    <description>封装国标28181设备SIP信令、设备目录、视频点播、报警等远程调用Feign接口与DTO</description>
 
-    <description>
-        nvr-api-gb28181 国标GB28181接口模块
-    </description>
     <properties>
-        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <!-- 链路追踪、日志区分模块唯一标识 -->
         <module.name>nvr.api.gb28181</module.name>
+        <!-- 统一源码/报告输出编码，避免中文乱码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- 第三方组件统一版本，一处升级全局生效 -->
+        <dom4j.version>2.1.4</dom4j.version>
+        <jain-sip.version>1.3.0-91</jain-sip.version>
     </properties>
+
     <dependencies>
+        <!-- ===================== NVR项目内部公共依赖（版本由顶层统一管控，无需写version） ===================== -->
+        <!-- NVR业务公共工具、基础DTO、常量、异常封装 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-common</artifactId>
         </dependency>
+        <!-- Blade底层通用工具、全局返回体、基础注解 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-common</artifactId>
         </dependency>
-        <!-- xml解析库 -->
+
+        <!-- ===================== XML解析第三方库 ===================== -->
         <dependency>
             <groupId>org.dom4j</groupId>
             <artifactId>dom4j</artifactId>
-            <version>2.1.4</version>
+            <version>${dom4j.version}</version>
         </dependency>
-        <!-- sip协议栈 -->
+
+        <!-- ===================== GB28181 SIP协议栈依赖 ===================== -->
         <dependency>
             <groupId>javax.sip</groupId>
             <artifactId>jain-sip-ri</artifactId>
-            <version>1.3.0-91</version>
+            <version>${jain-sip.version}</version>
         </dependency>
     </dependencies>
-
 </project>

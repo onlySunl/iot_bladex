@@ -4,53 +4,69 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- 父工程：nvr-protocol协议聚合模块，version固定字面量禁止变量 -->
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>nvr-protocol</artifactId>
         <version>4.2.0.RELEASE</version>
+        <!-- 本地优先读取上层聚合pom，减少远程仓库请求 -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
+
     <artifactId>nvr-protocol-haikang-isup</artifactId>
     <packaging>jar</packaging>
+    <name>海康ISUP私有协议底层实现模块</name>
+    <description>基于海康ISUP私有协议封装设备登录、实时预览、回放、云台控制底层通信逻辑，依赖本地海康SDK jar包</description>
 
-    <name>nvr-protocol-haikang-isup</name>
-    <description>海康ISUP协议模块</description>
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- 日志、链路追踪区分模块唯一标识 -->
         <module.name>nvr.protocol.haikang.isup</module.name>
+        <!-- 统一源码、报告输出编码，解决Windows/Linux中文乱码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- 第三方组件统一版本，集中维护 -->
+        <jaxb.version>4.0.2</jaxb.version>
+        <hk.sdk.version>1.0.0</hk.sdk.version>
     </properties>
+
     <dependencies>
-        <!-- Lombok -->
+        <!-- ===================== 编译期注解依赖（仅编译生效，不传递运行时） ===================== -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <scope>provided</scope>
             <optional>true</optional>
         </dependency>
+
+        <!-- ===================== JAXB XML序列化解析 ===================== -->
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>4.0.2</version>
+            <version>${jaxb.version}</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
-            <version>4.0.2</version>
+            <version>${jaxb.version}</version>
         </dependency>
 
+        <!-- ===================== 本地SDK system依赖（海康底层Native封装） ===================== -->
         <dependency>
             <groupId>com.github.cbyzzy</groupId>
             <artifactId>Examples</artifactId>
-            <version>1.0.0</version>
+            <version>${hk.sdk.version}</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/src/main/resources/jar/examples.jar</systemPath>
         </dependency>
-
         <dependency>
             <groupId>com.sun.jna</groupId>
             <artifactId>jna</artifactId>
-            <version>1.0.0</version>
+            <version>${hk.sdk.version}</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/src/main/resources/jar/jna.jar</systemPath>
         </dependency>
+
+        <!-- ===================== NVR项目内部API依赖（版本顶层统一管控） ===================== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-qs</artifactId>
@@ -63,32 +79,18 @@
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-haikang-isup</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-api-haikang-isup</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>4.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-runtime</artifactId>
-            <version>4.0.2</version>
-        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <!-- JDK编译插件，统一使用顶层全局java版本 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <encoding>UTF-8</encoding>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
         </plugins>

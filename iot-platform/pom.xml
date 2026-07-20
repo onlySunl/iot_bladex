@@ -152,6 +152,7 @@
                 <version>${project.version}</version>
             </dependency>
             <!-- 协议组件基础包 -->
+            <!-- 3. IOT协议公共核心模块 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-component-core</artifactId>

@@ -3,38 +3,110 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- 顶层父工程：nvr-platform 视频平台总聚合 -->
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>nvr-platform</artifactId>
         <version>4.2.0.RELEASE</version>
+        <!-- 本地优先读取上层总pom，减少远程仓库请求 -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
+
     <artifactId>nvr-api</artifactId>
     <packaging>pom</packaging>
+    <name>NVR多厂商/国标协议Feign接口聚合模块</name>
+    <description>
+        统一聚合所有摄像头、流媒体、车载国标Feign接口定义模块，
+        集中管控全部api子模块版本，对外提供统一远程调用接口DTO与Feign定义。
+    </description>
 
-    <modules>
-        <module>nvr-api-dahua</module>
-        <module>nvr-api-gb28181</module>
-        <module>nvr-api-haikang</module>
-        <module>nvr-api-jt1078</module>
-        <module>nvr-api-onvif</module>
-        <module>nvr-api-haikang-isup</module>
-        <module>nvr-api-qs</module>
-        <module>nvr-api-zlm</module>
-    </modules>
+    <properties>
+        <!-- 项目统一版本，全子模块复用 -->
+        <project.version>4.2.0.RELEASE</project.version>
+        <!-- 统一源码、报告输出编码，避免Windows/Linux中文乱码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- 链路追踪、日志区分模块唯一标识 -->
+        <module.name>nvr.api</module.name>
+    </properties>
+
+    <!-- 所有API子模块统一版本锁定，子模块引入无需写version -->
     <dependencyManagement>
         <dependencies>
+            <!-- ===================== 基础公共依赖 ===================== -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>blade-common</artifactId>
-                <version>4.2.0.RELEASE</version>
-                <scope>compile</scope>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>nvr-common</artifactId>
-                <version>4.2.0.RELEASE</version>
-                <scope>compile</scope>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- ===================== 各厂商/国标API子模块 ===================== -->
+            <!-- 大华设备接口 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-dahua</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- GB28181国标视频接口 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-gb28181</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- 海康标准SDK接口 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-haikang</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- 海康ISUP私有协议接口 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-haikang-isup</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- JT1078车载视频部标接口 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-jt1078</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- ONVIF通用摄像头协议接口 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-onvif</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- QS球机通用协议接口 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-qs</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- ZLM流媒体服务对接接口 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-zlm</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <!-- 各协议Feign接口子模块清单 -->
+    <modules>
+        <module>nvr-api-dahua</module>        <!-- 大华SDK接口 -->
+        <module>nvr-api-gb28181</module>      <!-- GB28181国标SIP接口 -->
+        <module>nvr-api-haikang</module>      <!-- 海康标准SDK接口 -->
+        <module>nvr-api-jt1078</module>       <!-- JT1078车载视频部标 -->
+        <module>nvr-api-onvif</module>        <!-- ONVIF通用设备协议 -->
+        <module>nvr-api-haikang-isup</module> <!-- 海康ISUP私有协议 -->
+        <module>nvr-api-qs</module>           <!-- QS球机协议 -->
+        <module>nvr-api-zlm</module>          <!-- ZLM流媒体对接 -->
+    </modules>
 </project>

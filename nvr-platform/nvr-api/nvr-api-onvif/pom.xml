@@ -3,30 +3,39 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- 父工程：nvr-api聚合模块，version固定字面量，禁止变量 -->
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>nvr-api</artifactId>
         <version>4.2.0.RELEASE</version>
+        <!-- 本地优先读取上层父pom，减少远程仓库请求，提升编译速度 -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>nvr-api-onvif</artifactId>
+    <name>ONVIF通用摄像头协议Feign接口模块</name>
+    <description>封装ONVIF标准协议设备查询、云台控制、视频预览等远程调用Feign接口与交互DTO实体</description>
 
-    <description>
-        nvr-api-onvif ONVIF接口模块
-    </description>
     <properties>
-        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <!-- 日志、链路追踪区分模块唯一标识 -->
         <module.name>nvr.api.onvif</module.name>
+        <!-- 统一源码、报告输出编码，避免Windows/Linux中文乱码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
     <dependencies>
+        <!-- ===================== NVR内部公共依赖（顶层统一管控版本，无需指定version） ===================== -->
+        <!-- NVR业务公共工具、常量、基础DTO、通用异常 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-common</artifactId>
         </dependency>
+        <!-- Blade底层通用工具、全局注解、统一返回封装 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-common</artifactId>
         </dependency>
     </dependencies>
-
 </project>

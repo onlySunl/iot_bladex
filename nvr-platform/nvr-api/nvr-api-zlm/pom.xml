@@ -3,39 +3,51 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- 父工程：nvr-api聚合模块，version必须字面量，禁止变量 -->
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>nvr-api</artifactId>
         <version>4.2.0.RELEASE</version>
+        <!-- 本地优先读取上层pom，无需远程仓库拉取 -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>nvr-api-zlm</artifactId>
+    <name>ZLM流媒体服务对接Feign接口模块</name>
+    <description>封装ZLMediaKit流媒体推拉流、回放、录制、转码等远程调用Feign接口、交互DTO实体类</description>
 
-    <description>
-        nvr-api-zlm ZLM流媒体接口模块
-    </description>
     <properties>
-        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <!-- 日志、链路追踪区分模块唯一标识 -->
         <module.name>nvr.api.zlm</module.name>
+        <!-- 统一源码/报告输出编码，避免Windows/Linux中文乱码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
     <dependencies>
+        <!-- ===================== NVR项目内部公共基础依赖 ===================== -->
+        <!-- NVR业务公共工具、常量、基础DTO、通用异常封装 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-common</artifactId>
         </dependency>
+        <!-- Blade底层通用工具、全局基础注解、统一返回体 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-common</artifactId>
         </dependency>
-        <!-- GB28181 API -->
+
+        <!-- ===================== 依赖其他协议API模块 ===================== -->
+        <!-- GB28181国标设备交互接口 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-gb28181</artifactId>
         </dependency>
+        <!-- QS球机设备交互接口 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-qs</artifactId>
         </dependency>
     </dependencies>
-
 </project>

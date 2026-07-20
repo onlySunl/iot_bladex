@@ -4,53 +4,74 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- 父工程：nvr-protocol协议聚合模块，version固定字面量，禁止变量 -->
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>nvr-protocol</artifactId>
         <version>4.2.0.RELEASE</version>
+        <!-- 本地优先读取上层聚合pom，减少远程仓库请求 -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>nvr-protocol-zlm</artifactId>
     <packaging>jar</packaging>
-    <description>ZLM流媒体协议</description>
+    <name>ZLMediaKit流媒体底层协议实现模块</name>
+    <description>封装ZLM流媒体推拉流、回放、录制、转码、设备通道管理底层通信逻辑</description>
+
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <!-- 日志、链路追踪区分模块唯一标识，修正原笔误zml -->
+        <module.name>nvr.protocol.zlm</module.name>
+        <!-- 统一源码、报告输出编码，解决Windows/Linux中文乱码 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <module.name>nvr.zml</module.name>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- JDK版本统一继承顶层全局变量，不硬编码 -->
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
+
     <dependencies>
+        <!-- ===================== NVR项目内部公共基础模块 ===================== -->
+        <!-- NVR全局常量、枚举、通用工具、基础DTO、异常封装 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-common</artifactId>
         </dependency>
+        <!-- 协议通用报文解析、网络基类、公共工具抽象 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>nvr-protocol-common</artifactId>
+        </dependency>
+
+        <!-- ===================== 各厂商/国标API接口依赖 ===================== -->
+        <!-- ZLM流媒体Feign接口定义 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-zlm</artifactId>
         </dependency>
+        <!-- ONVIF通用摄像头协议接口 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-onvif</artifactId>
         </dependency>
+        <!-- JT1078车载视频部标接口 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-jt1078</artifactId>
         </dependency>
+        <!-- 海康标准SDK接口 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-haikang</artifactId>
         </dependency>
+        <!-- 海康ISUP私有协议接口 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-haikang-isup</artifactId>
         </dependency>
+        <!-- 大华SDK设备接口 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-dahua</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-protocol-common</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -4,29 +4,38 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- 父工程：nvr-api 聚合模块，version固定字面量，禁止变量 -->
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>nvr-api</artifactId>
         <version>4.2.0.RELEASE</version>
+        <!-- 本地优先加载上层pom，减少远程仓库请求 -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>nvr-api-haikang-isup</artifactId>
 
-    <description>
-        nvr API 海康ISUP接口模块
-    </description>
+    <artifactId>nvr-api-haikang-isup</artifactId>
+    <name>海康ISUP私有协议Feign接口模块</name>
+    <description>封装海康ISUP私有协议设备对接Feign远程接口、交互DTO、请求/响应实体类</description>
+
     <properties>
-        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <!-- 日志、链路追踪区分模块唯一标识 -->
         <module.name>nvr.api.haikang.isup</module.name>
+        <!-- 统一源码、报告输出编码，解决Windows/Linux中文乱码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
     <dependencies>
+        <!-- ===================== NVR内部公共基础依赖（版本顶层统一管控） ===================== -->
+        <!-- NVR业务公共工具、常量、基础DTO、通用异常 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-common</artifactId>
         </dependency>
+        <!-- Blade底层通用工具、全局基础注解、统一返回体 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-common</artifactId>
         </dependency>
     </dependencies>
-
 </project>

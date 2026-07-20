@@ -77,6 +77,10 @@
 
     <!-- 聚合层全局公共依赖，所有协议子模块自动继承 -->
     <dependencies>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-common</artifactId>
+        </dependency>
         <!-- 1.Vert.x 高性能事件驱动框架（版本顶层统一管控） -->
         <dependency>
             <groupId>io.vertx</groupId>

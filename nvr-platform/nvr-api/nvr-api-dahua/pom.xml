@@ -3,35 +3,46 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- 父工程：nvr-api聚合模块，版本必须字面量，禁止变量 -->
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>nvr-api</artifactId>
         <version>4.2.0.RELEASE</version>
+        <!-- 本地优先读取上层pom，无需每次请求远程仓库 -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>nvr-api-dahua</artifactId>
-    <description>
-        nvr-api-dahua 大华SDK接口模块
-    </description>
-    <properties>
-        <!-- 增加自动模块名称，解决空模块名报错 -->
-        <module.name>nvr.api.dahua</module.name>
-    </properties>
-    <dependencies>
-        <!-- IoT Common -->
 
-        <!-- 原生Feign，无需SpringCloud -->
+    <artifactId>nvr-api-dahua</artifactId>
+    <name>大华设备对接Feign接口模块</name>
+    <description>封装大华摄像头/NVR设备SDK对接Feign远程接口、DTO实体、调用入参出参定义</description>
+
+    <properties>
+        <!-- 链路追踪、日志区分模块唯一标识 -->
+        <module.name>nvr.api.dahua</module.name>
+        <!-- 统一源码/报告输出编码，避免中文乱码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <dependencies>
+        <!-- ===================== Feign远程调用核心 ===================== -->
+        <!-- 原生OpenFeign核心包，无SpringCloud依赖 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-openfeign-core</artifactId>
         </dependency>
+
+        <!-- ===================== NVR项目内部公共依赖 ===================== -->
+        <!-- NVR业务公共工具、常量、基础DTO -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-common</artifactId>
         </dependency>
+        <!-- Blade底层通用工具、基础注解、统一返回体 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-common</artifactId>
         </dependency>
     </dependencies>
-
 </project>

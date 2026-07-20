@@ -3,30 +3,39 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- 父工程：nvr-api聚合模块，version必须字面量，禁止变量 -->
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>nvr-api</artifactId>
         <version>4.2.0.RELEASE</version>
+        <!-- 本地优先读取上层父pom，减少远程仓库请求，编译提速 -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>nvr-api-qs</artifactId>
+    <name>QS球机通用协议Feign接口模块</name>
+    <description>封装QS标准球机设备云台、视频、参数配置相关Feign远程接口与交互DTO实体类</description>
 
-    <description>
-        nvr-api-qs QS设备接口模块
-    </description>
     <properties>
-        <!-- 增加自动模块名称，解决空模块名报错 -->
+        <!-- 日志、链路追踪区分模块唯一标识 -->
         <module.name>nvr.api.qs</module.name>
+        <!-- 统一源码/报告输出编码，避免Windows/Linux中文乱码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
     <dependencies>
+        <!-- ===================== NVR项目内部公共依赖（顶层统一管控版本，无需写version） ===================== -->
+        <!-- NVR业务公共工具、常量、基础DTO、通用异常封装 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-common</artifactId>
         </dependency>
+        <!-- Blade底层通用工具、全局基础注解、统一返回体 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-common</artifactId>
         </dependency>
     </dependencies>
-
 </project>

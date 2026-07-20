@@ -4,25 +4,34 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- 父工程：nvr-protocol协议聚合模块，version固定字面量，禁止变量 -->
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>nvr-protocol</artifactId>
         <version>4.2.0.RELEASE</version>
+        <!-- 本地优先读取上层聚合pom，减少远程仓库请求，编译提速 -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
+
     <artifactId>nvr-protocol-common</artifactId>
     <packaging>jar</packaging>
-    <name>nvr-protocol-common</name>
-    <description>nvr协议公共模块</description>
+    <name>NVR协议公共基础模块</name>
+    <description>所有视频协议组件通用底层封装，包含报文解析、网络工具、协议基类、通用数据结构</description>
+
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- 日志、链路追踪区分模块唯一标识 -->
         <module.name>nvr.protocol.common</module.name>
+        <!-- 统一源码、报告输出编码，Windows/Linux中文不乱码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencies>
+        <!-- ===================== NVR项目内部公共依赖（版本顶层统一管控） ===================== -->
+        <!-- NVR全局常量、枚举、通用工具、基础DTO -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-common</artifactId>
         </dependency>
-
     </dependencies>
 </project>
