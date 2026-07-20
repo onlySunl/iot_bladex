@@ -15,6 +15,7 @@ import org.springblade.modules.iot.common.context.TenantContextHolder;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PreDestroy;
@@ -33,6 +34,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Component
+@ConditionalOnBean(RedissonClient.class)
 @RequiredArgsConstructor
 public class TriggerControlService implements InitializingBean {
 

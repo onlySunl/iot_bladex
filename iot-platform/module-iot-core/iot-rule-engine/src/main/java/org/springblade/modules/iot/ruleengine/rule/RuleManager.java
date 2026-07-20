@@ -86,6 +86,13 @@ public class RuleManager {
     private TriggerControlService triggerControlService;
 
     /**
+     * 安全调用 triggerControlService，避免 Redisson 不可用时 NPE
+     */
+    private boolean hasTriggerControl() {
+        return triggerControlService != null;
+    }
+
+    /**
      * 规则缓存，用于延时任务回放
      */
     private final Map<Long, Rule> ruleCache = new ConcurrentHashMap<>();
@@ -94,7 +101,7 @@ public class RuleManager {
         Rule rule = parseRule(ruleInfo);
         // 如果是更新（缓存已存在），且规则是停止状态，清理 Redis 缓存（触发控制参数可能已改变）
         boolean isUpdate = ruleCache.containsKey(ruleInfo.getId());
-        if (isUpdate && RuleInfo.STATE_STOPPED.equals(ruleInfo.getState())) {
+        if (isUpdate && RuleInfo.STATE_STOPPED.equals(ruleInfo.getState()) && hasTriggerControl()) {
             triggerControlService.clearRuleCache(ruleInfo.getId());
         }
         // 始终更新缓存，确保缓存是最新的配置
@@ -111,7 +118,9 @@ public class RuleManager {
         // 移出link连接
         LinkFactory.ruleClose(ruleId);
         // 清理 Redis 缓存（限流器、触发状态）
-        triggerControlService.clearRuleCache(ruleId);
+        if (hasTriggerControl()) {
+            triggerControlService.clearRuleCache(ruleId);
+        }
     }
 
     public void pause(Long ruleId) {

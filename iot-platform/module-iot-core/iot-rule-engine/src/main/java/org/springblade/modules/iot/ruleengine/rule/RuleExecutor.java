@@ -51,7 +51,7 @@ public class RuleExecutor {
     @Autowired
     private IRuleLogData ruleLogData;
 
-    @Autowired
+    @Autowired(required = false)
     private TriggerControlService triggerControlService;
 
     public void execute(ThingModelMessage message, Rule rule) {
@@ -60,28 +60,39 @@ public class RuleExecutor {
         if (!doListeners(message, rule)) {
             log.info("The listener did not match the appropriate content,rule:{},{}", rule.getId(), rule.getName());
             // 监听器不匹配时，如果开启了告警解除，调度恢复
-            triggerControlService.scheduleRecoverIfNeeded(rule, message, options);
+            if (triggerControlService != null) {
+                triggerControlService.scheduleRecoverIfNeeded(rule, message, options);
+            }
             return;
         }
 
         if (!doFilters(rule, message)) {
             recordLog(rule.getId(), RuleLog.STATE_UNMATCHED_FILTER, null, false);
             // 过滤器不匹配时，如果开启了告警解除，调度恢复
-            triggerControlService.scheduleRecoverIfNeeded(rule, message, options);
+            if (triggerControlService != null) {
+                triggerControlService.scheduleRecoverIfNeeded(rule, message, options);
+            }
             return;
         }
 
         // 匹配成功，取消恢复任务
-        triggerControlService.cancelRecover(rule.getId());
+        if (triggerControlService != null) {
+            triggerControlService.cancelRecover(rule.getId());
+        }
 
         // 限频判断
-        if (!triggerControlService.passRateLimit(rule.getId(), options)) {
+        if (triggerControlService != null && !triggerControlService.passRateLimit(rule.getId(), options)) {
             log.info("rule {} skipped by minIntervalSec", rule.getId());
             return;
         }
 
         // 执行动作：有延时入队列，无延时直接执行
-        triggerControlService.executeAction(rule, message, options);
+        if (triggerControlService != null) {
+            triggerControlService.executeAction(rule, message, options);
+        } else {
+            // 降级：无 TriggerControlService 时直接执行动作
+            executeActions(rule, message, false);
+        }
     }
 
     private boolean doListeners(ThingModelMessage message, Rule rule) {
@@ -122,7 +133,9 @@ public class RuleExecutor {
             ruleLog.setSuccess(true);
             // 状态标记：恢复时标记恢复，触发时由调用方标记（避免重复）
             if (recovery) {
-                triggerControlService.markRecovered(rule.getId());
+                if (triggerControlService != null) {
+                    triggerControlService.markRecovered(rule.getId());
+                }
                 log.info("rule {} alert recovered", rule.getId());
             } else {
                 log.info("rule execution completed,id:{}", rule.getId());
