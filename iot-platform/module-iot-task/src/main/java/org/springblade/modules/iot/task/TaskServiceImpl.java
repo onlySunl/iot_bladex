@@ -41,12 +41,12 @@ import jakarta.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 
 @Slf4j
-public class TaskServiceImpl implements TaskService, ApplicationContextAware {
+public class TaskServiceImpl implements TaskService, ApplicationContextAware, ApplicationRunner {
 
     private ApplicationContext applicationContext;
 
@@ -57,8 +57,21 @@ public class TaskServiceImpl implements TaskService, ApplicationContextAware {
     private RemoteIotRuleTaskService ruleTaskApi;
 
     public TaskServiceImpl() {
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
-        executorService.schedule(this::initTask, 1, TimeUnit.SECONDS);
+    }
+
+    /**
+     * 系统启动完成后初始化任务
+     * 使用 ApplicationRunner 确保 Spring 上下文完全就绪后再加载任务
+     */
+    @Override
+    public void run(ApplicationArguments args) {
+        log.info("System startup completed, initializing IoT scheduled tasks...");
+        try {
+            initTask();
+            log.info("IoT scheduled tasks initialization completed");
+        } catch (Exception e) {
+            log.error("Failed to initialize IoT scheduled tasks", e);
+        }
     }
 
     public void initTask() {
