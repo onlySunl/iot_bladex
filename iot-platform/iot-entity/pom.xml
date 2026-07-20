@@ -33,27 +33,9 @@
         <module>iot-entity-virtual</module>        <!-- 虚拟设备实体 -->
     </modules>
 
-    <!-- 实体模块统一依赖版本锁定（继承父pom全局版本，仅声明不重复写version） -->
-    <dependencyManagement>
-        <dependencies>
-            <!-- Blade基础公共包，提供工具类、基础注解 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-common</artifactId>
-                <scope>provided</scope>
-            </dependency>
-            <!-- AutoTable 数据库自动建表注解 -->
-            <dependency>
-                <groupId>com.tangzc</groupId>
-                <artifactId>auto-table-annotation</artifactId>
-                <scope>provided</scope>
-            </dependency>
-            <!-- MyBatis-Plus 数据库实体注解 -->
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-annotation</artifactId>
-                <scope>provided</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <!-- 
+        依赖版本由父POM (iot-platform) 统一管理，此处不再重复声明 dependencyManagement。
+        子模块直接引用 blade-common、auto-table-annotation、mybatis-plus-annotation 等依赖时，
+        版本自动从父POM继承。
+    -->
 </project>

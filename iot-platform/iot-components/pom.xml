@@ -29,51 +29,10 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
-    <!-- 子模块统一版本管控：所有内部组件版本由顶层iot-platform统一管理，本层不写版本 -->
-    <dependencyManagement>
-        <dependencies>
-            <!-- 协议公共核心基础包 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-component-core</artifactId>
-            </dependency>
-            <!-- EMQX MQTT客户端组件 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-component-emqx</artifactId>
-            </dependency>
-            <!-- 标准MQTT协议组件 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-component-mqtt</artifactId>
-            </dependency>
-            <!-- TCP设备接入组件 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-component-tcp</artifactId>
-            </dependency>
-            <!-- HTTP设备上报接入组件 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-component-http</artifactId>
-            </dependency>
-            <!-- UDP短报文组件 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-component-udp</artifactId>
-            </dependency>
-            <!-- 工业Modbus自定义协议 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-component-modbus-custom</artifactId>
-            </dependency>
-            <!-- CoAP低功耗物联网协议 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-component-coap</artifactId>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <!-- 
+        依赖版本由父POM (iot-platform) 统一管理，此处不再重复声明 dependencyManagement。
+        子模块直接引用 iot-component-core 等内部组件时，版本自动从父POM继承。
+    -->
 
     <!-- 聚合层全局公共依赖，所有协议子模块自动继承 -->
     <dependencies>
@@ -125,6 +84,6 @@
         <module>iot-component-http</module>         <!-- HTTP/HTTPS设备上报 -->
         <module>iot-component-udp</module>          <!-- 低功耗UDP短报文 -->
         <module>iot-component-modbus-custom</module><!-- Modbus RTU/TCP工业协议 -->
-        <module>iot-component-coap</module>         <!-- CoAP窄带物联网协议 -->
+        <module>iot-component-coap</module>         <!-- CoAP低功耗物联网协议 -->
     </modules>
 </project>

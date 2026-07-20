@@ -117,16 +117,6 @@
             <artifactId>nvr-protocol-zlm</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-protocol-qs</artifactId>
-            <version>4.2.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-protocol-haikang-isup</artifactId>
-            <version>4.2.0.RELEASE</version>
-        </dependency>
     </dependencies>
     <build>
         <finalName>${bladex.project.id}</finalName>
