@@ -1,7 +1,6 @@
 package org.springblade.modules.iot.ruleengine.rule;
 
 import com.alibaba.ttl.threadpool.TtlExecutors;
-import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RBlockingQueue;
@@ -18,6 +17,7 @@ import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
+import jakarta.annotation.PreDestroy;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -43,6 +43,8 @@ public class TriggerControlService implements InitializingBean {
     private static final String RATE_LIMITER_KEY_PREFIX = "rule:trigger:limit:";
     // 状态缓存过期时间 30天
     private static final long STATE_EXPIRE_SEC = 30 * 24 * 60 * 60L;
+    // 线程池等待关闭超时
+    private static final long SHUTDOWN_WAIT_SEC = 3L;
 
     private final RedissonClient redissonClient;
     private final RuleManager ruleManager;
@@ -53,6 +55,8 @@ public class TriggerControlService implements InitializingBean {
     private RBlockingQueue<TriggerJob> recoverQueue;
     private RDelayedQueue<TriggerJob> recoverDelayedQueue;
     private ExecutorService consumerPool;
+    // 销毁标记，防止重复执行销毁逻辑
+    private volatile boolean destroyed = false;
 
     @Override
     public void afterPropertiesSet() {
@@ -82,7 +86,7 @@ public class TriggerControlService implements InitializingBean {
      */
     private void consume(RBlockingQueue<TriggerJob> queue, boolean recovery) {
         String queueType = recovery ? "恢复告警队列" : "规则动作队列";
-        while (!Thread.currentThread().isInterrupted()) {
+        while (!Thread.currentThread().isInterrupted() && !destroyed) {
             try {
                 TriggerJob job = queue.poll(1, TimeUnit.SECONDS);
                 if (job == null) {
@@ -104,6 +108,7 @@ public class TriggerControlService implements InitializingBean {
                 TenantContextHolder.clear();
             }
         }
+        log.info("{} 消费线程正常退出", queueType);
     }
 
     /**
@@ -248,6 +253,9 @@ public class TriggerControlService implements InitializingBean {
      * 读取规则触发状态
      */
     private TriggerState getState(Long ruleId) {
+        if (destroyed || redissonClient == null) {
+            return null;
+        }
         RMap<Long, String> stateMap = redissonClient.getMap(STATE_KEY);
         String json = stateMap.get(ruleId);
         if (json == null) {
@@ -260,6 +268,9 @@ public class TriggerControlService implements InitializingBean {
      * 保存规则触发状态，设置过期时间
      */
     private void saveState(Long ruleId, TriggerState state) {
+        if (destroyed || redissonClient == null) {
+            return;
+        }
         RMap<Long, String> stateMap = redissonClient.getMap(STATE_KEY);
         stateMap.put(ruleId, JsonUtils.toJsonString(state));
         stateMap.expire(STATE_EXPIRE_SEC, TimeUnit.SECONDS);
@@ -269,6 +280,10 @@ public class TriggerControlService implements InitializingBean {
      * 删除规则所有Redis缓存：限流器、触发状态
      */
     public void clearRuleCache(Long ruleId) {
+        if (destroyed || redissonClient == null) {
+            log.warn("服务已销毁，跳过清理规则{}缓存", ruleId);
+            return;
+        }
         try {
             // 删除限流对象
             RRateLimiter limiter = redissonClient.getRateLimiter(RATE_LIMITER_KEY_PREFIX + ruleId);
@@ -284,23 +299,41 @@ public class TriggerControlService implements InitializingBean {
 
     /**
      * 服务销毁，关闭队列、线程池释放资源
+     * 增加销毁标记，防止Redisson已关闭后继续操作Redis产生连锁关闭异常
      */
     @PreDestroy
     public void destroy() {
+        if (destroyed) {
+            return;
+        }
+        destroyed = true;
         log.info("TriggerControlService 开始销毁资源");
-        // 关闭延迟队列内部监听
-        actionDelayedQueue.destroy();
-        recoverDelayedQueue.destroy();
-        // 关闭消费线程池
+
+        // 1. 先关闭消费线程池，停止新任务拉取
         if (consumerPool != null) {
             consumerPool.shutdownNow();
             try {
-                if (!consumerPool.awaitTermination(3, TimeUnit.SECONDS)) {
-                    log.warn("消费线程池未及时关闭");
+                if (!consumerPool.awaitTermination(SHUTDOWN_WAIT_SEC, TimeUnit.SECONDS)) {
+                    log.warn("消费线程池未及时关闭，强制终止");
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
+                log.warn("等待线程池关闭被中断");
             }
+        }
+
+        // 2. 延迟队列销毁（增加判空，避免Redisson提前销毁空指针）
+        try {
+            if (actionDelayedQueue != null) {
+                actionDelayedQueue.destroy();
+            }
+            if (recoverDelayedQueue != null) {
+                recoverDelayedQueue.destroy();
+            }
+        } catch (org.redisson.RedissonShutdownException e) {
+            log.info("Redisson 已提前关闭，无需销毁延迟队列");
+        } catch (Throwable e) {
+            log.warn("销毁延迟队列出现异常", e);
         }
         log.info("TriggerControlService 资源销毁完成");
     }
