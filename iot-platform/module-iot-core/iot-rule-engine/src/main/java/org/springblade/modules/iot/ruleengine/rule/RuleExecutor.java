@@ -81,7 +81,7 @@ public class RuleExecutor {
         }
 
         // 执行动作：有延时入队列，无延时直接执行
-        triggerControlService.executeAction(rule, message, options, this);
+        triggerControlService.executeAction(rule, message, options);
     }
 
     private boolean doListeners(ThingModelMessage message, Rule rule) {

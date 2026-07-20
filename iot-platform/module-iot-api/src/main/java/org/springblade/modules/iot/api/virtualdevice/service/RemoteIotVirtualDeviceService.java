@@ -22,7 +22,7 @@ public interface RemoteIotVirtualDeviceService {
     /**
      * 根据触发器表达式、状态查询虚拟设备列表
      */
-    @GetMapping("/virtualDeviceApi/findByTriggerAndState")
+    @GetMapping("/api/virtualDeviceApi/findByTriggerAndState")
     List<VirtualDevice> findByTriggerAndState(@RequestParam("trigger") String trigger,
                                               @RequestParam("state") String state);
 }
