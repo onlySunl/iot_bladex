@@ -17,6 +17,9 @@ public class RedisConfiguration {
     /**
      * 创建 RedisTemplate Bean
      * BladeX 的 RedisTemplateConfiguration 依赖此 Bean
+     * 
+     * 使用 GenericJackson2JsonRedisSerializer 作为值序列化器，
+     * 支持存储 String、Map、Object 等多种类型
      */
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
@@ -25,9 +28,13 @@ public class RedisConfiguration {
         
         // 使用 StringRedisSerializer 来序列化和反序列化 redis 的 key 值
         template.setKeySerializer(new StringRedisSerializer());
-        template.setValueSerializer(new StringRedisSerializer());
         template.setHashKeySerializer(new StringRedisSerializer());
-        template.setHashValueSerializer(new StringRedisSerializer());
+        
+        // 使用 GenericJackson2JsonRedisSerializer 来序列化和反序列化 redis 的 value 值
+        // 支持存储 String、Map、Object 等多种类型
+        GenericJackson2JsonRedisSerializer jsonSerializer = new GenericJackson2JsonRedisSerializer();
+        template.setValueSerializer(jsonSerializer);
+        template.setHashValueSerializer(jsonSerializer);
         
         template.afterPropertiesSet();
         return template;
