@@ -14,13 +14,13 @@
     </parent>
 
     <artifactId>iot-entity-alert</artifactId>
-    <name>IoT-告警实体模块</name>
-    <description>存放告警、短信、语音通知相关DO、DTO、VO实体类</description>
+    <name>iot-entity-alert</name>
+    <description>存放告警、短信、语音通知相关DO、DTO、VO实体</description>
 
     <properties>
-        <!-- 模块唯一标识，用于日志/链路区分 -->
+        <!-- 模块唯一标识，用于日志链路区分 -->
         <module.name>iot.entity.alert</module.name>
-        <!-- 全局版本统一复用，子模块依赖可直接${project.version} -->
+        <!-- 全局版本统一复用，子模块依赖可直接 ${project.version} -->
         <project.version>4.2.0.RELEASE</project.version>
     </properties>
 

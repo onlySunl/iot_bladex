@@ -10,55 +10,49 @@
     </parent>
 
     <artifactId>iot-component-emqx</artifactId>
-
-    <description>
-        iot-component-emqx 告警接口模块
-    </description>
+    <description>iot-component-emqx EMQX Broker 专用客户端组件</description>
     <properties>
-        <!-- 增加自动模块名称，解决空模块名报错 -->
         <module.name>iot.component.emqx</module.name>
     </properties>
 
     <dependencies>
 
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
+        <!-- ===== 1. BladeX & IOT 基础 ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-common</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-component-core</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>module-iot-api</artifactId>
         </dependency>
 
+        <!-- ===== 2. Vert.x ===== -->
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
         </dependency>
-
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-mqtt</artifactId>
         </dependency>
-
-
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-web</artifactId>
+        </dependency>
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-web-proxy</artifactId>
         </dependency>
 
+        <!-- ===== 3. Lombok（编译期） ===== -->
         <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-web</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
 
     </dependencies>

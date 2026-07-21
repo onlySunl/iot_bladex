@@ -17,6 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 )
 public interface RemoteIotModbusInfoService {
 
-    @GetMapping("/modbusInfo/findByProductKey")
+    @GetMapping("/api/modbusInfo/findByProductKey")
     ModbusInfo findByProductKey(@RequestParam("productKey") String productKey);
 }

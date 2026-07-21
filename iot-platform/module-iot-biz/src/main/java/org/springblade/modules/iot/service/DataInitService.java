@@ -7,8 +7,10 @@ import org.springblade.modules.iot.common.utils.TenantUtils;
 import org.springblade.modules.iot.convert.ThingModelConvert;
 import org.springblade.modules.iot.dal.mysql.thingmodel.ThingModelMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.Resource;
@@ -17,7 +19,7 @@ import java.util.TimerTask;
 
 @Slf4j
 @Service
-public class DataInitService implements SmartInitializingSingleton {
+public class DataInitService implements ApplicationRunner {
 
     @Value("${init.data.flag:true}")
     private boolean initDataFlg;
@@ -29,9 +31,14 @@ public class DataInitService implements SmartInitializingSingleton {
     private IDbStructureData dbStructureData;
 
 
+    /**
+     * 使用 ApplicationRunner 确保 Spring 容器完全就绪后再初始化数据
+     * 比 SmartInitializingSingleton 更可靠：确保 Redis、数据库、Feign Client 等全部就绪
+     */
     @Override
-    public void afterSingletonsInstantiated() {
-        //等redis实例化后再执行
+    @Order(10)
+    public void run(ApplicationArguments args) {
+        // 延迟 2 秒确保 Redis 和数据库连接池完全就绪
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -56,7 +63,7 @@ public class DataInitService implements SmartInitializingSingleton {
                 });
 
             }
-        }, 1000);
+        }, 2000);
 
     }
 

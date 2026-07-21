@@ -13,7 +13,7 @@
 
     <artifactId>iot-entity</artifactId>
     <packaging>pom</packaging>
-    <name>IoT 实体聚合模块</name>
+    <name>iot-entity</name>
     <description>
         聚合所有业务域实体DTO/DO/VO模块，按业务领域拆分，解耦各业务实体；
         仅做版本管控与依赖锁定，无业务代码输出。

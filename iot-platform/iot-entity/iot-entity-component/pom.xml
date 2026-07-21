@@ -14,7 +14,7 @@
     </parent>
 
     <artifactId>iot-entity-component</artifactId>
-    <name>IoT-协议组件实体模块</name>
+    <name>iot-entity-component</name>
     <description>存放MQTT/Modbus/CoAP/TCP/UDP等各类协议组件DO、DTO、VO、数据库注解实体</description>
 
     <properties>

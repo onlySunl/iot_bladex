@@ -10,33 +10,35 @@
     </parent>
 
     <artifactId>iot-script-engine</artifactId>
-
-    <description>
-        iot-script-engine 告警接口模块
-    </description>
+    <description>iot-script-engine GraalJS 脚本引擎模块</description>
     <properties>
-        <!-- 增加自动模块名称，解决空模块名报错 -->
         <module.name>iot.script.engine</module.name>
     </properties>
+
     <dependencies>
+        <!-- BladeX 基础 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-common</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.graalvm.js</groupId>
-            <artifactId>js</artifactId>
-            <version>22.0.0</version>
-        </dependency>
+
+        <!-- IOT 核心 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-common-core</artifactId>
         </dependency>
-    </dependencies>
 
+        <!-- GraalJS 脚本引擎 -->
+        <dependency>
+            <groupId>org.graalvm.js</groupId>
+            <artifactId>js</artifactId>
+        </dependency>
+
+        <!-- Jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

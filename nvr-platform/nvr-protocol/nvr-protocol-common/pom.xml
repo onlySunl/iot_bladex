@@ -15,7 +15,7 @@
 
     <artifactId>nvr-protocol-common</artifactId>
     <packaging>jar</packaging>
-    <name>NVR协议公共基础模块</name>
+    <name>nvr-protocol-common</name>
     <description>所有视频协议组件通用底层封装，包含报文解析、网络工具、协议基类、通用数据结构</description>
 
     <properties>

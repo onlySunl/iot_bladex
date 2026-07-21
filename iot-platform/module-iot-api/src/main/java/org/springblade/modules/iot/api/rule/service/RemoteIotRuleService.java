@@ -29,6 +29,6 @@ public interface RemoteIotRuleService {
     /**
      * 分页查询规则信息
      */
-    @PostMapping("/ruleApi/selectPage")
+    @PostMapping("/api/ruleApi/selectPage")
     PageResult<RuleInfo> selectPage(@RequestBody RuleInfoPageReqVO reqVO);
 }

@@ -14,7 +14,7 @@
     </parent>
 
     <artifactId>nvr-api-gb28181</artifactId>
-    <name>GB28181国标视频对接Feign接口模块</name>
+    <name>nvr-api-gb28181</name>
     <description>封装国标28181设备SIP信令、设备目录、视频点播、报警等远程调用Feign接口与DTO</description>
 
     <properties>

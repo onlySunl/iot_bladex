@@ -14,7 +14,7 @@
     </parent>
 
     <artifactId>nvr-api-zlm</artifactId>
-    <name>ZLM流媒体服务对接Feign接口模块</name>
+    <name>nvr-api-zlm</name>
     <description>封装ZLMediaKit流媒体推拉流、回放、录制、转码等远程调用Feign接口、交互DTO实体类</description>
 
     <properties>

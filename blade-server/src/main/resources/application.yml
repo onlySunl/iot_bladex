@@ -11,7 +11,6 @@ server:
     buffer-size: 1024
     # 是否分配的直接内存
     direct-buffers: true
-
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -46,7 +45,6 @@ spring:
         exclusions: '*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*'
         session-stat-enable: true
         session-stat-max-count: 10
-
 # mybatis
 mybatis-plus:
   # XML 映射文件路径
@@ -81,7 +79,6 @@ mybatis-plus:
 #springdoc-openapi配置
 springdoc:
   default-flat-param-object: false
-
 #knife4j配置
 knife4j:
   #启用
@@ -104,7 +101,6 @@ knife4j:
     enable-footer-custom: true
     language: zh_cn
     footer-custom-content: Copyright © 2024 MMC All Rights Reserved
-
 #swagger公共信息
 swagger:
   title: 平台接口文档系统
@@ -116,7 +112,6 @@ swagger:
     name:
     email:
     url:
-
 #oss默认配置
 oss:
   #开启oss配置
@@ -136,7 +131,6 @@ oss:
   secret-key: ${TENCENT_SECRET_KEY}
   #存储桶
   bucket-name: yssj-1257228287
-
 #第三方登陆配置
 social:
   oauth:
@@ -160,7 +154,6 @@ social:
       client-id: 233************
       client-secret: 233************************************
       redirect-uri: ${social.domain}/oauth/redirect/dingtalk
-
 #flowable配置
 flowable:
   activity-font-name: \u5B8B\u4F53
@@ -170,15 +163,12 @@ flowable:
   database-schema-update: false
   async-executor-activate: false
   async-history-executor-activate: false
-
 #报表配置
 report:
   enabled: false
   database:
     provider:
       prefix: blade-
-
-
 #blade配置
 blade:
   #oauth2配置
@@ -254,6 +244,7 @@ blade:
     skip-url:
       - /blade-test/**
       - /zlm/index/hook/**
+      - /api/inner/**
 
     #授权认证配置
     auth:
@@ -309,7 +300,7 @@ blade:
   #分库分表配置
   sharding:
     enabled: false
-
+#autotable配置
 auto-table:
   enable: true
   show-banner: true
@@ -320,6 +311,7 @@ auto-table:
   index-prefix: IDX_
   super-insert-position: after
   auto-drop-index: true
+
 
 feign:
   client:

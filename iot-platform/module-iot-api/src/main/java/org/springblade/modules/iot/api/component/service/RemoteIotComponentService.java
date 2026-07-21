@@ -25,6 +25,6 @@ public interface RemoteIotComponentService {
     /**
      * 根据组件类型获取组件信息
      */
-    @GetMapping("/componentApi/getInfo")
+    @GetMapping("/api/componentApi/getInfo")
     ComponentInfo getInfo(@RequestParam("type") String type);
 }

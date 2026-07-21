@@ -55,6 +55,7 @@ import org.springblade.modules.iot.api.rule.dto.RuleInfo;
 import org.springblade.modules.iot.api.task.dto.RuleAction;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.Resource;
@@ -82,7 +83,7 @@ public class RuleManager {
     @Resource
     private MessageService messageService;
 
-    @Resource
+    @Autowired(required = false)
     private TriggerControlService triggerControlService;
 
     /**

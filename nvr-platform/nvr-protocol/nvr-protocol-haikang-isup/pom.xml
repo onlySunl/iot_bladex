@@ -15,7 +15,7 @@
 
     <artifactId>nvr-protocol-haikang-isup</artifactId>
     <packaging>jar</packaging>
-    <name>海康ISUP私有协议底层实现模块</name>
+    <name>nvr-protocol-haikang-isup</name>
     <description>基于海康ISUP私有协议封装设备登录、实时预览、回放、云台控制底层通信逻辑，依赖本地海康SDK jar包</description>
 
     <properties>

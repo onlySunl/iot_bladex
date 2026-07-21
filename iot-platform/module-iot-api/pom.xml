@@ -10,25 +10,19 @@
     </parent>
 
     <artifactId>module-iot-api</artifactId>
-
-    <description>
-        module-iot-api 告警接口模块
-    </description>
+    <description>module-iot-api Feign 远程调用接口模块</description>
     <properties>
-        <!-- 增加自动模块名称，解决空模块名报错 -->
         <module.name>module.iot.api</module.name>
     </properties>
+
     <dependencies>
+        <!-- BladeX 基础 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-common</artifactId>
         </dependency>
-        <!-- 参数校验 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
-            <optional>true</optional>
-        </dependency>
+
+        <!-- IOT 核心 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-common-core</artifactId>
@@ -37,14 +31,20 @@
             <groupId>org.springblade</groupId>
             <artifactId>iot-common-thing</artifactId>
         </dependency>
+
+        <!-- 实体模块 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-entity-device</artifactId>
             <version>4.2.0.RELEASE</version>
-            <scope>compile</scope>
         </dependency>
 
+        <!-- 参数校验 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
-
 
 </project>

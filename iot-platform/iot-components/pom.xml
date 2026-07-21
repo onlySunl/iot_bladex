@@ -15,7 +15,7 @@
 
     <artifactId>iot-components</artifactId>
     <packaging>pom</packaging>
-    <name>IoT-协议组件聚合模块</name>
+    <name>iot-components</name>
     <description>
         聚合各类物联网设备接入协议组件；
         iot-component-core 为所有协议公共基础包，MQTT/TCP/UDP/HTTP/CoAP/Modbus/EMQX 均依赖 core。

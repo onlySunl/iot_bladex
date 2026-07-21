@@ -14,8 +14,8 @@
     </parent>
 
     <artifactId>iot-entity-rule</artifactId>
-    <name>IoT-规则 任务实体模块</name>
-    <description>存放规则引擎、定时任务、规则任务相关DO、DTO、VO、数据库注解实体类</description>
+    <name>iot-entity-rule</name>
+    <description>存放规则引擎、定时任务、规则任务相关DO、DTO、VO、数据库注解实体</description>
 
     <properties>
         <!-- 日志、链路追踪区分模块唯一标识 -->

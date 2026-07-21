@@ -10,30 +10,27 @@
     </parent>
 
     <artifactId>iot-component-http</artifactId>
-    <description>
-        iot-component-http 告警接口模块
-    </description>
+    <description>iot-component-http HTTP/HTTPS 设备上报接入组件</description>
     <properties>
-        <!-- 增加自动模块名称，解决空模块名报错 -->
         <module.name>iot.component.http</module.name>
     </properties>
-    <dependencies>
 
+    <dependencies>
+        <!-- IOT 组件核心 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-component-core</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>module-iot-api</artifactId>
         </dependency>
 
+        <!-- Vert.x Web -->
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-web</artifactId>
         </dependency>
-
     </dependencies>
 
 </project>

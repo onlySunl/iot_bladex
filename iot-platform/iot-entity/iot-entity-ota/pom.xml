@@ -14,8 +14,8 @@
     </parent>
 
     <artifactId>iot-entity-ota</artifactId>
-    <name>IoT-OTA升级实体模块</name>
-    <description>存放固件包、升级任务、升级记录相关DO、DTO、VO、数据库注解实体类</description>
+    <name>iot-entity-ota</name>
+    <description>存放固件包、升级任务、升级记录相关DO、DTO、VO、数据库注解实体</description>
 
     <properties>
         <!-- 日志、链路追踪区分模块唯一标识 -->

@@ -4,51 +4,45 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- 父工程：nvr-platform顶层聚合根工程，version固定字面量，禁止变量 -->
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>nvr-platform</artifactId>
         <version>4.2.0.RELEASE</version>
-        <!-- 本地优先读取上层总pom，减少远程仓库请求 -->
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>nvr-common</artifactId>
-    <name>NVR视频平台公共基础模块</name>
-    <description>存放NVR全局常量、业务枚举、通用工具类、统一异常、基础DTO实体</description>
+    <name>nvr-common</name>
+    <description>存放 NVR 全局常量、业务枚举、通用工具类、统一异常、基础 DTO 实体</description>
 
     <properties>
-        <!-- 日志、链路追踪区分模块唯一标识 -->
         <module.name>nvr.common</module.name>
-        <!-- 统一源码、报告输出编码，Windows/Linux中文注释不乱码 -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencies>
-        <!-- ===================== Blade底层基础工具 ===================== -->
+
+        <!-- ===== 1. BladeX 底层基础工具 ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-tool</artifactId>
         </dependency>
 
-        <!-- ===================== 仅编译期注解依赖（运行时不传递，规避javax.annotation冲突） ===================== -->
+        <!-- ===== 2. Feign 远程调用 ===== -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-core</artifactId>
+        </dependency>
+
+        <!-- ===== 3. Lombok（编译期） ===== -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- ===================== Feign远程调用核心依赖 ===================== -->
-        <!-- OpenFeign starter 基础封装 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <!-- Feign原生核心包，无SpringCloud强依赖 -->
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-core</artifactId>
-        </dependency>
     </dependencies>
 </project>

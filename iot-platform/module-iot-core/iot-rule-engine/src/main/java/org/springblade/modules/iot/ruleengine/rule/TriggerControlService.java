@@ -1,7 +1,6 @@
 package org.springblade.modules.iot.ruleengine.rule;
 
 import com.alibaba.ttl.threadpool.TtlExecutors;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RBlockingQueue;
 import org.redisson.api.RDelayedQueue;
@@ -15,7 +14,8 @@ import org.springblade.modules.iot.common.context.TenantContextHolder;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
 import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PreDestroy;
@@ -34,8 +34,6 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Component
-@ConditionalOnBean(RedissonClient.class)
-@RequiredArgsConstructor
 public class TriggerControlService implements InitializingBean {
 
     // Redis Key 常量统一管理
@@ -48,9 +46,17 @@ public class TriggerControlService implements InitializingBean {
     // 线程池等待关闭超时
     private static final long SHUTDOWN_WAIT_SEC = 3L;
 
-    private final RedissonClient redissonClient;
+    private RedissonClient redissonClient;
     private final RuleManager ruleManager;
     private final RuleExecutor ruleExecutor;
+
+    public TriggerControlService(@Autowired(required = false) RedissonClient redissonClient,
+                                  @Lazy RuleManager ruleManager,
+                                  @Lazy RuleExecutor ruleExecutor) {
+        this.redissonClient = redissonClient;
+        this.ruleManager = ruleManager;
+        this.ruleExecutor = ruleExecutor;
+    }
 
     private RBlockingQueue<TriggerJob> actionQueue;
     private RDelayedQueue<TriggerJob> actionDelayedQueue;
@@ -62,6 +68,10 @@ public class TriggerControlService implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
+        if (redissonClient == null) {
+            log.warn("RedissonClient 不可用，TriggerControlService 限频/延时/告警恢复功能已禁用");
+            return;
+        }
         // 初始化阻塞队列与延迟队列
         actionQueue = redissonClient.getBlockingQueue(ACTION_QUEUE);
         actionDelayedQueue = redissonClient.getDelayedQueue(actionQueue);
@@ -148,6 +158,9 @@ public class TriggerControlService implements InitializingBean {
      * 流量限流校验：最小触发间隔控制
      */
     public boolean passRateLimit(Long ruleId, TriggerOptions options) {
+        if (redissonClient == null) {
+            return true;
+        }
         if (options == null || options.getMinIntervalSec() == null || options.getMinIntervalSec() <= 0) {
             return true;
         }
@@ -196,6 +209,10 @@ public class TriggerControlService implements InitializingBean {
      * 执行规则动作：区分即时执行 / 延时入队
      */
     public void executeAction(Rule rule, ThingModelMessage msg, TriggerOptions options) {
+        if (redissonClient == null) {
+            ruleExecutor.executeActions(rule, msg, false);
+            return;
+        }
         long delayMs = 0L;
         if (options != null && options.getDelaySec() != null && options.getDelaySec() > 0) {
             delayMs = options.getDelaySec() * 1000L;
@@ -214,6 +231,9 @@ public class TriggerControlService implements InitializingBean {
      * 调度告警自动恢复延时任务
      */
     public void scheduleRecoverIfNeeded(Rule rule, ThingModelMessage msg, TriggerOptions options) {
+        if (redissonClient == null) {
+            return;
+        }
         if (options == null || options.getEnableAlertRecover() == null || !options.getEnableAlertRecover()) {
             return;
         }

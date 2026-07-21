@@ -15,7 +15,7 @@
 
     <artifactId>nvr-protocol-qs</artifactId>
     <packaging>jar</packaging>
-    <name>QS球机协议底层实现模块</name>
+    <name>nvr-protocol-qs</name>
     <description>实现QS标准球机通信、云台控制、视频流交互、设备状态获取底层协议逻辑</description>
 
     <properties>

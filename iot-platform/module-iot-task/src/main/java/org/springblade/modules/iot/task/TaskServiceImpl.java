@@ -44,6 +44,7 @@ import java.util.UUID;
 
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 
 @Slf4j
 public class TaskServiceImpl implements TaskService, ApplicationContextAware, ApplicationRunner {
@@ -62,8 +63,10 @@ public class TaskServiceImpl implements TaskService, ApplicationContextAware, Ap
     /**
      * 系统启动完成后初始化任务
      * 使用 ApplicationRunner 确保 Spring 上下文完全就绪后再加载任务
+     * @Order(20) 确保在 DataInitService(@Order(10)) 之后执行
      */
     @Override
+    @Order(20)
     public void run(ApplicationArguments args) {
         log.info("System startup completed, initializing IoT scheduled tasks...");
         try {

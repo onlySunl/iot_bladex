@@ -14,7 +14,7 @@
     </parent>
 
     <artifactId>iot-entity-thingmodel</artifactId>
-    <name>IoT-物模型实体模块</name>
+    <name>iot-entity-thingmodel</name>
     <description>存放产品物模型、属性、事件、服务相关DO、DTO、VO、数据库注解实体类</description>
 
     <properties>

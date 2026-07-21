@@ -14,8 +14,8 @@
     </parent>
 
     <artifactId>iot-entity-device</artifactId>
-    <name>IoT-设备实体模块</name>
-    <description>存放产品、网关、子设备、虚拟设备相关DO、DTO、VO、数据库注解实体类</description>
+    <name>iot-entity-device</name>
+    <description>存放产品、网关、子设备、虚拟设备相关DO、DTO、VO、数据库注解实体</description>
 
     <properties>
         <!-- 链路追踪、日志区分模块标识 -->

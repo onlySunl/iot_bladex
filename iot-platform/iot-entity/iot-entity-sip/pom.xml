@@ -14,8 +14,8 @@
     </parent>
 
     <artifactId>iot-entity-sip</artifactId>
-    <name>IoT-SIP视频设备实体模块</name>
-    <description>存放SIP摄像头、视频设备、流媒体相关DO、DTO、VO、数据库注解实体类</description>
+    <name>iot-entity-sip</name>
+    <description>存放SIP摄像头、视频设备、流媒体相关DO、DTO、VO、数据库注解实体</description>
 
     <properties>
         <!-- 日志、链路追踪区分模块唯一标识 -->

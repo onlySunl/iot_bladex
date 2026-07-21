@@ -14,7 +14,7 @@
     </parent>
 
     <artifactId>nvr-api-dahua</artifactId>
-    <name>大华设备对接Feign接口模块</name>
+    <name>nvr-api-dahua</name>
     <description>封装大华摄像头/NVR设备SDK对接Feign远程接口、DTO实体、调用入参出参定义</description>
 
     <properties>

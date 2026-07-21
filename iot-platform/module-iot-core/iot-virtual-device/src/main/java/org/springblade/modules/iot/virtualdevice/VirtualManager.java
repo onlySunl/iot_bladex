@@ -44,13 +44,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import jakarta.annotation.PostConstruct;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.annotation.Order;
 
 import java.util.*;
 
 @Slf4j
-public class VirtualManager {
+public class VirtualManager implements ApplicationRunner {
     private final Map<Long, IScriptEngine> virtualScripts = new HashMap<>();
     private final Map<Long, Set<Long>> deviceIdToVirtualId = new HashMap<>();
 
@@ -69,22 +71,29 @@ public class VirtualManager {
     @Resource
     private IVirtualDeviceLogData virtualDeviceLogData;
 
-
-    @PostConstruct
-    public void init() {
-
+    /**
+     * 使用 ApplicationRunner 确保 Spring 容器完全就绪后再加载虚拟设备任务
+     * 比 @PostConstruct 更可靠，避免依赖的 Bean（如 Feign Client、Scheduler）未就绪
+     * @Order(30) 确保在 DataInitService 和 TaskServiceImpl 之后执行
+     */
+    @Override
+    @Order(30)
+    public void run(ApplicationArguments args) {
+        log.info("VirtualManager: 系统就绪，开始加载虚拟设备任务...");
+        // 延迟 3 秒确保 Feign Client 和 Scheduler 完全就绪
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
                 TenantUtils.executeIgnore(() -> {
                     List<VirtualDevice> virtualDevices = getAllVirtualDevices();
+                    log.info("VirtualManager: 加载 {} 个虚拟设备", virtualDevices.size());
                     for (VirtualDevice virtualDevice : virtualDevices) {
                         addTask(virtualDevice);
                     }
                 });
 
             }
-        }, 8000);
+        }, 3000);
     }
 
     /**

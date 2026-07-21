@@ -103,7 +103,6 @@ public class BladeConfiguration implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new InternalCallInterceptor())
-			.addPathPatterns("/api/**")
 			.order(Integer.MIN_VALUE);
 	}
 

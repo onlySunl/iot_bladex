@@ -26,10 +26,16 @@
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
         </dependency>
 
-        <!-- Easy-ES -->
+        <!-- Easy-ES（版本由 iot-platform 父 POM 统一管理） -->
         <dependency>
-            <groupId>cn.easy-es</groupId>
+            <groupId>org.dromara.easy-es</groupId>
             <artifactId>easy-es-boot-starter</artifactId>
+        </dependency>
+
+        <!-- MapStruct DTO 映射（版本由 iot-platform 父 POM 统一管理） -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
         </dependency>
 
         <!-- Lombok -->

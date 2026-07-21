@@ -4,107 +4,38 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- 顶层父工程：NVR视频平台总聚合根工程 -->
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>nvr-platform</artifactId>
         <version>4.2.0.RELEASE</version>
-        <!-- 本地优先读取上层pom，减少远程仓库请求，多模块编译提速 -->
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>nvr-protocol</artifactId>
     <packaging>pom</packaging>
-    <name>NVR视频协议底层实现聚合模块</name>
+    <name>nvr-protocol</name>
     <description>
         聚合所有摄像头、流媒体、车载国标底层通信实现模块，统一管控全部协议子模块版本；
-        包含公共协议基础、海康ISUP、QS球机、ZLM流媒体，预留GB28181/大华/ONVIF/JT1078扩展模块。
+        包含公共协议基础、海康 ISUP、QS 球机、ZLM 流媒体，预留 GB28181/大华/ONVIF/JT1078 扩展模块。
     </description>
 
     <properties>
-        <!-- 项目全局统一版本，所有内部子模块复用 -->
-        <project.version>4.2.0.RELEASE</project.version>
-        <!-- 链路追踪、日志区分模块唯一标识 -->
         <module.name>nvr.protocol</module.name>
-        <!-- 统一源码、报告输出编码，Windows/Linux中文注释不乱码 -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
-    <!-- 全局统一版本管控，所有协议子模块引入无需写version -->
-    <dependencyManagement>
-        <dependencies>
-            <!-- ===================== 协议公共基础模块 ===================== -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-protocol-common</artifactId>
-                <version>${project.version}</version>
-            </dependency>
+    <!-- 子模块引入无需写 version，由 nvr-platform 父 POM 统一管理 -->
 
-            <!-- ===================== 已启用协议实现模块 ===================== -->
-            <!-- QS球机底层协议实现 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-protocol-qs</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!-- ZLM流媒体底层推拉流实现 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-protocol-zlm</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!-- 海康ISUP私有协议底层通信 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-protocol-haikang-isup</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <!-- ===================== 待开发/注释预留协议模块 ===================== -->
-            <!-- GB28181国标SIP协议底层 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-protocol-gb28181</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!-- 海康标准SDK底层实现 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-protocol-haikang</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!-- 大华设备协议底层实现 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-protocol-dahua</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!-- ONVIF通用设备协议底层 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-protocol-onvif</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!-- JT1078车载视频部标底层 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-protocol-jt1078</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <!-- NVR底层协议子模块清单 -->
+    <!-- ==================== 协议子模块清单 ==================== -->
     <modules>
         <module>nvr-protocol-common</module>        <!-- 协议公共基础、报文解析、网络工具基类 -->
-        <module>nvr-protocol-qs</module>           <!-- QS球机协议底层实现 -->
-        <module>nvr-protocol-zlm</module>          <!-- ZLMediaKit流媒体底层实现 -->
-        <module>nvr-protocol-haikang-isup</module> <!-- 海康ISUP私有协议底层实现 -->
-        <!--<module>nvr-protocol-gb28181</module>      GB28181国标SIP协议（待开发）-->
-        <!--<module>iot-protocol-haikang</module>      海康标准SDK底层（待开发）-->
-        <!--<module>nvr-protocol-dahua</module>         大华设备协议底层（待开发）-->
-        <!--<module>nvr-protocol-onvif</module>        ONVIF通用协议底层（待开发）-->
-        <!--<module>nvr-protocol-jt1078</module>       JT1078车载视频部标底层（待开发）-->
+        <module>nvr-protocol-qs</module>           <!-- QS 球机协议底层实现 -->
+        <module>nvr-protocol-zlm</module>          <!-- ZLMediaKit 流媒体底层实现 -->
+        <module>nvr-protocol-haikang-isup</module> <!-- 海康 ISUP 私有协议底层实现 -->
+        <!-- 以下模块待开发 -->
+        <!--<module>nvr-protocol-gb28181</module>-->
+        <!--<module>iot-protocol-haikang</module>-->
+        <!--<module>nvr-protocol-dahua</module>-->
+        <!--<module>nvr-protocol-onvif</module>-->
+        <!--<module>nvr-protocol-jt1078</module>-->
     </modules>
 </project>

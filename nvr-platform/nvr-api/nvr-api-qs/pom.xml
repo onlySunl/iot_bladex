@@ -14,7 +14,7 @@
     </parent>
 
     <artifactId>nvr-api-qs</artifactId>
-    <name>QS球机通用协议Feign接口模块</name>
+    <name>nvr-api-qs</name>
     <description>封装QS标准球机设备云台、视频、参数配置相关Feign远程接口与交互DTO实体类</description>
 
     <properties>

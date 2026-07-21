@@ -14,7 +14,7 @@
     </parent>
 
     <artifactId>nvr-api-jt1078</artifactId>
-    <name>JT1078车载视频部标Feign接口模块</name>
+    <name>nvr-api-jt1078</name>
     <description>封装JT1078车载视频协议设备远程调用Feign接口、报文DTO、请求响应实体类</description>
 
     <properties>

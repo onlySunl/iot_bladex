@@ -7,22 +7,20 @@
         <groupId>org.springblade</groupId>
         <artifactId>module-iot-core</artifactId>
         <version>4.2.0.RELEASE</version>
-
     </parent>
+
     <artifactId>iot-common-thing</artifactId>
-    <description>
-        iot-common-thing 告警接口模块
-    </description>
+    <description>iot-common-thing 物模型基础封装模块</description>
     <properties>
-        <!-- 增加自动模块名称，解决空模块名报错 -->
         <module.name>iot.common.thing</module.name>
     </properties>
+
     <dependencies>
+        <!-- Lombok（编译期） -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
-
 
 </project>

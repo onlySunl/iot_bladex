@@ -14,7 +14,7 @@
     </parent>
 
     <artifactId>nvr-api-haikang-isup</artifactId>
-    <name>海康ISUP私有协议Feign接口模块</name>
+    <name>nvr-api-haikang-isup</name>
     <description>封装海康ISUP私有协议设备对接Feign远程接口、交互DTO、请求/响应实体类</description>
 
     <properties>

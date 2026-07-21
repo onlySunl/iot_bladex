@@ -15,7 +15,7 @@
 
     <artifactId>nvr-protocol-zlm</artifactId>
     <packaging>jar</packaging>
-    <name>ZLMediaKit流媒体底层协议实现模块</name>
+    <name>nvr-protocol-zlm</name>
     <description>封装ZLM流媒体推拉流、回放、录制、转码、设备通道管理底层通信逻辑</description>
 
     <properties>

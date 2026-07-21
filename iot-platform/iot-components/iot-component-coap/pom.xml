@@ -14,7 +14,7 @@
     </parent>
 
     <artifactId>iot-component-coap</artifactId>
-    <name>IoT-CoAP低功耗协议组件</name>
+    <name>iot-component-coap</name>
     <description>基于Californium实现CoAP物联网协议接入组件，支持窄带、低功耗设备上报、下发指令</description>
 
     <properties>

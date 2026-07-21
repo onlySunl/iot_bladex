@@ -3,7 +3,7 @@ package org.springblade.modules.iot.common.utils;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ArrayUtil;
-import com.alibaba.nacos.shaded.com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap;
 import org.springblade.core.tool.utils.CollectionUtil;
 import org.springblade.modules.iot.common.entity.PageResult;
 

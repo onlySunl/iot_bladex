@@ -14,7 +14,7 @@
     </parent>
 
     <artifactId>nvr-api-onvif</artifactId>
-    <name>ONVIF通用摄像头协议Feign接口模块</name>
+    <name>nvr-api-onvif</name>
     <description>封装ONVIF标准协议设备查询、云台控制、视频预览等远程调用Feign接口与交互DTO实体</description>
 
     <properties>

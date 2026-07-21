@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springblade</groupId>
-        <artifactId>BLADE_IOT</artifactId>
+        <artifactId>iot_bladex</artifactId>
         <version>4.2.0.RELEASE</version>
     </parent>
 
@@ -19,111 +19,108 @@
     </properties>
 
     <dependencies>
-        <!-- ↓ BladeX依赖库 ↓ -->
+
+        <!-- ===== 1. BladeX 基础模块 ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-common</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-api</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
+
+        <!-- ===== 2. NVR 视频平台公共模块 ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-common</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
-        <!-- IoT Platform (enjoy-iot migration) -->
+
+        <!-- ===== 3. IOT 物联网核心模块 ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>module-iot-api</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>module-iot-biz</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-common-core</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-common-thing</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-component-core</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
-        <!-- Redisson for rule engine -->
-        <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson-spring-boot-starter</artifactId>
-            <version>3.41.0</version>
-        </dependency>
+
+        <!-- ===== 4. NVR 各厂商 API 模块 ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-dahua</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-gb28181</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-haikang</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-haikang-isup</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-jt1078</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-onvif</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-qs</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
-
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-zlm</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
+
+        <!-- ===== 5. NVR 协议底层实现模块 ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-protocol-qs</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-protocol-haikang-isup</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-protocol-zlm</artifactId>
-            <version>4.2.0.RELEASE</version>
         </dependency>
+
+        <!-- ===== 6. Redisson 分布式锁/队列（规则引擎使用） ===== -->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+            <version>3.27.2</version>
+        </dependency>
+
+        <!-- ===== 7. Spring Boot Data Redis（Blade 框架的 RedisTemplateConfiguration 需要 RedisTemplate bean） ===== -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
     </dependencies>
+
     <build>
         <finalName>${bladex.project.id}</finalName>
         <resources>
@@ -146,11 +143,10 @@
                     <configuration>
                         <finalName>${project.build.finalName}</finalName>
                         <excludes>
-                            <!-- 打包的 jar 中排除 lombok -->
-                            <ex0clude>
+                            <exclude>
                                 <groupId>org.projectlombok</groupId>
                                 <artifactId>lombok</artifactId>
-                            </ex0clude>
+                            </exclude>
                         </excludes>
                     </configuration>
                     <executions>
@@ -173,7 +169,7 @@
                         <registry>${docker.registry.url}</registry>
                         <images>
                             <image>
-                                <name>${docker.namespace}/${project.build.finalName}:${project.version}</name>
+                                <name>blade-server</name>
                                 <alias>${project.name}</alias>
                                 <build>
                                     <dockerFile>${project.basedir}/Dockerfile</dockerFile>
@@ -206,7 +202,5 @@
             </plugin>
         </plugins>
     </build>
-
-
 
 </project>

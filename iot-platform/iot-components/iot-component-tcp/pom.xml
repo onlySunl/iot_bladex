@@ -10,26 +10,23 @@
     </parent>
 
     <artifactId>iot-component-tcp</artifactId>
-    <description>
-        iot-component-tcp
-    </description>
+    <description>iot-component-tcp TCP 透传工业设备接入组件</description>
     <properties>
-        <!-- 增加自动模块名称，解决空模块名报错 -->
         <module.name>iot.component.tcp</module.name>
     </properties>
 
     <dependencies>
-
+        <!-- IOT 组件核心 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-component-core</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>module-iot-api</artifactId>
         </dependency>
 
+        <!-- Vert.x MQTT & Netty -->
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-mqtt</artifactId>
@@ -38,7 +35,6 @@
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
         </dependency>
-
     </dependencies>
 
 </project>

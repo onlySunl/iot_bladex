@@ -18,6 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface RemoteIotThingModelService {
 
     /** 根据产品Key从缓存获取物模型 */
-    @GetMapping("/api/thingModelApi/getThingModelByProductKeyFromCache")
+    @GetMapping("/api/inner/thingModelApi/getThingModelByProductKeyFromCache")
     ThingModel getThingModelByProductKeyFromCache(@RequestParam("pk") String pk);
 }

@@ -14,7 +14,7 @@
     </parent>
 
     <artifactId>nvr-api-haikang</artifactId>
-    <name>海康设备对接Feign接口模块</name>
+    <name>nvr-api-haikang</name>
     <description>封装海康NVR、摄像头设备对接Feign远程接口、DTO、入参出参实体定义</description>
 
     <properties>
