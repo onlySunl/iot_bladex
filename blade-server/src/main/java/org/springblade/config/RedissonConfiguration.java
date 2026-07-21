@@ -35,7 +35,7 @@ public class RedissonConfiguration {
         Config config = new Config();
         String address = "redis://" + redisHost + ":" + redisPort;
         
-        config.useSingleServerConfig()
+        config.useSingleServer()
                 .setAddress(address)
                 .setDatabase(database)
                 .setConnectionMinimumIdleSize(10)
@@ -45,7 +45,7 @@ public class RedissonConfiguration {
         
         // 如果设置了密码，则配置密码
         if (redisPassword != null && !redisPassword.isEmpty()) {
-            config.useSingleServerConfig().setPassword(redisPassword);
+            config.useSingleServer().setPassword(redisPassword);
         }
         
         return Redisson.create(config);
