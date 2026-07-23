@@ -25,19 +25,29 @@
  */
 package org.springblade.modules.system.wrapper;
 
+import org.springblade.core.mp.support.BaseEntityWrapper;
+import org.springblade.core.tool.utils.BeanUtil;
 import org.springblade.core.tool.utils.Func;
+import org.springblade.modules.system.pojo.entity.Tenant;
+import org.springblade.modules.system.pojo.vo.TenantVO;
 
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 包装类,返回视图层所需的字段
  *
  * @author Chill
  */
-public class TenantWrapper {
+public class TenantWrapper extends BaseEntityWrapper<Tenant, TenantVO> {
 
 	public static TenantWrapper build() {
 		return new TenantWrapper();
+	}
+
+	@Override
+	public TenantVO entityVO(Tenant tenant) {
+		return Objects.requireNonNull(BeanUtil.copyProperties(tenant, TenantVO.class));
 	}
 
 	/**
@@ -52,5 +62,4 @@ public class TenantWrapper {
 			entity.put(searchKey, Func.toInt(entity.get(searchKey)));
 		}
 	}
-
 }

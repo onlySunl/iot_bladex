@@ -36,6 +36,7 @@ import org.springframework.stereotype.Service;
  *
  * @author Chill
  */
+//@Master
 @Service
 public class TenantDatasourceServiceImpl extends BaseServiceImpl<TenantDatasourceMapper, TenantDatasource> implements ITenantDatasourceService {
 

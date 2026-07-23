@@ -65,6 +65,16 @@ public interface ITenantService extends BaseService<Tenant> {
 	boolean submitTenant(Tenant tenant);
 
 	/**
+	 * 配置租户授权
+	 *
+	 * @param accountNumber
+	 * @param expireTime
+	 * @param ids
+	 * @return
+	 */
+	boolean setting(Integer accountNumber, Date expireTime, String ids);
+
+	/**
 	 * 删除至回收站
 	 *
 	 * @param ids
@@ -87,15 +97,5 @@ public interface ITenantService extends BaseService<Tenant> {
 	 * @return
 	 */
 	boolean removeTenant(List<Long> ids);
-
-	/**
-	 * 配置租户授权
-	 *
-	 * @param accountNumber
-	 * @param expireTime
-	 * @param ids
-	 * @return
-	 */
-	boolean setting(Integer accountNumber, Date expireTime, String ids);
 
 }

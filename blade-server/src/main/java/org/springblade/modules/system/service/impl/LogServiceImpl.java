@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
  *
  * @author zhuangqian
  */
+//@Master
 @Service
 @AllArgsConstructor
 public class LogServiceImpl implements ILogService {

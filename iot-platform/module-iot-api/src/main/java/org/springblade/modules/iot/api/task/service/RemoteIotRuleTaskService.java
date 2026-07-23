@@ -29,18 +29,18 @@ public interface RemoteIotRuleTaskService {
     /**
      * 根据任务ID获取任务详情
      */
-    @GetMapping("/api/inner/ruleTaskApi/getTask")
+    @GetMapping("/ruleTaskApi/getTask")
     TaskInfo getTask(@RequestParam("id") Long id);
 
     /**
      * 更新任务信息
      */
-    @PostMapping("/api/inner/ruleTaskApi/updateTask")
+    @PostMapping("/ruleTaskApi/updateTask")
     void updateTask(@RequestBody TaskInfo req);
 
     /**
      * 分页查询任务列表
      */
-    @PostMapping("/api/inner/ruleTaskApi/selectTaskPage")
+    @PostMapping("/ruleTaskApi/selectTaskPage")
     PageResult<TaskInfo> selectTaskPage(@RequestBody TaskInfoPageReq request);
 }

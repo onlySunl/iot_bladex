@@ -70,4 +70,21 @@ public interface IUserSearchService extends BaseService<User> {
 	 */
 	List<User> listByRole(List<Long> roleId);
 
+	/**
+	 * 查询主管列表
+	 *
+	 * @param tenantId 租户ID
+	 * @param realName 真实姓名
+	 * @return 用户列表
+	 */
+	List<User> listLeader(String tenantId, String realName);
+
+	/**
+	 * 查询用户的主管列表
+	 *
+	 * @param userId 用户ID
+	 * @return 用户信息
+	 */
+	List<User> getLeader(List<Long> userId);
+
 }

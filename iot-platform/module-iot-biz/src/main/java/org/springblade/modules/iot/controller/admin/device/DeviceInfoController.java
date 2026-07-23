@@ -1,5 +1,3 @@
-
-
 package org.springblade.modules.iot.controller.admin.device;
 
 import cn.hutool.core.util.ObjectUtil;
@@ -26,7 +24,6 @@ import org.springblade.modules.iot.service.device.DeviceCtrlService;
 import org.springblade.modules.iot.service.device.DeviceInfoService;
 import org.springblade.modules.iot.service.device.DeviceManagerService;
 import org.springblade.modules.iot.service.sip.SipRelationService;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -65,7 +62,6 @@ public class DeviceInfoController {
 
     @PostMapping("/create")
     @Operation(summary = "创建设备信息")
-    @PreAuthorize("@ss.hasPermission('iot:device-info:create')")
     public CommonResult<Long> createDeviceInfo(@Valid @RequestBody DeviceInfoSaveReqVO createReqVO) {
         return success(deviceInfoService.createDeviceInfo(createReqVO));
     }
@@ -74,7 +70,6 @@ public class DeviceInfoController {
      * 导入设备-批量添加设备
      */
     @Operation(summary = "导入设备")
-    @PreAuthorize("@ss.hasPermission('iot:device-info:create')")
     @PostMapping("/importData")
     public CommonResult<DeviceImportRespVO> importDevice(@RequestPart("file") MultipartFile file, @RequestParam("productId") Long productId) throws IOException {
         List<DeviceInfoImportVo> list = ExcelUtils.read(file, DeviceInfoImportVo.class);
@@ -97,7 +92,6 @@ public class DeviceInfoController {
 
     @PutMapping("/update")
     @Operation(summary = "更新设备信息")
-    @PreAuthorize("@ss.hasPermission('iot:device-info:update')")
     public CommonResult<Boolean> updateDeviceInfo(@Valid @RequestBody DeviceInfoSaveReqVO updateReqVO) {
         deviceInfoService.updateDeviceInfo(updateReqVO);
         return success(true);
@@ -106,7 +100,6 @@ public class DeviceInfoController {
     @DeleteMapping("/delete")
     @Operation(summary = "删除设备信息")
     @Parameter(name = "id", description = "编号", required = true)
-    @PreAuthorize("@ss.hasPermission('iot:device-info:delete')")
     public CommonResult<Boolean> deleteDeviceInfo(@RequestParam("id") Long id) {
         deviceInfoService.deleteDeviceInfo(id);
         return success(true);
@@ -115,7 +108,6 @@ public class DeviceInfoController {
     @DeleteMapping("/deleteBatch")
     @Operation(summary = "删除设备信息")
     @Parameter(name = "ids", description = "编号", required = true)
-    @PreAuthorize("@ss.hasPermission('iot:device-info:delete')")
     public CommonResult<Boolean> deleteByIds(@RequestParam("ids") List<Long> ids) {
         deviceInfoService.deleteByIds(ids);
         return success(true);
@@ -124,7 +116,6 @@ public class DeviceInfoController {
     @GetMapping("/get")
     @Operation(summary = "获得设备信息")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
-    @PreAuthorize("@ss.hasPermission('iot:device-info:query')")
     public CommonResult<DeviceInfoRespVO> getDeviceInfo(@RequestParam("id") Long id) {
         DeviceInfo deviceInfo = deviceInfoService.getDeviceInfo(id);
         return success(BeanUtils.toBean(deviceInfo, DeviceInfoRespVO.class));
@@ -132,7 +123,6 @@ public class DeviceInfoController {
 
     @Operation(summary = "获得设备信息")
     @GetMapping(value = "/getDeviceBySerialNumber/{serialNumber}")
-    @PreAuthorize("@ss.hasPermission('iot:device-info:query')")
     public CommonResult<DeviceInfoRespVO> getDeviceBySerialNumber(@PathVariable("serialNumber") String serialNumber) {
         DeviceInfo deviceInfo = deviceInfoService.getDeviceBySerialNo(serialNumber);
         DeviceInfoRespVO ret = BeanUtil.copy(deviceInfo, DeviceInfoRespVO.class);
@@ -150,7 +140,6 @@ public class DeviceInfoController {
 
     @GetMapping("/page")
     @Operation(summary = "获得设备信息分页")
-    @PreAuthorize("@ss.hasPermission('iot:device-info:query')")
     public CommonResult<PageResult<DeviceShortRespVO>> getDeviceInfoPage(@Valid DeviceInfoPageReqVO pageReqVO) {
         PageResult<DeviceShortInfo> pageResult = deviceInfoService.getDeviceInfoPage(pageReqVO);
         return success(BeanUtils.toBean(pageResult, DeviceShortRespVO.class));
@@ -158,7 +147,6 @@ public class DeviceInfoController {
 
     @GetMapping("/export-excel")
     @Operation(summary = "导出设备信息 Excel")
-    @PreAuthorize("@ss.hasPermission('iot:device-info:export')")
     public void exportDeviceInfoExcel(@Valid DeviceInfoPageReqVO pageReqVO,
               HttpServletResponse response) throws IOException {
         pageReqVO.setPageSize(PageParam.PAGE_SIZE_NONE);
@@ -203,14 +191,12 @@ public class DeviceInfoController {
     }
 
     @Operation(summary = "设备物模型日志")
-    @PreAuthorize("@ss.hasPermission('iot:deviceLog:query')")
     @PostMapping("/deviceLogs/list")
     public CommonResult<PageResult<ThingModelMessage>> logs(@Validated @RequestBody DeviceLogPageReqVo request) {
         return success( deviceManagerService.logs(request));
     }
 
     @Operation(summary = "获取设备属性历史数据")
-    @PreAuthorize("@ss.hasPermission('iot:deviceLog:query')")
     @PostMapping("/deviceProperty/log/list")
     public CommonResult<List<DeviceProperty>> getPropertyHistory(@Validated @RequestBody
                                                                  DevicePropertyLogQueryBo data) {
@@ -222,14 +208,12 @@ public class DeviceInfoController {
     }
 
     @Operation(summary = "添加标签")
-    @PreAuthorize("@ss.hasPermission('iot:device:edit')")
     @PostMapping("/tag/add")
     public CommonResult<Boolean>  addTag(@Validated @RequestBody DeviceTagAddBo bo) {
         return success( deviceManagerService.addTag(bo));
     }
 
     @Operation(summary = "模拟设备上报")
-    @PreAuthorize("@ss.hasPermission('iot:device:query')")
     @PostMapping("/simulateSend")
     public CommonResult<Boolean>  simulateSend(
             @Validated @RequestBody ThingModelMessageBo bo) {
@@ -241,7 +225,7 @@ public class DeviceInfoController {
      * 消费设备信息消息（实时推送设备信息）
      */
 //    @Operation(summary = "消费设备信息消息（实时推送设备信息）")
-//    @PreAuthorize("@ss.hasPermission('iot:device:query")
+//
 //    @PostMapping("/consumer")
 //    public CommonResult< DeferredResult<ThingModelMessage> consumerDeviceInfo(
 //            @Validated @RequestBody DeviceConsumerBo> bo
@@ -254,7 +238,6 @@ public class DeviceInfoController {
      * 获取分组列表
      */
     @Operation(summary = "获取分组列表")
-    @PreAuthorize("@ss.hasPermission('iot:deviceGroup:query')")
     @PostMapping("/groups/list")
     public CommonResult< PageResult<DeviceGroup>> getDeviceGroups(
             @Validated @RequestBody DeviceGroupPageReqVO pageRequest) {
@@ -265,7 +248,6 @@ public class DeviceInfoController {
      * 添加设备分组
      */
     @Operation(summary = "添加设备分组")
-    @PreAuthorize("@ss.hasPermission('iot:deviceGroup:add')")
     @PostMapping("/group/add")
     public CommonResult<Boolean>  addGroup(@Validated @RequestBody DeviceGroupBo group) {
         return success( deviceManagerService.addGroup(group));
@@ -276,7 +258,6 @@ public class DeviceInfoController {
      * 导入设备分组-批量添加设备分组
      */
     @Operation(summary = "导入设备分组")
-    @PreAuthorize("@ss.hasPermission('iot:deviceGroup:add')")
     @PostMapping("/group/importData")
     public CommonResult<GroupImportRespVO>  importGroup(@RequestPart("file") MultipartFile file, @RequestParam(value = "updateSupport", required = false, defaultValue = "false") Boolean updateSupport) throws IOException {
         List<DeviceGroupImportVo> list = ExcelUtils.read(file, DeviceGroupImportVo.class);
@@ -299,7 +280,6 @@ public class DeviceInfoController {
      * 修改设备分组
      */
     @Operation(summary = "修改设备分组")
-    @PreAuthorize("@ss.hasPermission('iot:deviceGroup:edit')")
     @PostMapping("/group/edit")
     public CommonResult<Boolean> editGroup(@RequestBody @Validated DeviceGroupBo bo) {
         return success( deviceManagerService.updateGroup(bo));
@@ -310,7 +290,6 @@ public class DeviceInfoController {
      * 删除分组
      */
     @Operation(summary = "删除分组")
-    @PreAuthorize("@ss.hasPermission('iot:deviceGroup:remove')")
     @PostMapping("/group/delete")
     public CommonResult<Boolean> deleteGroup(@Validated @RequestBody IdReqVo request) {
 
@@ -321,7 +300,6 @@ public class DeviceInfoController {
      * 清空组下所有设备
      */
     @Operation(summary = "清空组下所有设备")
-    @PreAuthorize("@ss.hasPermission('iot:deviceGroup:remove')")
     @PostMapping("/group/clear")
     public CommonResult<Boolean> clearGroup(@Validated @RequestBody IdReqVo req) {
         return success( deviceManagerService.clearGroup(req.getId()));
@@ -331,7 +309,6 @@ public class DeviceInfoController {
      * 添加设备到组
      */
     @Operation(summary = "添加设备到组")
-    @PreAuthorize("@ss.hasPermission('iot:deviceGroup:edit')")
     @PostMapping("/group/addDevices")
     public CommonResult<Boolean> addToGroup(@Validated @RequestBody DeviceAddGroupBo bo) {
         return success( deviceManagerService.addDevice2Group(bo));
@@ -341,7 +318,6 @@ public class DeviceInfoController {
      * 将设备从组中移除
      */
     @Operation(summary = "将设备从组中移除")
-    @PreAuthorize("@ss.hasPermission('iot:deviceGroup:edit')")
     @PostMapping("/group/removeDevices")
     public CommonResult<Boolean> removeDevices(@Validated @RequestBody DeviceAddGroupBo bo) {
 
@@ -352,7 +328,6 @@ public class DeviceInfoController {
      * 保存设备配置
      */
     @Operation(summary = "保存设备配置")
-    @PreAuthorize("@ss.hasPermission('iot:device:edit')")
     @PostMapping("/config/save")
     public CommonResult<Boolean> saveConfig(@Validated @RequestBody DeviceConfigAddBo request) {
         DeviceConfig data = BeanUtils.toBean(request, DeviceConfig.class);
@@ -363,7 +338,6 @@ public class DeviceInfoController {
      * 获取设备配置
      */
     @Operation(summary = "获取设备配置")
-    @PreAuthorize("@ss.hasPermission('iot:device:query')")
     @PostMapping("/config/get")
     public CommonResult<DeviceConfigVo> getConfig(@Validated @RequestBody DeviceIdReqVo request) {
         Long deviceId = request.getDeviceId();

@@ -29,7 +29,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import org.springblade.common.cache.DictCache;
 import org.springblade.common.constant.CommonConstant;
 import org.springblade.core.cache.utils.CacheUtil;
@@ -40,6 +39,7 @@ import org.springblade.core.tool.constant.BladeConstant;
 import org.springblade.core.tool.node.ForestNodeMerger;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.core.tool.utils.StringPool;
+import org.springblade.core.tool.utils.StringUtil;
 import org.springblade.modules.system.mapper.DictMapper;
 import org.springblade.modules.system.pojo.entity.Dict;
 import org.springblade.modules.system.pojo.vo.DictVO;
@@ -58,6 +58,7 @@ import static org.springblade.core.cache.constant.CacheConstant.DICT_CACHE;
  *
  * @author Chill
  */
+//@Master
 @Service
 public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements IDictService {
 
@@ -78,7 +79,12 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
 
 	@Override
 	public String getValue(String code, String dictKey) {
-		return Func.toStr(baseMapper.getValue(code, dictKey), StringPool.EMPTY);
+		List<Dict> dictList = baseMapper.selectList(Wrappers.<Dict>lambdaQuery().eq(Dict::getCode, code).eq(Dict::getDictKey, dictKey));
+		return dictList.stream()
+			.filter(dict -> StringUtil.equals(dict.getDictKey(), dictKey))
+			.findFirst()
+			.map(Dict::getDictValue)
+			.orElse(StringPool.EMPTY);
 	}
 
 	@Override

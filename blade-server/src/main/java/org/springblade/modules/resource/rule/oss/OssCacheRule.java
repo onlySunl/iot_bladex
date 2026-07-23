@@ -25,27 +25,29 @@
  */
 package org.springblade.modules.resource.rule.oss;
 
-import com.yomahub.liteflow.annotation.LiteflowComponent;
-import com.yomahub.liteflow.core.NodeSwitchComponent;
+import org.springblade.core.literule.annotation.LiteRuleComponent;
+import org.springblade.core.literule.core.RuleSwitchComponent;
 import org.springblade.modules.resource.rule.context.OssContext;
+
+import java.util.Collections;
+import java.util.List;
+
+import static org.springblade.modules.resource.rule.constant.OssRuleConstant.*;
 
 /**
  * Oss缓存判断
  *
  * @author Chill
  */
-@LiteflowComponent(id = "ossCacheRule", name = "OSS缓存判断")
-public class OssCacheRule extends NodeSwitchComponent {
+@LiteRuleComponent(id = OSS_CACHE_RULE, name = "OSS缓存判断")
+public class OssCacheRule extends RuleSwitchComponent {
 
 	@Override
-	public String processSwitch() {
+	public List<String> process() {
 		OssContext contextBean = this.getContextBean(OssContext.class);
 		// 若判断配置已缓存则直接读取，否则进入下一步构建新数据
-		if (contextBean.getIsCached()) {
-			return "ossReadRule";
-		} else {
-			return "ossNewRule";
-		}
+		String ruleName = contextBean.getIsCached() ? OSS_READ_RULE : OSS_NEW_RULE;
+		return Collections.singletonList(ruleName);
 	}
 
 }

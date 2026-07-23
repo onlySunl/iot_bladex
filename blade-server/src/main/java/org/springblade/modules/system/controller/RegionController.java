@@ -43,6 +43,7 @@ import org.springblade.core.excel.util.ExcelUtil;
 import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
+import org.springblade.core.secure.annotation.PreAuth;
 import org.springblade.core.tenant.annotation.NonDS;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.DateUtil;
@@ -67,6 +68,7 @@ import java.util.Map;
 @NonDS
 @RestController
 @AllArgsConstructor
+@PreAuth(menu = "region")
 @RequestMapping(AppConstant.APPLICATION_SYSTEM_NAME + "/region")
 @Tag(name = "行政区划", description = "行政区划")
 public class RegionController extends BladeController {

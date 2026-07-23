@@ -36,6 +36,7 @@ import org.springframework.stereotype.Service;
  *
  * @author Chill
  */
+//@Master
 @Service
 public class LogApiServiceImpl extends ServiceImpl<LogApiMapper, LogApi> implements ILogApiService {
 

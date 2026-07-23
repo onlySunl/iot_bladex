@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>iot-platform</artifactId>
-        <version>4.2.0.RELEASE</version>
+        <version>4.9.0.RELEASE</version>
     </parent>
 
     <artifactId>module-iot-biz</artifactId>
@@ -28,10 +28,6 @@
         </dependency>
 
         <!-- ===== 2. Spring Boot Starters ===== -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
@@ -93,58 +89,63 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-entity-alert</artifactId>
-            <version>4.2.0.RELEASE</version>
+            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-entity-virtual</artifactId>
-            <version>4.2.0.RELEASE</version>
+            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-entity-product</artifactId>
-            <version>4.2.0.RELEASE</version>
+            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-entity-common</artifactId>
-            <version>4.2.0.RELEASE</version>
+            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-entity-device</artifactId>
-            <version>4.2.0.RELEASE</version>
+            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-entity-ota</artifactId>
-            <version>4.2.0.RELEASE</version>
+            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-entity-component</artifactId>
-            <version>4.2.0.RELEASE</version>
+            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-entity-rule</artifactId>
-            <version>4.2.0.RELEASE</version>
+            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-entity-sip</artifactId>
-            <version>4.2.0.RELEASE</version>
+            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-entity-thingmodel</artifactId>
-            <version>4.2.0.RELEASE</version>
+            <version>4.9.0.RELEASE</version>
         </dependency>
 
         <!-- ===== 6. MapStruct DTO 映射 ===== -->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>

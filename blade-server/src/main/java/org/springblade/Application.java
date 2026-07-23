@@ -25,7 +25,6 @@
  */
 package org.springblade;
 
-import com.tangzc.autotable.springboot.EnableAutoTable;
 import org.springblade.common.constant.CommonConstant;
 import org.springblade.core.launch.BladeApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -44,7 +43,6 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableRedisHttpSession
 @SpringBootApplication
 @ServletComponentScan
-@EnableAutoTable
 @EnableFeignClients(basePackages = "org.springblade.modules")
 public class Application {
 

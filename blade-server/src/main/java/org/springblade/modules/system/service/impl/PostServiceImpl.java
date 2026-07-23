@@ -44,6 +44,7 @@ import java.util.stream.Collectors;
  *
  * @author Chill
  */
+//@Master
 @Service
 public class PostServiceImpl extends BaseServiceImpl<PostMapper, Post> implements IPostService {
 
@@ -55,7 +56,7 @@ public class PostServiceImpl extends BaseServiceImpl<PostMapper, Post> implement
 	@Override
 	public String getPostIds(String tenantId, String postNames) {
 		List<Post> postList = baseMapper.selectList(Wrappers.<Post>query().lambda().eq(Post::getTenantId, tenantId).in(Post::getPostName, Func.toStrList(postNames)));
-		if (postList != null && postList.size() > 0) {
+		if (postList != null && !postList.isEmpty()) {
 			return postList.stream().map(post -> Func.toStr(post.getId())).distinct().collect(Collectors.joining(","));
 		}
 		return null;
@@ -69,7 +70,7 @@ public class PostServiceImpl extends BaseServiceImpl<PostMapper, Post> implement
 			names.forEach(name -> wrapper.like(Post::getPostName, name).or());
 		});
 		List<Post> postList = baseMapper.selectList(queryWrapper);
-		if (postList != null && postList.size() > 0) {
+		if (postList != null && !postList.isEmpty()) {
 			return postList.stream().map(post -> Func.toStr(post.getId())).distinct().collect(Collectors.joining(","));
 		}
 		return null;

@@ -30,6 +30,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springblade.core.tenant.mp.TenantEntity;
+import org.springblade.core.tool.jackson.Sensitive;
+import org.springblade.core.tool.sensitive.SensitiveType;
 
 import java.io.Serial;
 
@@ -73,11 +75,13 @@ public class Oss extends TenantEntity {
 	/**
 	 * accessKey
 	 */
+	@Sensitive(type = SensitiveType.KEYS)
 	@Schema(description = "accessKey")
 	private String accessKey;
 	/**
 	 * secretKey
 	 */
+	@Sensitive(type = SensitiveType.KEYS)
 	@Schema(description = "secretKey")
 	private String secretKey;
 	/**

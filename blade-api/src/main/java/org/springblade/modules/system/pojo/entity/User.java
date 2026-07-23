@@ -29,6 +29,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springblade.core.tenant.mp.TenantEntity;
+import org.springblade.core.tool.jackson.Sensitive;
+import org.springblade.core.tool.sensitive.SensitiveType;
 
 import java.io.Serial;
 import java.util.Date;
@@ -77,10 +79,12 @@ public class User extends TenantEntity {
 	/**
 	 * 邮箱
 	 */
+	@Sensitive(type = SensitiveType.EMAIL)
 	private String email;
 	/**
 	 * 手机
 	 */
+	@Sensitive(type = SensitiveType.MOBILE)
 	private String phone;
 	/**
 	 * 生日
@@ -102,6 +106,14 @@ public class User extends TenantEntity {
 	 * 岗位id
 	 */
 	private String postId;
+	/**
+	 * 主管id
+	 */
+	private String leaderId;
+	/**
+	 * 是否主管
+	 */
+	private Integer isLeader;
 
 
 }

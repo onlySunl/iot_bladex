@@ -92,6 +92,4 @@ public class DeptVO extends Dept implements INode<DeptVO> {
 	 */
 	private String deptCategoryName;
 
-	private Long level;
-
 }

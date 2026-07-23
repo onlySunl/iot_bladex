@@ -25,8 +25,8 @@
  */
 package org.springblade.modules.resource.config;
 
-import com.yomahub.liteflow.core.FlowExecutor;
 import lombok.AllArgsConstructor;
+import org.springblade.core.literule.engine.RuleEngineExecutor;
 import org.springblade.core.oss.props.OssProperties;
 import org.springblade.modules.resource.builder.OssBuilder;
 import org.springblade.modules.resource.service.IOssService;
@@ -46,11 +46,11 @@ public class BladeOssConfiguration {
 
 	private final IOssService ossService;
 
-	private final FlowExecutor flowExecutor;
+	private final RuleEngineExecutor ruleExecutor;
 
 	@Bean
 	public OssBuilder ossBuilder() {
-		return new OssBuilder(ossProperties, ossService, flowExecutor);
+		return new OssBuilder(ossProperties, ossService, ruleExecutor);
 	}
 
 }

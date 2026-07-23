@@ -29,8 +29,8 @@ import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
-import com.yomahub.liteflow.annotation.LiteflowComponent;
-import com.yomahub.liteflow.core.NodeComponent;
+import org.springblade.core.literule.annotation.LiteRuleComponent;
+import org.springblade.core.literule.core.RuleComponent;
 import org.springblade.core.redis.cache.BladeRedis;
 import org.springblade.core.sms.AliSmsTemplate;
 import org.springblade.core.sms.SmsTemplate;
@@ -38,16 +38,18 @@ import org.springblade.core.sms.props.SmsProperties;
 import org.springblade.modules.resource.pojo.entity.Sms;
 import org.springblade.modules.resource.rule.context.SmsContext;
 
+import static org.springblade.modules.resource.rule.constant.SmsRuleConstant.ALI_SMS_RULE;
+
 /**
  * 阿里云短信构建类
  *
  * @author Chill
  */
-@LiteflowComponent(id = "aliSmsRule", name = "阿里SMS构建")
-public class AliSmsRule extends NodeComponent {
+@LiteRuleComponent(id = ALI_SMS_RULE, name = "阿里SMS构建")
+public class AliSmsRule extends RuleComponent {
 
 	@Override
-	public void process() throws Exception {
+	public void process() {
 		// 获取上下文
 		SmsContext contextBean = this.getContextBean(SmsContext.class);
 		Sms sms = contextBean.getSms();

@@ -3,6 +3,8 @@ package org.springblade.modules.desk.pojo.vo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springblade.core.tool.jackson.BladeView;
+import org.springblade.core.tool.jackson.Views;
 import org.springblade.modules.desk.pojo.entity.Notice;
 
 /**
@@ -15,9 +17,11 @@ import org.springblade.modules.desk.pojo.entity.Notice;
 @Schema(description = "公告实体VO")
 public class NoticeVO extends Notice {
 
+	@BladeView(Views.Summary.class)
 	@Schema(description = "通知类型名")
 	private String categoryName;
 
+	@BladeView(Views.Admin.class)
 	@Schema(description = "租户编号")
 	private String tenantId;
 

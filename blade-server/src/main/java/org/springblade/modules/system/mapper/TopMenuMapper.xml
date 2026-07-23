@@ -15,6 +15,7 @@
         <result column="code" property="code"/>
         <result column="name" property="name"/>
         <result column="source" property="source"/>
+        <result column="path" property="path"/>
         <result column="sort" property="sort"/>
     </resultMap>
 

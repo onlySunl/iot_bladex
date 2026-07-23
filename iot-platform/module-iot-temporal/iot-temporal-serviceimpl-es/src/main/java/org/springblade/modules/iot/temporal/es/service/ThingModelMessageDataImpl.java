@@ -9,6 +9,8 @@ import co.elastic.clients.elasticsearch._types.aggregations.CalendarInterval;
 import co.elastic.clients.elasticsearch._types.aggregations.DateHistogramBucket;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch._types.query_dsl.RangeQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.UntypedRangeQuery;
 import org.springblade.modules.iot.IThingModelMessageData;
 import org.springblade.modules.iot.TimeData;
 import org.springblade.modules.iot.common.entity.PageResult;
@@ -95,10 +97,10 @@ public class ThingModelMessageDataImpl implements IThingModelMessageData {
     @Override
     public List<TimeData> getDeviceMessageStatsWithUid(String uid, long start, long end) {
         BoolQuery.Builder boolBuilder = new BoolQuery.Builder();
-        boolBuilder.must(Query.of(q -> q.range(r -> r
-                .field("time")
+        boolBuilder.must(Query.of(q -> q.range(RangeQuery.of(r -> r
+                .untyped(ur -> ur.field("time")
                 .gte(co.elastic.clients.json.JsonData.of(start))
-                .lte(co.elastic.clients.json.JsonData.of(end)))));
+                .lte(co.elastic.clients.json.JsonData.of(end)))))));
         if (StrUtil.isNotBlank(uid)) {
             boolBuilder.must(Query.of(q -> q.term(t -> t.field("uid").value(uid))));
         }
@@ -122,10 +124,10 @@ public class ThingModelMessageDataImpl implements IThingModelMessageData {
     public List<TimeData> getDeviceUpMessageStatsWithUid(String uid, Long start, Long end) {
         BoolQuery.Builder boolBuilder = new BoolQuery.Builder();
         if (ObjectUtil.isAllNotEmpty(start, end)) {
-            boolBuilder.must(Query.of(q -> q.range(r -> r
-                    .field("time")
+            boolBuilder.must(Query.of(q -> q.range(RangeQuery.of(r -> r
+                    .untyped(ur -> ur.field("time")
                     .gte(co.elastic.clients.json.JsonData.of(start))
-                    .lte(co.elastic.clients.json.JsonData.of(end)))));
+                    .lte(co.elastic.clients.json.JsonData.of(end)))))));
         }
         if (StrUtil.isNotBlank(uid)) {
             boolBuilder.must(Query.of(q -> q.term(t -> t.field("uid").value(uid))));
@@ -156,10 +158,10 @@ public class ThingModelMessageDataImpl implements IThingModelMessageData {
     public List<TimeData> getDeviceDownMessageStatsWithUid(String uid, Long start, Long end) {
         BoolQuery.Builder boolBuilder = new BoolQuery.Builder();
         if (ObjectUtil.isAllNotEmpty(start, end)) {
-            boolBuilder.must(Query.of(q -> q.range(r -> r
-                    .field("time")
+            boolBuilder.must(Query.of(q -> q.range(RangeQuery.of(r -> r
+                    .untyped(ur -> ur.field("time")
                     .gte(co.elastic.clients.json.JsonData.of(start))
-                    .lte(co.elastic.clients.json.JsonData.of(end)))));
+                    .lte(co.elastic.clients.json.JsonData.of(end)))))));
         }
         if (StrUtil.isNotBlank(uid)) {
             boolBuilder.must(Query.of(q -> q.term(t -> t.field("uid").value(uid))));
@@ -198,8 +200,7 @@ public class ThingModelMessageDataImpl implements IThingModelMessageData {
     }
 
     /**
-     * 统一解析 date_histogram 聚合，消除重复代码、修复 getAggregate 找不到方法问题
-     */
+     * 统一解析 date_histogram 聚合，消除重复代码、修�?getAggregate 找不到方法问�?     */
     private List<TimeData> parseDateHistogramAgg(SearchHits<DocThingModelMessage> searchHits, String aggName) {
         AggregationsContainer<?> aggregationsContainer = searchHits.getAggregations();
         if (!(aggregationsContainer instanceof ElasticsearchAggregations elasticsearchAggregations)) {

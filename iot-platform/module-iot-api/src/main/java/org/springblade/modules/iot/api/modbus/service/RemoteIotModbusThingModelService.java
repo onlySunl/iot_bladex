@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 )
 public interface RemoteIotModbusThingModelService {
 
-    @GetMapping("/api/modbusThingModelApi/findByProductKey")
+    @GetMapping("/modbusThingModelApi/findByProductKey")
     ModbusThingModel findByProductKey(@RequestParam("productKey") String productKey);
 
-    @PostMapping("/api/modbusThingModelApi/save")
+    @PostMapping("/modbusThingModelApi/save")
     ModbusThingModel save(@RequestBody ModbusThingModel thingModel);
 }

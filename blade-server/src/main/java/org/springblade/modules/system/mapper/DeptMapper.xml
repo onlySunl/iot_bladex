@@ -112,28 +112,4 @@
         and is_deleted = 0
     </select>
 
-    <select id="lazyTreeCurrent" resultMap="treeNodeResultMap" >
-        SELECT
-        dept.id,
-        dept.parent_id,
-        dept.dept_name AS title,
-        dept.id AS "value",
-        dept.id AS "key",
-        (
-        SELECT
-        CASE WHEN count(1) > 0 THEN 1 ELSE 0 END
-        FROM
-        blade_dept
-        WHERE
-        parent_id = dept.id and is_deleted = 0
-        ) AS "has_children"
-        FROM
-        blade_dept dept
-        WHERE
-          dept.id = #{param2} AND dept.is_deleted = 0
-        <if test="param1!=null and param1!=''">
-            and dept.tenant_id = #{param1}
-        </if>
-        ORDER BY dept.sort
-    </select>
 </mapper>

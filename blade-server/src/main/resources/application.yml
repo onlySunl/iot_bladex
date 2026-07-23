@@ -105,7 +105,7 @@ knife4j:
 swagger:
   title: 平台接口文档系统
   description: 平台接口文档系统
-  version: 4.2.0.RELEASE
+  version: 4.9.0.RELEASE
   license: Powered By
   license-url:
   contact:
@@ -191,6 +191,11 @@ blade:
     sign-key: yWdeZEVfH9uy2tf4763YHv3QOLw0sla4
     #token加密 使用 @org.springblade.test.CryptoKeyGenerator 获取
     crypto-key: plcK7kUYqi8NepCBPgY4JEeiGzLWsLYL
+  key:
+    #启用超级密钥
+    enabled: true
+    #密钥加密 使用 @org.springblade.test.CryptoKeyGenerator 获取
+    crypto-key: m8lYopvmDP8W89kgTwbpaRLPfL5oTcFl
   #接口配置
   api:
     #报文加密配置
@@ -198,9 +203,9 @@ blade:
       #启用报文加密配置
       enabled: false
       #使用 @org.springblade.test.CryptoKeyGenerator 获取,需和前端保持一致
-      aes-key: G6N8BlIHAK7NFSFtOLSu6h5CCC8489Jz
+      aes-key: z5LtJC0kLXH61h4gJFAZSwnvVaEiMKDI
       #使用 @org.springblade.test.CryptoKeyGenerator 获取,需和前端保持一致
-      des-key: tSiM6tXZG52Igmtv
+      des-key: 4p15U0v1MVPgIyjS
   #jackson配置
   jackson:
     #null自动转空值

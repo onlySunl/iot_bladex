@@ -3,9 +3,8 @@ package org.springblade.modules.nvr.domain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
-
-import com.tangzc.mpe.autotable.annotation.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springblade.common.entity.CustomBaseEntity;
@@ -21,7 +20,7 @@ import java.util.List;
 @Data
 @TableName("zlm_record_plan")
 @EqualsAndHashCode(callSuper = true)
-@Table(value = "zlm_record_plan", comment = "录像计划对象")
+@AutoTable(value = "zlm_record_plan", comment = "录像计划对象")
 public class ZlmRecordPlan extends CustomBaseEntity {
     private static final long serialVersionUID = 1L;
 

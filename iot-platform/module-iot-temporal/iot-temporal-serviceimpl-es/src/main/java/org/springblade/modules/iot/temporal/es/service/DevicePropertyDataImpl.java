@@ -4,6 +4,7 @@ package org.springblade.modules.iot.temporal.es.service;
 import cn.hutool.core.util.StrUtil;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch._types.query_dsl.RangeQuery;
 import co.elastic.clients.elasticsearch._types.SortOptions;
 import co.elastic.clients.elasticsearch._types.SortOrder;
 import co.elastic.clients.elasticsearch._types.FieldSort;
@@ -52,9 +53,9 @@ public class DevicePropertyDataImpl implements IDevicePropertyData {
         NativeQuery query = new NativeQueryBuilder()
                 .withQuery(q -> q.bool(b -> b
                         .must(m -> m.term(t -> t.field("deviceId").value(FieldValue.of(deviceId))))
-                        .must(m -> m.range(r -> r.field("time")
-                                .from(JsonData.of(start).toString())
-                                .to(JsonData.of(end).toString())))
+                        .must(m -> m.range(RangeQuery.of(r -> r.untyped(ur -> ur.field("time")
+                                .from(JsonData.of(start))
+                                .to(JsonData.of(end))))))
                 ))
                 .withSort(SortOptions.of(s -> s.field(FieldSort.of(f -> f.field("time").order(SortOrder.Asc)))))
                 .build();

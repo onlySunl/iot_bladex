@@ -27,8 +27,8 @@ package org.springblade.modules.resource.rule.sms;
 
 import com.qiniu.sms.SmsManager;
 import com.qiniu.util.Auth;
-import com.yomahub.liteflow.annotation.LiteflowComponent;
-import com.yomahub.liteflow.core.NodeComponent;
+import org.springblade.core.literule.annotation.LiteRuleComponent;
+import org.springblade.core.literule.core.RuleComponent;
 import org.springblade.core.redis.cache.BladeRedis;
 import org.springblade.core.sms.QiniuSmsTemplate;
 import org.springblade.core.sms.SmsTemplate;
@@ -36,16 +36,18 @@ import org.springblade.core.sms.props.SmsProperties;
 import org.springblade.modules.resource.pojo.entity.Sms;
 import org.springblade.modules.resource.rule.context.SmsContext;
 
+import static org.springblade.modules.resource.rule.constant.SmsRuleConstant.QINIU_SMS_RULE;
+
 /**
  * 七牛云短信构建类
  *
  * @author Chill
  */
-@LiteflowComponent(id = "qiniuSmsRule", name = "七牛SMS构建")
-public class QiniuSmsRule extends NodeComponent {
+@LiteRuleComponent(id = QINIU_SMS_RULE, name = "七牛SMS构建")
+public class QiniuSmsRule extends RuleComponent {
 
 	@Override
-	public void process() throws Exception {
+	public void process() {
 		// 获取上下文
 		SmsContext contextBean = this.getContextBean(SmsContext.class);
 		Sms sms = contextBean.getSms();

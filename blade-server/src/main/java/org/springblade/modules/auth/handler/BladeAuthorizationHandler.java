@@ -27,8 +27,6 @@ package org.springblade.modules.auth.handler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.common.cache.CacheNames;
-import org.springblade.common.cache.ParamCache;
 import org.springblade.common.cache.SysCache;
 import org.springblade.common.constant.TenantConstant;
 import org.springblade.core.launch.props.BladeProperties;
@@ -38,24 +36,19 @@ import org.springblade.core.oauth2.props.OAuth2Properties;
 import org.springblade.core.oauth2.provider.OAuth2Request;
 import org.springblade.core.oauth2.provider.OAuth2Validation;
 import org.springblade.core.oauth2.service.OAuth2User;
-import org.springblade.core.redis.cache.BladeRedis;
 import org.springblade.core.tenant.BladeTenantProperties;
 import org.springblade.core.tool.jackson.JsonUtil;
 import org.springblade.core.tool.utils.DateUtil;
 import org.springblade.core.tool.utils.DesUtil;
-import org.springblade.core.tool.utils.Func;
 import org.springblade.core.tool.utils.SM2Util;
 import org.springblade.modules.system.pojo.entity.Tenant;
 
-import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 
-import static org.springblade.modules.auth.constant.BladeAuthConstant.FAIL_COUNT;
-import static org.springblade.modules.auth.constant.BladeAuthConstant.FAIL_COUNT_VALUE;
-
 /**
- * BladeAuthorizationHandler
+ * 认证处理器
+ * 统一处理认证前校验、认证成功/失败回调等逻辑
  *
  * @author BladeX
  */
@@ -63,10 +56,11 @@ import static org.springblade.modules.auth.constant.BladeAuthConstant.FAIL_COUNT
 @RequiredArgsConstructor
 public class BladeAuthorizationHandler extends AbstractAuthorizationHandler {
 
-	private final BladeRedis bladeRedis;
 	private final BladeProperties bladeProperties;
 	private final BladeTenantProperties tenantProperties;
 	private final OAuth2Properties oAuth2Properties;
+	private final BladeLockHandler lockHandler;
+	private final BladeLogHandler logHandler;
 
 	/**
 	 * 自定义弱密码列表
@@ -86,10 +80,15 @@ public class BladeAuthorizationHandler extends AbstractAuthorizationHandler {
 			if (bladeProperties.isProd() && isWeakPassword(request.getPassword())) {
 				return buildValidationFailure(ExceptionCode.INVALID_USER_PASSWORD);
 			}
-			// 判断登录是否锁定
-			OAuth2Validation failCountValidation = validateFailCount(request.getTenantId(), request.getUsername());
-			if (!failCountValidation.isSuccess()) {
-				return failCountValidation;
+			// 判断账号是否锁定
+			OAuth2Validation accountValidation = lockHandler.validateAccountLock(request.getTenantId(), request.getUsername());
+			if (!accountValidation.isSuccess()) {
+				return accountValidation;
+			}
+			// 判断IP是否锁定
+			OAuth2Validation ipValidation = lockHandler.validateIpLock(request.getTenantId());
+			if (!ipValidation.isSuccess()) {
+				return ipValidation;
 			}
 		}
 		return super.preValidation(request);
@@ -101,13 +100,12 @@ public class BladeAuthorizationHandler extends AbstractAuthorizationHandler {
 	 * @param validation 失败信息
 	 */
 	@Override
-	public void preFailure(OAuth2Request request, OAuth2Validation validation){
-		// 增加错误锁定次数
-		addFailCount(request.getTenantId(), request.getUsername());
+	public void preFailure(OAuth2Request request, OAuth2Validation validation) {
+		// 处理认证失败，增加错误次数
+		lockHandler.handleAuthFailure(request.getTenantId(), request.getUsername());
 
 		log.error("用户：{}，认证失败，失败原因：{}", request.getUsername(), validation.getMessage());
 	}
-
 
 	/**
 	 * 认证校验
@@ -136,8 +134,10 @@ public class BladeAuthorizationHandler extends AbstractAuthorizationHandler {
 	 */
 	@Override
 	public void authSuccessful(OAuth2User user, OAuth2Request request) {
-		// 清空错误锁定次数
-		delFailCount(user.getTenantId(), user.getAccount());
+		// 处理认证成功，清空错误次数
+		lockHandler.handleAuthSuccess(user.getTenantId(), user.getAccount());
+		// 记录认证成功日志
+		logHandler.handleAuthLog(user, request);
 
 		log.info("用户：{}，认证成功", user.getAccount());
 	}
@@ -156,7 +156,7 @@ public class BladeAuthorizationHandler extends AbstractAuthorizationHandler {
 	/**
 	 * 判断是否为弱密码
 	 *
-	 * @param rawPassword      加密密码
+	 * @param rawPassword 加密密码
 	 * @return boolean
 	 */
 	private boolean isWeakPassword(String rawPassword) {
@@ -197,70 +197,5 @@ public class BladeAuthorizationHandler extends AbstractAuthorizationHandler {
 			return buildValidationFailure(ExceptionCode.UNAUTHORIZED_USER_TENANT);
 		}
 		return new OAuth2Validation();
-	}
-
-	/**
-	 * 判断登录是否锁定
-	 *
-	 * @param tenantId 租户id
-	 * @param account  账号
-	 * @return OAuth2Validation
-	 */
-	private OAuth2Validation validateFailCount(String tenantId, String account) {
-		int cnt = getFailCount(tenantId, account);
-		int failCount = Func.toInt(ParamCache.getValue(FAIL_COUNT_VALUE), FAIL_COUNT);
-		if (cnt >= failCount) {
-			return buildValidationFailure(ExceptionCode.USER_TOO_MANY_FAILS);
-		}
-		return new OAuth2Validation();
-	}
-
-	/**
-	 * 获取账号错误次数
-	 *
-	 * @param tenantId 租户id
-	 * @param username 账号
-	 * @return int
-	 */
-	private int getFailCount(String tenantId, String username) {
-		if (Func.hasEmpty(tenantId, username)) {
-			return 0;
-		}
-		return Func.toInt(bladeRedis.get(CacheNames.tenantKey(tenantId, CacheNames.USER_FAIL_KEY, username)), 0);
-	}
-
-	/**
-	 * 设置账号错误次数
-	 *
-	 * @param tenantId 租户id
-	 * @param username 账号
-	 */
-	private void addFailCount(String tenantId, String username) {
-		if (Func.hasEmpty(tenantId, username)) {
-			return;
-		}
-		int count = getFailCount(tenantId, username);
-		bladeRedis.setEx(CacheNames.tenantKey(tenantId, CacheNames.USER_FAIL_KEY, username), count + 1, Duration.ofMinutes(30));
-	}
-
-	/**
-	 * 设置账号错误次数
-	 *
-	 * @param tenantId 租户id
-	 * @param username 账号
-	 * @param count    次数
-	 */
-	private void setFailCount(String tenantId, String username, int count) {
-		bladeRedis.setEx(CacheNames.tenantKey(tenantId, CacheNames.USER_FAIL_KEY, username), count + 1, Duration.ofMinutes(30));
-	}
-
-	/**
-	 * 清空账号错误次数
-	 *
-	 * @param tenantId 租户id
-	 * @param username 账号
-	 */
-	private void delFailCount(String tenantId, String username) {
-		bladeRedis.del(CacheNames.tenantKey(tenantId, CacheNames.USER_FAIL_KEY, username));
 	}
 }

@@ -18,6 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface RemoteIotChannelVmsService {
 
     /** TTS语音呼叫 */
-    @PostMapping("/api/channelVms/callByTts")
+    @PostMapping("/channelVms/callByTts")
     void callByTts(@RequestBody CallByTtsRequest request);
 }

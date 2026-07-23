@@ -251,14 +251,6 @@ public interface IUserService extends BaseService<User> {
 	UserVO platformDetail(User user);
 
 	/**
-	 * 解锁用户
-	 *
-	 * @param userIds
-	 * @return
-	 */
-	boolean unlock(String userIds);
-
-	/**
 	 * 审核通过
 	 *
 	 * @param userIds
@@ -273,4 +265,41 @@ public interface IUserService extends BaseService<User> {
 	 * @return
 	 */
 	boolean auditRefuse(String userIds);
+
+	/**
+	 * 设置用户为主管
+	 *
+	 * @param userId 用户id
+	 * @return
+	 */
+	boolean setLeader(Long userId);
+
+	/**
+	 * 获取用户的主管信息
+	 *
+	 * @param userId 用户id
+	 * @return
+	 */
+	List<UserVO> leaderInfo(Long userId);
+
+	/**
+	 * 获取主管列表
+	 *
+	 * @param tenantId 租户编号
+	 * @param realName 用户姓名
+	 * @return
+	 */
+	List<UserVO> leaderList(String tenantId, String realName);
+
+	/**
+	 * 分页查询非管理员角色用户（用于 API Key 绑定选择）
+	 * <p>
+	 * 内部自动处理租户隔离（非超管仅查看本租户用户）和管理员角色排除
+	 *
+	 * @param page    分页参数
+	 * @param account 账号（模糊搜索）
+	 * @param name    姓名（模糊搜索）
+	 * @return 用户分页（UserVO 包含角色、部门、岗位名称）
+	 */
+	IPage<UserVO> userPage(IPage<User> page, String account, String name);
 }

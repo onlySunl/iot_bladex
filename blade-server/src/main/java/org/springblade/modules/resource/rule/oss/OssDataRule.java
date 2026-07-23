@@ -25,22 +25,24 @@
  */
 package org.springblade.modules.resource.rule.oss;
 
-import com.yomahub.liteflow.annotation.LiteflowComponent;
-import com.yomahub.liteflow.core.NodeComponent;
+import org.springblade.core.literule.annotation.LiteRuleComponent;
+import org.springblade.core.literule.core.RuleComponent;
 import org.springblade.core.oss.props.OssProperties;
 import org.springblade.core.oss.rule.BladeOssRule;
 import org.springblade.modules.resource.pojo.entity.Oss;
 import org.springblade.modules.resource.rule.context.OssContext;
+
+import static org.springblade.modules.resource.rule.constant.OssRuleConstant.OSS_DATA_RULE;
 
 /**
  * OSS数据创建
  *
  * @author Chill
  */
-@LiteflowComponent(id = "ossDataRule", name = "OSS数据创建")
-public class OssDataRule extends NodeComponent {
+@LiteRuleComponent(id = OSS_DATA_RULE, name = "OSS数据创建")
+public class OssDataRule extends RuleComponent {
 	@Override
-	public void process() throws Exception {
+	public void process() {
 		OssContext contextBean = this.getContextBean(OssContext.class);
 		Oss oss = contextBean.getOss();
 		OssProperties ossProperties = contextBean.getOssProperties();

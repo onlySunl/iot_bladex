@@ -51,6 +51,7 @@ import static org.springblade.common.cache.RegionCache.*;
  *
  * @author Chill
  */
+//@Master
 @Service
 public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> implements IRegionService {
 

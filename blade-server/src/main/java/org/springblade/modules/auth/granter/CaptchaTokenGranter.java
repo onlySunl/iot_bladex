@@ -63,10 +63,9 @@ public class CaptchaTokenGranter extends PasswordTokenGranter {
 		String key = request.getCaptchaKey();
 		String code = request.getCaptchaCode();
 		// 获取验证码
-		String redisCode = bladeRedis.get(OAuth2TokenConstant.CAPTCHA_CACHE_KEY + key);
+		String redisCode = bladeRedis.getAndDel(OAuth2TokenConstant.CAPTCHA_CACHE_KEY + key);
 		// 判断验证码
 		if (code == null || !StringUtil.equalsIgnoreCase(redisCode, code)) {
-			bladeRedis.del(OAuth2TokenConstant.CAPTCHA_CACHE_KEY + key);
 			throw new UserInvalidException(OAuth2TokenConstant.CAPTCHA_NOT_CORRECT);
 		}
 		return super.user(request);

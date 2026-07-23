@@ -36,6 +36,7 @@ import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
+import org.springblade.core.secure.annotation.IsAdmin;
 import org.springblade.core.tenant.annotation.NonDS;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.Func;
@@ -52,6 +53,7 @@ import org.springframework.web.bind.annotation.*;
 @NonDS
 @RestController
 @AllArgsConstructor
+@IsAdmin
 @RequestMapping(AppConstant.APPLICATION_RESOURCE_NAME + "/attach")
 @Tag(name = "附件", description = "附件")
 public class AttachController extends BladeController {
@@ -129,7 +131,7 @@ public class AttachController extends BladeController {
 	@ApiOperationSupport(order = 7)
 	@Operation(summary = "逻辑删除", description = "传入ids")
 	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
-		return R.status(attachService.deleteLogic(Func.toLongList(ids)));
+		return R.status(attachService.removeAttach(Func.toLongList(ids)));
 	}
 
 

@@ -25,6 +25,7 @@
  */
 package org.springblade.modules.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -45,6 +46,7 @@ import java.util.List;
  *
  * @author BladeX
  */
+//@Master
 @Service
 @AllArgsConstructor
 public class TopMenuServiceImpl extends BaseServiceImpl<TopMenuMapper, TopMenu> implements ITopMenuService {
@@ -67,5 +69,20 @@ public class TopMenuServiceImpl extends BaseServiceImpl<TopMenuMapper, TopMenu> 
 		// 新增配置
 		topMenuSettingService.saveBatch(menuSettings);
 		return true;
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public boolean enable(Long id) {
+		// 先将所有记录设为非主页
+		LambdaUpdateWrapper<TopMenu> disableWrapper = Wrappers.<TopMenu>update().lambda()
+			.set(TopMenu::getIsMain, 0);
+		boolean temp1 = this.update(disableWrapper);
+		// 再将指定记录设为主页
+		LambdaUpdateWrapper<TopMenu> enableWrapper = Wrappers.<TopMenu>update().lambda()
+			.set(TopMenu::getIsMain, 1)
+			.eq(TopMenu::getId, id);
+		boolean temp2 = this.update(enableWrapper);
+		return temp1 && temp2;
 	}
 }

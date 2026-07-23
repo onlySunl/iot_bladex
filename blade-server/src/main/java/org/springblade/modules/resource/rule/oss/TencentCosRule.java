@@ -30,8 +30,8 @@ import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;
 import com.qcloud.cos.auth.COSCredentials;
 import com.qcloud.cos.region.Region;
-import com.yomahub.liteflow.annotation.LiteflowComponent;
-import com.yomahub.liteflow.core.NodeComponent;
+import org.springblade.core.literule.annotation.LiteRuleComponent;
+import org.springblade.core.literule.core.RuleComponent;
 import org.springblade.core.oss.OssTemplate;
 import org.springblade.core.oss.TencentCosTemplate;
 import org.springblade.core.oss.props.OssProperties;
@@ -39,16 +39,18 @@ import org.springblade.core.oss.rule.OssRule;
 import org.springblade.modules.resource.pojo.entity.Oss;
 import org.springblade.modules.resource.rule.context.OssContext;
 
+import static org.springblade.modules.resource.rule.constant.OssRuleConstant.TENCENT_COS_RULE;
+
 /**
  * 腾讯云存储构建类
  *
  * @author Chill
  */
-@LiteflowComponent(id = "tencentCosRule", name = "腾讯云OSS构建")
-public class TencentCosRule extends NodeComponent {
+@LiteRuleComponent(id = TENCENT_COS_RULE, name = "腾讯云OSS构建")
+public class TencentCosRule extends RuleComponent {
 
 	@Override
-	public void process() throws Exception {
+	public void process() {
 		// 获取上下文
 		OssContext contextBean = this.getContextBean(OssContext.class);
 		Oss oss = contextBean.getOss();

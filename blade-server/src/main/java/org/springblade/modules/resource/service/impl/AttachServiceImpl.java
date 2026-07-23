@@ -26,24 +26,50 @@
 package org.springblade.modules.resource.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import lombok.AllArgsConstructor;
 import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.core.tool.utils.CollectionUtil;
+import org.springblade.modules.resource.builder.OssBuilder;
 import org.springblade.modules.resource.mapper.AttachMapper;
 import org.springblade.modules.resource.pojo.entity.Attach;
 import org.springblade.modules.resource.pojo.vo.AttachVO;
 import org.springblade.modules.resource.service.IAttachService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * 附件表 服务实现类
  *
  * @author Chill
  */
+//@Master
 @Service
+@AllArgsConstructor
 public class AttachServiceImpl extends BaseServiceImpl<AttachMapper, Attach> implements IAttachService {
+
+	private final OssBuilder ossBuilder;
 
 	@Override
 	public IPage<AttachVO> selectAttachPage(IPage<AttachVO> page, AttachVO attach) {
 		return page.setRecords(baseMapper.selectAttachPage(page, attach));
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public boolean removeAttach(List<Long> ids) {
+		// 查询附件记录获取文件名
+		List<Attach> attachList = this.listByIds(ids);
+		if (CollectionUtil.isNotEmpty(attachList)) {
+			// 循环删除OSS文件
+			attachList.stream()
+				.map(Attach::getName)
+				.filter(name -> name != null && !name.isEmpty())
+				.forEach(fileName -> ossBuilder.template().removeFile(fileName));
+		}
+		// 删除数据库记录
+		return this.deleteLogic(ids);
 	}
 
 }

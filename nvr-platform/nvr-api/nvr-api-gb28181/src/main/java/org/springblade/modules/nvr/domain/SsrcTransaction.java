@@ -1,9 +1,9 @@
 package org.springblade.modules.nvr.domain;
 
-import org.springblade.modules.nvr.bean.SipTransactionInfo;
-import org.springblade.modules.nvr.common.InviteSessionType;
 import gov.nist.javax.sip.message.SIPResponse;
 import lombok.Data;
+import org.springblade.modules.nvr.bean.SipTransactionInfo;
+import org.springblade.modules.nvr.common.InviteSessionType;
 
 import java.io.Serializable;
 

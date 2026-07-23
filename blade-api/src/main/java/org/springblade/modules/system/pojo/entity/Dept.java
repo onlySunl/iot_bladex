@@ -90,6 +90,12 @@ public class Dept implements Serializable {
 	private String ancestors;
 
 	/**
+	 * 部门主管id
+	 */
+	@Schema(description = "部门主管id")
+	private String leaderId;
+
+	/**
 	 * 机构类型
 	 */
 	@Schema(description = "机构类型")

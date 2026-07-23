@@ -23,10 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface RemoteIotProductService {
 
     /** 根据产品Key查询产品信息（数据库） */
-    @GetMapping("/api/productApi/getProduct")
+    @GetMapping("/productApi/getProduct")
     Product getProduct(@RequestParam("pk") String pk);
 
     /** 根据产品Key从缓存查询产品信息 */
-    @GetMapping("/api/productApi/getProductByPkFromCache")
+    @GetMapping("/productApi/getProductByPkFromCache")
     Product getProductByPkFromCache(@RequestParam("pk") String pk);
 }

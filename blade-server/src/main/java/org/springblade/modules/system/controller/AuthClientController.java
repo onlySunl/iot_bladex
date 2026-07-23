@@ -36,10 +36,9 @@ import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
-import org.springblade.core.secure.annotation.PreAuth;
+import org.springblade.core.secure.annotation.IsAdministrator;
 import org.springblade.core.tenant.annotation.NonDS;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.tool.constant.RoleConstant;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.system.pojo.entity.AuthClient;
 import org.springblade.modules.system.service.IAuthClientService;
@@ -53,9 +52,9 @@ import org.springframework.web.bind.annotation.*;
 @NonDS
 @RestController
 @AllArgsConstructor
+@IsAdministrator
 @RequestMapping(AppConstant.APPLICATION_SYSTEM_NAME + "/client")
 @Tag(name = "应用管理", description = "应用管理")
-@PreAuth(RoleConstant.HAS_ROLE_ADMINISTRATOR)
 public class AuthClientController extends BladeController {
 
 	private final IAuthClientService clientService;

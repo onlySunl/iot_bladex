@@ -37,6 +37,7 @@ import org.springframework.stereotype.Service;
  *
  * @author Chill
  */
+//@Master
 @Service
 public class ParamServiceImpl extends BaseServiceImpl<ParamMapper, Param> implements IParamService {
 

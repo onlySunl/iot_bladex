@@ -62,9 +62,4 @@ public interface CacheNames {
 	 */
 	String CAPTCHA_KEY = "blade:auth::blade:captcha:";
 
-	/**
-	 * 登录失败key
-	 */
-	String USER_FAIL_KEY = "blade:user::blade:fail:";
-
 }

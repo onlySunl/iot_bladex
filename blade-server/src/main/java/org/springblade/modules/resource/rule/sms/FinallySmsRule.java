@@ -25,8 +25,8 @@
  */
 package org.springblade.modules.resource.rule.sms;
 
-import com.yomahub.liteflow.annotation.LiteflowComponent;
-import com.yomahub.liteflow.core.NodeComponent;
+import org.springblade.core.literule.annotation.LiteRuleComponent;
+import org.springblade.core.literule.core.RuleComponent;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.sms.SmsTemplate;
 import org.springblade.core.tool.utils.Func;
@@ -35,15 +35,17 @@ import org.springblade.modules.resource.rule.context.SmsContext;
 
 import java.util.Map;
 
+import static org.springblade.modules.resource.rule.constant.SmsRuleConstant.FINALLY_SMS_RULE;
+
 /**
  * Sms后置处理
  *
  * @author Chill
  */
-@LiteflowComponent(id = "finallySmsRule", name = "SMS构建后置处理")
-public class FinallySmsRule extends NodeComponent {
+@LiteRuleComponent(id = FINALLY_SMS_RULE, name = "SMS构建后置处理")
+public class FinallySmsRule extends RuleComponent {
 	@Override
-	public void process() throws Exception {
+	public void process() {
 		String tenantId = this.getRequestData();
 		SmsContext contextBean = this.getContextBean(SmsContext.class);
 		Map<String, Sms> smsPool = contextBean.getSmsPool();

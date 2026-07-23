@@ -8,13 +8,13 @@
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>iot_bladex</artifactId>
-        <version>4.2.0.RELEASE</version>
+        <version>4.9.0.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>org.springblade</groupId>
     <artifactId>nvr-platform</artifactId>
-    <version>4.2.0.RELEASE</version>
+    <version>4.9.0.RELEASE</version>
     <packaging>pom</packaging>
     <name>nvr-platform</name>
     <description>

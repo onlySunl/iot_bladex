@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>module-iot-core</artifactId>
-        <version>4.2.0.RELEASE</version>
+        <version>4.9.0.RELEASE</version>
     </parent>
 
     <artifactId>iot-rule-engine</artifactId>
@@ -33,7 +33,13 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- ===== 3. IOT 核心模块 ===== -->
+        <!-- ===== 3. 线程上下文传递（TTL） ===== -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>transmittable-thread-local</artifactId>
+        </dependency>
+
+        <!-- ===== 4. IOT 核心模块 ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-common-core</artifactId>

@@ -25,8 +25,8 @@
  */
 package org.springblade.modules.resource.rule.oss;
 
-import com.yomahub.liteflow.annotation.LiteflowComponent;
-import com.yomahub.liteflow.core.NodeComponent;
+import org.springblade.core.literule.annotation.LiteRuleComponent;
+import org.springblade.core.literule.core.RuleComponent;
 import org.springblade.core.oss.LocalFileTemplate;
 import org.springblade.core.oss.OssTemplate;
 import org.springblade.core.oss.props.OssProperties;
@@ -34,16 +34,18 @@ import org.springblade.core.oss.rule.OssRule;
 import org.springblade.modules.resource.pojo.entity.Oss;
 import org.springblade.modules.resource.rule.context.OssContext;
 
+import static org.springblade.modules.resource.rule.constant.OssRuleConstant.LOCAL_FILE_RULE;
+
 /**
  * 本地云存储构建类
  *
  * @author Chill
  */
-@LiteflowComponent(id = "localFileRule", name = "localFileOSS构建")
-public class LocalFileRule extends NodeComponent {
+@LiteRuleComponent(id = LOCAL_FILE_RULE, name = "localFileOSS构建")
+public class LocalFileRule extends RuleComponent {
 
 	@Override
-	public void process() throws Exception {
+	public void process() {
 		// 获取上下文
 		OssContext contextBean = this.getContextBean(OssContext.class);
 		Oss oss = contextBean.getOss();

@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface RemoteIotAlertService {
 
     /** 分页查询告警配置 */
-    @PostMapping("/api/alertApi/getAlertConfigPage")
+    @PostMapping("/alertApi/getAlertConfigPage")
     PageResult<AlertConfig> getAlertConfigPage(@RequestBody AlertConfigPageReqVO reqVO);
 
     /** 根据告警配置生成通知消息 */
-    @PostMapping("/api/api/alertApi/getNotifyMessage")
+    @PostMapping("/alertApi/getNotifyMessage")
     Message getNotifyMessage(@RequestBody AlertConfig alertConfig);
 }

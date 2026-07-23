@@ -47,4 +47,12 @@ public interface ITopMenuService extends BaseService<TopMenu> {
 	 */
 	boolean grant(@NotEmpty List<Long> topMenuIds, @NotEmpty List<Long> menuIds);
 
+	/**
+	 * 设为主页
+	 *
+	 * @param id 主键
+	 * @return 是否成功
+	 */
+	boolean enable(Long id);
+
 }

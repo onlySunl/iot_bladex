@@ -25,9 +25,9 @@
  */
 package org.springblade.modules.resource.rule.oss;
 
-import com.yomahub.liteflow.annotation.LiteflowComponent;
-import com.yomahub.liteflow.core.NodeComponent;
 import io.minio.MinioClient;
+import org.springblade.core.literule.annotation.LiteRuleComponent;
+import org.springblade.core.literule.core.RuleComponent;
 import org.springblade.core.oss.MinioTemplate;
 import org.springblade.core.oss.OssTemplate;
 import org.springblade.core.oss.props.OssProperties;
@@ -35,16 +35,18 @@ import org.springblade.core.oss.rule.OssRule;
 import org.springblade.modules.resource.pojo.entity.Oss;
 import org.springblade.modules.resource.rule.context.OssContext;
 
+import static org.springblade.modules.resource.rule.constant.OssRuleConstant.MINIO_RULE;
+
 /**
  * Minio云存储构建类
  *
  * @author Chill
  */
-@LiteflowComponent(id = "minioRule", name = "minioOSS构建")
-public class MinioRule extends NodeComponent {
+@LiteRuleComponent(id = MINIO_RULE, name = "minioOSS构建")
+public class MinioRule extends RuleComponent {
 
 	@Override
-	public void process() throws Exception {
+	public void process() {
 		// 获取上下文
 		OssContext contextBean = this.getContextBean(OssContext.class);
 		Oss oss = contextBean.getOss();

@@ -25,8 +25,8 @@
  */
 package org.springblade.modules.resource.rule.oss;
 
-import com.yomahub.liteflow.annotation.LiteflowComponent;
-import com.yomahub.liteflow.core.NodeComponent;
+import org.springblade.core.literule.annotation.LiteRuleComponent;
+import org.springblade.core.literule.core.RuleComponent;
 import org.springblade.core.oss.OssTemplate;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.resource.pojo.entity.Oss;
@@ -34,15 +34,17 @@ import org.springblade.modules.resource.rule.context.OssContext;
 
 import java.util.Map;
 
+import static org.springblade.modules.resource.rule.constant.OssRuleConstant.PRE_OSS_RULE;
+
 /**
  * Oss前置处理
  *
  * @author Chill
  */
-@LiteflowComponent(id = "preOssRule", name = "OSS构建前置处理")
-public class PreOssRule extends NodeComponent {
+@LiteRuleComponent(id = PRE_OSS_RULE, name = "OSS构建前置处理")
+public class PreOssRule extends RuleComponent {
 	@Override
-	public void process() throws Exception {
+	public void process() {
 		String tenantId = this.getRequestData();
 		OssContext contextBean = this.getContextBean(OssContext.class);
 		Map<String, Oss> ossPool = contextBean.getOssPool();

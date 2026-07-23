@@ -25,22 +25,24 @@
  */
 package org.springblade.modules.resource.rule.oss;
 
-import com.yomahub.liteflow.annotation.LiteflowComponent;
-import com.yomahub.liteflow.core.NodeComponent;
+import org.springblade.core.literule.annotation.LiteRuleComponent;
+import org.springblade.core.literule.core.RuleComponent;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.oss.OssTemplate;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.resource.rule.context.OssContext;
+
+import static org.springblade.modules.resource.rule.constant.OssRuleConstant.OSS_TEMPLATE_RULE;
 
 /**
  * OSS接口读取校验
  *
  * @author Chill
  */
-@LiteflowComponent(id = "ossTemplateRule", name = "OSS接口读取校验")
-public class OssTemplateRule extends NodeComponent {
+@LiteRuleComponent(id = OSS_TEMPLATE_RULE, name = "OSS接口读取校验")
+public class OssTemplateRule extends RuleComponent {
 	@Override
-	public void process() throws Exception {
+	public void process() {
 		OssContext contextBean = this.getContextBean(OssContext.class);
 		OssTemplate ossTemplate = contextBean.getOssTemplate();
 

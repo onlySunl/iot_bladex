@@ -25,8 +25,8 @@
  */
 package org.springblade.modules.resource.config;
 
-import com.yomahub.liteflow.core.FlowExecutor;
 import lombok.AllArgsConstructor;
+import org.springblade.core.literule.engine.RuleEngineExecutor;
 import org.springblade.core.redis.cache.BladeRedis;
 import org.springblade.core.sms.props.SmsProperties;
 import org.springblade.modules.resource.builder.SmsBuilder;
@@ -49,11 +49,11 @@ public class BladeSmsConfiguration {
 
 	private final BladeRedis bladeRedis;
 
-	private final FlowExecutor flowExecutor;
+	private final RuleEngineExecutor ruleExecutor;
 
 	@Bean
 	public SmsBuilder smsBuilder() {
-		return new SmsBuilder(smsProperties, smsService, bladeRedis, flowExecutor);
+		return new SmsBuilder(smsProperties, smsService, bladeRedis, ruleExecutor);
 	}
 
 }

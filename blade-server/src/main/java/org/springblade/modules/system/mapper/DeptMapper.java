@@ -65,14 +65,6 @@ public interface DeptMapper extends BaseMapper<Dept> {
 	 * @return
 	 */
 	List<DeptVO> lazyTree(String tenantId, Long parentId);
-	/**
-	 * 懒加载获取树形节点
-	 *
-	 * @param tenantId
-	 * @param parentId
-	 * @return
-	 */
-	List<DeptVO> lazyTreeCurrent(String tenantId, Long parentId);
 
 	/**
 	 * 获取部门名

@@ -30,6 +30,8 @@ import org.springblade.core.mp.base.BaseService;
 import org.springblade.modules.resource.pojo.entity.Attach;
 import org.springblade.modules.resource.pojo.vo.AttachVO;
 
+import java.util.List;
+
 /**
  * 附件表 服务类
  *
@@ -45,5 +47,13 @@ public interface IAttachService extends BaseService<Attach> {
 	 * @return
 	 */
 	IPage<AttachVO> selectAttachPage(IPage<AttachVO> page, AttachVO attach);
+
+	/**
+	 * 删除附件（同时删除数据库记录和OSS文件）
+	 *
+	 * @param ids 主键集合
+	 * @return 是否成功
+	 */
+	boolean removeAttach(List<Long> ids);
 
 }

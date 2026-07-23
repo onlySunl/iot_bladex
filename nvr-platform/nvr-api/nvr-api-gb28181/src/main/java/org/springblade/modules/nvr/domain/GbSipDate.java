@@ -1,9 +1,4 @@
 package org.springblade.modules.nvr.domain;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.tangzc.autotable.annotation.AutoColumn;
-import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
-import com.tangzc.mpe.autotable.annotation.Table;
 
 import gov.nist.core.InternalErrorHandler;
 import gov.nist.javax.sip.header.SIPDate;

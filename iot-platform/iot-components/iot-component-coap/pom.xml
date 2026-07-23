@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>iot-components</artifactId>
-        <version>4.2.0.RELEASE</version>
+        <version>4.9.0.RELEASE</version>
         <!-- 本地优先加载上层聚合pom，减少远程仓库请求 -->
         <relativePath>../pom.xml</relativePath>
     </parent>

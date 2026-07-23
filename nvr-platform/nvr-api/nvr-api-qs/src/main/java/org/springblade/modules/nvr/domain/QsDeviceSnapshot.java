@@ -3,15 +3,13 @@ package org.springblade.modules.nvr.domain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
-import com.tangzc.mpe.autotable.annotation.Table;
-
-
-import org.springblade.common.entity.CustomBaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springblade.common.entity.CustomBaseEntity;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -21,7 +19,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(value = "qs_device_snapshot", comment = "设备抓图记录表")
+@AutoTable(value = "qs_device_snapshot", comment = "设备抓图记录表")
 public class QsDeviceSnapshot extends CustomBaseEntity {
     private static final long serialVersionUID = 1L;
 

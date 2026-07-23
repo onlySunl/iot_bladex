@@ -32,6 +32,9 @@ social:
 
 #blade配置
 blade:
+  token:
+    # 超级令牌（Feign 内部调用使用），需与 blade-auth 模块的 secure-key 一致
+    super-token: 22a980123b63b5581e1ad0f1c5852e56cefcdeedd466737ba77996ddf2ba67c538439dd7e45115d1952ac8148a633a80
   mybatis-plus:
     sqlLog: false
   #分布式锁配置

@@ -43,17 +43,17 @@ public interface IRoleService extends IService<Role> {
 	/**
 	 * 自定义分页
 	 *
-	 * @param page
-	 * @param role
-	 * @return
+	 * @param page 分页
+	 * @param role 角色
+	 * @return 分页
 	 */
 	IPage<RoleVO> selectRolePage(IPage<RoleVO> page, RoleVO role);
 
 	/**
 	 * 树形结构
 	 *
-	 * @param tenantId
-	 * @return
+	 * @param tenantId 租户id
+	 * @return 角色列表
 	 */
 	List<RoleVO> tree(String tenantId);
 
@@ -71,52 +71,60 @@ public interface IRoleService extends IService<Role> {
 	/**
 	 * 获取角色ID
 	 *
-	 * @param tenantId
-	 * @param roleNames
-	 * @return
+	 * @param tenantId  租户id
+	 * @param roleNames 角色名
+	 * @return 角色id
 	 */
 	String getRoleIds(String tenantId, String roleNames);
 
 	/**
 	 * 获取角色名
 	 *
-	 * @param roleIds
-	 * @return
+	 * @param roleIds 角色id
+	 * @return 角色名
 	 */
 	List<String> getRoleNames(String roleIds);
 
 	/**
 	 * 获取角色名
 	 *
-	 * @param roleIds
-	 * @return
+	 * @param roleIds 角色id
+	 * @return 角色别名
 	 */
 	List<String> getRoleAliases(String roleIds);
 
 	/**
 	 * 提交
 	 *
-	 * @param role
-	 * @return
+	 * @param role 角色
+	 * @return boolean
 	 */
 	boolean submit(Role role);
 
 	/**
 	 * 角色信息查询
 	 *
-	 * @param roleName
-	 * @param parentId
-	 * @return
+	 * @param roleName 角色名
+	 * @param parentId 父级id
+	 * @return 角色列表
 	 */
 	List<RoleVO> search(String roleName, Long parentId);
 
 	/**
 	 * 删除角色
 	 *
-	 * @param ids
-	 * @return
+	 * @param ids 主键集合
+	 * @return boolean
 	 */
 	boolean removeRole(String ids);
+
+	/**
+	 * 获取角色别名列表
+	 *
+	 * @param tenantId 租户id
+	 * @return 别名列表
+	 */
+	List<Role> alias(String tenantId);
 
 
 }

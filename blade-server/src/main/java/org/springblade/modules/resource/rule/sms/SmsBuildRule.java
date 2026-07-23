@@ -25,38 +25,48 @@
  */
 package org.springblade.modules.resource.rule.sms;
 
-import com.yomahub.liteflow.annotation.LiteflowComponent;
-import com.yomahub.liteflow.core.NodeSwitchComponent;
+import org.springblade.core.literule.annotation.LiteRuleComponent;
+import org.springblade.core.literule.core.RuleSwitchComponent;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.sms.enums.SmsEnum;
 import org.springblade.modules.resource.pojo.entity.Sms;
 import org.springblade.modules.resource.rule.context.SmsContext;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.springblade.modules.resource.rule.constant.SmsRuleConstant.SMS_BUILD_RULE;
 
 /**
  * Sms构建判断
  *
  * @author Chill
  */
-@LiteflowComponent(id = "smsBuildRule", name = "SMS构建条件判断")
-public class SmsBuildRule extends NodeSwitchComponent {
+@LiteRuleComponent(id = SMS_BUILD_RULE, name = "SMS构建条件判断")
+public class SmsBuildRule extends RuleSwitchComponent {
+
+	private static final Map<Integer, String> CATEGORY_RULE_MAP = new HashMap<>();
+
+	static {
+		CATEGORY_RULE_MAP.put(SmsEnum.YUNPIAN.getCategory(), "yunpianSmsRule");
+		CATEGORY_RULE_MAP.put(SmsEnum.QINIU.getCategory(), "qiniuSmsRule");
+		CATEGORY_RULE_MAP.put(SmsEnum.ALI.getCategory(), "aliSmsRule");
+		CATEGORY_RULE_MAP.put(SmsEnum.TENCENT.getCategory(), "tencentSmsRule");
+	}
 
 	@Override
-	public String processSwitch() {
+	public List<String> process() {
 		SmsContext contextBean = this.getContextBean(SmsContext.class);
-		Sms sms = contextBean.getSms();
-
 		if (contextBean.getIsCached()) {
-			return "cacheSmsRule";
-		} else if (sms.getCategory() == SmsEnum.YUNPIAN.getCategory()) {
-			return "yunpianSmsRule";
-		} else if (sms.getCategory() == SmsEnum.QINIU.getCategory()) {
-			return "qiniuSmsRule";
-		} else if (sms.getCategory() == SmsEnum.ALI.getCategory()) {
-			return "aliSmsRule";
-		} else if (sms.getCategory() == SmsEnum.TENCENT.getCategory()) {
-			return "tencentSmsRule";
+			return Collections.singletonList("cacheSmsRule");
 		}
-
+		Sms sms = contextBean.getSms();
+		String ruleName = CATEGORY_RULE_MAP.get(sms.getCategory());
+		if (ruleName != null) {
+			return Collections.singletonList(ruleName);
+		}
 		throw new ServiceException("未找到SMS配置");
 	}
 }

@@ -38,6 +38,8 @@ import org.springblade.core.tool.constant.RoleConstant;
 import org.springblade.core.tool.node.ForestNodeMerger;
 import org.springblade.core.tool.utils.CollectionUtil;
 import org.springblade.core.tool.utils.Func;
+import org.springblade.core.tool.utils.StringPool;
+import org.springblade.core.tool.utils.StringUtil;
 import org.springblade.modules.system.mapper.RoleMapper;
 import org.springblade.modules.system.pojo.entity.Role;
 import org.springblade.modules.system.pojo.entity.RoleMenu;
@@ -54,17 +56,18 @@ import org.springframework.validation.annotation.Validated;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.springblade.common.constant.CommonConstant.API_SCOPE_CATEGORY;
 import static org.springblade.common.constant.CommonConstant.DATA_SCOPE_CATEGORY;
-
 
 /**
  * 服务实现类
  *
  * @author Chill
  */
+//@Master
 @Service
 @Validated
 @AllArgsConstructor
@@ -127,7 +130,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 			List<RoleMenu> roleMenuList = roleMenuService.list(Wrappers.<RoleMenu>query().lambda().eq(RoleMenu::getRoleId, role.getId()));
 			// 子节点过滤出父节点删除的菜单集合
 			List<Long> collectRoleMenuIds = roleMenuList.stream().map(RoleMenu::getMenuId).filter(menuId -> !menuIds.contains(menuId)).collect(Collectors.toList());
-			if (collectRoleMenuIds.size() > 0) {
+			if (!collectRoleMenuIds.isEmpty()) {
 				// 删除子节点权限外的菜单集合
 				roleMenuService.remove(Wrappers.<RoleMenu>update().lambda().eq(RoleMenu::getRoleId, role.getId()).in(RoleMenu::getMenuId, collectRoleMenuIds));
 				// 递归设置下属角色菜单集合
@@ -173,7 +176,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 	@Override
 	public String getRoleIds(String tenantId, String roleNames) {
 		List<Role> roleList = baseMapper.selectList(Wrappers.<Role>query().lambda().eq(Role::getTenantId, tenantId).in(Role::getRoleName, Func.toStrList(roleNames)));
-		if (roleList != null && roleList.size() > 0) {
+		if (roleList != null && !roleList.isEmpty()) {
 			return roleList.stream().map(role -> Func.toStr(role.getId())).distinct().collect(Collectors.joining(","));
 		}
 		return null;
@@ -237,4 +240,28 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 		return removeByIds(Func.toLongList(ids));
 	}
 
+	@Override
+	public List<Role> alias(String tenantId) {
+		// 获取所有角色数据
+		List<Role> roles = baseMapper.selectList(Wrappers.<Role>lambdaQuery().eq(Role::getTenantId, tenantId));
+
+		// 根据 roleAlias 对角色进行分组
+		Map<String, List<String>> aliasToNamesMap = roles.stream()
+			.collect(Collectors.groupingBy(Role::getRoleAlias,
+				Collectors.mapping(Role::getRoleName, Collectors.toList())));
+
+		// 创建新的角色列表，每个角色的 roleName 是 roleAlias 后跟括号内的所有 roleName
+		return aliasToNamesMap.entrySet().stream()
+			// 过滤掉超级管理员角色
+			.filter(entry -> !StringUtil.equals(RoleConstant.ADMINISTRATOR, entry.getKey()))
+			.map(entry -> {
+				String roleAlias = entry.getKey();
+				List<String> names = entry.getValue();
+				String namesConcat = names.stream().distinct().collect(Collectors.joining(StringPool.COMMA + StringPool.SPACE));
+				Role role = new Role();
+				role.setRoleAlias(roleAlias);
+				role.setRoleName(roleAlias + StringPool.SPACE + StringPool.LEFT_BRACKET + namesConcat + StringPool.RIGHT_BRACKET);
+				return role;
+			}).collect(Collectors.toList());
+	}
 }

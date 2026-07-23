@@ -3,12 +3,11 @@ package org.springblade.modules.nvr.domain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
-import com.tangzc.mpe.autotable.annotation.Table;
-
-import org.springblade.common.entity.CustomBaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springblade.common.entity.CustomBaseEntity;
 
 /**
  * 国标GB28181平台配置对象 gb28181_platform
@@ -18,7 +17,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @TableName("gb28181_platform")
 @EqualsAndHashCode(callSuper = true)
-@Table(value = "gb28181_platform", comment = "国标GB28181平台配置表")
+@AutoTable(value = "gb28181_platform", comment = "国标GB28181平台配置表")
 public class Gb28181Platform extends CustomBaseEntity {
     private static final long serialVersionUID = 1L;
 

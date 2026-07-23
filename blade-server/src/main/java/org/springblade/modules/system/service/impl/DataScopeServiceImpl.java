@@ -36,6 +36,7 @@ import org.springframework.stereotype.Service;
  *
  * @author BladeX
  */
+//@Master
 @Service
 public class DataScopeServiceImpl extends BaseServiceImpl<DataScopeMapper, DataScope> implements IDataScopeService {
 

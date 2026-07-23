@@ -26,25 +26,26 @@
 package org.springblade.modules.system.service.impl;
 
 
-import org.springblade.common.cache.*;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
-import org.springblade.common.constant.CommonConstant;
+import org.springblade.common.cache.*;
+import org.springblade.common.constant.ParamConstant;
 import org.springblade.common.constant.TenantConstant;
 import org.springblade.common.enums.DictEnum;
+import org.springblade.core.cache.utils.CacheUtil;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.mp.base.BaseServiceImpl;
 import org.springblade.core.mp.enums.StatusType;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
 import org.springblade.core.oauth2.exception.OAuth2Exception;
-import org.springblade.core.redis.cache.BladeRedis;
 import org.springblade.core.secure.utils.AuthUtil;
 import org.springblade.core.tenant.BladeTenantProperties;
 import org.springblade.core.tool.constant.BladeConstant;
+import org.springblade.core.tool.constant.RoleConstant;
 import org.springblade.core.tool.jackson.JsonUtil;
 import org.springblade.core.tool.support.Kv;
 import org.springblade.core.tool.utils.*;
@@ -66,14 +67,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import static org.springblade.common.constant.CommonConstant.DEFAULT_PARAM_PASSWORD;
-
+import static org.springblade.common.constant.ParamConstant.DEFAULT_PARAM_PASSWORD;
+import static org.springblade.core.cache.constant.CacheConstant.USER_CACHE;
 
 /**
  * 服务实现类
  *
  * @author Chill
  */
+//@Master
 @Service
 @AllArgsConstructor
 public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implements IUserService {
@@ -83,7 +85,6 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	private final IUserOauthService userOauthService;
 	private final IRoleService roleService;
 	private final BladeTenantProperties tenantProperties;
-	private final BladeRedis bladeRedis;
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
@@ -116,6 +117,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 		if (phoneCount > 0L && StringUtil.isNotBlank(user.getPhone())) {
 			throw new ServiceException(StringUtil.format("当前手机 [{}] 已存在!", user.getPhone()));
 		}
+		CacheUtil.clear(USER_CACHE);
 		return save(user) && submitUserDept(user);
 	}
 
@@ -141,11 +143,25 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 		if (phoneCount > 0L && StringUtil.isNotBlank(user.getPhone())) {
 			throw new ServiceException(StringUtil.format("当前手机 [{}] 已存在!", user.getPhone()));
 		}
-		return updateUserInfo(user) && submitUserDept(user);
+		CacheUtil.clear(USER_CACHE);
+		return submitUserInfo(user) && submitUserDept(user);
 	}
 
 	@Override
 	public boolean updateUserInfo(User user) {
+		// 用户修改自身信息强制指定当前请求账号的ID
+		user.setId(AuthUtil.getUserId());
+		// 用户修改自身信息强制忽略角色、部门、岗位、账号等字段
+		user.setRoleId(null);
+		user.setDeptId(null);
+		user.setPostId(null);
+		user.setAccount(null);
+		user.setIsLeader(null);
+		CacheUtil.clear(USER_CACHE);
+		return submitUserInfo(user);
+	}
+
+	private boolean submitUserInfo(User user) {
 		Long phoneCount = baseMapper.selectCount(
 			Wrappers.<User>query().lambda()
 				.eq(User::getTenantId, AuthUtil.getTenantId())
@@ -325,7 +341,8 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	@Override
 	public boolean resetPassword(String userIds) {
 		User user = new User();
-		user.setPassword(DigestUtil.encrypt(CommonConstant.DEFAULT_PASSWORD));
+		String initPassword = ParamCache.getValue(DEFAULT_PARAM_PASSWORD);// 获取默认密码配置
+		user.setPassword(DigestUtil.encrypt(Func.toStr(initPassword, ParamConstant.DEFAULT_PASSWORD)));
 		user.setUpdateTime(DateUtil.now());
 		return this.update(user, Wrappers.<User>update().lambda().in(User::getId, Func.toLongList(userIds)));
 	}
@@ -359,6 +376,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 			userApp.delete(Wrappers.<UserApp>lambdaQuery().in(UserApp::getUserId, Func.toLongList(userIds)));
 			UserOther userOther = new UserOther();
 			userOther.delete(Wrappers.<UserOther>lambdaQuery().in(UserOther::getUserId, Func.toLongList(userIds)));
+			CacheUtil.clear(USER_CACHE);
 			return true;
 		} else {
 			throw new ServiceException("删除用户失败!");
@@ -427,6 +445,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 		user.setRoleId(StringPool.MINUS_ONE);
 		user.setDeptId(StringPool.MINUS_ONE);
 		user.setPostId(StringPool.MINUS_ONE);
+		user.setUserType(UserType.OTHER.getCategory());
 		user.setStatus(StatusType.IN_ACTIVE.getType());
 		boolean userTemp = this.submit(user);
 		userOauth.setUserId(user.getId());
@@ -509,16 +528,6 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	}
 
 	@Override
-	public boolean unlock(String userIds) {
-		if (StringUtil.isBlank(userIds)) {
-			throw new ServiceException("请至少选择一个用户!");
-		}
-		List<User> userList = baseMapper.selectList(Wrappers.<User>lambdaQuery().in(User::getId, Func.toLongList(userIds)));
-		userList.forEach(user -> bladeRedis.del(CacheNames.tenantKey(user.getTenantId(), CacheNames.USER_FAIL_KEY, user.getAccount())));
-		return true;
-	}
-
-	@Override
 	public boolean auditPass(String userIds) {
 		if (StringUtil.isBlank(userIds)) {
 			throw new ServiceException("请至少选择一个用户!");
@@ -541,6 +550,71 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 			throw new ServiceException("请至少选择一个用户!");
 		}
 		return changeStatus(Func.toLongList(userIds), StatusType.DISABLED.getType());
+	}
+
+	@Override
+	public boolean setLeader(Long userId) {
+		User user = this.getById(userId);
+		if (Func.isEmpty(user)) {
+			throw new ServiceException("用户不存在!");
+		}
+		Integer isLeader = user.getIsLeader();
+		return this.update(Wrappers.<User>update().lambda().set(
+			User::getIsLeader, isLeader == 0 ? BladeConstant.DB_STATUS_1 : BladeConstant.DB_STATUS_0
+		).eq(User::getId, userId));
+	}
+
+	@Override
+	public List<UserVO> leaderInfo(Long userId) {
+		User user = this.getById(userId);
+		if (Func.isEmpty(user)) {
+			throw new ServiceException("用户不存在!");
+		}
+		if (StringUtil.isBlank(user.getLeaderId())) {
+			return new ArrayList<>();
+		}
+		List<Long> leaderIds = Func.toLongList(user.getLeaderId());
+		return UserWrapper.build().listVO(this.listByIds(leaderIds));
+	}
+
+	@Override
+	public List<UserVO> leaderList(String tenantId, String realName) {
+		LambdaQueryWrapper<User> queryWrapper = Wrappers.<User>query().lambda()
+			.select(User::getId, User::getRealName)
+			.like(StringUtil.isNoneBlank(realName), User::getRealName, realName)
+			.eq(User::getTenantId, Func.toStrWithEmpty(tenantId, AuthUtil.getTenantId()))
+			.eq(User::getIsLeader, BladeConstant.DB_STATUS_1)
+			.eq(User::getStatus, BladeConstant.DB_STATUS_NORMAL)
+			.eq(User::getIsDeleted, BladeConstant.DB_NOT_DELETED);
+		return UserWrapper.build().listVO(this.list(queryWrapper));
+	}
+
+	@Override
+	public IPage<UserVO> userPage(IPage<User> page, String account, String name) {
+		// 查询管理员角色ID列表
+		List<Long> adminRoleIds = roleService.list(
+			Wrappers.<Role>lambdaQuery().in(Role::getRoleAlias, RoleConstant.ADMINISTRATOR, RoleConstant.ADMIN)
+		).stream().map(Role::getId).toList();
+		// 构建用户分页查询（非超管自动隔离租户）
+		LambdaQueryWrapper<User> queryWrapper = Wrappers.lambdaQuery();
+		if (!AuthUtil.isAdministrator()) {
+			queryWrapper.eq(User::getTenantId, AuthUtil.getTenantId());
+		}
+		// 排除包含管理员角色的用户
+		for (Long adminRoleId : adminRoleIds) {
+			queryWrapper.notLike(User::getRoleId, adminRoleId.toString());
+		}
+		// 模糊查询账号
+		if (Func.isNotBlank(account)) {
+			queryWrapper.like(User::getAccount, account);
+		}
+		// 模糊查询姓名
+		if (Func.isNotBlank(name)) {
+			queryWrapper.like(User::getName, name);
+		}
+		// 按创建时间降序排序
+		queryWrapper.orderByDesc(User::getCreateTime);
+		return UserWrapper.build().pageVO(this.page(page, queryWrapper));
 	}
 
 }

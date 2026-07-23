@@ -25,6 +25,7 @@
  */
 package org.springblade.modules.auth.utils;
 
+import org.springblade.common.cache.SysCache;
 import org.springblade.core.oauth2.provider.OAuth2Request;
 import org.springblade.core.oauth2.service.OAuth2User;
 import org.springblade.core.oauth2.service.impl.OAuth2UserDetail;
@@ -54,13 +55,14 @@ public class TokenUtil {
 		User user = userInfo.getUser();
 		String userDept = request.getUserDept();
 		String userRole = request.getUserRole();
-		// 多部门情况下指定单部门
+		// 单独指定部门
 		if (Func.isNotEmpty(userDept) && user.getDeptId().contains(userDept)) {
 			user.setDeptId(userDept);
 		}
-		// 多角色情况下指定单角色
+		// 单独指定角色
 		if (Func.isNotEmpty(userRole) && user.getRoleId().contains(userRole)) {
 			user.setRoleId(userRole);
+			userInfo.setRoles(SysCache.getRoleAliases(userRole));
 		}
 		// 构建oauth2所需用户信息
 		OAuth2UserDetail userDetail = new OAuth2UserDetail();

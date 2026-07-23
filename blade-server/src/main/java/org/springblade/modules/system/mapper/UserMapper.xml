@@ -54,7 +54,7 @@
                 FROM
                     blade_user_dept
                 WHERE
-                dept_id IN
+                status = 1 and is_deleted = 0 and dept_id IN
                 <foreach collection="deptIdList" index="index" item="item" open="(" separator="," close=")">
                     #{item}
                 </foreach>

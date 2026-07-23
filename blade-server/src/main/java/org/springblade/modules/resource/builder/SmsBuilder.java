@@ -27,10 +27,10 @@ package org.springblade.modules.resource.builder;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.yomahub.liteflow.core.FlowExecutor;
-import com.yomahub.liteflow.flow.LiteflowResponse;
 import lombok.AllArgsConstructor;
 import org.springblade.core.cache.utils.CacheUtil;
+import org.springblade.core.literule.engine.RuleEngineExecutor;
+import org.springblade.core.literule.provider.LiteRuleResponse;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.redis.cache.BladeRedis;
 import org.springblade.core.secure.utils.AuthUtil;
@@ -49,6 +49,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static org.springblade.core.cache.constant.CacheConstant.RESOURCE_CACHE;
+import static org.springblade.modules.resource.rule.constant.SmsRuleConstant.SMS_CHAIN_ID;
 
 /**
  * Sms短信服务统一构建类
@@ -64,7 +65,7 @@ public class SmsBuilder {
 	private final SmsProperties smsProperties;
 	private final ISmsService smsService;
 	private final BladeRedis bladeRedis;
-	private final FlowExecutor flowExecutor;
+	private final RuleEngineExecutor ruleExecutor;
 
 	/**
 	 * SmsTemplate配置缓存池
@@ -114,9 +115,9 @@ public class SmsBuilder {
 		smsContext.setTemplatePool(templatePool);
 		smsContext.setBladeRedis(bladeRedis);
 
-		LiteflowResponse resp = flowExecutor.execute2Resp("smsChain", tenantId, smsContext);
+		LiteRuleResponse<SmsContext> resp = ruleExecutor.execute(SMS_CHAIN_ID, tenantId, smsContext);
 		if (resp.isSuccess()) {
-			SmsContext contextBean = resp.getFirstContextBean();
+			SmsContext contextBean = resp.getContext();
 			return contextBean.getSmsTemplate();
 		} else {
 			throw new ServiceException("未获取到对应的短信配置");

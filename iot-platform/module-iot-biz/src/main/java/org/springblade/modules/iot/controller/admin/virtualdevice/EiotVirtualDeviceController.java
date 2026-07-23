@@ -1,25 +1,3 @@
-/*
- *
- *  * | Licensed 未经许可不能去掉「Enjoy-iot」相关版权
- *  * +----------------------------------------------------------------------
- *  * | Author: xw2sy@163.com
- *  * +----------------------------------------------------------------------
- *
- *  Copyright [2025] [Enjoy-iot]
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- * /
- */
 package org.springblade.modules.iot.controller.admin.virtualdevice;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,7 +14,6 @@ import org.springblade.modules.iot.common.utils.BeanUtils;
 import org.springblade.modules.iot.controller.admin.virtualdevice.vo.*;
 import org.springblade.modules.iot.service.virtualdevice.VirtualDeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,7 +34,6 @@ public class EiotVirtualDeviceController {
 
     @PostMapping("/list")
     @Operation(summary = "获得规则引擎分页")
-    @PreAuthorize("@ss.hasPermission('eiot:virtual-device:query')")
     public CommonResult<PageResult<VirtualDevice>> selectPage(@Valid @RequestBody VirtualDevicePageReqVO reqVO) {
         PageResult<VirtualDevice> pageResult = virtualDeviceService.selectPage(reqVO);
         return success(BeanUtils.toBean(pageResult, VirtualDevice.class));
@@ -66,7 +42,6 @@ public class EiotVirtualDeviceController {
     @GetMapping("/getDetail")
     @Operation(summary = "获取虚拟设备")
     @Parameter(name = "id", description = "虚拟设备设备id", required = true, example = "1024")
-    @PreAuthorize("@ss.hasPermission('eiot:virtual-device:query')")
     public CommonResult<VirtualDevice> getVirtualDevice(@RequestParam("id") Long id) {
         VirtualDevice virtualDevice = virtualDeviceService.getVirtualDevice(id);
         return success(virtualDevice);
@@ -77,7 +52,6 @@ public class EiotVirtualDeviceController {
      */
     @PostMapping("/add")
     @Operation(summary = "添加虚拟设备")
-    @PreAuthorize("@ss.hasPermission('eiot:virtual-device:create')")
     public CommonResult<Long> addVirtualDevice(@Valid @RequestBody EiotVirtualDeviceSaveReqVO virtualDevice) {
         return success(virtualDeviceService.saveVirtualDevice(virtualDevice));
     }
@@ -87,7 +61,6 @@ public class EiotVirtualDeviceController {
      */
     @Operation(summary = "更新虚拟设备")
     @PostMapping("/update")
-    @PreAuthorize("@ss.hasPermission('eiot:virtual-device:update')")
     public CommonResult<Boolean> updateVirtualDevice(@RequestBody VirtualDevice virtualDevice) {
         virtualDeviceService.updateVirtualDevice(virtualDevice);
         return CommonResult.success(true);
@@ -98,7 +71,6 @@ public class EiotVirtualDeviceController {
      */
     @Operation(summary = "保存虚拟设备映射")
     @PostMapping("/saveDevices")
-    @PreAuthorize("@ss.hasPermission('eiot:virtual-device:update')")
     public CommonResult<Boolean> saveDevices(@RequestBody EiotVirtualSaveDevicesMappingVo virtualDevice) {
         virtualDeviceService.saveVirtualDeviceMapping(virtualDevice);
         return CommonResult.success(true);
@@ -110,7 +82,6 @@ public class EiotVirtualDeviceController {
     @PostMapping("/batchDelete")
     @Operation(summary = "删除虚拟设备")
     @Parameter(name = "id", description = "设备id", required = true)
-    @PreAuthorize("@ss.hasPermission('eiot:virtual-device:delete')")
     public CommonResult<Boolean> batchDeleteVirtualDevice(@RequestBody List<Long> ids) {
         ids.forEach(this::deleteVirtualDevice);
         return success(true);
@@ -123,7 +94,6 @@ public class EiotVirtualDeviceController {
     @PostMapping("/delete")
     @Operation(summary = "删除虚拟设备")
     @Parameter(name = "id", description = "设备id", required = true)
-    @PreAuthorize("@ss.hasPermission('eiot:virtual-device:delete')")
     public CommonResult<Boolean> deleteVirtualDevice(@RequestBody Long id) {
         virtualDeviceService.deleteVirtualDevice(id);
         return success(true);
@@ -132,7 +102,6 @@ public class EiotVirtualDeviceController {
     @PostMapping("/run")
     @Operation(summary = "手动执行虚拟设备")
     @Parameter(name = "id", description = "虚拟设备设备id", required = true, example = "1024")
-    @PreAuthorize("@ss.hasPermission('eiot:virtual-device:update')")
     public CommonResult<Boolean> run(@RequestBody IdReqVo reqVo) {
         virtualDeviceService.run(reqVo.getId());
         return success(true);
@@ -142,7 +111,6 @@ public class EiotVirtualDeviceController {
     @PostMapping("/setState")
     @Operation(summary = "设置虚拟设备状态")
     @Parameter(name = "id", description = "虚拟设备设备id", required = true, example = "1024")
-    @PreAuthorize("@ss.hasPermission('iot:virtual-device:setState')")
     public CommonResult<Boolean> setState(@Valid @RequestBody EiotVirtualDeviceSetStateReqVO reqest) {
         if (!VirtualDevice.STATE_RUNNING.equals(reqest.getState())
                 && !VirtualDevice.STATE_STOPPED.equals(reqest.getState())) {
@@ -155,7 +123,6 @@ public class EiotVirtualDeviceController {
     @PostMapping("/saveScript")
     @Operation(summary = "保存运行脚本")
     @Parameter(name = "id", description = "保存运行脚本", required = true, example = "1024")
-    @PreAuthorize("@ss.hasPermission('iot:virtual-device:query')")
     public CommonResult<Boolean> getVirtualDevice(@Valid @RequestBody EiotVirtualSaveScriptVo saveScriptVo) {
         virtualDeviceService.saveScript(saveScriptVo);
         return success(true);
@@ -168,7 +135,6 @@ public class EiotVirtualDeviceController {
     @PostMapping("/logs/list")
     @Operation(summary = "取虚拟设备执行日志")
     @Parameter(name = "id", description = "取虚拟设备执行日志", required = true, example = "1024")
-    @PreAuthorize("@ss.hasPermission('iot:virtual-device:query')")
     public CommonResult<PageResult<VirtualDeviceLog>> getLogs(@Validated @RequestBody VirtualDeviceLogPageReqVO data) {
         PageResult<VirtualDeviceLog> pageResult = virtualDeviceService.findByVirtualDeviceId(data.getVirtualDeviceId(), data.getPageNo(), data.getPageSize());
         return CommonResult.success(pageResult);

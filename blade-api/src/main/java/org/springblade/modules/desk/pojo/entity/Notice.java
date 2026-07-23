@@ -29,6 +29,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springblade.core.datarecord.annotation.DataRecord;
+import org.springblade.core.datarecord.annotation.DataRecordLevel;
+import org.springblade.core.datarecord.annotation.FieldRecord;
 import org.springblade.core.tenant.mp.TenantEntity;
 
 import java.io.Serial;
@@ -42,6 +45,13 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @TableName("blade_notice")
+@DataRecord(
+	module = "工作台",
+	operation = "通知公告",
+	ignoreFields = {"status"},
+	level = DataRecordLevel.INFO,
+	condition = "#oldData.Category > 1"
+)
 @Schema(description = "公告实体类")
 public class Notice extends TenantEntity {
 
@@ -57,6 +67,10 @@ public class Notice extends TenantEntity {
 	/**
 	 * 通知类型
 	 */
+	@FieldRecord(
+		description = "通知类型",
+		condition = "#newValue > 1"
+	)
 	@Schema(description = "通知类型")
 	private Integer category;
 

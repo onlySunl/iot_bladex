@@ -63,6 +63,7 @@ import static org.springblade.core.cache.constant.CacheConstant.MENU_CACHE;
  *
  * @author Chill
  */
+//@Master
 @Service
 @AllArgsConstructor
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
@@ -102,7 +103,12 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 		}
 		// 非超级管理员并且不是顶部菜单请求则返回对应角色权限菜单
 		else if (!AuthUtil.isAdministrator() && Func.isEmpty(topMenuId)) {
-			roleMenus = tenantPackageMenu(baseMapper.roleMenuByRoleId(Func.toLongList(roleId)));
+			// 角色配置对应菜单
+			List<Menu> roleIdMenus = baseMapper.roleMenuByRoleId(Func.toLongList(roleId));
+			// 反向递归角色菜单所有父级
+			List<Menu> routes = new LinkedList<>(roleIdMenus);
+			roleIdMenus.forEach(roleMenu -> recursion(allMenus, routes, roleMenu));
+			roleMenus = tenantPackageMenu(routes);
 		}
 		// 顶部菜单请求返回对应角色权限菜单
 		else {
@@ -114,9 +120,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 			// 顶部配置对应菜单
 			List<Menu> topIdMenus = baseMapper.roleMenuByTopMenuId(topMenuId);
 			// 筛选匹配角色对应的权限菜单
-			roleMenus = topIdMenus.stream().filter(x ->
+			roleMenus = tenantPackageMenu(topIdMenus.stream().filter(x ->
 				routes.stream().anyMatch(route -> route.getId().longValue() == x.getId().longValue())
-			).collect(Collectors.toList());
+			).collect(Collectors.toList()));
 		}
 		return buildRoutes(allMenus, roleMenus);
 	}
@@ -180,7 +186,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 		if (!AuthUtil.isAdministrator() && Func.isNotEmpty(tenantPackage) && tenantPackage.getId() > 0L) {
 			List<Long> menuIds = Func.toLongList(tenantPackage.getMenuId());
 			// 筛选出两者菜单交集集合
-			List<TreeNode> collect = menuTree.stream().filter(x -> menuIds.contains(x.getId())).collect(Collectors.toList());
+			List<TreeNode> collect = menuTree.stream().filter(x -> menuIds.contains(x.getId())).toList();
 			// 创建递归基础集合
 			List<TreeNode> packageTree = new LinkedList<>(collect);
 			// 递归筛选出菜单集合所有父级
@@ -222,7 +228,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 	 */
 	private List<Menu> tenantPackageMenu(List<Menu> menu) {
 		TenantPackage tenantPackage = SysCache.getTenantPackage(AuthUtil.getTenantId());
-		if (Func.isNotEmpty(tenantPackage) && tenantPackage.getId() > 0L) {
+		if (Func.isNotEmpty(tenantPackage) && Func.isNotEmpty(tenantPackage.getId()) && tenantPackage.getId() > 0L) {
 			List<Long> menuIds = Func.toLongList(tenantPackage.getMenuId());
 			menu = menu.stream().filter(x -> menuIds.contains(x.getId())).collect(Collectors.toList());
 		}
@@ -283,31 +289,42 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
 	@Override
 	public boolean submit(Menu menu) {
-		LambdaQueryWrapper<Menu> menuQueryWrapper = Wrappers.lambdaQuery();
-		if (menu.getId() == null) {
-			menuQueryWrapper.eq(Menu::getCode, menu.getCode()).or(
-				wrapper -> wrapper.eq(Menu::getName, menu.getName()).eq(Menu::getCategory, MENU_CATEGORY)
-			);
-		} else {
-			menuQueryWrapper.ne(Menu::getId, menu.getId()).and(
-				wrapper -> wrapper.eq(Menu::getCode, menu.getCode()).or(
-					o -> o.eq(Menu::getName, menu.getName()).eq(Menu::getCategory, MENU_CATEGORY)
-				)
-			);
-		}
-		Long cnt = baseMapper.selectCount(menuQueryWrapper);
-		if (cnt > 0L) {
+		boolean isNewMenu = menu.getId() == null;
+		
+		// 验证code和name唯一性
+		LambdaQueryWrapper<Menu> menuQueryWrapper = Wrappers.<Menu>lambdaQuery()
+			.and(!isNewMenu, w -> w.ne(Menu::getId, menu.getId()))
+			.and(w -> w.eq(Menu::getCode, menu.getCode())
+				.or(o -> o.eq(Menu::getName, menu.getName()).eq(Menu::getCategory, MENU_CATEGORY)));
+		
+		if (baseMapper.selectCount(menuQueryWrapper) > 0L) {
 			throw new ServiceException("菜单名或编号已存在!");
 		}
+		
+		// 验证path唯一性
+		if (Func.isNotBlank(menu.getPath())) {
+			LambdaQueryWrapper<Menu> pathQueryWrapper = Wrappers.<Menu>lambdaQuery()
+				.eq(Menu::getPath, menu.getPath())
+				.ne(!isNewMenu, Menu::getId, menu.getId());
+			
+			if (baseMapper.selectCount(pathQueryWrapper) > 0L) {
+				throw new ServiceException("菜单路径已存在!");
+			}
+		}
+		
+		// 处理父节点
 		if (menu.getParentId() == null) {
 			menu.setParentId(BladeConstant.TOP_PARENT_ID);
 		}
-		if (menu.getParentId() != null || menu.getId() == null) {
+		
+		// 验证父节点类型（新增或父节点变更时）
+		if (isNewMenu || menu.getParentId() != null) {
 			Menu parentMenu = baseMapper.selectById(menu.getParentId());
 			if (parentMenu != null && parentMenu.getCategory() != 1) {
 				throw new ServiceException("父节点只可选择菜单类型!");
 			}
 		}
+		
 		menu.setIsDeleted(BladeConstant.DB_NOT_DELETED);
 		return saveOrUpdate(menu);
 	}

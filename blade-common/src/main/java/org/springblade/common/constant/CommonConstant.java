@@ -101,5 +101,7 @@ public interface CommonConstant {
 	 */
 	String DEFAULT_XCX_COURSE_NUM = "xcx.course.num";
 
+	public static final String SERVICE_URL="http://127.0.0.1:8093";
+
 
 }

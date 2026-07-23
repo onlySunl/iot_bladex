@@ -40,13 +40,14 @@ import org.springblade.core.cache.utils.CacheUtil;
 import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
-import org.springblade.core.secure.annotation.PreAuth;
+import org.springblade.core.secure.annotation.IsAdmin;
 import org.springblade.core.tenant.annotation.NonDS;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.tool.constant.RoleConstant;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.system.pojo.entity.Param;
+import org.springblade.modules.system.pojo.vo.ParamVO;
 import org.springblade.modules.system.service.IParamService;
+import org.springblade.modules.system.wrapper.ParamWrapper;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -61,6 +62,7 @@ import static org.springblade.core.cache.constant.CacheConstant.PARAM_CACHE;
 @NonDS
 @RestController
 @AllArgsConstructor
+@IsAdmin
 @RequestMapping(AppConstant.APPLICATION_SYSTEM_NAME + "/param")
 @Tag(name = "参数配置", description = "参数配置")
 public class ParamController extends BladeController {
@@ -73,9 +75,9 @@ public class ParamController extends BladeController {
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
 	@Operation(summary = "详情", description = "传入param")
-	public R<Param> detail(Param param) {
+	public R<ParamVO> detail(Param param) {
 		Param detail = paramService.getOne(Condition.getQueryWrapper(param));
-		return R.data(detail);
+		return R.data(ParamWrapper.build().entityVO(detail));
 	}
 
 	/**
@@ -89,10 +91,9 @@ public class ParamController extends BladeController {
 	})
 	@ApiOperationSupport(order = 2)
 	@Operation(summary = "分页", description = "传入param")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
-	public R<IPage<Param>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> param, Query query) {
+	public R<IPage<ParamVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> param, Query query) {
 		IPage<Param> pages = paramService.page(Condition.getPage(query), Condition.getQueryWrapper(param, Param.class));
-		return R.data(pages);
+		return R.data(ParamWrapper.build().pageVO(pages));
 	}
 
 	/**

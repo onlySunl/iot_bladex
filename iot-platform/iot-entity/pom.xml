@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>iot-platform</artifactId>
-        <version>4.2.0.RELEASE</version>
+        <version>4.9.0.RELEASE</version>
     </parent>
 
     <artifactId>iot-entity</artifactId>

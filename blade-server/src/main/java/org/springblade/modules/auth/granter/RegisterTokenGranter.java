@@ -50,7 +50,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collections;
 import java.util.function.Predicate;
 
-import static org.springblade.modules.auth.constant.BladeAuthConstant.REGISTER_USER_VALUE;
+import static org.springblade.common.constant.ParamConstant.REGISTER_USER_VALUE;
 
 /**
  * RegisterTokenGranter
@@ -84,7 +84,7 @@ public class RegisterTokenGranter extends AbstractTokenGranter {
 
 		// 用户注册信息
 		User user = new User();
-		user.setUserType(UserType.WEB.getCategory());
+		user.setUserType(UserType.of(request.getUserType()).getCategory());
 		user.setTenantId(request.getTenantId());
 		user.setAccount(request.getUsername());
 		user.setPassword(SM2Util.decrypt(request.getPassword(), properties.getPublicKey(), properties.getPrivateKey()));

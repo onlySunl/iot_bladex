@@ -26,6 +26,7 @@
 package org.springblade.modules.system.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -34,11 +35,12 @@ import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.log.model.LogApi;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
-import org.springblade.core.secure.annotation.PreAuth;
+import org.springblade.core.secure.annotation.IsAdmin;
 import org.springblade.core.tenant.annotation.NonDS;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.tool.constant.RoleConstant;
+import org.springblade.modules.system.pojo.vo.LogApiVO;
 import org.springblade.modules.system.service.ILogApiService;
+import org.springblade.modules.system.wrapper.LogApiWrapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -63,20 +65,21 @@ public class LogApiController {
 	/**
 	 * 查询单条
 	 */
+	@IsAdmin
 	@GetMapping("/detail")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
 	public R<LogApi> detail(LogApi log) {
-		return R.data(logService.getOne(Condition.getQueryWrapper(log)));
+		QueryWrapper<LogApi> queryWrapper = Condition.getQueryWrapper(log);
+		return R.data(queryWrapper.isEmptyOfWhere() ? null : logService.getOne(queryWrapper));
 	}
 
 	/**
 	 * 查询多条(分页)
 	 */
+	@IsAdmin
 	@GetMapping("/list")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
-	public R<IPage<LogApi>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> log, Query query) {
+	public R<IPage<LogApiVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> log, Query query) {
 		IPage<LogApi> pages = logService.page(Condition.getPage(query.setDescs("create_time")), Condition.getQueryWrapper(log, LogApi.class));
-		return R.data(pages);
+		return R.data(LogApiWrapper.build().pageVO(pages));
 	}
 
 }

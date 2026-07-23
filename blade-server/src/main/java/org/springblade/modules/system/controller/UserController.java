@@ -38,20 +38,22 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springblade.core.cache.utils.CacheUtil;
 import org.springblade.core.excel.util.ExcelUtil;
 import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
 import org.springblade.core.secure.BladeUser;
-import org.springblade.core.secure.annotation.PreAuth;
+import org.springblade.core.secure.annotation.IsAdmin;
 import org.springblade.core.secure.utils.AuthUtil;
 import org.springblade.core.tenant.annotation.NonDS;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.constant.BladeConstant;
-import org.springblade.core.tool.constant.RoleConstant;
+import org.springblade.core.tool.jackson.BladeView;
+import org.springblade.core.tool.jackson.Views;
 import org.springblade.core.tool.utils.DateUtil;
+import org.springblade.core.tool.utils.Func;
 import org.springblade.core.tool.utils.StringPool;
+import org.springblade.core.tool.utils.StringUtil;
 import org.springblade.modules.system.excel.UserExcel;
 import org.springblade.modules.system.excel.UserImporter;
 import org.springblade.modules.system.pojo.entity.User;
@@ -65,7 +67,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.springblade.core.cache.constant.CacheConstant.USER_CACHE;
+import static org.springblade.core.launch.constant.FlowConstant.TASK_USR_PREFIX;
 
 /**
  * 控制器
@@ -84,10 +86,11 @@ public class UserController {
 	/**
 	 * 查询单条
 	 */
+	@IsAdmin
+	@GetMapping("/detail")
+	@BladeView(Views.Admin.class)
 	@ApiOperationSupport(order = 1)
 	@Operation(summary = "查看详情", description = "传入id")
-	@GetMapping("/detail")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
 	public R<UserVO> detail(User user) {
 		User detail = userService.getOne(Condition.getQueryWrapper(user));
 		return R.data(UserWrapper.build().entityVO(detail));
@@ -96,9 +99,10 @@ public class UserController {
 	/**
 	 * 查询单条
 	 */
+	@GetMapping("/info")
+	@BladeView
 	@ApiOperationSupport(order = 2)
 	@Operation(summary = "查看详情", description = "传入id")
-	@GetMapping("/info")
 	public R<UserVO> info(BladeUser user) {
 		User detail = userService.getById(user.getUserId());
 		return R.data(UserWrapper.build().entityVO(detail));
@@ -107,14 +111,15 @@ public class UserController {
 	/**
 	 * 用户列表
 	 */
+	@IsAdmin
 	@GetMapping("/list")
+	@BladeView(Views.Admin.class)
 	@Parameters({
 		@Parameter(name = "account", description = "账号名", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
 		@Parameter(name = "realName", description = "姓名", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
 	})
 	@ApiOperationSupport(order = 3)
 	@Operation(summary = "列表", description = "传入account和realName")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
 	public R<IPage<UserVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> user, Query query, BladeUser bladeUser) {
 		QueryWrapper<User> queryWrapper = Condition.getQueryWrapper(user, User.class);
 		IPage<User> pages = userService.page(Condition.getPage(query), (!bladeUser.getTenantId().equals(BladeConstant.ADMIN_TENANT_ID)) ? queryWrapper.lambda().eq(User::getTenantId, bladeUser.getTenantId()) : queryWrapper);
@@ -124,14 +129,15 @@ public class UserController {
 	/**
 	 * 自定义用户列表
 	 */
+	@IsAdmin
 	@GetMapping("/page")
+	@BladeView(Views.Admin.class)
 	@Parameters({
 		@Parameter(name = "account", description = "账号名", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
 		@Parameter(name = "realName", description = "姓名", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
 	})
-	@ApiOperationSupport(order = 3)
+	@ApiOperationSupport(order = 4)
 	@Operation(summary = "列表", description = "传入account和realName")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
 	public R<IPage<UserVO>> page(@Parameter(hidden = true) User user, Query query, Long deptId, BladeUser bladeUser) {
 		IPage<User> pages = userService.selectUserPage(Condition.getPage(query), user, deptId, (bladeUser.getTenantId().equals(BladeConstant.ADMIN_TENANT_ID) ? StringPool.EMPTY : bladeUser.getTenantId()));
 		return R.data(UserWrapper.build().pageVO(pages));
@@ -140,45 +146,43 @@ public class UserController {
 	/**
 	 * 新增或修改
 	 */
+	@IsAdmin
 	@PostMapping("/submit")
-	@ApiOperationSupport(order = 4)
+	@ApiOperationSupport(order = 5)
 	@Operation(summary = "新增或修改", description = "传入User")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
 	public R submit(@Valid @RequestBody User user) {
-		CacheUtil.clear(USER_CACHE);
 		return R.status(userService.submit(user));
 	}
 
 	/**
 	 * 修改
 	 */
+	@IsAdmin
 	@PostMapping("/update")
-	@ApiOperationSupport(order = 5)
+	@ApiOperationSupport(order = 6)
 	@Operation(summary = "修改", description = "传入User")
 	public R update(@Valid @RequestBody User user) {
-		CacheUtil.clear(USER_CACHE);
 		return R.status(userService.updateUser(user));
 	}
 
 	/**
 	 * 删除
 	 */
+	@IsAdmin
 	@PostMapping("/remove")
-	@ApiOperationSupport(order = 6)
+	@ApiOperationSupport(order = 7)
 	@Operation(summary = "删除", description = "传入id集合")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
 	public R remove(@RequestParam String ids) {
-		CacheUtil.clear(USER_CACHE);
 		return R.status(userService.removeUser(ids));
 	}
 
 	/**
 	 * 设置菜单权限
 	 */
+	@IsAdmin
 	@PostMapping("/grant")
-	@ApiOperationSupport(order = 7)
+	@ApiOperationSupport(order = 8)
 	@Operation(summary = "权限设置", description = "传入roleId集合以及menuId集合")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
 	public R grant(@Parameter(description = "userId集合", required = true) @RequestParam String userIds,
 				   @Parameter(description = "roleId集合", required = true) @RequestParam String roleIds) {
 		boolean temp = userService.grant(userIds, roleIds);
@@ -188,10 +192,10 @@ public class UserController {
 	/**
 	 * 重置密码
 	 */
+	@IsAdmin
 	@PostMapping("/reset-password")
-	@ApiOperationSupport(order = 8)
+	@ApiOperationSupport(order = 9)
 	@Operation(summary = "初始化密码", description = "传入userId集合")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
 	public R resetPassword(@Parameter(description = "userId集合", required = true) @RequestParam String userIds) {
 		boolean temp = userService.resetPassword(userIds);
 		return R.status(temp);
@@ -201,7 +205,7 @@ public class UserController {
 	 * 修改密码
 	 */
 	@PostMapping("/update-password")
-	@ApiOperationSupport(order = 9)
+	@ApiOperationSupport(order = 10)
 	@Operation(summary = "修改密码", description = "传入密码")
 	public R updatePassword(BladeUser user, @Parameter(description = "旧密码", required = true) @RequestParam String oldPassword,
 							@Parameter(description = "新密码", required = true) @RequestParam String newPassword,
@@ -214,10 +218,9 @@ public class UserController {
 	 * 修改基本信息
 	 */
 	@PostMapping("/update-info")
-	@ApiOperationSupport(order = 10)
+	@ApiOperationSupport(order = 11)
 	@Operation(summary = "修改基本信息", description = "传入User")
 	public R updateInfo(@Valid @RequestBody User user) {
-		CacheUtil.clear(USER_CACHE);
 		return R.status(userService.updateUserInfo(user));
 	}
 
@@ -225,7 +228,8 @@ public class UserController {
 	 * 用户列表
 	 */
 	@GetMapping("/user-list")
-	@ApiOperationSupport(order = 11)
+	@BladeView(Views.Admin.class)
+	@ApiOperationSupport(order = 12)
 	@Operation(summary = "用户列表", description = "传入user")
 	public R<List<UserVO>> userList(User user, BladeUser bladeUser) {
 		QueryWrapper<User> queryWrapper = Condition.getQueryWrapper(user);
@@ -234,12 +238,23 @@ public class UserController {
 	}
 
 	/**
+	 * 用户分页
+	 */
+	@GetMapping("/user-page")
+	@BladeView(Views.Admin.class)
+	@ApiOperationSupport(order = 13)
+	@Operation(summary = "用户分页（排除管理员）", description = "分页查询非管理员角色用户")
+	public R<IPage<UserVO>> userPage(Query query, @RequestParam(required = false) String account, @RequestParam(required = false) String name) {
+		return R.data(userService.userPage(Condition.getPage(query), account, name));
+	}
+
+	/**
 	 * 导入用户
 	 */
+	@IsAdmin
 	@PostMapping("import-user")
-	@ApiOperationSupport(order = 12)
+	@ApiOperationSupport(order = 14)
 	@Operation(summary = "导入用户", description = "传入excel")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
 	public R importUser(MultipartFile file, Integer isCovered) {
 		UserImporter userImporter = new UserImporter(userService, isCovered == 1);
 		ExcelUtil.save(file, userImporter, UserExcel.class);
@@ -249,10 +264,10 @@ public class UserController {
 	/**
 	 * 导出用户
 	 */
+	@IsAdmin
 	@GetMapping("export-user")
-	@ApiOperationSupport(order = 13)
+	@ApiOperationSupport(order = 15)
 	@Operation(summary = "导出用户", description = "传入user")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
 	public void exportUser(@Parameter(hidden = true) @RequestParam Map<String, Object> user, BladeUser bladeUser, HttpServletResponse response) {
 		QueryWrapper<User> queryWrapper = Condition.getQueryWrapper(user, User.class);
 		if (!AuthUtil.isAdministrator()) {
@@ -267,7 +282,7 @@ public class UserController {
 	 * 导出模板
 	 */
 	@GetMapping("export-template")
-	@ApiOperationSupport(order = 14)
+	@ApiOperationSupport(order = 16)
 	@Operation(summary = "导出模板")
 	public void exportUser(HttpServletResponse response) {
 		List<UserExcel> list = new ArrayList<>();
@@ -279,7 +294,7 @@ public class UserController {
 	 * 第三方注册用户
 	 */
 	@PostMapping("/register-guest")
-	@ApiOperationSupport(order = 15)
+	@ApiOperationSupport(order = 17)
 	@Operation(summary = "第三方注册用户", description = "传入user")
 	public R registerGuest(User user, Long oauthId) {
 		return R.status(userService.registerGuest(user, oauthId));
@@ -289,7 +304,7 @@ public class UserController {
 	 * 配置用户平台信息
 	 */
 	@PostMapping("/update-platform")
-	@ApiOperationSupport(order = 16)
+	@ApiOperationSupport(order = 18)
 	@Operation(summary = "配置用户平台信息", description = "传入user")
 	public R updatePlatform(Long userId, Integer userType, String userExt) {
 		return R.status(userService.updatePlatform(userId, userType, userExt));
@@ -298,32 +313,22 @@ public class UserController {
 	/**
 	 * 查看平台详情
 	 */
-	@ApiOperationSupport(order = 17)
-	@Operation(summary = "查看平台详情", description = "传入id")
+	@IsAdmin
 	@GetMapping("/platform-detail")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
+	@BladeView(Views.Admin.class)
+	@ApiOperationSupport(order = 19)
+	@Operation(summary = "查看平台详情", description = "传入id")
 	public R<UserVO> platformDetail(User user) {
 		return R.data(userService.platformDetail(user));
 	}
 
 	/**
-	 * 用户解锁
-	 */
-	@PostMapping("/unlock")
-	@ApiOperationSupport(order = 18)
-	@Operation(summary = "账号解锁", description = "传入id集合")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
-	public R unlock(String userIds) {
-		return R.status(userService.unlock(userIds));
-	}
-
-	/**
 	 * 审核通过
 	 */
+	@IsAdmin
 	@PostMapping("/audit-pass")
-	@ApiOperationSupport(order = 19)
+	@ApiOperationSupport(order = 20)
 	@Operation(summary = "审核通过", description = "传入id集合")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
 	public R auditPass(String userIds) {
 		return R.status(userService.auditPass(userIds));
 	}
@@ -331,12 +336,48 @@ public class UserController {
 	/**
 	 * 审核拒绝
 	 */
+	@IsAdmin
 	@PostMapping("/audit-refuse")
-	@ApiOperationSupport(order = 20)
+	@ApiOperationSupport(order = 21)
 	@Operation(summary = "审核拒绝", description = "传入id集合")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
 	public R auditRefuse(String userIds) {
 		return R.status(userService.auditRefuse(userIds));
 	}
 
+	/**
+	 * 设置用户为主管
+	 */
+	@IsAdmin
+	@PostMapping("/set-leader")
+	@ApiOperationSupport(order = 22)
+	@Operation(summary = "设置用户为主管", description = "传入userId")
+	public R setLeader(@Parameter(description = "userId", required = true) @RequestParam Long userId) {
+		return R.status(userService.setLeader(userId));
+	}
+
+	/**
+	 * 获取用户的主管信息
+	 */
+	@IsAdmin
+	@GetMapping("/leader-info")
+	@BladeView(Views.Admin.class)
+	@ApiOperationSupport(order = 23)
+	@Operation(summary = "获取用户的主管信息", description = "传入userId")
+	public R<List<UserVO>> leaderInfo(@Parameter(description = "userId", required = true) @RequestParam Long userId) {
+		List<UserVO> list = userService.leaderInfo(userId);
+		return R.data(list);
+	}
+
+	/**
+	 * 获取主管列表
+	 */
+	@IsAdmin
+	@GetMapping("/leader-list")
+	@BladeView(Views.Admin.class)
+	@ApiOperationSupport(order = 24)
+	@Operation(summary = "获取主管列表", description = "获取所有主管用户列表")
+	public R<List<UserVO>> leaderList(@Parameter(description = "租户编号") String tenantId, @Parameter(description = "用户姓名") String realName) {
+		List<UserVO> list = userService.leaderList(tenantId, realName);
+		return R.data(list);
+	}
 }

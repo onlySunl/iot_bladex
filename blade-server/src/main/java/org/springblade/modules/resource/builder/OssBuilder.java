@@ -27,10 +27,10 @@ package org.springblade.modules.resource.builder;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.yomahub.liteflow.core.FlowExecutor;
-import com.yomahub.liteflow.flow.LiteflowResponse;
 import lombok.AllArgsConstructor;
 import org.springblade.core.cache.utils.CacheUtil;
+import org.springblade.core.literule.engine.RuleEngineExecutor;
+import org.springblade.core.literule.provider.LiteRuleResponse;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.oss.OssTemplate;
 import org.springblade.core.oss.enums.OssEnum;
@@ -48,6 +48,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static org.springblade.core.cache.constant.CacheConstant.RESOURCE_CACHE;
+import static org.springblade.modules.resource.rule.constant.OssRuleConstant.OSS_CHAIN_ID;
 
 /**
  * Oss云存储统一构建类
@@ -62,7 +63,7 @@ public class OssBuilder {
 
 	private final OssProperties ossProperties;
 	private final IOssService ossService;
-	private final FlowExecutor flowExecutor;
+	private final RuleEngineExecutor ruleExecutor;
 
 	/**
 	 * OssTemplate配置缓存池
@@ -110,9 +111,9 @@ public class OssBuilder {
 		ossContext.setOssPool(ossPool);
 		ossContext.setTemplatePool(templatePool);
 
-		LiteflowResponse resp = flowExecutor.execute2Resp("ossChain", tenantId, ossContext);
+		LiteRuleResponse<OssContext> resp = ruleExecutor.execute(OSS_CHAIN_ID, tenantId, ossContext);
 		if (resp.isSuccess()) {
-			OssContext contextBean = resp.getFirstContextBean();
+			OssContext contextBean = resp.getContext();
 			return contextBean.getOssTemplate();
 		} else {
 			throw new ServiceException("未获取到对应的对象存储配置");

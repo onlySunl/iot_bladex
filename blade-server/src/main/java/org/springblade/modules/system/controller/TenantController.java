@@ -25,6 +25,7 @@
  */
 package org.springblade.modules.system.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -43,15 +44,16 @@ import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
 import org.springblade.core.secure.BladeUser;
-import org.springblade.core.secure.annotation.PreAuth;
+import org.springblade.core.secure.annotation.IsAdmin;
+import org.springblade.core.secure.annotation.IsAdministrator;
 import org.springblade.core.tenant.annotation.NonDS;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.constant.BladeConstant;
-import org.springblade.core.tool.constant.RoleConstant;
 import org.springblade.core.tool.support.Kv;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.system.pojo.entity.Tenant;
 import org.springblade.modules.system.pojo.entity.TenantPackage;
+import org.springblade.modules.system.pojo.vo.TenantVO;
 import org.springblade.modules.system.service.ITenantPackageService;
 import org.springblade.modules.system.service.ITenantService;
 import org.springblade.modules.system.wrapper.TenantWrapper;
@@ -85,10 +87,10 @@ public class TenantController extends BladeController {
 	/**
 	 * 详情
 	 */
+	@IsAdmin
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
 	@Operation(summary = "详情", description = "传入tenant")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
 	public R<Tenant> detail(Tenant tenant) {
 		Tenant detail = tenantService.getOne(Condition.getQueryWrapper(tenant));
 		return R.data(detail);
@@ -97,6 +99,7 @@ public class TenantController extends BladeController {
 	/**
 	 * 分页
 	 */
+	@IsAdmin
 	@GetMapping("/list")
 	@Parameters({
 		@Parameter(name = "tenantId", description = "参数名称", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
@@ -118,15 +121,20 @@ public class TenantController extends BladeController {
 	@GetMapping("/select")
 	@ApiOperationSupport(order = 3)
 	@Operation(summary = "下拉数据源", description = "传入tenant")
-	public R<List<Tenant>> select(Tenant tenant, BladeUser bladeUser) {
-		QueryWrapper<Tenant> queryWrapper = Condition.getQueryWrapper(tenant);
-		List<Tenant> list = tenantService.list((!bladeUser.getTenantId().equals(BladeConstant.ADMIN_TENANT_ID)) ? queryWrapper.lambda().eq(Tenant::getTenantId, bladeUser.getTenantId()) : queryWrapper);
-		return R.data(list);
+	public R<List<TenantVO>> select(Tenant tenant, BladeUser bladeUser) {
+		LambdaQueryWrapper<Tenant> queryWrapper = Condition.getQueryWrapper(tenant).lambda();
+		queryWrapper.eq(Tenant::getStatus, BladeConstant.DB_STATUS_NORMAL);
+		if (!bladeUser.getTenantId().equals(BladeConstant.ADMIN_TENANT_ID)) {
+			queryWrapper.eq(Tenant::getTenantId, bladeUser.getTenantId());
+		}
+		List<Tenant> list = tenantService.list(queryWrapper);
+		return R.data(TenantWrapper.build().listVO(list));
 	}
 
 	/**
 	 * 自定义分页
 	 */
+	@IsAdmin
 	@GetMapping("/page")
 	@ApiOperationSupport(order = 4)
 	@Operation(summary = "分页", description = "传入tenant")
@@ -138,6 +146,7 @@ public class TenantController extends BladeController {
 	/**
 	 * 新增或修改
 	 */
+	@IsAdministrator
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 5)
 	@Operation(summary = "新增或修改", description = "传入tenant")
@@ -148,6 +157,7 @@ public class TenantController extends BladeController {
 	/**
 	 * 删除至回收站
 	 */
+	@IsAdministrator
 	@PostMapping("/recycle")
 	@ApiOperationSupport(order = 6)
 	@Operation(summary = "删除至回收站", description = "传入ids")
@@ -158,6 +168,7 @@ public class TenantController extends BladeController {
 	/**
 	 * 从回收站恢复
 	 */
+	@IsAdministrator
 	@PostMapping("/pass")
 	@ApiOperationSupport(order = 7)
 	@Operation(summary = "从回收站恢复", description = "传入ids")
@@ -168,6 +179,7 @@ public class TenantController extends BladeController {
 	/**
 	 * 从回收站删除
 	 */
+	@IsAdministrator
 	@PostMapping("/remove")
 	@ApiOperationSupport(order = 8)
 	@Operation(summary = "从回收站删除", description = "传入ids")
@@ -178,6 +190,7 @@ public class TenantController extends BladeController {
 	/**
 	 * 授权配置
 	 */
+	@IsAdministrator
 	@PostMapping("/setting")
 	@ApiOperationSupport(order = 9)
 	@Operation(summary = "授权配置", description = "传入ids,accountNumber,expireTime")
@@ -188,6 +201,7 @@ public class TenantController extends BladeController {
 	/**
 	 * 数据源配置
 	 */
+	@IsAdministrator
 	@PostMapping("datasource")
 	@ApiOperationSupport(order = 10)
 	@Operation(summary = "数据源配置", description = "传入datasource_id")
@@ -201,6 +215,7 @@ public class TenantController extends BladeController {
 	 *
 	 * @param name 租户名称
 	 */
+	@IsAdmin
 	@GetMapping("/find-by-name")
 	@ApiOperationSupport(order = 11)
 	@Operation(summary = "详情", description = "传入tenant")
@@ -233,6 +248,7 @@ public class TenantController extends BladeController {
 	 *
 	 * @param tenantId 租户ID
 	 */
+	@IsAdministrator
 	@GetMapping("/package-detail")
 	@ApiOperationSupport(order = 13)
 	@Operation(summary = "产品包详情", description = "传入tenantId")
@@ -244,6 +260,7 @@ public class TenantController extends BladeController {
 	/**
 	 * 产品包配置
 	 */
+	@IsAdministrator
 	@PostMapping("/package-setting")
 	@ApiOperationSupport(order = 14)
 	@Operation(summary = "产品包配置", description = "传入packageId")

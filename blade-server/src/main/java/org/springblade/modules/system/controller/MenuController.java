@@ -40,10 +40,9 @@ import org.springblade.core.cache.utils.CacheUtil;
 import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.secure.BladeUser;
-import org.springblade.core.secure.annotation.PreAuth;
+import org.springblade.core.secure.annotation.IsAdministrator;
 import org.springblade.core.tenant.annotation.NonDS;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.tool.constant.RoleConstant;
 import org.springblade.core.tool.node.TreeNode;
 import org.springblade.core.tool.support.Kv;
 import org.springblade.core.tool.utils.Func;
@@ -80,8 +79,8 @@ public class MenuController extends BladeController {
 	/**
 	 * 详情
 	 */
+	@IsAdministrator
 	@GetMapping("/detail")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMINISTRATOR)
 	@ApiOperationSupport(order = 1)
 	@Operation(summary = "详情", description = "传入menu")
 	public R<MenuVO> detail(Menu menu) {
@@ -92,12 +91,12 @@ public class MenuController extends BladeController {
 	/**
 	 * 列表
 	 */
+	@IsAdministrator
 	@GetMapping("/list")
 	@Parameters({
 		@Parameter(name = "code", description = "菜单编号", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
 		@Parameter(name = "name", description = "菜单名称", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
 	})
-	@PreAuth(RoleConstant.HAS_ROLE_ADMINISTRATOR)
 	@ApiOperationSupport(order = 2)
 	@Operation(summary = "列表", description = "传入menu")
 	public R<List<MenuVO>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> menu) {
@@ -108,12 +107,12 @@ public class MenuController extends BladeController {
 	/**
 	 * 懒加载列表
 	 */
+	@IsAdministrator
 	@GetMapping("/lazy-list")
 	@Parameters({
 		@Parameter(name = "code", description = "菜单编号", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
 		@Parameter(name = "name", description = "菜单名称", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
 	})
-	@PreAuth(RoleConstant.HAS_ROLE_ADMINISTRATOR)
 	@ApiOperationSupport(order = 3)
 	@Operation(summary = "懒加载列表", description = "传入menu")
 	public R<List<MenuVO>> lazyList(Long parentId, @Parameter(hidden = true) @RequestParam Map<String, Object> menu) {
@@ -124,12 +123,12 @@ public class MenuController extends BladeController {
 	/**
 	 * 菜单列表
 	 */
+	@IsAdministrator
 	@GetMapping("/menu-list")
 	@Parameters({
 		@Parameter(name = "code", description = "菜单编号", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
 		@Parameter(name = "name", description = "菜单名称", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
 	})
-	@PreAuth(RoleConstant.HAS_ROLE_ADMINISTRATOR)
 	@ApiOperationSupport(order = 4)
 	@Operation(summary = "菜单列表", description = "传入menu")
 	public R<List<MenuVO>> menuList(@Parameter(hidden = true) @RequestParam Map<String, Object> menu) {
@@ -140,12 +139,12 @@ public class MenuController extends BladeController {
 	/**
 	 * 懒加载菜单列表
 	 */
+	@IsAdministrator
 	@GetMapping("/lazy-menu-list")
 	@Parameters({
 		@Parameter(name = "code", description = "菜单编号", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
 		@Parameter(name = "name", description = "菜单名称", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
 	})
-	@PreAuth(RoleConstant.HAS_ROLE_ADMINISTRATOR)
 	@ApiOperationSupport(order = 5)
 	@Operation(summary = "懒加载菜单列表", description = "传入menu")
 	public R<List<MenuVO>> lazyMenuList(Long parentId, @Parameter(hidden = true) @RequestParam Map<String, Object> menu) {
@@ -156,8 +155,8 @@ public class MenuController extends BladeController {
 	/**
 	 * 新增或修改
 	 */
+	@IsAdministrator
 	@PostMapping("/submit")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMINISTRATOR)
 	@ApiOperationSupport(order = 6)
 	@Operation(summary = "新增或修改", description = "传入menu")
 	public R submit(@Valid @RequestBody Menu menu) {
@@ -175,8 +174,8 @@ public class MenuController extends BladeController {
 	/**
 	 * 删除
 	 */
+	@IsAdministrator
 	@PostMapping("/remove")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMINISTRATOR)
 	@ApiOperationSupport(order = 7)
 	@Operation(summary = "删除", description = "传入ids")
 	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
@@ -293,6 +292,22 @@ public class MenuController extends BladeController {
 		}
 		List<TopMenu> list = topMenuService.list(Wrappers.<TopMenu>query().lambda().orderByAsc(TopMenu::getSort));
 		return R.data(list);
+	}
+
+	/**
+	 * 主页顶部菜单数据
+	 */
+	@GetMapping("/main-menu")
+	@ApiOperationSupport(order = 18)
+	@Operation(summary = "主页顶部菜单数据", description = "主页顶部菜单数据")
+	public R<TopMenu> mainMenu(BladeUser user) {
+		if (Func.isEmpty(user)) {
+			return null;
+		}
+		TopMenu topMenu = topMenuService.getOne(
+			Wrappers.<TopMenu>query().lambda().eq(TopMenu::getIsMain, 1)
+		);
+		return R.data(topMenu);
 	}
 
 	/**

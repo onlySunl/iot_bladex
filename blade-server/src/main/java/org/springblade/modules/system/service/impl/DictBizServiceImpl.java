@@ -30,7 +30,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springblade.common.cache.DictBizCache;
-
 import org.springblade.common.constant.CommonConstant;
 import org.springblade.core.cache.utils.CacheUtil;
 import org.springblade.core.log.exception.ServiceException;
@@ -41,6 +40,7 @@ import org.springblade.core.tool.constant.BladeConstant;
 import org.springblade.core.tool.node.ForestNodeMerger;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.core.tool.utils.StringPool;
+import org.springblade.core.tool.utils.StringUtil;
 import org.springblade.modules.system.mapper.DictBizMapper;
 import org.springblade.modules.system.pojo.entity.DictBiz;
 import org.springblade.modules.system.pojo.vo.DictBizVO;
@@ -59,6 +59,7 @@ import static org.springblade.core.cache.constant.CacheConstant.DICT_CACHE;
  *
  * @author Chill
  */
+//@Master
 @Service
 public class DictBizServiceImpl extends ServiceImpl<DictBizMapper, DictBiz> implements IDictBizService {
 
@@ -74,7 +75,14 @@ public class DictBizServiceImpl extends ServiceImpl<DictBizMapper, DictBiz> impl
 
 	@Override
 	public String getValue(String code, String dictKey) {
-		return Func.toStr(baseMapper.getValue(AuthUtil.getTenantId(), code, dictKey), StringPool.EMPTY);
+		List<DictBiz> dictList = baseMapper.selectList(
+			Wrappers.<DictBiz>lambdaQuery().eq(DictBiz::getTenantId, AuthUtil.getTenantId()).eq(DictBiz::getCode, code).eq(DictBiz::getDictKey, dictKey)
+		);
+		return dictList.stream()
+			.filter(dict -> StringUtil.equals(dict.getDictKey(), dictKey))
+			.findFirst()
+			.map(DictBiz::getDictValue)
+			.orElse(StringPool.EMPTY);
 	}
 
 	@Override

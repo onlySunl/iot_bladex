@@ -3,10 +3,8 @@ package org.springblade.modules.nvr.domain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
-import com.tangzc.mpe.autotable.annotation.Table;
-
-
 import org.springblade.core.tool.utils.Func;
 import org.springblade.common.entity.CustomBaseEntity;
 import org.springblade.modules.nvr.config.ZLMServerConfig;
@@ -22,7 +20,7 @@ import org.springframework.util.ObjectUtils;
 @Data
 @TableName("zlm_media_server")
 @EqualsAndHashCode(callSuper = true)
-@Table(value = "zlm_media_server", comment = "ZLM流媒体服务器表")
+@AutoTable(value = "zlm_media_server", comment = "ZLM流媒体服务器表")
 public class ZlmMediaServer extends CustomBaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -190,7 +188,7 @@ public class ZlmMediaServer extends CustomBaseEntity {
     }
 
     public ZlmMediaServer(ZLMServerConfig zlmServerConfig, String sipIp) {
-        id = zlmServerConfig.getGeneralMediaServerId();
+        setId(zlmServerConfig.getGeneralMediaServerId());
         ip = zlmServerConfig.getIp();
         hookIp = ObjectUtils.isEmpty(zlmServerConfig.getHookIp()) ? sipIp : zlmServerConfig.getHookIp();
         sdpIp = ObjectUtils.isEmpty(zlmServerConfig.getSdpIp()) ? zlmServerConfig.getIp() : zlmServerConfig.getSdpIp();

@@ -43,12 +43,13 @@ import org.springblade.core.cache.utils.CacheUtil;
 import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.secure.BladeUser;
+import org.springblade.core.secure.annotation.IsAdmin;
 import org.springblade.core.secure.annotation.PreAuth;
 import org.springblade.core.secure.constant.AuthConstant;
+import org.springblade.core.secure.utils.AuthUtil;
 import org.springblade.core.tenant.annotation.NonDS;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.constant.BladeConstant;
-import org.springblade.core.tool.constant.RoleConstant;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.system.pojo.entity.Role;
 import org.springblade.modules.system.pojo.entity.User;
@@ -71,9 +72,9 @@ import static org.springblade.core.cache.constant.CacheConstant.SYS_CACHE;
 @NonDS
 @RestController
 @AllArgsConstructor
+@IsAdmin
 @RequestMapping(AppConstant.APPLICATION_SYSTEM_NAME + "/role")
 @Tag(name = "角色", description = "角色")
-@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
 public class RoleController extends BladeController {
 
 	private final IRoleService roleService;
@@ -179,6 +180,16 @@ public class RoleController extends BladeController {
 		}
 		List<Role> list = roleService.list(Wrappers.<Role>lambdaQuery().in(Role::getId, Func.toLongList(roleId)));
 		return R.data(list);
+	}
+
+	/**
+	 * 获取现有角色别名列表
+	 */
+	@GetMapping("/alias")
+	@ApiOperationSupport(order = 9)
+	@Operation(summary = "获取角色别名", description = "获取角色别名")
+	public R<List<Role>> alias() {
+		return R.data(roleService.alias(AuthUtil.getTenantId()));
 	}
 
 }

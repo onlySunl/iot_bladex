@@ -8,14 +8,14 @@
 
     <groupId>org.springblade</groupId>
     <artifactId>iot_bladex</artifactId>
-    <version>4.2.0.RELEASE</version>
+    <version>4.9.0.RELEASE</version>
     <packaging>pom</packaging>
     <name>iot_bladex</name>
     <description>顶层聚合工程：BLADE_IOT 基础框架父工程</description>
 
     <properties>
         <!-- ==================== 项目全局统一版本 ==================== -->
-        <project.version>4.2.0.RELEASE</project.version>
+        <project.version>4.9.0.RELEASE</project.version>
         <bladex.project.id>blade-api</bladex.project.id>
         <bladex.project.version>${project.version}</bladex.project.version>
 
@@ -29,6 +29,11 @@
         <hutool.version>5.8.32</hutool.version>
         <swagger.version>1.5.22</swagger.version>
         <weixin.miniapp.version>4.6.0</weixin.miniapp.version>
+
+        <!-- ==================== ORM ==================== -->
+        <mybatis-plus-join.version>1.5.9</mybatis-plus-join.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <lombok.version>1.18.36</lombok.version>
 
         <!-- ==================== PDF/文档解析 ==================== -->
         <auto.table.version>1.8.3</auto.table.version>
@@ -73,6 +78,14 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- ===== 覆盖 mybatis-plus-join 版本（兼容 MyBatis-Plus 3.5.8+） ===== -->
+            <dependency>
+                <groupId>com.github.yulichang</groupId>
+                <artifactId>mybatis-plus-join-boot-starter</artifactId>
+                <version>${mybatis-plus-join.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>blade-core-boot</artifactId>
@@ -259,11 +272,30 @@
                 <version>2.12.0</version>
             </dependency>-->
 
+            <!-- ===== 14. MapStruct 版本管理（1.5.5 兼容 Lombok） ===== -->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
     <!-- ==================== 全局公共依赖（所有子模块自动继承） ==================== -->
     <dependencies>
+
+        <!-- ===== 0. 自动建表注解（全局，覆盖BOM中的provided scope） ===== -->
+        <dependency>
+            <groupId>com.tangzc</groupId>
+            <artifactId>auto-table-annotation</artifactId>
+            <scope>compile</scope>
+        </dependency>
 
         <!-- ===== 1. BladeX 全套基础框架 ===== -->
         <dependency>
@@ -288,7 +320,11 @@
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>blade-starter-datascope</artifactId>
+            <artifactId>blade-starter-data-scope</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-data-record</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
@@ -312,6 +348,10 @@
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-i18n</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
             <artifactId>blade-starter-report</artifactId>
         </dependency>
         <dependency>
@@ -324,12 +364,22 @@
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>blade-starter-liteflow</artifactId>
+            <artifactId>blade-starter-literule</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-starter-redis</artifactId>
         </dependency>
+        <!-- 任务调度 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-powerjob</artifactId>
+        </dependency>
+        <!-- 工作流 -->
+      <!--  <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-flowable</artifactId>
+        </dependency>-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
@@ -371,8 +421,8 @@
             <artifactId>aliyun-java-sdk-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.github.qcloudsms</groupId>
-            <artifactId>qcloudsms</artifactId>
+            <groupId>com.tencentcloudapi</groupId>
+            <artifactId>tencentcloud-sdk-java-sms</artifactId>
         </dependency>
         <dependency>
             <groupId>com.yunpian.sdk</groupId>
@@ -492,7 +542,7 @@
         </resources>
 
         <plugins>
-            <!-- JDK 编译插件 -->
+            <!-- JDK 编译插件（配置 annotation processor 路径，确保 Lombok 在 MapStruct 之前执行） -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -504,6 +554,18 @@
                     <compilerArgs>
                         <arg>-parameters</arg>
                     </compilerArgs>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
 

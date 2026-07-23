@@ -28,6 +28,7 @@ package org.springblade.modules.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springblade.common.cache.SysCache;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.secure.utils.AuthUtil;
@@ -35,13 +36,19 @@ import org.springblade.core.tool.constant.BladeConstant;
 import org.springblade.core.tool.node.ForestNodeMerger;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.core.tool.utils.StringPool;
+import org.springblade.core.tool.utils.StringUtil;
 import org.springblade.modules.system.mapper.DeptMapper;
 import org.springblade.modules.system.pojo.entity.Dept;
+import org.springblade.modules.system.pojo.entity.User;
 import org.springblade.modules.system.pojo.vo.DeptVO;
+import org.springblade.modules.system.pojo.vo.UserVO;
 import org.springblade.modules.system.service.IDeptService;
+import org.springblade.modules.system.service.IUserService;
 import org.springblade.modules.system.wrapper.DeptWrapper;
+import org.springblade.modules.system.wrapper.UserWrapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -51,10 +58,14 @@ import java.util.stream.Collectors;
  *
  * @author Chill
  */
+//@Master
 @Service
+@RequiredArgsConstructor
 public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements IDeptService {
 	private static final String TENANT_ID = "tenantId";
 	private static final String PARENT_ID = "parentId";
+
+	private final IUserService userService;
 
 	@Override
 	public List<DeptVO> lazyList(String tenantId, Long parentId, Map<String, Object> param) {
@@ -75,7 +86,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
 			Long deptId = Func.firstLong(AuthUtil.getDeptId());
 			Dept dept = SysCache.getDept(deptId);
 			if (dept.getParentId() != 0) {
-				parentId = dept.getId();
+				parentId = dept.getParentId();
 			}
 		}
 		// 判断点击搜索带有查询条件的情况
@@ -99,17 +110,9 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
 	}
 
 	@Override
-	public List<DeptVO> lazyTreeCurrent(String tenantId, Long parentId) {
-		if (AuthUtil.isAdministrator()) {
-			tenantId = StringPool.EMPTY;
-		}
-		return ForestNodeMerger.merge(baseMapper.lazyTreeCurrent(tenantId, parentId));
-	}
-
-	@Override
 	public String getDeptIds(String tenantId, String deptNames) {
 		List<Dept> deptList = baseMapper.selectList(Wrappers.<Dept>query().lambda().eq(Dept::getTenantId, tenantId).in(Dept::getDeptName, Func.toStrList(deptNames)));
-		if (deptList != null && deptList.size() > 0) {
+		if (deptList != null && !deptList.isEmpty()) {
 			return deptList.stream().map(dept -> Func.toStr(dept.getId())).distinct().collect(Collectors.joining(","));
 		}
 		return null;
@@ -123,7 +126,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
 			names.forEach(name -> wrapper.like(Dept::getDeptName, name).or());
 		});
 		List<Dept> deptList = baseMapper.selectList(queryWrapper);
-		if (deptList != null && deptList.size() > 0) {
+		if (deptList != null && !deptList.isEmpty()) {
 			return deptList.stream().map(dept -> Func.toStr(dept.getId())).distinct().collect(Collectors.joining(","));
 		}
 		return null;
@@ -183,6 +186,24 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
 		}
 		List<Dept> deptList = baseMapper.selectList(queryWrapper);
 		return DeptWrapper.build().listNodeVO(deptList);
+	}
+
+	@Override
+	public List<UserVO> deptLeaderInfo(Long deptId) {
+		Dept dept = this.getById(deptId);
+		if (Func.isEmpty(dept)) {
+			throw new ServiceException("部门不存在!");
+		}
+		if (StringUtil.isBlank(dept.getLeaderId())) {
+			return new ArrayList<>();
+		}
+		List<Long> leaderIds = Func.toLongList(dept.getLeaderId());
+		LambdaQueryWrapper<User> queryWrapper = Wrappers.<User>query().lambda()
+			.in(User::getId, leaderIds)
+			.eq(User::getStatus, BladeConstant.DB_STATUS_NORMAL)
+			.eq(User::getIsDeleted, BladeConstant.DB_NOT_DELETED);
+		List<User> userList = userService.list(queryWrapper);
+		return UserWrapper.build().listVO(userList);
 	}
 
 }

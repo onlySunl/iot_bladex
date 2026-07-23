@@ -37,10 +37,9 @@ import org.springblade.core.cache.utils.CacheUtil;
 import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
-import org.springblade.core.secure.annotation.PreAuth;
+import org.springblade.core.secure.annotation.IsAdmin;
 import org.springblade.core.tenant.annotation.NonDS;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.tool.constant.RoleConstant;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.system.pojo.entity.TopMenu;
 import org.springblade.modules.system.pojo.vo.GrantVO;
@@ -58,9 +57,9 @@ import static org.springblade.core.cache.constant.CacheConstant.SYS_CACHE;
 @NonDS
 @RestController
 @AllArgsConstructor
+@IsAdmin
 @RequestMapping(AppConstant.APPLICATION_SYSTEM_NAME + "/topmenu")
 @Tag(name = "顶部菜单表", description = "顶部菜单")
-@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
 public class TopMenuController extends BladeController {
 
 	private final ITopMenuService topMenuService;
@@ -140,6 +139,19 @@ public class TopMenuController extends BladeController {
 		CacheUtil.clear(MENU_CACHE, Boolean.FALSE);
 		boolean temp = topMenuService.grant(grantVO.getTopMenuIds(), grantVO.getMenuIds());
 		return R.status(temp);
+	}
+
+	/**
+	 * 设为主页
+	 */
+	@PostMapping("/enable")
+	@ApiOperationSupport(order = 9)
+	@Operation(summary = "设为主页", description = "传入id")
+	public R enable(@Parameter(description = "主键", required = true) @RequestParam Long id) {
+		CacheUtil.clear(SYS_CACHE);
+		CacheUtil.clear(MENU_CACHE);
+		CacheUtil.clear(MENU_CACHE, Boolean.FALSE);
+		return R.status(topMenuService.enable(id));
 	}
 
 }

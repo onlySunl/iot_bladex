@@ -17,7 +17,6 @@ import org.springblade.modules.iot.controller.admin.product.vo.*;
 import org.springblade.modules.iot.controller.convert.ProductBizConvert;
 import org.springblade.modules.iot.excel.core.util.ExcelUtils;
 import org.springblade.modules.iot.service.product.ProductService;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,14 +37,12 @@ public class ProductController {
 
     @PostMapping("/create")
     @Operation(summary = "创建物联网产品")
-    @PreAuthorize("@ss.hasPermission('iot:product:create')")
     public CommonResult<Long> createProduct(@Valid @RequestBody ProductSaveReqVO createReqVO) {
         return success(productService.createProduct(createReqVO));
     }
 
     @PutMapping("/update")
     @Operation(summary = "更新物联网产品")
-    @PreAuthorize("@ss.hasPermission('iot:product:update')")
     public CommonResult<Boolean> updateProduct(@Valid @RequestBody ProductUpdateReqVO updateReqVO) {
         productService.updateProduct(updateReqVO);
         return success(true);
@@ -54,7 +51,6 @@ public class ProductController {
     @DeleteMapping("/delete")
     @Operation(summary = "删除物联网产品")
     @Parameter(name = "id", description = "编号", required = true)
-    @PreAuthorize("@ss.hasPermission('iot:product:delete')")
     public CommonResult<Boolean> deleteProduct(@RequestParam("id") Long id) {
         productService.deleteProduct(id);
         return success(true);
@@ -63,7 +59,6 @@ public class ProductController {
     @GetMapping("/get")
     @Operation(summary = "获得物联网产品")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
-    @PreAuthorize("@ss.hasPermission('iot:product:query')")
     public CommonResult<ProductRespVO> getProduct(@RequestParam("id") Long id) {
         Product product = productService.getProduct(id);
         return success(BeanUtils.toBean(product, ProductRespVO.class));
@@ -72,7 +67,6 @@ public class ProductController {
     @GetMapping("/getByPk")
     @Operation(summary = "获得物联网产品")
     @Parameter(name = "pk", description = "编号", required = true, example = "1024")
-    @PreAuthorize("@ss.hasPermission('iot:product:query')")
     public CommonResult<ProductRespVO> getProduct(@RequestParam("pk") String pk) {
         Product product = productService.getByPk(pk);
         return success(BeanUtils.toBean(product, ProductRespVO.class));
@@ -80,7 +74,6 @@ public class ProductController {
 
     @GetMapping("/page")
     @Operation(summary = "获得物联网产品分页")
-    @PreAuthorize("@ss.hasPermission('iot:product:query')")
     public CommonResult<PageResult<ProductRespVO>> getProductPage(@Valid ProductPageReqVO pageReqVO) {
         PageResult<Product> pageResult = productService.getProductPage(pageReqVO);
         return success(BeanUtils.toBean(pageResult, ProductRespVO.class));
@@ -88,7 +81,6 @@ public class ProductController {
 
     @GetMapping("/export-excel")
     @Operation(summary = "导出物联网产品 Excel")
-    @PreAuthorize("@ss.hasPermission('iot:product:export')")
     @ApiAccessLog(operateType = EXPORT)
     public void exportProductExcel(@Valid ProductPageReqVO pageReqVO,
               HttpServletResponse response) throws IOException {
@@ -103,7 +95,6 @@ public class ProductController {
      * 获取产品配置详细信息
      *
      */
-    @PreAuthorize("@ss.hasPermission('iot:product:query')")
     @GetMapping("/getConfig")
     @Parameter(name = "pk", description = "productKey", required = true, example = "1024")
     public ProductConfigVo getDetail(@RequestParam("pk") String pk) {
@@ -114,7 +105,6 @@ public class ProductController {
     /**
      * 修改产品配置
      */
-    @PreAuthorize("@ss.hasPermission('iot:product:edit')")
     @PostMapping("/saveConfig")
     public boolean saveConfig( ProductConfigBo request) {
         ProductConfig config = ProductBizConvert.INSTANCE.convert(request);

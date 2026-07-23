@@ -25,7 +25,6 @@
  */
 package org.springblade.modules.system.wrapper;
 
-
 import org.springblade.common.cache.DictCache;
 import org.springblade.common.enums.DictEnum;
 import org.springblade.core.mp.support.BaseEntityWrapper;

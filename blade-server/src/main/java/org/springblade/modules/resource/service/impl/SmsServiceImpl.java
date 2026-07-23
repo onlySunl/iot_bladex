@@ -44,6 +44,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author BladeX
  */
+//@Master
 @Service
 public class SmsServiceImpl extends BaseServiceImpl<SmsMapper, Sms> implements ISmsService {
 

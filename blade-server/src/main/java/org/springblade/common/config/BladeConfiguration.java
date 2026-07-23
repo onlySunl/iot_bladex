@@ -26,18 +26,16 @@
 package org.springblade.common.config;
 
 
-import org.springblade.common.interceptor.InternalCallInterceptor;
 import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.oauth2.endpoint.OAuth2SocialEndpoint;
 import org.springblade.core.oauth2.endpoint.OAuth2TokenEndPoint;
+import org.springblade.core.secure.provider.HttpMethod;
 import org.springblade.core.secure.registry.SecureRegistry;
 import org.springblade.core.tool.utils.StringPool;
-import org.springblade.modules.auth.endpoint.Oauth2SmsEndpoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -54,22 +52,38 @@ public class BladeConfiguration implements WebMvcConfigurer {
 	 */
 	@Bean
 	public SecureRegistry secureRegistry() {
-		SecureRegistry secureRegistry = new SecureRegistry();
-		secureRegistry.setEnabled(true);
-		secureRegistry.excludePathPatterns("/blade-auth/**");
-		secureRegistry.excludePathPatterns("/blade-system/tenant/info");
-		secureRegistry.excludePathPatterns("/blade-flow/process/resource-view");
-		secureRegistry.excludePathPatterns("/blade-flow/process/diagram-view");
-		secureRegistry.excludePathPatterns("/blade-flow/manager/check-upload");
-		secureRegistry.excludePathPatterns("/doc.html");
-		secureRegistry.excludePathPatterns("/swagger-ui.html");
-		secureRegistry.excludePathPatterns("/static/**");
-		secureRegistry.excludePathPatterns("/webjars/**");
-		secureRegistry.excludePathPatterns("/swagger-resources/**");
-		secureRegistry.excludePathPatterns("/druid/**");
-		// Feign内部调用路径排除鉴权
-		secureRegistry.excludePathPatterns("/api/**");
-		return secureRegistry;
+		return new SecureRegistry()
+			// 开启认证配置
+			.enabled()
+			// 令牌严格模式配置
+			.strictTokenEnabled()
+			// 请求头严格模式配置
+			.strictHeaderEnabled()
+			// 认证放行配置
+			.skipUrls(
+				"/blade-auth/**",
+				"/blade-system/tenant/info",
+				"/blade-flow/process/resource-view",
+				"/blade-flow/process/diagram-view",
+				"/blade-flow/manager/check-upload",
+				"/doc.html",
+				"/swagger-ui.html",
+				"/static/**",
+				"/webjars/**",
+				"/swagger-resources/**",
+				"/druid/**"
+			)
+			// 认证鉴权配置
+			.authEnabled()
+			.addAuthPattern(HttpMethod.ALL, "/blade-chat/message/**", "hasAuth()")
+			.addAuthPattern(HttpMethod.POST, "/blade-desk/dashboard/upload", "hasTimeAuth(9, 17)")
+			.addAuthPattern(HttpMethod.POST, "/blade-desk/dashboard/submit", "hasAnyRole('administrator', 'admin', 'user')")
+			// 基础认证配置
+			.basicEnabled()
+			.addBasicPattern(HttpMethod.POST, "/blade-desk/dashboard/info", "blade", "blade")
+			// 签名认证配置
+			.signDisabled()
+			.addSignPattern(HttpMethod.POST, "/blade-desk/dashboard/sign", "sha1");
 	}
 
 	/**
@@ -92,18 +106,8 @@ public class BladeConfiguration implements WebMvcConfigurer {
 	public void configurePathMatch(PathMatchConfigurer configurer) {
 		configurer.addPathPrefix(StringPool.SLASH + AppConstant.APPLICATION_AUTH_NAME,
 			c -> c.isAnnotationPresent(RestController.class) && (
-				OAuth2TokenEndPoint.class.equals(c) || OAuth2SocialEndpoint.class.equals(c) || Oauth2SmsEndpoint.class.equals(c))
+				OAuth2TokenEndPoint.class.equals(c) || OAuth2SocialEndpoint.class.equals(c))
 		);
-	}
-
-	/**
-	 * 注册内部调用拦截器
-	 * 识别Feign请求中的X-Internal-Call标识，设置系统用户上下文
-	 */
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new InternalCallInterceptor())
-			.order(Integer.MIN_VALUE);
 	}
 
 }

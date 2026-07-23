@@ -42,6 +42,7 @@ import org.springblade.core.cache.utils.CacheUtil;
 import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
+import org.springblade.core.secure.annotation.PreAuth;
 import org.springblade.core.tenant.annotation.NonDS;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.constant.BladeConstant;
@@ -151,6 +152,7 @@ public class DictBizController extends BladeController {
 	/**
 	 * 新增或修改
 	 */
+	@PreAuth(menu = "dictbiz")
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
 	@Operation(summary = "新增或修改", description = "传入dict")
@@ -163,6 +165,7 @@ public class DictBizController extends BladeController {
 	/**
 	 * 删除
 	 */
+	@PreAuth(menu = "dictbiz")
 	@PostMapping("/remove")
 	@ApiOperationSupport(order = 7)
 	@Operation(summary = "删除", description = "传入ids")

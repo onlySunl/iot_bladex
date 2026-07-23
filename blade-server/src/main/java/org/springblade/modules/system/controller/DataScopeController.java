@@ -37,6 +37,7 @@ import org.springblade.core.cache.utils.CacheUtil;
 import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
+import org.springblade.core.secure.annotation.IsAdmin;
 import org.springblade.core.tenant.annotation.NonDS;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.Func;
@@ -56,6 +57,7 @@ import static org.springblade.core.cache.constant.CacheConstant.SYS_CACHE;
 @NonDS
 @RestController
 @AllArgsConstructor
+@IsAdmin
 @RequestMapping(AppConstant.APPLICATION_SYSTEM_NAME + "/data-scope")
 @Tag(name = "数据权限", description = "数据权限")
 public class DataScopeController extends BladeController {

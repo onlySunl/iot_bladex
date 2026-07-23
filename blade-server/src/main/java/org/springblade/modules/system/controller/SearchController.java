@@ -131,4 +131,37 @@ public class SearchController {
 		return R.data(userService.selectUserSearch(user, query));
 	}
 
+	/**
+	 * 获取用户的主管信息
+	 */
+	@GetMapping("/leader-info")
+	@ApiOperationSupport(order = 5)
+	@Operation(summary = "获取用户的主管信息", description = "传入userId")
+	public R<List<UserVO>> leaderInfo(@Parameter(description = "userId", required = true) Long userId) {
+		List<UserVO> list = userService.leaderInfo(userId);
+		return R.data(list);
+	}
+
+	/**
+	 * 获取部门的主管信息
+	 */
+	@GetMapping("/dept-leader-info")
+	@ApiOperationSupport(order = 6)
+	@Operation(summary = "获取部门的主管信息", description = "传入deptId")
+	public R<List<UserVO>> deptLeaderInfo(@Parameter(description = "部门id", required = true) Long deptId) {
+		List<UserVO> list = deptService.deptLeaderInfo(deptId);
+		return R.data(list);
+	}
+
+	/**
+	 * 获取主管列表
+	 */
+	@GetMapping("/leader-list")
+	@ApiOperationSupport(order = 7)
+	@Operation(summary = "获取主管列表", description = "获取所有主管用户列表")
+	public R<List<UserVO>> leaderList(@Parameter(description = "租户编号") String tenantId, @Parameter(description = "用户姓名") String realName) {
+		List<UserVO> list = userService.leaderList(tenantId, realName);
+		return R.data(list);
+	}
+
 }

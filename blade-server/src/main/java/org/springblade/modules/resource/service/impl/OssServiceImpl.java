@@ -26,11 +26,13 @@
 package org.springblade.modules.resource.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.mp.base.BaseServiceImpl;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.core.tool.constant.BladeConstant;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.resource.mapper.OssMapper;
 import org.springblade.modules.resource.pojo.entity.Oss;
@@ -44,6 +46,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author BladeX
  */
+//@Master
 @Service
 public class OssServiceImpl extends BaseServiceImpl<OssMapper, Oss> implements IOssService {
 
@@ -54,8 +57,10 @@ public class OssServiceImpl extends BaseServiceImpl<OssMapper, Oss> implements I
 
 	@Override
 	public boolean submit(Oss oss) {
-		LambdaQueryWrapper<Oss> lqw = Wrappers.<Oss>query().lambda()
-			.eq(Oss::getOssCode, oss.getOssCode()).eq(Oss::getTenantId, AuthUtil.getTenantId());
+		LambdaQueryWrapper<Oss> lqw = Wrappers.<Oss>query().lambda().eq(Oss::getOssCode, oss.getOssCode());
+		if (AuthUtil.isAdministrator()) {
+			lqw.eq(Oss::getTenantId, BladeConstant.ADMIN_TENANT_ID);
+		}
 		Long cnt = baseMapper.selectCount(Func.isEmpty(oss.getId()) ? lqw : lqw.notIn(Oss::getId, oss.getId()));
 		if (cnt > 0L) {
 			throw new ServiceException("当前资源编号已存在!");
@@ -67,9 +72,17 @@ public class OssServiceImpl extends BaseServiceImpl<OssMapper, Oss> implements I
 	@Transactional(rollbackFor = Exception.class)
 	public boolean enable(Long id) {
 		// 先禁用
-		boolean temp1 = this.update(Wrappers.<Oss>update().lambda().set(Oss::getStatus, 1));
-		// 在启用
-		boolean temp2 = this.update(Wrappers.<Oss>update().lambda().set(Oss::getStatus, 2).eq(Oss::getId, id));
+		LambdaUpdateWrapper<Oss> disableWrapper = Wrappers.<Oss>update().lambda().set(Oss::getStatus, 1);
+		if (AuthUtil.isAdministrator()) {
+			disableWrapper.eq(Oss::getTenantId, BladeConstant.ADMIN_TENANT_ID);
+		}
+		boolean temp1 = this.update(disableWrapper);
+		// 再启用
+		LambdaUpdateWrapper<Oss> enableWrapper = Wrappers.<Oss>update().lambda().set(Oss::getStatus, 2).eq(Oss::getId, id);
+		if (AuthUtil.isAdministrator()) {
+			enableWrapper.eq(Oss::getTenantId, BladeConstant.ADMIN_TENANT_ID);
+		}
+		boolean temp2 = this.update(enableWrapper);
 		return temp1 && temp2;
 	}
 

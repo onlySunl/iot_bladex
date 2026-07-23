@@ -20,28 +20,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface RemoteIotChannelSmsService {
 
     /** 发送短信 */
-    @PostMapping("/api/channelSms/sendSms")
+    @PostMapping("/channelSms/sendSms")
     void sendSms(@RequestBody SendSmsRequest request);
 
     /** 创建短信模板 */
-    @PostMapping("/api/channelSms/createSmsTemplate")
+    @PostMapping("/channelSms/createSmsTemplate")
     String createSmsTemplate(@RequestParam("templateContent") String templateContent,
                              @RequestParam("templateId") Long templateId,
                              @RequestBody SmsConfig smsConfig);
 
     /** 更新短信模板 */
-    @PostMapping("/api/channelSms/updateSmsTemplate")
+    @PostMapping("/channelSms/updateSmsTemplate")
     String updateSmsTemplate(@RequestParam("templateContent") String templateContent,
                              @RequestParam("templateCode") String templateCode,
                              @RequestBody SmsConfig smsConfig);
 
     /** 查询模板审核状态 */
-    @PostMapping("/api/channelSms/querySmsTemplateStatus")
+    @PostMapping("/channelSms/querySmsTemplateStatus")
     Integer querySmsTemplateStatus(@RequestBody SmsConfig smsConfig,
                                    @RequestParam("templateCode") String templateCode);
 
     /** 删除短信模板 */
-    @PostMapping("/api/channelSms/deleteSmsTemplate")
+    @PostMapping("/channelSms/deleteSmsTemplate")
     void deleteSmsTemplate(@RequestParam("templateCode") String templateCode,
                            @RequestBody SmsConfig smsConfig);
 }

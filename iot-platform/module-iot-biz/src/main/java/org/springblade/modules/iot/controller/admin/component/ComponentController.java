@@ -1,5 +1,3 @@
-
-
 package org.springblade.modules.iot.controller.admin.component;
 
 import org.springblade.modules.iot.common.entity.CommonResult;
@@ -11,7 +9,6 @@ import org.springblade.modules.iot.service.component.ComponentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,14 +28,12 @@ public class ComponentController {
 
     @PostMapping("/create")
     @Operation(summary = "创建组件")
-    @PreAuthorize("@ss.hasPermission('eiot:component:create')")
     public CommonResult<Long> createComponent(@Valid @RequestBody ComponentCreateReqVO createReqVO) {
         return success(componentService.createComponent(createReqVO));
     }
 
     @PutMapping("/update")
     @Operation(summary = "更新组件")
-    @PreAuthorize("@ss.hasPermission('eiot:component:update')")
     public CommonResult<Boolean> updateComponent(@Valid @RequestBody ComponentUpdateReqVO updateReqVO) {
         componentService.updateComponent(updateReqVO);
         return success(true);
@@ -47,7 +42,6 @@ public class ComponentController {
     @DeleteMapping("/delete")
     @Operation(summary = "删除组件")
     @Parameter(name = "id", description = "编号", required = true)
-    @PreAuthorize("@ss.hasPermission('eiot:component:delete')")
     public CommonResult<Boolean> deleteComponent(@RequestParam("id") Long id) {
         componentService.deleteComponent(id);
         return success(true);
@@ -56,7 +50,6 @@ public class ComponentController {
     @GetMapping("/get")
     @Operation(summary = "获得组件")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
-    @PreAuthorize("@ss.hasPermission('eiot:component:query')")
     public CommonResult<ComponentRespVO> getComponent(@RequestParam("id") Long id) {
         ComponentDO component = componentService.getComponent(id);
         return success(ComponentConvert.INSTANCE.convert(component));
@@ -64,7 +57,6 @@ public class ComponentController {
 
     @GetMapping("/page")
     @Operation(summary = "获得组件配置分页")
-    @PreAuthorize("@ss.hasPermission('eiot:component:query')")
     public CommonResult<PageResult<ComponentRespVO>> getComponentPage(@Valid ComponentPageReqVO pageVO) {
         PageResult<ComponentDO> pageResult = componentService.getComponentPage(pageVO);
         return success(ComponentConvert.INSTANCE.convertPage(pageResult));

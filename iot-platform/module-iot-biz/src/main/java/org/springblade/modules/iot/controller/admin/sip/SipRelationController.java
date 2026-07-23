@@ -1,5 +1,3 @@
-
-
 package org.springblade.modules.iot.controller.admin.sip;
 
 
@@ -10,7 +8,6 @@ import org.springblade.modules.iot.controller.admin.sip.vo.SipRelationPageReqVO;
 import org.springblade.modules.iot.service.sip.SipRelationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.annotation.Resource;
@@ -32,7 +29,6 @@ public class SipRelationController {
     /**
      * 查询监控设备关联列表
      */
-    @PreAuthorize("@ss.hasPermission('iot:relation:list')")
     @GetMapping("/list")
     @Operation(summary = "查询监控设备关联列表")
     public CommonResult<PageResult<SipRelation>> list(SipRelationPageReqVO reqVO) {
@@ -44,14 +40,11 @@ public class SipRelationController {
     /**
      * 获取监控设备关联详细信息
      */
-    @PreAuthorize("@ss.hasPermission('iot:relation:query')")
     @GetMapping(value = "/{id}")
     @Operation(summary = "获取监控设备关联详细信息")
     public CommonResult<SipRelation> getInfo(@PathVariable("id") Long id) {
         return CommonResult.success(sipRelationService.selectSipRelationById(id));
     }
-
-    @PreAuthorize("@ss.hasPermission('iot:relation:query')")
     @GetMapping(value = "/dev/{deviceId}")
     @Operation(summary = "根据设备id获取关联通道详细信息")
     public CommonResult<List<SipRelation>> getInfoByDeviceId(@PathVariable("deviceId") Long deviceId) {
@@ -61,7 +54,6 @@ public class SipRelationController {
     /**
      * 新增或更新监控设备关联
      */
-    @PreAuthorize("@ss.hasPermission('iot:relation:add')")
     @PostMapping("/addOrUp")
     @Operation(summary = "新增或更新监控设备关联")
     public CommonResult<Integer> addOrUp(@RequestBody SipRelation sipRelation) {
@@ -71,7 +63,6 @@ public class SipRelationController {
     /**
      * 修改监控设备关联
      */
-    @PreAuthorize("@ss.hasPermission('iot:relation:edit')")
     @PutMapping
     @Operation(summary = "修改监控设备关联")
     public CommonResult<Integer> edit(@RequestBody SipRelation sipRelation) {
@@ -81,7 +72,6 @@ public class SipRelationController {
     /**
      * 删除监控设备关联
      */
-    @PreAuthorize("@ss.hasPermission('iot:relation:remove')")
     @DeleteMapping("/{ids}")
     @Operation(summary = "删除监控设备关联")
     public CommonResult<Integer> remove(@PathVariable Long[] ids) {

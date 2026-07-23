@@ -39,6 +39,7 @@ import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
 import org.springblade.core.secure.BladeUser;
+import org.springblade.core.secure.annotation.PreAuth;
 import org.springblade.core.tenant.annotation.NonDS;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.Func;
@@ -60,6 +61,7 @@ import static org.springblade.core.cache.constant.CacheConstant.SYS_CACHE;
 @NonDS
 @RestController
 @AllArgsConstructor
+@PreAuth(menu = "post")
 @RequestMapping(AppConstant.APPLICATION_SYSTEM_NAME + "/post")
 @Tag(name = "岗位", description = "岗位")
 public class PostController extends BladeController {

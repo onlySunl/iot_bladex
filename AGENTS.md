@@ -7,7 +7,7 @@
 - **语言**: Java 17
 - **框架**: Spring Boot 3.2.10
 - **构建工具**: Maven
-- **核心框架**: BladeX 4.2.0.RELEASE
+- **核心框架**: BladeX 4.9.0.RELEASE
 - **数据库**: MySQL (支持 Druid 连接池)
 - **缓存**: Redis (Spring Session)
 - **ORM**: MyBatis-Plus

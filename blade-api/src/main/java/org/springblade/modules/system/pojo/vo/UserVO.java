@@ -31,6 +31,8 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springblade.core.tool.jackson.BladeView;
+import org.springblade.core.tool.jackson.Views;
 import org.springblade.modules.system.pojo.entity.User;
 
 import java.io.Serial;
@@ -63,35 +65,42 @@ public class UserVO extends User {
 	/**
 	 * 租户名
 	 */
+	@BladeView(Views.Detail.class)
 	private String tenantName;
 
 	/**
 	 * 用户平台名
 	 */
+	@BladeView(Views.Detail.class)
 	private String userTypeName;
 
 	/**
 	 * 角色名
 	 */
+	@BladeView(Views.Summary.class)
 	private String roleName;
 
 	/**
 	 * 部门名
 	 */
+	@BladeView(Views.Summary.class)
 	private String deptName;
 
 	/**
 	 * 岗位名
 	 */
+	@BladeView(Views.Detail.class)
 	private String postName;
 
 	/**
 	 * 性别
 	 */
+	@BladeView(Views.Detail.class)
 	private String sexName;
 
 	/**
 	 * 拓展信息
 	 */
+	@BladeView(Views.Admin.class)
 	private String userExt;
 }

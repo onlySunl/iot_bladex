@@ -29,85 +29,85 @@ public interface RemoteIotDeviceService {
     /**
      * 根据产品key、设备dn从缓存获取设备信息
      */
-    @GetMapping("/api/deviceApi/getDeviceByPkDnByCache")
+    @GetMapping("/deviceApi/getDeviceByPkDnByCache")
     DeviceInfo getDeviceByPkDnByCache(@RequestParam("pk") String pk, @RequestParam("dn") String dn);
 
     /**
      * 根据设备ID从缓存获取设备信息
      */
-    @GetMapping("/api/deviceApi/getDeviceInfoFromCache")
+    @GetMapping("/deviceApi/getDeviceInfoFromCache")
     DeviceInfo getDeviceInfoFromCache(@RequestParam("deviceId") Long deviceId);
 
     /**
      * 设备注册
      */
-    @PostMapping("/api/deviceApi/registerDevice")
+    @PostMapping("/deviceApi/registerDevice")
     DeviceInfo registerDevice(@RequestBody RegisterDevice registerDevice);
 
     /**
      * 设备鉴权
      */
-    @PostMapping("/api/deviceApi/auth")
+    @PostMapping("/deviceApi/auth")
     CommonResult<DeviceInfo> auth(@RequestBody DeviceAuth deviceAuth);
 
     /**
      * 根据设备ID获取缓存属性Map
      */
-    @GetMapping("/api/deviceApi/getPropertiesFromCache")
+    @GetMapping("/deviceApi/getPropertiesFromCache")
     Map<String, DevicePropertyCache> getPropertiesFromCache(@RequestParam("deviceId") Long deviceId);
 
     /**
      * 更新设备最后通讯时间缓存
      */
-    @PostMapping("/api/deviceApi/updateDeviceLastTimeCache")
+    @PostMapping("/deviceApi/updateDeviceLastTimeCache")
     void updateDeviceLastTimeCache(@RequestParam("deviceId") Long deviceId, @RequestParam("lastTime") long lastTime);
 
     /**
      * 更新设备在线状态
      */
-    @PostMapping("/api/deviceApi/updateDeviceState")
+    @PostMapping("/deviceApi/updateDeviceState")
     Boolean updateDeviceState(@RequestParam("deviceId") Long deviceId, @RequestParam("online") boolean online);
 
     /**
      * 保存设备属性缓存
      */
-    @PostMapping("/api/deviceApi/savePropertiesCache")
+    @PostMapping("/deviceApi/savePropertiesCache")
     void savePropertiesCache(@RequestParam("deviceId") Long deviceId, @RequestBody Map<String, DevicePropertyCache> properties);
 
     /**
      * 根据产品key清空所有设备属性缓存
      */
-    @PostMapping("/api/deviceApi/clearPropertiesCache")
+    @PostMapping("/deviceApi/clearPropertiesCache")
     void clearPropertiesCache(@RequestParam("productKey") String productKey);
 
     /**
      * 根据设备ID获取设备配置
      */
-    @GetMapping("/api/deviceApi/getDeviceConfigById")
+    @GetMapping("/deviceApi/getDeviceConfigById")
     DeviceConfig getDeviceConfig(@RequestParam("deviceId") Long deviceId);
 
     /**
      * 根据产品key、dn获取设备配置
      */
-    @GetMapping("/api/deviceApi/getDeviceConfigByPkDn")
+    @GetMapping("/deviceApi/getDeviceConfigByPkDn")
     DeviceConfig getDeviceConfig(@RequestParam("productKey") String productKey, @RequestParam("dn") String dn);
 
     /**
      * 调用设备物模型服务
      */
-    @PostMapping("/api/deviceApi/invokeThingService")
+    @PostMapping("/deviceApi/invokeThingService")
     void invoke(@RequestBody ThingService<?> service);
 
     /**
      * 根据产品key、父设备dn查询子设备列表
      */
-    @GetMapping("/api/deviceApi/getSubDevicesByProductKeAndDeviceName")
+    @GetMapping("/deviceApi/getSubDevicesByProductKeAndDeviceName")
     List<DeviceInfo> getSubDevicesByProductKeAndDeviceName(@RequestParam("pk") String pk, @RequestParam("dn") String dn);
 
     /**
      * 注销子设备
      */
-    @PostMapping("/api/deviceApi/deregisterSubDevice")
+    @PostMapping("/deviceApi/deregisterSubDevice")
     Boolean deregisterSubDevice(
             @RequestParam("pk") String pk,
             @RequestParam("dn") String dn,

@@ -20,27 +20,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface RemoteIotTaskService {
 
     /** 新增任务 */
-    @PostMapping("/api/inner/taskApi/saveTask")
+    @PostMapping("/taskApi/saveTask")
     void saveTask(@RequestBody TaskInfo task);
 
     /** 续期任务 */
-    @PostMapping("/api/inner/taskApi/renewTask")
+    @PostMapping("/taskApi/renewTask")
     void renewTask(@RequestBody TaskInfo task);
 
     /** 暂停任务 */
-    @PostMapping("/api/inner/taskApi/pauseTask")
+    @PostMapping("/taskApi/pauseTask")
     void pauseTask(@RequestParam("taskId") Long taskId, @RequestParam("reason") String reason);
 
     /** 删除任务 */
-    @PostMapping("/api/inner/taskApi/deleteTask")
+    @PostMapping("/taskApi/deleteTask")
     void deleteTask(@RequestParam("taskId") Long taskId, @RequestParam("reason") String reason);
 
     /** 恢复任务 */
-    @PostMapping("/api/inner/taskApi/resumeTask")
+    @PostMapping("/taskApi/resumeTask")
     void resumeTask(@RequestParam("taskId") Long taskId, @RequestParam("reason") String reason);
 
     /** 更新任务状态 */
-    @PostMapping("/api/inner/taskApi/updateTaskState")
+    @PostMapping("/taskApi/updateTaskState")
     TaskInfo updateTaskState(
             @RequestParam("taskId") Long taskId,
             @RequestParam("state") String state,

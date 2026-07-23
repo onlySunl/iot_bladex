@@ -63,10 +63,20 @@ public class TopMenu extends TenantEntity {
 	@Schema(description = "顶部菜单资源")
 	private String source;
 	/**
+	 * 顶部菜单路由
+	 */
+	@Schema(description = "顶部菜单路由")
+	private String path;
+	/**
 	 * 顶部菜单排序
 	 */
 	@Schema(description = "顶部菜单排序")
 	private Integer sort;
+	/**
+	 * 是否主页
+	 */
+	@Schema(description = "是否主页")
+	private Integer isMain;
 
 
 }

@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>nvr-protocol</artifactId>
-        <version>4.2.0.RELEASE</version>
+        <version>4.9.0.RELEASE</version>
     </parent>
 
     <artifactId>nvr-protocol-onvif</artifactId>
@@ -23,12 +23,12 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-common</artifactId>
-            <version>4.2.0.RELEASE</version>
+            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-api-onvif</artifactId>
-            <version>4.2.0.RELEASE</version>
+            <version>4.9.0.RELEASE</version>
         </dependency>
     </dependencies>
 </project>

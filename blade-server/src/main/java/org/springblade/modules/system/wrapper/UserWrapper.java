@@ -25,7 +25,6 @@
  */
 package org.springblade.modules.system.wrapper;
 
-
 import org.springblade.common.cache.DictCache;
 import org.springblade.common.cache.SysCache;
 import org.springblade.common.enums.DictEnum;
@@ -39,7 +38,6 @@ import org.springblade.modules.system.pojo.entity.User;
 import org.springblade.modules.system.pojo.vo.UserVO;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * 包装类,返回视图层所需的字段
@@ -54,8 +52,14 @@ public class UserWrapper extends BaseEntityWrapper<User, UserVO> {
 
 	@Override
 	public UserVO entityVO(User user) {
-		UserVO userVO = Objects.requireNonNull(BeanUtil.copyProperties(user, UserVO.class));
+		UserVO userVO = BeanUtil.copyProperties(user, UserVO.class);
+		if (userVO == null) {
+			return null;
+		}
 		Tenant tenant = SysCache.getTenant(user.getTenantId());
+		if (tenant != null) {
+			userVO.setTenantName(tenant.getTenantName());
+		}
 		if (StringUtil.isNotBlank(user.getRoleId()) && !StringUtil.equals(user.getRoleId(), StringPool.MINUS_ONE)) {
 			List<String> roleName = SysCache.getRoleNames(user.getRoleId());
 			userVO.setRoleName(Func.join(roleName));
@@ -77,7 +81,6 @@ public class UserWrapper extends BaseEntityWrapper<User, UserVO> {
 			userVO.setPostId(StringPool.EMPTY);
 			userVO.setPostName("暂未分配");
 		}
-		userVO.setTenantName(tenant.getTenantName());
 		userVO.setSexName(DictCache.getValue(DictEnum.SEX, user.getSex()));
 		userVO.setUserTypeName(DictCache.getValue(DictEnum.USER_TYPE, user.getUserType()));
 		return userVO;

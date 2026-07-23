@@ -25,7 +25,8 @@
  */
 package org.springblade.modules.resource.rule.context;
 
-import lombok.Data;
+import lombok.*;
+import org.springblade.core.literule.core.RuleContextComponent;
 import org.springblade.core.redis.cache.BladeRedis;
 import org.springblade.core.sms.SmsTemplate;
 import org.springblade.core.sms.props.SmsProperties;
@@ -39,7 +40,11 @@ import java.util.Map;
  * @author Chill
  */
 @Data
-public class SmsContext {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+public class SmsContext extends RuleContextComponent {
 	/**
 	 * 是否有缓存
 	 */

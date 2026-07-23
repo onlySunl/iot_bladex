@@ -1,6 +1,4 @@
 package org.springblade.modules.iot.controller.admin.modbus;
-
-
 import cn.hutool.core.util.StrUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -23,7 +21,6 @@ import org.springblade.modules.iot.controller.admin.modbus.vo.ModbusThingModelIm
 import org.springblade.modules.iot.controller.admin.modbus.vo.ModbusThingModelVo;
 import org.springblade.modules.iot.excel.core.util.ExcelUtils;
 import org.springblade.modules.iot.service.modbus.ModbusInfoService;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,7 +43,6 @@ public class ModbusController {
 
 
     @Operation(summary = "ModbusInfo模版列表")
-    @PreAuthorize("@ss.hasPermission('iot:modbus:list')")
     @PostMapping("/list")
     public CommonResult<PageResult<ModbusInfoRespVo>> getDevices(@RequestBody ModbusInfoVo data) {
         PageResult<ModbusInfo> result = modbusInfoService.selectPageList(data);
@@ -55,7 +51,6 @@ public class ModbusController {
 
 
     @Operation(summary = "新建ModbusInfo")
-    @PreAuthorize("@ss.hasPermission('iot:modbus:add')")
     @PostMapping("/add")
     public CommonResult<ModbusInfoRespVo> create(@RequestBody ModbusInfoVo data) {
         ModbusInfo modbus = modbusInfoService.createModbus(data);
@@ -63,7 +58,6 @@ public class ModbusController {
     }
 
     @Operation(summary = "编辑ModbusInfo")
-    @PreAuthorize("@ss.hasPermission('iot:modbus:edit')")
     @PostMapping("/edit")
     public CommonResult<Boolean> edit(@RequestBody ModbusInfoVo data) {
         modbusInfoService.updateModbus(data);
@@ -71,7 +65,6 @@ public class ModbusController {
     }
 
     @Operation(summary = "查看ModbusInfo详情")
-    @PreAuthorize("@ss.hasPermission('iot:modbus:query')")
     @PostMapping("/getDetail")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     public CommonResult<ModbusInfoRespVo> getDetail(@RequestParam("id") Long id) {
@@ -80,7 +73,6 @@ public class ModbusController {
     }
 
     @Operation(summary = "删除ModbusInfo")
-    @PreAuthorize("@ss.hasPermission('iot:modbus:remove')")
     @PostMapping("/deleteModbus")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     public CommonResult<Boolean> deleteProduct(@RequestParam("id") Long id) {
@@ -93,7 +85,6 @@ public class ModbusController {
      */
     @SneakyThrows
     @Operation(summary = "导入点位模型")
-    @PreAuthorize("@ss.hasPermission('iot:modbus:add')")
     @ApiAccessLog(operateType = IMPORT)
     @PostMapping("/importData")
     @Parameter(name = "productKey", description = "productKey", required = true, example = "1024")
@@ -107,7 +98,6 @@ public class ModbusController {
 
     @SneakyThrows
     @Operation(summary = "下载点位模版")
-    @PreAuthorize("@ss.hasPermission('iot:modbus:query')")
     @GetMapping("/exportData")
     public void exportDeviceTemplate(HttpServletResponse response) {
         ExcelUtils.write(response, "点位模版.xls","点位", ModbusThingModelImportVo.class ,null);
@@ -115,7 +105,6 @@ public class ModbusController {
 
 
     @Operation(summary = "查看点位物模型")
-    @PreAuthorize("@ss.hasPermission('iot:modbus:query')")
     @PostMapping("/getThingModelByProductKey")
     @Parameter(name = "pk", description = "productKey", required = true, example = "1024")
     public CommonResult<ModbusThingModel> getThingModelByProductKey(@RequestParam("pk") String productKey) {
@@ -123,7 +112,6 @@ public class ModbusController {
     }
 
     @Operation(summary = "保存点位物模型")
-    @PreAuthorize("@ss.hasPermission('iot:modbus:edit')")
     @PostMapping("/thingModel/save")
     public CommonResult<Boolean> saveThingModel(@RequestBody ModbusThingModelVo modbusThingModelVo) {
         modbusInfoService.saveThingModel(modbusThingModelVo);
@@ -132,7 +120,6 @@ public class ModbusController {
 
 
     @Operation(summary = "同步点位物模型到产品")
-    @PreAuthorize("@ss.hasPermission('iot:modbus:edit')")
     @PostMapping("/syncToProduct")
     public CommonResult<Boolean> syncToProduct(@RequestBody ModbusThingModelVo modbusThingModelVo) {
         modbusInfoService.syncToProduct(modbusThingModelVo);

@@ -27,7 +27,9 @@
 package org.springblade.common.config;
 
 import lombok.AllArgsConstructor;
+import org.springblade.common.handler.BladeRecordHandler;
 import org.springblade.common.handler.BladeScopeModelHandler;
+import org.springblade.core.datarecord.processor.DataRecordHandler;
 import org.springblade.core.datascope.handler.ScopeModelHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,6 +45,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class BladeHandlerConfiguration {
 
 	private final JdbcTemplate jdbcTemplate;
+
+	@Bean
+	public DataRecordHandler dataRecordHandler() {
+		return new BladeRecordHandler(jdbcTemplate);
+	}
 
 	@Bean
 	public ScopeModelHandler scopeModelHandler() {

@@ -36,6 +36,7 @@ import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
+import org.springblade.core.secure.annotation.IsAdministrator;
 import org.springblade.core.tenant.annotation.NonDS;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.Func;
@@ -54,6 +55,7 @@ import java.util.List;
 @NonDS
 @RestController
 @AllArgsConstructor
+@IsAdministrator
 @RequestMapping(AppConstant.APPLICATION_SYSTEM_NAME + "/tenant-datasource")
 @Tag(name = "多租户数据源表", description = "多租户数据源表接口")
 public class TenantDatasourceController extends BladeController {

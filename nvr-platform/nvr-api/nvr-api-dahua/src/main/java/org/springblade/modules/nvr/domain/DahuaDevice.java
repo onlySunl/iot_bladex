@@ -3,12 +3,10 @@ package org.springblade.modules.nvr.domain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
-import com.tangzc.mpe.autotable.annotation.Table;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -20,10 +18,10 @@ import java.io.Serializable;
  * @date 2025-06-06
  */
 @Data
-@TableName("dahua_device")
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(value = "dahua_device", comment = "大华设备表")
+@TableName("dahua_device")
+@AutoTable(value = "dahua_device", comment = "大华设备表")
 public class DahuaDevice implements Serializable {
 
     private static final long serialVersionUID = 1L;

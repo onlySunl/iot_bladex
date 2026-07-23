@@ -52,7 +52,8 @@ public enum UserType {
 	/**
 	 * other
 	 */
-	OTHER("other", 3);
+	OTHER("other", 3),
+	;
 
 	final String name;
 	final int category;

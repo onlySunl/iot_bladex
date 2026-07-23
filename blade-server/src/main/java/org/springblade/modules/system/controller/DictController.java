@@ -42,6 +42,7 @@ import org.springblade.core.cache.utils.CacheUtil;
 import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
+import org.springblade.core.secure.annotation.PreAuth;
 import org.springblade.core.tenant.annotation.NonDS;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.constant.BladeConstant;
@@ -151,8 +152,10 @@ public class DictController extends BladeController {
 	/**
 	 * 新增或修改
 	 */
+	@PreAuth(menu = "dict")
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
+	@Operation(summary = "新增或修改", description = "新增或修改")
 	public R submit(@Valid @RequestBody Dict dict) {
 		CacheUtil.clear(DICT_CACHE, Boolean.FALSE);
 		return R.status(dictService.submit(dict));
@@ -162,6 +165,7 @@ public class DictController extends BladeController {
 	/**
 	 * 删除
 	 */
+	@PreAuth(menu = "dict")
 	@PostMapping("/remove")
 	@ApiOperationSupport(order = 7)
 	@Operation(summary = "删除", description = "传入ids")

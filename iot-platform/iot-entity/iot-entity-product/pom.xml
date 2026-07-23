@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>iot-entity</artifactId>
-        <version>4.2.0.RELEASE</version>
+        <version>4.9.0.RELEASE</version>
         <!-- 本地优先读取上层iot-entity/pom.xml，无需远程仓库拉取 -->
         <relativePath>../pom.xml</relativePath>
     </parent>

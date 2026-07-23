@@ -1,7 +1,5 @@
 package org.springblade.modules.nvr.domain;
 
-import java.util.List;
-
 public class CatalogRequest {
     private Gb28181Platform platform;
 

@@ -25,7 +25,8 @@
  */
 package org.springblade.modules.resource.rule.context;
 
-import lombok.Data;
+import lombok.*;
+import org.springblade.core.literule.core.RuleContextComponent;
 import org.springblade.core.oss.OssTemplate;
 import org.springblade.core.oss.props.OssProperties;
 import org.springblade.core.oss.rule.OssRule;
@@ -39,7 +40,11 @@ import java.util.Map;
  * @author Chill
  */
 @Data
-public class OssContext {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+public class OssContext extends RuleContextComponent {
 	/**
 	 * 是否有缓存
 	 */

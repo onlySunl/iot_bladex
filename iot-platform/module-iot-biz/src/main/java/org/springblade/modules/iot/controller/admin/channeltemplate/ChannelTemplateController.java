@@ -1,26 +1,3 @@
-
-/*
- *
- *  * | Licensed 未经许可不能去掉「Enjoy-iot」相关版权
- *  * +----------------------------------------------------------------------
- *  * | Author: xw2sy@163.com | Tel: 19918996474
- *  * +----------------------------------------------------------------------
- *
- *  Copyright [2025] [Enjoy-iot] | Tel: 19918996474
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- * /
- */
 package org.springblade.modules.iot.controller.admin.channeltemplate;
 
 import org.springblade.modules.iot.common.annotation.ApiAccessLog;
@@ -29,7 +6,6 @@ import org.springblade.modules.iot.service.alert.ChannelTemplateService;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Operation;
@@ -58,14 +34,12 @@ public class ChannelTemplateController {
 
     @PostMapping("/create")
     @Operation(summary = "创建通道模板")
-    @PreAuthorize("@ss.hasPermission('iot:channel-template:create')")
     public R<Long> createChannelTemplate(@Valid @RequestBody ChannelTemplateSaveReqVO createReqVO) {
         return R.data(channelTemplateService.createChannelTemplate(createReqVO));
     }
 
     @PutMapping("/update")
     @Operation(summary = "更新通道模板")
-    @PreAuthorize("@ss.hasPermission('iot:channel-template:update')")
     public R<Boolean> updateChannelTemplate(@Valid @RequestBody ChannelTemplateSaveReqVO updateReqVO) {
         channelTemplateService.updateChannelTemplate(updateReqVO);
         return R.data(true);
@@ -74,7 +48,6 @@ public class ChannelTemplateController {
     @DeleteMapping("/delete")
     @Operation(summary = "删除通道模板")
     @Parameter(name = "id", description = "编号", required = true)
-    @PreAuthorize("@ss.hasPermission('iot:channel-template:delete')")
     public R<Boolean> deleteChannelTemplate(@RequestParam("id") Long id) {
         channelTemplateService.deleteById(id);
         return R.data(true);
@@ -83,7 +56,6 @@ public class ChannelTemplateController {
     @GetMapping("/get")
     @Operation(summary = "获得通道模板")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
-    @PreAuthorize("@ss.hasPermission('iot:channel-template:query')")
     public R<ChannelTemplateRespVO> getChannelTemplate(@RequestParam("id") Long id) {
         ChannelTemplate channelTemplate = channelTemplateService.getChannelTemplate(id);
         return R.data(BeanUtils.toBean(channelTemplate, ChannelTemplateRespVO.class));
@@ -91,7 +63,6 @@ public class ChannelTemplateController {
 
     @GetMapping("/page")
     @Operation(summary = "获得通道模板分页")
-    @PreAuthorize("@ss.hasPermission('iot:channel-template:query')")
     public R<PageResult<ChannelTemplateRespVO>> getChannelTemplatePage(@Valid ChannelTemplatePageReqVO pageReqVO) {
         PageResult<ChannelTemplate> pageResult = channelTemplateService.getChannelTemplatePage(pageReqVO);
         return R.data(BeanUtils.toBean(pageResult, ChannelTemplateRespVO.class));
@@ -99,7 +70,6 @@ public class ChannelTemplateController {
 
     @GetMapping("/export-excel")
     @Operation(summary = "导出通道模板 Excel")
-    @PreAuthorize("@ss.hasPermission('iot:channel-template:export')")
     @ApiAccessLog(operateType = EXPORT)
     public void exportChannelTemplateExcel(@Valid ChannelTemplatePageReqVO pageReqVO,
               HttpServletResponse response) throws IOException {

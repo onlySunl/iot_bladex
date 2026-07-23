@@ -25,8 +25,8 @@
  */
 package org.springblade.modules.resource.rule.sms;
 
-import com.yomahub.liteflow.annotation.LiteflowComponent;
-import com.yomahub.liteflow.core.NodeComponent;
+import org.springblade.core.literule.annotation.LiteRuleComponent;
+import org.springblade.core.literule.core.RuleComponent;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.sms.SmsTemplate;
 import org.springblade.core.tool.utils.Func;
@@ -35,16 +35,18 @@ import org.springblade.modules.resource.rule.context.SmsContext;
 
 import java.util.Map;
 
+import static org.springblade.modules.resource.rule.constant.SmsRuleConstant.CACHE_SMS_RULE;
+
 /**
  * 缓存短信构建类
  *
  * @author Chill
  */
-@LiteflowComponent(id = "cacheSmsRule", name = "缓存SMS构建")
-public class CacheSmsRule extends NodeComponent {
+@LiteRuleComponent(id = CACHE_SMS_RULE, name = "缓存SMS构建")
+public class CacheSmsRule extends RuleComponent {
 
 	@Override
-	public void process() throws Exception {
+	public void process() {
 		// 获取上下文
 		String tenantId = this.getRequestData();
 		SmsContext contextBean = this.getContextBean(SmsContext.class);

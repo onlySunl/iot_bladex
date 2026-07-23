@@ -27,7 +27,6 @@ package org.springblade.modules.desk.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -39,9 +38,13 @@ import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
+import org.springblade.core.secure.annotation.PreAuth;
 import org.springblade.core.tenant.annotation.TenantDS;
 import org.springblade.core.tool.api.R;
+import org.springblade.core.tool.jackson.BladeView;
+import org.springblade.core.tool.jackson.Views;
 import org.springblade.core.tool.utils.Func;
+import org.springblade.core.xss.annotation.XssIgnore;
 import org.springblade.modules.desk.pojo.entity.Notice;
 import org.springblade.modules.desk.pojo.vo.NoticeVO;
 import org.springblade.modules.desk.service.INoticeService;
@@ -57,9 +60,9 @@ import java.util.Map;
  */
 @TenantDS
 @RestController
-@RequestMapping(AppConstant.APPLICATION_DESK_NAME + "/notice")
 @AllArgsConstructor
-@ApiSort(2)
+@PreAuth(menu = "notice")
+@RequestMapping(AppConstant.APPLICATION_DESK_NAME + "/notice")
 @Tag(name = "用户博客", description = "博客接口")
 public class NoticeController extends BladeController {
 
@@ -69,6 +72,7 @@ public class NoticeController extends BladeController {
 	 * 详情
 	 */
 	@GetMapping("/detail")
+	@BladeView(Views.Detail.class)
 	@ApiOperationSupport(order = 1)
 	@Operation(summary = "详情", description = "传入notice")
 	public R<NoticeVO> detail(Notice notice) {
@@ -80,6 +84,7 @@ public class NoticeController extends BladeController {
 	 * 分页
 	 */
 	@GetMapping("/list")
+	@BladeView(Views.Summary.class)
 	@Parameters({
 		@Parameter(name = "category", description = "公告类型", in = ParameterIn.QUERY, schema = @Schema(type = "integer")),
 		@Parameter(name = "title", description = "公告标题", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
@@ -96,6 +101,7 @@ public class NoticeController extends BladeController {
 	 * 多表联合查询自定义分页
 	 */
 	@GetMapping("/page")
+	@BladeView(Views.Summary.class)
 	@Parameters({
 		@Parameter(name = "category", description = "公告类型", in = ParameterIn.QUERY, schema = @Schema(type = "integer")),
 		@Parameter(name = "title", description = "公告标题", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
@@ -130,6 +136,7 @@ public class NoticeController extends BladeController {
 	/**
 	 * 新增或修改
 	 */
+	@XssIgnore
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
 	@Operation(summary = "新增或修改", description = "传入notice")

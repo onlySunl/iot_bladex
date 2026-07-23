@@ -25,27 +25,29 @@
  */
 package org.springblade.modules.resource.rule.sms;
 
-import com.github.qcloudsms.SmsMultiSender;
-import com.yomahub.liteflow.annotation.LiteflowComponent;
-import com.yomahub.liteflow.core.NodeComponent;
+import com.tencentcloudapi.common.Credential;
+import com.tencentcloudapi.sms.v20210111.SmsClient;
+import org.springblade.core.literule.annotation.LiteRuleComponent;
+import org.springblade.core.literule.core.RuleComponent;
 import org.springblade.core.redis.cache.BladeRedis;
 import org.springblade.core.sms.SmsTemplate;
 import org.springblade.core.sms.TencentSmsTemplate;
 import org.springblade.core.sms.props.SmsProperties;
-import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.resource.pojo.entity.Sms;
 import org.springblade.modules.resource.rule.context.SmsContext;
+
+import static org.springblade.modules.resource.rule.constant.SmsRuleConstant.TENCENT_SMS_RULE;
 
 /**
  * 腾讯云短信构建类
  *
  * @author Chill
  */
-@LiteflowComponent(id = "tencentSmsRule", name = "腾讯SMS构建")
-public class TencentSmsRule extends NodeComponent {
+@LiteRuleComponent(id = TENCENT_SMS_RULE, name = "腾讯SMS构建")
+public class TencentSmsRule extends RuleComponent {
 
 	@Override
-	public void process() throws Exception {
+	public void process() {
 		// 获取上下文
 		SmsContext contextBean = this.getContextBean(SmsContext.class);
 		Sms sms = contextBean.getSms();
@@ -55,9 +57,13 @@ public class TencentSmsRule extends NodeComponent {
 		smsProperties.setTemplateId(sms.getTemplateId());
 		smsProperties.setAccessKey(sms.getAccessKey());
 		smsProperties.setSecretKey(sms.getSecretKey());
+		smsProperties.setAppId(sms.getAppId());
+		smsProperties.setRegionId(sms.getRegionId());
 		smsProperties.setSignName(sms.getSignName());
-		SmsMultiSender smsSender = new SmsMultiSender(Func.toInt(smsProperties.getAccessKey()), sms.getSecretKey());
-		SmsTemplate smsTemplate = new TencentSmsTemplate(smsProperties, smsSender, bladeRedis);
+
+		Credential cred = new Credential(smsProperties.getAccessKey(), smsProperties.getSecretKey());
+		SmsClient client = new SmsClient(cred, smsProperties.getRegionId());
+		SmsTemplate smsTemplate = new TencentSmsTemplate(smsProperties, client, bladeRedis);
 
 		// 设置上下文
 		contextBean.setSmsTemplate(smsTemplate);

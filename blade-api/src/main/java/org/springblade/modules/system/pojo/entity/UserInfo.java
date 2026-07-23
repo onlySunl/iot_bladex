@@ -29,7 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.springblade.core.tool.support.Kv;
 
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;

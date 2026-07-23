@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>nvr-api</artifactId>
-        <version>4.2.0.RELEASE</version>
+        <version>4.9.0.RELEASE</version>
         <!-- 本地优先读取上层pom，无需每次请求远程仓库 -->
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -43,6 +43,12 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-common</artifactId>
+        </dependency>
+        <!-- AutoTable数据库建表注解，仅编译使用 -->
+        <dependency>
+            <groupId>com.tangzc</groupId>
+            <artifactId>auto-table-annotation</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

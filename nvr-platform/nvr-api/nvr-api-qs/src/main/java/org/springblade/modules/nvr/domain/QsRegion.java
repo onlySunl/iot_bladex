@@ -3,16 +3,13 @@ package org.springblade.modules.nvr.domain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
-import com.tangzc.mpe.autotable.annotation.Table;
-
-import org.springblade.core.tool.utils.DateUtil;
-import org.springblade.common.entity.CustomBaseEntity;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.util.Date;
+import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.core.tool.utils.DateUtil;
 
 /**
  * 区域
@@ -20,7 +17,7 @@ import java.util.Date;
 @Data
 @TableName("qs_common_region")
 @EqualsAndHashCode(callSuper = true)
-@Table(value = "qs_common_region", comment = "区域表")
+@AutoTable(value = "qs_common_region", comment = "区域表")
 public class QsRegion extends CustomBaseEntity implements Comparable<QsRegion> {
     private static final long serialVersionUID = 1L;
 

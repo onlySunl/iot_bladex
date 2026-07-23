@@ -40,9 +40,8 @@ import org.springblade.core.cache.utils.CacheUtil;
 import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
-import org.springblade.core.secure.annotation.PreAuth;
+import org.springblade.core.secure.annotation.IsAdministrator;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.tool.constant.RoleConstant;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.system.pojo.entity.TenantPackage;
 import org.springblade.modules.system.service.ITenantPackageService;
@@ -60,6 +59,7 @@ import static org.springblade.core.cache.constant.CacheConstant.SYS_CACHE;
  */
 @RestController
 @AllArgsConstructor
+@IsAdministrator
 @RequestMapping(AppConstant.APPLICATION_SYSTEM_NAME + "/tenant-package")
 @Tag(name = "租户产品包", description = "租户产品包")
 public class TenantPackageController extends BladeController {
@@ -141,7 +141,6 @@ public class TenantPackageController extends BladeController {
 	@GetMapping("/select")
 	@ApiOperationSupport(order = 7)
 	@Operation(summary = "下拉数据源", description = "传入tenant")
-	@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
 	public R<List<TenantPackage>> select(TenantPackage tenantPackage) {
 		return R.data(tenantPackageService.list(Condition.getQueryWrapper(tenantPackage)));
 	}
