@@ -3,7 +3,7 @@ package org.springblade.modules.iot.controller.admin.device;
 import cn.hutool.core.util.ObjectUtil;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.BeanUtil;
-import org.springblade.modules.iot.common.entity.CommonResult;
+import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.common.entity.PageParam;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
@@ -20,10 +20,10 @@ import org.springblade.modules.iot.controller.admin.iot.vo.DeviceIdReqVo;
 import org.springblade.modules.iot.controller.admin.sip.vo.SipRelation;
 import org.springblade.modules.iot.controller.admin.thingmodel.vo.ThingModelMessageBo;
 import org.springblade.modules.iot.excel.core.util.ExcelUtils;
-import org.springblade.modules.iot.service.device.DeviceCtrlService;
-import org.springblade.modules.iot.service.device.DeviceInfoService;
-import org.springblade.modules.iot.service.device.DeviceManagerService;
-import org.springblade.modules.iot.service.sip.SipRelationService;
+import org.springblade.modules.iot.service.device.IDeviceCtrlService;
+import org.springblade.modules.iot.service.device.IDeviceInfoService;
+import org.springblade.modules.iot.service.device.IDeviceManagerService;
+import org.springblade.modules.iot.service.sip.ISipRelationService;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -39,31 +39,33 @@ import java.io.IOException;
 
 
 import org.springframework.web.multipart.MultipartFile;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
 
-import static org.springblade.modules.iot.common.entity.CommonResult.success;
+
 
 @Tag(name = "管理后台 - 设备信息")
 @RestController
 @RequestMapping("/eiot/device")
 @Validated
-public class DeviceInfoController {
+public class DeviceInfoController extends BladeController {
 
     @Resource
-    private DeviceInfoService deviceInfoService;
+    private IDeviceInfoService deviceInfoService;
 
     @Resource
-    private DeviceManagerService deviceManagerService;
+    private IDeviceManagerService deviceManagerService;
 
     @Resource
-    private SipRelationService sipRelationService;
+    private ISipRelationService sipRelationService;
 
     @Resource
-    private DeviceCtrlService deviceCtrlService;
+    private IDeviceCtrlService deviceCtrlService;
 
     @PostMapping("/create")
     @Operation(summary = "创建设备信息")
-    public CommonResult<Long> createDeviceInfo(@Valid @RequestBody DeviceInfoSaveReqVO createReqVO) {
-        return success(deviceInfoService.createDeviceInfo(createReqVO));
+    public R<Long> createDeviceInfo(@Valid @RequestBody DeviceInfoSaveReqVO createReqVO) {
+        return data(deviceInfoService.createDeviceInfo(createReqVO));
     }
 
     /**
@@ -71,10 +73,10 @@ public class DeviceInfoController {
      */
     @Operation(summary = "导入设备")
     @PostMapping("/importData")
-    public CommonResult<DeviceImportRespVO> importDevice(@RequestPart("file") MultipartFile file, @RequestParam("productId") Long productId) throws IOException {
+    public R<DeviceImportRespVO> importDevice(@RequestPart("file") MultipartFile file, @RequestParam("productId") Long productId) throws IOException {
         List<DeviceInfoImportVo> list = ExcelUtils.read(file, DeviceInfoImportVo.class);
 
-        return success(deviceInfoService.importDevice(list, productId));
+        return data(deviceInfoService.importDevice(list, productId));
     }
 
     /**
@@ -92,38 +94,38 @@ public class DeviceInfoController {
 
     @PutMapping("/update")
     @Operation(summary = "更新设备信息")
-    public CommonResult<Boolean> updateDeviceInfo(@Valid @RequestBody DeviceInfoSaveReqVO updateReqVO) {
+    public R<Boolean> updateDeviceInfo(@Valid @RequestBody DeviceInfoSaveReqVO updateReqVO) {
         deviceInfoService.updateDeviceInfo(updateReqVO);
-        return success(true);
+        return data(true);
     }
 
     @DeleteMapping("/delete")
     @Operation(summary = "删除设备信息")
     @Parameter(name = "id", description = "编号", required = true)
-    public CommonResult<Boolean> deleteDeviceInfo(@RequestParam("id") Long id) {
+    public R<Boolean> deleteDeviceInfo(@RequestParam("id") Long id) {
         deviceInfoService.deleteDeviceInfo(id);
-        return success(true);
+        return data(true);
     }
 
     @DeleteMapping("/deleteBatch")
     @Operation(summary = "删除设备信息")
     @Parameter(name = "ids", description = "编号", required = true)
-    public CommonResult<Boolean> deleteByIds(@RequestParam("ids") List<Long> ids) {
+    public R<Boolean> deleteByIds(@RequestParam("ids") List<Long> ids) {
         deviceInfoService.deleteByIds(ids);
-        return success(true);
+        return data(true);
     }
 
     @GetMapping("/get")
     @Operation(summary = "获得设备信息")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
-    public CommonResult<DeviceInfoRespVO> getDeviceInfo(@RequestParam("id") Long id) {
+    public R<DeviceInfoRespVO> getDeviceInfo(@RequestParam("id") Long id) {
         DeviceInfo deviceInfo = deviceInfoService.getDeviceInfo(id);
-        return success(BeanUtils.toBean(deviceInfo, DeviceInfoRespVO.class));
+        return data(BeanUtils.toBean(deviceInfo, DeviceInfoRespVO.class));
     }
 
     @Operation(summary = "获得设备信息")
     @GetMapping(value = "/getDeviceBySerialNumber/{serialNumber}")
-    public CommonResult<DeviceInfoRespVO> getDeviceBySerialNumber(@PathVariable("serialNumber") String serialNumber) {
+    public R<DeviceInfoRespVO> getDeviceBySerialNumber(@PathVariable("serialNumber") String serialNumber) {
         DeviceInfo deviceInfo = deviceInfoService.getDeviceBySerialNo(serialNumber);
         DeviceInfoRespVO ret = BeanUtil.copy(deviceInfo, DeviceInfoRespVO.class);
 
@@ -135,14 +137,17 @@ public class DeviceInfoController {
             ret.setSipRelationList(sipRelationList);
         }
 
-        return success(ret);
+        return data(ret);
     }
 
     @GetMapping("/page")
     @Operation(summary = "获得设备信息分页")
-    public CommonResult<PageResult<DeviceShortRespVO>> getDeviceInfoPage(@Valid DeviceInfoPageReqVO pageReqVO) {
+    public R<PageResult<DeviceShortRespVO>> getDeviceInfoPage(@Valid DeviceInfoPageReqVO pageReqVO) {
         PageResult<DeviceShortInfo> pageResult = deviceInfoService.getDeviceInfoPage(pageReqVO);
-        return success(BeanUtils.toBean(pageResult, DeviceShortRespVO.class));
+        PageResult<DeviceShortRespVO> result = BeanUtils.toBean(pageResult, DeviceShortRespVO.class);
+        // 填充设备所属分组名称
+        deviceManagerService.fillGroupNames(result.getList());
+        return data(result);
     }
 
     @GetMapping("/export-excel")
@@ -159,66 +164,66 @@ public class DeviceInfoController {
     @Operation(summary = "子设备列表")
     @PostMapping("/children/list")
     @Parameter(name = "nodeType", description = "设备类型", required = true, example = "1")
-    public CommonResult<PageResult<DeviceShortRespVO>> getChildrenPage(@RequestBody @Valid DeviceInfoPageReqVO pageReqVO) {
+    public R<PageResult<DeviceShortRespVO>> getChildrenPage(@RequestBody @Valid DeviceInfoPageReqVO pageReqVO) {
         PageResult<DeviceShortInfo> pageResult = deviceInfoService.getDeviceInfoPage(pageReqVO);
-        return success(BeanUtils.toBean(pageResult, DeviceShortRespVO.class));
+        return data(BeanUtils.toBean(pageResult, DeviceShortRespVO.class));
     }
 
     @Operation(summary = "未绑定的子设备列表")
     @PostMapping("/children/unbindList")
     @Parameter(name = "nodeType", description = "设备类型", required = true, example = "1")
-    public CommonResult<PageResult<DeviceShortRespVO>> getUnbindPage(@RequestBody @Valid DeviceUnbindPageReqVO pageReqVO) {
+    public R<PageResult<DeviceShortRespVO>> getUnbindPage(@RequestBody @Valid DeviceUnbindPageReqVO pageReqVO) {
         PageResult<DeviceShortInfo> pageResult = deviceInfoService.getUnbindPage(pageReqVO);
-        return success(BeanUtils.toBean(pageResult, DeviceShortRespVO.class));
+        return data(BeanUtils.toBean(pageResult, DeviceShortRespVO.class));
     }
 
     @Operation(summary = "子设备解绑")
     @PostMapping("/bind")
     @Parameter(name = "bind", description = "设备类型", required = true, example = "1")
-    public CommonResult<Void> bind(@RequestBody @Valid DeviceBindReqVO bindReqVO) {
+    public R<Void> bind(@RequestBody @Valid DeviceBindReqVO bindReqVO) {
         deviceCtrlService.bindDevice(bindReqVO.getIdList(), bindReqVO.getParentId());
         deviceInfoService.bindParent(bindReqVO);
-        return success();
+        return success("操作成功");
     }
 
     @Operation(summary = "子设备解绑")
     @PostMapping("/unbind")
     @Parameter(name = "unbind", description = "设备类型", required = true, example = "1")
-    public CommonResult<Void> unbind(@RequestBody @Valid DeviceUnbindReqVO unbindReqVO) {
+    public R<Void> unbind(@RequestBody @Valid DeviceUnbindReqVO unbindReqVO) {
         deviceCtrlService.unbindDevice(unbindReqVO.getIdList());
         deviceInfoService.unbindParent(unbindReqVO);
-        return success();
+        return success("操作成功");
     }
 
     @Operation(summary = "设备物模型日志")
     @PostMapping("/deviceLogs/list")
-    public CommonResult<PageResult<ThingModelMessage>> logs(@Validated @RequestBody DeviceLogPageReqVo request) {
-        return success( deviceManagerService.logs(request));
+    public R<PageResult<ThingModelMessage>> logs(@Validated @RequestBody DeviceLogPageReqVo request) {
+        return data( deviceManagerService.logs(request));
     }
 
     @Operation(summary = "获取设备属性历史数据")
     @PostMapping("/deviceProperty/log/list")
-    public CommonResult<List<DeviceProperty>> getPropertyHistory(@Validated @RequestBody
+    public R<List<DeviceProperty>> getPropertyHistory(@Validated @RequestBody
                                                                  DevicePropertyLogQueryBo data) {
         Long deviceId = data.getDeviceId();
         String name = data.getName();
         long start = data.getStart();
         long end = data.getEnd();
-        return success(deviceManagerService.getPropertyHistory(deviceId, name, start, end, data.getPageNo(), data.getPageSize()));
+        return data(deviceManagerService.getPropertyHistory(deviceId, name, start, end, data.getPageNo(), data.getPageSize()));
     }
 
     @Operation(summary = "添加标签")
     @PostMapping("/tag/add")
-    public CommonResult<Boolean>  addTag(@Validated @RequestBody DeviceTagAddBo bo) {
-        return success( deviceManagerService.addTag(bo));
+    public R<Boolean>  addTag(@Validated @RequestBody DeviceTagAddBo bo) {
+        return data( deviceManagerService.addTag(bo));
     }
 
     @Operation(summary = "模拟设备上报")
     @PostMapping("/simulateSend")
-    public CommonResult<Boolean>  simulateSend(
+    public R<Boolean>  simulateSend(
             @Validated @RequestBody ThingModelMessageBo bo) {
         ThingModelMessage message = BeanUtils.toBean(bo, ThingModelMessage.class);
-        return success( deviceManagerService.simulateSend(message));
+        return data( deviceManagerService.simulateSend(message));
     }
 
     /**
@@ -227,11 +232,11 @@ public class DeviceInfoController {
 //    @Operation(summary = "消费设备信息消息（实时推送设备信息）")
 //
 //    @PostMapping("/consumer")
-//    public CommonResult< DeferredResult<ThingModelMessage> consumerDeviceInfo(
+//    public R< DeferredResult<ThingModelMessage> consumerDeviceInfo(
 //            @Validated @RequestBody DeviceConsumerBo> bo
 //    ) {
 //        DeviceConsumerBo data = bo.getData();
-//        return success( deviceManagerService.addConsumer(data.getDeviceId(), data.getClientId());
+//        return data( deviceManagerService.addConsumer(data.getDeviceId(), data.getClientId());
 //    }
 
     /**
@@ -239,9 +244,9 @@ public class DeviceInfoController {
      */
     @Operation(summary = "获取分组列表")
     @PostMapping("/groups/list")
-    public CommonResult< PageResult<DeviceGroup>> getDeviceGroups(
+    public R< PageResult<DeviceGroup>> getDeviceGroups(
             @Validated @RequestBody DeviceGroupPageReqVO pageRequest) {
-        return success( deviceManagerService.selectGroupPageList(pageRequest));
+        return data( deviceManagerService.selectGroupPageList(pageRequest));
     }
 
     /**
@@ -249,8 +254,8 @@ public class DeviceInfoController {
      */
     @Operation(summary = "添加设备分组")
     @PostMapping("/group/add")
-    public CommonResult<Boolean>  addGroup(@Validated @RequestBody DeviceGroupBo group) {
-        return success( deviceManagerService.addGroup(group));
+    public R<Boolean>  addGroup(@Validated @RequestBody DeviceGroupBo group) {
+        return data( deviceManagerService.addGroup(group));
     }
 
 
@@ -259,9 +264,9 @@ public class DeviceInfoController {
      */
     @Operation(summary = "导入设备分组")
     @PostMapping("/group/importData")
-    public CommonResult<GroupImportRespVO>  importGroup(@RequestPart("file") MultipartFile file, @RequestParam(value = "updateSupport", required = false, defaultValue = "false") Boolean updateSupport) throws IOException {
+    public R<GroupImportRespVO>  importGroup(@RequestPart("file") MultipartFile file, @RequestParam(value = "updateSupport", required = false, defaultValue = "false") Boolean updateSupport) throws IOException {
         List<DeviceGroupImportVo> list = ExcelUtils.read(file, DeviceGroupImportVo.class);
-        return success( deviceManagerService.importGroup(list, updateSupport));
+        return data( deviceManagerService.importGroup(list, updateSupport));
     }
 
     /**
@@ -281,8 +286,8 @@ public class DeviceInfoController {
      */
     @Operation(summary = "修改设备分组")
     @PostMapping("/group/edit")
-    public CommonResult<Boolean> editGroup(@RequestBody @Validated DeviceGroupBo bo) {
-        return success( deviceManagerService.updateGroup(bo));
+    public R<Boolean> editGroup(@RequestBody @Validated DeviceGroupBo bo) {
+        return data( deviceManagerService.updateGroup(bo));
 
     }
 
@@ -291,9 +296,9 @@ public class DeviceInfoController {
      */
     @Operation(summary = "删除分组")
     @PostMapping("/group/delete")
-    public CommonResult<Boolean> deleteGroup(@Validated @RequestBody IdReqVo request) {
+    public R<Boolean> deleteGroup(@Validated @RequestBody IdReqVo request) {
 
-        return success( deviceManagerService.deleteGroup(request.getId()));
+        return data( deviceManagerService.deleteGroup(request.getId()));
     }
 
     /**
@@ -301,8 +306,28 @@ public class DeviceInfoController {
      */
     @Operation(summary = "清空组下所有设备")
     @PostMapping("/group/clear")
-    public CommonResult<Boolean> clearGroup(@Validated @RequestBody IdReqVo req) {
-        return success( deviceManagerService.clearGroup(req.getId()));
+    public R<Boolean> clearGroup(@Validated @RequestBody IdReqVo req) {
+        return data( deviceManagerService.clearGroup(req.getId()));
+    }
+
+    /**
+     * 查询分组内设备列表
+     */
+    @Operation(summary = "查询分组内设备列表")
+    @PostMapping("/group/deviceList")
+    public R<PageResult<DeviceShortRespVO>> getGroupDevices(@Validated @RequestBody DeviceGroupPageReqVO req) {
+        PageResult<DeviceShortInfo> pageResult = deviceManagerService.selectGroupDevicePageList(req);
+        return data(BeanUtils.toBean(pageResult, DeviceShortRespVO.class));
+    }
+
+    /**
+     * 查询可添加到分组的设备列表（排除已分组的设备）
+     */
+    @Operation(summary = "查询可添加到分组的设备列表")
+    @PostMapping("/group/availableDevices")
+    public R<PageResult<DeviceShortRespVO>> getAvailableDevices(@Validated @RequestBody DeviceGroupPageReqVO req) {
+        PageResult<DeviceShortInfo> pageResult = deviceManagerService.selectAvailableDevicePageList(req);
+        return data(BeanUtils.toBean(pageResult, DeviceShortRespVO.class));
     }
 
     /**
@@ -310,8 +335,8 @@ public class DeviceInfoController {
      */
     @Operation(summary = "添加设备到组")
     @PostMapping("/group/addDevices")
-    public CommonResult<Boolean> addToGroup(@Validated @RequestBody DeviceAddGroupBo bo) {
-        return success( deviceManagerService.addDevice2Group(bo));
+    public R<Boolean> addToGroup(@Validated @RequestBody DeviceAddGroupBo bo) {
+        return data( deviceManagerService.addDevice2Group(bo));
     }
 
     /**
@@ -319,9 +344,9 @@ public class DeviceInfoController {
      */
     @Operation(summary = "将设备从组中移除")
     @PostMapping("/group/removeDevices")
-    public CommonResult<Boolean> removeDevices(@Validated @RequestBody DeviceAddGroupBo bo) {
+    public R<Boolean> removeDevices(@Validated @RequestBody DeviceAddGroupBo bo) {
 
-        return success( deviceManagerService.removeDevicesInGroup(bo.getGroupId(), bo.getDeviceIds()));
+        return data( deviceManagerService.removeDevicesInGroup(bo.getGroupId(), bo.getDeviceIds()));
     }
 
     /**
@@ -329,9 +354,9 @@ public class DeviceInfoController {
      */
     @Operation(summary = "保存设备配置")
     @PostMapping("/config/save")
-    public CommonResult<Boolean> saveConfig(@Validated @RequestBody DeviceConfigAddBo request) {
+    public R<Boolean> saveConfig(@Validated @RequestBody DeviceConfigAddBo request) {
         DeviceConfig data = BeanUtils.toBean(request, DeviceConfig.class);
-        return success( deviceManagerService.saveConfig(data));
+        return data( deviceManagerService.saveConfig(data));
     }
 
     /**
@@ -339,23 +364,23 @@ public class DeviceInfoController {
      */
     @Operation(summary = "获取设备配置")
     @PostMapping("/config/get")
-    public CommonResult<DeviceConfigVo> getConfig(@Validated @RequestBody DeviceIdReqVo request) {
+    public R<DeviceConfigVo> getConfig(@Validated @RequestBody DeviceIdReqVo request) {
         Long deviceId = request.getDeviceId();
-        return success( deviceManagerService.getConfig(deviceId));
+        return data( deviceManagerService.getConfig(deviceId));
     }
 
 
     @Operation(summary = "查询指定设备的属性信息")
     @PostMapping("/getDeviceWithProperty")
-    public CommonResult<DeviceInfoWithPropertyVO> getDeviceInfoWithProperty(@RequestBody @Validated DeviceIdReqVo bo) {
-        return success(deviceManagerService.getDeviceInfoWithProperty(bo.getDeviceId()));
+    public R<DeviceInfoWithPropertyVO> getDeviceInfoWithProperty(@RequestBody @Validated DeviceIdReqVo bo) {
+        return data(deviceManagerService.getDeviceInfoWithProperty(bo.getDeviceId()));
     }
 
     @Operation(summary = "获取序列号")
     @GetMapping("/genSerialNO")
     @Parameter(name = "nodeType", description = "设备类型", required = true, example = "1")
-    public CommonResult<String> genSerialNO(Integer nodeType) {
-        return success(deviceManagerService.genSerialNO(nodeType));
+    public R<String> genSerialNO(Integer nodeType) {
+        return data(deviceManagerService.genSerialNO(nodeType));
     }
 
 

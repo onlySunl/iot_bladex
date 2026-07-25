@@ -16,9 +16,13 @@ import org.springblade.modules.iot.entity.CategoryDO;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import jakarta.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.modules.iot.entity.CategoryDO;
+import org.springblade.modules.iot.dal.mysql.category.CategoryMapper;
 
 
 /**
@@ -28,7 +32,7 @@ import java.util.Objects;
  */
 @Service
 @Validated
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryServiceImpl extends BaseServiceImpl<CategoryMapper, CategoryDO> implements ICategoryService {
 
 
     @Resource
@@ -143,7 +147,14 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> getCategoryList(CategoryListReqVO listReqVO) {
-        return ProductConvert.INSTANCE.convertCategoryList(categoryMapper.selectList(listReqVO));
+        LambdaQueryWrapper<CategoryDO> wrapper = new LambdaQueryWrapper<CategoryDO>();
+        if (listReqVO.getStatus() != null) {
+            wrapper.eq(CategoryDO::getStatus, listReqVO.getStatus());
+        }
+        if (listReqVO.getParentId() != null) {
+            wrapper.eq(CategoryDO::getParentId, listReqVO.getParentId());
+        }
+        return ProductConvert.INSTANCE.convertCategoryList(categoryMapper.selectList(wrapper));
     }
 
 }

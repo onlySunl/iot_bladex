@@ -14,7 +14,6 @@
     <modules>
         <module>iot-common-core</module>
         <module>iot-common-excel</module>
-        <module>iot-common-mybatis</module>
         <module>iot-common-thing</module>
         <module>iot-message-bus</module>
         <module>iot-message-notify</module>

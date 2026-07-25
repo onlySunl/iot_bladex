@@ -15,9 +15,9 @@ import org.springblade.modules.iot.api.device.dto.*;
 import org.springblade.modules.iot.api.product.dto.Product;
 import org.springblade.modules.iot.dal.mysql.deviceinfo.EiotDeviceInfoMapper;
 import org.springblade.modules.iot.entity.EiotDeviceInfoDO;
-import org.springblade.modules.iot.service.device.DeviceConfigService;
-import org.springblade.modules.iot.service.device.DeviceCtrlService;
-import org.springblade.modules.iot.service.device.DeviceInfoService;
+import org.springblade.modules.iot.service.device.IDeviceConfigService;
+import org.springblade.modules.iot.service.device.IDeviceCtrlService;
+import org.springblade.modules.iot.service.device.IDeviceInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
@@ -35,13 +35,13 @@ import static org.springblade.modules.iot.common.constant.GlobalErrorCodeConstan
 public class DeviceApiImpl extends BladeServiceImpl<EiotDeviceInfoMapper, EiotDeviceInfoDO> implements DeviceApi {
 
     @Resource
-    private DeviceInfoService deviceInfoService;
+    private IDeviceInfoService deviceInfoService;
 
     @Resource
-    private DeviceConfigService deviceConfigService;
+    private IDeviceConfigService deviceConfigService;
 
     @Resource
-    private DeviceCtrlService deviceCtrlService;
+    private IDeviceCtrlService deviceCtrlService;
 
     @Resource
     private RemoteIotProductService productApi;

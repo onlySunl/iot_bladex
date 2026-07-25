@@ -2,6 +2,9 @@
 package org.springblade.modules.iot.service.product;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.IDbStructureData;
 import org.springblade.modules.iot.api.device.service.RemoteIotDeviceService;
@@ -12,6 +15,9 @@ import org.springblade.modules.iot.common.utils.JsonUtils;
 import org.springblade.modules.iot.common.utils.ServiceExceptionUtil;
 import org.springblade.modules.iot.controller.admin.product.vo.IotThingModelSaveReqVO;
 import org.springblade.modules.iot.controller.admin.thingmodel.vo.ThingModelSaveReqVO;
+import org.springblade.modules.iot.controller.admin.thingmodel.vo.ThingModelPageReqVO;
+import org.springblade.modules.iot.controller.admin.thingmodel.vo.ThingModelRespVO;
+import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.convert.ThingModelConvert;
 import org.springblade.modules.iot.entity.ThingModelDO;
 import org.springblade.modules.iot.dal.mysql.thingmodel.ThingModelMapper;
@@ -29,10 +35,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.modules.iot.entity.ThingModelDO;
+import org.springblade.modules.iot.dal.mysql.thingmodel.ThingModelMapper;
 
 @Service
 @Validated
-public class ThingModelServiceImpl implements ThingModelService {
+public class ThingModelServiceImpl extends BaseServiceImpl<ThingModelMapper, ThingModelDO> implements IThingModelService {
 
     @Resource
     private ThingModelMapper thingModelMapper;
@@ -83,7 +92,9 @@ public class ThingModelServiceImpl implements ThingModelService {
 
     @Override
     public ThingModel getThingModelByProductKey(String productKey) {
-        ThingModelDO thingModelDO = thingModelMapper.selectOne(ThingModelDO::getProductKey, productKey);
+        ThingModelDO thingModelDO = thingModelMapper.selectOne(
+                new LambdaQueryWrapper<ThingModelDO>()
+                        .eq(ThingModelDO::getProductKey, productKey));
         ThingModel convert = ThingModelConvert.INSTANCE.convert(thingModelDO);
 
         if (thingModelDO != null && convert != null) {
@@ -96,6 +107,16 @@ public class ThingModelServiceImpl implements ThingModelService {
     @Cacheable(cacheNames = RedisKeyConstants.THING_MODEL, key = "#productKey", unless = "#result == null")
     public ThingModel getThingModelByProductKeyFromCache(String productKey) {
         return getThingModelByProductKey(productKey);
+    }
+
+    @Override
+    public PageResult<ThingModelRespVO> getThingModelPage(ThingModelPageReqVO pageReqVO) {
+        LambdaQueryWrapper<ThingModelDO> wrapper = new LambdaQueryWrapper<ThingModelDO>()
+                .eq(pageReqVO.getProductKey() != null, ThingModelDO::getProductKey, pageReqVO.getProductKey());
+        IPage<ThingModelDO> iPage = thingModelMapper.selectPage(
+                new Page<>(pageReqVO.getPageNo(), pageReqVO.getPageSize()), wrapper);
+        List<ThingModelRespVO> voList = BeanUtils.toBean(iPage.getRecords(), ThingModelRespVO.class);
+        return new PageResult<>(voList, iPage.getTotal());
     }
 
     private void validateThingModelExists(Long id) {

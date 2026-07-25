@@ -25,7 +25,7 @@ package org.springblade.modules.iot.service.iot;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
 import org.springblade.modules.iot.common.thing.ThingService;
 import org.springblade.modules.iot.api.thingmodel.dto.ThingModel;
-import org.springblade.modules.iot.service.product.ThingModelService;
+import org.springblade.modules.iot.service.product.IThingModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -36,7 +36,7 @@ import java.util.Map;
 @Component
 public class ParseThingModelService {
     @Autowired
-    private ThingModelService thingModelService;
+    private IThingModelService thingModelService;
 
     public void parseParams(ThingService<Object> service) {
         ThingModel thingModel = thingModelService.getThingModelByProductKey(service.getProductKey());

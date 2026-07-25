@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.service.alert;
 
 import jakarta.annotation.Resource;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springblade.modules.iot.api.alert.dto.AlertConfig;
 import org.springblade.modules.iot.api.alert.dto.AlertConfigPageReqVO;
 import org.springblade.modules.iot.api.alert.dto.AlertRecord;
@@ -13,17 +14,22 @@ import org.springblade.modules.iot.controller.admin.alertconfig.vo.AlertRecordPa
 import org.springblade.modules.iot.convert.AlertConfigConvert;
 import org.springblade.modules.iot.convert.AlertRecordConvert;
 import org.springblade.modules.iot.entity.AlertConfigDO;
-import org.springblade.modules.iot.dal.mysql.AlertRecordMapper;
+import org.springblade.modules.iot.entity.AlertRecordDO;
+import org.springblade.modules.iot.dal.mysql.alertconfig.AlertRecordMapper;
 import org.springblade.modules.iot.dal.mysql.alertconfig.AlertConfigMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.modules.iot.entity.AlertConfigDO;
+import org.springblade.modules.iot.entity.AlertRecordDO;
+import org.springblade.modules.iot.dal.mysql.alertconfig.AlertConfigMapper;
 
 /**
  * 报警配置 Service 实现类
  */
 @Service
 @Validated
-public class AlertConfigServiceImpl implements AlertConfigService {
+public class AlertConfigServiceImpl extends BaseServiceImpl<AlertConfigMapper, AlertConfigDO> implements IAlertConfigService {
 
     @Resource
     private AlertConfigMapper alertConfigMapper;
@@ -64,11 +70,11 @@ public class AlertConfigServiceImpl implements AlertConfigService {
 
     @Override
     public PageResult<AlertConfig> getAlertConfigPage(AlertConfigPageReqVO pageReqVO) {
-        return AlertConfigConvert.INSTANCE.convertPage(alertConfigMapper.selectPage(pageReqVO));
+        return AlertConfigConvert.INSTANCE.convertPage(PageResult.from(alertConfigMapper.selectPage(new Page<AlertConfigDO>(pageReqVO.getPageNo(), pageReqVO.getPageSize()), pageReqVO)));
     }
 
     public PageResult<AlertRecord> selectAlertRecordPage(AlertRecordPageReq request) {
-        return AlertRecordConvert.INSTANCE.convertPage(alertRecordMapper.selectPage(request));
+        return AlertRecordConvert.INSTANCE.convertPage(PageResult.from(alertRecordMapper.selectPage(new Page<AlertRecordDO>(request.getPageNo(), request.getPageSize()), request)));
     }
 
     @Override

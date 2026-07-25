@@ -91,4 +91,7 @@ public class DeviceShortRespVO {
 
     private Integer nodeType;
 
+    @Schema(description = "所属分组名称（逗号分隔）")
+    private String groupNames;
+
 }

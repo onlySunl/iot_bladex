@@ -2,7 +2,7 @@ package org.springblade.modules.iot.controller.admin.channeltemplate;
 
 import org.springblade.modules.iot.common.annotation.ApiAccessLog;
 import org.springblade.modules.iot.excel.core.util.ExcelUtils;
-import org.springblade.modules.iot.service.alert.ChannelTemplateService;
+import org.springblade.modules.iot.service.alert.IChannelTemplateService;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -22,15 +22,17 @@ import org.springblade.modules.iot.common.utils.BeanUtils;
 import org.springblade.modules.iot.controller.admin.channeltemplate.vo.*;
 
 import static org.springblade.modules.iot.common.enums.OperateTypeEnum.EXPORT;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
 
 @Tag(name = "管理后台 - 通道模板")
 @RestController
 @RequestMapping("/iot/channel-template")
 @Validated
-public class ChannelTemplateController {
+public class ChannelTemplateController extends BladeController {
 
     @Resource
-    private ChannelTemplateService channelTemplateService;
+    private IChannelTemplateService channelTemplateService;
 
     @PostMapping("/create")
     @Operation(summary = "创建通道模板")

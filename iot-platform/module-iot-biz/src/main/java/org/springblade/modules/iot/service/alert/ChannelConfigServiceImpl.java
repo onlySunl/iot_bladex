@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.service.alert;
 
 import jakarta.annotation.Resource;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.common.utils.BeanUtils;
@@ -15,13 +16,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.modules.iot.entity.ChannelConfigDO;
+import org.springblade.modules.iot.dal.mysql.channelconfig.ChannelConfigMapper;
 
 /**
  * 通道配置 Service 实现类
  */
 @Service
 @Validated
-public class ChannelConfigServiceImpl implements ChannelConfigService {
+public class ChannelConfigServiceImpl extends BaseServiceImpl<ChannelConfigMapper, ChannelConfigDO> implements IChannelConfigService {
 
     @Resource
     private ChannelConfigMapper channelConfigMapper;
@@ -59,12 +63,12 @@ public class ChannelConfigServiceImpl implements ChannelConfigService {
 
     @Override
     public List<ChannelConfig> getChannelConfigList() {
-        return ChannelConfigConvert.INSTANCE.convertList(channelConfigMapper.selectList());
+        return ChannelConfigConvert.INSTANCE.convertList(channelConfigMapper.selectList(null));
     }
 
     @Override
     public PageResult<ChannelConfig> getChannelConfigPage(ChannelConfigPageReqVO pageReqVO) {
-        return ChannelConfigConvert.INSTANCE.convertPage(channelConfigMapper.selectPage(pageReqVO));
+        return ChannelConfigConvert.INSTANCE.convertPage(PageResult.from(channelConfigMapper.selectPage(new Page<ChannelConfigDO>(pageReqVO.getPageNo(), pageReqVO.getPageSize()), pageReqVO)));
     }
 
     private void validateChannelConfigExists(Long id) {

@@ -8,9 +8,9 @@ import org.springblade.modules.iot.api.alert.dto.Message;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.controller.admin.channelconfig.vo.ChannelConfig;
 import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTemplate;
-import org.springblade.modules.iot.service.alert.AlertConfigService;
-import org.springblade.modules.iot.service.alert.ChannelConfigService;
-import org.springblade.modules.iot.service.alert.ChannelTemplateService;
+import org.springblade.modules.iot.service.alert.IAlertConfigService;
+import org.springblade.modules.iot.service.alert.IChannelConfigService;
+import org.springblade.modules.iot.service.alert.IChannelTemplateService;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -20,13 +20,13 @@ import java.util.Objects;
 public class AlertApiImpl implements AlertApi {
 
     @Resource
-    private AlertConfigService alertConfigService;
+    private IAlertConfigService alertConfigService;
 
     @Resource
-    private ChannelTemplateService channelTemplateService;
+    private IChannelTemplateService channelTemplateService;
 
     @Resource
-    private ChannelConfigService channelConfigService;
+    private IChannelConfigService channelConfigService;
 
     @Override
     public PageResult<AlertConfig> getAlertConfigPage(AlertConfigPageReqVO reqVO) {

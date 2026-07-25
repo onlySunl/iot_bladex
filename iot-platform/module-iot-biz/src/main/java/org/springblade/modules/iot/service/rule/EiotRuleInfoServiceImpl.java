@@ -4,6 +4,8 @@ package org.springblade.modules.iot.service.rule;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springblade.core.log.exception.ServiceException;
@@ -21,7 +23,7 @@ import org.springblade.modules.iot.controller.admin.rule.vo.*;
 import org.springblade.modules.iot.convert.RuleInfoConvert;
 import org.springblade.modules.iot.convert.RuleLogConvert;
 import org.springblade.modules.iot.convert.TaskInfoConvert;
-import org.springblade.modules.iot.dal.mysql.TaskInfoMapper;
+import org.springblade.modules.iot.dal.mysql.ruleinfo.TaskInfoMapper;
 import org.springblade.modules.iot.dal.mysql.ruleinfo.EiotRuleInfoMapper;
 import org.springblade.modules.iot.entity.EiotRuleInfoDO;
 import org.springblade.modules.iot.entity.TaskInfoDO;
@@ -30,6 +32,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.modules.iot.entity.EiotRuleInfoDO;
+import org.springblade.modules.iot.dal.mysql.ruleinfo.EiotRuleInfoMapper;
 
 
 /**
@@ -39,7 +44,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Service
-public class EiotRuleInfoServiceImpl implements EiotRuleInfoService {
+public class EiotRuleInfoServiceImpl extends BaseServiceImpl<EiotRuleInfoMapper, EiotRuleInfoDO> implements IEiotRuleInfoService {
 
     @Resource
     private RuleManager ruleManager;
@@ -98,9 +103,9 @@ public class EiotRuleInfoServiceImpl implements EiotRuleInfoService {
 
     @Override
     public PageResult<TaskInfoVo> selectTaskPageList(TaskInfoPageReq request) {
-        PageResult<TaskInfoDO> pageResult = taskInfoMapper.selectPage(request);
+        IPage<TaskInfoDO> pageResult = taskInfoMapper.selectPage(new Page<TaskInfoDO>(request.getPageNo(), request.getPageSize()), request);
 
-        return new PageResult<>(pageResult.getList()
+        return new PageResult<>(pageResult.getRecords()
                 .stream().map(TaskInfoConvert.INSTANCE::convertVo).collect(Collectors.toList()), pageResult.getTotal());
     }
 
@@ -241,8 +246,8 @@ public class EiotRuleInfoServiceImpl implements EiotRuleInfoService {
 
     @Override
     public PageResult<RuleInfo> getRuleInfoPage(RuleInfoPageReqVO pageReqVO) {
-        PageResult<EiotRuleInfoDO> result = ruleInfoMapper.selectPage(pageReqVO);
-        return RuleInfoConvert.INSTANCE.convertPage(result);
+        IPage<EiotRuleInfoDO> result = ruleInfoMapper.selectPage(new Page<EiotRuleInfoDO>(pageReqVO.getPageNo(), pageReqVO.getPageSize()), pageReqVO);
+        return RuleInfoConvert.INSTANCE.convertPage(PageResult.from(result));
     }
 
     private TaskInfoDO validateTaskExists(Long taskId) {

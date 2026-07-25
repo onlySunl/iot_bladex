@@ -5,7 +5,7 @@ import org.springblade.modules.iot.api.task.dto.TaskInfoPageReq;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.controller.admin.rule.vo.TaskInfoVo;
 import org.springblade.modules.iot.convert.TaskInfoConvert;
-import org.springblade.modules.iot.service.rule.EiotRuleInfoService;
+import org.springblade.modules.iot.service.rule.IEiotRuleInfoService;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.Resource;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class RuleTaskApiImpl implements RuleTaskApi {
 
     @Resource
-    private EiotRuleInfoService ruleInfoService;
+    private IEiotRuleInfoService ruleInfoService;
 
     @Override
     public TaskInfo getTask(Long id) {

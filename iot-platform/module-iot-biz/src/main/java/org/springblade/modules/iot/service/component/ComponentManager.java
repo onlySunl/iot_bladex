@@ -30,7 +30,7 @@ public class ComponentManager implements ConsumerHandler<ComponentMessage> {
 
     private final StringRedisTemplate stringRedisTemplate;
 
-    private final ComponentService componentService;
+    private final IComponentService componentService;
 
     private Set<String> components = new HashSet<>();
 
@@ -39,7 +39,7 @@ public class ComponentManager implements ConsumerHandler<ComponentMessage> {
                             MqConsumer<ComponentMessage> componentMessageMqConsumer,
                             MqProducer<ComponentMessage> componentMessageMqProducer,
                             StringRedisTemplate stringRedisTemplate,
-                            ComponentService componentService) {
+                            IComponentService componentService) {
         this.producer = producer;
         this.componentMessageMqProducer = componentMessageMqProducer;
         this.stringRedisTemplate = stringRedisTemplate;

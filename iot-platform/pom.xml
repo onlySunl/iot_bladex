@@ -90,11 +90,6 @@
                 <artifactId>iot-common-excel</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-common-mybatis</artifactId>
-                <version>${project.version}</version>
-            </dependency>
 
             <!-- ===== 2. 消息总线子模块 ===== -->
             <dependency>

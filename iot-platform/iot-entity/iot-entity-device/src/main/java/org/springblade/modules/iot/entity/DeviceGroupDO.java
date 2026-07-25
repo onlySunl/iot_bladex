@@ -23,7 +23,6 @@ import lombok.*;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class DeviceGroupDO extends CustomBaseEntity {

@@ -3,12 +3,12 @@ package org.springblade.modules.iot.controller.admin.ota;
 
 import cn.hutool.core.util.ObjectUtil;
 
-import org.springblade.modules.iot.common.entity.CommonResult;
+import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.common.entity.PageResult;
 
 import org.springblade.modules.iot.api.IdReqVo;
 import org.springblade.modules.iot.controller.admin.ota.vo.*;
-import org.springblade.modules.iot.service.ota.OtaService;
+import org.springblade.modules.iot.service.ota.IOtaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +23,7 @@ import jakarta.validation.Valid;
 
 import static org.springblade.modules.iot.api.enums.ErrorCodeConstants.FILE_NOT_NULL;
 import static org.springblade.modules.iot.common.utils.ServiceExceptionUtil.exception;
+import org.springblade.core.boot.ctrl.BladeController;
 
 /**
  * @Author: Enjoy-iot
@@ -33,55 +34,55 @@ import static org.springblade.modules.iot.common.utils.ServiceExceptionUtil.exce
 @Slf4j
 @RestController
 @RequestMapping("/eiot/ota")
-public class OtaController  {
+public class OtaController extends BladeController {
 
     @Resource
-    private OtaService otaService;
+    private IOtaService otaService;
 
     @Operation(summary ="升级包上传")
     @PostMapping(value = "/package/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public CommonResult<OtaPackageUploadVo> packageUpload(@RequestPart("file") MultipartFile file) throws Exception {
+    public R<OtaPackageUploadVo> packageUpload(@RequestPart("file") MultipartFile file) throws Exception {
         if (ObjectUtil.isNull(file)) {
             throw exception(FILE_NOT_NULL);
         }
-        return CommonResult.success(otaService.uploadFile(file));
+        return data(otaService.uploadFile(file));
     }
 
     @Operation(summary ="新增升级包")
     @PostMapping("/package/add")
-    public CommonResult<Long> packageAdd(@RequestBody @Valid OtaPackageBo request) {
-        return CommonResult.success(otaService.addOtaPackage(request));
+    public R<Long> packageAdd(@RequestBody @Valid OtaPackageBo request) {
+        return data(otaService.addOtaPackage(request));
     }
 
     @Operation(summary ="删除升级包")
     @PostMapping("/package/delById")
-    public CommonResult<Boolean> delPackageById(@RequestBody @Valid IdReqVo request) {
-        return CommonResult.success(otaService.delOtaPackageById(request.getId()));
+    public R<Boolean> delPackageById(@RequestBody @Valid IdReqVo request) {
+        return data(otaService.delOtaPackageById(request.getId()));
     }
 
     @Operation(summary ="升级包列表")
     @PostMapping("/package/getList")
-    public CommonResult<PageResult<OtaPackage>> packageList(@RequestBody @Validated OtaPackagePageReq request) {
-        return CommonResult.success(otaService.getOtaPackagePageList(request));
+    public R<PageResult<OtaPackage>> packageList(@RequestBody @Validated OtaPackagePageReq request) {
+        return data(otaService.getOtaPackagePageList(request));
     }
 
     @Operation(summary ="OTA升级")
     @PostMapping("/device/upgrade")
-    public CommonResult<DeviceUpgradeVo> deviceUpgrade(@RequestBody DeviceUpgradeBo request) {
+    public R<DeviceUpgradeVo> deviceUpgrade(@RequestBody DeviceUpgradeBo request) {
         String result = otaService.startUpgrade(request.getOtaId(), request.getDeviceIds());
-        return CommonResult.success(DeviceUpgradeVo.builder().result(result).build());
+        return data(DeviceUpgradeVo.builder().result(result).build());
     }
 
     @Operation(summary ="设备升级结果查询")
     @PostMapping("/device/detail")
-    public CommonResult<PageResult<DeviceOtaDetailVo>> otaDeviceDetail(@RequestBody DeviceOtaDetailPageReq request) {
-        return CommonResult.success(otaService.otaDeviceDetail(request));
+    public R<PageResult<DeviceOtaDetailVo>> otaDeviceDetail(@RequestBody DeviceOtaDetailPageReq request) {
+        return data(otaService.otaDeviceDetail(request));
     }
 
     @Operation(summary ="设备升级批次查询")
     @PostMapping("/device/info")
-    public CommonResult<PageResult<DeviceOtaInfoVo>> otaDeviceInfo(@RequestBody DeviceOtaPageReq request) {
-        return CommonResult.success(otaService.otaDeviceInfo(request));
+    public R<PageResult<DeviceOtaInfoVo>> otaDeviceInfo(@RequestBody DeviceOtaPageReq request) {
+        return data(otaService.otaDeviceInfo(request));
     }
 
     @Operation(summary ="ota升级测试')")

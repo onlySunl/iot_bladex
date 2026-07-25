@@ -24,6 +24,8 @@ package org.springblade.modules.iot.temporal.timescaledb.service;
 
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springblade.modules.iot.IVirtualDeviceLogData;
 import org.springblade.modules.iot.common.entity.PageParam;
 import org.springblade.modules.iot.common.entity.PageResult;
@@ -48,17 +50,17 @@ public class VirtualDeviceLogDataImpl implements IVirtualDeviceLogData {
         PageParam pageParam = new PageParam();
         pageParam.setPageNo(page);
         pageParam.setPageSize(size);
-        PageResult<PgVirtualDeviceLog> result = virtualDeviceLogMapper.selectPage(pageParam,
+        IPage<PgVirtualDeviceLog> iPage = virtualDeviceLogMapper.selectPage(new Page<>(pageParam.getPageNo(), pageParam.getPageSize()),
                 Wrappers.lambdaQuery(PgVirtualDeviceLog.class)
                         .eq(PgVirtualDeviceLog::getVirtualDeviceId, virtualDeviceId)
                         .orderByDesc(PgVirtualDeviceLog::getTime)
         );
 
-        return new PageResult<>(result.getList().stream().map(r ->
+        return new PageResult<>(iPage.getRecords().stream().map(r ->
                         new VirtualDeviceLog(r.getTime().getTime(), virtualDeviceId,
                                 r.getVirtualDeviceName(),
                                 r.getDeviceTotal(), r.getResult(), r.getTime().getTime()))
-                .collect(Collectors.toList()), result.getTotal());
+                .collect(Collectors.toList()), iPage.getTotal());
     }
 
     @Override

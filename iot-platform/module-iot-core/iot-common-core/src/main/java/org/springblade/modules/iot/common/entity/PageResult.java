@@ -1,5 +1,6 @@
 package org.springblade.modules.iot.common.entity;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -36,6 +37,10 @@ public final class PageResult<T> implements Serializable {
 
     public static <T> PageResult<T> empty(Long total) {
         return new PageResult<>(total);
+    }
+
+    public static <T> PageResult<T> from(IPage<T> page) {
+        return new PageResult<>(page.getRecords(), page.getTotal());
     }
 
 }

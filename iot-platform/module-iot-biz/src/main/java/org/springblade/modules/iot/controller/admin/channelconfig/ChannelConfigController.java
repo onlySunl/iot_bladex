@@ -2,7 +2,7 @@ package org.springblade.modules.iot.controller.admin.channelconfig;
 
 import org.springblade.modules.iot.common.annotation.ApiAccessLog;
 import org.springblade.modules.iot.excel.core.util.ExcelUtils;
-import org.springblade.modules.iot.service.alert.ChannelConfigService;
+import org.springblade.modules.iot.service.alert.IChannelConfigService;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -22,15 +22,17 @@ import org.springblade.modules.iot.common.utils.BeanUtils;
 import org.springblade.modules.iot.controller.admin.channelconfig.vo.*;
 
 import static org.springblade.modules.iot.common.enums.OperateTypeEnum.EXPORT;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
 
 @Tag(name = "管理后台 - 通道配置")
 @RestController
 @RequestMapping("/iot/channel-config")
 @Validated
-public class ChannelConfigController {
+public class ChannelConfigController extends BladeController {
 
     @Resource
-    private ChannelConfigService channelConfigService;
+    private IChannelConfigService channelConfigService;
 
     @PostMapping("/create")
     @Operation(summary = "创建通道配置")

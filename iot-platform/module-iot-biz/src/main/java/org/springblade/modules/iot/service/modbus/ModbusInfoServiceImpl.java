@@ -6,6 +6,8 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.springblade.core.log.exception.ServiceException;
@@ -28,8 +30,8 @@ import org.springblade.modules.iot.controller.admin.thingmodel.vo.ThingModelSave
 import org.springblade.modules.iot.convert.ModbusInfoConvert;
 import org.springblade.modules.iot.dal.mysql.modbus.ModbusInfoMapper;
 import org.springblade.modules.iot.entity.ModbusInfoDO;
-import org.springblade.modules.iot.service.product.ProductService;
-import org.springblade.modules.iot.service.product.ThingModelService;
+import org.springblade.modules.iot.service.product.IProductService;
+import org.springblade.modules.iot.service.product.IThingModelService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,9 +39,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.modules.iot.entity.ModbusInfoDO;
+import org.springblade.modules.iot.dal.mysql.modbus.ModbusInfoMapper;
 
 @Service
-public class ModbusInfoServiceImpl implements ModbusInfoService {
+public class ModbusInfoServiceImpl extends BaseServiceImpl<ModbusInfoMapper, ModbusInfoDO> implements IModbusInfoService {
 
     @Resource
     private RemoteIotModbusInfoService modbusInfoApi;
@@ -48,10 +53,10 @@ public class ModbusInfoServiceImpl implements ModbusInfoService {
     private RemoteIotModbusThingModelService modbusThingModelApi;
 
     @Resource
-    private ProductService productService;
+    private IProductService productService;
 
     @Resource
-    private ThingModelService thingModelService;
+    private IThingModelService thingModelService;
 
     @Resource
     private RemoteIotProductService productApi;
@@ -66,7 +71,9 @@ public class ModbusInfoServiceImpl implements ModbusInfoService {
                 .eq(Objects.nonNull(data.getId()), ModbusInfoDO::getId, data.getId())
                 .eq(StrUtil.isNotEmpty(data.getProductKey()), ModbusInfoDO::getProductKey, data.getProductKey())
                 .like(StrUtil.isNotEmpty(data.getName()), ModbusInfoDO::getName, data.getName());
-        PageResult<ModbusInfoDO> pageResult = modbusInfoMapper.selectPage(data, qw);
+        IPage<ModbusInfoDO> iPage = modbusInfoMapper.selectPage(
+                new Page<>(data.getPageNo(), data.getPageSize()), qw);
+        PageResult<ModbusInfoDO> pageResult = PageResult.from(iPage);
         return ModbusInfoConvert.INSTANCE.convertPage(pageResult);
     }
 
@@ -75,7 +82,7 @@ public class ModbusInfoServiceImpl implements ModbusInfoService {
     public ModbusInfo createModbus(ModbusInfoVo data) {
         ModbusInfoDO bean = BeanUtil.toBean(data, ModbusInfoDO.class);
         //模板名称不可重复
-        ModbusInfoDO old = modbusInfoMapper.selectOne(ModbusInfoDO::getName, bean.getName());
+        ModbusInfoDO old = modbusInfoMapper.selectOne(new LambdaQueryWrapper<ModbusInfoDO>().eq(ModbusInfoDO::getName, bean.getName()));
         if (old != null) {
             throw ServiceExceptionUtil.exception(ErrorCodeConstants.TEMPLATE_NAME_ALREADY);
         }
@@ -118,7 +125,7 @@ public class ModbusInfoServiceImpl implements ModbusInfoService {
     public boolean updateModbus(ModbusInfoVo data) {
         ModbusInfoDO bean = BeanUtil.toBean(data, ModbusInfoDO.class);
         //模板名称不可重复
-        ModbusInfoDO old = modbusInfoMapper.selectOne(ModbusInfoDO::getName, bean.getName());
+        ModbusInfoDO old = modbusInfoMapper.selectOne(new LambdaQueryWrapper<ModbusInfoDO>().eq(ModbusInfoDO::getName, bean.getName()));
         if (old != null && !Objects.equals(old.getId(), data.getId())) {
             throw ServiceExceptionUtil.exception(ErrorCodeConstants.TEMPLATE_NAME_ALREADY);
         }

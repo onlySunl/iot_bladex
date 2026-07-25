@@ -3,7 +3,9 @@
 package org.springblade.modules.iot.service.component;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.api.component.dto.ComponentInfo;
 import org.springblade.modules.iot.controller.admin.component.vo.ComponentCreateReqVO;
@@ -19,13 +21,16 @@ import jakarta.annotation.Resource;
 
 import static org.springblade.modules.iot.common.enums.ErrorCodeConstants.COMPONENT_NOT_EXISTS;
 import static org.springblade.modules.iot.common.utils.ServiceExceptionUtil.exception;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.modules.iot.entity.ComponentDO;
+import org.springblade.modules.iot.dal.mysql.component.ComponentMapper;
 
 /**
  * 组件配置 Service 实现类
  */
 @Service
 @Validated
-public class ComponentServiceImpl implements ComponentService {
+public class ComponentServiceImpl extends BaseServiceImpl<ComponentMapper, ComponentDO> implements IComponentService {
 
     @Resource
     private ComponentMapper componentMapper;
@@ -69,12 +74,14 @@ public class ComponentServiceImpl implements ComponentService {
 
     @Override
     public PageResult<ComponentDO> getComponentPage(ComponentPageReqVO pageReqVO) {
-        return componentMapper.selectPage(pageReqVO);
+        return PageResult.from(componentMapper.selectPage(new Page<ComponentDO>(pageReqVO.getPageNo(), pageReqVO.getPageSize()), pageReqVO));
     }
 
     @Override
     public ComponentInfo getComponent(String type) {
-        return ComponentConvert.INSTANCE.convertInfo(componentMapper.selectOne(ComponentDO::getType, type));
+        return ComponentConvert.INSTANCE.convertInfo(componentMapper.selectOne(
+                new LambdaQueryWrapper<ComponentDO>()
+                        .eq(ComponentDO::getType, type)));
     }
 
 }

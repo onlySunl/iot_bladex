@@ -17,14 +17,17 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 
 import java.time.ZoneId;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.modules.iot.entity.DeviceConfigDO;
+import org.springblade.modules.iot.dal.mysql.deviceconfig.DeviceConfigMapper;
 
 
 @Service
 @RequiredArgsConstructor
-public class DeviceConfigServiceImpl implements DeviceConfigService {
+public class DeviceConfigServiceImpl extends BaseServiceImpl<DeviceConfigMapper, DeviceConfigDO> implements IDeviceConfigService {
 
     private final DeviceConfigMapper deviceConfigMapper;
-    private final DeviceInfoService deviceInfoService;
+    private final IDeviceInfoService deviceInfoService;
 
     @Override
     @Cacheable(cacheNames = RedisKeyConstants.DEVICE_ID_CONFIG, key = "#deviceId", unless = "#result == null")

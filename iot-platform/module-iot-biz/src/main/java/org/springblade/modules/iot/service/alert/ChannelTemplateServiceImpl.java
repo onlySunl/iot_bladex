@@ -1,7 +1,8 @@
 package org.springblade.modules.iot.service.alert;
 
 import jakarta.annotation.Resource;
-import org.springblade.core.mp.service.impl.BladeServiceImpl;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springblade.core.mp.base.BaseServiceImpl;
 import org.springblade.core.tool.utils.CollectionUtil;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
 import org.springblade.modules.iot.common.entity.PageResult;
@@ -14,7 +15,7 @@ import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTe
 import org.springblade.modules.iot.convert.ChannelTemplateConvert;
 import org.springblade.modules.iot.dal.mysql.alertconfig.AlertConfigMapper;
 import org.springblade.modules.iot.dal.mysql.channelconfig.ChannelConfigMapper;
-import org.springblade.modules.iot.dal.mysql.channeltemplate.ChannelTemplateMapper;
+import org.springblade.modules.iot.dal.mysql.channelconfig.ChannelTemplateMapper;
 import org.springblade.modules.iot.entity.ChannelConfigDO;
 import org.springblade.modules.iot.entity.ChannelTemplateDO;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Validated
-public class ChannelTemplateServiceImpl extends BladeServiceImpl<ChannelTemplateMapper,ChannelTemplateDO> implements ChannelTemplateService {
+public class ChannelTemplateServiceImpl extends BaseServiceImpl<ChannelTemplateMapper, ChannelTemplateDO> implements IChannelTemplateService {
 
     @Resource
     private ChannelTemplateMapper channelTemplateMapper;
@@ -39,7 +40,7 @@ public class ChannelTemplateServiceImpl extends BladeServiceImpl<ChannelTemplate
     private AlertConfigMapper alertConfigMapper;
 
     @Resource
-    private ChannelConfigService channelConfigService;
+    private IChannelConfigService channelConfigService;
 
     @Resource
     private ChannelConfigMapper channelConfigMapper;
@@ -97,7 +98,7 @@ public class ChannelTemplateServiceImpl extends BladeServiceImpl<ChannelTemplate
 
     @Override
     public PageResult<ChannelTemplate> getChannelTemplatePage(ChannelTemplatePageReqVO pageReqVO) {
-        PageResult<ChannelTemplate> pageResult = ChannelTemplateConvert.INSTANCE.convertPage(channelTemplateMapper.selectPage(pageReqVO));
+        PageResult<ChannelTemplate> pageResult = ChannelTemplateConvert.INSTANCE.convertPage(PageResult.from(channelTemplateMapper.selectPage(new Page<ChannelTemplateDO>(pageReqVO.getPageNo(), pageReqVO.getPageSize()), pageReqVO)));
         if (CollectionUtil.isNotEmpty(pageResult.getList())) {
             Set<Long> channelConfigIds = pageResult.getList().stream().map(ChannelTemplate::getChannelConfigId).collect(Collectors.toSet());
             List<ChannelConfigDO> channelConfigDOList = channelConfigMapper.selectByIds(channelConfigIds);

@@ -3,7 +3,7 @@
 package org.springblade.modules.iot.api.component;
 
 import org.springblade.modules.iot.api.component.dto.ComponentInfo;
-import org.springblade.modules.iot.service.component.ComponentService;
+import org.springblade.modules.iot.service.component.IComponentService;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.Resource;
@@ -12,7 +12,7 @@ import jakarta.annotation.Resource;
 public class ComponentApiImpl implements ComponentApi {
 
     @Resource
-    private ComponentService componentService;
+    private IComponentService componentService;
 
 
     @Override

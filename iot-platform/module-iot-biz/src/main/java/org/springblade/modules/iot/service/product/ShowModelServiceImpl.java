@@ -3,6 +3,7 @@
 package org.springblade.modules.iot.service.product;
 
 import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
 import org.springblade.modules.iot.common.utils.BeanUtils;
@@ -17,6 +18,9 @@ import org.springframework.validation.annotation.Validated;
 
 import jakarta.annotation.Resource;
 import java.util.List;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.modules.iot.entity.ShowModelDO;
+import org.springblade.modules.iot.dal.mysql.showmodel.ShowModelMapper;
 
 
 /**
@@ -26,7 +30,7 @@ import java.util.List;
  */
 @Service
 @Validated
-public class ShowModelServiceImpl implements ShowModelService {
+public class ShowModelServiceImpl extends BaseServiceImpl<ShowModelMapper, ShowModelDO> implements IShowModelService {
 
     @Resource
     private ShowModelMapper showModelMapper;
@@ -89,7 +93,9 @@ public class ShowModelServiceImpl implements ShowModelService {
 
     @Override
     public List<ShowModelRespVO> getShowModelByProductKey(String productKey) {
-        return ShowModelConvert.INSTANCE.convertList(showModelMapper.selectList(ShowModelDO::getProductKey, productKey));
+        return ShowModelConvert.INSTANCE.convertList(showModelMapper.selectList(
+                new LambdaQueryWrapper<ShowModelDO>()
+                        .eq(ShowModelDO::getProductKey, productKey)));
     }
 
 }

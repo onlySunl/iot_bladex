@@ -70,7 +70,7 @@ public class DataInitService implements ApplicationRunner {
     private void initProductData() {
         log.info("数据初始化-时序数据库表结构");
 
-        thingModelMapper.selectList().forEach(thingModelDO -> {
+        thingModelMapper.selectList(null).forEach(thingModelDO -> {
             try{
                 ThingModel thingModel = ThingModelConvert.INSTANCE.convert(thingModelDO);
                 if (thingModelDO != null && thingModel != null) {

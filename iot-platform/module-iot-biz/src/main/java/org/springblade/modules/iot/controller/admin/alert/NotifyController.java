@@ -9,9 +9,9 @@ import org.springblade.modules.iot.controller.admin.channelconfig.vo.*;
 import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTemplate;
 import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTemplatePageReqVO;
 import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTemplateSaveReqVO;
-import org.springblade.modules.iot.service.alert.ChannelConfigService;
-import org.springblade.modules.iot.service.alert.ChannelService;
-import org.springblade.modules.iot.service.alert.ChannelTemplateService;
+import org.springblade.modules.iot.service.alert.IChannelConfigService;
+import org.springblade.modules.iot.service.alert.IChannelService;
+import org.springblade.modules.iot.service.alert.IChannelTemplateService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.annotation.Resource;
 
 import java.util.List;
+import org.springblade.core.boot.ctrl.BladeController;
 
 /**
  * author: 石恒
@@ -34,16 +35,16 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/notify")
-public class NotifyController {
+public class NotifyController extends BladeController {
 
     @Resource
-    private ChannelService channelService;
+    private IChannelService channelService;
 
     @Resource
-    private ChannelConfigService channelConfigService;
+    private IChannelConfigService channelConfigService;
 
     @Resource
-    private ChannelTemplateService channelTemplateService;
+    private IChannelTemplateService channelTemplateService;
 
     @Operation(summary = "获取通道类型列表")
     @PostMapping("/channel/getList")

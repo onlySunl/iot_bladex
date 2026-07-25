@@ -5,8 +5,13 @@ package org.springblade.modules.iot.service.device;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -30,15 +35,14 @@ import org.springblade.modules.iot.controller.admin.device.vo.*;
 import org.springblade.modules.iot.controller.admin.device.vo.devicegroup.DeviceImportRespVO;
 import org.springblade.modules.iot.convert.DeviceInfoConvert;
 import org.springblade.modules.iot.convert.ProductConvert;
-import org.springblade.modules.iot.dal.mysql.EiotIotDeviceGroupMapper;
+import org.springblade.modules.iot.dal.mysql.deviceinfo.EiotIotDeviceGroupMapper;
 import org.springblade.modules.iot.dal.mysql.deviceinfo.EiotDeviceInfoMapper;
 import org.springblade.modules.iot.dal.mysql.product.ProductMapper;
 import org.springblade.modules.iot.dal.redis.RedisKeyConstants;
 import org.springblade.modules.iot.dal.redis.no.EiotRedisDAO;
 import org.springblade.modules.iot.entity.EiotDeviceInfoDO;
 import org.springblade.modules.iot.entity.ProductDO;
-import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
-import org.springblade.modules.iot.service.product.ProductService;
+import org.springblade.modules.iot.service.product.IProductService;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
@@ -51,6 +55,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.springblade.modules.iot.common.utils.ServiceExceptionUtil.exception;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.modules.iot.entity.EiotDeviceInfoDO;
+import org.springblade.modules.iot.dal.mysql.deviceinfo.EiotDeviceInfoMapper;
 
 /**
  * 设备信息 Service 实现类
@@ -60,7 +67,7 @@ import static org.springblade.modules.iot.common.utils.ServiceExceptionUtil.exce
 @Service
 @Validated
 @Slf4j
-public class DeviceInfoServiceImpl implements DeviceInfoService {
+public class DeviceInfoServiceImpl extends BaseServiceImpl<EiotDeviceInfoMapper, EiotDeviceInfoDO> implements IDeviceInfoService {
 
     @Resource
     private EiotDeviceInfoMapper deviceInfoMapper;
@@ -72,7 +79,7 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
     private EiotIotDeviceGroupMapper deviceGroupMapper;
 
     @Resource
-    private ProductService productService;
+    private IProductService productService;
 
     @Resource
     private EiotRedisDAO eiotRedisDAO;
@@ -176,8 +183,10 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
             unless = "#result == null")
     @TenantIgnore
     public DeviceInfo getDeviceByPkDnByCache(String pk, String dn) {
-        return DeviceInfoConvert.INSTANCE.convert(deviceInfoMapper.selectOne(EiotDeviceInfoDO::getProductKey, pk,
-                EiotDeviceInfoDO::getDn, dn));
+        return DeviceInfoConvert.INSTANCE.convert(deviceInfoMapper.selectOne(
+                new LambdaQueryWrapper<EiotDeviceInfoDO>()
+                        .eq(EiotDeviceInfoDO::getProductKey, pk)
+                        .eq(EiotDeviceInfoDO::getDn, dn)));
     }
 
     @Override
@@ -195,12 +204,14 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
 
     @Override
     public PageResult<DeviceShortInfo> getDeviceInfoPage(DeviceInfoPageReqVO pageReqVO) {
-        return deviceInfoMapper.selectPage(pageReqVO);
+        return PageResult.from(deviceInfoMapper.selectPage(new Page<DeviceShortInfo>(pageReqVO.getPageNo(), pageReqVO.getPageSize()), pageReqVO));
     }
 
     @Override
     public DeviceInfo getDeviceBySerialNo(String serialNumber) {
-        return DeviceInfoConvert.INSTANCE.convert(deviceInfoMapper.selectOne(EiotDeviceInfoDO::getSerialNo, serialNumber));
+        return DeviceInfoConvert.INSTANCE.convert(deviceInfoMapper.selectOne(
+                new LambdaQueryWrapper<EiotDeviceInfoDO>()
+                        .eq(EiotDeviceInfoDO::getSerialNo, serialNumber)));
     }
 
     @Override
@@ -259,7 +270,7 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
         if (ObjectUtil.isNull(deviceParent)) {
             return Collections.EMPTY_LIST;
         }
-        LambdaQueryWrapperX<EiotDeviceInfoDO> q = new LambdaQueryWrapperX<EiotDeviceInfoDO>();
+        LambdaQueryWrapper<EiotDeviceInfoDO> q = new LambdaQueryWrapper<EiotDeviceInfoDO>();
         q.eq(EiotDeviceInfoDO::getParentId, deviceParent.getId());
         return DeviceInfoConvert.INSTANCE.convertList(deviceInfoMapper.selectList(q));
     }
@@ -314,11 +325,50 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
 
         // 产品名称查询
         if (StringUtils.isNotBlank(pageReqVO.getProductName())) {
-            List<ProductDO> productList = productMapper.selectList(new LambdaQueryWrapperX<ProductDO>().like(ProductDO::getName, pageReqVO.getProductName()));
+            List<ProductDO> productList = productMapper.selectList(new LambdaQueryWrapper<ProductDO>().like(ProductDO::getName, pageReqVO.getProductName()));
             deviceInfoPageReqVO.setProductKeyList(productList.stream().map(ProductDO::getProductKey).collect(Collectors.toList()));
         }
 
         return this.getDeviceInfoPage(deviceInfoPageReqVO);
+    }
+
+    @Override
+    public Page<DeviceShortInfo> getDeviceInfoPageByIds(Page<DeviceShortInfo> page, List<Long> deviceIds, String dn, String name) {
+        if (CollUtil.isEmpty(deviceIds)) {
+            return new Page<>(page.getCurrent(), page.getSize());
+        }
+        Page<EiotDeviceInfoDO> doPage = new Page<>(page.getCurrent(), page.getSize());
+        LambdaQueryWrapper<EiotDeviceInfoDO> q = new LambdaQueryWrapper<EiotDeviceInfoDO>()
+                .in(EiotDeviceInfoDO::getId, deviceIds);
+        if (StringUtils.isNotBlank(dn)) {
+            q.like(EiotDeviceInfoDO::getDn, dn);
+        }
+        if (StringUtils.isNotBlank(name)) {
+            q.like(EiotDeviceInfoDO::getName, name);
+        }
+        IPage<EiotDeviceInfoDO> result = deviceInfoMapper.selectPage(doPage, q);
+        Page<DeviceShortInfo> shortPage = new Page<>(result.getCurrent(), result.getSize(), result.getTotal());
+        shortPage.setRecords(result.getRecords().stream().map(do_ -> BeanUtils.toBean(do_, DeviceShortInfo.class)).collect(Collectors.toList()));
+        return shortPage;
+    }
+
+    @Override
+    public Page<DeviceShortInfo> getAvailableDevicePageList(Page<DeviceShortInfo> page, List<Long> excludeIds, String dn, String name) {
+        Page<EiotDeviceInfoDO> doPage = new Page<>(page.getCurrent(), page.getSize());
+        LambdaQueryWrapper<EiotDeviceInfoDO> q = new LambdaQueryWrapper<>();
+        if (CollUtil.isNotEmpty(excludeIds)) {
+            q.notIn(EiotDeviceInfoDO::getId, excludeIds);
+        }
+        if (StringUtils.isNotBlank(dn)) {
+            q.like(EiotDeviceInfoDO::getDn, dn);
+        }
+        if (StringUtils.isNotBlank(name)) {
+            q.like(EiotDeviceInfoDO::getName, name);
+        }
+        IPage<EiotDeviceInfoDO> result = deviceInfoMapper.selectPage(doPage, q);
+        Page<DeviceShortInfo> shortPage = new Page<>(result.getCurrent(), result.getSize(), result.getTotal());
+        shortPage.setRecords(result.getRecords().stream().map(do_ -> BeanUtils.toBean(do_, DeviceShortInfo.class)).collect(Collectors.toList()));
+        return shortPage;
     }
 
     @Override
@@ -401,7 +451,9 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
 
     @Override
     public void clearPropertiesCache(String productKey) {
-        List<EiotDeviceInfoDO> deviceList = deviceInfoMapper.selectList(EiotDeviceInfoDO::getProductKey, productKey);
+        List<EiotDeviceInfoDO> deviceList = deviceInfoMapper.selectList(
+                new LambdaQueryWrapper<EiotDeviceInfoDO>()
+                        .eq(EiotDeviceInfoDO::getProductKey, productKey));
         if (deviceList != null && !deviceList.isEmpty()) {
             List<Long> deviceIds = deviceList.stream().map(EiotDeviceInfoDO::getId).collect(Collectors.toList());
             eiotRedisDAO.clearProperties(deviceIds);

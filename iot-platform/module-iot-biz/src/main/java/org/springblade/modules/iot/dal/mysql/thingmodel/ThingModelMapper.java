@@ -2,7 +2,7 @@
 
 package org.springblade.modules.iot.dal.mysql.thingmodel;
 
-import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
+import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.entity.ThingModelDO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @author EnjoyIot
  */
 @Mapper
-public interface ThingModelMapper extends BaseMapperX<ThingModelDO> {
+public interface ThingModelMapper extends BladeMapper<ThingModelDO> {
 
 
 

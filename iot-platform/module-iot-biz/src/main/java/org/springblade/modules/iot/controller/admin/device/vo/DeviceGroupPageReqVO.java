@@ -26,4 +26,10 @@ public class DeviceGroupPageReqVO extends PageParam {
     @Schema(description = "分组类型(0系统, 1用户, 字典)")
     private Integer typ;
 
+    @Schema(description = "分组ID")
+    private Long groupId;
+
+    @Schema(description = "设备标识")
+    private String dn;
+
 }

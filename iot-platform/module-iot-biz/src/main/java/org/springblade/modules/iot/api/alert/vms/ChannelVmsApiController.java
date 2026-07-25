@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springblade.core.boot.ctrl.BladeController;
 
 import jakarta.annotation.Resource;
 
@@ -16,7 +17,7 @@ import jakarta.annotation.Resource;
 @RestController
 @RequestMapping("/channelVmsApi")
 @Tag(name = "语音通知渠道API", description = "TTS语音呼叫接口")
-public class ChannelVmsApiController {
+public class ChannelVmsApiController extends BladeController {
 
     @Resource
     private ChannelVmsStrategy channelVmsStrategy;

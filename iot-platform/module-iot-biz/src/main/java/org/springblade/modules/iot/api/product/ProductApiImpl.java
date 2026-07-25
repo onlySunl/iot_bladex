@@ -4,7 +4,7 @@ package org.springblade.modules.iot.api.product;
 
 import org.springblade.modules.iot.api.product.dto.Product;
 import org.springblade.modules.iot.common.utils.TenantUtils;
-import org.springblade.modules.iot.service.product.ProductService;
+import org.springblade.modules.iot.service.product.IProductService;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.Resource;
@@ -13,7 +13,7 @@ import jakarta.annotation.Resource;
 public class ProductApiImpl implements ProductApi {
 
     @Resource
-    private ProductService productService;
+    private IProductService productService;
 
     @Override
     public Product getProduct(String pk) {

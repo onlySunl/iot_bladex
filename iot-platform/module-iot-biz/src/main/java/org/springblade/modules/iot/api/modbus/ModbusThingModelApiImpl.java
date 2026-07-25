@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import org.springblade.modules.iot.api.modbus.dto.ModbusThingModel;
 import org.springblade.modules.iot.common.utils.JsonUtils;
-import org.springblade.modules.iot.common.utils.TenantUtils;
+import org.springblade.core.tenant.TenantUtil;
 import org.springblade.modules.iot.entity.ModbusThingModelDO;
 import org.springblade.modules.iot.dal.mysql.modbus.ModbusThingModelMapper;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ public class ModbusThingModelApiImpl implements ModbusThingModelApi {
     private ModbusThingModelMapper modbusThingModelMapper;
     @Override
     public ModbusThingModel findByProductKey(String productKey) {
-        ModbusThingModelDO model = TenantUtils.executeIgnoreResult(() -> modbusThingModelMapper.findByProductKey(productKey));
+        ModbusThingModelDO model = TenantUtil.ignore(() -> modbusThingModelMapper.findByProductKey(productKey));
         if (model != null) {
             ModbusThingModel thingModel = BeanUtil.toBean(model, ModbusThingModel.class, CopyOptions.create().setIgnoreProperties("model"));
             thingModel.setModel(JsonUtils.parseObject(model.getModel(), ModbusThingModel.Model.class));

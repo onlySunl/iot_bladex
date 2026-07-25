@@ -3,7 +3,7 @@
 package org.springblade.modules.iot.api.virtualdevice;
 
 import org.springblade.modules.iot.api.virtualdevice.dto.VirtualDevice;
-import org.springblade.modules.iot.service.virtualdevice.VirtualDeviceService;
+import org.springblade.modules.iot.service.virtualdevice.IVirtualDeviceService;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.Resource;
@@ -13,7 +13,7 @@ import java.util.List;
 public class VirtualDeviceApiImpl implements VirtualDeviceApi {
 
     @Resource
-    private VirtualDeviceService virtualDeviceService;
+    private IVirtualDeviceService virtualDeviceService;
 
     @Override
     public List<VirtualDevice> findByTriggerAndState(String trigger, String state) {

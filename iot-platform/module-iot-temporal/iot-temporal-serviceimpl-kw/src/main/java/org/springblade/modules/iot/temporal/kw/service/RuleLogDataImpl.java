@@ -2,6 +2,8 @@
 package org.springblade.modules.iot.temporal.kw.service;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.kaiwudb.util.KWTimestamp;
 import org.springblade.core.tool.utils.BeanUtil;
 import org.springblade.modules.iot.IRuleLogData;
@@ -23,7 +25,7 @@ public class RuleLogDataImpl implements IRuleLogData {
 
     @Override
     public void deleteByRuleId(Long ruleId) {
-        ruleLogMapper.delete(KwRuleLog::getRuleId, ruleId);
+        ruleLogMapper.delete(Wrappers.lambdaQuery(KwRuleLog.class).eq(KwRuleLog::getRuleId, ruleId));
     }
 
     @Override
@@ -31,13 +33,13 @@ public class RuleLogDataImpl implements IRuleLogData {
         PageParam pageParam = new PageParam();
         pageParam.setPageNo(page);
         pageParam.setPageSize(size);
-        PageResult<KwRuleLog> result = ruleLogMapper.selectPage(pageParam,
+        IPage<KwRuleLog> iPage = ruleLogMapper.selectPage(new Page<>(pageParam.getPageNo(), pageParam.getPageSize()),
                 Wrappers.lambdaQuery(KwRuleLog.class).eq(KwRuleLog::getRuleId, ruleId).orderByDesc(KwRuleLog::getTime)
         );
-        return new PageResult<>(result.getList().stream().map(r ->
+        return new PageResult<>(iPage.getRecords().stream().map(r ->
                         new RuleLog(r.getTime().getTime(), ruleId, r.getState1(),
                                 r.getContent(), r.getSuccess(), r.getTime().getTime()))
-                .collect(Collectors.toList()), result.getTotal());
+                .collect(Collectors.toList()), iPage.getTotal());
     }
 
     @Override

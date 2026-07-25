@@ -44,20 +44,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.modules.iot.entity.DeviceConfigDO;
+import org.springblade.modules.iot.dal.mysql.deviceconfig.DeviceConfigMapper;
 
 
 @Slf4j
 @Service
-public class DeviceCtrlServiceImpl implements DeviceCtrlService {
+public class DeviceCtrlServiceImpl extends BaseServiceImpl<DeviceConfigMapper, DeviceConfigDO> implements IDeviceCtrlService {
 
     @Resource
-    private DeviceConfigService deviceConfigService;
+    private IDeviceConfigService deviceConfigService;
 
     @Resource
     private ParseThingModelService parseThingModelService;
 
     @Resource
-    private DeviceInfoService deviceInfoService;
+    private IDeviceInfoService deviceInfoService;
 
     @Resource
     private ComponentManager componentManager;

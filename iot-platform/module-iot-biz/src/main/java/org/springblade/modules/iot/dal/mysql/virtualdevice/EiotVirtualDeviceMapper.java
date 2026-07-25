@@ -1,37 +1,23 @@
-
-
 package org.springblade.modules.iot.dal.mysql.virtualdevice;
 
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import org.springblade.modules.iot.common.entity.PageResult;
-import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
-import org.springblade.modules.iot.controller.admin.virtualdevice.vo.EiotVirtualSaveScriptVo;
-import org.springblade.modules.iot.controller.admin.virtualdevice.vo.VirtualDevicePageReqVO;
-import org.springblade.modules.iot.entity.VirtualDeviceDO;
 import org.apache.ibatis.annotations.Mapper;
-import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
+import org.apache.ibatis.annotations.Param;
+import org.springblade.core.mp.mapper.BladeMapper;
+import org.springblade.modules.iot.entity.VirtualDeviceDO;
+import org.springblade.modules.iot.controller.admin.virtualdevice.vo.VirtualDevicePageReqVO;
+import org.springblade.modules.iot.controller.admin.virtualdevice.vo.EiotVirtualSaveScriptVo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 /**
- * 规则引擎 Mapper
+ * 虚拟设备 Mapper
  *
  * @author EnjoyIot
  */
 @Mapper
-public interface EiotVirtualDeviceMapper extends BaseMapperX<VirtualDeviceDO> {
+public interface EiotVirtualDeviceMapper extends BladeMapper<VirtualDeviceDO> {
 
+    IPage<VirtualDeviceDO> selectPage(IPage<VirtualDeviceDO> page, @Param("reqVO") VirtualDevicePageReqVO reqVO);
 
-    default PageResult<VirtualDeviceDO> selectPage(VirtualDevicePageReqVO reqVO) {
-        return selectPage(reqVO, new LambdaQueryWrapperX<VirtualDeviceDO>()
-                .eqIfPresent(VirtualDeviceDO::getState, reqVO.getState())
-                .eqIfPresent(VirtualDeviceDO::getProductKey, reqVO.getProductKey())
-                .orderByDesc(VirtualDeviceDO::getId));
-    }
-
-    default int updateScriptById(EiotVirtualSaveScriptVo saveScriptVo) {
-        LambdaUpdateWrapper<VirtualDeviceDO> up = new LambdaUpdateWrapper<>();
-        up.set(VirtualDeviceDO::getScript, saveScriptVo.getScript());
-        up.eq(VirtualDeviceDO::getId, saveScriptVo.getId());
-        return update(up);
-    }
+    int updateScriptById(@Param("saveScriptVo") EiotVirtualSaveScriptVo saveScriptVo);
 
 }

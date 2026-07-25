@@ -34,6 +34,10 @@ public interface BaseMapperX<T> extends MPJBaseMapper<T>, BladeMapper<T> {
         return selectPage(pageParam, pageParam.getSortingFields(), queryWrapper);
     }
 
+    default PageResult<T> selectPage(PageParam pageParam) {
+        return selectPage(pageParam, null, new LambdaQueryWrapper<T>());
+    }
+
     default PageResult<T> selectPage(PageParam pageParam, @Param("ew") Wrapper<T> queryWrapper) {
         return selectPage(pageParam, null, queryWrapper);
     }

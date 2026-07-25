@@ -13,25 +13,26 @@ import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.common.utils.BeanUtils;
 import org.springblade.modules.iot.controller.admin.alertconfig.vo.AlertConfigRespVO;
 import org.springblade.modules.iot.controller.admin.alertconfig.vo.AlertConfigSaveReqVO;
-import org.springblade.modules.iot.service.alert.AlertConfigService;
-import org.springblade.modules.iot.service.alert.AlertService;
+import org.springblade.modules.iot.service.alert.IAlertConfigService;
+import org.springblade.modules.iot.service.alert.IAlertService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springblade.core.boot.ctrl.BladeController;
 
 
 @Tag(name = "告警中心")
 @Slf4j
 @RestController
 @RequestMapping("/alert")
-public class AlertController {
+public class AlertController extends BladeController {
 
     @Resource
-    private AlertService alertService;
+    private IAlertService alertService;
 
     @Resource
-    private AlertConfigService alertConfigService;
+    private IAlertConfigService alertConfigService;
 
     @Operation(summary ="新增告警中心配置")
     @PostMapping("/createAlertConfig")

@@ -7,67 +7,69 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springblade.modules.iot.common.annotation.ApiAccessLog;
-import org.springblade.modules.iot.common.entity.CommonResult;
+import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.common.utils.BeanUtils;
 import org.springblade.modules.iot.controller.admin.category.vo.Category;
 import org.springblade.modules.iot.controller.admin.category.vo.CategoryListReqVO;
 import org.springblade.modules.iot.controller.admin.category.vo.CategoryRespVO;
 import org.springblade.modules.iot.controller.admin.category.vo.CategorySaveReqVO;
 import org.springblade.modules.iot.excel.core.util.ExcelUtils;
-import org.springblade.modules.iot.service.category.CategoryService;
+import org.springblade.modules.iot.service.category.ICategoryService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
 
-import static org.springblade.modules.iot.common.entity.CommonResult.success;
+
 import static org.springblade.modules.iot.common.enums.OperateTypeEnum.EXPORT;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
 
 
 @Tag(name = "管理后台 - IOT产品分类")
 @RestController
 @RequestMapping("/eiot/category")
 @Validated
-public class CategoryController {
+public class CategoryController extends BladeController {
 
     @Resource
-    private CategoryService categoryService;
+    private ICategoryService categoryService;
 
     @PostMapping("/create")
     @Operation(summary = "创建IOT产品分类")
-    public CommonResult<Long> createCategory(@Valid @RequestBody CategorySaveReqVO createReqVO) {
-        return success(categoryService.createCategory(createReqVO));
+    public R<Long> createCategory(@Valid @RequestBody CategorySaveReqVO createReqVO) {
+        return data(categoryService.createCategory(createReqVO));
     }
 
     @PutMapping("/update")
     @Operation(summary = "更新IOT产品分类")
-    public CommonResult<Boolean> updateCategory(@Valid @RequestBody CategorySaveReqVO updateReqVO) {
+    public R<Boolean> updateCategory(@Valid @RequestBody CategorySaveReqVO updateReqVO) {
         categoryService.updateCategory(updateReqVO);
-        return success(true);
+        return data(true);
     }
 
     @DeleteMapping("/delete")
     @Operation(summary = "删除IOT产品分类")
     @Parameter(name = "id", description = "编号", required = true)
-    public CommonResult<Boolean> deleteCategory(@RequestParam("id") Long id) {
+    public R<Boolean> deleteCategory(@RequestParam("id") Long id) {
         categoryService.deleteCategory(id);
-        return success(true);
+        return data(true);
     }
 
     @GetMapping("/get")
     @Operation(summary = "获得IOT产品分类")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
-    public CommonResult<CategoryRespVO> getCategory(@RequestParam("id") Long id) {
+    public R<CategoryRespVO> getCategory(@RequestParam("id") Long id) {
         Category category = categoryService.getCategory(id);
-        return success(BeanUtils.toBean(category, CategoryRespVO.class));
+        return data(BeanUtils.toBean(category, CategoryRespVO.class));
     }
 
     @GetMapping("/list")
     @Operation(summary = "获得IOT产品分类列表")
-    public CommonResult<List<CategoryRespVO>> getCategoryList(@Valid CategoryListReqVO listReqVO) {
+    public R<List<CategoryRespVO>> getCategoryList(@Valid CategoryListReqVO listReqVO) {
         List<Category> list = categoryService.getCategoryList(listReqVO);
-        return success(BeanUtils.toBean(list, CategoryRespVO.class));
+        return data(BeanUtils.toBean(list, CategoryRespVO.class));
     }
 
     @GetMapping("/export-excel")

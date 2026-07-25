@@ -15,8 +15,8 @@ import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.common.thing.ThingModelMessage;
 import org.springblade.modules.iot.controller.admin.device.vo.DeviceInfoPageReqVO;
 import org.springblade.modules.iot.message.core.MqProducer;
-import org.springblade.modules.iot.service.device.DeviceInfoService;
-import org.springblade.modules.iot.service.product.ProductService;
+import org.springblade.modules.iot.service.device.IDeviceInfoService;
+import org.springblade.modules.iot.service.product.IProductService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -33,10 +33,10 @@ import java.util.concurrent.TimeUnit;
 public class DeviceStateCheckTask {
 
     @Resource
-    private ProductService productService;
+    private IProductService productService;
 
     @Resource
-    private DeviceInfoService deviceInfoService;
+    private IDeviceInfoService deviceInfoService;
 
     @Resource
     private MqProducer<ThingModelMessage> producer;

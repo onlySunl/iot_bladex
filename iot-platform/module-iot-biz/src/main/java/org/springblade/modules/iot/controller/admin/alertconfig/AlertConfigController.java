@@ -4,7 +4,7 @@ import org.springblade.modules.iot.api.alert.dto.AlertConfig;
 import org.springblade.modules.iot.api.alert.dto.AlertConfigPageReqVO;
 import org.springblade.modules.iot.common.annotation.ApiAccessLog;
 import org.springblade.modules.iot.excel.core.util.ExcelUtils;
-import org.springblade.modules.iot.service.alert.AlertConfigService;
+import org.springblade.modules.iot.service.alert.IAlertConfigService;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -24,15 +24,17 @@ import org.springblade.modules.iot.common.utils.BeanUtils;
 import org.springblade.modules.iot.controller.admin.alertconfig.vo.*;
 
 import static org.springblade.modules.iot.common.enums.OperateTypeEnum.EXPORT;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
 
 @Tag(name = "管理后台 - 报警配置")
 @RestController
 @RequestMapping("/iot/alert-config")
 @Validated
-public class AlertConfigController {
+public class AlertConfigController extends BladeController {
 
     @Resource
-    private AlertConfigService alertConfigService;
+    private IAlertConfigService alertConfigService;
 
     @PostMapping("/create")
     @Operation(summary = "创建报警配置")

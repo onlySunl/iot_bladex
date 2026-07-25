@@ -35,11 +35,13 @@ import org.springblade.modules.iot.controller.admin.ota.vo.*;
 import org.springblade.modules.iot.convert.OtaConvert;
 import org.springblade.modules.iot.entity.DeviceOtaInfoDO;
 import org.springblade.modules.iot.entity.OtaPackageDO;
-import org.springblade.modules.iot.dal.mysql.DeviceOtaInfoMapper;
-import org.springblade.modules.iot.dal.mysql.OtaDetailMapper;
-import org.springblade.modules.iot.dal.mysql.OtaPackageMapper;
-import org.springblade.modules.iot.service.device.DeviceCtrlService;
-import org.springblade.modules.iot.service.device.DeviceInfoService;
+import org.springblade.modules.iot.entity.OtaDetailDO;
+import org.springblade.modules.iot.entity.DeviceOtaInfoDO;
+import org.springblade.modules.iot.dal.mysql.deviceinfo.DeviceOtaInfoMapper;
+import org.springblade.modules.iot.dal.mysql.deviceinfo.OtaDetailMapper;
+import org.springblade.modules.iot.dal.mysql.deviceinfo.OtaPackageMapper;
+import org.springblade.modules.iot.service.device.IDeviceCtrlService;
+import org.springblade.modules.iot.service.device.IDeviceInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
@@ -48,6 +50,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.annotation.Resource;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -57,6 +60,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.modules.iot.entity.OtaPackageDO;
+import org.springblade.modules.iot.entity.OtaDetailDO;
+import org.springblade.modules.iot.entity.DeviceOtaInfoDO;
 
 
 /**
@@ -66,13 +73,13 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 @Slf4j
 @Service
-public class OtaServiceImpl implements OtaService {
+public class OtaServiceImpl extends BaseServiceImpl<OtaPackageMapper, OtaPackageDO> implements IOtaService {
 
     @Resource
-    private DeviceCtrlService deviceCtrlService;
+    private IDeviceCtrlService deviceCtrlService;
 
     @Resource
-    private DeviceInfoService deviceInfoService;
+    private IDeviceInfoService deviceInfoService;
 
     @Resource
     private OtaPackageMapper otaPackageMapper;
@@ -152,7 +159,7 @@ public class OtaServiceImpl implements OtaService {
     }
 
     public PageResult<OtaPackage> getOtaPackagePageList(OtaPackagePageReq request) {
-        return OtaConvert.INSTANCE.convertPage(otaPackageMapper.selectPage(request));
+        return OtaConvert.INSTANCE.convertPage(PageResult.from(otaPackageMapper.selectPage(new Page<OtaPackageDO>(request.getPageNo(), request.getPageSize()), request)));
     }
 
     /**
@@ -206,11 +213,11 @@ public class OtaServiceImpl implements OtaService {
     }
 
     public PageResult<DeviceOtaDetailVo> otaDeviceDetail(DeviceOtaDetailPageReq request) {
-        return OtaConvert.INSTANCE.convertDetailPage(otaDetailMapper.selectPage(request));
+        return OtaConvert.INSTANCE.convertDetailPage(PageResult.from(otaDetailMapper.selectPage(new Page<OtaDetailDO>(request.getPageNo(), request.getPageSize()), request)));
     }
 
     public PageResult<DeviceOtaInfoVo> otaDeviceInfo(DeviceOtaPageReq request) {
-        return OtaConvert.INSTANCE.convertInfoVoPage(deviceOtaInfoMapper.selectPage(request));
+        return OtaConvert.INSTANCE.convertInfoVoPage(PageResult.from(deviceOtaInfoMapper.selectPage(new Page<DeviceOtaInfoDO>(request.getPageNo(), request.getPageSize()), request)));
     }
 
     public void testStartUpgrade() {

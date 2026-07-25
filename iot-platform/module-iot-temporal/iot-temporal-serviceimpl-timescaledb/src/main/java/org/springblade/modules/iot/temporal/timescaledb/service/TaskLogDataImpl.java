@@ -24,6 +24,8 @@ package org.springblade.modules.iot.temporal.timescaledb.service;
 
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springblade.modules.iot.ITaskLogData;
 import org.springblade.modules.iot.common.entity.PageParam;
 import org.springblade.modules.iot.common.entity.PageResult;
@@ -46,7 +48,7 @@ public class TaskLogDataImpl implements ITaskLogData {
 
     @Override
     public void deleteByTaskId(Long taskId) {
-        taskLogMapper.delete(PgTaskLog::getTaskId, taskId);
+        taskLogMapper.delete(Wrappers.lambdaQuery(PgTaskLog.class).eq(PgTaskLog::getTaskId, taskId));
     }
 
     @Override
@@ -54,13 +56,13 @@ public class TaskLogDataImpl implements ITaskLogData {
         PageParam pageParam = new PageParam();
         pageParam.setPageNo(page);
         pageParam.setPageSize(size);
-        PageResult<PgTaskLog> result = taskLogMapper.selectPage(pageParam,
+        IPage<PgTaskLog> iPage = taskLogMapper.selectPage(new Page<>(pageParam.getPageNo(), pageParam.getPageSize()),
                 Wrappers.lambdaQuery(PgTaskLog.class).eq(PgTaskLog::getTaskId, taskId).orderByDesc(PgTaskLog::getTime)
         );
-        return new PageResult<>(result.getList().stream().map(r ->
+        return new PageResult<>(iPage.getRecords().stream().map(r ->
                         new TaskLog(r.getTime().toString(), taskId,
                                 r.getContent(), r.getSuccess(), r.getTime().getTime()))
-                .collect(Collectors.toList()), result.getTotal());
+                .collect(Collectors.toList()), iPage.getTotal());
     }
 
     @Override

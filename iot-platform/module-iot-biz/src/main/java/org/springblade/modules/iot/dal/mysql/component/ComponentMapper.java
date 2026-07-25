@@ -1,28 +1,22 @@
-
-
 package org.springblade.modules.iot.dal.mysql.component;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.springblade.modules.iot.common.entity.PageResult;
-import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
-import org.springblade.modules.iot.controller.admin.component.vo.ComponentPageReqVO;
+import org.apache.ibatis.annotations.Param;
+import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.entity.ComponentDO;
-import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
+import org.springblade.modules.iot.controller.admin.component.vo.ComponentPageReqVO;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
+/**
+ * 组件 Mapper
+ *
+ * @author EnjoyIot
+ */
 @Mapper
-public interface ComponentMapper extends BaseMapperX<ComponentDO> {
+public interface ComponentMapper extends BladeMapper<ComponentDO> {
 
-    default ComponentDO selectByName(String name) {
-        return selectOne(new LambdaQueryWrapperX<ComponentDO>()
-                .eq(ComponentDO::getName, name));
-    }
+    ComponentDO selectByName(@Param("name") String name);
 
-    default PageResult<ComponentDO> selectPage(ComponentPageReqVO reqVO) {
-        return selectPage(reqVO, new LambdaQueryWrapperX<ComponentDO>()
-                .likeIfPresent(ComponentDO::getName, reqVO.getName())
-                .eqIfPresent(ComponentDO::getType, reqVO.getType())
-                .eqIfPresent(ComponentDO::getStatus, reqVO.getStatus())
-                .orderByDesc(ComponentDO::getId));
-    }
+    IPage<ComponentDO> selectPage(IPage<ComponentDO> page, @Param("reqVO") ComponentPageReqVO reqVO);
 
 }

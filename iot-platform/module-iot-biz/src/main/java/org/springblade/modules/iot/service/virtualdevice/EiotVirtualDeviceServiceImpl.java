@@ -3,10 +3,12 @@
 package org.springblade.modules.iot.service.virtualdevice;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.IVirtualDeviceLogData;
 import org.springblade.modules.iot.common.entity.PageResult;
-import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
 import org.springblade.modules.iot.virtualdevice.VirtualManager;
 import org.springblade.modules.iot.api.virtualdevice.dto.VirtualDevice;
 import org.springblade.modules.iot.api.virtualdevice.dto.VirtualDeviceLog;
@@ -23,12 +25,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import jakarta.annotation.Resource;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.modules.iot.entity.VirtualDeviceDO;
+import org.springblade.modules.iot.dal.mysql.virtualdevice.EiotVirtualDeviceMapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 /**
  * 虚拟设备实现类
@@ -37,7 +44,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Service
-public class EiotVirtualDeviceServiceImpl implements VirtualDeviceService {
+public class EiotVirtualDeviceServiceImpl extends BaseServiceImpl<EiotVirtualDeviceMapper, VirtualDeviceDO> implements IVirtualDeviceService {
 
     @Resource
     private EiotVirtualDeviceMapper virtualDeviceMapper;
@@ -131,9 +138,9 @@ public class EiotVirtualDeviceServiceImpl implements VirtualDeviceService {
 
     @Override
     public List<VirtualDevice> findByTriggerAndState(String trigger, String state) {
-        LambdaQueryWrapperX<VirtualDeviceDO> q = new LambdaQueryWrapperX<>();
-        q.eqIfPresent(VirtualDeviceDO::getTrigger, trigger);
-        q.eqIfPresent(VirtualDeviceDO::getState, state);
+        LambdaQueryWrapper<VirtualDeviceDO> q = new LambdaQueryWrapper<>();
+        q.eq(trigger != null, VirtualDeviceDO::getTrigger, trigger);
+        q.eq(state != null, VirtualDeviceDO::getState, state);
         List<VirtualDevice> virtualDevices = VirtualDeviceConvert.INSTANCE.convertList(virtualDeviceMapper.selectList(q));
         // 可考虑改成批量查询
         for (VirtualDevice virtualDevice : virtualDevices) {
@@ -144,8 +151,8 @@ public class EiotVirtualDeviceServiceImpl implements VirtualDeviceService {
 
     @Override
     public PageResult<VirtualDevice> selectPage(VirtualDevicePageReqVO reqVO) {
-        PageResult<VirtualDeviceDO> result = virtualDeviceMapper.selectPage(reqVO);
-        return VirtualDeviceConvert.INSTANCE.convertPage(result);
+        IPage<VirtualDeviceDO> result = virtualDeviceMapper.selectPage(new Page<VirtualDeviceDO>(reqVO.getPageNo(), reqVO.getPageSize()), reqVO);
+        return VirtualDeviceConvert.INSTANCE.convertPage(PageResult.from(result));
     }
 
     @Override

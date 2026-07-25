@@ -7,20 +7,23 @@ import org.springblade.modules.iot.common.utils.ServiceExceptionUtil;
 import org.springblade.modules.iot.controller.admin.alert.vo.ChannelReqVO;
 import org.springblade.modules.iot.controller.admin.channelconfig.vo.Channel;
 import org.springblade.modules.iot.convert.ChannelConvert;
-import org.springblade.modules.iot.dal.mysql.ChannelMapper;
+import org.springblade.modules.iot.dal.mysql.channelconfig.ChannelMapper;
 import org.springblade.modules.iot.entity.ChannelDO;
-import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import java.util.List;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.modules.iot.entity.ChannelDO;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 /**
  * 通道 Service 实现类
  */
 @Service
 @Validated
-public class ChannelServiceImpl implements ChannelService {
+public class ChannelServiceImpl extends BaseServiceImpl<ChannelMapper, ChannelDO> implements IChannelService {
 
     @Resource
     private ChannelMapper channelMapper;
@@ -58,7 +61,7 @@ public class ChannelServiceImpl implements ChannelService {
 
     @Override
     public List<Channel> getChannelList(ChannelReqVO reqVO) {
-        LambdaQueryWrapperX<ChannelDO> reqVOX = new LambdaQueryWrapperX<>();
+        LambdaQueryWrapper<ChannelDO> reqVOX = new LambdaQueryWrapper<>();
 
         return ChannelConvert.INSTANCE.convertList(channelMapper.selectList(reqVOX));
     }

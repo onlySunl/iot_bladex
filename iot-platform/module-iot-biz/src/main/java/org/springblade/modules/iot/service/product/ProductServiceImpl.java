@@ -1,42 +1,42 @@
-
-
 package org.springblade.modules.iot.service.product;
 
 import cn.hutool.core.lang.UUID;
-import org.springblade.modules.iot.common.entity.PageResult;
-import org.springblade.modules.iot.common.utils.BeanUtils;
-import org.springblade.modules.iot.common.utils.ServiceExceptionUtil;
-import org.springblade.modules.iot.mybatis.core.query.MPJLambdaWrapperX;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.mp.base.BaseServiceImpl;
 import org.springblade.modules.iot.api.enums.ErrorCodeConstants;
 import org.springblade.modules.iot.api.product.dto.Product;
 import org.springblade.modules.iot.api.product.dto.ProductConfig;
+import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.common.utils.BeanUtils;
+import org.springblade.modules.iot.common.utils.ServiceExceptionUtil;
 import org.springblade.modules.iot.controller.admin.product.vo.ProductPageReqVO;
 import org.springblade.modules.iot.controller.admin.product.vo.ProductSaveReqVO;
 import org.springblade.modules.iot.controller.admin.product.vo.ProductUpdateReqVO;
 import org.springblade.modules.iot.convert.ProductConvert;
-import org.springblade.modules.iot.entity.CategoryDO;
-import org.springblade.modules.iot.entity.ProductDO;
 import org.springblade.modules.iot.dal.mysql.deviceinfo.EiotDeviceInfoMapper;
 import org.springblade.modules.iot.dal.mysql.product.ProductMapper;
 import org.springblade.modules.iot.dal.redis.RedisKeyConstants;
+import org.springblade.modules.iot.entity.ProductDO;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-
-import jakarta.annotation.Resource;
-
+import org.springblade.modules.iot.entity.ProductDO;
 
 /**
- * 物联网产品 Service 实现类
+ * 物联网产品 Service 实现
  *
  * @author EnjoyIot
  */
+@Slf4j
 @Service
 @Validated
-public class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, ProductDO> implements IProductService {
 
     @Resource
     private ProductMapper productMapper;
@@ -49,113 +49,89 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Long createProduct(ProductSaveReqVO createReqVO) {
-        // 插入
-        ProductDO product = BeanUtils.toBean(createReqVO, ProductDO.class);
-        String secret = UUID.randomUUID().toString(true);
-        product.setProductSecret(secret);
         String productKey = createReqVO.getProductKey();
-
-        if (productMapper.selectOne(ProductDO::getProductKey, productKey) != null) {
+        ProductDO exist = productMapper.getByProductKey(productKey);
+        if (exist != null) {
             throw ServiceExceptionUtil.exception(ErrorCodeConstants.PRODUCT_KEY_REPEAT);
         }
-
-        productMapper.insert(product);
-        // 返回
+        ProductDO product = BeanUtils.toBean(createReqVO, ProductDO.class);
+        product.setProductSecret(UUID.randomUUID().toString(true));
+        save(product);
+        log.info("[产品] 创建成功: id={}, name={}, productKey={}", product.getId(), product.getName(), product.getProductKey());
         return product.getId();
     }
 
     @Override
     @CacheEvict(value = RedisKeyConstants.PRODUCT, key = "#updateReqVO.productKey")
     public void updateProduct(ProductUpdateReqVO updateReqVO) {
-        // 校验存在
         validateProductExists(updateReqVO.getId());
-        // 更新
         ProductDO updateObj = BeanUtils.toBean(updateReqVO, ProductDO.class);
-        productMapper.updateById(updateObj);
-    }
-
-    private void validateProductKeyExists(String productKey) {
-        if (productMapper.selectOne(ProductDO::getProductKey, productKey) == null) {
-            throw ServiceExceptionUtil.exception(ErrorCodeConstants.PRODUCT_NOT_EXISTS);
-        }
+        updateById(updateObj);
+        log.info("[产品] 更新成功: id={}, name={}", updateReqVO.getId(), updateReqVO.getName());
     }
 
     @Override
     public Boolean deleteProduct(Long id) {
         ProductDO product = validateProductExists(id);
-        // 检测是否有设备
-        if(deviceInfoMapper.selectCountByProductKey(product.getProductKey())>0){
+        if (deviceInfoMapper.selectCountByProductKey(product.getProductKey()) > 0) {
             throw ServiceExceptionUtil.exception(ErrorCodeConstants.PRODUCT_DEVICE_EXISTS);
         }
-        Boolean ret= productMapper.deleteById(id)>0;
-        if(ret){
-            String productKey = product.getProductKey();
-            // 清除缓存
-            clearCache(RedisKeyConstants.PRODUCT,productKey);
-
+        boolean ret = removeById(id);
+        if (ret) {
+            clearCache(RedisKeyConstants.PRODUCT, product.getProductKey());
+            log.info("[产品] 删除成功: id={}, productKey={}", id, product.getProductKey());
         }
         return ret;
     }
 
-    // 清理缓存
-    private void clearCache(String cacheName, String key){
-        Cache cache = cacheManager.getCache(cacheName);
-        if(cache!=null){
-            cache.evict(key);
-        }
-    }
-
-    private ProductDO validateProductExists(Long id) {
-        ProductDO productDO = productMapper.selectById(id);
-        if (productDO == null) {
-            throw ServiceExceptionUtil.exception(ErrorCodeConstants.PRODUCT_NOT_EXISTS);
-        }
-        return productDO;
-    }
-
     @Override
     public Product getProduct(Long id) {
-        return ProductConvert.INSTANCE.convert(productMapper.selectById(id));
+        return ProductConvert.INSTANCE.convert(getById(id));
     }
 
     @Override
     public Product getByPk(String pk) {
-        return ProductConvert.INSTANCE.convert(productMapper.selectOne(ProductDO::getProductKey, pk));
+        return ProductConvert.INSTANCE.convert(productMapper.getByProductKey(pk));
     }
 
     @Override
     public PageResult<Product> getProductPage(ProductPageReqVO pageReqVO) {
-        MPJLambdaWrapperX<ProductDO> wrapperX = new MPJLambdaWrapperX<ProductDO>()
-                .selectAll(ProductDO.class)
-                .selectAs(CategoryDO::getName, Product::getCategoryName)
-                .eqIfPresent(ProductDO::getCategoryId, pageReqVO.getCategoryId())
-                .likeIfPresent(ProductDO::getName, pageReqVO.getName())
-                .eqIfPresent(ProductDO::getProductKey, pageReqVO.getProductKey())
-                .eqIfPresent(ProductDO::getNodeType, pageReqVO.getNodeType())
-                .eqIfPresent(ProductDO::getProtocolCode, pageReqVO.getProtocolCode());
-
-        wrapperX
-                .leftJoin(CategoryDO.class, CategoryDO::getId, ProductDO::getCategoryId);
-
-        return productMapper.selectJoinPage(pageReqVO, Product.class, wrapperX);
+        IPage<ProductDO> iPage = productMapper.selectPage(new Page<ProductDO>(pageReqVO.getPageNo(), pageReqVO.getPageSize()), pageReqVO);
+        return new PageResult<>(
+                BeanUtils.toBean(iPage.getRecords(), Product.class),
+                iPage.getTotal());
     }
 
     @Override
-    @Cacheable(cacheNames = RedisKeyConstants.PRODUCT, key = "#pk",
-            unless = "#result == null")
+    @Cacheable(cacheNames = RedisKeyConstants.PRODUCT, key = "#pk", unless = "#result == null")
     public Product getProductByPkFromCache(String pk) {
         return getByPk(pk);
     }
 
     @Override
     public ProductConfig getConfigByPk(String pk) {
+        // TODO: 实现产品配置获取
         return null;
     }
 
     @Override
     public boolean saveConfig(ProductConfig request) {
-
+        // TODO: 实现产品配置保存
         return true;
     }
 
+    private ProductDO validateProductExists(Long id) {
+        ProductDO productDO = getById(id);
+        if (productDO == null) {
+            throw ServiceExceptionUtil.exception(ErrorCodeConstants.PRODUCT_NOT_EXISTS);
+        }
+        return productDO;
+    }
+
+    private void clearCache(String cacheName, String key) {
+        Cache cache = cacheManager.getCache(cacheName);
+        if (cache != null) {
+            cache.evict(key);
+        }
+    }
 }

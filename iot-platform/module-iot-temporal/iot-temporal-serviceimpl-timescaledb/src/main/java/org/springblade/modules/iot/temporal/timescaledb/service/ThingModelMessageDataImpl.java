@@ -26,6 +26,8 @@ package org.springblade.modules.iot.temporal.timescaledb.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springblade.modules.iot.IThingModelMessageData;
 import org.springblade.modules.iot.TimeData;
 import org.springblade.modules.iot.common.entity.PageParam;
@@ -64,7 +66,7 @@ public class ThingModelMessageDataImpl implements IThingModelMessageData {
         pageParam.setPageNo(page);
         pageParam.setPageSize(size);
 
-        PageResult<PgThingModelMessage> result = thingModelMessageMapper.selectPage(pageParam,
+        IPage<PgThingModelMessage> iPage = thingModelMessageMapper.selectPage(new Page<>(pageParam.getPageNo(), pageParam.getPageSize()),
                 Wrappers.lambdaQuery(PgThingModelMessage.class)
                         .eq(PgThingModelMessage::getDeviceId, deviceId)
                         .eq(StringUtils.isNotBlank(type), PgThingModelMessage::getType, type)
@@ -72,13 +74,13 @@ public class ThingModelMessageDataImpl implements IThingModelMessageData {
                         .orderByDesc(PgThingModelMessage::getTime)
         );
 
-        return new PageResult<>(result.getList().stream().map(r ->
+        return new PageResult<>(iPage.getRecords().stream().map(r ->
                         new ThingModelMessage(r.getTime().toString(), r.getMid(),
                                 deviceId, r.getProductKey(), r.getDeviceName(),
                                 r.getUid(), r.getType(), r.getIdentifier(), r.getCode(),
                                 parseDataSafe(r.getData()),
                                 r.getTime().getTime(), r.getReportTime(), null))
-                .collect(Collectors.toList()), result.getTotal());
+                .collect(Collectors.toList()), iPage.getTotal());
     }
 
     @Override
@@ -89,7 +91,7 @@ public class ThingModelMessageDataImpl implements IThingModelMessageData {
         PageParam pageParam = new PageParam();
         pageParam.setPageNo(page);
         pageParam.setPageSize(size);
-        PageResult<PgThingModelMessage> result = thingModelMessageMapper.selectPage(pageParam,
+        IPage<PgThingModelMessage> iPage = thingModelMessageMapper.selectPage(new Page<>(pageParam.getPageNo(), pageParam.getPageSize()),
                 Wrappers.lambdaQuery(PgThingModelMessage.class)
                         .eq(PgThingModelMessage::getType, type)
                         .in(!deviceIds.isEmpty(), PgThingModelMessage::getDeviceId, deviceIds)
@@ -97,13 +99,13 @@ public class ThingModelMessageDataImpl implements IThingModelMessageData {
                         .orderByDesc(PgThingModelMessage::getTime)
         );
 
-        return new PageResult<>(result.getList().stream().map(r ->
+        return new PageResult<>(iPage.getRecords().stream().map(r ->
                         new ThingModelMessage(r.getTime().toString(), r.getMid(),
                                 r.getDeviceId(), r.getProductKey(), r.getDeviceName(),
                                 r.getUid(), r.getType(), r.getIdentifier(), r.getCode(),
                                 parseDataSafe(r.getData()),
                                 r.getTime().getTime(), r.getReportTime(), null))
-                .collect(Collectors.toList()), result.getTotal());
+                .collect(Collectors.toList()), iPage.getTotal());
     }
 
     @Override
@@ -185,7 +187,7 @@ public class ThingModelMessageDataImpl implements IThingModelMessageData {
 
     @Override
     public long count() {
-        return thingModelMessageMapper.selectCount();
+        return thingModelMessageMapper.selectCount(null);
     }
 
     private Map<String, Object> parseDataSafe(String rawData) {

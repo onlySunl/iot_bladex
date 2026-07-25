@@ -1,17 +1,19 @@
 package org.springblade.modules.iot.controller.admin.sip;
 
 
-import org.springblade.modules.iot.common.entity.CommonResult;
+import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.controller.admin.sip.vo.SipRelation;
 import org.springblade.modules.iot.controller.admin.sip.vo.SipRelationPageReqVO;
-import org.springblade.modules.iot.service.sip.SipRelationService;
+import org.springblade.modules.iot.service.sip.ISipRelationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.annotation.Resource;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
 
 /**
  * 监控设备关联Controller
@@ -22,19 +24,19 @@ import java.util.List;
 @RestController
 @RequestMapping("/eiot/iot/relation")
 @Tag(name = "监控设备关联")
-public class SipRelationController {
+public class SipRelationController extends BladeController {
     @Resource
-    private SipRelationService sipRelationService;
+    private ISipRelationService sipRelationService;
 
     /**
      * 查询监控设备关联列表
      */
     @GetMapping("/list")
     @Operation(summary = "查询监控设备关联列表")
-    public CommonResult<PageResult<SipRelation>> list(SipRelationPageReqVO reqVO) {
+    public R<PageResult<SipRelation>> list(SipRelationPageReqVO reqVO) {
 //      List<SipRelation> list = sipRelationService.selectSipRelationList(sipRelation);
         PageResult<SipRelation> list = sipRelationService.selectSipRelationPage(reqVO);
-        return CommonResult.success(list);
+        return data(list);
     }
 
     /**
@@ -42,13 +44,13 @@ public class SipRelationController {
      */
     @GetMapping(value = "/{id}")
     @Operation(summary = "获取监控设备关联详细信息")
-    public CommonResult<SipRelation> getInfo(@PathVariable("id") Long id) {
-        return CommonResult.success(sipRelationService.selectSipRelationById(id));
+    public R<SipRelation> getInfo(@PathVariable("id") Long id) {
+        return data(sipRelationService.selectSipRelationById(id));
     }
     @GetMapping(value = "/dev/{deviceId}")
     @Operation(summary = "根据设备id获取关联通道详细信息")
-    public CommonResult<List<SipRelation>> getInfoByDeviceId(@PathVariable("deviceId") Long deviceId) {
-        return CommonResult.success(sipRelationService.selectSipRelationByDeviceId(deviceId));
+    public R<List<SipRelation>> getInfoByDeviceId(@PathVariable("deviceId") Long deviceId) {
+        return data(sipRelationService.selectSipRelationByDeviceId(deviceId));
     }
 
     /**
@@ -56,8 +58,8 @@ public class SipRelationController {
      */
     @PostMapping("/addOrUp")
     @Operation(summary = "新增或更新监控设备关联")
-    public CommonResult<Integer> addOrUp(@RequestBody SipRelation sipRelation) {
-        return CommonResult.success(sipRelationService.addOrUpdateSipRelation(sipRelation));
+    public R<Integer> addOrUp(@RequestBody SipRelation sipRelation) {
+        return data(sipRelationService.addOrUpdateSipRelation(sipRelation));
     }
 
     /**
@@ -65,8 +67,8 @@ public class SipRelationController {
      */
     @PutMapping
     @Operation(summary = "修改监控设备关联")
-    public CommonResult<Integer> edit(@RequestBody SipRelation sipRelation) {
-        return CommonResult.success(sipRelationService.updateSipRelation(sipRelation));
+    public R<Integer> edit(@RequestBody SipRelation sipRelation) {
+        return data(sipRelationService.updateSipRelation(sipRelation));
     }
 
     /**
@@ -74,7 +76,7 @@ public class SipRelationController {
      */
     @DeleteMapping("/{ids}")
     @Operation(summary = "删除监控设备关联")
-    public CommonResult<Integer> remove(@PathVariable Long[] ids) {
-        return CommonResult.success(sipRelationService.deleteSipRelationByIds(ids));
+    public R<Integer> remove(@PathVariable Long[] ids) {
+        return data(sipRelationService.deleteSipRelationByIds(ids));
     }
 }

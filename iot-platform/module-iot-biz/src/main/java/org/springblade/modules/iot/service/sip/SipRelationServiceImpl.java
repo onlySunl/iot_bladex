@@ -2,6 +2,7 @@
 
 package org.springblade.modules.iot.service.sip;
 import org.springblade.modules.iot.common.entity.PageResult;
+import org.springblade.modules.iot.common.utils.BeanUtils;
 import org.springblade.modules.iot.controller.admin.sip.vo.SipRelation;
 import org.springblade.modules.iot.controller.admin.sip.vo.SipRelationPageReqVO;
 import org.springblade.modules.iot.convert.SipRelationConvert;
@@ -11,16 +12,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.annotation.Resource;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.modules.iot.entity.SipRelationDO;
+import org.springblade.modules.iot.dal.mysql.sip.SipRelationMapper;
 
 /**
  * 监控设备关联Service业务层处理
 
  */
 @Service
-public class SipRelationServiceImpl implements SipRelationService
+public class SipRelationServiceImpl extends BaseServiceImpl<SipRelationMapper, SipRelationDO> implements ISipRelationService
 {
     @Resource
     private SipRelationMapper sipRelationMapper;
@@ -141,6 +146,6 @@ public class SipRelationServiceImpl implements SipRelationService
 
     @Override
     public PageResult<SipRelation> selectSipRelationPage(SipRelationPageReqVO sipRelation) {
-        return sipRelationMapper.selectPage(sipRelation);
+        return PageResult.from(sipRelationMapper.selectPage(new Page<SipRelation>(sipRelation.getPageNo(), sipRelation.getPageSize()), sipRelation));
     }
 }

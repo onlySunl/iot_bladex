@@ -7,7 +7,9 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.IDevicePropertyData;
@@ -26,15 +28,18 @@ import org.springblade.modules.iot.api.thingmodel.dto.ThingModel;
 import org.springblade.modules.iot.controller.admin.device.vo.*;
 import org.springblade.modules.iot.controller.admin.device.vo.deviceconfig.DeviceConfigVo;
 import org.springblade.modules.iot.controller.admin.device.vo.devicegroup.DeviceAddGroupBo;
+
+import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Map;
 import org.springblade.modules.iot.controller.admin.device.vo.devicegroup.DeviceGroupBo;
 import org.springblade.modules.iot.controller.admin.device.vo.devicegroup.DeviceGroupImportVo;
 import org.springblade.modules.iot.controller.admin.device.vo.devicegroup.GroupImportRespVO;
 import org.springblade.modules.iot.controller.admin.product.vo.PropertyVO;
 import org.springblade.modules.iot.convert.DeviceGroupConvert;
-import org.springblade.modules.iot.dal.mysql.EiotIotDeviceGroupMapper;
-import org.springblade.modules.iot.dal.mysql.EiotIotGroupMapper;
-import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
-import org.springblade.modules.iot.service.product.ThingModelService;
+import org.springblade.modules.iot.dal.mysql.deviceinfo.EiotIotDeviceGroupMapper;
+import org.springblade.modules.iot.dal.mysql.deviceinfo.EiotIotGroupMapper;
+import org.springblade.modules.iot.service.product.IThingModelService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -42,6 +47,9 @@ import org.springframework.stereotype.Service;
 import jakarta.annotation.Resource;
 import jakarta.validation.ConstraintViolationException;
 import java.util.*;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.modules.iot.entity.EiotDeviceInfoDO;
+import org.springblade.modules.iot.dal.mysql.deviceinfo.EiotDeviceInfoMapper;
 
 /**
  * @Author: EnjoyIot
@@ -51,13 +59,13 @@ import java.util.*;
  */
 @Service
 @Slf4j
-public class DeviceManagerServiceImpl implements DeviceManagerService {
+public class DeviceManagerServiceImpl extends BaseServiceImpl<EiotDeviceInfoMapper, EiotDeviceInfoDO> implements IDeviceManagerService {
 
     @Resource
-    private DeviceInfoService deviceInfoService;
+    private IDeviceInfoService deviceInfoService;
 
     @Resource
-    private ThingModelService thingModelService;
+    private IThingModelService thingModelService;
 
     @Lazy
     @Resource
@@ -73,7 +81,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
     private EiotIotDeviceGroupMapper deviceGroupMapper;
 
     @Resource
-    private DeviceConfigService deviceConfigService;
+    private IDeviceConfigService deviceConfigService;
 
     @Resource
     private MqProducer<ThingModelMessage> producer;
@@ -115,7 +123,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 
     @Override
     public PageResult<DeviceGroup> selectGroupPageList(DeviceGroupPageReqVO pageRequest) {
-        return DeviceGroupConvert.INSTANCE.convertPage(iotGroupMapper.selectPage(pageRequest));
+        return DeviceGroupConvert.INSTANCE.convertPage(PageResult.from(iotGroupMapper.selectPage(new Page<GroupDO>(pageRequest.getPageNo(), pageRequest.getPageSize()), pageRequest)));
     }
 
     @Override
@@ -157,9 +165,44 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
         }
 
         //移除设备信息中的分组
-        LambdaQueryWrapper<DeviceGroupDO> eq = new LambdaQueryWrapperX<DeviceGroupDO>()
+        LambdaQueryWrapper<DeviceGroupDO> eq = new LambdaQueryWrapper<DeviceGroupDO>()
                 .eq(DeviceGroupDO::getGroupId, id);
         return deviceGroupMapper.delete(eq) > 0;
+    }
+
+    @Override
+    public PageResult<DeviceShortInfo> selectGroupDevicePageList(DeviceGroupPageReqVO req) {
+        if (req.getGroupId() == null) {
+            return PageResult.empty();
+        }
+        // 查询分组内的设备ID列表
+        LambdaQueryWrapper<DeviceGroupDO> eq = new LambdaQueryWrapper<DeviceGroupDO>()
+                .eq(DeviceGroupDO::getGroupId, req.getGroupId());
+        List<DeviceGroupDO> deviceGroups = deviceGroupMapper.selectList(eq);
+        if (CollUtil.isEmpty(deviceGroups)) {
+            return PageResult.empty();
+        }
+        List<Long> deviceIds = deviceGroups.stream().map(d -> ((DeviceGroupDO) d).getDeviceId()).collect(Collectors.toList());
+        // 分页查询设备信息
+        Page<DeviceShortInfo> page = new Page<>(req.getPageNo().longValue(), req.getPageSize().longValue());
+        Page<DeviceShortInfo> result = deviceInfoService.getDeviceInfoPageByIds(page, deviceIds, req.getDn(), req.getName());
+        return PageResult.from(result);
+    }
+
+    @Override
+    public PageResult<DeviceShortInfo> selectAvailableDevicePageList(DeviceGroupPageReqVO req) {
+        if (req.getGroupId() == null) {
+            return PageResult.empty();
+        }
+        // 查询已在该分组中的设备ID
+        LambdaQueryWrapper<DeviceGroupDO> eq = new LambdaQueryWrapper<DeviceGroupDO>()
+                .eq(DeviceGroupDO::getGroupId, req.getGroupId());
+        List<DeviceGroupDO> deviceGroups = deviceGroupMapper.selectList(eq);
+        List<Long> excludeIds = deviceGroups.stream().map(d -> ((DeviceGroupDO) d).getDeviceId()).collect(Collectors.toList());
+        // 查询不在该分组中的设备
+        Page<DeviceShortInfo> page = new Page<>(req.getPageNo().longValue(), req.getPageSize().longValue());
+        Page<DeviceShortInfo> result = deviceInfoService.getAvailableDevicePageList(page, excludeIds, req.getDn(), req.getName());
+        return PageResult.from(result);
     }
 
     @Override
@@ -201,7 +244,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
             }
 
             //添加设备到组
-            LambdaQueryWrapper<DeviceGroupDO> q = new LambdaQueryWrapperX<DeviceGroupDO>()
+            LambdaQueryWrapper<DeviceGroupDO> q = new LambdaQueryWrapper<DeviceGroupDO>()
                     .eq(DeviceGroupDO::getGroupId, groupId)
                     .eq(DeviceGroupDO::getDeviceId, deviceId);
             Long count = deviceGroupMapper.selectCount(q);
@@ -209,8 +252,10 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
                 return Boolean.TRUE;
             }
 
-            return deviceGroupMapper.insert(
-                    DeviceGroupDO.builder().groupId(groupId).deviceId(deviceId).build()) > 0;
+            DeviceGroupDO dg = new DeviceGroupDO();
+            dg.setGroupId(groupId);
+            dg.setDeviceId(deviceId);
+            return deviceGroupMapper.insert(dg) > 0;
         }
         return true;
     }
@@ -304,6 +349,24 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
     }
 
     private void validateGroupForCreateOrUpdate(Long id, String name, Integer groupOrder) {
+    }
+
+
+    @Override
+    public void fillGroupNames(List<DeviceShortRespVO> devices) {
+        if (CollUtil.isEmpty(devices)) return;
+        List<Long> deviceIds = devices.stream().map(DeviceShortRespVO::getId).collect(Collectors.toList());
+        List<DeviceGroupDO> groups = deviceGroupMapper.selectList(
+                new LambdaQueryWrapper<DeviceGroupDO>().in(DeviceGroupDO::getDeviceId, deviceIds));
+        if (CollUtil.isEmpty(groups)) return;
+        List<Long> groupIds = groups.stream().map(DeviceGroupDO::getGroupId).distinct().collect(Collectors.toList());
+        List<GroupDO> groupDOs = iotGroupMapper.selectBatchIds(groupIds);
+        Map<Long, String> groupNameMap = groupDOs.stream().collect(Collectors.toMap(GroupDO::getId, GroupDO::getName, (a, b) -> a));
+        Map<Long, String> deviceGroupNames = groups.stream().collect(Collectors.groupingBy(
+                DeviceGroupDO::getDeviceId,
+                Collectors.mapping(dg -> groupNameMap.getOrDefault(dg.getGroupId(), ""), Collectors.joining(","))
+        ));
+        devices.forEach(d -> d.setGroupNames(deviceGroupNames.getOrDefault(d.getId(), "")));
     }
 
 

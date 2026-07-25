@@ -1,33 +1,21 @@
-
-
 package org.springblade.modules.iot.dal.mysql.virtualdevice;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
-import org.springblade.modules.iot.entity.VirtualDeviceMappingDO;
 import org.apache.ibatis.annotations.Mapper;
-import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
+import org.apache.ibatis.annotations.Param;
+import org.springblade.core.mp.mapper.BladeMapper;
+import org.springblade.modules.iot.entity.VirtualDeviceMappingDO;
 
 import java.util.List;
 
 /**
- * 规则引擎 Mapper
+ * 虚拟设备映射 Mapper
  *
  * @author EnjoyIot
  */
 @Mapper
-public interface EiotVirtualDeviceMappingMapper extends BaseMapperX<VirtualDeviceMappingDO> {
+public interface EiotVirtualDeviceMappingMapper extends BladeMapper<VirtualDeviceMappingDO> {
 
+    List<VirtualDeviceMappingDO> findByVirtualDeviceId(@Param("virtualDeviceId") Long virtualDeviceId);
 
-    default List<VirtualDeviceMappingDO> findByVirtualDeviceId(Long virtualDeviceId) {
-        return selectList(new LambdaQueryWrapperX<VirtualDeviceMappingDO>()
-                .eqIfPresent(VirtualDeviceMappingDO::getVirtualDeviceId, virtualDeviceId));
-    }
-
-    default int deleteByVirtualDeviceId(Long virtualDeviceId) {
-        LambdaQueryWrapper<VirtualDeviceMappingDO> queryWrapperX = new LambdaQueryWrapperX<VirtualDeviceMappingDO>()
-                .eq(VirtualDeviceMappingDO::getVirtualDeviceId, virtualDeviceId);
-        return delete(queryWrapperX);
-    }
-
+    int deleteByVirtualDeviceId(@Param("virtualDeviceId") Long virtualDeviceId);
 }

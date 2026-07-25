@@ -1,28 +1,20 @@
-
-
 package org.springblade.modules.iot.dal.mysql.ruleinfo;
 
-import org.springblade.modules.iot.common.entity.PageResult;
-import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
-import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
-import org.springblade.modules.iot.api.rule.dto.RuleInfoPageReqVO;
-import org.springblade.modules.iot.entity.EiotRuleInfoDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springblade.core.mp.mapper.BladeMapper;
+import org.springblade.modules.iot.entity.EiotRuleInfoDO;
+import org.springblade.modules.iot.api.rule.dto.RuleInfoPageReqVO;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 /**
- * 规则引擎 Mapper
+ * 规则信息 Mapper
  *
  * @author EnjoyIot
  */
 @Mapper
-public interface EiotRuleInfoMapper extends BaseMapperX<EiotRuleInfoDO> {
+public interface EiotRuleInfoMapper extends BladeMapper<EiotRuleInfoDO> {
 
-    default PageResult<EiotRuleInfoDO> selectPage(RuleInfoPageReqVO reqVO) {
-        return selectPage(reqVO, new LambdaQueryWrapperX<EiotRuleInfoDO>()
-                .eqIfPresent(EiotRuleInfoDO::getTyp, reqVO.getTyp())
-                .eqIfPresent(EiotRuleInfoDO::getState, reqVO.getState())
-                .eqIfPresent(EiotRuleInfoDO::getDeptId, reqVO.getDeptId())
-                .orderByDesc(EiotRuleInfoDO::getId));
-    }
+    IPage<EiotRuleInfoDO> selectPage(IPage<EiotRuleInfoDO> page, @Param("reqVO") RuleInfoPageReqVO reqVO);
 
 }

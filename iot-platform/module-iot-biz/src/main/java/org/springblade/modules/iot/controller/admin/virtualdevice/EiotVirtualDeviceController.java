@@ -8,43 +8,44 @@ import lombok.extern.slf4j.Slf4j;
 import org.springblade.modules.iot.api.IdReqVo;
 import org.springblade.modules.iot.api.virtualdevice.dto.VirtualDevice;
 import org.springblade.modules.iot.api.virtualdevice.dto.VirtualDeviceLog;
-import org.springblade.modules.iot.common.entity.CommonResult;
+import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.common.entity.PageResult;
 import org.springblade.modules.iot.common.utils.BeanUtils;
 import org.springblade.modules.iot.controller.admin.virtualdevice.vo.*;
-import org.springblade.modules.iot.service.virtualdevice.VirtualDeviceService;
+import org.springblade.modules.iot.service.virtualdevice.IVirtualDeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springblade.core.boot.ctrl.BladeController;
 
-import static org.springblade.modules.iot.common.entity.CommonResult.success;
+
 
 @Slf4j
 @Tag(name = "管理后台 - 虚拟设备")
 @Validated
 @RestController
 @RequestMapping("/eiot/virtual_device")
-public class EiotVirtualDeviceController {
+public class EiotVirtualDeviceController extends BladeController {
 
     @Autowired
-    private VirtualDeviceService virtualDeviceService;
+    private IVirtualDeviceService virtualDeviceService;
 
 
     @PostMapping("/list")
     @Operation(summary = "获得规则引擎分页")
-    public CommonResult<PageResult<VirtualDevice>> selectPage(@Valid @RequestBody VirtualDevicePageReqVO reqVO) {
+    public R<PageResult<VirtualDevice>> selectPage(@Valid @RequestBody VirtualDevicePageReqVO reqVO) {
         PageResult<VirtualDevice> pageResult = virtualDeviceService.selectPage(reqVO);
-        return success(BeanUtils.toBean(pageResult, VirtualDevice.class));
+        return data(BeanUtils.toBean(pageResult, VirtualDevice.class));
     }
 
     @GetMapping("/getDetail")
     @Operation(summary = "获取虚拟设备")
     @Parameter(name = "id", description = "虚拟设备设备id", required = true, example = "1024")
-    public CommonResult<VirtualDevice> getVirtualDevice(@RequestParam("id") Long id) {
+    public R<VirtualDevice> getVirtualDevice(@RequestParam("id") Long id) {
         VirtualDevice virtualDevice = virtualDeviceService.getVirtualDevice(id);
-        return success(virtualDevice);
+        return data(virtualDevice);
     }
 
     /**
@@ -52,8 +53,8 @@ public class EiotVirtualDeviceController {
      */
     @PostMapping("/add")
     @Operation(summary = "添加虚拟设备")
-    public CommonResult<Long> addVirtualDevice(@Valid @RequestBody EiotVirtualDeviceSaveReqVO virtualDevice) {
-        return success(virtualDeviceService.saveVirtualDevice(virtualDevice));
+    public R<Long> addVirtualDevice(@Valid @RequestBody EiotVirtualDeviceSaveReqVO virtualDevice) {
+        return data(virtualDeviceService.saveVirtualDevice(virtualDevice));
     }
 
     /**
@@ -61,9 +62,9 @@ public class EiotVirtualDeviceController {
      */
     @Operation(summary = "更新虚拟设备")
     @PostMapping("/update")
-    public CommonResult<Boolean> updateVirtualDevice(@RequestBody VirtualDevice virtualDevice) {
+    public R<Boolean> updateVirtualDevice(@RequestBody VirtualDevice virtualDevice) {
         virtualDeviceService.updateVirtualDevice(virtualDevice);
-        return CommonResult.success(true);
+        return data(true);
     }
 
     /**
@@ -71,9 +72,9 @@ public class EiotVirtualDeviceController {
      */
     @Operation(summary = "保存虚拟设备映射")
     @PostMapping("/saveDevices")
-    public CommonResult<Boolean> saveDevices(@RequestBody EiotVirtualSaveDevicesMappingVo virtualDevice) {
+    public R<Boolean> saveDevices(@RequestBody EiotVirtualSaveDevicesMappingVo virtualDevice) {
         virtualDeviceService.saveVirtualDeviceMapping(virtualDevice);
-        return CommonResult.success(true);
+        return data(true);
     }
 
     /**
@@ -82,9 +83,9 @@ public class EiotVirtualDeviceController {
     @PostMapping("/batchDelete")
     @Operation(summary = "删除虚拟设备")
     @Parameter(name = "id", description = "设备id", required = true)
-    public CommonResult<Boolean> batchDeleteVirtualDevice(@RequestBody List<Long> ids) {
+    public R<Boolean> batchDeleteVirtualDevice(@RequestBody List<Long> ids) {
         ids.forEach(this::deleteVirtualDevice);
-        return success(true);
+        return data(true);
     }
 
 
@@ -94,38 +95,38 @@ public class EiotVirtualDeviceController {
     @PostMapping("/delete")
     @Operation(summary = "删除虚拟设备")
     @Parameter(name = "id", description = "设备id", required = true)
-    public CommonResult<Boolean> deleteVirtualDevice(@RequestBody Long id) {
+    public R<Boolean> deleteVirtualDevice(@RequestBody Long id) {
         virtualDeviceService.deleteVirtualDevice(id);
-        return success(true);
+        return data(true);
     }
 
     @PostMapping("/run")
     @Operation(summary = "手动执行虚拟设备")
     @Parameter(name = "id", description = "虚拟设备设备id", required = true, example = "1024")
-    public CommonResult<Boolean> run(@RequestBody IdReqVo reqVo) {
+    public R<Boolean> run(@RequestBody IdReqVo reqVo) {
         virtualDeviceService.run(reqVo.getId());
-        return success(true);
+        return data(true);
     }
 
 
     @PostMapping("/setState")
     @Operation(summary = "设置虚拟设备状态")
     @Parameter(name = "id", description = "虚拟设备设备id", required = true, example = "1024")
-    public CommonResult<Boolean> setState(@Valid @RequestBody EiotVirtualDeviceSetStateReqVO reqest) {
+    public R<Boolean> setState(@Valid @RequestBody EiotVirtualDeviceSetStateReqVO reqest) {
         if (!VirtualDevice.STATE_RUNNING.equals(reqest.getState())
                 && !VirtualDevice.STATE_STOPPED.equals(reqest.getState())) {
             throw new RuntimeException("state is illegal");
         }
         virtualDeviceService.setState(reqest.getId(), reqest.getState());
-        return success(true);
+        return data(true);
     }
 
     @PostMapping("/saveScript")
     @Operation(summary = "保存运行脚本")
     @Parameter(name = "id", description = "保存运行脚本", required = true, example = "1024")
-    public CommonResult<Boolean> getVirtualDevice(@Valid @RequestBody EiotVirtualSaveScriptVo saveScriptVo) {
+    public R<Boolean> getVirtualDevice(@Valid @RequestBody EiotVirtualSaveScriptVo saveScriptVo) {
         virtualDeviceService.saveScript(saveScriptVo);
-        return success(true);
+        return data(true);
     }
 
 
@@ -135,8 +136,8 @@ public class EiotVirtualDeviceController {
     @PostMapping("/logs/list")
     @Operation(summary = "取虚拟设备执行日志")
     @Parameter(name = "id", description = "取虚拟设备执行日志", required = true, example = "1024")
-    public CommonResult<PageResult<VirtualDeviceLog>> getLogs(@Validated @RequestBody VirtualDeviceLogPageReqVO data) {
+    public R<PageResult<VirtualDeviceLog>> getLogs(@Validated @RequestBody VirtualDeviceLogPageReqVO data) {
         PageResult<VirtualDeviceLog> pageResult = virtualDeviceService.findByVirtualDeviceId(data.getVirtualDeviceId(), data.getPageNo(), data.getPageSize());
-        return CommonResult.success(pageResult);
+        return data(pageResult);
     }
 }

@@ -20,10 +20,14 @@ spring:
 #    username: platform
 #    password: iPa682iDaJ5scRWb
   datasource:
-    url: jdbc:mysql://bj-cdb-hhsh52zq.sql.tencentcdb.com:25187/blade_iot?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
-    username: root
-    #password: Root@123456
-    password: lim161128$&@
+    dynamic:
+      primary: blade_iot
+      datasource:
+        blade_iot:
+          url: jdbc:mysql://bj-cdb-hhsh52zq.sql.tencentcdb.com:25187/blade_iot?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
+          username: root
+          #password: Root@123456
+          password: lim161128$&@
 
 #第三方登陆
 social:
@@ -36,7 +40,7 @@ blade:
     # 超级令牌（Feign 内部调用使用），需与 blade-auth 模块的 secure-key 一致
     super-token: 22a980123b63b5581e1ad0f1c5852e56cefcdeedd466737ba77996ddf2ba67c538439dd7e45115d1952ac8148a633a80
   mybatis-plus:
-    sqlLog: false
+    sqlLog: true
   #分布式锁配置
   lock:
     ##是否启用分布式锁

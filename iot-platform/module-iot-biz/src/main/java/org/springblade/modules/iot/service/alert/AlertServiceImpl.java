@@ -8,19 +8,22 @@ import org.springblade.modules.iot.api.alert.dto.Message;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.modules.iot.entity.AlertConfigDO;
+import org.springblade.modules.iot.dal.mysql.alertconfig.AlertConfigMapper;
 
 /**
  * 报警 Service 实现类
  */
 @Slf4j
 @Service
-public class AlertServiceImpl implements AlertService {
+public class AlertServiceImpl extends BaseServiceImpl<AlertConfigMapper, AlertConfigDO> implements IAlertService {
 
     @Resource
     private AlertApi alertApi;
 
     @Resource
-    private AlertConfigService alertConfigService;
+    private IAlertConfigService alertConfigService;
 
     @Override
     public void triggerAlert(AlertConfig config, String content) {

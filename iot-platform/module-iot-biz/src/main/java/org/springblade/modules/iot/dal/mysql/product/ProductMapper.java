@@ -1,13 +1,11 @@
-
-
 package org.springblade.modules.iot.dal.mysql.product;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.apache.ibatis.annotations.Mapper;
-import org.springblade.modules.iot.common.entity.PageResult;
+import org.apache.ibatis.annotations.Param;
+import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.controller.admin.product.vo.ProductPageReqVO;
 import org.springblade.modules.iot.entity.ProductDO;
-import org.springblade.modules.iot.mybatis.core.mapper.BaseMapperX;
-import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
 
 /**
  * 物联网产品 Mapper
@@ -15,27 +13,11 @@ import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
  * @author EnjoyIot
  */
 @Mapper
-public interface ProductMapper extends BaseMapperX<ProductDO> {
+public interface ProductMapper extends BladeMapper<ProductDO> {
 
-    default PageResult<ProductDO> selectPage(ProductPageReqVO reqVO) {
-        return selectPage(reqVO, new LambdaQueryWrapperX<ProductDO>()
-                .likeIfPresent(ProductDO::getName, reqVO.getName())
-                .eqIfPresent(ProductDO::getCategoryId, reqVO.getCategoryId())
-                .eqIfPresent(ProductDO::getProductKey, reqVO.getProductKey())
-                .eqIfPresent(ProductDO::getMcuCode, reqVO.getMcuCode())
-                .eqIfPresent(ProductDO::getStatus, reqVO.getStatus())
-                //.betweenIfPresent(ProductDO::getCreateTime, reqVO.getCreateTime())
-                .eqIfPresent(ProductDO::getNodeType, reqVO.getNodeType())
-                .eqIfPresent(ProductDO::getProtocolCode, reqVO.getProtocolCode())
-                .eqIfPresent(ProductDO::getTransparent, reqVO.getTransparent())
-                .orderByDesc(ProductDO::getId));
-    }
+    IPage<ProductDO> selectPage(IPage<ProductDO> page, @Param("reqVO") ProductPageReqVO reqVO);
 
-    default ProductDO getByProductKey(String productKey){
-        return selectOne(ProductDO::getProductKey, productKey);
-    }
+    ProductDO getByProductKey(@Param("productKey") String productKey);
 
-    default Long selectCountByCategoryId(Long categoryId){
-        return selectCount(ProductDO::getCategoryId, categoryId);
-    };
+    Long selectCountByCategoryId(@Param("categoryId") Long categoryId);
 }

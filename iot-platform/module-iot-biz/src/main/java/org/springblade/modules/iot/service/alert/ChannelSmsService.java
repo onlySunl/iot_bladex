@@ -14,8 +14,7 @@ import org.springblade.modules.iot.controller.admin.channeltemplate.vo.ChannelTe
 import org.springblade.modules.iot.entity.ChannelConfigDO;
 import org.springblade.modules.iot.entity.ChannelTemplateDO;
 import org.springblade.modules.iot.dal.mysql.channelconfig.ChannelConfigMapper;
-import org.springblade.modules.iot.dal.mysql.channeltemplate.ChannelTemplateMapper;
-import org.springblade.modules.iot.mybatis.core.query.LambdaQueryWrapperX;
+import org.springblade.modules.iot.dal.mysql.channelconfig.ChannelTemplateMapper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +42,7 @@ public class ChannelSmsService {
     private ChannelConfigMapper channelConfigMapper;
 
     @Resource
-    private ChannelConfigService channelConfigService;
+    private IChannelConfigService channelConfigService;
 
     /**
      * 创建短信模板
@@ -113,7 +112,7 @@ public class ChannelSmsService {
 
         try {
             // 查询所有SMS类型的通道配置
-            LambdaQueryWrapper<ChannelConfigDO> channelConfigQuery = new LambdaQueryWrapperX<ChannelConfigDO>()
+            LambdaQueryWrapper<ChannelConfigDO> channelConfigQuery = new LambdaQueryWrapper<ChannelConfigDO>()
                     .eq(ChannelConfigDO::getCode, SMS_CONFIG_CODE);
             List<ChannelConfigDO> smsChannelConfigs = channelConfigMapper.selectList(channelConfigQuery);
 
@@ -132,7 +131,7 @@ public class ChannelSmsService {
                     .collect(Collectors.toList());
 
             // 查询所有待审核且属于SMS通道的短信模板
-            LambdaQueryWrapper<ChannelTemplateDO> templateQuery = new LambdaQueryWrapperX<ChannelTemplateDO>()
+            LambdaQueryWrapper<ChannelTemplateDO> templateQuery = new LambdaQueryWrapper<ChannelTemplateDO>()
                     .eq(ChannelTemplateDO::getStatus, 0) // 0-待审核状态
                     .in(ChannelTemplateDO::getChannelConfigId, channelConfigIds);
 
