@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.device.service.group.impl;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import java.util.Collection;
 import java.util.List;
@@ -37,13 +38,13 @@ public class DeviceGroupServiceImpl extends BaseServiceImpl<DeviceGroupMapper, D
 
     @Override
     public List<DeviceGroupResultVO> findTree(DeviceGroupPageQuery query) {
-        List<DeviceGroup> list = superManager.list(Wrappers.<DeviceGroup>lbQ().orderByAsc(DeviceGroup::getSortValue));
+        List<DeviceGroup> list = baseMapper.list(new LambdaQueryWrapper<DeviceGroup>().orderByAsc(DeviceGroup::getSortValue));
         return BeanUtil.toBeanList(TreeUtil.buildTree(list), DeviceGroupResultVO.class);
     }
 
     @Override
     public List<DeviceGroupResultVO> getDeviceGroupResultVOList(DeviceGroupPageQuery query) {
-        List<DeviceGroup> list = superManager.getList(query);
+        List<DeviceGroup> list = baseMapper.getList(query);
         return BeanUtil.toBeanList(list, DeviceGroupResultVO.class);
     }
 

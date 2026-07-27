@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.service.alarm.impl;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
@@ -194,7 +195,7 @@ public class RuleAlarmServiceImpl extends BladeServiceImpl<RuleAlarmManager, Rul
             throw new ServiceException("Alarm identification is required.");
         }
 
-        RuleAlarm ruleAlarm = baseMapper.getOne(Wrappers.<RuleAlarm>lbQ().eq(RuleAlarm::getAlarmIdentification, alarmIdentification));
+        RuleAlarm ruleAlarm = baseMapper.getOne(new LambdaQueryWrapper<RuleAlarm>().eq(RuleAlarm::getAlarmIdentification, alarmIdentification));
 
         if (Objects.isNull(ruleAlarm)) {
             throw new ServiceException("Specified alarm rule does not exist.");

@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.device.service.impl;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import java.security.cert.X509Certificate;
 import org.springblade.core.log.exception.ServiceException;
@@ -432,13 +433,13 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
 
     @Override
     public IPage<DeviceResultVO> getPage(Query params) {
-        IPage<Device> page = superManager.getPage(params);
+        IPage<Device> page = baseMapper.getPage(params);
         return BeanUtil.toBeanPage(page, DeviceResultVO.class);
     }
 
     @Override
     public Long findDeviceTotal() {
-        return superManager.findDeviceTotal();
+        return baseMapper.findDeviceTotal();
     }
 
     @Override
@@ -853,7 +854,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
             log.info("saveDevice deviceLocationSaveVO:{}", deviceLocationSaveVO);
         }
         //保存设备档案
-        superManager.save(device);
+        baseMapper.save(device);
 
         // 发布设备信息更新事件
         deviceEventPublisher.publishDeviceInfoUpdatedEvent(DeviceInfoUpdatedEventSource.builder()
@@ -884,7 +885,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         fillBoundProductVersionIfBlank(device, productResultVO);
 
         //保存设备档案
-        superManager.save(device);
+        baseMapper.save(device);
         // 发布设备信息更新事件
         deviceEventPublisher.publishDeviceInfoUpdatedEvent(DeviceInfoUpdatedEventSource.builder()
                 .deviceIdentificationList(Collections.singletonList(device.getDeviceIdentification()))
@@ -907,7 +908,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         checkedDeviceUpdateVO(updateVO);
 
         // 从数据库查询设备信息，确保设备存在
-        Device existingDevice = superManager.getById(updateVO.getId());
+        Device existingDevice = baseMapper.getById(updateVO.getId());
         if (existingDevice == null) {
             throw new ServiceException("Device not found for ID:{}", updateVO.getId());
         }
@@ -919,7 +920,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         updateOrInsertDeviceLocation(updateVO, existingDevice);
 
         //更新
-        superManager.updateById(device);
+        baseMapper.updateById(device);
 
         // 发布设备信息更新事件
         deviceEventPublisher.publishDeviceInfoUpdatedEvent(DeviceInfoUpdatedEventSource.builder()
@@ -979,7 +980,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     public Boolean updateDeviceStatus(Long id, Integer status) {
         ArgumentAssert.notNull(id, "id Cannot be null");
         ArgumentAssert.notNull(status, "status Cannot be null");
-        Device device = superManager.findOneById(id);
+        Device device = baseMapper.findOneById(id);
         if (Objects.isNull(device)) {
             throw new ServiceException("The device does not exist");
         }
@@ -991,7 +992,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         updateWrapper.lambda()
                 .eq(Device::getId, device.getId())
                 .set(Device::getDeviceStatus, status);
-        return superManager.update(updateWrapper);
+        return baseMapper.update(updateWrapper);
     }
 
     /**
@@ -1004,9 +1005,9 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     @Override
     public Boolean deleteDevice(Long id) {
         ArgumentAssert.notNull(id, "id Cannot be null");
-        Device device = Optional.ofNullable(superManager.findOneById(id))
+        Device device = Optional.ofNullable(baseMapper.findOneById(id))
                 .orElseThrow(() -> new ServiceException("The device does not exist"));
-        Boolean removed = superManager.removeById(id);
+        Boolean removed = baseMapper.removeById(id);
         if (removed) {
             // 发布设备删除事件触发下游清理(分组关系等同步监听器同事务执行);设备缓存由监听器 AFTER_COMMIT 失效。
             deviceEventPublisher.publishDeviceDeletedEvent(DeviceDeletedEventSource.builder()
@@ -1034,7 +1035,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     @Override
     public DeviceResultVO findOneByClientId(String clientId) {
         ArgumentAssert.notBlank(clientId, "clientId Cannot be null");
-        Device device = superManager.findOneByClientId(clientId);
+        Device device = baseMapper.findOneByClientId(clientId);
         return BeanUtil.copyProperties(device, DeviceResultVO.class);
     }
 
@@ -1047,7 +1048,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     @Override
     public DeviceDetailsResultVO findOneByDeviceIdentification(String deviceIdentification) {
         ArgumentAssert.notBlank(deviceIdentification, "deviceIdentification Cannot be null");
-        Device device = superManager.findOneByDeviceIdentification(deviceIdentification);
+        Device device = baseMapper.findOneByDeviceIdentification(deviceIdentification);
         if (device == null) {
             throw new ServiceException("Device not exist");
         }
@@ -1081,7 +1082,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     @Override
     public DeviceResultVO findByDeviceIdentification(String deviceIdentification) {
         ArgumentAssert.notBlank(deviceIdentification, "deviceIdentification Cannot be null");
-        Device device = superManager.findOneByDeviceIdentification(deviceIdentification);
+        Device device = baseMapper.findOneByDeviceIdentification(deviceIdentification);
         if (Objects.isNull(device)) {
             throw new ServiceException("Device not exist");
         }
@@ -1103,7 +1104,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         updateDeviceConnectionStatus(id, connectStatusEnumOptional.get());
 
         // 查询最新设备信息
-        Device device = superManager.findOneById(id);
+        Device device = baseMapper.findOneById(id);
         if (Objects.isNull(device)) {
             throw new ServiceException("The device does not exist");
         }
@@ -1137,7 +1138,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                 .lt(Device::getLastStatusEventHlc, eventHlc)
                 .set(Device::getConnectStatus, status)
                 .set(Device::getLastStatusEventHlc, eventHlc);
-        boolean affected = superManager.update(wrapper);
+        boolean affected = baseMapper.update(wrapper);
         if (!affected) {
             // CAS 拒绝 ── 老事件迟到,DB 已有更新 hlc;info 级别便于运维核查抖动 / 乱序场景
             log.info("[Device.updateByEvent] CAS rejected (stale event) clientId={} hlc={} status={}",
@@ -1150,7 +1151,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
 
         // 网关设备 OFFLINE → 子设备联动 OFFLINE(与原 updateDeviceConnectionStatusById 行为一致)
         if (DeviceConnectStatusEnum.OFFLINE.getValue().equals(status)) {
-            Device device = superManager.lambdaQuery()
+            Device device = baseMapper.lambdaQuery()
                     .eq(Device::getClientId, clientId)
                     .one();
             if (device != null) {
@@ -1176,7 +1177,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                 .eq(Device::getId, deviceId)
                 .set(Device::getConnectStatus, connectStatusEnum.getValue());
 
-        superManager.update(updateWrapper);
+        baseMapper.update(updateWrapper);
     }
 
     /**
@@ -1195,7 +1196,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                 .eq(Device::getDeviceStatus, DeviceStatusEnum.ACTIVATED.getValue())
                 .set(Device::getConnectStatus, connectStatus);
 
-        superManager.update(updateSubDeviceWrapper);
+        baseMapper.update(updateSubDeviceWrapper);
     }
 
     /**
@@ -1206,7 +1207,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
      */
     @Override
     public List<DeviceResultVO> getDeviceResultVOList(DevicePageQuery query) {
-        List<Device> deviceList = superManager.getDevicList(query);
+        List<Device> deviceList = baseMapper.getDevicList(query);
         return BeanUtil.toBeanList(deviceList, DeviceResultVO.class);
     }
 
@@ -1219,7 +1220,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     @Override
     public List<DeviceDetailsResultVO> getDeviceDetailsResultVOList(DevicePageQuery query) {
         // 获取设备列表
-        List<Device> deviceList = superManager.getDevicList(query);
+        List<Device> deviceList = baseMapper.getDevicList(query);
 
         List<DeviceDetailsResultVO> deviceResultVOS = Optional.ofNullable(deviceList)
                 .filter(CollUtil::isNotEmpty)
@@ -1255,7 +1256,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         Query params = new Query<>();
         params.setModel(new DevicePageQuery());
         DeviceOverviewResultVO resultVO = BeanUtil.toBeanIgnoreError(
-                superManager.selectDeviceOverview(params), DeviceOverviewResultVO.class);
+                baseMapper.selectDeviceOverview(params), DeviceOverviewResultVO.class);
         // 增长指标:今日 / 近7天 / 近30天 新增设备数(按 created_time,3 次轻量 count)
         LocalDateTime todayStart = LocalDateTime.now().toLocalDate().atStartOfDay();
         resultVO.setTodayNewCount(countCreatedSince(todayStart));
@@ -1268,7 +1269,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
      * 统计 created_time &gt;= since 的设备数量(逻辑删除由 MyBatis-Plus 自动过滤)。
      */
     private Integer countCreatedSince(LocalDateTime since) {
-        return Math.toIntExact(superManager.count(
+        return Math.toIntExact(baseMapper.count(
                 Wrappers.<Device>lambdaQuery().ge(Device::getCreatedTime, since)));
     }
 
@@ -1280,7 +1281,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                     .fwVersionList(Collections.emptyList())
                     .build();
         }
-        return superManager.selectDeviceVersionsByProduct(productIdentification)
+        return baseMapper.selectDeviceVersionsByProduct(productIdentification)
                 .map(deviceVersionDTO -> {
                     List<String> swVersionList = StrUtil.isNotBlank(deviceVersionDTO.getSwVersions())
                             ? Arrays.asList(deviceVersionDTO.getSwVersions().split(StrUtil.COMMA))
@@ -1374,7 +1375,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
             throw new ServiceException("Device ID cannot be null");
         }
 
-        Device device = superManager.findOneById(id);
+        Device device = baseMapper.findOneById(id);
         if (Objects.isNull(device)) {
             throw new ServiceException("The device does not exist");
         }
@@ -1409,7 +1410,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     @Override
     public IPage<DeviceDetailsResultVO> getDeviceDetailsPage(Query params) {
         // 获取设备分页信息
-        IPage<Device> deviceIPage = superManager.getDeviceDetailsPage(params);
+        IPage<Device> deviceIPage = baseMapper.getDeviceDetailsPage(params);
 
         // 将 Device 转换为 DeviceDetailsResultVO 列表（防空处理）
         List<DeviceDetailsResultVO> deviceDetailsResultVOS = Optional.ofNullable(deviceIPage.getRecords())
@@ -1466,7 +1467,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
 
         Query params = new Query<>();
         params.setModel(new DeviceDetailsPageQuery().setProductIdentification(productIdentification));
-        IPage<Device> deviceIPage = superManager.getDeviceDetailsPage(params);
+        IPage<Device> deviceIPage = baseMapper.getDeviceDetailsPage(params);
         return deviceIPage != null && !deviceIPage.getRecords().isEmpty();
     }
 
@@ -1501,7 +1502,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                 .map(ids -> {
                     DevicePageQuery query = new DevicePageQuery();
                     query.setDeviceIdentificationList(ids);
-                    List<Device> devices = superManager.getDevicList(query);
+                    List<Device> devices = baseMapper.getDevicList(query);
                     return Optional.ofNullable(devices).orElseGet(Collections::emptyList);
                 })
                 .map(devices -> devices.stream()
@@ -1680,7 +1681,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                 .map(ids -> {
                     DevicePageQuery query = new DevicePageQuery();
                     query.setDeviceIdentificationList(ids);
-                    List<Device> devices = superManager.getDevicList(query);
+                    List<Device> devices = baseMapper.getDevicList(query);
                     return Optional.ofNullable(devices).orElseGet(Collections::emptyList);
                 })
                 .map(devices -> devices.stream()
@@ -1697,7 +1698,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                     Optional.ofNullable(deviceMap.get(deviceId))
                             .ifPresentOrElse(
                                     subDevice -> {
-                                        boolean deleteFlag = superManager.removeById(subDevice);
+                                        boolean deleteFlag = baseMapper.removeById(subDevice);
                                         if (deleteFlag) {
                                             // 子设备 MQTT 拓扑删除路径：与 deleteDevice(Long) 共用事件，
                                             // 由各下游同步监听器在同一事务清理残留引用。
@@ -1744,7 +1745,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
 
     /** 处理单个子设备的状态:更新并记录动作。 */
     private TopoDeviceOperationResultVO.OperationRsp processSubDeviceStatus(TopoUpdateSubDeviceStatusParam.DeviceStatus subDeviceStatus) {
-        Device subDevice = superManager.findOneByDeviceIdentification(subDeviceStatus.getDeviceId());
+        Device subDevice = baseMapper.findOneByDeviceIdentification(subDeviceStatus.getDeviceId());
         TopoDeviceOperationResultVO.OperationRsp dataItem = new TopoDeviceOperationResultVO.OperationRsp()
                 .setDeviceId(subDeviceStatus.getDeviceId());
 
@@ -1755,7 +1756,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                     .eq(Device::getId, subDevice.getId())
                     .set(Device::getConnectStatus, subDeviceStatus.getStatus().getValue())
                     .set(Device::getLastHeartbeatTime, LocalDateTime.now());
-            boolean updateFlag = superManager.update(updateWrapper);
+            boolean updateFlag = baseMapper.update(updateWrapper);
             recordDeviceAction(subDevice, subDeviceStatus.getStatus());
 
             MqttProtocolTopoStatusEnum updateStatusEnum = updateFlag ? MqttProtocolTopoStatusEnum.SUCCESS : MqttProtocolTopoStatusEnum.FAILURE;
@@ -1816,7 +1817,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     /** 添加网关子设备 */
     private TopoAddDeviceResultVO saveSubDevice(TopoAddSubDeviceParam topoAddSubDeviceParam) {
         // 根据网关ID查找设备
-        Device gatewayDevice = superManager.findOneByDeviceIdentification(topoAddSubDeviceParam.getGatewayIdentification());
+        Device gatewayDevice = baseMapper.findOneByDeviceIdentification(topoAddSubDeviceParam.getGatewayIdentification());
 
         // 假设 gatewayDevice.getType() 方法返回设备类型，且 DeviceType.GATEWAY 代表网关设备类型
         MqttProtocolTopoStatusEnum statusEnum = (gatewayDevice != null && DeviceNodeTypeEnum.GATEWAY.getValue().equals(gatewayDevice.getNodeType()))
@@ -1852,7 +1853,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
 
                     // 转换并保存子设备信息
                     Device subDeviceDO = conversionDeviceBySaveSubDevice(gatewayDevice, item);
-                    boolean saveFlag = superManager.save(subDeviceDO);
+                    boolean saveFlag = baseMapper.save(subDeviceDO);
 
                     // 存储子设备经纬度信息
                     DeviceLocationPageQuery deviceLocationPageQuery = new DeviceLocationPageQuery();
@@ -1905,7 +1906,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     private void checkedTopoAddDeviceParam(TopoAddSubDeviceParam.DeviceInfos item,
                                            TopoAddDeviceResultVO.DataItem dataItem) {
         // 根据设备标识查找子设备
-        Device subDevice = superManager.findOneByDeviceIdentification(item.getNodeId());
+        Device subDevice = baseMapper.findOneByDeviceIdentification(item.getNodeId());
         // 用于拼接错误消息的StringBuilder
         StringBuilder errorMessage = new StringBuilder();
 
@@ -2125,7 +2126,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     @Override
     public Boolean reportDeviceHeartbeat(String clientIdentifier, Long heartbeatTime, Long eventHlc) {
         //根据客户端标识符查询设备缓存信息
-        Device device = superManager.findOneByClientId(clientIdentifier);
+        Device device = baseMapper.findOneByClientId(clientIdentifier);
         if (Objects.isNull(device)) {
             throw new ServiceException("客户端标识:{} 设备档案信息不存在", clientIdentifier);
         }
@@ -2137,7 +2138,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                     ? DateUtil.date(heartbeatTime).toLocalDateTime()
                     : LocalDateTime.now();
             updateDO.setLastHeartbeatTime(heartbeatDateTime);
-            superManager.updateById(updateDO);
+            baseMapper.updateById(updateDO);
             // 2. 在线状态:走 eventHlc HLC CAS 单调写置 ONLINE(替代原直写,防迟到/乱序事件把已离线翻回在线);
             //    eventHlc 缺失/非法则不动状态,交由其它带 hlc 的生命周期事件维护(CONNECT/DISCONNECT 等)。
             //    类级 @DS/@Transactional 覆盖,内部 this 调用同数据源、同事务。
@@ -2153,20 +2154,20 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
 
     @Override
     public Long countByCertSerialNumber(String certSerialNumber) {
-        return superManager.count(Wrappers.<Device>lbQ()
+        return baseMapper.count(new LambdaQueryWrapper<Device>()
                 .eq(Device::getCertSerialNumber, certSerialNumber));
     }
 
     @Override
     public Long countOnlineByCertSerialNumber(String certSerialNumber) {
-        return superManager.count(Wrappers.<Device>lbQ()
+        return baseMapper.count(new LambdaQueryWrapper<Device>()
                 .eq(Device::getCertSerialNumber, certSerialNumber)
                 .eq(Device::getConnectStatus, DeviceConnectStatusEnum.ONLINE.getValue()));
     }
 
     @Override
     public List<Device> listTopBoundDevicesByCertSerialNumber(String certSerialNumber, int limit) {
-        return superManager.list(Wrappers.<Device>lbQ()
+        return baseMapper.list(new LambdaQueryWrapper<Device>()
                 .eq(Device::getCertSerialNumber, certSerialNumber)
                 .orderByDesc(Device::getLastHeartbeatTime)
                 .last("LIMIT " + limit));
@@ -2182,7 +2183,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     @Override
     public int bulkRebindByIdentificationsIncludingSubDevices(List<String> rootIdentifications,
                                                               String productIdentification, String toVersion) {
-        int affected = superManager.bulkRebindByIdentificationsIncludingSubDevices(
+        int affected = baseMapper.bulkRebindByIdentificationsIncludingSubDevices(
                 rootIdentifications, productIdentification, toVersion);
         // 灰度按网关粒度改绑会连带子设备(未在 rootIdentifications 内),按 productIdentification 失效缓存以覆盖全部
         deviceEventPublisher.publishDeviceRebindEvent(DeviceRebindEventSource.builder()
@@ -2195,7 +2196,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
 
     @Override
     public int bulkRebindByIds(List<Long> ids, List<String> identifications, String toVersion) {
-        int affected = superManager.bulkRebindByIds(ids, toVersion);
+        int affected = baseMapper.bulkRebindByIds(ids, toVersion);
         // 仅失效本批标识缓存(按 identifications 精确失效,避免按产品列全量再逐个失效的放大)
         if (CollUtil.isNotEmpty(identifications)) {
             deviceEventPublisher.publishDeviceRebindEvent(DeviceRebindEventSource.builder()
@@ -2209,7 +2210,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
 
     @Override
     public int bulkRebindByProductAndVersion(String productIdentification, String fromVersion, String toVersion) {
-        int affected = superManager.bulkRebindByProductAndVersion(productIdentification, fromVersion, toVersion);
+        int affected = baseMapper.bulkRebindByProductAndVersion(productIdentification, fromVersion, toVersion);
         // 回滚 / 灰度晋升改绑:发改绑事件,监听器失效该产品下设备缓存
         deviceEventPublisher.publishDeviceRebindEvent(DeviceRebindEventSource.builder()
                 .productIdentification(productIdentification)
@@ -2266,7 +2267,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         long total = 0L;
         if (StrUtil.isNotBlank(productIdentification)) {
             // 一次分组统计该产品下各 bound_product_version_no 的设备数(MyBatis-Plus listMaps 自动带逻辑删除条件)
-            List<Map<String, Object>> rows = superManager.listMaps(
+            List<Map<String, Object>> rows = baseMapper.listMaps(
                     Wrappers.<Device>query()
                             .select("bound_product_version_no AS versionNo", "COUNT(*) AS deviceCount")
                             .eq("product_identification", productIdentification)

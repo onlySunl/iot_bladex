@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.service.plugin.impl;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import cn.hutool.core.net.NetUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
@@ -216,7 +217,7 @@ public class PluginInfoServiceImpl extends BladeServiceImpl<PluginInfoManager, P
 
     private void checkIfPluginExistsWithSameIdentification(String pluginId, Long currentPluginInfoId) {
         long count = baseMapper.count(
-                Wrappers.<PluginInfo>lbQ()
+                new LambdaQueryWrapper<PluginInfo>()
                         .eq(PluginInfo::getPluginIdentification, pluginId)
                         .eq(PluginInfo::getStatus, PluginInfoStatusEnum.PRELOAD_SUCCEEDED.getValue())
                         .ne(PluginInfo::getId, currentPluginInfoId)

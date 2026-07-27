@@ -93,7 +93,7 @@ public class ProductServiceServiceImpl extends BaseServiceImpl<ProductServiceMap
         //构建参数
         ProductServices productService = builderProductServiceSaveVO(saveVO);
         //更新
-        superManager.save(productService);
+        baseMapper.save(productService);
         publishChange(ProductVersionChangeTypeEnum.CREATE, null, productService, "新增服务「" + productService.getServiceName() + "」");
         return productService;
     }
@@ -109,12 +109,12 @@ public class ProductServiceServiceImpl extends BaseServiceImpl<ProductServiceMap
         log.info("updateProductService updateVO:{}", updateVO);
         //校验参数
         checkedProductServiceUpdateVO(updateVO);
-        ProductServices before = superManager.getById(updateVO.getId());
+        ProductServices before = baseMapper.getById(updateVO.getId());
         //构建参数
         ProductServices productServices = BeanUtil.toBeanIgnoreError(updateVO, ProductServices.class);
         //更新
-        superManager.updateById(productServices);
-        ProductServices after = superManager.getById(updateVO.getId());
+        baseMapper.updateById(productServices);
+        ProductServices after = baseMapper.getById(updateVO.getId());
         publishChange(ProductVersionChangeTypeEnum.UPDATE, before, after, "编辑服务「" + (after != null ? after.getServiceName() : updateVO.getServiceName()) + "」");
         return productServices;
     }
@@ -128,23 +128,23 @@ public class ProductServiceServiceImpl extends BaseServiceImpl<ProductServiceMap
     @Override
     public Boolean deleteProductService(Long id) {
         ArgumentAssert.notNull(id, "id Cannot be null");
-        ProductServices productService = superManager.getById(id);
+        ProductServices productService = baseMapper.getById(id);
         if (null == productService) {
             throw new ServiceException("The productService does not exist");
         }
-        boolean result = superManager.removeById(id);
+        boolean result = baseMapper.removeById(id);
         publishChange(ProductVersionChangeTypeEnum.DELETE, productService, null, "删除服务「" + productService.getServiceName() + "」");
         return result;
     }
 
     @Override
     public ProductServices findOneByProductServiceId(Long serviceId) {
-        return superManager.findOneByProductServiceId(serviceId);
+        return baseMapper.findOneByProductServiceId(serviceId);
     }
 
     @Override
     public List<ProductServices> selectProductServicesList(ProductServices find) {
-        return superManager.selectProductServicesList(find);
+        return baseMapper.selectProductServicesList(find);
     }
 
     /**
@@ -163,7 +163,7 @@ public class ProductServiceServiceImpl extends BaseServiceImpl<ProductServiceMap
             throw new ServiceException(ThingModelCodeRule.PATTERN_MSG);
         }
         //校验CODE
-        if (CollUtil.isNotEmpty(superManager.checkCode(saveVO.getProductId(), saveVO.getServiceCode()))) {
+        if (CollUtil.isNotEmpty(baseMapper.checkCode(saveVO.getProductId(), saveVO.getServiceCode()))) {
             throw new ServiceException("serviceCode already exists");
         }
         ArgumentAssert.notBlank(saveVO.getServiceName(), "serviceName Cannot be null");
@@ -224,7 +224,7 @@ public class ProductServiceServiceImpl extends BaseServiceImpl<ProductServiceMap
         ArgumentAssert.notNull(updateVO.getServiceStatus(), "serviceStatus Cannot be null");
         ProductServiceStatusEnum.fromValue(updateVO.getServiceStatus()).orElseThrow(() -> new ServiceException("serviceStatus is not exist"));
         //校验CODE
-        List<ProductServices> productServicesList = superManager.checkCode(updateVO.getProductId(), updateVO.getServiceCode());
+        List<ProductServices> productServicesList = baseMapper.checkCode(updateVO.getProductId(), updateVO.getServiceCode());
         productServicesList.stream()
                 .filter(productServices -> !productServices.getId().equals(updateVO.getId()))
                 .findAny()

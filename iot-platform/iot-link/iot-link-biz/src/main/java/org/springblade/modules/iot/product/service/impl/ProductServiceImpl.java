@@ -180,7 +180,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
 
     @Override
     public IPage<ProductResultVO> getPage(Query params) {
-        IPage<Product> page = superManager.getPage(params);
+        IPage<Product> page = baseMapper.getPage(params);
         return BeanUtil.toBeanPage(page, ProductResultVO.class);
     }
 
@@ -191,7 +191,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
      */
     @Override
     public Long findProductTotal() {
-        return superManager.findProductTotal();
+        return baseMapper.findProductTotal();
     }
 
     /**
@@ -208,7 +208,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         //构建参数
         Product product = builderProductSaveVO(saveVO);
         //保存产品
-        superManager.save(product);
+        baseMapper.save(product);
         // 初始化产品Topic
         initProductBaseTopics(product.getProductIdentification(), Boolean.FALSE);
 
@@ -235,12 +235,12 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         log.info("updateProduct updateVO:{}", updateVO);
         //校验参数
         checkedProductUpdateVO(updateVO);
-        Product before = superManager.getById(updateVO.getId());
+        Product before = baseMapper.getById(updateVO.getId());
         //构建参数
         Product product = BeanUtil.toBeanIgnoreError(updateVO, Product.class);
         //更新
-        superManager.updateById(BeanUtil.toBeanIgnoreError(updateVO, Product.class));
-        Product after = superManager.getById(updateVO.getId());
+        baseMapper.updateById(BeanUtil.toBeanIgnoreError(updateVO, Product.class));
+        Product after = baseMapper.getById(updateVO.getId());
         // 初始化产品Topic
         initProductBaseTopics(product.getProductIdentification(), Boolean.TRUE);
 
@@ -266,7 +266,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
     @Override
     public Boolean deleteProduct(Long id) {
         ArgumentAssert.notNull(id, "id Cannot be null");
-        Product product = superManager.getById(id);
+        Product product = baseMapper.getById(id);
         if (null == product) {
             throw new ServiceException("The product does not exist");
         }
@@ -280,7 +280,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         if (affectedVersions > 0) {
             log.info("[deleteProduct] cascade softDelete product_version productIdentification={} affected={}", productIdentification, affectedVersions);
         }
-        Boolean removed = superManager.removeById(id);
+        Boolean removed = baseMapper.removeById(id);
         // 发缓存失效事件:产品已删,监听器 AFTER_COMMIT 失效产品基础缓存。
         // 物模型缓存按 (productIdentification, versionNo) 切分,版本快照不可变 + 7d TTL 自动过期,
         // 产品被删后老缓存不会再被命中(因为没人能再查到该 product),不需要主动清。
@@ -300,7 +300,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
     @Override
     public ProductParamVO selectFullProductByProductIdentification(String productIdentification) {
         // 查询产品，如果不存在则抛出异常
-        Product product = Optional.ofNullable(superManager.findOneByProductIdentification(productIdentification))
+        Product product = Optional.ofNullable(baseMapper.findOneByProductIdentification(productIdentification))
             .orElseThrow(() -> new ServiceException("Product not found: " + productIdentification));
 
         // 转换基本产品信息
@@ -394,7 +394,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
 
     @Override
     public ProductResultVO findOneByProductId(Long productId) {
-        return BeanUtil.toBeanIgnoreError(superManager.getById(productId), ProductResultVO.class);
+        return BeanUtil.toBeanIgnoreError(baseMapper.getById(productId), ProductResultVO.class);
     }
 
     /**
@@ -405,7 +405,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
      */
     @Override
     public ProductResultVO findOneByProductIdentification(String productIdentification) {
-        return BeanUtil.toBeanIgnoreError(superManager.findOneByProductIdentification(productIdentification), ProductResultVO.class);
+        return BeanUtil.toBeanIgnoreError(baseMapper.findOneByProductIdentification(productIdentification), ProductResultVO.class);
     }
 
     @Override
@@ -413,7 +413,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         if (CollUtil.isEmpty(productIdentificationList)) {
             return Collections.emptyList();
         }
-        return BeanUtil.copyToList(superManager.findListByProductIdentificationList(productIdentificationList), ProductResultVO.class);
+        return BeanUtil.copyToList(baseMapper.findListByProductIdentificationList(productIdentificationList), ProductResultVO.class);
     }
 
     @Override
@@ -428,7 +428,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
      */
     @Override
     public ProductOverviewResultVO getProductOverview() {
-        List<Product> productList = superManager.list();
+        List<Product> productList = baseMapper.list();
         ProductOverviewResultVO resultVO = new ProductOverviewResultVO();
 
         resultVO.setProductsTotalCount(productList.size());
@@ -483,7 +483,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
 
     @Override
     public List<ProductResultVO> getProductResultVOList(ProductPageQuery query) {
-        return BeanUtil.toBeanList(superManager.getProductList(query), ProductResultVO.class);
+        return BeanUtil.toBeanList(baseMapper.getProductList(query), ProductResultVO.class);
     }
 
     /**
@@ -510,7 +510,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         }
         ArgumentAssert.notBlank(saveVO.getDeviceType(), "deviceType Cannot be null");
         //验证产品模型是否存在
-        Product product = superManager.findOneByManufacturerIdAndModelAndDeviceType(saveVO.getManufacturerId(), saveVO.getModel(), saveVO.getDeviceType());
+        Product product = baseMapper.findOneByManufacturerIdAndModelAndDeviceType(saveVO.getManufacturerId(), saveVO.getModel(), saveVO.getDeviceType());
         if (ObjectUtil.isNotNull(product)) {
             throw new ServiceException("product model already exists");
         }
@@ -585,7 +585,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         product.setCreatedOrgId(AuthUtil.getCurrentDeptId());
         //新增 校验参数
         checkedProductSaveVO(BeanUtil.toBeanIgnoreError(product, ProductSaveVO.class));
-        boolean saveProductFlag = superManager.save(product);
+        boolean saveProductFlag = baseMapper.save(product);
         if (!saveProductFlag) {
             throw new ServiceException("Product information storage fails");
         }
@@ -694,7 +694,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         ArgumentAssert.notBlank(productIdentification, "productIdentification must not be blank");
         ArgumentAssert.notBlank(newActiveVersion, "newActiveVersion must not be blank");
 
-        Product product = Optional.ofNullable(superManager.findOneByProductIdentification(productIdentification))
+        Product product = Optional.ofNullable(baseMapper.findOneByProductIdentification(productIdentification))
                 .orElseThrow(() -> new ServiceException("Product not found: " + productIdentification));
         String previousActive = product.getActiveVersionNo();
         product.setActiveVersionNo(newActiveVersion);
@@ -702,12 +702,12 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
             // 灰度发布:把切换前的版本号记入备忘指针,供后续回滚 / 灰度路由 / 新设备绑稳定版
             product.setPreviousFullVersionNo(previousActive);
         }
-        superManager.updateById(product);
+        baseMapper.updateById(product);
         if (!recordCurrentAsPrevious) {
             // 全量发布:产品脱离灰度态,显式清空 previousFullVersionNo。updateById 在 NOT_NULL 策略下写不掉 null,
             // 必须 set(null) 强制 SET NULL —— 否则灰度晋升为全量后产品长期残留 previous:新设备会一直绑老稳定版
             // (见 DeviceServiceImpl#resolveBindVersionForNewDevice),"灰度中"统计也会误判
-            superManager.clearPreviousFullVersion(productIdentification);
+            baseMapper.clearPreviousFullVersion(productIdentification);
             product.setPreviousFullVersionNo(null);
         }
         // 发缓存失效事件:activeVersionNo 已变,监听器 AFTER_COMMIT 失效产品基础缓存
@@ -722,13 +722,13 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         ArgumentAssert.notBlank(productIdentification, "productIdentification must not be blank");
         ArgumentAssert.notBlank(targetVersion, "targetVersion must not be blank");
 
-        Product product = Optional.ofNullable(superManager.findOneByProductIdentification(productIdentification))
+        Product product = Optional.ofNullable(baseMapper.findOneByProductIdentification(productIdentification))
                 .orElseThrow(() -> new ServiceException("Product not found: " + productIdentification));
         product.setActiveVersionNo(targetVersion);
-        superManager.updateById(product);
+        baseMapper.updateById(product);
         // 回滚后产品脱离灰度态,显式清空 previousFullVersionNo。updateById 在 NOT_NULL 策略下写不掉 null,
         // 必须 set(null) 强制 SET NULL —— 否则残留 previous 会让新设备绑老稳定版 +"灰度中"统计误判
-        superManager.clearPreviousFullVersion(productIdentification);
+        baseMapper.clearPreviousFullVersion(productIdentification);
         product.setPreviousFullVersionNo(null);
         // 发缓存失效事件:activeVersionNo 已变,监听器 AFTER_COMMIT 失效产品基础缓存
         productEventPublisher.publishProductCacheEvictEvent(

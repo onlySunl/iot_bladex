@@ -18,6 +18,10 @@
     <description>设备集成服务-业务模块</description>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-common</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springblade</groupId>

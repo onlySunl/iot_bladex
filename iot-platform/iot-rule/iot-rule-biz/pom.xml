@@ -20,6 +20,10 @@
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>
+            <artifactId>blade-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
             <artifactId>iot-entity-rule</artifactId>
             <version>${project.version}</version>
         </dependency>

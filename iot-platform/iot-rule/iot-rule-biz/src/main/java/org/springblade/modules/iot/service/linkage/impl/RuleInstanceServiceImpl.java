@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.service.linkage.impl;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -151,7 +152,7 @@ public class RuleInstanceServiceImpl extends BladeServiceImpl<RuleInstanceManage
         }
 
         //校验 规则实例地址是否存在
-        RuleInstance existingRuleInstance = baseMapper.getOne(Wrappers.<RuleInstance>lbQ().eq(RuleInstance::getInstanceAddress, saveVO.getInstanceAddress()));
+        RuleInstance existingRuleInstance = baseMapper.getOne(new LambdaQueryWrapper<RuleInstance>().eq(RuleInstance::getInstanceAddress, saveVO.getInstanceAddress()));
         if (Objects.nonNull(existingRuleInstance)) {
             throw ServiceException.validFail("该实例地址已存在!");
         }
@@ -183,7 +184,7 @@ public class RuleInstanceServiceImpl extends BladeServiceImpl<RuleInstanceManage
         }
 
         //校验 规则实例地址是否存在
-        RuleInstance existingRuleInstance = baseMapper.getOne(Wrappers.<RuleInstance>lbQ().eq(RuleInstance::getInstanceAddress, updateVO.getInstanceAddress())
+        RuleInstance existingRuleInstance = baseMapper.getOne(new LambdaQueryWrapper<RuleInstance>().eq(RuleInstance::getInstanceAddress, updateVO.getInstanceAddress())
                 .ne(RuleInstance::getId, updateVO.getId()));
         if (Objects.nonNull(existingRuleInstance)) {
             throw ServiceException.validFail("该实例地址已存在!");

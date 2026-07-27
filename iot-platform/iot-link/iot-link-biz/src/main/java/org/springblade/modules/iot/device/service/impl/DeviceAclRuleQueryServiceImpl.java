@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.device.service.impl;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import java.util.Collections;
 import java.util.List;
@@ -44,7 +45,7 @@ public class DeviceAclRuleQueryServiceImpl implements DeviceAclRuleQueryService 
         }
         // 产品级(deviceId IS NULL 或 '',兼容历史脏数据)∪ 该设备级(deviceId = ?);SQL ORDER BY 保证截断时丢低优先级产品级
         List<DeviceAclRule> rules = deviceAclRuleManager.list(
-            Wrappers.<DeviceAclRule>lbQ()
+            new LambdaQueryWrapper<DeviceAclRule>()
                 .eq(DeviceAclRule::getProductIdentification, productIdentification)
                 .eq(DeviceAclRule::getEnabled, Boolean.TRUE)
                 .and(w -> w

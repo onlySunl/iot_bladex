@@ -190,7 +190,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
         OtaUpgradeTasks otaUpgradeTask = buildOtaUpgradeTaskFromSaveVO(saveVO);
 
         // Persist the OtaUpgradeTask entity using your manager or repository
-        boolean save = superManager.save(otaUpgradeTask);
+        boolean save = baseMapper.save(otaUpgradeTask);
 
         // Return the saved entity or a custom response
         if (!save) {
@@ -225,7 +225,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
         validateOtaUpgradeTasksUpdateVO(updateVO);
 
         // Fetch the existing task and update with new details
-        OtaUpgradeTasks otaUpgradeTask = superManager.getById(updateVO.getId());
+        OtaUpgradeTasks otaUpgradeTask = baseMapper.getById(updateVO.getId());
 
         if (Objects.isNull(otaUpgradeTask)) {
             throw new ServiceException("OTA upgrade task not found");
@@ -234,7 +234,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
         otaUpgradeTask = otaUpgradeTasksBuilder.with(OtaUpgradeTasks::setId, updateVO.getId()).build();
 
         // Save the updated entity
-        superManager.updateById(otaUpgradeTask);
+        baseMapper.updateById(otaUpgradeTask);
 
         // Map the updated entity back to OtaUpgradeTasksUpdateVO if needed
         return BeanUtil.toBeanIgnoreError(otaUpgradeTask, OtaUpgradeTasksUpdateVO.class);
@@ -252,7 +252,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
         ArgumentAssert.notNull(id, "Task ID cannot be null");
         ArgumentAssert.notNull(status, "Status cannot be null");
 
-        OtaUpgradeTasks otaUpgradeTask = superManager.getById(id);
+        OtaUpgradeTasks otaUpgradeTask = baseMapper.getById(id);
         if (Objects.isNull(otaUpgradeTask)) {
             throw new ServiceException("OTA upgrade task does not exist");
         }
@@ -260,7 +260,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
                 .orElseThrow(() -> new ServiceException("Invalid task status"));
 
         otaUpgradeTask.setTaskStatus(status);
-        return superManager.updateById(otaUpgradeTask);
+        return baseMapper.updateById(otaUpgradeTask);
     }
 
     /**
@@ -273,7 +273,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
     public Boolean deleteOtaUpgradeTask(Long id) {
         ArgumentAssert.notNull(id, "Task ID cannot be null");
 
-        OtaUpgradeTasks task = superManager.getById(id);
+        OtaUpgradeTasks task = baseMapper.getById(id);
         if (Objects.isNull(task)) {
             throw new ServiceException("OTA upgrade task does not exist");
         }
@@ -283,7 +283,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
         ArgumentAssert.isTrue(OtaUpgradeTaskStatusEnum.COMPLETED.getValue().equals(task.getTaskStatus()), "OTA upgrade task is completed, cannot be deleted");
         // Delete associated upgrade targets
         otaUpgradeTargetsService.deleteByTaskId(id);
-        return superManager.removeById(id);
+        return baseMapper.removeById(id);
     }
 
     /**
@@ -298,7 +298,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
     public OtaUpgradeTasksResultVO getUpgradeTaskDetails(Long taskId) {
         ArgumentAssert.notNull(taskId, "Task ID cannot be null");
 
-        OtaUpgradeTasks otaUpgradeTask = superManager.getById(taskId);
+        OtaUpgradeTasks otaUpgradeTask = baseMapper.getById(taskId);
         ArgumentAssert.notNull(otaUpgradeTask, "OTA upgrade task does not exist");
 
         OtaUpgradeTasksResultVO resultVO = BeanUtil.toBeanIgnoreError(otaUpgradeTask, OtaUpgradeTasksResultVO.class);
@@ -316,7 +316,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
 
     @Override
     public List<OtaUpgradeTasksResultDTO> getUpgradeTaskDetailsList(OtaUpgradeTasksPageQuery query) {
-        List<OtaUpgradeTasks> otaUpgradeTasksList = superManager.getOtaUpgradeTasksList(query);
+        List<OtaUpgradeTasks> otaUpgradeTasksList = baseMapper.getOtaUpgradeTasksList(query);
         List<OtaUpgradeTasksResultDTO> otaUpgradeTasksResultDTOList = BeanUtil.toBeanList(otaUpgradeTasksList, OtaUpgradeTasksResultDTO.class);
         List<OtaUpgradesResultVO> otaUpgradesResultVOList = otaUpgradesService.selectListByIds(otaUpgradeTasksList.stream().map(OtaUpgradeTasks::getUpgradeId).distinct().collect(Collectors.toList()));
         Map<Long, OtaUpgradesResultVO> otaUpgradesResultVOMap = CollectionUtil.isNotEmpty(otaUpgradesResultVOList) ?
@@ -673,14 +673,14 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
         ArgumentAssert.notNull(taskId, "Task ID cannot be null");
         ArgumentAssert.notNull(status, "Status cannot be null");
 
-        OtaUpgradeTasks otaUpgradeTask = superManager.getById(taskId);
+        OtaUpgradeTasks otaUpgradeTask = baseMapper.getById(taskId);
         if (Objects.isNull(otaUpgradeTask)) {
             log.warn("OTA upgrade task not found - taskId: {}", taskId);
             return false;
         }
 
         otaUpgradeTask.setTaskStatus(status.getValue());
-        boolean result = superManager.updateById(otaUpgradeTask);
+        boolean result = baseMapper.updateById(otaUpgradeTask);
 
         if (result) {
             log.info("Successfully updated task status - taskId: {}, status: {}", taskId, status);
@@ -703,14 +703,14 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
         ArgumentAssert.notNull(taskId, "Task ID cannot be null");
         ArgumentAssert.isTrue(retryCount >= 0, "Retry count cannot be negative");
 
-        OtaUpgradeTasks otaUpgradeTask = superManager.getById(taskId);
+        OtaUpgradeTasks otaUpgradeTask = baseMapper.getById(taskId);
         if (Objects.isNull(otaUpgradeTask)) {
             log.warn("OTA upgrade task not found - taskId: {}", taskId);
             return false;
         }
 
         otaUpgradeTask.setCurrentRetryCount(retryCount);
-        boolean result = superManager.updateById(otaUpgradeTask);
+        boolean result = baseMapper.updateById(otaUpgradeTask);
 
         if (result) {
             log.info("Successfully updated task retry count - taskId: {}, retryCount: {}", taskId, retryCount);
@@ -732,7 +732,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
         if (CollUtil.isEmpty(ids)) {
             return Collections.emptyList();
         }
-        List<OtaUpgradeTasks> tasks = superManager.listByIds(ids);
+        List<OtaUpgradeTasks> tasks = baseMapper.listByIds(ids);
         return Optional.ofNullable(tasks)
                 .map(taskList -> BeanUtil.toBeanList(taskList, OtaUpgradeTasksResultVO.class))
                 .orElse(Collections.emptyList());

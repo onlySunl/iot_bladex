@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.device.service.impl;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import java.util.Collections;
 import java.util.List;
@@ -54,20 +55,20 @@ public class DeviceQueryServiceImpl implements DeviceQueryService {
 
     @Override
     public Long countByCertSerialNumber(String certSerialNumber) {
-        return deviceManager.count(Wrappers.<Device>lbQ()
+        return deviceManager.count(new LambdaQueryWrapper<Device>()
             .eq(Device::getCertSerialNumber, certSerialNumber));
     }
 
     @Override
     public Long countOnlineByCertSerialNumber(String certSerialNumber) {
-        return deviceManager.count(Wrappers.<Device>lbQ()
+        return deviceManager.count(new LambdaQueryWrapper<Device>()
             .eq(Device::getCertSerialNumber, certSerialNumber)
             .eq(Device::getConnectStatus, DeviceConnectStatusEnum.ONLINE.getValue()));
     }
 
     @Override
     public List<Device> listTopBoundDevicesByCertSerialNumber(String certSerialNumber, int limit) {
-        return deviceManager.list(Wrappers.<Device>lbQ()
+        return deviceManager.list(new LambdaQueryWrapper<Device>()
             .eq(Device::getCertSerialNumber, certSerialNumber)
             .orderByDesc(Device::getLastHeartbeatTime)
             .last("LIMIT " + limit));
@@ -78,7 +79,7 @@ public class DeviceQueryServiceImpl implements DeviceQueryService {
         if (StrUtil.isBlank(certSerialNumber)) {
             return Collections.emptyList();
         }
-        return Optional.ofNullable(deviceManager.list(Wrappers.<Device>lbQ()
+        return Optional.ofNullable(deviceManager.list(new LambdaQueryWrapper<Device>()
                 .eq(Device::getCertSerialNumber, certSerialNumber)))
             .orElseGet(Collections::emptyList);
     }
