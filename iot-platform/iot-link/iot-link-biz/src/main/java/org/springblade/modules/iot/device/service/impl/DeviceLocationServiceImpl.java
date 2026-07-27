@@ -1,11 +1,12 @@
 package org.springblade.modules.iot.device.service.impl;
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiotdeviceserviceimplDeviceLocationServiceImpl.java.mapper.DeviceLocationMapper;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.mp.base.BaseServiceImpl;
 import org.springblade.core.secure.utils.AuthUtil;
 import org.springblade.core.tool.utils.BeanUtil;
 import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.device.entity.DeviceLocation;
+import org.springblade.modules.iot.device.manager.DeviceLocationManager;
 import org.springblade.modules.iot.device.service.DeviceLocationService;
 import org.springblade.modules.iot.device.vo.query.DeviceLocationPageQuery;
 import org.springblade.modules.iot.device.vo.result.DeviceLocationResultVO;
@@ -20,8 +21,8 @@ import java.util.List;
 
 /**
  * <p>
- * 涓氬姟瀹炵幇绫?
- * 璁惧浣嶇疆琛?
+ * 业务实现类
+ * 设备位置表
  * </p>
  *
  * @author mqttsnet
@@ -35,30 +36,30 @@ import java.util.List;
 public class DeviceLocationServiceImpl extends BaseServiceImpl<DeviceLocationMapper, DeviceLocation> implements DeviceLocationService {
 
     /**
-     * 淇濆瓨璁惧浣嶇疆淇℃伅
+     * 保存设备位置信息
      *
-     * @param deviceLocationSaveVO 璁惧浣嶇疆淇℃伅
-     * @return {@link DeviceLocationSaveVO} 淇濆瓨瀹屾垚鐨勮澶囦綅缃俊鎭?
+     * @param deviceLocationSaveVO 设备位置信息
+     * @return {@link DeviceLocationSaveVO} 保存完成的设备位置信息
      */
     @Override
     public DeviceLocationSaveVO saveDeviceLocation(DeviceLocationSaveVO deviceLocationSaveVO) {
-        // 鏍￠獙鍙傛暟
+        // 校验参数
         checkedDeviceLocationSaveVO(deviceLocationSaveVO);
 
-        // 鏋勫缓鍙傛暟
+        // 构建参数
         DeviceLocation deviceLocation = builderDeviceLocationSaveVO(deviceLocationSaveVO);
 
-        // 淇濆瓨璁惧浣嶇疆淇℃伅
+        // 保存设备位置信息
         superManager.save(deviceLocation);
 
         return BeanUtil.toBeanIgnoreError(deviceLocation, DeviceLocationSaveVO.class);
     }
 
     /**
-     * 鏇存柊璁惧浣嶇疆淇℃伅
+     * 更新设备位置信息
      *
-     * @param deviceLocationUpdateVO 璁惧浣嶇疆淇℃伅
-     * @return {@link DeviceLocationUpdateVO} 鏇存柊瀹屾垚鐨勮澶囦綅缃俊鎭?
+     * @param deviceLocationUpdateVO 设备位置信息
+     * @return {@link DeviceLocationUpdateVO} 更新完成的设备位置信息
      */
     @Override
     public DeviceLocationUpdateVO updateDeviceLocation(DeviceLocationUpdateVO deviceLocationUpdateVO) {
@@ -68,19 +69,19 @@ public class DeviceLocationServiceImpl extends BaseServiceImpl<DeviceLocationMap
 
         deviceLocationUpdateVO.setCreatedOrgId(AuthUtil.getCurrentDeptId());
 
-        //鏋勫缓鍙傛暟
+        //构建参数
         Builder<DeviceLocation> deviceLocationBuilder = builderDeviceLocationUpdateVO(deviceLocationUpdateVO);
 
-        //鏇存柊
+        //更新
         superManager.updateById(deviceLocationBuilder.with(DeviceLocation::setId, deviceLocationUpdateVO.getId()).build());
         return deviceLocationUpdateVO;
     }
 
     /**
-     * 鏌ヨ璁惧浣嶇疆淇℃伅VO鍒楄〃
+     * 查询设备位置信息VO列表
      *
-     * @param query 鏌ヨ鍙傛暟
-     * @return {@link List <DeviceLocationResultVO>} 璁惧浣嶇疆淇℃伅VO鍒楄〃
+     * @param query 查询参数
+     * @return {@link List <DeviceLocationResultVO>} 设备位置信息VO列表
      */
     @Override
     public List<DeviceLocationResultVO> getDeviceLocationResultVOList(DeviceLocationPageQuery query) {
@@ -89,7 +90,7 @@ public class DeviceLocationServiceImpl extends BaseServiceImpl<DeviceLocationMap
 
     /**
      *
-     * @param deviceLocationUpdateVO 璁惧浣嶇疆淇℃伅
+     * @param deviceLocationUpdateVO 设备位置信息
      */
     private void checkedDeviceLocationUpdateVO(DeviceLocationUpdateVO deviceLocationUpdateVO) {
         ArgumentAssert.notNull(deviceLocationUpdateVO, "deviceLocationSaveVO Cannot be null");
@@ -104,7 +105,7 @@ public class DeviceLocationServiceImpl extends BaseServiceImpl<DeviceLocationMap
     }
 
     private Builder<DeviceLocation> builderDeviceLocationUpdateVO(DeviceLocationUpdateVO deviceLocationUpdateVO) {
-        return new DeviceLocation()
+        return Builder.of(DeviceLocation::new)
                 .with(DeviceLocation::setLatitude, deviceLocationUpdateVO.getLatitude())
                 .with(DeviceLocation::setLongitude, deviceLocationUpdateVO.getLongitude())
                 .with(DeviceLocation::setFullName, deviceLocationUpdateVO.getFullName())
@@ -116,9 +117,9 @@ public class DeviceLocationServiceImpl extends BaseServiceImpl<DeviceLocationMap
     }
 
     /**
-     * 妫€鏌?DeviceLocationSaveVO 鍙傛暟瀹屾暣鎬?
+     * 检查 DeviceLocationSaveVO 参数完整性
      *
-     * @param deviceLocationSaveVO 瑕佽繘琛屾鏌ョ殑瀵硅薄
+     * @param deviceLocationSaveVO 要进行检查的对象
      */
     private void checkedDeviceLocationSaveVO(DeviceLocationSaveVO deviceLocationSaveVO) {
         ArgumentAssert.notNull(deviceLocationSaveVO, "deviceLocationSaveVO Cannot be null");
@@ -132,10 +133,10 @@ public class DeviceLocationServiceImpl extends BaseServiceImpl<DeviceLocationMap
     }
 
     /**
-     * 鏋勫缓 DeviceLocationSaveVO 瀵硅薄
+     * 构建 DeviceLocationSaveVO 对象
      *
-     * @param deviceLocationSaveVO 瑕佽繘琛屾瀯寤虹殑瀵硅薄
-     * @return 鏋勫缓濂界殑 DeviceLocation 瀵硅薄
+     * @param deviceLocationSaveVO 要进行构建的对象
+     * @return 构建好的 DeviceLocation 对象
      */
     private DeviceLocation builderDeviceLocationSaveVO(DeviceLocationSaveVO deviceLocationSaveVO) {
         DeviceLocation deviceLocation = BeanUtil.toBeanIgnoreError(deviceLocationSaveVO, DeviceLocation.class);

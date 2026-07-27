@@ -1,15 +1,16 @@
 package org.springblade.modules.iot.productpublishrecord.service.impl;
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiotproductpublishrecordserviceimplProductPublishRecordServiceImpl.java.mapper.ProductPublishRecordMapper;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.mp.base.BaseServiceImpl;
 import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.productpublishrecord.entity.ProductPublishRecord;
 import org.springblade.modules.iot.productpublishrecord.enumeration.ProductPublishRecordIntentEnum;
 import org.springblade.modules.iot.productpublishrecord.enumeration.ProductPublishRecordStatusEnum;
+import org.springblade.modules.iot.productpublishrecord.manager.ProductPublishRecordManager;
 import org.springblade.modules.iot.productpublishrecord.service.ProductPublishRecordService;
 import org.springblade.modules.iot.productpublishrecord.vo.ddl.PublishDdlItemVO;
 import org.springblade.modules.iot.productpublishrecord.vo.result.StrategyResultDTO;
@@ -18,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
- * 浜у搧鍙戝竷璁板綍涓氬姟瀹炵幇銆?
+ * 产品发布记录业务实现。
  *
  * @author mqttsnet
  * @see ProductPublishRecordService
@@ -42,7 +43,7 @@ public class ProductPublishRecordServiceImpl
 
     @Override
     public ProductPublishRecord recordRollback(String productIdentification, String sourceVersion, String targetVersion) {
-        // 鍥炴粴涓嶆彁渚涚敤鎴烽厤缃叆鍙?maxRetryCount 浼?null 璧?DB 榛樿 3
+        // 回滚不提供用户配置入口,maxRetryCount 传 null 走 DB 默认 3
         return persist(productIdentification, sourceVersion, targetVersion,
             ProductPublishRecordIntentEnum.ROLLBACK.getValue(),
             ProductPublishRecordStatusEnum.RUNNING.getValue(), null);
@@ -50,7 +51,7 @@ public class ProductPublishRecordServiceImpl
 
     @Override
     public ProductPublishRecord recordPurge(String productIdentification, String version) {
-        // 鍘嗗彶娓呯悊涓嶆彁渚涚敤鎴烽厤缃叆鍙?maxRetryCount 浼?null 璧?DB 榛樿 3
+        // 历史清理不提供用户配置入口,maxRetryCount 传 null 走 DB 默认 3
         return persist(productIdentification, version, version,
             ProductPublishRecordIntentEnum.PURGE_HISTORY.getValue(),
             ProductPublishRecordStatusEnum.RUNNING.getValue(), null);
@@ -125,7 +126,7 @@ public class ProductPublishRecordServiceImpl
     private ProductPublishRecord persist(String productIdentification, String sourceVersion,
                                          String targetVersion, Integer intent, Integer status,
                                          Integer maxRetryCount) {
-        // maxRetryCount=null 鏃朵笉鍏?builder 鈫?MP insert-strategy NOT_NULL 璺宠繃璇ュ垪 鈫?DB 榛樿 3 鐢熸晥
+        // maxRetryCount=null 时不入 builder → MP insert-strategy NOT_NULL 跳过该列 → DB 默认 3 生效
         ProductPublishRecord record = ProductPublishRecord.builder()
             .productIdentification(productIdentification)
             .sourceVersion(sourceVersion)

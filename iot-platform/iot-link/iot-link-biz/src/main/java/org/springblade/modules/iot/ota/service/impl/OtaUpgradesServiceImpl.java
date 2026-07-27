@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.ota.service.impl;
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiototaserviceimplOtaUpgradesServiceImpl.java.mapper.OtaUpgradesMapper;
 
 import java.util.Collections;
 import java.util.List;
@@ -8,6 +7,7 @@ import java.util.Optional;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.mp.support.Query;
 import org.springblade.core.mp.base.BaseServiceImpl;
 import org.springblade.core.secure.utils.AuthUtil;
@@ -20,6 +20,8 @@ import org.springblade.modules.iot.ota.entity.OtaUpgrades;
 import org.springblade.modules.iot.ota.enumeration.OtaPackageSignMethodEnum;
 import org.springblade.modules.iot.ota.enumeration.OtaPackageStatusEnum;
 import org.springblade.modules.iot.ota.enumeration.OtaPackageTypeEnum;
+import org.springblade.modules.iot.ota.manager.OtaUpgradeTasksManager;
+import org.springblade.modules.iot.ota.manager.OtaUpgradesManager;
 import org.springblade.modules.iot.ota.service.OtaUpgradesService;
 import org.springblade.modules.iot.ota.vo.query.OtaUpgradeTasksPageQuery;
 import org.springblade.modules.iot.ota.vo.query.OtaUpgradesPageQuery;
@@ -35,8 +37,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 涓氬姟瀹炵幇绫?
- * OTA鍗囩骇鍖?
+ * 业务实现类
+ * OTA升级包
  * </p>
  *
  * @author mqttsnet
@@ -50,24 +52,23 @@ public class OtaUpgradesServiceImpl extends BaseServiceImpl<OtaUpgradesMapper, O
 
     private final OtaUpgradeTasksManager otaUpgradeTasksManager;
     /**
-     * 鍐欏墠缃牎楠屼繚鐣欑洿璋?鈹€鈹€ 鍗囩骇鍖呬繚瀛?/ 鏇存柊鏍￠獙浜у搧瀛樺湪,蹇呴』 DB-fresh銆?
+     * 写前置校验保留直调 ── 升级包保存 / 更新校验产品存在,必须 DB-fresh。
      */
     private final ProductQueryService productQueryService;
     /**
-     * 璇︽儏灞曠ず璇昏矾寰勮蛋缂撳瓨,read-through DB 鍏滃簳銆?
+     * 详情展示读路径走缓存,read-through DB 兜底。
      */
     private final LinkCacheDataHelper linkCacheDataHelper;
 
     /**
      * Save OTA Upgrade Package
      *
-     * @param saveVO 淇濆瓨鍙傛暟
-     * @return {@link OtaUpgradesSaveVO} 杩斿洖缁撴灉
+     * @param saveVO 保存参数
+     * @return {@link OtaUpgradesSaveVO} 返回结果
      */
     @Override
     public OtaUpgradesSaveVO saveUpgradePackage(OtaUpgradesSaveVO saveVO) {
         log.info("saveUpgradePackage saveVO: {}", saveVO);
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiototaserviceimplOtaUpgradesServiceImpl.java.mapper.OtaUpgradesMapper;
 
         // Validate the saveVO object
         validateOtaUpgradesSaveVO(saveVO);
@@ -85,18 +86,17 @@ import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-
     /**
      * Update OTA Upgrade Package
      *
-     * @param updateVO 鏇存柊鍙傛暟
-     * @return {@link OtaUpgradesUpdateVO} 杩斿洖缁撴灉
+     * @param updateVO 更新参数
+     * @return {@link OtaUpgradesUpdateVO} 返回结果
      */
     @Override
     public OtaUpgradesUpdateVO updateUpgradePackage(OtaUpgradesUpdateVO updateVO) {
         log.info("Updating OTA upgrade package: {}", updateVO);
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiototaserviceimplOtaUpgradesServiceImpl.java.mapper.OtaUpgradesMapper;
 
         // Validate the updateVO object
         validateOtaUpgradesUpdateVO(updateVO);
 
-        //鏋勫缓鍙傛暟
+        //构建参数
         Builder<OtaUpgrades> otaUpgradesBuilder = builderOtaUpgradesUpdateVO(updateVO);
 
         // Save the updated entity
@@ -110,26 +110,22 @@ import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-
     /**
      * Update OTA Upgrade Package Status
      *
-     * @param id     涓婚敭
-     * @param status 鐘舵€?
-     * @return {@link Boolean} 杩斿洖缁撴灉
+     * @param id     主键
+     * @param status 状态
+     * @return {@link Boolean} 返回结果
      */
     @Override
     public Boolean updateOtaUpgradeStatus(Long id, Integer status) {
         ArgumentAssert.notNull(id, "Package ID cannot be null");
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiototaserviceimplOtaUpgradesServiceImpl.java.mapper.OtaUpgradesMapper;
         ArgumentAssert.notNull(status, "Status cannot be null");
 
         // Here you should define your OtaUpgrade entity class which represents your OTA upgrade package
         OtaUpgrades otaUpgrades = superManager.getById(id);
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiototaserviceimplOtaUpgradesServiceImpl.java.mapper.OtaUpgradesMapper;
         if (Objects.isNull(otaUpgrades)) {
             throw BizException.wrap("OTA upgrade package does not exist");
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiototaserviceimplOtaUpgradesServiceImpl.java.mapper.OtaUpgradesMapper;
         }
         if (status.equals(otaUpgrades.getStatus())) {
             throw BizException.wrap("The OTA upgrade package status is the same as the current status");
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiototaserviceimplOtaUpgradesServiceImpl.java.mapper.OtaUpgradesMapper;
         }
 
         otaUpgrades.setStatus(status);
@@ -139,24 +135,21 @@ import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-
     /**
      * Delete OTA Upgrade Package
      *
-     * @param id 涓婚敭
-     * @return {@link Boolean} 杩斿洖缁撴灉
+     * @param id 主键
+     * @return {@link Boolean} 返回结果
      */
     @Override
     public Boolean deleteOtaUpgrade(Long id) {
         ArgumentAssert.notNull(id, "id Cannot be null");
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiototaserviceimplOtaUpgradesServiceImpl.java.mapper.OtaUpgradesMapper;
         OtaUpgrades otaUpgrade = superManager.getById(id);
         if (Objects.isNull(otaUpgrade)) {
             throw BizException.wrap("OTA upgrade package does not exist");
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiototaserviceimplOtaUpgradesServiceImpl.java.mapper.OtaUpgradesMapper;
         }
 
         Query params = new Query<>();
         params.setModel(new OtaUpgradeTasksPageQuery().setUpgradeId(id));
         if (otaUpgradeTasksManager.getOtaUpgradeTasksPage(params).getTotal() > 0) {
             throw BizException.wrap("OTA upgrade package is in use and cannot be deleted");
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiototaserviceimplOtaUpgradesServiceImpl.java.mapper.OtaUpgradesMapper;
         }
         // Additional checks can be added here if necessary
         return superManager.removeById(id);
@@ -186,12 +179,10 @@ import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-
     @Override
     public OtaUpgradesDetailsResultVO getUpgradePackageDetails(Long id) {
         ArgumentAssert.notNull(id, "Upgrade package ID cannot be null");
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiototaserviceimplOtaUpgradesServiceImpl.java.mapper.OtaUpgradesMapper;
         OtaUpgrades otaUpgrades = superManager.getById(id);
         ArgumentAssert.notNull(otaUpgrades, "OTA upgrade package does not exist");
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiototaserviceimplOtaUpgradesServiceImpl.java.mapper.OtaUpgradesMapper;
         OtaUpgradesDetailsResultVO detailsVO = BeanUtil.toBeanIgnoreError(otaUpgrades, OtaUpgradesDetailsResultVO.class);
-        // 璇︽儏璇昏矾寰勮蛋缂撳瓨(read-through 鍏滃簳),閬垮厤姣忔璇︽儏璇锋眰閮界洿鏌?product 琛?
+        // 详情读路径走缓存(read-through 兜底),避免每次详情请求都直查 product 表
         ProductResultVO productResultVO = linkCacheDataHelper
                 .getProductCacheVO(otaUpgrades.getProductIdentification())
                 .map(p -> BeanUtil.toBeanIgnoreError(p, ProductResultVO.class))
@@ -202,19 +193,18 @@ import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-
 
     private void validateOtaUpgradesSaveVO(OtaUpgradesSaveVO saveVO) {
         OtaPackageTypeEnum.fromValue(saveVO.getPackageType()).orElseThrow(() -> BizException.wrap("Invalid package type"));
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiototaserviceimplOtaUpgradesServiceImpl.java.mapper.OtaUpgradesMapper;
 
         OtaPackageSignMethodEnum.fromValue(saveVO.getSignMethod()).orElseThrow(() -> BizException.wrap("Invalid sign method"));
 
         OtaPackageStatusEnum.fromValue(saveVO.getStatus()).orElseThrow(() -> BizException.wrap("Invalid status"));
 
         if (!VersionValidator.isValidVersion(saveVO.getVersion())) {
-            throw BizException.wrap("鏃犳晥鐗堟湰鍙?);
+            throw BizException.wrap("无效版本号");
         }
 
-        // 鏍￠獙鍗囩骇鍖呯増鏈彿鏄惁閲嶅
+        // 校验升级包版本号是否重复
         if (superManager.count(Wrappers.<OtaUpgrades>lbQ().eq(OtaUpgrades::getPackageType, saveVO.getPackageType()).eq(OtaUpgrades::getVersion, saveVO.getVersion())) > 0) {
-            throw BizException.wrap("鍗囩骇鐗堟湰鍙峰凡瀛樺湪");
+            throw BizException.wrap("升级版本号已存在");
         }
     }
 
@@ -226,34 +216,32 @@ import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-
     private void validateOtaUpgradesUpdateVO(OtaUpgradesUpdateVO updateVO) {
 
         OtaUpgrades existingOtaUpgrade = Optional.ofNullable(superManager.getById(updateVO.getId())).orElseThrow(() -> BizException.wrap("OTA upgrade package not found"));
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiototaserviceimplOtaUpgradesServiceImpl.java.mapper.OtaUpgradesMapper;
 
         //TODO Validate the updateVO object
         String productIdentification = existingOtaUpgrade.getProductIdentification();
 
         OtaPackageTypeEnum.fromValue(updateVO.getPackageType()).orElseThrow(() -> BizException.wrap("Invalid package type"));
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiototaserviceimplOtaUpgradesServiceImpl.java.mapper.OtaUpgradesMapper;
 
         OtaPackageSignMethodEnum.fromValue(updateVO.getSignMethod()).orElseThrow(() -> BizException.wrap("Invalid sign method"));
 
         OtaPackageStatusEnum.fromValue(updateVO.getStatus()).orElseThrow(() -> BizException.wrap("Invalid status"));
 
-        // 鏍￠獙鍗囩骇鍖呯増鏈彿鏄惁鍚堟硶
+        // 校验升级包版本号是否合法
         if (!VersionValidator.isValidVersion(updateVO.getVersion())) {
-            throw BizException.wrap("鏃犳晥鐗堟湰鍙?);
+            throw BizException.wrap("无效版本号");
         }
 
-        // 鏍￠獙鍗囩骇鍖呯増鏈彿鏄惁閲嶅
+        // 校验升级包版本号是否重复
         if (superManager.count(Wrappers.<OtaUpgrades>lbQ()
                 .eq(OtaUpgrades::getPackageType, updateVO.getPackageType())
                 .eq(OtaUpgrades::getVersion, updateVO.getVersion())
                 .ne(OtaUpgrades::getId, updateVO.getId())) > 0) {
-            throw BizException.wrap("鍗囩骇鐗堟湰鍙峰凡瀛樺湪");
+            throw BizException.wrap("升级版本号已存在");
         }
     }
 
     private Builder<OtaUpgrades> builderOtaUpgradesUpdateVO(OtaUpgradesUpdateVO updateVO) {
-        return new OtaUpgrades()
+        return Builder.of(OtaUpgrades::new)
                 .with(OtaUpgrades::setAppId, updateVO.getAppId())
                 .with(OtaUpgrades::setPackageName, updateVO.getPackageName())
                 .with(OtaUpgrades::setPackageType, updateVO.getPackageType())
@@ -270,10 +258,10 @@ import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-
     }
 
     /**
-     * 鏍规嵁ID闆嗗悎鏌ヨ鍗囩骇鍖呬俊鎭?
+     * 根据ID集合查询升级包信息
      *
-     * @param ids 鍗囩骇鍖匢D闆嗗悎
-     * @return {@link List<OtaUpgradesResultVO>} 鍗囩骇鍖呬俊鎭垪琛?
+     * @param ids 升级包ID集合
+     * @return {@link List<OtaUpgradesResultVO>} 升级包信息列表
      */
     @Override
     public List<OtaUpgradesResultVO> selectListByIds(List<Long> ids) {
@@ -291,7 +279,7 @@ import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-
         if (StrUtil.isBlank(productIdentification) || StrUtil.isBlank(version)) {
             return null;
         }
-        // 鍚屼竴(浜у搧 + 鐗堟湰)鐞嗚涓婂敮涓€(saveUpgradePackage 宸叉寜 packageType + version 鍘婚噸),鍙栨渶鏂颁竴鏉″厹搴曞鍖归厤
+        // 同一(产品 + 版本)理论上唯一(saveUpgradePackage 已按 packageType + version 去重),取最新一条兜底多匹配
         return superManager.list(Wrappers.<OtaUpgrades>lbQ()
                         .eq(OtaUpgrades::getProductIdentification, productIdentification)
                         .eq(OtaUpgrades::getVersion, version)
@@ -304,7 +292,6 @@ import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-
                 .filter(StrUtil::isNotBlank)
                 .findFirst()
                 .orElse(null);
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiototaserviceimplOtaUpgradesServiceImpl.java.mapper.OtaUpgradesMapper;
     }
 
 }

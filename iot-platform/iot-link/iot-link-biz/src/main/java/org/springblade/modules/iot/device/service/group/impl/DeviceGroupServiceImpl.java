@@ -1,14 +1,15 @@
 package org.springblade.modules.iot.device.service.group.impl;
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiotdeviceservicegroupimplDeviceGroupServiceImpl.java.mapper.DeviceGroupMapper;
 
 import java.util.Collection;
 import java.util.List;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.mp.base.BaseServiceImpl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springblade.core.tool.utils.BeanUtil;
 import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.device.entity.group.DeviceGroup;
+import org.springblade.modules.iot.device.manager.group.DeviceGroupManager;
 import org.springblade.modules.iot.device.service.group.DeviceGroupRelService;
 import org.springblade.modules.iot.device.service.group.DeviceGroupService;
 import org.springblade.modules.iot.device.vo.query.group.DeviceGroupPageQuery;
@@ -19,8 +20,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 涓氬姟瀹炵幇绫?
- * 璁惧鍒嗙粍琛?
+ * 业务实现类
+ * 设备分组表
  * </p>
  *
  * @author mqttsnet
@@ -50,7 +51,7 @@ public class DeviceGroupServiceImpl extends BaseServiceImpl<DeviceGroupMapper, D
     public boolean removeByIds(Collection<Long> idList) {
         boolean flag = super.removeByIds(idList);
         if (flag) {
-            // 鍒犻櫎鍒嗙粍璧勬簮
+            // 删除分组资源
             deviceGroupRelService.removeByGroupIds(idList);
         }
         return flag;

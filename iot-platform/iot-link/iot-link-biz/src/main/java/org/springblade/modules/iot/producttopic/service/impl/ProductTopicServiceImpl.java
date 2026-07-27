@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.producttopic.service.impl;
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiotproducttopicserviceimplProductTopicServiceImpl.java.mapper.ProductTopicMapper;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,6 +9,7 @@ import java.util.stream.Collectors;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.mp.base.BaseServiceImpl;
 import org.springblade.core.secure.utils.AuthUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -19,6 +19,7 @@ import org.springblade.modules.iot.producttopic.config.ProductTopicTemplate;
 import org.springblade.modules.iot.producttopic.config.ProductTopicTemplateConfig;
 import org.springblade.modules.iot.producttopic.entity.ProductTopic;
 import org.springblade.modules.iot.producttopic.enumeration.ProductTopicTypeEnum;
+import org.springblade.modules.iot.producttopic.manager.ProductTopicManager;
 import org.springblade.modules.iot.producttopic.service.ProductTopicService;
 import org.springblade.modules.iot.producttopic.vo.save.ProductTopicSaveVO;
 import org.springblade.modules.iot.producttopic.vo.update.ProductTopicUpdateVO;
@@ -28,8 +29,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 涓氬姟瀹炵幇绫?
- * 浜у搧Topic淇℃伅琛?
+ * 业务实现类
+ * 产品Topic信息表
  * </p>
  *
  * @author mqttsnet
@@ -51,7 +52,7 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
                 .eq(ProductTopic::getProductIdentification, updateVO.getProductIdentification())
                 .eq(ProductTopic::getTopic, updateVO.getTopic())
                 .ne(ProductTopic::getId, updateVO.getId())) > 0) {
-            throw BizException.wrap("Topic宸插瓨鍦?);
+            throw BizException.wrap("Topic已存在");
         }
 
         return super.updateBefore(updateVO);
@@ -64,7 +65,7 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
         if (superManager.count(Wrappers.<ProductTopic>lbQ()
                 .eq(ProductTopic::getProductIdentification, saveVO.getProductIdentification())
                 .eq(ProductTopic::getTopic, saveVO.getTopic())) > 0) {
-            throw BizException.wrap("Topic宸插瓨鍦?);
+            throw BizException.wrap("Topic已存在");
         }
 
         return super.saveBefore(saveVO);
@@ -81,48 +82,48 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
     }
 
     /**
-     * 鍒濆鍖栦骇鍝佸熀纭€Topic
+     * 初始化产品基础Topic
      *
-     * @param productIdentification 浜у搧鏍囪瘑
-     * @param productTypeEnum       浜у搧绫诲瀷鏋氫妇
-     * @param reInit                鏄惁閲嶆柊鍒濆鍖?
+     * @param productIdentification 产品标识
+     * @param productTypeEnum       产品类型枚举
+     * @param reInit                是否重新初始化
      */
     @Override
     public void initProductBaseTopics(String productIdentification, ProductTypeEnum productTypeEnum, Boolean reInit) {
-        log.info("寮€濮嬪垵濮嬪寲浜у搧鍩虹Topic - 浜у搧鏍囪瘑: {}, 浜у搧绫诲瀷: {}, 鏄惁閲嶆柊鍒濆鍖? {}", productIdentification, productTypeEnum.getDesc(), reInit);
+        log.info("开始初始化产品基础Topic - 产品标识: {}, 产品类型: {}, 是否重新初始化: {}", productIdentification, productTypeEnum.getDesc(), reInit);
         List<ProductTopicTemplate> templates = getTopicTemplates(productTypeEnum);
         if (CollectionUtil.isEmpty(templates)) {
-            log.warn("鏈壘鍒颁骇鍝佺被鍨媅{}]瀵瑰簲鐨勫熀纭€Topic妯℃澘", productTypeEnum.getDesc());
+            log.warn("未找到产品类型[{}]对应的基础Topic模板", productTypeEnum.getDesc());
             return;
         }
         boolean alreadyInitialized = isAlreadyInitialized(productIdentification);
         if (alreadyInitialized) {
             if (Boolean.TRUE.equals(reInit)) {
-                // 閲嶆柊鍒濆鍖栵細鍒犻櫎鐜版湁Topic鍚庨噸鏂板垱寤?
-                log.info("浜у搧[{}]宸插瓨鍦ㄥ熀纭€Topic锛屾墽琛岄噸鏂板垵濮嬪寲", productIdentification);
-                // 鍒犻櫎璇ヤ骇鍝佺殑鎵€鏈夊熀纭€Topic
+                // 重新初始化：删除现有Topic后重新创建
+                log.info("产品[{}]已存在基础Topic，执行重新初始化", productIdentification);
+                // 删除该产品的所有基础Topic
                 boolean deleteSuccess = deleteBaseTopicByProductIdentification(productIdentification);
                 if (!deleteSuccess) {
-                    throw BizException.wrap("鍒犻櫎鐜版湁鍩虹Topic澶辫触锛屾棤娉曢噸鏂板垵濮嬪寲");
+                    throw BizException.wrap("删除现有基础Topic失败，无法重新初始化");
                 }
             } else {
-                // 涓嶉噸鏂板垵濮嬪寲锛岀洿鎺ヨ烦杩?
-                log.info("浜у搧[{}]鐨勫熀纭€Topic宸茬粡鍒濆鍖栬繃锛岃烦杩囧垵濮嬪寲", productIdentification);
+                // 不重新初始化，直接跳过
+                log.info("产品[{}]的基础Topic已经初始化过，跳过初始化", productIdentification);
                 return;
             }
         }
-        log.info("浜у搧[{}]娌℃湁鍩虹Topic锛屾墽琛岄娆″垵濮嬪寲", productIdentification);
+        log.info("产品[{}]没有基础Topic，执行首次初始化", productIdentification);
         List<ProductTopic> productTopics = buildProductTopics(templates, productIdentification);
         superManager.saveBatch(productTopics);
-        log.info("鎴愬姛涓轰骇鍝乕{}]鍒濆鍖栦簡{}涓熀纭€Topic", productIdentification, productTopics.size());
+        log.info("成功为产品[{}]初始化了{}个基础Topic", productIdentification, productTopics.size());
 
     }
 
-    /** 鍗曟鏌ヨ鏈€澶?ID 鏁?闃叉鐢ㄦ埛浼犺秴澶у垪琛ㄦ拺鐖?SQL IN銆?*/
+    /** 单次查询最大 ID 数,防止用户传超大列表撑爆 SQL IN。 */
     private static final int MAX_IDS_PER_QUERY = 500;
 
     /**
-     * 鎵归噺鏍规嵁 ID 鏌?topic 妯℃澘瀛楃涓层€俧ail-soft:浠讳綍寮傚父璺緞閮借繑鍥炵┖鍒楄〃銆?
+     * 批量根据 ID 查 topic 模板字符串。fail-soft:任何异常路径都返回空列表。
      *
      * @author mqttsnet
      * @since 2026-05-06
@@ -132,7 +133,7 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
         if (CollectionUtil.isEmpty(ids)) {
             return Collections.emptyList();
         }
-        // 杩囨护 null 鍏冪礌 + 鍘婚噸 + 鎴埌涓婇檺,闃插尽鑴忓叆鍙?/ SQL IN 鐖嗛噺
+        // 过滤 null 元素 + 去重 + 截到上限,防御脏入参 / SQL IN 爆量
         List<Long> safeIds = ids.stream()
                 .filter(Objects::nonNull)
                 .distinct()
@@ -151,65 +152,65 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
     }
 
     /**
-     * 鏍规嵁浜у搧鏍囪瘑鍒犻櫎鎵€鏈夊熀纭€Topic
+     * 根据产品标识删除所有基础Topic
      *
-     * @param productIdentification 浜у搧鏍囪瘑
-     * @return 鍒犻櫎鍩虹Topic缁撴灉
+     * @param productIdentification 产品标识
+     * @return 删除基础Topic结果
      */
     private boolean deleteBaseTopicByProductIdentification(String productIdentification) {
-        log.info("寮€濮嬪垹闄や骇鍝佹墍鏈塗opic - 浜у搧鏍囪瘑: {}", productIdentification);
-        // 鏌ヨ璇ヤ骇鍝佺殑鎵€鏈夊熀纭€Topic
+        log.info("开始删除产品所有Topic - 产品标识: {}", productIdentification);
+        // 查询该产品的所有基础Topic
         List<ProductTopic> existingTopics = superManager.list(Wrappers.<ProductTopic>lbQ()
                 .eq(ProductTopic::getProductIdentification, productIdentification)
                 .eq(ProductTopic::getTopicType, ProductTopicTypeEnum.BASIC.getValue()));
 
         if (CollectionUtil.isEmpty(existingTopics)) {
-            log.info("浜у搧[{}]娌℃湁鍩虹Topic璁板綍锛屾棤闇€鍒犻櫎", productIdentification);
+            log.info("产品[{}]没有基础Topic记录，无需删除", productIdentification);
             return true;
         }
 
-        // 鎵归噺鍒犻櫎
+        // 批量删除
         List<Long> topicIds = existingTopics.stream()
                 .map(ProductTopic::getId)
                 .distinct()
                 .collect(Collectors.toList());
         boolean deleteSuccess = superManager.removeByIds(topicIds);
         if (deleteSuccess) {
-            log.info("鎴愬姛鍒犻櫎浜у搧[{}]鐨剓}涓熀纭€Topic", productIdentification, existingTopics.size());
+            log.info("成功删除产品[{}]的{}个基础Topic", productIdentification, existingTopics.size());
         } else {
-            log.error("鍒犻櫎浜у搧[{}]鍩虹Topic澶辫触", productIdentification);
-            throw BizException.wrap("鍒犻櫎浜у搧鍩虹Topic澶辫触");
+            log.error("删除产品[{}]基础Topic失败", productIdentification);
+            throw BizException.wrap("删除产品基础Topic失败");
         }
         return deleteSuccess;
     }
 
     /**
-     * 鑾峰彇Topic妯℃澘
+     * 获取Topic模板
      *
-     * @param productTypeEnum 浜у搧绫诲瀷鏋氫妇
-     * @return Topic妯℃澘鍒楄〃
+     * @param productTypeEnum 产品类型枚举
+     * @return Topic模板列表
      */
     private List<ProductTopicTemplate> getTopicTemplates(ProductTypeEnum productTypeEnum) {
         Map<String, List<ProductTopicTemplate>> templates = topicTemplateConfig.getProductTopicTemplates();
         if (CollectionUtil.isEmpty(templates)) {
-            throw BizException.wrap("Nacos閰嶇疆涓湭鎵惧埌Topic妯℃澘閰嶇疆");
+            throw BizException.wrap("Nacos配置中未找到Topic模板配置");
         }
 
-        // 鏍规嵁浜у搧绫诲瀷鑾峰彇瀵瑰簲鐨勬ā鏉?
+        // 根据产品类型获取对应的模板
         String typeKey = getProductTypeKey(productTypeEnum);
         List<ProductTopicTemplate> templateList = templates.get(typeKey);
         if (CollectionUtil.isEmpty(templateList)) {
-            throw BizException.wrap("涓嶆敮鎸佺殑浜у搧绫诲瀷: " + productTypeEnum.getDesc());
+            throw BizException.wrap("不支持的产品类型: " + productTypeEnum.getDesc());
         }
 
         return templateList;
     }
 
     /**
-     * 鑾峰彇浜у搧绫诲瀷瀵瑰簲鐨勯厤缃敭
+     * 获取产品类型对应的配置键
      *
-     * @param productTypeEnum 浜у搧绫诲瀷鏋氫妇
-     * @return 閰嶇疆閿?
+     * @param productTypeEnum 产品类型枚举
+     * @return 配置键
      */
     private String getProductTypeKey(ProductTypeEnum productTypeEnum) {
         switch (productTypeEnum) {
@@ -223,11 +224,11 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
     }
 
     /**
-     * 妫€鏌ユ槸鍚﹀凡缁忓垵濮嬪寲杩?
-     * 浠呮鏌ュ熀纭€Topic鏄惁瀛樺湪
+     * 检查是否已经初始化过
+     * 仅检查基础Topic是否存在
      *
-     * @param productIdentification 浜у搧鏍囪瘑
-     * @return {@link Boolean} 鏄惁宸插垵濮嬪寲
+     * @param productIdentification 产品标识
+     * @return {@link Boolean} 是否已初始化
      */
     private boolean isAlreadyInitialized(String productIdentification) {
         Long count = superManager.lambdaQuery()
@@ -238,11 +239,11 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
     }
 
     /**
-     * 鏋勫缓浜у搧Topic鍒楄〃
+     * 构建产品Topic列表
      *
-     * @param templates             Topic妯℃澘鍒楄〃
-     * @param productIdentification 浜у搧鏍囪瘑
-     * @return {@link List<ProductTopic>} ProductTopic鍒楄〃
+     * @param templates             Topic模板列表
+     * @param productIdentification 产品标识
+     * @return {@link List<ProductTopic>} ProductTopic列表
      */
     private List<ProductTopic> buildProductTopics(List<ProductTopicTemplate> templates, String productIdentification) {
         return templates.stream()
@@ -251,11 +252,11 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
     }
 
     /**
-     * 鏋勫缓鍗曚釜ProductTopic瀹炰綋
+     * 构建单个ProductTopic实体
      *
-     * @param template              Topic妯℃澘
-     * @param productIdentification 浜у搧鏍囪瘑
-     * @return {@link ProductTopic} ProductTopic瀹炰綋
+     * @param template              Topic模板
+     * @param productIdentification 产品标识
+     * @return {@link ProductTopic} ProductTopic实体
      */
     private ProductTopic buildProductTopic(ProductTopicTemplate template,
                                            String productIdentification) {

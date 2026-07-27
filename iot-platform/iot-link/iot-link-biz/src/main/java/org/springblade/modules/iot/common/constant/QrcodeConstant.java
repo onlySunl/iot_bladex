@@ -27,10 +27,12 @@ public interface QrcodeConstant {
      */
     String LOGO_RESOURCE_LOCATION = "images/logo.png";
 
+
     /**
      * 二维码尺寸
      */
     int QR_CODE_LENGTH = 400;
+
 
     //=======================业务参数============================
 
@@ -38,6 +40,7 @@ public interface QrcodeConstant {
      * 设备二维码场景
      */
     String DEVICE_SCENE = "deviceScene";
+
 
     /**
      * 空间二维码场景

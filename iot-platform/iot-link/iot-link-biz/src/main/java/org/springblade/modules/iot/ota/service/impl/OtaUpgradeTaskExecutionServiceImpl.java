@@ -11,6 +11,7 @@ import java.util.Optional;
 
 import cn.hutool.core.collection.CollUtil;
 import com.alibaba.cola.statemachine.StateMachine;
+import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.secure.utils.AuthUtil;
 import org.springblade.core.tool.utils.BeanUtil;
 import org.springblade.modules.iot.common.constant.DsConstant;

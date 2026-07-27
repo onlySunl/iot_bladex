@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.cacert.service.license.impl;
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiotcacertservicelicenseimplCaCertLicenseServiceImpl.java.mapper.CaCertLicenseMapper;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -23,6 +22,7 @@ import java.util.stream.Stream;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ZipUtil;
+import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.mp.base.BaseServiceImpl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -35,6 +35,7 @@ import org.springblade.modules.iot.cacert.enumeration.CaCertAlgorithmEnum;
 import org.springblade.modules.iot.cacert.enumeration.CaCertAuditTypeEnum;
 import org.springblade.modules.iot.cacert.enumeration.CaCertSignAlgorithmEnum;
 import org.springblade.modules.iot.cacert.enumeration.CaCertStatusEnum;
+import org.springblade.modules.iot.cacert.manager.license.CaCertLicenseManager;
 import org.springblade.modules.iot.cacert.service.audit.CaCertAuditLogService;
 import org.springblade.modules.iot.cacert.service.license.CaCertLicenseService;
 import org.springblade.modules.iot.cacert.vo.result.license.CaCertLicenseImpactResultVO;
@@ -42,11 +43,14 @@ import org.springblade.modules.iot.cacert.vo.result.license.CaCertLicenseResultV
 import org.springblade.modules.iot.cacert.vo.save.license.CaCertLicenseSaveVO;
 import org.springblade.modules.iot.cacert.vo.save.license.CaCertPemImportSaveVO;
 import org.springblade.modules.iot.cacert.vo.update.license.CaCertLicenseUpdateVO;
+import org.springblade.modules.iot.common.constant.AppendixType;
 import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.device.entity.Device;
 import org.springblade.modules.iot.device.service.DeviceQueryService;
 import org.springblade.modules.iot.common.utils.FileUploadUtils;
 import org.springblade.modules.iot.common.utils.FreeMarkerUtil;
+import org.springblade.modules.iot.file.facade.FileFacade;
+import org.springblade.modules.iot.file.vo.result.FileResultVO;
 import org.springblade.modules.iot.utils.x509.CertSerialNumberUtil;
 import org.springblade.modules.iot.utils.x509.X509Util;
 import lombok.AllArgsConstructor;
@@ -59,8 +63,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * <p>
- * 涓氬姟瀹炵幇绫?
- * CA璁稿彲璇佽瘉涔﹁〃
+ * 业务实现类
+ * CA许可证证书表
  * </p>
  *
  * @author mqttsnet
@@ -90,7 +94,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
 
     private void checkUpdateVO(CaCertLicenseUpdateVO updateVO) {
         CaCertLicense caCertLicense = superManager.getById(updateVO.getId());
-        ArgumentAssert.notNull(caCertLicense, "璇佷功涓嶅瓨鍦?");
+        ArgumentAssert.notNull(caCertLicense, "证书不存在!");
     }
 
     @Override
@@ -113,7 +117,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
                 .eq(CaCertLicense::getLocalityName, saveVO.getLocalityName())
                 .eq(CaCertLicense::getState, CaCertStatusEnum.ISSUED.getValue())
         ) > 0) {
-            throw BizException.wrap("璇ヤ富浣撳凡瀛樺湪宸查鍙戠殑璇佷功!");
+            throw BizException.wrap("该主体已存在已颁发的证书!");
         }
     }
 
@@ -131,20 +135,20 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
     @Override
     public CaCertLicenseResultVO importPemCertificate(CaCertPemImportSaveVO caCertPemImportSaveVO) {
         try {
-            // 瑙ｆ瀽CA璇佷功
+            // 解析CA证书
             X509Certificate rootCert = X509Util.parseRootCertificate(caCertPemImportSaveVO.getCaCertPem());
 
-            // 鏋勫缓瀛樺偍瀹炰綋
+            // 构建存储实体
             CaCertLicense entity = buildCertificateEntity(caCertPemImportSaveVO.getCertName(), rootCert, caCertPemImportSaveVO.getRemark());
 
-            // 淇濆瓨鍒版暟鎹簱
+            // 保存到数据库
             superManager.save(entity);
 
-            // 瀹¤
+            // 审计
             auditLogService.record(CaCertAuditTypeEnum.IMPORT, entity.getId(), entity.getSerialNumber(),
                     "name=" + entity.getCertName());
 
-            //杩斿洖鏍囧噯鍖朧O
+            //返回标准化VO
             return BeanUtil.toBean(entity, CaCertLicenseResultVO.class);
         } catch (Exception e) {
             throw BizException.wrap(e.getMessage());
@@ -153,22 +157,22 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
     }
 
     /**
-     * 鏋勫缓璇佷功瀛樺偍瀹炰綋
+     * 构建证书存储实体
      *
-     * @param certName 璇佷功鍚嶇О
-     * @param rootCert 鏍硅瘉涔?
-     * @param remark   澶囨敞淇℃伅
-     * @return 鏋勫缓濂界殑璇佷功瀹炰綋
+     * @param certName 证书名称
+     * @param rootCert 根证书
+     * @param remark   备注信息
+     * @return 构建好的证书实体
      */
     private CaCertLicense buildCertificateEntity(String certName, X509Certificate rootCert, String remark) {
         CaCertLicense entity = new CaCertLicense();
-        log.info("璇佷功鍚嶇О: {}, 鍝佺墝: {},version: {}", certName, rootCert.getIssuerX500Principal().getName(), rootCert.getVersion());
+        log.info("证书名称: {}, 品牌: {},version: {}", certName, rootCert.getIssuerX500Principal().getName(), rootCert.getVersion());
         String serialHex = CertSerialNumberUtil.getOpenSSLSerial(rootCert);
         CaCertLicense caCertLicense = superManager.getByCertSerialNumber(serialHex);
-        ArgumentAssert.isNull(caCertLicense, "璇佷功宸插瓨鍦紝璇佷功搴忓垪鍙? {}", serialHex);
+        ArgumentAssert.isNull(caCertLicense, "证书已存在，证书序列号: {}", serialHex);
         try {
             PublicKey publicKey = rootCert.getPublicKey();
-            // 鍩虹淇℃伅
+            // 基础信息
             entity.setCertName(certName);
             entity.setIssuerCommonName(rootCert.getIssuerX500Principal().getName());
             entity.setSerialNumber(serialHex);
@@ -188,18 +192,18 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
             entity.setEmail(subjectObjectDN.getEmail());
             entity.setState(CaCertStatusEnum.ISSUED.getValue());
 
-            // 鏍规嵁绠楁硶绫诲瀷鎻愬彇瀵嗛挜鍙傛暟
+            // 根据算法类型提取密钥参数
             String algorithm = publicKey.getAlgorithm();
             CaCertAlgorithmEnum algorithmEnum = CaCertAlgorithmEnum.fromDesc(algorithm)
-                    .orElseThrow(() -> new BizException("涓嶆敮鎸佺殑瀵嗛挜绠楁硶: " + algorithm));
+                    .orElseThrow(() -> new BizException("不支持的密钥算法: " + algorithm));
             entity.setAlgorithm(algorithmEnum.getValue());
             CaCertSignAlgorithmEnum signAlgorithmEnum = CaCertSignAlgorithmEnum.fromDesc(rootCert.getSigAlgName())
-                    .orElseThrow(() -> new BizException("涓嶆敮鎸佺殑绛惧悕绠楁硶: " + rootCert.getSigAlgName()));
+                    .orElseThrow(() -> new BizException("不支持的签名算法: " + rootCert.getSigAlgName()));
             entity.setSignAlgorithm(signAlgorithmEnum.getValue());
 
         } catch (Exception e) {
-            log.error("buildCertificateEntity 璇佷功瀹炰綋鏋勫缓澶辫触:{}", e.getMessage(), e);
-            throw new BizException("璇佷功瀹炰綋鏋勫缓澶辫触: " + e.getMessage());
+            log.error("buildCertificateEntity 证书实体构建失败:{}", e.getMessage(), e);
+            throw new BizException("证书实体构建失败: " + e.getMessage());
         }
         return entity;
     }
@@ -208,28 +212,28 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
     @Transactional(rollbackFor = Exception.class)
     public CaCertLicenseResultVO issueCertificate(Long id, LocalDateTime notAfter) {
         CaCertLicense caCertLicense = getById(id);
-        ArgumentAssert.notNull(caCertLicense, "璇佷功涓嶅瓨鍦?");
-        ArgumentAssert.isTrue(CaCertStatusEnum.PENDING.getValue().equals(caCertLicense.getState()), "璇佷功鐘舵€佷笉鍚堟硶!");
+        ArgumentAssert.notNull(caCertLicense, "证书不存在!");
+        ArgumentAssert.isTrue(CaCertStatusEnum.PENDING.getValue().equals(caCertLicense.getState()), "证书状态不合法!");
 
-        // 鑾峰彇绠楁硶鏋氫妇
+        // 获取算法枚举
         CaCertAlgorithmEnum algorithm = CaCertAlgorithmEnum.fromValue(caCertLicense.getAlgorithm())
-                .orElseThrow(() -> new BizException("涓嶆敮鎸佺殑璇佷功绠楁硶绫诲瀷"));
+                .orElseThrow(() -> new BizException("不支持的证书算法类型"));
 
         LocalDateTime notBefore = LocalDateTime.now();
         File tempCertFile = null;
         try {
-            // 鏋勫缓CA璇佷功涓婚淇℃伅
+            // 构建CA证书主题信息
             SubjectObjectDN subjectDN = buildSubjectDN(caCertLicense);
 
             PublicKey publicKey;
-            // 鑷畾涔塕SA鍏挜
+            // 自定义RSA公钥
             if (CaCertAlgorithmEnum.RSA.equals(algorithm)) {
                 publicKey = X509Util.customRSAPublicKey(caCertLicense.getParam1(), caCertLicense.getParam2());
             } else {
                 publicKey = X509Util.customECPublicKey(caCertLicense.getParam1(), caCertLicense.getParam2());
             }
 
-            // 鐢熸垚璇佷功锛堜娇鐢↗caX509v3CertificateBuilder锛?
+            // 生成证书（使用JcaX509v3CertificateBuilder）
             X509Certificate rootCert = X509Util.generateRootCert(3, subjectDN, publicKey,
                     DateUtils.localDateTime2Date(notBefore),
                     DateUtils.localDateTime2Date(notAfter));
@@ -244,9 +248,9 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
                     null
             );
 
-            ArgumentAssert.notNull(uploadResult, "璇佷功鏂囦欢涓婁紶澶辫触,璇烽噸璇?");
+            ArgumentAssert.notNull(uploadResult, "证书文件上传失败,请重试!");
 
-            // 鏇存柊璇佷功淇℃伅
+            // 更新证书信息
             CaCertLicenseUpdateVO caCertLicenseUpdateVO = new CaCertLicenseUpdateVO();
             caCertLicenseUpdateVO.setId(caCertLicense.getId());
             caCertLicenseUpdateVO.setSerialNumber(rootCert.getSerialNumber().toString());
@@ -259,10 +263,10 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
             updateById(caCertLicenseUpdateVO);
             return BeanUtil.toBeanIgnoreError(getById(caCertLicense.getId()), CaCertLicenseResultVO.class);
         } catch (Exception e) {
-            log.error("璇佷功鐢熸垚澶辫触", e);
-            throw new BizException("璇佷功鐢熸垚澶辫触: " + e.getMessage());
+            log.error("证书生成失败", e);
+            throw new BizException("证书生成失败: " + e.getMessage());
         } finally {
-            // 鍒犻櫎涓存椂鏂囦欢
+            // 删除临时文件
             if (tempCertFile != null) {
                 FileUtil.del(tempCertFile);
             }
@@ -270,11 +274,11 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
     }
 
     /**
-     * 鏋勫缓璇佷功涓讳綋淇℃伅
-     * Country (C) 鈫?State/Province (ST) 鈫?Locality (L) 鈫?Organization (O) 鈫?Organizational Unit (OU) 鈫?Common Name (CN)
+     * 构建证书主体信息
+     * Country (C) → State/Province (ST) → Locality (L) → Organization (O) → Organizational Unit (OU) → Common Name (CN)
      *
-     * @param license 璇佷功淇℃伅
-     * @return {@link SubjectObjectDN} 璇佷功涓讳綋淇℃伅
+     * @param license 证书信息
+     * @return {@link SubjectObjectDN} 证书主体信息
      */
     private SubjectObjectDN buildSubjectDN(CaCertLicense license) {
         return SubjectObjectDN.builder()
@@ -288,13 +292,13 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
     }
 
     /**
-     * 鑾峰彇璁稿彲璇乁RL
+     * 获取许可证URL
      *
-     * @param caCertLicense 璇佷功淇℃伅
-     * @return {@link String} 璁稿彲璇乁RL
+     * @param caCertLicense 证书信息
+     * @return {@link String} 许可证URL
      */
     private String getLicenseUrl(CaCertLicense caCertLicense) {
-        // 鑾峰彇鏈夋晥鐨勬枃浠禝D鍒楄〃
+        // 获取有效的文件ID列表
         List<Long> fileIdList = Stream.of(
                         Optional.ofNullable(caCertLicense.getAuthorizationCertFileid()).orElse(""),
                         Optional.ofNullable(caCertLicense.getBusinessLicenseFileid()).orElse(""))
@@ -315,7 +319,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
             return "";
         }
 
-        //  鑾峰彇鏂囦欢URL
+        //  获取文件URL
         R<Map<Long, String>> fileUrlMap = fileApi.findUrlFromDefById(fileIdList);
         if (!fileUrlMap.getIsSuccess() || fileUrlMap.getData() == null) {
             log.error("Failed to retrieve file URLs, result is null or empty");
@@ -332,7 +336,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
     @Transactional(rollbackFor = Exception.class)
     public Boolean revokeCertificate(Long id, String revocationReason) {
         CaCertLicense ca = getById(id);
-        ArgumentAssert.notNull(ca, "CA 璇佷功涓嶅瓨鍦? id=" + id);
+        ArgumentAssert.notNull(ca, "CA 证书不存在: id=" + id);
         if (CaCertStatusEnum.REVOKED.getValue().equals(ca.getState())) {
             log.warn("[CaCert] revoke skipped: ca already revoked id={}", id);
             return true;
@@ -342,13 +346,13 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
         ca.setRevokeReason(revocationReason);
         boolean ok = superManager.updateById(ca);
         if (!ok) {
-            throw new BizException("CA 璇佷功鐘舵€佹洿鏂板け璐?);
+            throw new BizException("CA 证书状态更新失败");
         }
         log.info("[CaCert] revoked id={} serialNumber={} reason={}",
                 id, ca.getSerialNumber(), revocationReason);
-        // 鍙戝竷浜嬩欢 鈫?瑙﹀彂鍏宠仈璁惧 cache 澶辨晥
+        // 发布事件 → 触发关联设备 cache 失效
         eventPublisher.publishEvent(new CaRevokedEvent(this, id, ca.getSerialNumber(), revocationReason));
-        // 瀹¤
+        // 审计
         auditLogService.record(CaCertAuditTypeEnum.REVOKE, id, ca.getSerialNumber(),
                 "reason=" + revocationReason);
         return true;
@@ -398,35 +402,35 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
 
     @Override
     public File generateClientCertPackage(Long id, LocalDateTime notAfter) throws Exception {
-        // 楠岃瘉鏍笴A璇佷功
+        // 验证根CA证书
         CaCertLicense caCertLicense = getById(id);
-        ArgumentAssert.notNull(caCertLicense, "鏍笴A璇佷功涓嶅瓨鍦?");
+        ArgumentAssert.notNull(caCertLicense, "根CA证书不存在!");
         ArgumentAssert.isTrue(CaCertStatusEnum.ISSUED.getValue().equals(caCertLicense.getState()),
-                "鏍笴A璇佷功鐘舵€佹棤鏁堬紝鏃犳硶鐢ㄤ簬绛惧彂");
+                "根CA证书状态无效，无法用于签发");
 
         CaCertAlgorithmEnum algorithm = CaCertAlgorithmEnum.fromValue(caCertLicense.getAlgorithm())
-                .orElseThrow(() -> new BizException("涓嶆敮鎸佺殑璇佷功绠楁硶绫诲瀷"));
+                .orElseThrow(() -> new BizException("不支持的证书算法类型"));
 
-        // 鍑嗗涓存椂鐩綍
+        // 准备临时目录
         Path tempDir = Files.createTempDirectory(caCertLicense.getSerialNumber() + "client_cert_");
 
         try {
-            // 鍔犺浇鏍笴A璇佷功
+            // 加载根CA证书
             X509Certificate caCert = loadCACertificate(caCertLicense);
 
-            // 鐢熸垚瀹㈡埛绔瘑閽ュ锛堜笌鏍笴A鍚岀畻娉曪級
+            // 生成客户端密钥对（与根CA同算法）
             KeyPair clientKeyPair = X509Util.generateKeyPair(algorithm.getDesc());
 
-            // 瀵嗛挜瀵瑰簲鐨勫叕閽?
+            // 密钥对应的公钥
             PublicKey clientPublicKey = clientKeyPair.getPublic();
 
-            // CA璇佷功鐨凞N
+            // CA证书的DN
             SubjectObjectDN issuerDN = buildSubjectDN(caCertLicense);
 
-            // 鏋勫缓瀹㈡埛绔疍N锛堝熀浜庢牴CA淇℃伅鐢熸垚锛?
+            // 构建客户端DN（基于根CA信息生成）
             SubjectObjectDN clientDN = buildSubjectDN(caCertLicense);
 
-            // 绛惧彂瀹㈡埛绔瘉涔?
+            // 签发客户端证书
             X509Certificate clientCert = X509Util.generateUserCert(3,
                     issuerDN.getX500Principal(),
                     clientDN,
@@ -435,9 +439,9 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
                     DateUtils.localDateTime2Date(LocalDateTime.now()),
                     DateUtils.localDateTime2Date(notAfter));
 
-            // 鐢熸垚鏂囦欢鍖?
+            // 生成文件包
             File zipFile = createCertPackage(tempDir, clientCert, clientKeyPair, caCert);
-            // 瀹¤:涓嬭浇瀹㈡埛绔瘉涔﹀寘
+            // 审计:下载客户端证书包
             auditLogService.record(CaCertAuditTypeEnum.DOWNLOAD_PACK, id, caCertLicense.getSerialNumber(),
                     "notAfter=" + notAfter);
             return zipFile;
@@ -449,7 +453,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
     }
 
     /**
-     * 鍔犺浇鏍笴A璇佷功
+     * 加载根CA证书
      */
     private X509Certificate loadCACertificate(CaCertLicense caCert) throws Exception {
         byte[] certData = Base64.getDecoder().decode(caCert.getLicenseBase64());
@@ -462,38 +466,38 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
                                    KeyPair clientKeyPair,
                                    X509Certificate caCert) throws IOException {
         try {
-            // 1. 瀹㈡埛绔瘉涔︼紙PEM锛?
+            // 1. 客户端证书（PEM）
             Files.writeString(tempDir.resolve("client.crt"),
                     X509Util.X509CertificateToPem(clientCert));
 
-            // 2. 瀹㈡埛绔閽ワ紙PKCS#8鏍囧噯PEM锛?
+            // 2. 客户端私钥（PKCS#8标准PEM）
             Files.writeString(tempDir.resolve("client.key"), "-----BEGIN PRIVATE KEY-----\n" +
                     Base64.getMimeEncoder(64, "\n".getBytes())
                             .encodeToString(clientKeyPair.getPrivate().getEncoded()) +
                     "\n-----END PRIVATE KEY-----\n");
 
-            // 3. CA璇佷功閾撅紙鍖呭惈鏍笴A锛?
+            // 3. CA证书链（包含根CA）
             Files.writeString(tempDir.resolve("ca.crt"),
                     X509Util.X509CertificateToPem(caCert));
 
-            //  README鏂囦欢
+            //  README文件
             File readmeFile = FileUtil.file(tempDir.toFile(), "README.txt");
             FileUtil.writeUtf8String(buildReadme(clientCert), readmeFile);
 
-            // ZIP鎵撳寘锛堟敼鐢?Hutool 鐨?ZipUtil锛?
+            // ZIP打包（改用 Hutool 的 ZipUtil）
             return ZipUtil.zip(tempDir.toString());
         } catch (CertificateException e) {
-            throw new IOException("璇佷功鏍煎紡杞崲澶辫触", e);
+            throw new IOException("证书格式转换失败", e);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     /**
-     * 浣跨敤瀛楃涓叉ā鏉挎瀯寤篟EADME鏂囦欢鍐呭
+     * 使用字符串模板构建README文件内容
      */
     private String buildReadme(X509Certificate clientCert) throws Exception {
-        // 鎻愬彇璇佷功鍏抽敭淇℃伅
+        // 提取证书关键信息
         Map<String, Object> params = new HashMap<>();
         params.put("clientDn", clientCert.getSubjectX500Principal().getName());
         params.put("caDn", clientCert.getIssuerX500Principal().getName());
@@ -503,21 +507,21 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
         params.put("algorithm", clientCert.getPublicKey().getAlgorithm());
         params.put("keyLength", X509Util.getKeyLength(clientCert.getPublicKey()));
 
-        // 浣跨敤瀛楃涓叉ā鏉跨洿鎺ユ覆鏌?
-        String template = "瀹㈡埛绔瘉涔︿俊鎭細\n" +
+        // 使用字符串模板直接渲染
+        String template = "客户端证书信息：\n" +
                 "================================\n" +
-                "鈥?浣跨敤鑰匘N: ${clientDn}\n" +
-                "鈥?棰佸彂鑰匘N: ${caDn}\n" +
-                "鈥?鏈夋晥鏈熻嚦: ${notAfter}\n" +
-                "鈥?搴忓垪鍙? ${serialNumber}\n" +
-                "鈥?鎸囩汗(SHA-256): ${fingerprint}\n" +
-                "鈥?瀵嗛挜绠楁硶: ${algorithm}\n" +
-                "鈥?瀵嗛挜闀垮害: ${keyLength} bits\n" +
+                "• 使用者DN: ${clientDn}\n" +
+                "• 颁发者DN: ${caDn}\n" +
+                "• 有效期至: ${notAfter}\n" +
+                "• 序列号: ${serialNumber}\n" +
+                "• 指纹(SHA-256): ${fingerprint}\n" +
+                "• 密钥算法: ${algorithm}\n" +
+                "• 密钥长度: ${keyLength} bits\n" +
                 "================================\n" +
-                "娉ㄦ剰浜嬮」锛歕n" +
-                "1. 璇峰Ε鍠勪繚绠＄閽ユ枃浠禱n" +
-                "2. 璇佷功杩囨湡鍓嶈鍙婃椂鏇存柊\n" +
-                "3. 绉侀挜娉勯湶璇风珛鍗冲悐閿€璇佷功";
+                "注意事项：\n" +
+                "1. 请妥善保管私钥文件\n" +
+                "2. 证书过期前请及时更新\n" +
+                "3. 私钥泄露请立即吊销证书";
 
         return FreeMarkerUtil.generateString(template, params);
     }

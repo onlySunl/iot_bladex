@@ -1,9 +1,9 @@
 package org.springblade.modules.iot.productcommandresponse.service.impl;
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiotproductcommandresponseserviceimplProductCommandResponseServiceImpl.java.mapper.ProductCommandResponseMapper;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ReUtil;
 import java.util.Optional;
+import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.mp.base.BaseServiceImpl;
 import org.springblade.core.secure.utils.AuthUtil;
 import org.springblade.core.tool.utils.BeanUtil;
@@ -14,6 +14,7 @@ import org.springblade.modules.iot.product.event.source.ProductModelChangedSourc
 import org.springblade.modules.iot.product.service.ProductQueryService;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;
 import org.springblade.modules.iot.productcommandresponse.entity.ProductCommandResponse;
+import org.springblade.modules.iot.productcommandresponse.manager.ProductCommandResponseManager;
 import org.springblade.modules.iot.productcommandresponse.service.ProductCommandResponseService;
 import org.springblade.modules.iot.productcommandresponse.vo.result.ProductCommandResponseResultVO;
 import org.springblade.modules.iot.productcommandresponse.vo.save.ProductCommandResponseSaveVO;
@@ -30,8 +31,8 @@ import java.util.List;
 
 /**
  * <p>
- * 涓氬姟瀹炵幇绫?
- * 浜у搧妯″瀷鏈嶅姟鍛戒护灞炴€у搷搴斿弬鏁?
+ * 业务实现类
+ * 产品模型服务命令属性响应参数
  * </p>
  *
  * @author mqttsnet
@@ -46,14 +47,14 @@ public class ProductCommandResponseServiceImpl extends BaseServiceImpl<ProductCo
 
     private final ProductServiceService productServiceService;
     /**
-     * 娉ㄥ叆鍙 {@link ProductQueryService}(鐙珛 bean,闆朵笅娓?Service 渚濊禆),
-     * 鍒囧簱缁忚繃 Service AOP 杈圭晫,涓旂被鍥惧ぉ鐒朵负 DAG,浠庢牴鏈閬垮弽鍚戜緷璧栧惊鐜€?
+     * 注入只读 {@link ProductQueryService}(独立 bean,零下游 Service 依赖),
+     * 切库经过 Service AOP 边界,且类图天然为 DAG,从根本规避反向依赖循环。
      */
     private final ProductQueryService productQueryService;
     private final ProductEventPublisher productEventPublisher;
 
     /**
-     * 淇濆瓨浜у搧妯″瀷璁惧鍝嶅簲鏈嶅姟鍛戒护灞炴€?
+     * 保存产品模型设备响应服务命令属性
      *
      * @param saveVO
      * @return
@@ -61,18 +62,18 @@ public class ProductCommandResponseServiceImpl extends BaseServiceImpl<ProductCo
     @Override
     public ProductCommandResponse saveProductCommandResponse(ProductCommandResponseSaveVO saveVO) {
         log.info("saveProductCommandResponse saveVO:{}", saveVO);
-        //鏍￠獙鍙傛暟
+        //校验参数
         checkedProductCommandResponseSaveVO(saveVO);
-        //鏋勫缓鍙傛暟
+        //构建参数
         ProductCommandResponse productCommandResponse = builderProductCommandResponseSaveVO(saveVO);
-        //鏇存柊
+        //更新
         superManager.save(productCommandResponse);
-        publishChange(ProductVersionChangeTypeEnum.CREATE, null, productCommandResponse, "鏂板鍛戒护鍝嶅簲鍙傛暟銆? + productCommandResponse.getParameterName() + "銆?);
+        publishChange(ProductVersionChangeTypeEnum.CREATE, null, productCommandResponse, "新增命令响应参数「" + productCommandResponse.getParameterName() + "」");
         return productCommandResponse;
     }
 
     /**
-     * 淇敼浜у搧妯″瀷璁惧鍝嶅簲鏈嶅姟鍛戒护灞炴€?
+     * 修改产品模型设备响应服务命令属性
      *
      * @param updateVO
      * @return
@@ -80,15 +81,15 @@ public class ProductCommandResponseServiceImpl extends BaseServiceImpl<ProductCo
     @Override
     public ProductCommandResponse updateProductCommandResponse(ProductCommandResponseUpdateVO updateVO) {
         log.info("updateProductCommandResponse updateVO:{}", updateVO);
-        //鏍￠獙鍙傛暟
+        //校验参数
         checkedProductCommandResponseUpdateVO(updateVO);
         ProductCommandResponse before = superManager.getById(updateVO.getId());
-        //鏋勫缓鍙傛暟
+        //构建参数
         ProductCommandResponse commandResponse = BeanUtil.toBeanIgnoreError(updateVO, ProductCommandResponse.class);
-        //鏇存柊
+        //更新
         superManager.updateById(commandResponse);
         ProductCommandResponse after = superManager.getById(updateVO.getId());
-        publishChange(ProductVersionChangeTypeEnum.UPDATE, before, after, "缂栬緫鍛戒护鍝嶅簲鍙傛暟銆? + (after != null ? after.getParameterName() : updateVO.getParameterName()) + "銆?);
+        publishChange(ProductVersionChangeTypeEnum.UPDATE, before, after, "编辑命令响应参数「" + (after != null ? after.getParameterName() : updateVO.getParameterName()) + "」");
         return commandResponse;
     }
 
@@ -100,7 +101,7 @@ public class ProductCommandResponseServiceImpl extends BaseServiceImpl<ProductCo
             throw BizException.wrap("The ProductCommandResponse does not exist");
         }
         boolean result = superManager.removeById(id);
-        publishChange(ProductVersionChangeTypeEnum.DELETE, productCommandResponse, null, "鍒犻櫎鍛戒护鍝嶅簲鍙傛暟銆? + productCommandResponse.getParameterName() + "銆?);
+        publishChange(ProductVersionChangeTypeEnum.DELETE, productCommandResponse, null, "删除命令响应参数「" + productCommandResponse.getParameterName() + "」");
         return result;
     }
 
@@ -110,23 +111,23 @@ public class ProductCommandResponseServiceImpl extends BaseServiceImpl<ProductCo
     }
 
     /**
-     * 鏂板 鏍￠獙鍙傛暟
+     * 新增 校验参数
      *
      * @param saveVO
      */
     private void checkedProductCommandResponseSaveVO(ProductCommandResponseSaveVO saveVO) {
         ArgumentAssert.notNull(saveVO.getServiceId(), "serviceId Cannot be null");
-        //鏍￠獙浜у搧妯″瀷鏈嶅姟鏄惁瀛樺湪
+        //校验产品模型服务是否存在
         ArgumentAssert.notNull(productServiceService.findOneByProductServiceId(saveVO.getServiceId()), "productService not found");
         ArgumentAssert.notNull(saveVO.getCommandId(), "commandId Cannot be null");
         ArgumentAssert.notBlank(saveVO.getDatatype(), "datatype Cannot be null");
         ArgumentAssert.notBlank(saveVO.getRequired(), "required Cannot be null");
         ArgumentAssert.notBlank(saveVO.getParameterCode(), "parameterCode Cannot be null");
-        //鏍￠獙缂栫爜鍛藉悕瑙勮寖
+        //校验编码命名规范
         if (!ReUtil.isMatch(ThingModelCodeRule.PATTERN, saveVO.getParameterCode())) {
             throw BizException.wrap(ThingModelCodeRule.PATTERN_MSG);
         }
-        //鏍￠獙CODE
+        //校验CODE
         if (CollUtil.isNotEmpty(superManager.checkCode(saveVO.getServiceId(), saveVO.getCommandId(), saveVO.getParameterCode()))) {
             throw BizException.wrap("parameterCode already exists");
         }
@@ -134,7 +135,7 @@ public class ProductCommandResponseServiceImpl extends BaseServiceImpl<ProductCo
     }
 
     /**
-     * 鏂板 鏋勫缓鍙傛暟
+     * 新增 构建参数
      *
      * @param saveVO
      * @return
@@ -164,25 +165,25 @@ public class ProductCommandResponseServiceImpl extends BaseServiceImpl<ProductCo
     }
 
     /**
-     * 淇敼 鏍￠獙鍙傛暟
+     * 修改 校验参数
      *
      * @param updateVO
      */
     private void checkedProductCommandResponseUpdateVO(ProductCommandResponseUpdateVO updateVO) {
         ArgumentAssert.notNull(updateVO.getId(), "id Cannot be null");
         ArgumentAssert.notNull(updateVO.getServiceId(), "serviceId Cannot be null");
-        //鏍￠獙浜у搧妯″瀷鏄惁瀛樺湪
+        //校验产品模型是否存在
         ArgumentAssert.notNull(productServiceService.findOneByProductServiceId(updateVO.getServiceId()), "productService not found");
         ArgumentAssert.notNull(updateVO.getCommandId(), "commandId Cannot be null");
         ArgumentAssert.notBlank(updateVO.getDatatype(), "datatype Cannot be null");
         ArgumentAssert.notBlank(updateVO.getRequired(), "required Cannot be null");
         ArgumentAssert.notBlank(updateVO.getParameterCode(), "parameterCode Cannot be null");
-        //鏍￠獙缂栫爜鍛藉悕瑙勮寖
+        //校验编码命名规范
         if (!ReUtil.isMatch(ThingModelCodeRule.PATTERN, updateVO.getParameterCode())) {
             throw BizException.wrap(ThingModelCodeRule.PATTERN_MSG);
         }
         ArgumentAssert.notBlank(updateVO.getParameterName(), "parameterName Cannot be null");
-        //鏍￠獙CODE
+        //校验CODE
         List<ProductCommandResponse> productCommandResponses = superManager.checkCode(updateVO.getServiceId(), updateVO.getCommandId(), updateVO.getParameterCode());
         productCommandResponses.stream()
                 .filter(productCommandResponse -> !productCommandResponse.getId().equals(updateVO.getId()))

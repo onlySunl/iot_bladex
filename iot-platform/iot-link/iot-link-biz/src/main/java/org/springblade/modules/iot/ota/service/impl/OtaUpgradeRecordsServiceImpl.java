@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.ota.service.impl;
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiototaserviceimplOtaUpgradeRecordsServiceImpl.java.mapper.OtaUpgradeRecordsMapper;
 
 import java.util.Collections;
 import java.util.List;
@@ -7,6 +6,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springblade.core.mp.support.Query;
@@ -17,6 +17,7 @@ import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeRecordsSummaryResultDTO;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeRecords;
 import org.springblade.modules.iot.ota.enumeration.OtaTaskRecordAppConfirmStatusEnum;
+import org.springblade.modules.iot.ota.manager.OtaUpgradeRecordsManager;
 import org.springblade.modules.iot.ota.service.OtaUpgradeRecordsService;
 import org.springblade.modules.iot.ota.vo.query.OtaUpgradeRecordsPageQuery;
 import org.springblade.modules.iot.ota.vo.result.OtaUpgradeRecordsResultVO;
@@ -29,8 +30,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 涓氬姟瀹炵幇绫?
- * OTA鍗囩骇璁板綍琛?
+ * 业务实现类
+ * OTA升级记录表
  * </p>
  *
  * @author mqttsnet
@@ -89,10 +90,10 @@ public class OtaUpgradeRecordsServiceImpl extends BaseServiceImpl<OtaUpgradeReco
     }
 
     /**
-     * 鑾峰彇OTA鍗囩骇璁板綍鍒嗛〉淇℃伅
+     * 获取OTA升级记录分页信息
      *
-     * @param params 鏌ヨ鍙傛暟
-     * @return {@link IPage < OtaUpgradeRecordsPageQuery >} OTA鍗囩骇璁板綍鍒嗛〉淇℃伅
+     * @param params 查询参数
+     * @return {@link IPage < OtaUpgradeRecordsPageQuery >} OTA升级记录分页信息
      */
     @Override
     public IPage<OtaUpgradeRecordsResultVO> getOtaUpgradeRecordsResultVOPage(Query params) {
@@ -138,53 +139,53 @@ public class OtaUpgradeRecordsServiceImpl extends BaseServiceImpl<OtaUpgradeReco
     @Override
     public void updateStatusByTaskId(Long taskId, Integer status) {
         if (Objects.isNull(taskId) || Objects.isNull(status)) {
-            log.warn("浠诲姟ID鎴栫姸鎬佷负绌猴紝鏃犳硶鏇存柊鍗囩骇璁板綍鐘舵€?);
+            log.warn("任务ID或状态为空，无法更新升级记录状态");
             return;
         }
         try {
             superManager.updateStatusByTaskId(taskId, status);
         } catch (Exception e) {
-            log.error("鏍规嵁浠诲姟ID鏇存柊鍗囩骇璁板綍鐘舵€佸紓甯?- 浠诲姟ID: {}, 鐘舵€? {}", taskId, status, e);
-            throw new BizException("鏇存柊鍗囩骇璁板綍鐘舵€佸け璐?);
+            log.error("根据任务ID更新升级记录状态异常 - 任务ID: {}, 状态: {}", taskId, status, e);
+            throw new BizException("更新升级记录状态失败");
         }
     }
 
     @Override
     public void updateStatusByDeviceAndTask(Long taskId, String deviceIdentification, Integer status, String errorMessage) {
         if (Objects.isNull(taskId) || Objects.isNull(deviceIdentification) || Objects.isNull(status)) {
-            log.warn("浠诲姟ID銆佽澶囨爣璇嗘垨鐘舵€佷负绌猴紝鏃犳硶鏇存柊鍗囩骇璁板綍鐘舵€?);
+            log.warn("任务ID、设备标识或状态为空，无法更新升级记录状态");
             return;
         }
 
         try {
             superManager.updateStatusByDeviceAndTask(taskId, deviceIdentification, status, errorMessage);
         } catch (Exception e) {
-            log.error("鏍规嵁浠诲姟ID鍜岃澶囨爣璇嗘洿鏂板崌绾ц褰曠姸鎬佸紓甯?- 浠诲姟ID: {}, 璁惧: {}, 鐘舵€? {}",
+            log.error("根据任务ID和设备标识更新升级记录状态异常 - 任务ID: {}, 设备: {}, 状态: {}",
                     taskId, deviceIdentification, status, e);
-            throw new BizException("鏇存柊鍗囩骇璁板綍鐘舵€佸け璐?);
+            throw new BizException("更新升级记录状态失败");
         }
     }
 
     @Override
     public void updateProgressByDeviceAndTask(Long taskId, String deviceIdentification, int progress) {
         if (Objects.isNull(taskId) || Objects.isNull(deviceIdentification)) {
-            log.warn("浠诲姟ID鎴栬澶囨爣璇嗕负绌猴紝鏃犳硶鏇存柊鍗囩骇杩涘害");
+            log.warn("任务ID或设备标识为空，无法更新升级进度");
             return;
         }
 
         try {
             superManager.updateProgressByDeviceAndTask(taskId, deviceIdentification, progress);
         } catch (Exception e) {
-            log.error("鏍规嵁浠诲姟ID鍜岃澶囨爣璇嗘洿鏂板崌绾ц繘搴﹀紓甯?- 浠诲姟ID: {}, 璁惧: {}, 杩涘害: {}%",
+            log.error("根据任务ID和设备标识更新升级进度异常 - 任务ID: {}, 设备: {}, 进度: {}%",
                     taskId, deviceIdentification, progress, e);
-            throw new BizException("鏇存柊鍗囩骇杩涘害澶辫触");
+            throw new BizException("更新升级进度失败");
         }
     }
 
     @Override
     public List<OtaUpgradeRecordsResultVO> getRecordsByTaskId(Long taskId) {
         if (Objects.isNull(taskId)) {
-            log.warn("浠诲姟ID涓虹┖锛屾棤娉曡幏鍙栧崌绾ц褰曞垪琛?);
+            log.warn("任务ID为空，无法获取升级记录列表");
             return Collections.emptyList();
         }
         try {
@@ -199,15 +200,15 @@ public class OtaUpgradeRecordsServiceImpl extends BaseServiceImpl<OtaUpgradeReco
                     .map(record -> BeanUtil.toBeanIgnoreError(record, OtaUpgradeRecordsResultVO.class))
                     .collect(Collectors.toList());
         } catch (Exception e) {
-            log.error("鏍规嵁浠诲姟ID鑾峰彇鍗囩骇璁板綍鍒楄〃寮傚父 - 浠诲姟ID: {}", taskId, e);
-            throw new BizException("鑾峰彇鍗囩骇璁板綍鍒楄〃澶辫触");
+            log.error("根据任务ID获取升级记录列表异常 - 任务ID: {}", taskId, e);
+            throw new BizException("获取升级记录列表失败");
         }
     }
 
     @Override
     public List<String> getProcessedDevicesByTaskId(Long taskId) {
         if (Objects.isNull(taskId)) {
-            log.warn("浠诲姟ID涓虹┖锛屾棤娉曡幏鍙栧凡澶勭悊璁惧鍒楄〃");
+            log.warn("任务ID为空，无法获取已处理设备列表");
             return Collections.emptyList();
         }
 
@@ -220,46 +221,46 @@ public class OtaUpgradeRecordsServiceImpl extends BaseServiceImpl<OtaUpgradeReco
                 return Collections.emptyList();
             }
 
-            // 鎻愬彇鎵€鏈夎澶囩殑鏍囪瘑
+            // 提取所有设备的标识
             return records.stream()
                     .map(OtaUpgradeRecords::getDeviceIdentification)
                     .filter(Objects::nonNull)
                     .distinct()
                     .collect(Collectors.toList());
         } catch (Exception e) {
-            log.error("鏍规嵁浠诲姟ID鑾峰彇宸插鐞嗚澶囧垪琛ㄥ紓甯?- 浠诲姟ID: {}", taskId, e);
-            throw new BizException("鑾峰彇宸插鐞嗚澶囧垪琛ㄥけ璐?);
+            log.error("根据任务ID获取已处理设备列表异常 - 任务ID: {}", taskId, e);
+            throw new BizException("获取已处理设备列表失败");
         }
     }
 
     @Override
     public void updateAppConfirmationStatus(Long taskId, String deviceIdentification, OtaTaskRecordAppConfirmStatusEnum appConfirmationStatusEnum) {
         if (Objects.isNull(taskId) || Objects.isNull(deviceIdentification) || Objects.isNull(appConfirmationStatusEnum)) {
-            log.warn("浠诲姟ID銆佽澶囨爣璇嗘垨APP纭鐘舵€佷负绌猴紝鏃犳硶鏇存柊APP纭鐘舵€?);
+            log.warn("任务ID、设备标识或APP确认状态为空，无法更新APP确认状态");
             return;
         }
         try {
             superManager.updateAppConfirmationStatus(taskId, deviceIdentification, appConfirmationStatusEnum.getValue());
-            log.info("鏍规嵁浠诲姟ID鍜岃澶囨爣璇嗘洿鏂癆PP纭鐘舵€佹垚鍔?- 浠诲姟ID: {}, 璁惧: {}, 纭鐘舵€? {}", taskId, deviceIdentification, appConfirmationStatusEnum.getDesc());
+            log.info("根据任务ID和设备标识更新APP确认状态成功 - 任务ID: {}, 设备: {}, 确认状态: {}", taskId, deviceIdentification, appConfirmationStatusEnum.getDesc());
         } catch (Exception e) {
-            log.error("鏍规嵁浠诲姟ID鍜岃澶囨爣璇嗘洿鏂癆PP纭鐘舵€佸紓甯?- 浠诲姟ID: {}, 璁惧: {}, 纭鐘舵€? {}", taskId, deviceIdentification, appConfirmationStatusEnum.getDesc(), e);
-            throw new BizException("鏇存柊APP纭鐘舵€佸け璐?);
+            log.error("根据任务ID和设备标识更新APP确认状态异常 - 任务ID: {}, 设备: {}, 确认状态: {}", taskId, deviceIdentification, appConfirmationStatusEnum.getDesc(), e);
+            throw new BizException("更新APP确认状态失败");
         }
     }
 
     @Override
     public void updateCommandSendStatus(Long taskId, String deviceIdentification, Integer commandSendStatus, String errorMessage) {
         if (Objects.isNull(taskId) || Objects.isNull(deviceIdentification) || Objects.isNull(commandSendStatus)) {
-            log.warn("浠诲姟ID銆佽澶囨爣璇嗘垨鎸囦护鍙戦€佺姸鎬佷负绌猴紝鏃犳硶鏇存柊鎸囦护鍙戦€佺姸鎬?);
+            log.warn("任务ID、设备标识或指令发送状态为空，无法更新指令发送状态");
             return;
         }
 
         try {
             superManager.updateCommandSendStatus(taskId, deviceIdentification, commandSendStatus, errorMessage);
-            log.info("鏍规嵁浠诲姟ID鍜岃澶囨爣璇嗘洿鏂版寚浠ゅ彂閫佺姸鎬佹垚鍔?- 浠诲姟ID: {}, 璁惧: {}, 鎸囦护鍙戦€佺姸鎬? {}", taskId, deviceIdentification, commandSendStatus);
+            log.info("根据任务ID和设备标识更新指令发送状态成功 - 任务ID: {}, 设备: {}, 指令发送状态: {}", taskId, deviceIdentification, commandSendStatus);
         } catch (Exception e) {
-            log.error("鏍规嵁浠诲姟ID鍜岃澶囨爣璇嗘洿鏂版寚浠ゅ彂閫佺姸鎬佸紓甯?- 浠诲姟ID: {}, 璁惧: {}, 鎸囦护鍙戦€佺姸鎬? {}", taskId, deviceIdentification, commandSendStatus, e);
-            throw new BizException("鏇存柊鎸囦护鍙戦€佺姸鎬佸け璐?);
+            log.error("根据任务ID和设备标识更新指令发送状态异常 - 任务ID: {}, 设备: {}, 指令发送状态: {}", taskId, deviceIdentification, commandSendStatus, e);
+            throw new BizException("更新指令发送状态失败");
         }
     }
 
@@ -273,7 +274,7 @@ public class OtaUpgradeRecordsServiceImpl extends BaseServiceImpl<OtaUpgradeReco
     }
 
     private Builder<OtaUpgradeRecords> builderOtaUpgradeRecordsUpdateVO(OtaUpgradeRecordsUpdateVO updateVO) {
-        return new OtaUpgradeRecords()
+        return Builder.of(OtaUpgradeRecords::new)
                 .with(OtaUpgradeRecords::setId, updateVO.getId())
                 .with(OtaUpgradeRecords::setUpgradeId, updateVO.getUpgradeId())
                 .with(OtaUpgradeRecords::setTaskId, updateVO.getTaskId())

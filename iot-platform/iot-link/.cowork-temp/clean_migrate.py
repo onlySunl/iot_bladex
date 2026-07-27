@@ -72,9 +72,11 @@ def transform(content):
     # === 4. Class inheritance fixes ===
     content = re.sub(r'extends\s+SuperController\b', 'extends BladeController', content)
     content = re.sub(r'extends\s+SuperService\s*<\s*Long\s*,\s*(\w+)\s*>', r'extends BaseService<\1>', content)
-    # SuperServiceImpl<Mapper, Long, Entity> → BaseServiceImpl<Mapper, Entity>
-    content = re.sub(r'extends\s+SuperServiceImpl\s*<\s*(\w+)\s*,\s*Long\s*,\s*(\w+)\s*>', r'extends BaseServiceImpl<\1, \2>', content)
-    # SuperServiceImpl<Mapper, Entity> → BaseServiceImpl<Mapper, Entity>
+    # SuperServiceImpl<XxxManager, Long, Entity> → BaseServiceImpl<XxxMapper, Entity>
+    content = re.sub(r'extends\s+SuperServiceImpl\s*<\s*(\w+)Manager\s*,\s*Long\s*,\s*(\w+)\s*>', r'extends BaseServiceImpl<\1Mapper, \2>', content)
+    # SuperServiceImpl<XxxMapper, Long, Entity> → BaseServiceImpl<XxxMapper, Entity>
+    content = re.sub(r'extends\s+SuperServiceImpl\s*<\s*(\w+)Mapper\s*,\s*Long\s*,\s*(\w+)\s*>', r'extends BaseServiceImpl<\1Mapper, \2>', content)
+    # SuperServiceImpl<Mapper, Entity> → BaseServiceImpl<Mapper, Entity> (generic fallback)
     content = re.sub(r'extends\s+SuperServiceImpl\s*<\s*(\w+)\s*,\s*(\w+)\s*>', r'extends BaseServiceImpl<\1, \2>', content)
     content = re.sub(r'extends\s+SuperMapper\s*<\s*(\w+)\s*>', r'extends BladeMapper<\1>', content)
     content = re.sub(r'extends\s+SuperManager\s*<\s*(\w+)\s*>', r'extends BaseService<\1>', content)

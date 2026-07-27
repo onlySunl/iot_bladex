@@ -13,6 +13,7 @@ public interface JobConstant {
      */
     String DEF_BASE_JOB_GROUP_NAME = "thinglinks-base-executor";
 
+
     String DEF_EXTEND_JOB_GROUP_NAME = "thinglinks-extend-executor";
 
     /**
@@ -20,15 +21,18 @@ public interface JobConstant {
      */
     String DEF_IOT_JOB_GROUP_NAME = "thinglinks-iot-executor";
 
+
     /**
      * 短信发送处理器
      */
     String SMS_SEND_JOB_HANDLER = "smsSendJobHandler";
 
+
     /**
      * 推送消息处理器
      */
     String PUBLISH_MSG_JOB_HANDLER = "publishMsgJobHandler";
+
 
     /**
      * 场景联动规则处理器

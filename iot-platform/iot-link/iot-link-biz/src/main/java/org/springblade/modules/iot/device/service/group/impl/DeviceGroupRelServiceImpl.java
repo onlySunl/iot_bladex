@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.device.service.group.impl;
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiotdeviceservicegroupimplDeviceGroupRelServiceImpl.java.mapper.DeviceGroupRelMapper;
 
 import java.util.Collection;
 import java.util.List;
@@ -7,10 +6,12 @@ import java.util.Optional;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.mp.base.BaseServiceImpl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.device.entity.group.DeviceGroupRel;
+import org.springblade.modules.iot.device.manager.group.DeviceGroupRelManager;
 import org.springblade.modules.iot.device.service.group.DeviceGroupRelService;
 import org.springblade.modules.iot.device.vo.save.group.DeviceGroupRelSaveVO;
 import org.springblade.modules.iot.device.vo.update.group.DeviceGroupRelUpdateVO;
@@ -20,8 +21,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 涓氬姟瀹炵幇绫?
- * 璁惧鍒嗙粍鍏崇郴琛?
+ * 业务实现类
+ * 设备分组关系表
  * </p>
  *
  * @author mqttsnet
@@ -82,7 +83,7 @@ public class DeviceGroupRelServiceImpl extends BaseServiceImpl<DeviceGroupRelMap
 
     @Override
     public void removeByDeviceIdentification(String deviceIdentification) {
-        // 绌哄€煎畨鍏細deviceIdentification 缂哄け鏃剁洿鎺ヨ烦杩囷紝閬垮厤绌哄瓧绗︿覆鏉′欢鍖归厤鍒板叏琛ㄦ暟鎹?
+        // 空值安全：deviceIdentification 缺失时直接跳过，避免空字符串条件匹配到全表数据
         Optional.ofNullable(deviceIdentification)
                 .filter(StrUtil::isNotBlank)
                 .ifPresent(identification -> {

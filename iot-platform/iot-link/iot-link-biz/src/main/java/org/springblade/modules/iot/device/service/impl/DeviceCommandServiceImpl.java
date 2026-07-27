@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.device.service.impl;
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiotdeviceserviceimplDeviceCommandServiceImpl.java.mapper.DeviceCommandMapper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,6 +7,7 @@ import java.util.Optional;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
+import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.mp.base.BaseServiceImpl;
 import org.springblade.core.secure.utils.AuthUtil;
@@ -18,12 +18,14 @@ import org.springblade.modules.iot.broker.DeviceDownlinkFacade;
 import org.springblade.modules.iot.vo.query.DownlinkCommand;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
+import org.springblade.modules.iot.common.constant.BizConstant;
 import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.device.entity.DeviceCommand;
 import org.springblade.modules.iot.device.enumeration.DeviceCommandStatusEnum;
 import org.springblade.modules.iot.device.enumeration.DeviceCommandTypeEnum;
 import org.springblade.modules.iot.device.enumeration.DeviceNodeTypeEnum;
 import org.springblade.modules.iot.device.enumeration.DeviceStatusEnum;
+import org.springblade.modules.iot.device.manager.DeviceCommandManager;
 import org.springblade.modules.iot.device.service.DeviceCommandService;
 import org.springblade.modules.iot.device.service.DeviceService;
 import org.springblade.modules.iot.device.vo.query.DeviceCommandPageQuery;
@@ -44,8 +46,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 涓氬姟瀹炵幇绫?
- * 璁惧鍛戒护涓嬪彂鍙婂搷搴旇〃
+ * 业务实现类
+ * 设备命令下发及响应表
  * </p>
  *
  * @author mqttsnet
@@ -96,8 +98,8 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
         int safeLimit = (limit == null || limit <= 0) ? 100 : Math.min(limit, 500);
         String topicKeyword = topic == null ? null : topic.trim();
         boolean hasTopic = topicKeyword != null && !topicKeyword.isEmpty();
-        // 浠呭彇鍛戒护涓嬪彂(0)/鍛戒护鍝嶅簲(1),OTA(2)涓嶅叆璋冭瘯鍙?璁惧绌?褰撳墠绉熸埛鍏ㄩ儴;鍊掑簭鍙栬繎 N 鏉?鍛戒腑 idx_device_cmdtype_ctime)銆?
-        // topic 瀛樺湪 content/remark 鎶ユ枃涓?鍘熷/鏂扮粨鏋勫寲涓嬪彂鍦?content.topic,鍝嶅簲鏂拌褰曞湪 content.topic銆?
+        // 仅取命令下发(0)/命令响应(1),OTA(2)不入调试台;设备空=当前租户全部;倒序取近 N 条(命中 idx_device_cmdtype_ctime)。
+        // topic 存在 content/remark 报文中:原始/新结构化下发在 content.topic,响应新记录在 content.topic。
         return BeanUtil.toBeanList(
                 superManager.lambdaQuery()
                         .in(DeviceCommand::getCommandType,
@@ -130,7 +132,7 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
                 .map(this::processSingleCommand)
                 .forEach(results::addAll);
 
-        // Process parallel commands锛堜笉浣跨敤 parallelStream锛岄伩鍏?@DS 鏁版嵁婧愪笂涓嬫枃鍦?ForkJoinPool 绾跨▼涓涪澶憋級
+        // Process parallel commands（不使用 parallelStream，避免 @DS 数据源上下文在 ForkJoinPool 线程中丢失）
         Optional.ofNullable(commandWrapper.getParallel()).orElseGet(Collections::emptyList)
                 .stream()
                 .map(this::processSingleCommand)
@@ -141,7 +143,7 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
 
     @Override
     public void sendMqttCustomMessage(PublishMqttMessageRequestParam publishMqttMessageRequestParam) {
-        log.info("鍙戦€丮QTT娑堟伅 - Topic: {}, 绉熸埛: {}, 璐熻浇绫诲瀷: {}, 鏄惁涓築ase64: {}",
+        log.info("发送MQTT消息 - Topic: {}, 租户: {}, 负载类型: {}, 是否为Base64: {}",
                 publishMqttMessageRequestParam.getTopic(),
                 publishMqttMessageRequestParam.getTenantId(),
                 publishMqttMessageRequestParam.getPayload() != null ? publishMqttMessageRequestParam.getPayload().getClass().getSimpleName() : "null",
@@ -158,24 +160,24 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
                 .expirySeconds(publishMqttMessageRequestParam.getExpirySeconds())
                 .build();
 
-        log.info("鍙戦€丮QTT娑堟伅 - 鏈€缁堣礋杞介暱搴? {}, 寮哄埗瑙ｇ爜: {}", publishMessageRequestVO.getPayload() != null ?
+        log.info("发送MQTT消息 - 最终负载长度: {}, 强制解码: {}", publishMessageRequestVO.getPayload() != null ?
                 publishMessageRequestVO.getPayload().length() : 0, publishMessageRequestVO.getForceBase64Decode());
 
         long startTime = System.currentTimeMillis();
 
-        // 鎵ц鍙戦€?
+        // 执行发送
         R response = mqttBrokerOpenInnerFacade.sendMessage(publishMessageRequestVO);
 
         long costTime = System.currentTimeMillis() - startTime;
 
-        // 澶勭悊鍝嶅簲缁撴灉
+        // 处理响应结果
         if (!response.getIsSuccess()) {
-            log.error("銆怣QTT娑堟伅鍙戦€佸け璐ャ€戣€楁椂: {}ms, 閿欒淇℃伅: {}", costTime, response.getMsg());
+            log.error("【MQTT消息发送失败】耗时: {}ms, 错误信息: {}", costTime, response.getMsg());
             throw BizException.wrap("MQTT message sending failed. Please try again! Time consumed: {}ms", costTime);
         } else {
-            log.info("銆怣QTT娑堟伅鍙戦€佹垚鍔熴€?<< 鑰楁椂: {}ms, 鍝嶅簲淇℃伅: {}", costTime, response.getMsg());
+            log.info("【MQTT消息发送成功】<<< 耗时: {}ms, 响应信息: {}", costTime, response.getMsg());
         }
-        // 鍘熷涓嬭涔熻惤 device_command(type=0),渚涜皟璇曞彴鍘嗗彶涓庝竴閿噸鍙?璁惧鏍囪瘑鐢卞墠绔紶鍏?璁板綍澶辫触涓嶅奖鍝嶅凡鎴愬姛鐨勫彂閫?
+        // 原始下行也落 device_command(type=0),供调试台历史与一键重发;设备标识由前端传入,记录失败不影响已成功的发送
         recordCustomDownlink(publishMqttMessageRequestParam.getDeviceIdentification(),
                 publishMqttMessageRequestParam.getTopic(), publishMqttMessageRequestParam.getPayloadAsSmartString());
     }
@@ -197,9 +199,9 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
     }
 
     /**
-     * 鑷畾涔?鍘熷涓嬭钀?device_command(type=0):渚涜皟璇曞彴鍘嗗彶涓庝竴閿噸鍙戙€?
-     * 璁惧鏍囪瘑鐢卞墠绔紶鍏?鍘熷 topic 涓嶄竴瀹氬惈璁惧娈?鏁呬笉浠?topic 瑙ｆ瀽);鏃犺澶囨爣璇嗗垯涓嶈褰曘€?
-     * 璁板綍澶辫触浠呭憡璀?涓嶅奖鍝嶅凡鎴愬姛鐨勫彂閫併€?
+     * 自定义/原始下行落 device_command(type=0):供调试台历史与一键重发。
+     * 设备标识由前端传入(原始 topic 不一定含设备段,故不从 topic 解析);无设备标识则不记录。
+     * 记录失败仅告警,不影响已成功的发送。
      */
     private void recordCustomDownlink(String deviceIdentification, String topic, String payload) {
         if (deviceIdentification == null || deviceIdentification.isEmpty()) {
@@ -210,14 +212,14 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
             saveVO.setDeviceIdentification(deviceIdentification);
             saveVO.setCommandType(DeviceCommandTypeEnum.COMMAND_ISSUE.getValue());
             saveVO.setStatus(DeviceCommandStatusEnum.SUCCESS.getValue());
-            // 鍘熷涓嬭 content 瀛?{topic,payload}:topic 鍘熸牱淇濈暀,鏌ヨ鏃惰В鏋?涓嶅崟鐙缓鍒?
+            // 原始下行 content 存 {topic,payload}:topic 原样保留,查询时解析,不单独建列
             JSONObject raw = new JSONObject();
             raw.put("topic", topic);
             raw.put("payload", payload);
             saveVO.setContent(raw.toJSONString());
             saveDeviceCommand(saveVO);
         } catch (Exception e) {
-            log.warn("璁板綍鑷畾涔変笅琛屽埌 device_command 澶辫触(涓嶅奖鍝嶅彂閫?: {}", e.getMessage());
+            log.warn("记录自定义下行到 device_command 失败(不影响发送): {}", e.getMessage());
         }
     }
 
@@ -260,10 +262,10 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
         List<DeviceResultVO> deviceResultVOList;
 
         if (BizConstant.ALL.equals(deviceIdentification)) {
-            // 鑾峰彇鎵€鏈夎澶囩殑缁撴灉鍒楄〃
+            // 获取所有设备的结果列表
             deviceResultVOList = getAllDeviceResultVOs(productIdentification);
         } else {
-            // 鑾峰彇鍗曚釜璁惧鐨勭粨鏋滃垪琛?
+            // 获取单个设备的结果列表
             deviceResultVOList = getSingleDeviceResultVO(deviceIdentification);
         }
         // Process each device command.
@@ -323,8 +325,8 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
         deviceCommandSaveVO.setStatus(response.getIsSuccess()
                 ? DeviceCommandStatusEnum.SUCCESS.getValue()
                 : DeviceCommandStatusEnum.FAILURE.getValue());
-        // content 瀛樸€屽疄闄呭彂鍑虹殑鍛戒护鎶ユ枃銆?cloudReq,鍚?serviceCode/cmd/params/versionNo/topic),渚涘巻鍙插睍绀恒€乼opic 鏌ヨ涓庝竴閿噸鍙?
-        // 娲惧彂缁撴灉鐣欑棔鍒?remark銆俿erviceCode/cmd/鐗堟湰/topic 鏌ヨ鏃剁敱 content 瑙ｆ瀽,涓嶅崟鐙缓鍒椼€?
+        // content 存「实际发出的命令报文」(cloudReq,含 serviceCode/cmd/params/versionNo/topic),供历史展示、topic 查询与一键重发;
+        // 派发结果留痕到 remark。serviceCode/cmd/版本/topic 查询时由 content 解析,不单独建列。
         deviceCommandSaveVO.setContent(buildCommandRecordContent(outcome));
         deviceCommandSaveVO.setRemark(response.toString());
         return deviceCommandSaveVO;
@@ -358,14 +360,14 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
         // Build the encryption details if all necessary information is present
         Optional<EncryptionDetailsDTO> encryptionDetailsOpt = Optional.of(deviceCacheVO).map(drv -> EncryptionDetailsDTO.builder().mId(Long.valueOf(SnowflakeIdUtil.nextId())).signKey(drv.getSignKey()).encryptKey(drv.getEncryptKey()).encryptVector(drv.getEncryptVector()).cipherFlag(drv.getEncryptMethod()).build());
 
-        // 鏋勯€犲懡浠や笟鍔′綋 JSON 涓层€俠uildCommandMessage 鍐呴儴宸?JSON.toJSONString 涓€娆?
-        // 杩欓噷涓嶈兘鍐?.map(JSON::toJSONString)(浼氭妸 JSON 涓插綋瀵硅薄鍐嶅簭鍒楀寲 鈫?dataBody 澶氶噸杞箟)銆?
-        // 鍗曟搴忓垪鍖栫殑 JSON 涓蹭氦缁?buildResponse,鏄庢枃鏃跺叾鍐呴儴浼氳繕鍘熸垚瀵硅薄濉炶繘 dataBody銆?
+        // 构造命令业务体 JSON 串。buildCommandMessage 内部已 JSON.toJSONString 一次,
+        // 这里不能再 .map(JSON::toJSONString)(会把 JSON 串当对象再序列化 → dataBody 多重转义)。
+        // 单次序列化的 JSON 串交给 buildResponse,明文时其内部会还原成对象塞进 dataBody。
         String commandMessageJson = Optional.ofNullable(commandRequest).map(cr -> buildCommandMessage(deviceCacheVO, cr)).orElse("{}");
 
         // Try to build the response using the encryption details
         Optional<ProtocolDataMessageDTO> handleResultOpt = encryptionDetailsOpt.flatMap(encryptionDetails -> {
-            log.info("澶勭悊鎶ユ枃鍔犲瘑....commandMessageJson:{},encryptionDetails:{}", commandMessageJson, JSON.toJSONString(encryptionDetails));
+            log.info("处理报文加密....commandMessageJson:{},encryptionDetails:{}", commandMessageJson, JSON.toJSONString(encryptionDetails));
             try {
                 // Attempt to build the response with encryption details and return as an Optional
                 return Optional.ofNullable(protocolMessageAdapter.buildResponse(commandMessageJson, encryptionDetails));
@@ -386,8 +388,8 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
         // Generate the response topic string
         String responseTopic = generateResponseTopic(deviceCacheVO);
 
-        // 鎸変骇鍝佸崗璁被鍨嬪垎娴佷笅琛?鏀舵暃鍒板叡浜淳鍙戝櫒;鍗忚瑙ｆ瀽涓嶅嚭鐢辨淳鍙戝櫒鍏滃簳 MQTT銆?
-        // protocolType 鍙栧€煎悓 ProtocolTypeEnum.getValue():MQTT 璧?topic,WebSocket 璧?clientId銆?
+        // 按产品协议类型分流下行,收敛到共享派发器;协议解析不出由派发器兜底 MQTT。
+        // protocolType 取值同 ProtocolTypeEnum.getValue():MQTT 走 topic,WebSocket 走 clientId。
         String protocolType = linkCacheDataHelper
                 .resolveProtocolType(deviceCacheVO.getProductIdentification(),
                         deviceCacheVO.getBoundProductVersionNo())
@@ -404,7 +406,7 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
         return new SendOutcome(response, commandMessageJson, responseTopic);
     }
 
-    /** 涓嬪彂缁撴灉:dispatch 鍝嶅簲 + 瀹為檯鍙戝嚭鐨勫懡浠ゆ姤鏂?cloudReq),钀藉簱鍒?content 渚涘睍绀轰笌閲嶅彂銆?*/
+    /** 下发结果:dispatch 响应 + 实际发出的命令报文(cloudReq),落库到 content 供展示与重发。 */
     private record SendOutcome(R response, String sentPayload, String topic) {}
 
     /**

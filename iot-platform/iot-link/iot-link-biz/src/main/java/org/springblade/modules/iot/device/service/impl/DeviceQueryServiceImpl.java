@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springblade.core.mp.support.Query;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -13,6 +14,7 @@ import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
 import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.device.entity.Device;
 import org.springblade.modules.iot.device.enumeration.DeviceConnectStatusEnum;
+import org.springblade.modules.iot.device.manager.DeviceManager;
 import org.springblade.modules.iot.device.service.DeviceQueryService;
 import org.springblade.modules.iot.device.vo.query.DevicePageQuery;
 import org.springblade.modules.iot.device.vo.result.DeviceResultVO;

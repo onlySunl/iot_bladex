@@ -1,11 +1,11 @@
 package org.springblade.modules.iot.productversion.service.impl;
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiotproductversionserviceimplProductVersionServiceImpl.java.mapper.ProductVersionMapper;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.mp.base.BaseServiceImpl;
 import org.springblade.core.secure.utils.AuthUtil;
 import org.springblade.modules.iot.common.constant.DsConstant;
@@ -22,6 +22,7 @@ import org.springblade.modules.iot.productversion.enumeration.ProductPublishStra
 import org.springblade.modules.iot.productversion.enumeration.ProductVersionStatusEnum;
 import org.springblade.modules.iot.productversion.event.publisher.ProductVersionEventPublisher;
 import org.springblade.modules.iot.productversion.event.source.ProductVersionLifecycleEventSource;
+import org.springblade.modules.iot.productversion.manager.ProductVersionManager;
 import org.springblade.modules.iot.productversion.service.ProductVersionService;
 import org.springblade.modules.iot.productversion.vo.diff.ProductVersionDiffSummaryVO;
 import org.springblade.modules.iot.productversion.vo.diff.ProductVersionDiffVO;
@@ -38,7 +39,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * 浜у搧鐗╂ā鍨嬬増鏈笟鍔″疄鐜般€?
+ * 产品物模型版本业务实现。
  *
  * @author mqttsnet
  * @see ProductVersionService
@@ -52,10 +53,10 @@ public class ProductVersionServiceImpl
     private final ProductVersionManager productVersionManager;
     private final ProductQueryService productQueryService;
     /**
-     * 璺ㄥ煙浜у搧鍐欏叆(鍒囨崲 active_version_no 鎸囬拡)璧?Service 鑰岄潪鐩存帴璋?ProductManager,瑙﹀彂 @DS(BASE_TENANT)
-     * 鍒囩鎴峰簱 + 婊¤冻"绂佹璺ㄥ眰绾ц皟鐢?銆侤Lazy 蹇呰鎬?ProductServiceImpl 宸蹭緷璧?ProductVersionService
-     * (浜у搧 CRUD 鍒疯崏绋?+ 鍒犻櫎绾ц仈杞垹),鍙嶅悜鐩存帴娉ㄥ叆浼氬舰鎴愭瀯閫犳湡寰幆渚濊禆,@Lazy 娉ㄥ叆浠ｇ悊鎸夐渶鍒涘缓鐪熷疄 bean銆?
-     * (鏈被涓嶈兘鐢?@AllArgsConstructor 鈹€鈹€ Lombok 榛樿涓嶅鍒?@Lazy 鍒版瀯閫犲櫒鍙傛暟銆?
+     * 跨域产品写入(切换 active_version_no 指针)走 Service 而非直接调 ProductManager,触发 @DS(BASE_TENANT)
+     * 切租户库 + 满足"禁止跨层级调用"。@Lazy 必要性:ProductServiceImpl 已依赖 ProductVersionService
+     * (产品 CRUD 刷草稿 + 删除级联软删),反向直接注入会形成构造期循环依赖,@Lazy 注入代理按需创建真实 bean。
+     * (本类不能用 @AllArgsConstructor ── Lombok 默认不复制 @Lazy 到构造器参数。)
      */
     private final ProductService productService;
     private final ProductPublishRecordService productPublishRecordService;
@@ -95,14 +96,14 @@ public class ProductVersionServiceImpl
     public ProductVersion upsertDraft(String productIdentification) {
         ArgumentAssert.notBlank(productIdentification, "productIdentification must not be blank");
 
-        // 1. 鎷夊綋鍓嶄骇鍝佸畬鏁存爲(鍚仠鐢ㄦ湇鍔?鈹€鈹€ 蹇収椤讳负瀹屾暣鐗╂ā鍨?services 浠嶅彲鑳戒负绌?浜у搧鍒?create 鏃跺嵆濡傛)
+        // 1. 拉当前产品完整树(含停用服务 ── 快照须为完整物模型;services 仍可能为空,产品刚 create 时即如此)
         ProductParamVO fullTree = productQueryService.selectFullProductByProductIdentification(productIdentification, true);
         if (fullTree == null) {
             throw BizException.wrap("Product not found: " + productIdentification);
         }
 
-        // 2. 鎵惧綋鍓嶆墍鏈?DRAFT 琛?鈹€鈹€ 姝ｅ父鍙湁 1 涓?>1 璇存槑鍘嗗彶骞跺彂婕忕綉 / 閿佸け鏁?鍋氫竴娆¤嚜鎰堛€?
-        //    listByProductIdentificationAndStatus 宸叉寜 created_time 鍊掑簭,鍙?[0] 鍗虫渶鏂般€?
+        // 2. 找当前所有 DRAFT 行 ── 正常只有 1 个;>1 说明历史并发漏网 / 锁失效,做一次自愈。
+        //    listByProductIdentificationAndStatus 已按 created_time 倒序,取 [0] 即最新。
         List<ProductVersion> drafts = productVersionManager.listByProductIdentificationAndStatus(
             productIdentification, ProductVersionStatusEnum.DRAFT.getValue());
         ProductVersion draft;
@@ -115,7 +116,7 @@ public class ProductVersionServiceImpl
                 .build();
         } else {
             draft = drafts.get(0);
-            // 鑷剤:澶氫綑 DRAFT 杞垹,淇濊瘉"姣忎骇鍝佸彧鏈変竴涓?DRAFT"涓嶅彉閲?
+            // 自愈:多余 DRAFT 软删,保证"每产品只有一个 DRAFT"不变量
             if (drafts.size() > 1) {
                 List<Long> dupIds = drafts.stream().skip(1).map(ProductVersion::getId).toList();
                 productVersionManager.removeByIds(dupIds);
@@ -124,7 +125,7 @@ public class ProductVersionServiceImpl
             }
         }
 
-        // 3. 搴忓垪鍖栨渶鏂?snapshot 鍐欏洖(snapshot 鍐呴儴 activeVersionNo 瀛楁 = draft 鑷繁鐨?version)
+        // 3. 序列化最新 snapshot 写回(snapshot 内部 activeVersionNo 字段 = draft 自己的 version)
         ProductSnapshotVO snapshot = productSnapshotConverter.toSnapshot(fullTree, draft);
         snapshot.setActiveVersionNo(draft.getVersionNo());
         String newSnapshotJson = productSnapshotConverter.serialize(snapshot);
@@ -145,8 +146,8 @@ public class ProductVersionServiceImpl
     /**
      * {@inheritDoc}
      *
-     * <p>REQUIRES_NEW:鏈柟娉曠敱 ProductChangeLogListener 鍦?AFTER_COMMIT 鍚屾闃舵璋冪敤,姝ゆ椂鍘熶簨鍔″凡鎻愪氦;
-     * 蹇呴』璧风嫭绔嬩簨鍔?鍚﹀垯鑽夌鍒涘缓澶嶇敤鍒氭彁浜ょ殑杩炴帴涓嶄細钀藉簱銆?/p>
+     * <p>REQUIRES_NEW:本方法由 ProductChangeLogListener 在 AFTER_COMMIT 同步阶段调用,此时原事务已提交;
+     * 必须起独立事务,否则草稿创建复用刚提交的连接不会落库。</p>
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
@@ -157,9 +158,9 @@ public class ProductVersionServiceImpl
     }
 
     /**
-     * 鐗堟湰鍙风敓鎴愬崟涓€鍏ュ彛 鈹€鈹€ 绯荤粺鎺ョ,16 浣嶇煭闆姳銆傛墍鏈?product_version.version_no 閮戒粠杩欓噷浜у嚭,鏀圭瓥鐣ュ彧鍔ㄨ繖涓€澶勩€?
+     * 版本号生成单一入口 ── 系统接管,16 位短雪花。所有 product_version.version_no 都从这里产出,改策略只动这一处。
      *
-     * @return 鏂扮敓鎴愮殑鐗堟湰鍙?
+     * @return 新生成的版本号
      */
     private String nextVersion() {
         return SnowflakeIdUtil.nextId();
@@ -189,10 +190,10 @@ public class ProductVersionServiceImpl
     /**
      * {@inheritDoc}
      *
-     * <p>鑽夌鍗囩骇妯″瀷:鍙戝竷涓嶆柊寤虹増鏈,鑰屾槸鎶婂綋鍓?DRAFT 鍗囩骇涓虹洰鏍囩姸鎬?PUBLISHED/CANARY/SHADOW),鍐嶈捣涓€涓?
-     * 鏂?DRAFT 浣滀负涓嬩竴杞紪杈戝熀绾?snapshot 鎷疯礉鑷垰鍙戝竷鐨勫揩鐓?銆侳ULL / CANARY 鎵嶆妸 version 鍥炲啓
-     * product.active_version_no(SHADOW 涓嶅垏鎸囬拡);CANARY 杩樿鎶婂垏鎹㈠墠鐨?activeVersionNo 璁板叆
-     * product.previous_full_version_no 渚涘洖婊?/ 鐏板害璺敱銆傝惤 RUNNING 璁板綍鍚庡彂浜嬩欢,寮傛璧?TD DDL + 璁惧鏀圭粦銆?/p>
+     * <p>草稿升级模型:发布不新建版本行,而是把当前 DRAFT 升级为目标状态(PUBLISHED/CANARY/SHADOW),再起一个
+     * 新 DRAFT 作为下一轮编辑基线(snapshot 拷贝自刚发布的快照)。FULL / CANARY 才把 version 回写
+     * product.active_version_no(SHADOW 不切指针);CANARY 还要把切换前的 activeVersionNo 记入
+     * product.previous_full_version_no 供回滚 / 灰度路由。落 RUNNING 记录后发事件,异步走 TD DDL + 设备改绑。</p>
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -207,11 +208,11 @@ public class ProductVersionServiceImpl
         ProductPublishStrategyEnum strategy = ProductPublishStrategyEnum.fromValue(vo.getPublishStrategy())
             .orElse(ProductPublishStrategyEnum.FULL);
 
-        // 1. 鍙戝竷鍓嶅啀鍒蜂竴娆?DRAFT,淇濊瘉 snapshot 鏄渶鏂颁骇鍝佹爲
+        // 1. 发布前再刷一次 DRAFT,保证 snapshot 是最新产品树
         ProductVersion draft = upsertDraft(productIdentification);
         String publishedVersion = draft.getVersionNo();
 
-        // 2. DRAFT 鍗囩骇涓虹洰鏍囩姸鎬?
+        // 2. DRAFT 升级为目标状态
         draft.setVersionStatus(resolveStatusByStrategy(strategy).getValue());
         draft.setPublishStrategy(strategy.getValue());
         draft.setCanaryConfigJson(vo.getCanaryConfigJson());
@@ -219,9 +220,9 @@ public class ProductVersionServiceImpl
         draft.setPublishTime(LocalDateTime.now());
         productVersionManager.updateById(draft);
 
-        // 3. 鍒囦骇鍝佹寚閽?SHADOW 涓嶅姩鎸囬拡,淇濈暀鏃佽矾璇箟)
-        // 璺ㄥ煙浜у搧鍐欏叆璧?ProductService(婊¤冻"绂佹璺ㄥ眰绾?+ Service AOP @DS 鍒囩鎴峰簱),
-        // 涓嶇洿鎺ヨ皟 ProductManager;previousVersion 鍦?service 鍐呴儴浠?DB 璇诲嚭鏉ユ洿鏂板埌 previousFullVersionNo
+        // 3. 切产品指针(SHADOW 不动指针,保留旁路语义)
+        // 跨域产品写入走 ProductService(满足"禁止跨层级"+ Service AOP @DS 切租户库),
+        // 不直接调 ProductManager;previousVersion 在 service 内部从 DB 读出来更新到 previousFullVersionNo
         String previousVersion = product.getActiveVersionNo();
         boolean shouldSwitchPointer = Optional.ofNullable(strategy)
             .filter(ProductPublishStrategyEnum.SHADOW::equals)
@@ -231,12 +232,12 @@ public class ProductVersionServiceImpl
                 .filter(ProductPublishStrategyEnum.CANARY::equals)
                 .isPresent();
             productService.switchActiveVersionForPublish(productIdentification, publishedVersion, isCanary);
-            // 琚彇浠ｇ殑涓婁竴涓?active 鐗堟湰鑻ヤ粛鏄?CANARY(鐬€?,demote 涓?PUBLISHED(鍘嗗彶鎬?:鍚﹀垯鐏板害鏅嬪崌 /
-            // 鏀鹃噺鍚庣増鏈垪琛ㄤ細娈嬬暀 CANARY 鏍囩,璇"浠嶅湪鐏板害涓?(瀹為檯 active 鎸囬拡宸叉寚鍚戞柊鐗堟湰)銆?
+            // 被取代的上一个 active 版本若仍是 CANARY(瞬态),demote 为 PUBLISHED(历史态):否则灰度晋升 /
+            // 放量后版本列表会残留 CANARY 标签,误导"仍在灰度中"(实际 active 指针已指向新版本)。
             demoteSupersededCanary(productIdentification, previousVersion);
         }
 
-        // 4. 璧锋柊鐨?DRAFT 琛?snapshot 鎷疯礉鑷垰鍙戝竷鐨勭増鏈?鍚庣画 CRUD 鍦ㄦ鍩虹涓婄疮绉?
+        // 4. 起新的 DRAFT 行,snapshot 拷贝自刚发布的版本,后续 CRUD 在此基础上累积
         ProductVersion nextDraft = ProductVersion.builder()
             .productIdentification(productIdentification)
             .versionNo(nextVersion())
@@ -245,13 +246,13 @@ public class ProductVersionServiceImpl
             .build();
         productVersionManager.save(nextDraft);
 
-        // 5. 钀藉彂甯冭褰?RUNNING),寮傛鐩戝惉鍣ㄦ墽琛?TD DDL 鍚庡洖鍐?SUCCESS / FAILED;
-        //    鏈€澶у厹搴曢噸璇曟鏁板彇鐢ㄦ埛閰嶇疆(clamp 鍒?1~10,缂虹渷 PUBLISH_RETRY_DEFAULT)
+        // 5. 落发布记录(RUNNING),异步监听器执行 TD DDL 后回写 SUCCESS / FAILED;
+        //    最大兜底重试次数取用户配置(clamp 到 1~10,缺省 PUBLISH_RETRY_DEFAULT)
         Integer maxRetry = resolvePublishMaxRetry(vo.getMaxRetryCount());
         ProductPublishRecord record = productPublishRecordService.recordPublish(
             productIdentification, previousVersion, publishedVersion, maxRetry);
 
-        // 6. 鍙戜簨浠?寮傛鎵ц TD DDL + 璁惧鏀圭粦 + 缂撳瓨鍒锋柊
+        // 6. 发事件,异步执行 TD DDL + 设备改绑 + 缓存刷新
         productVersionEventPublisher.publishPublished(ProductVersionLifecycleEventSource.builder()
             .productIdentification(productIdentification)
             .sourceVersion(previousVersion)
@@ -286,15 +287,15 @@ public class ProductVersionServiceImpl
         }
 
         String fromVersion = product.getActiveVersionNo();
-        // 璺ㄥ煙浜у搧鍐欏叆璧?ProductService 鑰岄潪 ProductManager(婊¤冻"绂佹璺ㄥ眰绾? + Service AOP 鍒囧簱)
+        // 跨域产品写入走 ProductService 而非 ProductManager(满足"禁止跨层级" + Service AOP 切库)
         productService.rollbackActiveVersion(productIdentification, targetVersion);
 
         targetRow.setVersionStatus(ProductVersionStatusEnum.PUBLISHED.getValue());
         targetRow.setRemark(Optional.ofNullable(vo.getRollbackRemark()).orElse(targetRow.getRemark()));
         productVersionManager.updateById(targetRow);
 
-        // 鎶婂師 active 鐗堟湰(琚洖婊氳蛋鐨?鏍囪涓?ROLLED_BACK 鈹€鈹€ 鍚﹀垯鐗堟湰鍒楄〃閲屽畠杩樻樉绀?PUBLISHED
-        // 浣嗗疄闄呭凡涓嶆槸 active,鍓嶇 status tab 璁℃暟閿欍€佹渶鏂扮敓鏁堝窘绔犻敊閰?鐢ㄦ埛鎰熺煡娣蜂贡
+        // 把原 active 版本(被回滚走的)标记为 ROLLED_BACK ── 否则版本列表里它还显示 PUBLISHED
+        // 但实际已不是 active,前端 status tab 计数错、最新生效徽章错配,用户感知混乱
         Optional.ofNullable(fromVersion)
             .flatMap(v -> productVersionManager.findByProductIdentificationAndVersionNo(productIdentification, v))
             .ifPresent(fromRow -> {
@@ -360,21 +361,21 @@ public class ProductVersionServiceImpl
     /**
      * {@inheritDoc}
      *
-     * <p>澶氫釜 count 鏌ヨ鎷艰,缁熻绮掑害鎸夌鎴?@DS 宸插垏鍒板綋鍓嶇鎴峰簱),涓嶈法绉熸埛鑱氬悎銆?/p>
+     * <p>多个 count 查询拼装,统计粒度按租户(@DS 已切到当前租户库),不跨租户聚合。</p>
      */
     @Override
     public ProductVersionStatisticsResultVO statistics() {
-        // 鍏ㄩ儴 count 璧?Service / 鏈煙 Manager 灞?婊¤冻"绂佹璺ㄥ眰绾ц皟鐢?+ @DS 鍒囩鎴峰簱鐢熸晥);
-        // 姣忛」鐢?safeCount 鍏滃簳:浠讳竴鏌ヨ寮傚父(绉熸埛搴撶己琛?/ SQL 鎶ラ敊 / DB 鎶栧姩)浠呰椤瑰綊 0,
-        // 缁濅笉璁╂暣涓粺璁℃帴鍙ｅ鍓嶇 500 鈹€鈹€ 鐪嬫澘瀹佸彲鏄剧ず 0,涔熶笉鑳芥暣椤垫姤閿欍€?
+        // 全部 count 走 Service / 本域 Manager 层(满足"禁止跨层级调用"+ @DS 切租户库生效);
+        // 每项用 safeCount 兜底:任一查询异常(租户库缺表 / SQL 报错 / DB 抖动)仅该项归 0,
+        // 绝不让整个统计接口对前端 500 ── 看板宁可显示 0,也不能整页报错。
         Long total = safeCount(productQueryService::findProductTotal);
         Long published = safeCount(productQueryService::countPublishedProducts);
         Long canary = safeCount(productQueryService::countCanaryInProgressProducts);
         long unpublished = Math.max(0L, total - published);
         Long recent7d = safeCount(() -> productPublishRecordService.countSuccessfulPublishesInLastDays(7));
-        // 鐗╂ā鍨嬫湇鍔℃暟(寤烘ā娣卞害)鈹€鈹€ 璧?ProductQueryService 缁熻 product_service
+        // 物模型服务数(建模深度)── 走 ProductQueryService 统计 product_service
         Long thingModelServiceCount = safeCount(productQueryService::countThingModelServices);
-        // 鍙戝竷鐗堟湰鎬婚噺 鈹€鈹€ 鏈煙 Manager 鎸?version_status=PUBLISHED 缁熻 product_version
+        // 发布版本总量 ── 本域 Manager 按 version_status=PUBLISHED 统计 product_version
         Long publishedVersionTotal = safeCount(() ->
             productVersionManager.countByVersionStatus(ProductVersionStatusEnum.PUBLISHED.getValue()));
         return ProductVersionStatisticsResultVO.builder()
@@ -389,10 +390,10 @@ public class ProductVersionServiceImpl
     }
 
     /**
-     * 缁熻椤瑰畨鍏ㄨ鏁?鈹€鈹€ 鍗曢」鏌ヨ寮傚父褰?0 骞跺憡璀︿笉鍚戜笂鎶?淇濊瘉缁熻鎺ュ彛瀵瑰墠绔案杩滄垚鍔熻繑鍥?鐪嬫澘鍏滃簳 0,涓嶆暣椤?500)銆?
+     * 统计项安全计数 ── 单项查询异常归 0 并告警不向上抛,保证统计接口对前端永远成功返回(看板兜底 0,不整页 500)。
      *
-     * @param supplier 璁℃暟鏌ヨ
-     * @return 璁℃暟缁撴灉;鏌ヨ寮傚父鎴栦负 null 鏃惰繑鍥?0
+     * @param supplier 计数查询
+     * @return 计数结果;查询异常或为 null 时返回 0
      */
     private Long safeCount(java.util.function.Supplier<Long> supplier) {
         try {
@@ -409,7 +410,7 @@ public class ProductVersionServiceImpl
         ArgumentAssert.notNull(productIdentification, "productIdentification must not be null");
         ArgumentAssert.notNull(targetVersion, "targetVersion must not be null");
 
-        // 鍚屽彿鐭矾 鈹€鈹€ 鑷瘮鏃剁洿鎺ヨ繑鍥炵┖ diff,閬垮厤鍙嶅皠璁＄畻 + 闃叉 changeType 琚粯璁ゆ帹涓?UPDATE(璇箟閿?
+        // 同号短路 ── 自比时直接返回空 diff,避免反射计算 + 防止 changeType 被默认推为 UPDATE(语义错)
         if (StrUtil.isNotBlank(sourceVersion) && sourceVersion.equals(targetVersion)) {
             return ProductVersionDiffVO.builder()
                 .sourceVersion(sourceVersion)
@@ -422,7 +423,7 @@ public class ProductVersionServiceImpl
         ProductSnapshotVO targetSnapshot = loadSnapshot(productIdentification, targetVersion)
             .orElseThrow(() -> BizException.wrap("Target version not found: " + targetVersion));
 
-        // source 鏄惧紡浼犱簡浣嗘壘涓嶅埌 鈫?蹇呴』鎶涢敊,閬垮厤闈欓粯閫€鍖栦负"鍏ㄩ儴鏂板"璇鐢ㄦ埛(棣栨鍙戝竷鍦烘櫙鎵嶅厑璁?source 涓虹┖)
+        // source 显式传了但找不到 → 必须抛错,避免静默退化为"全部新增"误导用户(首次发布场景才允许 source 为空)
         ProductSnapshotVO sourceSnapshot = null;
         if (StrUtil.isNotBlank(sourceVersion)) {
             sourceSnapshot = loadSnapshot(productIdentification, sourceVersion)
@@ -432,7 +433,7 @@ public class ProductVersionServiceImpl
         return productSnapshotDiffCalculator.diff(sourceSnapshot, targetSnapshot);
     }
 
-    // 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€ 绉佹湁 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
+    // ────────────── 私有 ──────────────
 
     private Optional<ProductSnapshotVO> loadSnapshot(String productIdentification, String versionNo) {
         return productVersionManager.findByProductIdentificationAndVersionNo(productIdentification, versionNo)
@@ -448,17 +449,17 @@ public class ProductVersionServiceImpl
         };
     }
 
-    /** 鏈€澶у厹搴曢噸璇曟鏁扮己鐪佸€?鐢ㄦ埛鏈～鏃?銆?*/
+    /** 最大兜底重试次数缺省值(用户未填时)。 */
     private static final int PUBLISH_RETRY_DEFAULT = 3;
-    /** 鏈€澶у厹搴曢噸璇曟鏁颁笂闄?鍓嶇 max 涓庡悗绔?clamp 鍏辩敤姝ゅ€?銆?*/
+    /** 最大兜底重试次数上限(前端 max 与后端 clamp 共用此值)。 */
     private static final int PUBLISH_RETRY_MAX = 10;
 
     /**
-     * 瑙ｆ瀽鐢ㄦ埛閰嶇疆鐨勬渶澶у厹搴曢噸璇曟鏁?null 鍙栫己鐪?{@value #PUBLISH_RETRY_DEFAULT},鍚﹀垯 clamp 鍒?[1, {@value #PUBLISH_RETRY_MAX}]銆?
-     * 鍚庣鍏滃簳鏍￠獙(VO 宸插甫 {@code @Min/@Max},姝ゅ鍐?clamp 闃茬洿杩炴帴鍙ｇ粫杩?銆?
+     * 解析用户配置的最大兜底重试次数:null 取缺省 {@value #PUBLISH_RETRY_DEFAULT},否则 clamp 到 [1, {@value #PUBLISH_RETRY_MAX}]。
+     * 后端兜底校验(VO 已带 {@code @Min/@Max},此处再 clamp 防直连接口绕过)。
      *
-     * @param input 鐢ㄦ埛杈撳叆(鍙┖)
-     * @return 1~{@value #PUBLISH_RETRY_MAX} 鐨勬湁鏁堝€?
+     * @param input 用户输入(可空)
+     * @return 1~{@value #PUBLISH_RETRY_MAX} 的有效值
      */
     private Integer resolvePublishMaxRetry(Integer input) {
         if (input == null) {
@@ -468,13 +469,13 @@ public class ProductVersionServiceImpl
     }
 
     /**
-     * 鎶婅鍙栦唬鐨勪笂涓€涓?active 鐗堟湰浠?CANARY(鐬€?demote 涓?PUBLISHED(鍘嗗彶鎬?銆?
-     * 浠?CANARY 闇€瑕?鐏板害鐗堟湰涓€鏃﹁鏂板彂甯冨彇浠ｅ氨涓嶅啀鏄?杩涜涓殑鐏板害",娈嬬暀 CANARY 鏍囩浼氳鐗堟湰鍒楄〃璇;
-     * PUBLISHED 鍘嗗彶鐗堟湰淇濇寔鍘熺姸(鏈氨鏄悎娉曞巻鍙叉€?;DRAFT/ROLLED_BACK/ARCHIVED/SHADOW 涓嶄細鎴愪负 active,鏃犻渶鑰冭檻銆?
-     * 骞傜瓑:浠呭綋鍓嶇姸鎬佺‘涓?CANARY 鎵嶆敼,閲嶈窇鏃犲壇浣滅敤銆?
+     * 把被取代的上一个 active 版本从 CANARY(瞬态)demote 为 PUBLISHED(历史态)。
+     * 仅 CANARY 需要:灰度版本一旦被新发布取代就不再是"进行中的灰度",残留 CANARY 标签会让版本列表误导;
+     * PUBLISHED 历史版本保持原状(本就是合法历史态);DRAFT/ROLLED_BACK/ARCHIVED/SHADOW 不会成为 active,无需考虑。
+     * 幂等:仅当前状态确为 CANARY 才改,重跑无副作用。
      *
-     * @param productIdentification 浜у搧鏍囪瘑
-     * @param supersededVersion     琚彇浠ｇ殑涓婁竴涓?active 鐗堟湰鍙?绌虹櫧鍒欒烦杩?濡傞娆″彂甯?
+     * @param productIdentification 产品标识
+     * @param supersededVersion     被取代的上一个 active 版本号(空白则跳过,如首次发布)
      */
     private void demoteSupersededCanary(String productIdentification, String supersededVersion) {
         if (StrUtil.isBlank(supersededVersion)) {

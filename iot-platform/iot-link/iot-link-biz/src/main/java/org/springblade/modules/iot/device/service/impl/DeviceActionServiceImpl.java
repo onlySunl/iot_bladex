@@ -1,10 +1,10 @@
 package org.springblade.modules.iot.device.service.impl;
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiotdeviceserviceimplDeviceActionServiceImpl.java.mapper.DeviceActionMapper;
 
 import java.util.List;
 import java.util.Optional;
 
 import com.alibaba.fastjson2.JSON;
+import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.mp.base.BaseServiceImpl;
 import org.springblade.core.tool.utils.BeanUtil;
@@ -16,6 +16,7 @@ import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.device.entity.DeviceAction;
 import org.springblade.modules.iot.device.enumeration.DeviceActionStatusEnum;
 import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
+import org.springblade.modules.iot.device.manager.DeviceActionManager;
 import org.springblade.modules.iot.device.service.DeviceActionService;
 import org.springblade.modules.iot.device.vo.query.DeviceActionPageQuery;
 import org.springblade.modules.iot.device.vo.result.DeviceActionResultVO;
@@ -28,8 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
- * 涓氬姟瀹炵幇绫?
- * 璁惧鍔ㄤ綔鏁版嵁
+ * 业务实现类
+ * 设备动作数据
  * </p>
  *
  * @author mqttsnet
@@ -46,24 +47,24 @@ public class DeviceActionServiceImpl extends BaseServiceImpl<DeviceActionMapper,
     private final MqttBrokerOpenInnerFacade mqttBrokerOpenInnerFacade;
 
     /**
-     * 淇濆瓨璁惧鍔ㄤ綔鏁版嵁
+     * 保存设备动作数据
      *
-     * @param deviceActionSaveVO 璁惧鍔ㄤ綔鏁版嵁
-     * @return {@link DeviceAction} 淇濆瓨瀹屾垚鐨勮澶囧姩浣滄暟鎹?
+     * @param deviceActionSaveVO 设备动作数据
+     * @return {@link DeviceAction} 保存完成的设备动作数据
      */
     @Override
     public DeviceAction saveDeviceAction(DeviceActionSaveVO deviceActionSaveVO) {
-        // 鏍￠獙鍙傛暟
+        // 校验参数
         checkedDeviceActionSaveVO(deviceActionSaveVO);
 
-        // 鏋勫缓鍙傛暟
+        // 构建参数
         DeviceAction deviceAction = builderDeviceActionSaveVO(deviceActionSaveVO);
 
-        // 淇濆瓨璁惧鍔ㄤ綔鏁版嵁
+        // 保存设备动作数据
         boolean saveSuccess = Optional.of(superManager.save(deviceAction)).orElse(false);
 
         if (saveSuccess) {
-            // 浠庣紦瀛樹腑鑾峰彇璁惧淇℃伅
+            // 从缓存中获取设备信息
             Optional<DeviceCacheVO> deviceCacheVOOptional = linkCacheDataHelper.getDeviceCacheVO(deviceAction.getDeviceIdentification());
             if (deviceCacheVOOptional.isPresent()) {
                 DeviceActionCacheVO actionCacheVO = BeanUtil.toBeanIgnoreError(deviceAction, DeviceActionCacheVO.class);
@@ -75,10 +76,10 @@ public class DeviceActionServiceImpl extends BaseServiceImpl<DeviceActionMapper,
     }
 
     /**
-     * 鏌ヨ璁惧鍔ㄤ綔鏁版嵁VO鍒楄〃
+     * 查询设备动作数据VO列表
      *
-     * @param query 鏌ヨ鍙傛暟
-     * @return {@link List <DeviceActionResultVO>} 璁惧鍔ㄤ綔鏁版嵁VO鍒楄〃
+     * @param query 查询参数
+     * @return {@link List <DeviceActionResultVO>} 设备动作数据VO列表
      */
     @Override
     public List<DeviceActionResultVO> getDeviceActionResultVOList(DeviceActionPageQuery query) {
@@ -98,7 +99,7 @@ public class DeviceActionServiceImpl extends BaseServiceImpl<DeviceActionMapper,
                 .build();
         R<?> r = mqttBrokerOpenInnerFacade.closeConnection(killClientRequestVO);
         if (r.getIsSuccess()) {
-            // 璁板綍璁惧鍔ㄤ綔
+            // 记录设备动作
             DeviceActionTypeEnum deviceActionTypeEnum = DeviceActionTypeEnum.DISCONNECT;
             DeviceActionSaveVO deviceActionSaveVO = new DeviceActionSaveVO();
             deviceActionSaveVO.setDeviceIdentification(deviceCacheVO.getDeviceIdentification());
@@ -112,19 +113,19 @@ public class DeviceActionServiceImpl extends BaseServiceImpl<DeviceActionMapper,
     }
 
     /**
-     * 鏋勫缓 DeviceActionSaveVO 瀵硅薄
+     * 构建 DeviceActionSaveVO 对象
      *
-     * @param deviceActionSaveVO 瑕佽繘琛屾瀯寤虹殑瀵硅薄
-     * @return 鏋勫缓濂界殑 DeviceAction 瀵硅薄
+     * @param deviceActionSaveVO 要进行构建的对象
+     * @return 构建好的 DeviceAction 对象
      */
     private DeviceAction builderDeviceActionSaveVO(DeviceActionSaveVO deviceActionSaveVO) {
         return BeanUtil.toBeanIgnoreError(deviceActionSaveVO, DeviceAction.class);
     }
 
     /**
-     * 妫€鏌?DeviceActionSaveVO 鍙傛暟瀹屾暣鎬?
+     * 检查 DeviceActionSaveVO 参数完整性
      *
-     * @param deviceActionSaveVO 瑕佽繘琛屾鏌ョ殑瀵硅薄
+     * @param deviceActionSaveVO 要进行检查的对象
      */
     private void checkedDeviceActionSaveVO(DeviceActionSaveVO deviceActionSaveVO) {
         ArgumentAssert.notNull(deviceActionSaveVO, "deviceActionSaveVO Cannot be null");

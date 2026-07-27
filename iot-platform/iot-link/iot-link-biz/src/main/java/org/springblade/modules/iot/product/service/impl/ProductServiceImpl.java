@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.product.service.impl;
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiotproductserviceimplProductServiceImpl.java.mapper.ProductMapper;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -16,6 +15,7 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springblade.core.mp.support.Query;
 import org.springblade.core.mp.base.BaseServiceImpl;
@@ -32,6 +32,7 @@ import org.springblade.modules.iot.product.enumeration.ProtocolTypeEnum;
 import org.springblade.modules.iot.product.event.publisher.ProductEventPublisher;
 import org.springblade.modules.iot.product.event.source.ProductCacheEvictSource;
 import org.springblade.modules.iot.product.event.source.ProductModelChangedSource;
+import org.springblade.modules.iot.product.manager.ProductManager;
 import org.springblade.modules.iot.product.service.ProductService;
 import org.springblade.modules.iot.product.vo.param.ProductParamVO;
 import org.springblade.modules.iot.product.vo.query.ProductPageQuery;
@@ -71,8 +72,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * <p>
- * 涓氬姟瀹炵幇绫?
- * 浜у搧妯″瀷
+ * 业务实现类
+ * 产品模型
  * </p>
  *
  * @author mqttsnet
@@ -104,8 +105,8 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
     private final ProductEventPublisher productEventPublisher;
 
     /**
-     * 浜у搧 CRUD 鏃跺悓姝ュ埛鏂拌崏绋垮揩鐓?+ 浜у搧鍒犻櫎鏃剁骇鑱旇蒋鍒?product_version 琛屻€?
-     * ProductVersionServiceImpl 渚濊禆 ProductQueryService(涓嶆槸 ProductService),鏃犲惊鐜緷璧栥€?
+     * 产品 CRUD 时同步刷新草稿快照 + 产品删除时级联软删 product_version 行。
+     * ProductVersionServiceImpl 依赖 ProductQueryService(不是 ProductService),无循环依赖。
      */
     private final ProductVersionService productVersionService;
 
@@ -116,9 +117,9 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
     }
 
     /**
-     * 鑾峰彇浜у搧妯″瀷鎬婚噺
+     * 获取产品模型总量
      *
-     * @return {@link Long} 浜у搧妯″瀷鏁版嵁鎬婚噺
+     * @return {@link Long} 产品模型数据总量
      */
     @Override
     public Long findProductTotal() {
@@ -126,7 +127,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
     }
 
     /**
-     * 淇濆瓨浜у搧妯″瀷
+     * 保存产品模型
      *
      * @param saveVO
      * @return
@@ -134,29 +135,29 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
     @Override
     public ProductSaveVO saveProduct(ProductSaveVO saveVO) {
         log.info("saveProduct saveVO:{}", saveVO);
-        //鏍￠獙鍙傛暟
+        //校验参数
         checkedProductSaveVO(saveVO);
-        //鏋勫缓鍙傛暟
+        //构建参数
         Product product = builderProductSaveVO(saveVO);
-        //淇濆瓨浜у搧
+        //保存产品
         superManager.save(product);
-        // 鍒濆鍖栦骇鍝乀opic
+        // 初始化产品Topic
         initProductBaseTopics(product.getProductIdentification(), Boolean.FALSE);
 
-        // 鍙戝竷浜у搧鐗╂ā鍨嬪彉鏇翠簨浠?
+        // 发布产品物模型变更事件
         productEventPublisher.publishProductModelChangedEvent(ProductModelChangedSource.builder()
                 .productIdentification(product.getProductIdentification())
                 .changeType(ProductVersionChangeTypeEnum.CREATE)
                 .targetType(ProductChangeTargetTypeEnum.PRODUCT_INFO)
                 .after(BeanUtil.toBeanIgnoreError(product, ProductResultVO.class))
-                .changeSummary("鏂板浜у搧銆? + product.getProductName() + "銆?)
+                .changeSummary("新增产品「" + product.getProductName() + "」")
                 .build());
 
         return saveVO;
     }
 
     /**
-     * 淇敼浜у搧妯″瀷
+     * 修改产品模型
      *
      * @param updateVO
      * @return
@@ -164,35 +165,35 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
     @Override
     public ProductUpdateVO updateProduct(ProductUpdateVO updateVO) {
         log.info("updateProduct updateVO:{}", updateVO);
-        //鏍￠獙鍙傛暟
+        //校验参数
         checkedProductUpdateVO(updateVO);
         Product before = superManager.getById(updateVO.getId());
-        //鏋勫缓鍙傛暟
+        //构建参数
         Product product = BeanUtil.toBeanIgnoreError(updateVO, Product.class);
-        //鏇存柊
+        //更新
         superManager.updateById(BeanUtil.toBeanIgnoreError(updateVO, Product.class));
         Product after = superManager.getById(updateVO.getId());
-        // 鍒濆鍖栦骇鍝乀opic
+        // 初始化产品Topic
         initProductBaseTopics(product.getProductIdentification(), Boolean.TRUE);
 
-        // 鍙戝竷浜у搧鐗╂ā鍨嬪彉鏇翠簨浠?
+        // 发布产品物模型变更事件
         productEventPublisher.publishProductModelChangedEvent(ProductModelChangedSource.builder()
                 .productIdentification(product.getProductIdentification())
                 .changeType(ProductVersionChangeTypeEnum.UPDATE)
                 .targetType(ProductChangeTargetTypeEnum.PRODUCT_INFO)
                 .before(BeanUtil.toBeanIgnoreError(before, ProductResultVO.class))
                 .after(BeanUtil.toBeanIgnoreError(after, ProductResultVO.class))
-                .changeSummary("缂栬緫浜у搧銆? + (after != null ? after.getProductName() : updateVO.getProductName()) + "銆?)
+                .changeSummary("编辑产品「" + (after != null ? after.getProductName() : updateVO.getProductName()) + "」")
                 .build());
 
         return updateVO;
     }
 
     /**
-     * 鍒犻櫎浜у搧妯″瀷
+     * 删除产品模型
      *
-     * @param id 浜у搧ID
-     * @return {@link Boolean} 鏄惁鍒犻櫎鎴愬姛
+     * @param id 产品ID
+     * @return {@link Boolean} 是否删除成功
      */
     @Override
     public Boolean deleteProduct(Long id) {
@@ -205,16 +206,16 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
             throw BizException.wrap("The product is bound to the device and cannot be deleted");
         }
         String productIdentification = product.getProductIdentification();
-        // 绾ц仈杞垹 product_version 鎵€鏈夌増鏈(DRAFT + 鍘嗗彶 PUBLISHED/CANARY/SHADOW),
-        // TD 鍘嗗彶璧勬簮鐢?purgeHistory 鐙珛娴佺▼澶勭悊,鏈柟娉曚粎娓呭熀纭€琛ㄥ叧绯汇€?
+        // 级联软删 product_version 所有版本行(DRAFT + 历史 PUBLISHED/CANARY/SHADOW),
+        // TD 历史资源由 purgeHistory 独立流程处理,本方法仅清基础表关系。
         int affectedVersions = productVersionService.softDeleteAllByProductIdentification(productIdentification);
         if (affectedVersions > 0) {
             log.info("[deleteProduct] cascade softDelete product_version productIdentification={} affected={}", productIdentification, affectedVersions);
         }
         Boolean removed = superManager.removeById(id);
-        // 鍙戠紦瀛樺け鏁堜簨浠?浜у搧宸插垹,鐩戝惉鍣?AFTER_COMMIT 澶辨晥浜у搧鍩虹缂撳瓨銆?
-        // 鐗╂ā鍨嬬紦瀛樻寜 (productIdentification, versionNo) 鍒囧垎,鐗堟湰蹇収涓嶅彲鍙?+ 7d TTL 鑷姩杩囨湡,
-        // 浜у搧琚垹鍚庤€佺紦瀛樹笉浼氬啀琚懡涓?鍥犱负娌′汉鑳藉啀鏌ュ埌璇?product),涓嶉渶瑕佷富鍔ㄦ竻銆?
+        // 发缓存失效事件:产品已删,监听器 AFTER_COMMIT 失效产品基础缓存。
+        // 物模型缓存按 (productIdentification, versionNo) 切分,版本快照不可变 + 7d TTL 自动过期,
+        // 产品被删后老缓存不会再被命中(因为没人能再查到该 product),不需要主动清。
         productEventPublisher.publishProductCacheEvictEvent(
                 ProductCacheEvictSource.builder().productIdentification(productIdentification)
                         .contextMap(AuthUtil.getLocalMap()).build());
@@ -222,22 +223,22 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
     }
 
     /**
-     * 鏌ヨ浜у搧绠＄悊瀹屾暣淇℃伅锛堝寘鍚湇鍔°€佸睘鎬с€佸懡浠わ級
+     * 查询产品管理完整信息（包含服务、属性、命令）
      *
-     * @param productIdentification 浜у搧鏍囪瘑
-     * @return {@link ProductParamVO} 浜у搧绠＄悊瀹屾暣鍙傛暟VO
-     * @throws com.mqttsnet.basic.exception.BizException 濡傛灉浜у搧涓嶅瓨鍦?
+     * @param productIdentification 产品标识
+     * @return {@link ProductParamVO} 产品管理完整参数VO
+     * @throws com.mqttsnet.basic.exception.BizException 如果产品不存在
      */
     @Override
     public ProductParamVO selectFullProductByProductIdentification(String productIdentification) {
-        // 鏌ヨ浜у搧锛屽鏋滀笉瀛樺湪鍒欐姏鍑哄紓甯?
+        // 查询产品，如果不存在则抛出异常
         Product product = Optional.ofNullable(superManager.findOneByProductIdentification(productIdentification))
             .orElseThrow(() -> BizException.wrap("Product not found: " + productIdentification));
 
-        // 杞崲鍩烘湰浜у搧淇℃伅
+        // 转换基本产品信息
         ProductParamVO productDetails = BeanUtil.toBeanIgnoreError(product, ProductParamVO.class);
 
-        // 鏌ヨ浜у搧鏈嶅姟鍒楄〃锛堝彧鏌ヨ宸叉縺娲荤殑鏈嶅姟锛?
+        // 查询产品服务列表（只查询已激活的服务）
         List<ProductServices> productServicesList = Optional.of(new ProductServices())
             .map(find -> {
                 find.setProductId(product.getId());
@@ -248,25 +249,25 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
 
         List<Long> serviceIds = productServicesList.stream().map(ProductServices::getId).collect(Collectors.toList());
 
-        // 鏌ヨ鎵€鏈夋湇鍔＄殑鍛戒护鍜屽睘鎬?
+        // 查询所有服务的命令和属性
         List<ProductCommand> productCommandList = Optional.ofNullable(productCommandService.findAllByServiceIds(serviceIds))
             .orElse(Collections.emptyList());
 
         List<ProductProperty> productPropertiesList = Optional.ofNullable(productPropertyService.findAllByServiceIds(serviceIds))
             .orElse(Collections.emptyList());
 
-        // 缁勮鏈嶅姟淇℃伅锛堝寘鍚懡浠ゅ拰灞炴€э級
+        // 组装服务信息（包含命令和属性）
         List<ProductServiceParamVO> services = productServicesList.stream().map(ps -> {
             ProductServiceParamVO service = BeanUtil.toBeanIgnoreError(ps, ProductServiceParamVO.class);
 
-            // 缁勮鏈嶅姟鐨勫懡浠ゅ垪琛?
+            // 组装服务的命令列表
             List<ProductCommandParamVO> commands = productCommandList.stream()
                 .filter(command -> Objects.equals(command.getServiceId(), ps.getId()))  // Filter by Service ID
                 .map(command -> {
                     ProductCommandParamVO commandParamVO = BeanUtil.toBeanIgnoreError(command,
                         ProductCommandParamVO.class);
 
-                    // 缁勮鍛戒护鐨勮姹傚弬鏁?
+                    // 组装命令的请求参数
                     List<ProductCommandRequestParamVO> filteredRequests =
                         productCommandRequestService.selectCommandRequests(Collections.singletonList(command.getId()))
                             .stream()
@@ -275,7 +276,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
                             .collect(Collectors.toList());
                     commandParamVO.setRequests(filteredRequests);
 
-                    // 缁勮鍛戒护鐨勫搷搴斿弬鏁?
+                    // 组装命令的响应参数
                     List<ProductCommandResponseParamVO> filteredResponses =
                         productCommandResponseService.selectCommandResponses(Collections.singletonList(command.getId()))
                             .stream()
@@ -289,7 +290,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
                 .collect(Collectors.toList());
             service.setCommands(commands);
 
-            // 缁勮鏈嶅姟鐨勫睘鎬у垪琛?
+            // 组装服务的属性列表
             List<ProductPropertyParamVO> properties = productPropertiesList.stream()
                 .filter(property -> Objects.equals(property.getServiceId(), ps.getId()))  // Filter by Service ID
                 .map(pp -> BeanUtil.toBeanIgnoreError(pp, ProductPropertyParamVO.class))
@@ -311,7 +312,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         }
         try {
             String jsonContent = IoUtil.read(file.getInputStream(), StandardCharsets.UTF_8);
-            // 瑙ｆ瀽浜у搧妯″瀷鏁版嵁
+            // 解析产品模型数据
             ProductParamVO productParamVO = JSON.parseObject(jsonContent, ProductParamVO.class);
             if (StrUtil.isNotBlank(appId)) {
                 productParamVO.setAppId(appId);
@@ -329,10 +330,10 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
     }
 
     /**
-     * 鏍规嵁浜у搧鏍囪瘑鏌ヨ浜у搧璇︽儏
+     * 根据产品标识查询产品详情
      *
-     * @param productIdentification 浜у搧鏍囪瘑
-     * @return {@link ProductResultVO} 浜у搧璇︽儏
+     * @param productIdentification 产品标识
+     * @return {@link ProductResultVO} 产品详情
      */
     @Override
     public ProductResultVO findOneByProductIdentification(String productIdentification) {
@@ -353,9 +354,9 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
     }
 
     /**
-     * 鑾峰彇浜у搧姒傚喌缁熻
+     * 获取产品概况统计
      *
-     * @return {@link ProductOverviewResultVO} 浜у搧姒傚喌缁熻
+     * @return {@link ProductOverviewResultVO} 产品概况统计
      */
     @Override
     public ProductOverviewResultVO getProductOverview() {
@@ -371,7 +372,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         AtomicLong disabledCount = new AtomicLong();
 
         productList.forEach(product -> {
-            // 浜у搧绫诲瀷缁熻
+            // 产品类型统计
             if (Objects.equals(product.getProductType(), ProductTypeEnum.COMMON.getValue())) {
                 ordinaryCount.incrementAndGet();
             } else if (Objects.equals(product.getProductType(), ProductTypeEnum.GATEWAY.getValue())) {
@@ -380,7 +381,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
                 unknownCount.incrementAndGet();
             }
 
-            // 浜у搧鐘舵€佺粺璁?
+            // 产品状态统计
             if (Objects.equals(product.getProductStatus(), ProductStatusEnum.ACTIVATED.getValue())) {
                 enabledCount.incrementAndGet();
             } else if (Objects.equals(product.getProductStatus(), ProductStatusEnum.LOCKED.getValue())) {
@@ -399,16 +400,16 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
 
     @Override
     public Boolean initProductBaseTopics(String productIdentification, Boolean reInit) {
-        log.info("寮€濮嬪垵濮嬪寲浜у搧鍩虹Topic - 浜у搧鏍囪瘑: {}, 鏄惁閲嶆柊鍒濆鍖? {}", productIdentification, reInit);
+        log.info("开始初始化产品基础Topic - 产品标识: {}, 是否重新初始化: {}", productIdentification, reInit);
         ProductResultVO productResultVO = findOneByProductIdentification(productIdentification);
-        ArgumentAssert.notNull(productResultVO, "浜у搧淇℃伅涓嶅瓨鍦?);
+        ArgumentAssert.notNull(productResultVO, "产品信息不存在");
         try {
             productTopicService.initProductBaseTopics(productIdentification, ProductTypeEnum.valueOf(productResultVO.getProductType()), reInit);
-            log.info("鎴愬姛鍒濆鍖栦骇鍝佸熀纭€Topic - 浜у搧鏍囪瘑: {}", productIdentification);
+            log.info("成功初始化产品基础Topic - 产品标识: {}", productIdentification);
             return true;
         } catch (Exception e) {
-            log.error("鍒濆鍖栦骇鍝佸熀纭€Topic澶辫触 - 浜у搧鏍囪瘑: {}", productIdentification, e);
-            throw BizException.wrap("鍒濆鍖栦骇鍝佸熀纭€Topic澶辫触璇烽噸璇?);
+            log.error("初始化产品基础Topic失败 - 产品标识: {}", productIdentification, e);
+            throw BizException.wrap("初始化产品基础Topic失败请重试");
         }
     }
 
@@ -418,7 +419,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
     }
 
     /**
-     * 鏂板 鏍￠獙鍙傛暟
+     * 新增 校验参数
      *
      * @param saveVO
      */
@@ -440,36 +441,36 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
             throw BizException.wrap("protocolType is not exist");
         }
         ArgumentAssert.notBlank(saveVO.getDeviceType(), "deviceType Cannot be null");
-        //楠岃瘉浜у搧妯″瀷鏄惁瀛樺湪
+        //验证产品模型是否存在
         Product product = superManager.findOneByManufacturerIdAndModelAndDeviceType(saveVO.getManufacturerId(), saveVO.getModel(), saveVO.getDeviceType());
         if (ObjectUtil.isNotNull(product)) {
             throw BizException.wrap("product model already exists");
         }
-        //浜у搧妯″瀷鐘舵€?
+        //产品模型状态
         ArgumentAssert.notNull(saveVO.getProductStatus(), "productStatus Cannot be null");
         ProductStatusEnum.fromValue(saveVO.getProductStatus()).orElseThrow(() -> BizException.wrap("productStatus is not exist"));
 
-        // 娉?浜у搧鐗堟湰鍙?product_version)涓嶅啀鐢卞垱寤?缂栬緫琛ㄥ崟缁存姢銆?
-        // 鐗堟湰鐢熷懡鍛ㄦ湡鐢?ProductVersionService 鐨勮崏绋?鍙戝竷娴佺▼鎺ョ 鈹€鈹€
-        // 鍒涘缓鏃?activeVersionNo 涓虹┖,鍙戝竷鏃堕洩鑺辩敓鎴愮増鏈彿骞跺洖鍐欍€?
-        // 浜у搧鍞竴鎬у凡鐢变笂鏂?manufacturerId+model+deviceType 鏍￠獙瑕嗙洊銆?
+        // 注:产品版本号(product_version)不再由创建/编辑表单维护。
+        // 版本生命周期由 ProductVersionService 的草稿/发布流程接管 ──
+        // 创建时 activeVersionNo 为空,发布时雪花生成版本号并回写。
+        // 产品唯一性已由上方 manufacturerId+model+deviceType 校验覆盖。
     }
 
     /**
-     * 鏂板 鏋勫缓鍙傛暟
+     * 新增 构建参数
      *
      * @param saveVO
      * @return
      */
     private Product builderProductSaveVO(ProductSaveVO saveVO) {
-        //浜у搧鏍囪瘑鐢熸垚瑙勫垯: 闆姳绠楁硶鐢熸垚
+        //产品标识生成规则: 雪花算法生成
         saveVO.setProductIdentification(String.valueOf(SnowflakeIdUtil.nextId()));
         saveVO.setCreatedOrgId(AuthUtil.getCurrentDeptId());
         return BeanUtil.toBeanIgnoreError(saveVO, Product.class);
     }
 
     /**
-     * 淇敼 鏍￠獙鍙傛暟
+     * 修改 校验参数
      *
      * @param updateVO
      */
@@ -493,34 +494,34 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
             throw BizException.wrap("protocolType is not exist");
         }
         ArgumentAssert.notBlank(updateVO.getDeviceType(), "deviceType Cannot be null");
-        //浜у搧妯″瀷鐘舵€?
+        //产品模型状态
         ArgumentAssert.notNull(updateVO.getProductStatus(), "productStatus Cannot be null");
         ProductStatusEnum.fromValue(updateVO.getProductStatus()).orElseThrow(() -> BizException.wrap("productStatus is not exist"));
 
-        // 娉?浜у搧鐗堟湰鍙?product_version)涓嶅啀鐢卞垱寤?缂栬緫琛ㄥ崟缁存姢,
-        // 鐗堟湰鐢熷懡鍛ㄦ湡鐢?ProductVersionService 鐨勮崏绋?鍙戝竷娴佺▼鎺ョ銆?
+        // 注:产品版本号(product_version)不再由创建/编辑表单维护,
+        // 版本生命周期由 ProductVersionService 的草稿/发布流程接管。
     }
 
     /**
-     * 瑙ｆ瀽浜у搧妯″瀷鏁版嵁
+     * 解析产品模型数据
      *
-     * @param productVO 浜у搧妯″瀷鍙傛暟
+     * @param productVO 产品模型参数
      */
     private void productJsonDataAnalysis(ProductParamVO productVO) {
         log.info("productJsonDataAnalysis...productVO:{}", JSON.toJSONString(productVO));
-        //鏈嶅姟灞炴€цВ鏋愬鐞?
+        //服务属性解析处理
         Product product = BeanUtil.toBeanIgnoreError(productVO, Product.class);
-        //浜у搧鏍囪瘑鐢熸垚瑙勫垯: 闆姳绠楁硶鐢熸垚
+        //产品标识生成规则: 雪花算法生成
         product.setProductIdentification(String.valueOf(SnowflakeIdUtil.nextId()));
         product.setProductStatus(ProductStatusEnum.LOCKED.getValue());
         product.setCreatedOrgId(AuthUtil.getCurrentDeptId());
-        //鏂板 鏍￠獙鍙傛暟
+        //新增 校验参数
         checkedProductSaveVO(BeanUtil.toBeanIgnoreError(product, ProductSaveVO.class));
         boolean saveProductFlag = superManager.save(product);
         if (!saveProductFlag) {
             throw BizException.wrap("Product information storage fails");
         }
-        //娣诲姞鏈嶅姟鏁版嵁
+        //添加服务数据
         List<ProductServiceParamVO> services = productVO.getServices();
         if (CollUtil.isEmpty(services)) {
             throw BizException.wrap("The product service information is empty. Please check the product model JSON file.");
@@ -536,7 +537,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
             if (ObjectUtil.isNull(productService)) {
                 throw BizException.wrap("Service capability Data storage fails");
             }
-            //娣诲姞灞炴€ф暟鎹?
+            //添加属性数据
             List<ProductPropertyParamVO> properties = productServiceParamVO.getProperties();
             if (!properties.isEmpty()) {
                 ProductPropertySaveVO propertySaveVO;
@@ -550,7 +551,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
                     }
                 }
             }
-            //娣诲姞鍛戒护鏁版嵁
+            //添加命令数据
             List<ProductCommandParamVO> commands = productServiceParamVO.getCommands();
             if (!commands.isEmpty()) {
                 ProductCommandParamVO productCommandParamVO;
@@ -563,7 +564,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
                     if (ObjectUtil.isNull(saveProductCommand)) {
                         throw BizException.wrap("command capability Data storage fails");
                     }
-                    //浜у搧璇锋眰鏈嶅姟鍛戒护
+                    //产品请求服务命令
                     List<ProductCommandRequestParamVO> requests = productCommandParamVO.getRequests();
                     if (!requests.isEmpty()) {
                         for (ProductCommandRequestParamVO request : requests) {
@@ -577,7 +578,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
                             }
                         }
                     }
-                    //浜у搧鍝嶅簲鏈嶅姟鍛戒护
+                    //产品响应服务命令
                     List<ProductCommandResponseParamVO> responses = productCommandParamVO.getResponses();
                     if (!responses.isEmpty()) {
                         for (ProductCommandResponseParamVO respons : responses) {
@@ -595,29 +596,29 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
             }
         }
 
-        // 鍒濆鍖栦骇鍝乀opic
+        // 初始化产品Topic
         initProductBaseTopics(product.getProductIdentification(), Boolean.TRUE);
 
-        // 鍙戝竷浜у搧鐗╂ā鍨嬪彉鏇翠簨浠?
+        // 发布产品物模型变更事件
         productEventPublisher.publishProductModelChangedEvent(ProductModelChangedSource.builder()
                 .productIdentification(product.getProductIdentification())
                 .changeType(ProductVersionChangeTypeEnum.CREATE)
                 .targetType(ProductChangeTargetTypeEnum.PRODUCT_INFO)
                 .after(BeanUtil.toBeanIgnoreError(product, ProductResultVO.class))
-                .changeSummary("鏂板浜у搧銆? + product.getProductName() + "銆?)
+                .changeSummary("新增产品「" + product.getProductName() + "」")
                 .build());
     }
 
-    // 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€ 浜у搧鐗堟湰鎸囬拡鍒囨崲 service 鍏ュ彛 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
+    // ────────────── 产品版本指针切换 service 入口 ──────────────
     //
-    // 涓轰粈涔堢嫭绔嬩袱涓柟娉曡€屼笉鏄悎鎴愪竴涓甫 boolean / enum 鍙傛暟:
-    //   * 鐏板害鍙戝竷闇€瑕?鎹曡幏 鍒囨崲鍓?activeVersionNo 鍐欏叆 previousFullVersionNo",澶栭儴浼犱笉浜?涔嬪墠鐨勫€?
-    //     鐨勮涔?Service 鍐呴儴璇诲嚭鏉ユ渶瀹夊叏
-    //   * 鍥炴粴鐨?娓呯┖ previousFullVersionNo"鍔ㄤ綔鍙睘浜庡洖婊氶摼璺?璺熷彂甯冨畬鍏ㄤ笉鍚屾
+    // 为什么独立两个方法而不是合成一个带 boolean / enum 参数:
+    //   * 灰度发布需要"捕获 切换前 activeVersionNo 写入 previousFullVersionNo",外部传不了"之前的值"
+    //     的语义,Service 内部读出来最安全
+    //   * 回滚的"清空 previousFullVersionNo"动作只属于回滚链路,跟发布完全不同步
     //
-    // 璺ㄥ煙璋冪敤鏂?productversion 鍩?璋冩湰 Service 鑰岄潪 ProductManager:
-    //   * 璧?@DS(BASE_TENANT) 鍒囩鎴峰簱;Manager 鏃?@DS 浼?fallback 榛樿搴?
-    //   * 绂佹璺ㄥ眰绾ц皟鐢?鈹€鈹€ 绫荤害鏉熷凡鍦ㄥ洟闃熻绾﹂噷鍙嶅鏄庣‘
+    // 跨域调用方(productversion 域)调本 Service 而非 ProductManager:
+    //   * 走 @DS(BASE_TENANT) 切租户库;Manager 无 @DS 会 fallback 默认库
+    //   * 禁止跨层级调用 ── 类约束已在团队规约里反复明确
 
     @Override
     public Product switchActiveVersionForPublish(String productIdentification, String newActiveVersion,
@@ -630,18 +631,18 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         String previousActive = product.getActiveVersionNo();
         product.setActiveVersionNo(newActiveVersion);
         if (recordCurrentAsPrevious) {
-            // 鐏板害鍙戝竷:鎶婂垏鎹㈠墠鐨勭増鏈彿璁板叆澶囧繕鎸囬拡,渚涘悗缁洖婊?/ 鐏板害璺敱 / 鏂拌澶囩粦绋冲畾鐗?
+            // 灰度发布:把切换前的版本号记入备忘指针,供后续回滚 / 灰度路由 / 新设备绑稳定版
             product.setPreviousFullVersionNo(previousActive);
         }
         superManager.updateById(product);
         if (!recordCurrentAsPrevious) {
-            // 鍏ㄩ噺鍙戝竷:浜у搧鑴辩鐏板害鎬?鏄惧紡娓呯┖ previousFullVersionNo銆倁pdateById 鍦?NOT_NULL 绛栫暐涓嬪啓涓嶆帀 null,
-            // 蹇呴』 set(null) 寮哄埗 SET NULL 鈥斺€?鍚﹀垯鐏板害鏅嬪崌涓哄叏閲忓悗浜у搧闀挎湡娈嬬暀 previous:鏂拌澶囦細涓€鐩寸粦鑰佺ǔ瀹氱増
-            // (瑙?DeviceServiceImpl#resolveBindVersionForNewDevice),"鐏板害涓?缁熻涔熶細璇垽
+            // 全量发布:产品脱离灰度态,显式清空 previousFullVersionNo。updateById 在 NOT_NULL 策略下写不掉 null,
+            // 必须 set(null) 强制 SET NULL —— 否则灰度晋升为全量后产品长期残留 previous:新设备会一直绑老稳定版
+            // (见 DeviceServiceImpl#resolveBindVersionForNewDevice),"灰度中"统计也会误判
             superManager.clearPreviousFullVersion(productIdentification);
             product.setPreviousFullVersionNo(null);
         }
-        // 鍙戠紦瀛樺け鏁堜簨浠?activeVersionNo 宸插彉,鐩戝惉鍣?AFTER_COMMIT 澶辨晥浜у搧鍩虹缂撳瓨
+        // 发缓存失效事件:activeVersionNo 已变,监听器 AFTER_COMMIT 失效产品基础缓存
         productEventPublisher.publishProductCacheEvictEvent(
                 ProductCacheEvictSource.builder().productIdentification(productIdentification)
                         .contextMap(AuthUtil.getLocalMap()).build());
@@ -657,11 +658,11 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
                 .orElseThrow(() -> BizException.wrap("Product not found: " + productIdentification));
         product.setActiveVersionNo(targetVersion);
         superManager.updateById(product);
-        // 鍥炴粴鍚庝骇鍝佽劚绂荤伆搴︽€?鏄惧紡娓呯┖ previousFullVersionNo銆倁pdateById 鍦?NOT_NULL 绛栫暐涓嬪啓涓嶆帀 null,
-        // 蹇呴』 set(null) 寮哄埗 SET NULL 鈥斺€?鍚﹀垯娈嬬暀 previous 浼氳鏂拌澶囩粦鑰佺ǔ瀹氱増 +"鐏板害涓?缁熻璇垽
+        // 回滚后产品脱离灰度态,显式清空 previousFullVersionNo。updateById 在 NOT_NULL 策略下写不掉 null,
+        // 必须 set(null) 强制 SET NULL —— 否则残留 previous 会让新设备绑老稳定版 +"灰度中"统计误判
         superManager.clearPreviousFullVersion(productIdentification);
         product.setPreviousFullVersionNo(null);
-        // 鍙戠紦瀛樺け鏁堜簨浠?activeVersionNo 宸插彉,鐩戝惉鍣?AFTER_COMMIT 澶辨晥浜у搧鍩虹缂撳瓨
+        // 发缓存失效事件:activeVersionNo 已变,监听器 AFTER_COMMIT 失效产品基础缓存
         productEventPublisher.publishProductCacheEvictEvent(
                 ProductCacheEvictSource.builder().productIdentification(productIdentification)
                         .contextMap(AuthUtil.getLocalMap()).build());

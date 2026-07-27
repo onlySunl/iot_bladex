@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.device.service.impl;
-import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiotdeviceserviceimplDeviceAclRuleServiceImpl.java.mapper.DeviceAclRuleMapper;
 
 import java.util.Collection;
 import java.util.List;
@@ -10,6 +9,7 @@ import java.util.stream.Collectors;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.mp.base.BaseServiceImpl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springblade.core.tool.utils.BeanUtil;
@@ -23,6 +23,7 @@ import org.springblade.modules.iot.device.enumeration.DeviceAclRuleActionTypeEnu
 import org.springblade.modules.iot.device.enumeration.DeviceAclRuleLevelEnum;
 import org.springblade.modules.iot.device.event.publisher.DeviceAclRuleEventPublisher;
 import org.springblade.modules.iot.device.event.source.DeviceAclRuleChangedEventSource;
+import org.springblade.modules.iot.device.manager.DeviceAclRuleManager;
 import org.springblade.modules.iot.device.service.DeviceAclRuleService;
 import org.springblade.modules.iot.device.vo.query.DeviceAclCheckQuery;
 import org.springblade.modules.iot.device.vo.save.DeviceAclRuleSaveVO;
@@ -38,8 +39,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
- * 涓氬姟瀹炵幇绫?
- * 璁惧璁块棶鎺у埗(ACL)瑙勫垯琛?
+ * 业务实现类
+ * 设备访问控制(ACL)规则表
  * </p>
  *
  * @author mqttsnet
@@ -81,8 +82,8 @@ public class DeviceAclRuleServiceImpl extends BaseServiceImpl<DeviceAclRuleMappe
     }
 
     /**
-     * SuperServiceImpl.removeByIds 娌℃湁 after 閽╁瓙,鏄惧紡 override 鍙戝彉鏇翠簨浠?
-     * 璁?{@code DeviceAclRuleCacheEvictListener} 鍦ㄤ簨鍔℃彁浜ゅ悗澶辨晥缂撳瓨銆?
+     * SuperServiceImpl.removeByIds 没有 after 钩子,显式 override 发变更事件,
+     * 让 {@code DeviceAclRuleCacheEvictListener} 在事务提交后失效缓存。
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -99,14 +100,14 @@ public class DeviceAclRuleServiceImpl extends BaseServiceImpl<DeviceAclRuleMappe
     }
 
     /**
-     * 鍙?ACL 瑙勫垯鍙樻洿浜嬩欢 鈹€鈹€ 鐢?{@code @TransactionalEventListener(AFTER_COMMIT)}
-     * 寮傛娑堣垂瑙﹀彂缂撳瓨澶辨晥,浜嬪姟鍥炴粴鍒欎笉瑙﹀彂,淇濊瘉缂撳瓨涓?DB 涓€鑷淬€?
+     * 发 ACL 规则变更事件 ── 由 {@code @TransactionalEventListener(AFTER_COMMIT)}
+     * 异步消费触发缓存失效,事务回滚则不触发,保证缓存与 DB 一致。
      */
     private void publishChanged(DeviceAclRule rule) {
         if (rule == null || StrUtil.isBlank(rule.getProductIdentification())) {
             return;
         }
-        // 闈炴硶 ruleLevel 杞?null,listener fallback 璧?浜у搧绾?evict" 鍏滃簳
+        // 非法 ruleLevel 转 null,listener fallback 走"产品级 evict" 兜底
         DeviceAclRuleLevelEnum level = DeviceAclRuleLevelEnum.fromValue(rule.getRuleLevel()).orElse(null);
         deviceAclRuleEventPublisher.publishDeviceAclRuleChangedEvent(
             DeviceAclRuleChangedEventSource.builder()
@@ -117,15 +118,15 @@ public class DeviceAclRuleServiceImpl extends BaseServiceImpl<DeviceAclRuleMappe
                 .build());
     }
 
-    // ============================== 鍐呴儴:鏍￠獙 / 瑙勮寖鍖?==============================
+    // ============================== 内部:校验 / 规范化 ==============================
 
-    /** save VO 閲嶈浇 鈹€鈹€ 璋冪敤鏂逛竴琛屾悶瀹氥€?*/
+    /** save VO 重载 ── 调用方一行搞定。 */
     private DeviceAclRuleLevelEnum validateAndNormalize(DeviceAclRuleSaveVO vo) {
         return validateAndNormalize(vo.getRuleLevel(), vo.getProductIdentification(),
             vo::setDeviceIdentification, vo.getDeviceIdentification());
     }
 
-    /** update VO 閲嶈浇 鈹€鈹€ 璋冪敤鏂逛竴琛屾悶瀹氥€?*/
+    /** update VO 重载 ── 调用方一行搞定。 */
     private DeviceAclRuleLevelEnum validateAndNormalize(DeviceAclRuleUpdateVO vo) {
         return validateAndNormalize(vo.getRuleLevel(), vo.getProductIdentification(),
             vo::setDeviceIdentification, vo.getDeviceIdentification());
@@ -135,25 +136,25 @@ public class DeviceAclRuleServiceImpl extends BaseServiceImpl<DeviceAclRuleMappe
                                                         Consumer<String> deviceIdSetter,
                                                         String currentDeviceId) {
         if (StrUtil.isBlank(productIdentification)) {
-            throw BizException.wrap("浜у搧鏍囪瘑涓嶈兘涓虹┖");
+            throw BizException.wrap("产品标识不能为空");
         }
         DeviceAclRuleLevelEnum level = DeviceAclRuleLevelEnum.fromValue(ruleLevel)
-            .orElseThrow(() -> BizException.wrap("瑙勫垯绾у埆闈炴硶:浠呮敮鎸?0(浜у搧绾?鎴?1(璁惧绾?"));
+            .orElseThrow(() -> BizException.wrap("规则级别非法:仅支持 0(产品级)或 1(设备级)"));
         if (level == DeviceAclRuleLevelEnum.PRODUCT_LEVEL) {
-            // 浜у搧绾?寮哄埗 null,閬垮厤涓庤澶囩骇"绌?deviceId"娣锋穯 + 鍏煎 IS NULL 鍞竴鎬ф煡璇?
+            // 产品级:强制 null,避免与设备级"空 deviceId"混淆 + 兼容 IS NULL 唯一性查询
             deviceIdSetter.accept(null);
         } else if (level == DeviceAclRuleLevelEnum.DEVICE_LEVEL) {
             if (StrUtil.isBlank(currentDeviceId)) {
-                throw BizException.wrap("璁惧绾ц鍒欏繀椤诲～鍐欒澶囨爣璇?);
+                throw BizException.wrap("设备级规则必须填写设备标识");
             }
         }
         return level;
     }
 
     /**
-     * 妫€鏌ュ悓 (level, productId, deviceId, priority) 缁村害鏄惁宸叉湁瑙勫垯銆?
+     * 检查同 (level, productId, deviceId, priority) 维度是否已有规则。
      *
-     * <p>浜у搧绾?deviceIdentification 鍏煎 NULL + 绌哄瓧绗︿覆(闃插巻鍙茶剰鏁版嵁婕忓垽);璁惧绾ц蛋 .eq 绮剧‘鍖归厤銆?
+     * <p>产品级 deviceIdentification 兼容 NULL + 空字符串(防历史脏数据漏判);设备级走 .eq 精确匹配。
      */
     private boolean existsSamePriorityRule(DeviceAclRuleLevelEnum level, String productId, String deviceId,
                                            Integer priority, Long excludeId) {
@@ -162,7 +163,7 @@ public class DeviceAclRuleServiceImpl extends BaseServiceImpl<DeviceAclRuleMappe
             .eq(DeviceAclRule::getProductIdentification, productId)
             .eq(DeviceAclRule::getPriority, priority);
         if (StrUtil.isBlank(deviceId)) {
-            // LbQueryWrap.eq 瀵圭┖涓茶嚜鍔ㄥ拷鐣?condition,鍙兘鐢?apply 鍐欒８ SQL 寮哄埗娣诲姞
+            // LbQueryWrap.eq 对空串自动忽略 condition,只能用 apply 写裸 SQL 强制添加
             wrap.and(w -> w
                 .isNull(DeviceAclRule::getDeviceIdentification)
                 .or().apply("device_identification = ''"));
@@ -176,17 +177,17 @@ public class DeviceAclRuleServiceImpl extends BaseServiceImpl<DeviceAclRuleMappe
     }
 
     /**
-     * 鎶?鍚屼紭鍏堢骇鍐茬獊"閿欒,娑堟伅甯︾淮搴︿笂涓嬫枃銆?
+     * 抛"同优先级冲突"错误,消息带维度上下文。
      */
     private void throwSamePriorityConflict(DeviceAclRuleLevelEnum level, String productId, String deviceId, Integer priority) {
         String dimension = level == DeviceAclRuleLevelEnum.DEVICE_LEVEL
-            ? StrUtil.format("浜у搧 [{}] 璁惧 [{}]", productId, deviceId)
-            : StrUtil.format("浜у搧 [{}] (浜у搧绾?", productId);
-        throw BizException.wrap("{} 涓嬪凡瀛樺湪浼樺厛绾?{} 鐨勮鍒?璇疯皟鏁?priority 鎴栫紪杈戠幇鏈夎鍒?,
+            ? StrUtil.format("产品 [{}] 设备 [{}]", productId, deviceId)
+            : StrUtil.format("产品 [{}] (产品级)", productId);
+        throw BizException.wrap("{} 下已存在优先级 {} 的规则,请调整 priority 或编辑现有规则",
             dimension, priority);
     }
 
-    /** save VO 閲嶈浇 鈹€鈹€ excludeId 榛樿 null(鏂板鏃犻渶鎺掗櫎鑷韩)銆?*/
+    /** save VO 重载 ── excludeId 默认 null(新增无需排除自身)。 */
     private void requireNoPriorityConflict(DeviceAclRuleLevelEnum level, DeviceAclRuleSaveVO vo) {
         if (existsSamePriorityRule(level, vo.getProductIdentification(),
             vo.getDeviceIdentification(), vo.getPriority(), null)) {
@@ -195,7 +196,7 @@ public class DeviceAclRuleServiceImpl extends BaseServiceImpl<DeviceAclRuleMappe
         }
     }
 
-    /** update VO 閲嶈浇 鈹€鈹€ 鎺掗櫎鑷韩 id 闃叉妸鑷繁褰撳啿绐併€?*/
+    /** update VO 重载 ── 排除自身 id 防把自己当冲突。 */
     private void requireNoPriorityConflict(DeviceAclRuleLevelEnum level, DeviceAclRuleUpdateVO vo) {
         if (existsSamePriorityRule(level, vo.getProductIdentification(),
             vo.getDeviceIdentification(), vo.getPriority(), vo.getId())) {
@@ -211,14 +212,14 @@ public class DeviceAclRuleServiceImpl extends BaseServiceImpl<DeviceAclRuleMappe
             return denied("Device Not Found");
         }
         DeviceInfoResultVO deviceInfoResultVO = BeanUtil.toBean(deviceCacheVO.get(), DeviceInfoResultVO.class);
-        // 鐩存帴璧?helper,涓?self-call(self-call 缁曡繃 AOP,浠ュ悗鍔犲垏闈細澶辨晥)
+        // 直接走 helper,不 self-call(self-call 绕过 AOP,以后加切面会失效)
         List<DeviceAclRuleCacheVO> rules = linkCacheDataHelper.getDeviceAclRules(
             deviceInfoResultVO.getProductIdentification(), deviceInfoResultVO.getDeviceIdentification());
         if (CollectionUtil.isEmpty(rules)) {
             return denied("Not ACL Rule");
         }
 
-        // client action 鈫?rule action 鏄犲皠;鏄犲皠涓嶅瓨鍦?濡?disconnect)璧伴粯璁?deny
+        // client action → rule action 映射;映射不存在(如 disconnect)走默认 deny
         return ClientAclActionTypeEnum.fromValue(deviceAclCheckQuery.getActionType())
             .flatMap(DeviceAclRuleActionTypeEnum::fromClientType)
             .map(targetAction -> decideTopicAccess(targetAction, deviceAclCheckQuery.getTopic(), deviceInfoResultVO, rules))
@@ -226,8 +227,8 @@ public class DeviceAclRuleServiceImpl extends BaseServiceImpl<DeviceAclRuleMappe
     }
 
     /**
-     * 鎸?actionType 杩囨护瑙勫垯(targetAction 鎴?ALL 鍛戒腑) + 鍗犱綅绗︽浛鎹?+ matcher 鍐崇瓥銆?
-     * <p>enabled filter 宸茬敱缂撳瓨 loader 淇濊瘉;ruleAction 涓?null 鏃舵樉寮忔嫆缁濋槻 DB 鑴忔暟鎹鍛戒腑銆?
+     * 按 actionType 过滤规则(targetAction 或 ALL 命中) + 占位符替换 + matcher 决策。
+     * <p>enabled filter 已由缓存 loader 保证;ruleAction 为 null 时显式拒绝防 DB 脏数据误命中。
      */
     private DeviceAclCheckResultVO decideTopicAccess(DeviceAclRuleActionTypeEnum targetAction,
                                                      String topic,

@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.modules.iot.common.lock.link.LinkLockKeyBuilder;
 import org.springblade.modules.iot.product.event.ProductModelChangedEvent;
 import org.springblade.modules.iot.product.event.source.ProductModelChangedSource;
 import org.springblade.modules.iot.productversion.service.ProductVersionService;
