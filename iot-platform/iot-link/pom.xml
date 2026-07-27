@@ -18,9 +18,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>iot-link-facade</module>
-        <module>iot-link-server</module>
-        <module>iot-link-biz</module>
-        <module>iot-link-controller</module>
+
     </modules>
 </project>
