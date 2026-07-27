@@ -61,7 +61,7 @@ public class DeviceActionServiceImpl extends BaseServiceImpl<DeviceActionMapper,
         DeviceAction deviceAction = builderDeviceActionSaveVO(deviceActionSaveVO);
 
         // 保存设备动作数据
-        boolean saveSuccess = Optional.of(superManager.save(deviceAction)).orElse(false);
+        boolean saveSuccess = Optional.of(baseMapper.save(deviceAction)).orElse(false);
 
         if (saveSuccess) {
             // 从缓存中获取设备信息
@@ -83,7 +83,7 @@ public class DeviceActionServiceImpl extends BaseServiceImpl<DeviceActionMapper,
      */
     @Override
     public List<DeviceActionResultVO> getDeviceActionResultVOList(DeviceActionPageQuery query) {
-        return superManager.getDeviceActionResultVOList(query);
+        return baseMapper.getDeviceActionResultVOList(query);
     }
 
     @Override

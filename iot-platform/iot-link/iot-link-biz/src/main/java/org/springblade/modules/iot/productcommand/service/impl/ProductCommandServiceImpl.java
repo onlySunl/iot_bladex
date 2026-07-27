@@ -94,7 +94,7 @@ public class ProductCommandServiceImpl extends BaseServiceImpl<ProductCommandMap
         //构建参数
         ProductCommand productCommand = builderProductCommandSaveVO(saveVO);
         //更新
-        superManager.save(productCommand);
+        baseMapper.save(productCommand);
         publishChange(ProductVersionChangeTypeEnum.CREATE, null, productCommand, "新增命令「" + productCommand.getCommandName() + "」");
         return productCommand;
     }
@@ -110,12 +110,12 @@ public class ProductCommandServiceImpl extends BaseServiceImpl<ProductCommandMap
         log.info("updateProductCommand updateVO:{}", updateVO);
         //校验参数
         checkedProductCommandUpdateVO(updateVO);
-        ProductCommand before = superManager.getById(updateVO.getId());
+        ProductCommand before = baseMapper.getById(updateVO.getId());
         //构建参数
         ProductCommand productCommand = BeanUtil.toBeanIgnoreError(updateVO, ProductCommand.class);
         //更新
-        superManager.updateById(productCommand);
-        ProductCommand after = superManager.getById(updateVO.getId());
+        baseMapper.updateById(productCommand);
+        ProductCommand after = baseMapper.getById(updateVO.getId());
         publishChange(ProductVersionChangeTypeEnum.UPDATE, before, after, "编辑命令「" + (after != null ? after.getCommandName() : updateVO.getCommandName()) + "」");
         return productCommand;
     }
@@ -123,18 +123,18 @@ public class ProductCommandServiceImpl extends BaseServiceImpl<ProductCommandMap
     @Override
     public Boolean deleteProductCommand(Long id) {
         ArgumentAssert.notNull(id, "id Cannot be null");
-        ProductCommand productCommand = superManager.getById(id);
+        ProductCommand productCommand = baseMapper.getById(id);
         if (null == productCommand) {
             throw new ServiceException("The productCommand does not exist");
         }
-        boolean result = superManager.removeById(id);
+        boolean result = baseMapper.removeById(id);
         publishChange(ProductVersionChangeTypeEnum.DELETE, productCommand, null, "删除命令「" + productCommand.getCommandName() + "」");
         return result;
     }
 
     @Override
     public List<ProductCommand> findAllByServiceIds(List<Long> serviceIds) {
-        return superManager.findAllByServiceIds(serviceIds);
+        return baseMapper.findAllByServiceIds(serviceIds);
     }
 
     /**
@@ -152,7 +152,7 @@ public class ProductCommandServiceImpl extends BaseServiceImpl<ProductCommandMap
             throw new ServiceException(ThingModelCodeRule.PATTERN_MSG);
         }
         //校验CODE
-        if (CollUtil.isNotEmpty(superManager.checkCode(saveVO.getServiceId(), saveVO.getCommandCode()))) {
+        if (CollUtil.isNotEmpty(baseMapper.checkCode(saveVO.getServiceId(), saveVO.getCommandCode()))) {
             throw new ServiceException("commandCode already exists");
         }
         ArgumentAssert.notBlank(saveVO.getCommandName(), "commandName Cannot be null");
@@ -206,7 +206,7 @@ public class ProductCommandServiceImpl extends BaseServiceImpl<ProductCommandMap
         ArgumentAssert.notBlank(updateVO.getCommandName(), "commandName Cannot be null");
 
         //校验CODE
-        List<ProductCommand> productCommands = superManager.checkCode(updateVO.getServiceId(), updateVO.getCommandCode());
+        List<ProductCommand> productCommands = baseMapper.checkCode(updateVO.getServiceId(), updateVO.getCommandCode());
         productCommands.stream()
                 .filter(productCommand -> !productCommand.getId().equals(updateVO.getId()))
                 .findAny()

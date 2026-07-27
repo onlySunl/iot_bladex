@@ -82,7 +82,7 @@ public class OtaUpgradeRecordsServiceImpl extends BaseServiceImpl<OtaUpgradeReco
 
         // Validate and map the saveVO
         OtaUpgradeRecords record = buildOtaUpgradeRecordSaveVO(saveVO);
-        superManager.save(record);
+        baseMapper.save(record);
         return BeanUtil.toBeanIgnoreError(record, OtaUpgradeRecordsSaveVO.class);
     }
 
@@ -102,7 +102,7 @@ public class OtaUpgradeRecordsServiceImpl extends BaseServiceImpl<OtaUpgradeReco
         validateOtaUpgradeRecordsUpdateVO(updateVO);
 
         // Validate and fetch existing record
-        OtaUpgradeRecords existingRecord = superManager.getById(updateVO.getId());
+        OtaUpgradeRecords existingRecord = baseMapper.getById(updateVO.getId());
         if (Objects.isNull(existingRecord)) {
             throw new ServiceException("OTA upgrade record not found");
         }
@@ -110,7 +110,7 @@ public class OtaUpgradeRecordsServiceImpl extends BaseServiceImpl<OtaUpgradeReco
         // Update the record
         Builder<OtaUpgradeRecords> recordBuilder = builderOtaUpgradeRecordsUpdateVO(updateVO);
         OtaUpgradeRecords updatedRecord = recordBuilder.with(OtaUpgradeRecords::setId, updateVO.getId()).build();
-        superManager.updateById(updatedRecord);
+        baseMapper.updateById(updatedRecord);
 
         return BeanUtil.toBeanIgnoreError(updatedRecord, OtaUpgradeRecordsUpdateVO.class);
     }
@@ -123,7 +123,7 @@ public class OtaUpgradeRecordsServiceImpl extends BaseServiceImpl<OtaUpgradeReco
      */
     @Override
     public IPage<OtaUpgradeRecordsResultVO> getOtaUpgradeRecordsResultVOPage(Query params) {
-        IPage<OtaUpgradeRecords> otaUpgradeRecordsPage = superManager.getOtaUpgradeRecordsPage(params);
+        IPage<OtaUpgradeRecords> otaUpgradeRecordsPage = baseMapper.getOtaUpgradeRecordsPage(params);
         if (otaUpgradeRecordsPage.getRecords().isEmpty()) {
             return new Page<>();
         }
@@ -141,7 +141,7 @@ public class OtaUpgradeRecordsServiceImpl extends BaseServiceImpl<OtaUpgradeReco
      */
     @Override
     public List<OtaUpgradeRecordsResultVO> getOtaUpgradeRecordsResultVOList(OtaUpgradeRecordsPageQuery query) {
-        List<OtaUpgradeRecords> otaUpgradesList = superManager.getOtaUpgradeRecordsList(query);
+        List<OtaUpgradeRecords> otaUpgradesList = baseMapper.getOtaUpgradeRecordsList(query);
         return BeanUtil.toBeanList(otaUpgradesList, OtaUpgradeRecordsResultVO.class);
     }
 
@@ -151,14 +151,14 @@ public class OtaUpgradeRecordsServiceImpl extends BaseServiceImpl<OtaUpgradeReco
         OtaUpgradeRecordsPageQuery query = new OtaUpgradeRecordsPageQuery()
                 .setTaskId(taskId);
         params.setModel(query);
-        OtaUpgradeRecordsSummaryResultDTO summaryDTO = superManager.selectOtaUpgradeRecordsSummary(params);
+        OtaUpgradeRecordsSummaryResultDTO summaryDTO = baseMapper.selectOtaUpgradeRecordsSummary(params);
         return BeanUtil.toBeanIgnoreError(summaryDTO, OtaUpgradeRecordsSummaryResultVO.class);
     }
 
     @Override
     public Optional<OtaUpgradeRecordsResultVO> getByTaskIdAndDeviceIdentification(Long taskId, String deviceIdentification) {
         // Implement the logic to fetch a specific OTA upgrade record by task ID and device identification
-        Optional<OtaUpgradeRecords> otaUpgradeRecordsOptional = superManager.getOtaUpgradeRecordsByTaskIdAndDeviceIdentification(taskId, deviceIdentification);
+        Optional<OtaUpgradeRecords> otaUpgradeRecordsOptional = baseMapper.getOtaUpgradeRecordsByTaskIdAndDeviceIdentification(taskId, deviceIdentification);
         return otaUpgradeRecordsOptional.map(otaUpgradeRecords -> BeanUtil.toBeanIgnoreError(otaUpgradeRecords, OtaUpgradeRecordsResultVO.class));
     }
 
@@ -169,7 +169,7 @@ public class OtaUpgradeRecordsServiceImpl extends BaseServiceImpl<OtaUpgradeReco
             return;
         }
         try {
-            superManager.updateStatusByTaskId(taskId, status);
+            baseMapper.updateStatusByTaskId(taskId, status);
         } catch (Exception e) {
             log.error("根据任务ID更新升级记录状态异常 - 任务ID: {}, 状态: {}", taskId, status, e);
             throw new ServiceException("更新升级记录状态失败");
@@ -184,7 +184,7 @@ public class OtaUpgradeRecordsServiceImpl extends BaseServiceImpl<OtaUpgradeReco
         }
 
         try {
-            superManager.updateStatusByDeviceAndTask(taskId, deviceIdentification, status, errorMessage);
+            baseMapper.updateStatusByDeviceAndTask(taskId, deviceIdentification, status, errorMessage);
         } catch (Exception e) {
             log.error("根据任务ID和设备标识更新升级记录状态异常 - 任务ID: {}, 设备: {}, 状态: {}",
                     taskId, deviceIdentification, status, e);
@@ -200,7 +200,7 @@ public class OtaUpgradeRecordsServiceImpl extends BaseServiceImpl<OtaUpgradeReco
         }
 
         try {
-            superManager.updateProgressByDeviceAndTask(taskId, deviceIdentification, progress);
+            baseMapper.updateProgressByDeviceAndTask(taskId, deviceIdentification, progress);
         } catch (Exception e) {
             log.error("根据任务ID和设备标识更新升级进度异常 - 任务ID: {}, 设备: {}, 进度: {}%",
                     taskId, deviceIdentification, progress, e);
@@ -217,7 +217,7 @@ public class OtaUpgradeRecordsServiceImpl extends BaseServiceImpl<OtaUpgradeReco
         try {
             OtaUpgradeRecordsPageQuery query = new OtaUpgradeRecordsPageQuery();
             query.setTaskId(taskId);
-            List<OtaUpgradeRecords> records = superManager.getOtaUpgradeRecordsList(query);
+            List<OtaUpgradeRecords> records = baseMapper.getOtaUpgradeRecordsList(query);
             if (Objects.isNull(records) || records.isEmpty()) {
                 return Collections.emptyList();
             }
@@ -242,7 +242,7 @@ public class OtaUpgradeRecordsServiceImpl extends BaseServiceImpl<OtaUpgradeReco
             OtaUpgradeRecordsPageQuery query = new OtaUpgradeRecordsPageQuery();
             query.setTaskId(taskId);
 
-            List<OtaUpgradeRecords> records = superManager.getOtaUpgradeRecordsList(query);
+            List<OtaUpgradeRecords> records = baseMapper.getOtaUpgradeRecordsList(query);
             if (Objects.isNull(records) || records.isEmpty()) {
                 return Collections.emptyList();
             }
@@ -266,7 +266,7 @@ public class OtaUpgradeRecordsServiceImpl extends BaseServiceImpl<OtaUpgradeReco
             return;
         }
         try {
-            superManager.updateAppConfirmationStatus(taskId, deviceIdentification, appConfirmationStatusEnum.getValue());
+            baseMapper.updateAppConfirmationStatus(taskId, deviceIdentification, appConfirmationStatusEnum.getValue());
             log.info("根据任务ID和设备标识更新APP确认状态成功 - 任务ID: {}, 设备: {}, 确认状态: {}", taskId, deviceIdentification, appConfirmationStatusEnum.getDesc());
         } catch (Exception e) {
             log.error("根据任务ID和设备标识更新APP确认状态异常 - 任务ID: {}, 设备: {}, 确认状态: {}", taskId, deviceIdentification, appConfirmationStatusEnum.getDesc(), e);
@@ -282,7 +282,7 @@ public class OtaUpgradeRecordsServiceImpl extends BaseServiceImpl<OtaUpgradeReco
         }
 
         try {
-            superManager.updateCommandSendStatus(taskId, deviceIdentification, commandSendStatus, errorMessage);
+            baseMapper.updateCommandSendStatus(taskId, deviceIdentification, commandSendStatus, errorMessage);
             log.info("根据任务ID和设备标识更新指令发送状态成功 - 任务ID: {}, 设备: {}, 指令发送状态: {}", taskId, deviceIdentification, commandSendStatus);
         } catch (Exception e) {
             log.error("根据任务ID和设备标识更新指令发送状态异常 - 任务ID: {}, 设备: {}, 指令发送状态: {}", taskId, deviceIdentification, commandSendStatus, e);
@@ -325,7 +325,7 @@ public class OtaUpgradeRecordsServiceImpl extends BaseServiceImpl<OtaUpgradeReco
     @Override
     public OtaUpgradeRecordsResultVO getUpgradeRecordDetails(Long id) {
         ArgumentAssert.notNull(id, "Upgrade record ID cannot be null");
-        OtaUpgradeRecords record = superManager.getById(id);
+        OtaUpgradeRecords record = baseMapper.getById(id);
         ArgumentAssert.notNull(record, "Upgrade record not found");
         return BeanUtil.toBeanIgnoreError(record, OtaUpgradeRecordsResultVO.class);
     }

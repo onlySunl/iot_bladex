@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.producttopic.service.impl;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import java.util.Collections;
 import org.springblade.core.log.exception.ServiceException;
@@ -73,7 +74,7 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
     protected <UpdateVO> ProductTopic updateBefore(UpdateVO vo) {
         ProductTopicUpdateVO updateVO = (ProductTopicUpdateVO) vo;
 
-        if (superManager.count(Wrappers.<ProductTopic>lbQ()
+        if (baseMapper.count(new LambdaQueryWrapper<ProductTopic>()
                 .eq(ProductTopic::getProductIdentification, updateVO.getProductIdentification())
                 .eq(ProductTopic::getTopic, updateVO.getTopic())
                 .ne(ProductTopic::getId, updateVO.getId())) > 0) {
@@ -87,7 +88,7 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
     protected <SaveVO> ProductTopic saveBefore(SaveVO vo) {
         ProductTopicSaveVO saveVO = (ProductTopicSaveVO) vo;
 
-        if (superManager.count(Wrappers.<ProductTopic>lbQ()
+        if (baseMapper.count(new LambdaQueryWrapper<ProductTopic>()
                 .eq(ProductTopic::getProductIdentification, saveVO.getProductIdentification())
                 .eq(ProductTopic::getTopic, saveVO.getTopic())) > 0) {
             throw new ServiceException("Topic已存在");
@@ -98,12 +99,12 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
 
     @Override
     protected <SaveVO> void saveAfter(SaveVO saveVO, ProductTopic entity) {
-//        superManager.refreshProductTopicCache(Collections.singletonList(entity));
+//        baseMapper.refreshProductTopicCache(Collections.singletonList(entity));
     }
 
     @Override
     protected <UpdateVO> void updateAfter(UpdateVO updateVO, ProductTopic entity) {
-//        superManager.refreshProductTopicCache(Collections.singletonList(entity));
+//        baseMapper.refreshProductTopicCache(Collections.singletonList(entity));
     }
 
     /**
@@ -139,7 +140,7 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
         }
         log.info("产品[{}]没有基础Topic，执行首次初始化", productIdentification);
         List<ProductTopic> productTopics = buildProductTopics(templates, productIdentification);
-        superManager.saveBatch(productTopics);
+        baseMapper.saveBatch(productTopics);
         log.info("成功为产品[{}]初始化了{}个基础Topic", productIdentification, productTopics.size());
 
     }
@@ -167,7 +168,7 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
         if (safeIds.isEmpty()) {
             return Collections.emptyList();
         }
-        return Optional.ofNullable(superManager.listByIds(safeIds))
+        return Optional.ofNullable(baseMapper.listByIds(safeIds))
                 .orElse(Collections.emptyList())
                 .stream()
                 .map(ProductTopic::getTopic)
@@ -185,7 +186,7 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
     private boolean deleteBaseTopicByProductIdentification(String productIdentification) {
         log.info("开始删除产品所有Topic - 产品标识: {}", productIdentification);
         // 查询该产品的所有基础Topic
-        List<ProductTopic> existingTopics = superManager.list(Wrappers.<ProductTopic>lbQ()
+        List<ProductTopic> existingTopics = baseMapper.list(new LambdaQueryWrapper<ProductTopic>()
                 .eq(ProductTopic::getProductIdentification, productIdentification)
                 .eq(ProductTopic::getTopicType, ProductTopicTypeEnum.BASIC.getValue()));
 
@@ -199,7 +200,7 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
                 .map(ProductTopic::getId)
                 .distinct()
                 .collect(Collectors.toList());
-        boolean deleteSuccess = superManager.removeByIds(topicIds);
+        boolean deleteSuccess = baseMapper.removeByIds(topicIds);
         if (deleteSuccess) {
             log.info("成功删除产品[{}]的{}个基础Topic", productIdentification, existingTopics.size());
         } else {
@@ -256,7 +257,7 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
      * @return {@link Boolean} 是否已初始化
      */
     private boolean isAlreadyInitialized(String productIdentification) {
-        Long count = superManager.lambdaQuery()
+        Long count = baseMapper.lambdaQuery()
                 .eq(ProductTopic::getProductIdentification, productIdentification)
                 .eq(ProductTopic::getTopicType, ProductTopicTypeEnum.BASIC.getValue())
                 .count();

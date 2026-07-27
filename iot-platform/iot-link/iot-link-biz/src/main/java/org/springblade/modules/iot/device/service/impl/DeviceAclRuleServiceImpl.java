@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.device.service.impl;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import java.util.Collection;
 import org.springblade.core.log.exception.ServiceException;
@@ -126,7 +127,7 @@ public class DeviceAclRuleServiceImpl extends BaseServiceImpl<DeviceAclRuleMappe
         if (CollectionUtil.isEmpty(idList)) {
             return false;
         }
-        List<DeviceAclRule> deleted = superManager.listByIds(idList);
+        List<DeviceAclRule> deleted = baseMapper.listByIds(idList);
         boolean ok = super.removeByIds(idList);
         if (ok && !deleted.isEmpty()) {
             deleted.forEach(this::publishChanged);
@@ -193,7 +194,7 @@ public class DeviceAclRuleServiceImpl extends BaseServiceImpl<DeviceAclRuleMappe
      */
     private boolean existsSamePriorityRule(DeviceAclRuleLevelEnum level, String productId, String deviceId,
                                            Integer priority, Long excludeId) {
-        var wrap = Wrappers.<DeviceAclRule>lbQ()
+        var wrap = new LambdaQueryWrapper<DeviceAclRule>()
             .eq(DeviceAclRule::getRuleLevel, level.getValue())
             .eq(DeviceAclRule::getProductIdentification, productId)
             .eq(DeviceAclRule::getPriority, priority);
@@ -208,7 +209,7 @@ public class DeviceAclRuleServiceImpl extends BaseServiceImpl<DeviceAclRuleMappe
         if (excludeId != null) {
             wrap.ne(DeviceAclRule::getId, excludeId);
         }
-        return superManager.count(wrap) > 0;
+        return baseMapper.count(wrap) > 0;
     }
 
     /**

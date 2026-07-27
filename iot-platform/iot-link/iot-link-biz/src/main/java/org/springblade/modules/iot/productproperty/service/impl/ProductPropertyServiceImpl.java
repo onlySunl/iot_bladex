@@ -96,7 +96,7 @@ public class ProductPropertyServiceImpl extends BaseServiceImpl<ProductPropertyM
         //构建参数
         ProductProperty productProperty = builderProductPropertySaveVO(saveVO);
         //更新
-        superManager.save(productProperty);
+        baseMapper.save(productProperty);
         publishChange(ProductVersionChangeTypeEnum.CREATE, null, productProperty, "新增属性「" + productProperty.getPropertyName() + "」");
         return productProperty;
     }
@@ -112,12 +112,12 @@ public class ProductPropertyServiceImpl extends BaseServiceImpl<ProductPropertyM
         log.info("updateProductProperty updateVO:{}", updateVO);
         //校验参数
         checkedProductPropertyUpdateVO(updateVO);
-        ProductProperty before = superManager.getById(updateVO.getId());
+        ProductProperty before = baseMapper.getById(updateVO.getId());
         //构建参数
         ProductProperty productProperty = BeanUtil.toBeanIgnoreError(updateVO, ProductProperty.class);
         //更新
-        superManager.updateById(productProperty);
-        ProductProperty after = superManager.getById(updateVO.getId());
+        baseMapper.updateById(productProperty);
+        ProductProperty after = baseMapper.getById(updateVO.getId());
         publishChange(ProductVersionChangeTypeEnum.UPDATE, before, after, "编辑属性「" + (after != null ? after.getPropertyName() : updateVO.getPropertyName()) + "」");
         return productProperty;
     }
@@ -125,23 +125,23 @@ public class ProductPropertyServiceImpl extends BaseServiceImpl<ProductPropertyM
     @Override
     public Boolean deleteProductProperty(Long id) {
         ArgumentAssert.notNull(id, "id Cannot be null");
-        ProductProperty productProperty = superManager.getById(id);
+        ProductProperty productProperty = baseMapper.getById(id);
         if (null == productProperty) {
             throw new ServiceException("The productProperty does not exist");
         }
-        boolean result = superManager.removeById(id);
+        boolean result = baseMapper.removeById(id);
         publishChange(ProductVersionChangeTypeEnum.DELETE, productProperty, null, "删除属性「" + productProperty.getPropertyName() + "」");
         return result;
     }
 
     @Override
     public List<ProductProperty> findAllByServiceId(Long serviceId) {
-        return superManager.findAllByServiceId(serviceId);
+        return baseMapper.findAllByServiceId(serviceId);
     }
 
     @Override
     public List<ProductProperty> findAllByServiceIds(List<Long> serviceIds) {
-        return superManager.findAllByServiceIds(serviceIds);
+        return baseMapper.findAllByServiceIds(serviceIds);
     }
 
     /**
@@ -159,7 +159,7 @@ public class ProductPropertyServiceImpl extends BaseServiceImpl<ProductPropertyM
             throw new ServiceException(ThingModelCodeRule.PATTERN_MSG);
         }
         //校验CODE
-        if (CollUtil.isNotEmpty(superManager.checkCode(saveVO.getServiceId(), saveVO.getPropertyCode()))) {
+        if (CollUtil.isNotEmpty(baseMapper.checkCode(saveVO.getServiceId(), saveVO.getPropertyCode()))) {
             throw new ServiceException("propertyCode already exists");
         }
         ArgumentAssert.notBlank(saveVO.getPropertyName(), "propertyName Cannot be null");
@@ -218,7 +218,7 @@ public class ProductPropertyServiceImpl extends BaseServiceImpl<ProductPropertyM
             throw new ServiceException("datatype does not exist");
         }
         //校验CODE
-        List<ProductProperty> productProperties = superManager.checkCode(updateVO.getServiceId(), updateVO.getPropertyCode());
+        List<ProductProperty> productProperties = baseMapper.checkCode(updateVO.getServiceId(), updateVO.getPropertyCode());
         productProperties.stream()
                 .filter(productProperty -> !productProperty.getId().equals(updateVO.getId()))
                 .findAny()

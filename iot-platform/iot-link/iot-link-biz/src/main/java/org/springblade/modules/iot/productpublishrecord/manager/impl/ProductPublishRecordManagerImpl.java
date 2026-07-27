@@ -2,7 +2,7 @@ package org.springblade.modules.iot.productpublishrecord.manager.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springblade.common.base.manager.impl.SuperManagerImpl;
 import org.springblade.common.base.request.PageParams;
 import org.springblade.common.database.mybatis.conditions.Wraps;

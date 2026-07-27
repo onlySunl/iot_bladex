@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.service.plugin.impl;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.tool.api.R;
@@ -163,7 +164,7 @@ public class PluginInstanceServiceImpl extends BladeServiceImpl<PluginInstanceMa
         ArgumentAssert.notNull(saveVO.getClusterName(), "clusterName cannot be null");
 
         //??????????????????????????????????????????
-        PluginInstance existingInstance = baseMapper.getOne(Wrappers.<PluginInstance>lbQ().eq(PluginInstance::getInstanceIdentification, saveVO.getInstanceIdentification()));
+        PluginInstance existingInstance = baseMapper.getOne(new LambdaQueryWrapper<PluginInstance>().eq(PluginInstance::getInstanceIdentification, saveVO.getInstanceIdentification()));
         if (Objects.nonNull(existingInstance)) {
             throw ServiceException.validFail("??????????n?????????");
         }

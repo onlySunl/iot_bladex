@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.ota.service.impl;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import java.util.Collections;
 import org.springblade.core.log.exception.ServiceException;
@@ -110,7 +111,7 @@ public class OtaUpgradesServiceImpl extends BaseServiceImpl<OtaUpgradesMapper, O
         OtaUpgrades otaUpgrade = buildOtaUpgradeFromSaveVO(saveVO);
 
         // Persist the OtaUpgrade entity using your manager or repository
-        superManager.save(otaUpgrade);
+        baseMapper.save(otaUpgrade);
 
         // Map the saved entity back to OtaUpgradesSaveVO if needed
         return BeanUtil.toBeanIgnoreError(otaUpgrade, OtaUpgradesSaveVO.class);
@@ -133,7 +134,7 @@ public class OtaUpgradesServiceImpl extends BaseServiceImpl<OtaUpgradesMapper, O
         Builder<OtaUpgrades> otaUpgradesBuilder = builderOtaUpgradesUpdateVO(updateVO);
 
         // Save the updated entity
-        superManager.updateById(otaUpgradesBuilder.with(OtaUpgrades::setId, updateVO.getId()).build());
+        baseMapper.updateById(otaUpgradesBuilder.with(OtaUpgrades::setId, updateVO.getId()).build());
 
         // Map the updated entity back to OtaUpgradesUpdateVO if needed
         return BeanUtil.toBeanIgnoreError(otaUpgradesBuilder.build(), OtaUpgradesUpdateVO.class);
@@ -153,7 +154,7 @@ public class OtaUpgradesServiceImpl extends BaseServiceImpl<OtaUpgradesMapper, O
         ArgumentAssert.notNull(status, "Status cannot be null");
 
         // Here you should define your OtaUpgrade entity class which represents your OTA upgrade package
-        OtaUpgrades otaUpgrades = superManager.getById(id);
+        OtaUpgrades otaUpgrades = baseMapper.getById(id);
         if (Objects.isNull(otaUpgrades)) {
             throw new ServiceException("OTA upgrade package does not exist");
         }
@@ -162,7 +163,7 @@ public class OtaUpgradesServiceImpl extends BaseServiceImpl<OtaUpgradesMapper, O
         }
 
         otaUpgrades.setStatus(status);
-        return superManager.updateById(otaUpgrades);
+        return baseMapper.updateById(otaUpgrades);
     }
 
     /**
@@ -174,7 +175,7 @@ public class OtaUpgradesServiceImpl extends BaseServiceImpl<OtaUpgradesMapper, O
     @Override
     public Boolean deleteOtaUpgrade(Long id) {
         ArgumentAssert.notNull(id, "id Cannot be null");
-        OtaUpgrades otaUpgrade = superManager.getById(id);
+        OtaUpgrades otaUpgrade = baseMapper.getById(id);
         if (Objects.isNull(otaUpgrade)) {
             throw new ServiceException("OTA upgrade package does not exist");
         }
@@ -185,7 +186,7 @@ public class OtaUpgradesServiceImpl extends BaseServiceImpl<OtaUpgradesMapper, O
             throw new ServiceException("OTA upgrade package is in use and cannot be deleted");
         }
         // Additional checks can be added here if necessary
-        return superManager.removeById(id);
+        return baseMapper.removeById(id);
     }
 
     /**
@@ -196,7 +197,7 @@ public class OtaUpgradesServiceImpl extends BaseServiceImpl<OtaUpgradesMapper, O
      */
     @Override
     public List<OtaUpgradesResultDTO> getOtaUpgradesResultDTOList(OtaUpgradesPageQuery query) {
-        List<OtaUpgrades> otaUpgradesList = superManager.getOtaUpgradesList(query);
+        List<OtaUpgrades> otaUpgradesList = baseMapper.getOtaUpgradesList(query);
         return BeanUtil.toBeanList(otaUpgradesList, OtaUpgradesResultDTO.class);
     }
 
@@ -205,14 +206,14 @@ public class OtaUpgradesServiceImpl extends BaseServiceImpl<OtaUpgradesMapper, O
         if (Objects.isNull(id)) {
             return Optional.empty();
         }
-        OtaUpgrades otaUpgrades = superManager.getById(id);
+        OtaUpgrades otaUpgrades = baseMapper.getById(id);
         return Optional.of(BeanUtil.toBeanIgnoreError(otaUpgrades, OtaUpgradesResultDTO.class));
     }
 
     @Override
     public OtaUpgradesDetailsResultVO getUpgradePackageDetails(Long id) {
         ArgumentAssert.notNull(id, "Upgrade package ID cannot be null");
-        OtaUpgrades otaUpgrades = superManager.getById(id);
+        OtaUpgrades otaUpgrades = baseMapper.getById(id);
         ArgumentAssert.notNull(otaUpgrades, "OTA upgrade package does not exist");
         OtaUpgradesDetailsResultVO detailsVO = BeanUtil.toBeanIgnoreError(otaUpgrades, OtaUpgradesDetailsResultVO.class);
         // 详情读路径走缓存(read-through 兜底),避免每次详情请求都直查 product 表
@@ -236,7 +237,7 @@ public class OtaUpgradesServiceImpl extends BaseServiceImpl<OtaUpgradesMapper, O
         }
 
         // 校验升级包版本号是否重复
-        if (superManager.count(Wrappers.<OtaUpgrades>lbQ().eq(OtaUpgrades::getPackageType, saveVO.getPackageType()).eq(OtaUpgrades::getVersion, saveVO.getVersion())) > 0) {
+        if (baseMapper.count(new LambdaQueryWrapper<OtaUpgrades>().eq(OtaUpgrades::getPackageType, saveVO.getPackageType()).eq(OtaUpgrades::getVersion, saveVO.getVersion())) > 0) {
             throw new ServiceException("升级版本号已存在");
         }
     }
@@ -248,7 +249,7 @@ public class OtaUpgradesServiceImpl extends BaseServiceImpl<OtaUpgradesMapper, O
 
     private void validateOtaUpgradesUpdateVO(OtaUpgradesUpdateVO updateVO) {
 
-        OtaUpgrades existingOtaUpgrade = Optional.ofNullable(superManager.getById(updateVO.getId())).orElseThrow(() -> new ServiceException("OTA upgrade package not found"));
+        OtaUpgrades existingOtaUpgrade = Optional.ofNullable(baseMapper.getById(updateVO.getId())).orElseThrow(() -> new ServiceException("OTA upgrade package not found"));
 
         //TODO Validate the updateVO object
         String productIdentification = existingOtaUpgrade.getProductIdentification();
@@ -265,7 +266,7 @@ public class OtaUpgradesServiceImpl extends BaseServiceImpl<OtaUpgradesMapper, O
         }
 
         // 校验升级包版本号是否重复
-        if (superManager.count(Wrappers.<OtaUpgrades>lbQ()
+        if (baseMapper.count(new LambdaQueryWrapper<OtaUpgrades>()
                 .eq(OtaUpgrades::getPackageType, updateVO.getPackageType())
                 .eq(OtaUpgrades::getVersion, updateVO.getVersion())
                 .ne(OtaUpgrades::getId, updateVO.getId())) > 0) {
@@ -301,7 +302,7 @@ public class OtaUpgradesServiceImpl extends BaseServiceImpl<OtaUpgradesMapper, O
         if (CollUtil.isEmpty(ids)) {
             return Collections.emptyList();
         }
-        List<OtaUpgrades> upgrades = superManager.listByIds(ids);
+        List<OtaUpgrades> upgrades = baseMapper.listByIds(ids);
         return Optional.ofNullable(upgrades)
                 .map(upgradeList -> BeanUtil.toBeanList(upgradeList, OtaUpgradesResultVO.class))
                 .orElse(Collections.emptyList());
@@ -313,7 +314,7 @@ public class OtaUpgradesServiceImpl extends BaseServiceImpl<OtaUpgradesMapper, O
             return null;
         }
         // 同一(产品 + 版本)理论上唯一(saveUpgradePackage 已按 packageType + version 去重),取最新一条兜底多匹配
-        return superManager.list(Wrappers.<OtaUpgrades>lbQ()
+        return baseMapper.list(new LambdaQueryWrapper<OtaUpgrades>()
                         .eq(OtaUpgrades::getProductIdentification, productIdentification)
                         .eq(OtaUpgrades::getVersion, version)
                         .eq(packageType != null, OtaUpgrades::getPackageType, packageType)

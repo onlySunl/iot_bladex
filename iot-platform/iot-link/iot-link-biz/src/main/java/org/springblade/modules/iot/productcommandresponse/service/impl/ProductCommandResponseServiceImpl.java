@@ -94,7 +94,7 @@ public class ProductCommandResponseServiceImpl extends BaseServiceImpl<ProductCo
         //构建参数
         ProductCommandResponse productCommandResponse = builderProductCommandResponseSaveVO(saveVO);
         //更新
-        superManager.save(productCommandResponse);
+        baseMapper.save(productCommandResponse);
         publishChange(ProductVersionChangeTypeEnum.CREATE, null, productCommandResponse, "新增命令响应参数「" + productCommandResponse.getParameterName() + "」");
         return productCommandResponse;
     }
@@ -110,12 +110,12 @@ public class ProductCommandResponseServiceImpl extends BaseServiceImpl<ProductCo
         log.info("updateProductCommandResponse updateVO:{}", updateVO);
         //校验参数
         checkedProductCommandResponseUpdateVO(updateVO);
-        ProductCommandResponse before = superManager.getById(updateVO.getId());
+        ProductCommandResponse before = baseMapper.getById(updateVO.getId());
         //构建参数
         ProductCommandResponse commandResponse = BeanUtil.toBeanIgnoreError(updateVO, ProductCommandResponse.class);
         //更新
-        superManager.updateById(commandResponse);
-        ProductCommandResponse after = superManager.getById(updateVO.getId());
+        baseMapper.updateById(commandResponse);
+        ProductCommandResponse after = baseMapper.getById(updateVO.getId());
         publishChange(ProductVersionChangeTypeEnum.UPDATE, before, after, "编辑命令响应参数「" + (after != null ? after.getParameterName() : updateVO.getParameterName()) + "」");
         return commandResponse;
     }
@@ -123,18 +123,18 @@ public class ProductCommandResponseServiceImpl extends BaseServiceImpl<ProductCo
     @Override
     public Boolean deleteProductCommandResponse(Long id) {
         ArgumentAssert.notNull(id, "id Cannot be null");
-        ProductCommandResponse productCommandResponse = superManager.getById(id);
+        ProductCommandResponse productCommandResponse = baseMapper.getById(id);
         if (null == productCommandResponse) {
             throw new ServiceException("The ProductCommandResponse does not exist");
         }
-        boolean result = superManager.removeById(id);
+        boolean result = baseMapper.removeById(id);
         publishChange(ProductVersionChangeTypeEnum.DELETE, productCommandResponse, null, "删除命令响应参数「" + productCommandResponse.getParameterName() + "」");
         return result;
     }
 
     @Override
     public List<ProductCommandResponseResultVO> selectCommandResponses(List<Long> commandIds) {
-        return BeanUtil.toBeanList(superManager.selectCommandResponses(commandIds), ProductCommandResponseResultVO.class);
+        return BeanUtil.toBeanList(baseMapper.selectCommandResponses(commandIds), ProductCommandResponseResultVO.class);
     }
 
     /**
@@ -155,7 +155,7 @@ public class ProductCommandResponseServiceImpl extends BaseServiceImpl<ProductCo
             throw new ServiceException(ThingModelCodeRule.PATTERN_MSG);
         }
         //校验CODE
-        if (CollUtil.isNotEmpty(superManager.checkCode(saveVO.getServiceId(), saveVO.getCommandId(), saveVO.getParameterCode()))) {
+        if (CollUtil.isNotEmpty(baseMapper.checkCode(saveVO.getServiceId(), saveVO.getCommandId(), saveVO.getParameterCode()))) {
             throw new ServiceException("parameterCode already exists");
         }
         ArgumentAssert.notBlank(saveVO.getParameterName(), "parameterName Cannot be null");
@@ -211,7 +211,7 @@ public class ProductCommandResponseServiceImpl extends BaseServiceImpl<ProductCo
         }
         ArgumentAssert.notBlank(updateVO.getParameterName(), "parameterName Cannot be null");
         //校验CODE
-        List<ProductCommandResponse> productCommandResponses = superManager.checkCode(updateVO.getServiceId(), updateVO.getCommandId(), updateVO.getParameterCode());
+        List<ProductCommandResponse> productCommandResponses = baseMapper.checkCode(updateVO.getServiceId(), updateVO.getCommandId(), updateVO.getParameterCode());
         productCommandResponses.stream()
                 .filter(productCommandResponse -> !productCommandResponse.getId().equals(updateVO.getId()))
                 .findAny()

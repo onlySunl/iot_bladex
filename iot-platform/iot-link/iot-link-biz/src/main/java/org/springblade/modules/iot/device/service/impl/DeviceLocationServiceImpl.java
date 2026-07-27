@@ -50,7 +50,7 @@ public class DeviceLocationServiceImpl extends BaseServiceImpl<DeviceLocationMap
         DeviceLocation deviceLocation = builderDeviceLocationSaveVO(deviceLocationSaveVO);
 
         // 保存设备位置信息
-        superManager.save(deviceLocation);
+        baseMapper.save(deviceLocation);
 
         return BeanUtil.toBeanIgnoreError(deviceLocation, DeviceLocationSaveVO.class);
     }
@@ -73,7 +73,7 @@ public class DeviceLocationServiceImpl extends BaseServiceImpl<DeviceLocationMap
         Builder<DeviceLocation> deviceLocationBuilder = builderDeviceLocationUpdateVO(deviceLocationUpdateVO);
 
         //更新
-        superManager.updateById(deviceLocationBuilder.with(DeviceLocation::setId, deviceLocationUpdateVO.getId()).build());
+        baseMapper.updateById(deviceLocationBuilder.with(DeviceLocation::setId, deviceLocationUpdateVO.getId()).build());
         return deviceLocationUpdateVO;
     }
 
@@ -85,7 +85,7 @@ public class DeviceLocationServiceImpl extends BaseServiceImpl<DeviceLocationMap
      */
     @Override
     public List<DeviceLocationResultVO> getDeviceLocationResultVOList(DeviceLocationPageQuery query) {
-        return superManager.getDeviceLocationResultVOList(query);
+        return baseMapper.getDeviceLocationResultVOList(query);
     }
 
     /**

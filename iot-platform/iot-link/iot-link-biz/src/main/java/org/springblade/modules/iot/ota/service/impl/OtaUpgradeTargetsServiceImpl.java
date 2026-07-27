@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.ota.service.impl;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import java.util.List;
 import java.util.Objects;
@@ -43,7 +44,7 @@ public class OtaUpgradeTargetsServiceImpl extends BaseServiceImpl<OtaUpgradeTarg
             return;
         }
         // 批量保存
-        superManager.saveBatch(BeanUtil.toBeanList(otaUpgradeTargetsSaveVOList, OtaUpgradeTargets.class));
+        baseMapper.saveBatch(BeanUtil.toBeanList(otaUpgradeTargetsSaveVOList, OtaUpgradeTargets.class));
     }
 
     @Override
@@ -52,7 +53,7 @@ public class OtaUpgradeTargetsServiceImpl extends BaseServiceImpl<OtaUpgradeTarg
             log.warn("任务ID为空，无法删除OTA升级目标");
             return;
         }
-        superManager.remove(Wrappers.<OtaUpgradeTargets>lbQ().eq(OtaUpgradeTargets::getTaskId, taskId));
+        baseMapper.remove(new LambdaQueryWrapper<OtaUpgradeTargets>().eq(OtaUpgradeTargets::getTaskId, taskId));
     }
 
     /**
@@ -98,7 +99,7 @@ public class OtaUpgradeTargetsServiceImpl extends BaseServiceImpl<OtaUpgradeTarg
      */
     @Override
     public List<OtaUpgradeTargetsResultDTO> getOtaUpgradeTargetsResultDTOList(OtaUpgradeTargetsPageQuery query) {
-        return BeanUtil.toBeanList(superManager.getOtaUpgradeTargetsList(query), OtaUpgradeTargetsResultDTO.class);
+        return BeanUtil.toBeanList(baseMapper.getOtaUpgradeTargetsList(query), OtaUpgradeTargetsResultDTO.class);
     }
 
     /**
@@ -123,7 +124,7 @@ public class OtaUpgradeTargetsServiceImpl extends BaseServiceImpl<OtaUpgradeTarg
             }
 
             // 更新目标状态
-            boolean updated = superManager.update(Wrappers.<OtaUpgradeTargets>lbU()
+            boolean updated = baseMapper.update(Wrappers.<OtaUpgradeTargets>lbU()
                     .set(OtaUpgradeTargets::getTargetStatus, otaUpgradeTargetStatusEnum.getValue())
                     .eq(OtaUpgradeTargets::getTaskId, taskId)
                     .eq(OtaUpgradeTargets::getTargetValue, targetValue));

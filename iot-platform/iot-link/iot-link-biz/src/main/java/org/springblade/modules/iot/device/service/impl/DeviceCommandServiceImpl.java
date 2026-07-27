@@ -120,7 +120,7 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
         // Validate the input, build the DeviceCommand object, and save it to the database.
         return Optional.of(deviceCommandSaveVO).filter(this::checkDeviceCommandSaveVO).map(this::buildDeviceCommand).map(deviceCommand -> {
             deviceCommand.setCommandIdentification(SnowflakeIdUtil.nextId());
-            return superManager.save(deviceCommand) ? deviceCommand : null;
+            return baseMapper.save(deviceCommand) ? deviceCommand : null;
         }).orElseThrow(() -> new IllegalArgumentException("Invalid DeviceCommandSaveVO input"));
     }
 
@@ -132,7 +132,7 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
      */
     @Override
     public List<DeviceCommandResultVO> getDeviceCommandResultVOList(DeviceCommandPageQuery query) {
-        return BeanUtil.toBeanList(superManager.getDeviceCommandResultVOList(query), DeviceCommandResultVO.class);
+        return BeanUtil.toBeanList(baseMapper.getDeviceCommandResultVOList(query), DeviceCommandResultVO.class);
     }
 
     @Override
@@ -143,7 +143,7 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
         // 仅取命令下发(0)/命令响应(1),OTA(2)不入调试台;设备空=当前租户全部;倒序取近 N 条(命中 idx_device_cmdtype_ctime)。
         // topic 存在 content/remark 报文中:原始/新结构化下发在 content.topic,响应新记录在 content.topic。
         return BeanUtil.toBeanList(
-                superManager.lambdaQuery()
+                baseMapper.lambdaQuery()
                         .in(DeviceCommand::getCommandType,
                                 DeviceCommandTypeEnum.COMMAND_ISSUE.getValue(),
                                 DeviceCommandTypeEnum.COMMAND_RESPONSE.getValue())

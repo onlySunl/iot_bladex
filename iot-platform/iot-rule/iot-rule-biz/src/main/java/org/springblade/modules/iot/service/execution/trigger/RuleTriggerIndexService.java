@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.service.execution.trigger;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -143,7 +144,7 @@ public class RuleTriggerIndexService {
      * @param deviceIdentification null=产品桶("全部设备"规则,条件左值 device=all);非空=设备桶
      */
     private List<String> loadFromDb(Integer conditionType, String productIdentification, String deviceIdentification) {
-        List<RuleCondition> conditions = ruleConditionService.list(Wrappers.<RuleCondition>lbQ()
+        List<RuleCondition> conditions = ruleConditionService.list(new LambdaQueryWrapper<RuleCondition>()
                 .eq(RuleCondition::getConditionType, conditionType)
                 .eq(RuleCondition::getStatus, ConditionStatusEnum.ENABLED.getValue())
                 .like(RuleCondition::getConditionScheme, productIdentification));

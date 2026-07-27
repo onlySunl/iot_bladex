@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.service.linkage.support;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import java.util.Map;
 import java.util.Optional;
@@ -76,7 +77,7 @@ public class RuleTimingJobSynchronizer {
                 .ofNullable(JsonUtil.parse(rule.getAppointContent(), AppointEffectiveTimeDTO.class))
                 .orElseGet(AppointEffectiveTimeDTO::new);
 
-        boolean hasTimingCondition = ruleConditionManager.count(Wrappers.<RuleCondition>lbQ()
+        boolean hasTimingCondition = ruleConditionManager.count(new LambdaQueryWrapper<RuleCondition>()
                 .eq(RuleCondition::getRuleId, rule.getId())
                 .eq(RuleCondition::getConditionType, ConditionTypeEnum.TIMING_TRIGGER.getValue())
                 .eq(RuleCondition::getStatus, ConditionStatusEnum.ENABLED.getValue())) > 0;

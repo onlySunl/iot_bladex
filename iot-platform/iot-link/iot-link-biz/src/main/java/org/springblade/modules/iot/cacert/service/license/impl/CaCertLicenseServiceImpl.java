@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.cacert.service.license.impl;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import java.io.ByteArrayInputStream;
 import org.springblade.core.log.exception.ServiceException;
@@ -270,7 +271,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
     }
 
     private void checkUpdateVO(CaCertLicenseUpdateVO updateVO) {
-        CaCertLicense caCertLicense = superManager.getById(updateVO.getId());
+        CaCertLicense caCertLicense = baseMapper.getById(updateVO.getId());
         ArgumentAssert.notNull(caCertLicense, "证书不存在!");
     }
 
@@ -285,7 +286,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
     }
 
     private void checkSaveVO(CaCertLicenseSaveVO saveVO) {
-        if (superManager.count(Wrappers.<CaCertLicense>lbQ()
+        if (baseMapper.count(new LambdaQueryWrapper<CaCertLicense>()
                 .eq(CaCertLicense::getCommonName, saveVO.getCommonName())
                 .eq(CaCertLicense::getOrganization, saveVO.getOrganization())
                 .eq(CaCertLicense::getOrganizationalUnit, saveVO.getOrganizationalUnit())
@@ -300,12 +301,12 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
 
     @Override
     protected <SaveVO> void saveAfter(SaveVO saveVO, CaCertLicense entity) {
-//        superManager.refreshCache(Collections.singletonList(entity));
+//        baseMapper.refreshCache(Collections.singletonList(entity));
     }
 
     @Override
     protected <UpdateVO> void updateAfter(UpdateVO updateVO, CaCertLicense entity) {
-//        superManager.refreshCache(Collections.singletonList(entity));
+//        baseMapper.refreshCache(Collections.singletonList(entity));
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -319,7 +320,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
             CaCertLicense entity = buildCertificateEntity(caCertPemImportSaveVO.getCertName(), rootCert, caCertPemImportSaveVO.getRemark());
 
             // 保存到数据库
-            superManager.save(entity);
+            baseMapper.save(entity);
 
             // 审计
             auditLogService.record(CaCertAuditTypeEnum.IMPORT, entity.getId(), entity.getSerialNumber(),
@@ -345,7 +346,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
         CaCertLicense entity = new CaCertLicense();
         log.info("证书名称: {}, 品牌: {},version: {}", certName, rootCert.getIssuerX500Principal().getName(), rootCert.getVersion());
         String serialHex = CertSerialNumberUtil.getOpenSSLSerial(rootCert);
-        CaCertLicense caCertLicense = superManager.getByCertSerialNumber(serialHex);
+        CaCertLicense caCertLicense = baseMapper.getByCertSerialNumber(serialHex);
         ArgumentAssert.isNull(caCertLicense, "证书已存在，证书序列号: {}", serialHex);
         try {
             PublicKey publicKey = rootCert.getPublicKey();
@@ -521,7 +522,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
         ca.setState(CaCertStatusEnum.REVOKED.getValue());
         ca.setRevokeTime(LocalDateTime.now());
         ca.setRevokeReason(revocationReason);
-        boolean ok = superManager.updateById(ca);
+        boolean ok = baseMapper.updateById(ca);
         if (!ok) {
             throw new ServiceException("CA 证书状态更新失败");
         }
@@ -537,7 +538,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
 
     @Override
     public CaCertLicenseResultVO getByCertSerialNumber(String certSerialNumber) {
-        CaCertLicense caCertLicense = superManager.getByCertSerialNumber(certSerialNumber);
+        CaCertLicense caCertLicense = baseMapper.getByCertSerialNumber(certSerialNumber);
         return BeanUtil.toBeanIgnoreError(caCertLicense, CaCertLicenseResultVO.class);
     }
 

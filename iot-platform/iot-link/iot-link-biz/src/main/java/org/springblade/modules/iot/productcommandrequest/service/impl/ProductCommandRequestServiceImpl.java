@@ -94,7 +94,7 @@ public class ProductCommandRequestServiceImpl extends BaseServiceImpl<ProductCom
         //构建参数
         ProductCommandRequest productCommandRequest = builderProductCommandRequestSaveVO(saveVO);
         //更新
-        superManager.save(productCommandRequest);
+        baseMapper.save(productCommandRequest);
         publishChange(ProductVersionChangeTypeEnum.CREATE, null, productCommandRequest, "新增命令请求参数「" + productCommandRequest.getParameterName() + "」");
         return productCommandRequest;
     }
@@ -110,12 +110,12 @@ public class ProductCommandRequestServiceImpl extends BaseServiceImpl<ProductCom
         log.info("updateProductCommandRequest updateVO:{}", updateVO);
         //校验参数
         checkedProductCommandRequestUpdateVO(updateVO);
-        ProductCommandRequest before = superManager.getById(updateVO.getId());
+        ProductCommandRequest before = baseMapper.getById(updateVO.getId());
         //构建参数
         ProductCommandRequest productCommandRequest = BeanUtil.toBeanIgnoreError(updateVO, ProductCommandRequest.class);
         //更新
-        superManager.updateById(productCommandRequest);
-        ProductCommandRequest after = superManager.getById(updateVO.getId());
+        baseMapper.updateById(productCommandRequest);
+        ProductCommandRequest after = baseMapper.getById(updateVO.getId());
         publishChange(ProductVersionChangeTypeEnum.UPDATE, before, after, "编辑命令请求参数「" + (after != null ? after.getParameterName() : updateVO.getParameterName()) + "」");
         return productCommandRequest;
     }
@@ -123,18 +123,18 @@ public class ProductCommandRequestServiceImpl extends BaseServiceImpl<ProductCom
     @Override
     public Boolean deleteProductCommandRequest(Long id) {
         ArgumentAssert.notNull(id, "id Cannot be null");
-        ProductCommandRequest productCommandRequest = superManager.getById(id);
+        ProductCommandRequest productCommandRequest = baseMapper.getById(id);
         if (null == productCommandRequest) {
             throw new ServiceException("The productCommandRequest does not exist");
         }
-        boolean result = superManager.removeById(id);
+        boolean result = baseMapper.removeById(id);
         publishChange(ProductVersionChangeTypeEnum.DELETE, productCommandRequest, null, "删除命令请求参数「" + productCommandRequest.getParameterName() + "」");
         return result;
     }
 
     @Override
     public List<ProductCommandRequestResultVO> selectCommandRequests(List<Long> commandIds) {
-        return BeanUtil.toBeanList(superManager.selectCommandRequests(commandIds), ProductCommandRequestResultVO.class);
+        return BeanUtil.toBeanList(baseMapper.selectCommandRequests(commandIds), ProductCommandRequestResultVO.class);
     }
 
     /**
@@ -155,7 +155,7 @@ public class ProductCommandRequestServiceImpl extends BaseServiceImpl<ProductCom
             throw new ServiceException(ThingModelCodeRule.PATTERN_MSG);
         }
         //校验CODE
-        if (CollUtil.isNotEmpty(superManager.checkCode(saveVO.getServiceId(), saveVO.getCommandId(), saveVO.getParameterCode()))) {
+        if (CollUtil.isNotEmpty(baseMapper.checkCode(saveVO.getServiceId(), saveVO.getCommandId(), saveVO.getParameterCode()))) {
             throw new ServiceException("parameterCode already exists");
         }
         ArgumentAssert.notBlank(saveVO.getParameterName(), "parameterName Cannot be null");
@@ -211,7 +211,7 @@ public class ProductCommandRequestServiceImpl extends BaseServiceImpl<ProductCom
         }
         ArgumentAssert.notBlank(updateVO.getParameterName(), "parameterName Cannot be null");
         //校验CODE
-        List<ProductCommandRequest> productCommandRequests = superManager.checkCode(updateVO.getServiceId(), updateVO.getCommandId(), updateVO.getParameterCode());
+        List<ProductCommandRequest> productCommandRequests = baseMapper.checkCode(updateVO.getServiceId(), updateVO.getCommandId(), updateVO.getParameterCode());
         productCommandRequests.stream()
                 .filter(productCommandRequest -> !productCommandRequest.getId().equals(updateVO.getId()))
                 .findAny()

@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.device.service.group.impl;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import java.util.Collection;
 import org.springblade.core.log.exception.ServiceException;
@@ -55,7 +56,7 @@ public class DeviceGroupRelServiceImpl extends BaseServiceImpl<DeviceGroupRelMap
         DeviceGroupRelUpdateVO updateVO = (DeviceGroupRelUpdateVO) vo;
 
         if (updateVO.getGroupId() != null && StrUtil.isNotBlank(updateVO.getDeviceIdentification())) {
-            if (superManager.count(Wrappers.<DeviceGroupRel>lbQ()
+            if (baseMapper.count(new LambdaQueryWrapper<DeviceGroupRel>()
                     .eq(DeviceGroupRel::getGroupId, updateVO.getGroupId())
                     .eq(DeviceGroupRel::getDeviceIdentification, updateVO.getDeviceIdentification())
                     .ne(DeviceGroupRel::getId, updateVO.getId())) > 0) {
@@ -70,7 +71,7 @@ public class DeviceGroupRelServiceImpl extends BaseServiceImpl<DeviceGroupRelMap
     protected <SaveVO> DeviceGroupRel saveBefore(SaveVO vo) {
         DeviceGroupRelSaveVO saveVO = (DeviceGroupRelSaveVO) vo;
 
-        if (superManager.count(Wrappers.<DeviceGroupRel>lbQ()
+        if (baseMapper.count(new LambdaQueryWrapper<DeviceGroupRel>()
                 .eq(DeviceGroupRel::getGroupId, saveVO.getGroupId())
                 .eq(DeviceGroupRel::getDeviceIdentification, saveVO.getDeviceIdentification())) > 0) {
             throw new ServiceException("The device is already in this group");
@@ -85,7 +86,7 @@ public class DeviceGroupRelServiceImpl extends BaseServiceImpl<DeviceGroupRelMap
             log.warn("GroupId list is empty, skip deletion");
             return;
         }
-        superManager.remove(Wrappers.<DeviceGroupRel>lbQ().in(DeviceGroupRel::getGroupId, groupIdList));
+        baseMapper.remove(new LambdaQueryWrapper<DeviceGroupRel>().in(DeviceGroupRel::getGroupId, groupIdList));
     }
 
     @Override
@@ -94,7 +95,7 @@ public class DeviceGroupRelServiceImpl extends BaseServiceImpl<DeviceGroupRelMap
             log.warn("GroupId list is empty, skip query");
             return List.of();
         }
-        Optional<List<DeviceGroupRel>> deviceGroupRelListOptional = superManager.getDeviceGroupRelListByGroupIds(groupIdList);
+        Optional<List<DeviceGroupRel>> deviceGroupRelListOptional = baseMapper.getDeviceGroupRelListByGroupIds(groupIdList);
         return deviceGroupRelListOptional.map(deviceGroupRels -> deviceGroupRels.stream().map(DeviceGroupRel::getDeviceIdentification).distinct().toList()).orElseGet(List::of);
     }
 
@@ -104,7 +105,7 @@ public class DeviceGroupRelServiceImpl extends BaseServiceImpl<DeviceGroupRelMap
         Optional.ofNullable(deviceIdentification)
                 .filter(StrUtil::isNotBlank)
                 .ifPresent(identification -> {
-                    boolean ok = superManager.remove(Wrappers.<DeviceGroupRel>lbQ()
+                    boolean ok = baseMapper.remove(new LambdaQueryWrapper<DeviceGroupRel>()
                             .eq(DeviceGroupRel::getDeviceIdentification, identification));
                     log.info("Clean device_group_rel for deleted device, deviceIdentification={}, ok={}",
                         identification, ok);
