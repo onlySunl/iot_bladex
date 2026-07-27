@@ -55,7 +55,7 @@ public class QsDevice extends CustomBaseEntity {
 
     /** 直播流接入类型(1=RTSP,2=RTMP,3=FLV,4=HLS,5=ONVIF,6=视频文件,7=海康SDK,8=海康ISUP,9=大华SDK,10=宇视SDK,11=天地伟业SDK,12=国标28181,13=PUSH,14=部标1078) */
     @TableField(value = "type")
-    @AutoColumn(comment = "直播流接入类型", length = 20, defaultValueType = DefaultValueEnum.EMPTY_STRING)
+    @AutoColumn(value = "type",comment = "直播流接入类型", length = 20, defaultValueType = DefaultValueEnum.EMPTY_STRING)
     private String type;
 
     /** 设备类型(0=IPC, 1=NVR) */

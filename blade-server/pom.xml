@@ -36,27 +36,7 @@
             <artifactId>nvr-common</artifactId>
         </dependency>
 
-        <!-- ===== 3. IOT 物联网核心模块 ===== -->
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>module-iot-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>module-iot-biz</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-common-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-common-thing</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-component-core</artifactId>
-        </dependency>
+
 
         <!-- ===== 4. NVR 各厂商 API 模块 ===== -->
         <dependency>

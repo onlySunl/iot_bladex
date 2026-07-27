@@ -1,41 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<!-- 实体模块聚合：各业务域的 DTO/VO/Entity 定义 -->
 
-    <!-- 顶层聚合父工程：统一所有IoT模块版本、全局依赖管理 -->
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>iot-platform</artifactId>
         <version>4.9.0.RELEASE</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
+    <modelVersion>4.0.0</modelVersion>
     <artifactId>iot-entity</artifactId>
     <packaging>pom</packaging>
     <name>iot-entity</name>
-    <description>
-        聚合所有业务域实体DTO/DO/VO模块，按业务领域拆分，解耦各业务实体；
-        仅做版本管控与依赖锁定，无业务代码输出。
-    </description>
+    <description>IoT 平台实体模块聚合</description>
 
-    <!-- 各业务域实体子模块 -->
     <modules>
-        <module>iot-entity-common</module>        <!-- 公共基类、分页、通用DTO -->
-        <module>iot-entity-product</module>       <!-- 产品相关DO/DTO -->
-        <module>iot-entity-device</module>        <!-- 设备、网关实体 -->
-        <module>iot-entity-alert</module>         <!-- 告警、短信、语音通知实体 -->
-        <module>iot-entity-rule</module>           <!-- 规则、任务实体 -->
-        <module>iot-entity-component</module>      <!-- 协议组件(Modbus/MQTT/CoAP等)实体 -->
-        <module>iot-entity-sip</module>            <!-- SIP视频设备实体 -->
-        <module>iot-entity-ota</module>            <!-- 升级包OTA实体 -->
-        <module>iot-entity-thingmodel</module>     <!-- 物模型实体 -->
-        <module>iot-entity-virtual</module>        <!-- 虚拟设备实体 -->
+        <module>iot-entity-link</module>
+        <module>iot-entity-rule</module>
+        <module>iot-entity-mqs</module>
+        <module>iot-entity-broker</module>
+        <module>iot-entity-tds</module>
     </modules>
 
-    <!-- 
-        依赖版本由父POM (iot-platform) 统一管理，此处不再重复声明 dependencyManagement。
-        子模块直接引用 blade-common、auto-table-annotation、mybatis-plus-annotation 等依赖时，
-        版本自动从父POM继承。
-    -->
 </project>

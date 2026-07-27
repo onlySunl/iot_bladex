@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -159,11 +159,6 @@
                 <artifactId>iot-platform</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-component-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
 
             <!-- ===== 8. NVR 视频监控平台聚合与子模块 ===== -->
             <dependency>
@@ -180,22 +175,7 @@
             <!-- ===== 9. IOT 内部子模块（供blade-server引用） ===== -->
             <dependency>
                 <groupId>org.springblade</groupId>
-                <artifactId>module-iot-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>module-iot-biz</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-common-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-common-thing</artifactId>
+                <artifactId>iot-link</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -298,6 +278,10 @@
         </dependency>
 
         <!-- ===== 1. BladeX 全套基础框架 ===== -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-mybatis</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-boot</artifactId>

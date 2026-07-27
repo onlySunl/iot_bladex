@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ser.std.NullSerializer;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.tangzc.autotable.annotation.AutoColumn;
 import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
+import jakarta.validation.groups.Default;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springblade.core.tenant.mp.TenantEntity;
@@ -17,6 +18,18 @@ import org.springblade.core.tenant.mp.TenantEntity;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class CustomBaseEntity extends TenantEntity {
+    public static final String ID_FIELD = "id";
+    public static final String CREATED_TIME = "createTime";
+    public static final String CREATED_TIME_FIELD = "create_time";
+    public static final String CREATED_BY = "createUser";
+    public static final String CREATED_BY_FIELD = "create_user";
+    public static final String CREATED_ORG_ID = "createDept";
+    public static final String CREATED_ORG_ID_FIELD = "create_dept";
+    public static final String UPDATED_TIME = "updateTime";
+    public static final String UPDATED_BY = "updateUser";
+    public static final String UPDATED_TIME_FIELD = "update_time";
+    public static final String UPDATED_BY_FIELD = "update_user";
+
 
     @AutoColumn(value = "revision", comment = "乐观锁", length = 10, defaultValueType = DefaultValueEnum.NULL)
     @JsonSerialize(using = ToStringSerializer.class, nullsUsing = NullSerializer.class)
@@ -45,4 +58,19 @@ public class CustomBaseEntity extends TenantEntity {
     @AutoColumn(value = "attr5", comment = "预留字段", length = 100, defaultValueType = DefaultValueEnum.NULL)
     @JsonSerialize(using = ToStringSerializer.class, nullsUsing = NullSerializer.class)
     protected String attr5;
+
+
+    /**
+     * 保存和缺省验证组
+     */
+    public interface Save extends Default {
+
+    }
+
+    /**
+     * 更新和缺省验证组
+     */
+    public interface Update extends Default {
+
+    }
 }
