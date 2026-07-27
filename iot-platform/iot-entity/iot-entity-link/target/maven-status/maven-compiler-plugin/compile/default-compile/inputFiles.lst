@@ -2,6 +2,7 @@ D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\mai
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\producttopic\vo\update\ProductTopicUpdateVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\device\vo\result\DeviceOverviewResultVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\ota\vo\update\OtaUpgradeTasksUpdateVO.java
+D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\protocol\model\ProtocolDataMessageDTO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\cacert\vo\save\license\CaCertLicenseSaveVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\ota\vo\query\OtaUpgradeRecordsPageQuery.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\ota\vo\result\OtaUpgradeTasksResultVO.java
@@ -221,6 +222,7 @@ D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\mai
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\product\converter\ProductModelConverter.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\productversion\vo\save\ProductVersionPublishVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\productcommandrequest\entity\ProductCommandRequest.java
+D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\protocol\factory\ProtocolMessageAdapter.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\protocol\vo\result\ProtocolDataMessageResultVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\device\vo\save\group\DeviceGroupSaveVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\protocol\vo\result\DeviceInfoResultVO.java
@@ -245,6 +247,7 @@ D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\mai
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\productversion\vo\snapshot\ProductSnapshotVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\productversion\vo\save\ProductVersionPurgeVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\productversion\vo\diff\ProductVersionDiffVO.java
+D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\protocol\model\EncryptionDetailsDTO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\protocol\vo\result\OpenAiChatResponseResultVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\product\vo\result\ProductResultVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\src\main\java\org\springblade\modules\iot\productservice\vo\update\ProductServiceUpdateVO.java

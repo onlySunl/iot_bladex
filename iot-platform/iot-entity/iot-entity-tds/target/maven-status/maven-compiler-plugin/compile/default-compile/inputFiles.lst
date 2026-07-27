@@ -1,2 +1,7 @@
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-tds\src\main\java\org\springblade\modules\iot\tds\enumeration\OperationEnum.java
+D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-tds\src\main\java\org\springblade\modules\iot\tds\model\FieldsVO.java
+D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-tds\src\main\java\org\springblade\modules\iot\tds\model\SuperTableDTO.java
+D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-tds\src\main\java\org\springblade\modules\iot\tds\constant\TdsConstants.java
+D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-tds\src\main\java\org\springblade\modules\iot\tds\utils\TdsUtils.java
+D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-tds\src\main\java\org\springblade\modules\iot\tds\enumeration\TdDataTypeEnum.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-tds\src\main\java\org\springblade\modules\iot\tds\vo\result\SuperTableDescribeVO.java

@@ -17,7 +17,6 @@
     <description>IOT IoT Platform Aggregation (ThingLinks Migration)</description>
 
     <modules>
-        <module>iot-public</module>
         <module>iot-entity</module>
         <module>iot-broker</module>
         <module>iot-link</module>

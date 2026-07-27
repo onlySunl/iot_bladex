@@ -1,9 +1,8 @@
 package org.springblade.modules.iot.vo.result.dashboard;
 
-import org.springblade.common.base.Entity;
 
 import cn.hutool.core.map.MapUtil;
-import org.springblade.common.echo.EchoVO;
+import com.mqttsnet.basic.interfaces.echo.EchoVO;
 import org.springblade.modules.iot.vo.result.alarm.RuleAlarmRecordResultVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

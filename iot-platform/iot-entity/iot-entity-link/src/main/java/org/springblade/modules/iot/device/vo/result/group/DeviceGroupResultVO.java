@@ -1,19 +1,14 @@
 package org.springblade.modules.iot.device.vo.result.group;
 
+import cn.hutool.core.map.MapUtil;
+import com.mqttsnet.basic.base.entity.TreeEntity;
+import com.mqttsnet.basic.interfaces.echo.EchoVO;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Map;
-
-import cn.hutool.core.map.MapUtil;
-import org.springblade.common.echo.EchoVO;
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.springblade.common.entity.TreeEntity;
 
 /**
  * <p>
@@ -74,13 +69,4 @@ public class DeviceGroupResultVO extends TreeEntity<DeviceGroupResultVO, Long> i
     @Schema(description = "创建人组织")
     private Long createdOrgId;
 
-    /** shadow Entity<Long>.createdBy,挂 @Echo 让 echoService 回填用户昵称到 echoMap.createdBy。 */
-    @Schema(description = "创建人")
-    private Long createdBy;
-
-    /** shadow Entity<Long>.updatedBy,同上。 */
-    @Schema(description = "最后修改人")
-    private Long updatedBy;
-
-    // parentId / sortValue inherited from TreeEntity}
 }

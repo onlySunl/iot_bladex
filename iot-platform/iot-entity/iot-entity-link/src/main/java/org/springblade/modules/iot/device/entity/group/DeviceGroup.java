@@ -1,11 +1,11 @@
 package org.springblade.modules.iot.device.entity.group;
+import com.mqttsnet.basic.base.entity.TreeEntity;
 import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.AutoColumn;
 
 import java.io.Serial;
 
 import com.baomidou.mybatisplus.annotation.TableLogic;
-import org.springblade.common.base.TreeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

@@ -2,9 +2,9 @@ package org.springblade.modules.iot.broker.common.session;
 
 import java.util.Optional;
 
-import org.springblade.common.cache.repository.CachePlusOps;
-import org.springblade.common.cache.utils.CachePlusUtil;
-import org.springblade.common.cache.CacheKey;
+import com.mqttsnet.basic.cache.repository.CachePlusOps;
+import com.mqttsnet.basic.cache.utils.CachePlusUtil;
+import com.mqttsnet.basic.model.cache.CacheKey;
 import org.springblade.common.cache.broker.ws.WsDeviceSessionCacheKeyBuilder;
 import org.springblade.modules.iot.common.cache.broker.ws.WsDeviceSessionInfo;
 import lombok.RequiredArgsConstructor;

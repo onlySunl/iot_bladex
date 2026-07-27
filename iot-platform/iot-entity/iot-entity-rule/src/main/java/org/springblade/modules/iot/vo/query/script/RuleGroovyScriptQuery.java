@@ -2,7 +2,7 @@ package org.springblade.modules.iot.vo.query.script;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
-import org.springblade.common.utils.StrPool;
+import com.mqttsnet.basic.utils.StrPool;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

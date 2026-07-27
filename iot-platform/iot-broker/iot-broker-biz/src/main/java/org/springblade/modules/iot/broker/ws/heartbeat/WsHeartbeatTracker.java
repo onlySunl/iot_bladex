@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.broker.ws.heartbeat;
 
-import org.springblade.common.mq.RocketmqTemplate;
+import com.mqttsnet.basic.rocketmq.producer.RocketmqTemplate;
 import org.springblade.common.mq.BizMqRouteConstant;
 import org.springblade.modules.iot.broker.ws.session.WebSocketSubject;
 import org.springblade.modules.iot.entity.ws.heartbeat.WsHeartbeatSyncEvent;

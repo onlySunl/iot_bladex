@@ -1,20 +1,14 @@
 package org.springblade.modules.iot.cache.vo.device;
 
 import cn.hutool.core.map.MapUtil;
-
-import org.springblade.common.base.Entity;
-import org.springblade.common.echo.EchoVO;
+import com.mqttsnet.basic.interfaces.echo.EchoVO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import org.springblade.common.entity.CustomBaseEntity;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Map;
-import org.springblade.common.entity.CustomBaseEntity;
 
 /**
  * <p>

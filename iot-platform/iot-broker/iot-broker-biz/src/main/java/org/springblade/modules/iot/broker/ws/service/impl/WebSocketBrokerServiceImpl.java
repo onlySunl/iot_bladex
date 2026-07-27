@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.broker.ws.service.impl;
 
 import cn.hutool.core.util.StrUtil;
-import org.springblade.common.mq.RocketmqTemplate;
+import com.mqttsnet.basic.rocketmq.producer.RocketmqTemplate;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.broker.common.counter.DownLinkDataReportCounter;
 import org.springblade.modules.iot.broker.common.session.WsDeviceSessionRegistry;

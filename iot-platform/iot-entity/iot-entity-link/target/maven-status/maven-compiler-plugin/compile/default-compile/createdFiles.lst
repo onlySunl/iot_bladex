@@ -61,6 +61,7 @@ org\springblade\modules\iot\protocol\vo\param\TopoUpdateSubDeviceStatusParam$Top
 org\springblade\modules\iot\productversion\vo\snapshot\ProductSnapshotCommandVO.class
 org\springblade\modules\iot\dashboard\enumeration\TimeUnitEnum$1.class
 org\springblade\modules\iot\dashboard\vo\result\DashboardSummaryResultVO.class
+org\springblade\modules\iot\protocol\model\ProtocolDataMessageDTO.class
 org\springblade\modules\iot\ota\enumeration\OtaUpgradeScopeEnum.class
 org\springblade\modules\iot\ota\dto\OtaUpgradeTasksResultDTO.class
 org\springblade\modules\iot\ota\vo\query\OtaUpgradeTargetsPageQuery.class
@@ -73,6 +74,7 @@ org\springblade\modules\iot\dashboard\vo\result\DashboardTopologySummaryResultVO
 org\springblade\modules\iot\ota\vo\param\DeviceOtaUpgradeAppConfirmationParam.class
 org\springblade\modules\iot\device\entity\DeviceAction$DeviceActionBuilder.class
 org\springblade\modules\iot\device\vo\update\DeviceVersionSwitchVO.class
+org\springblade\modules\iot\protocol\model\EncryptionDetailsDTO.class
 org\springblade\modules\iot\ota\vo\save\OtaUpgradesSaveVO.class
 org\springblade\modules\iot\ota\vo\result\OtaUpgradeRecordsSummaryResultVO.class
 org\springblade\modules\iot\device\dto\DeviceOverviewResultDTO$DeviceOverviewResultDTOBuilder.class
@@ -100,6 +102,7 @@ org\springblade\modules\iot\productversion\vo\snapshot\ProductSnapshotServiceVO$
 org\springblade\modules\iot\productcommand\vo\param\ProductCommandParamVO$ProductCommandParamVOBuilder.class
 org\springblade\modules\iot\productservice\vo\param\ProductServiceMqParamVO$ProductServiceMqParamVOBuilder.class
 org\springblade\modules\iot\cacert\vo\save\license\CaCertLicenseSaveVO.class
+org\springblade\modules\iot\protocol\factory\ProtocolMessageAdapter.class
 org\springblade\modules\iot\device\vo\result\DeviceSslTestStepVO.class
 org\springblade\modules\iot\ota\vo\query\OtaUpgradesPageQuery$OtaUpgradesPageQueryBuilder.class
 org\springblade\modules\iot\productversion\vo\canary\CanaryGroup$CanaryGroupBuilder.class

@@ -2,7 +2,7 @@ package org.springblade.modules.iot.tds.vo.result;
 
 
 import cn.hutool.core.map.MapUtil;
-import org.springblade.common.echo.EchoVO;
+import com.mqttsnet.basic.interfaces.echo.EchoVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
