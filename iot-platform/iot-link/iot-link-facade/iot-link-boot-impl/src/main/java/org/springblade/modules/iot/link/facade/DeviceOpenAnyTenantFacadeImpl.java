@@ -6,7 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import org.springblade.core.secure.constant.SecureConstant;
 import org.springblade.core.secure.utils.AuthUtil;
-import cn.hutool.core.lang.Assert;
+import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.modules.iot.device.service.DeviceService;
 import org.springblade.modules.iot.device.vo.query.DeviceAuthenticationQuery;
 import org.springblade.modules.iot.product.enumeration.ProtocolTypeEnum;

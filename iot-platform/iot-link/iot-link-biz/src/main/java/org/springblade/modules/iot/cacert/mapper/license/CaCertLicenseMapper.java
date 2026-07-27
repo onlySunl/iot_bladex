@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.cacert.mapper.license;
 
-import org.springblade.core.mp.mapper.BladeMapper;
+import org.springblade.core.mp.base.BaseMapper;
 import org.springblade.modules.iot.cacert.entity.license.CaCertLicense;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -13,8 +13,9 @@ import org.apache.ibatis.annotations.Mapper;
  * @author mqttsnet
  * @since 2025-06-27 15:48:10
  */
-@Mapper
-public interface CaCertLicenseMapper extends BladeMapper<CaCertLicense> {
+@Repository
+public interface CaCertLicenseMapper extends SuperMapper<CaCertLicense> {
 
 }
+
 

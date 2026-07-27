@@ -11,11 +11,22 @@ import java.util.stream.Collectors;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springblade.common.annotation.log.WebLog;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.boot.ctrl.BladeController;
-import org.springblade.core.mp.support.Query;
+import org.springblade.core.mp.base.BaseController;
+import org.springblade.core.boot.request.PageParam;
+import org.springblade.core.cache.lock.DistributedLock;
+import org.springblade.core.cache.lock.LockRunResult;
 import org.springblade.core.secure.utils.AuthUtil;
-import org.springblade.core.tool.jackson.JsonUtil;
+import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.common.easyexcel.EasyExcelListener;
+import org.springblade.common.easyexcel.EasyExcelUtils;
+import org.springblade.common.easyexcel.ExcelCheckManager;
+import org.springblade.common.easyexcel.ExcelImportErrDto;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.interfaces.echo.EchoService;
+import org.springblade.core.tool.utils.JsonUtil;
+import org.springblade.core.cache.redis.CacheKey;
 import org.springblade.common.utils.BeanUtil;
 import org.springblade.core.tool.utils.StringPool;
 import org.springblade.modules.iot.common.lock.link.LinkLockKeyBuilder;
@@ -44,7 +55,7 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -69,17 +80,18 @@ import org.springframework.web.multipart.MultipartFile;
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/device")
 @Tag(name = "设备档案信息")
-public class DeviceController extends BladeController<DeviceService, Long, Device, DeviceSaveVO, DeviceUpdateVO, DevicePageQuery, DeviceResultVO> {
+public class DeviceController extends SuperController<DeviceService, Long, Device, DeviceSaveVO, DeviceUpdateVO, DevicePageQuery, DeviceResultVO> {
     private final EchoService echoService;
 
     private final DeviceEasyExcelService deviceEasyExcelService;
 
     private final DistributedLock distributedLock;
+
 
     @Override
     public EchoService getEchoService() {
@@ -87,7 +99,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
     }
 
     @Override
-    public QueryWrap<Device> handlerWrapper(Device model, Query params) {
+    public QueryWrap<Device> handlerWrapper(Device model, PageParams<DevicePageQuery> params) {
         QueryWrap<Device> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
         DataScopeHelper.startDataScope("device");
@@ -99,6 +111,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
         super.handlerResult(page);
         // TODO 分页列表结果 产品信息填充处理
 
+
     }
 
     /**
@@ -109,9 +122,10 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
      */
     @Operation(summary = "保存设备档案", description = "保存设备档案")
     @PostMapping("/saveDevice")
+    @WebLog(value = "保存设备档案", request = false)
     public R<DeviceSaveVO> saveDevice(@RequestBody DeviceSaveVO saveVO) {
         try {
-            CacheKey lockCacheKey = LinkLockKeyBuilder.forSaveDeviceByUserId(AuthUtil.getUserId());
+            CacheKey lockCacheKey = LinkLockKeyBuilder.forSaveDeviceByUserId(ContextUtil.getUserId());
             LockRunResult<DeviceSaveVO> lockRunResult = distributedLock.tryLockAndRun(
                     lockCacheKey.getKey(),
                     lockCacheKey.getExpire().getSeconds(),
@@ -121,13 +135,14 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
                 return R.fail(R.LOCK_ACQUIRE_ERROR_MESSAGE);
             }
             return R.success(lockRunResult.getResult());
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("设备档案保存失败，系统异常: {}", e.getMessage(), e);
             return R.fail();
         }
     }
+
 
     /**
      * 修改 设备档案信息表
@@ -137,9 +152,10 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
      */
     @Operation(summary = "修改设备档案", description = "修改设备档案")
     @PutMapping("/updateDevice")
+    @WebLog(value = "修改设备档案", request = false)
     public R<DeviceUpdateVO> updateDevice(@RequestBody DeviceUpdateVO updateVO) {
         try {
-            CacheKey lockCacheKey = LinkLockKeyBuilder.forUpdateDeviceByUserId(AuthUtil.getUserId());
+            CacheKey lockCacheKey = LinkLockKeyBuilder.forUpdateDeviceByUserId(ContextUtil.getUserId());
             LockRunResult<DeviceUpdateVO> lockRunResult = distributedLock.tryLockAndRun(
                     lockCacheKey.getKey(),
                     lockCacheKey.getExpire().getSeconds(),
@@ -149,13 +165,14 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
                 return R.fail(R.LOCK_ACQUIRE_ERROR_MESSAGE);
             }
             return R.success(lockRunResult.getResult());
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("修改设备档案失败，系统异常: {}", e.getMessage(), e);
             return R.fail();
         }
     }
+
 
     /**
      * 修改 设备状态
@@ -166,12 +183,13 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
      */
     @Operation(summary = "修改设备状态", description = "修改设备状态 ")
     @PutMapping("/updateDeviceStatus/{id}")
+    @WebLog(value = "修改设备状态", request = false)
     @Parameters({@Parameter(name = "id", description = "对象ID", schema = @Schema(type = "long"), in = ParameterIn.QUERY, required = true), @Parameter(name = "status", description = "新状态值（0:未激活、1:已激活、2:已禁用）", in = ParameterIn.QUERY, required = true, example = "0,1,2"),})
     public R<Boolean> updateDeviceStatus(@PathVariable("id") Long id, @RequestParam("status") Integer status) {
         log.info("updateDeviceStatus id:{},status:{}", id, status);
         try {
             return R.success(superService.updateDeviceStatus(id, status));
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("修改设备状态失败，系统异常: {}", e.getMessage(), e);
@@ -187,12 +205,13 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
      */
     @Operation(summary = "删除设备", description = "根据设备ID删除设备")
     @DeleteMapping("/deleteDevice/{id}")
+    @WebLog(value = "删除设备", request = false)
     @Parameters({@Parameter(name = "id", description = "设备ID", required = true),})
     public R<Boolean> deleteDevice(@PathVariable("id") Long id) {
         log.info("deleteDevice id:{}", id);
         try {
             return R.success(superService.deleteDevice(id));
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("删除设备失败，系统异常: {}", e.getMessage(), e);
@@ -208,19 +227,21 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
      */
     @Operation(summary = "批量删除设备", description = "根据设备ID列表删除多个设备,整批事务:任一失败回滚全部")
     @DeleteMapping("/deleteDevices")
+    @WebLog(value = "批量删除设备", request = false)
     public R<Boolean> deleteDevices(@RequestBody List<Long> ids) {
         log.info("deleteDevices ids:{}", ids);
         try {
             // 走 service 层 deleteDevices ── 整批单事务,避免老 stream().allMatch
             // "N 个独立事务串行,失败后前 K-1 条已提交"造成的孤儿设备 / 孤儿分组关系
             return R.success(superService.deleteDevices(ids));
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("批量删除设备失败，系统异常: {}", e.getMessage(), e);
             return R.fail();
         }
     }
+
 
     /**
      * 修改设备连接状态
@@ -231,12 +252,13 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
      */
     @Operation(summary = "修改设备连接状态", description = "根据设备ID修改设备连接状态")
     @PutMapping("/updateDeviceConnectionStatus/{id}")
+    @WebLog(value = "修改设备连接状态", request = false)
     @Parameters({@Parameter(name = "id", description = "对象ID", schema = @Schema(type = "long"), in = ParameterIn.QUERY, required = true), @Parameter(name = "connectionStatus", description = "新连接状态值（0:未连接、1:在线、2:离线）", in = ParameterIn.QUERY, required = true, example = "0,1,2"),})
     public R<Boolean> updateDeviceConnectionStatus(@PathVariable("id") Long id, @RequestParam("connectionStatus") Integer connectionStatus) {
         log.info("updateDeviceConnectionStatus id:{}, connectionStatus:{}", id, connectionStatus);
         try {
             return R.success(superService.updateDeviceConnectionStatusById(id, connectionStatus));
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("修改设备连接状态失败，系统异常: {}", e.getMessage(), e);
@@ -253,13 +275,14 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
      */
     @Operation(summary = "切换设备绑定版本", description = "把指定设备的绑定产品版本切到目标版本(命中网关连带子设备);影子发布的外部切流入口")
     @PutMapping("/switchBoundProductVersion")
+    @WebLog(value = "切换设备绑定版本", request = true)
     public R<Integer> switchBoundProductVersion(@Validated @RequestBody DeviceVersionSwitchVO switchVO) {
         log.info("switchBoundProductVersion param:{}", switchVO);
         try {
             int affected = superService.switchBoundProductVersion(
                     switchVO.getProductIdentification(), switchVO.getDeviceIdentifications(), switchVO.getTargetVersionNo());
             return R.success(affected);
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("切换设备绑定版本失败,系统异常: {}", e.getMessage(), e);
@@ -279,7 +302,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
             DataScopeHelper.startDataScope("device");
             DeviceOverviewResultVO deviceOverview = superService.getDeviceOverview();
             return R.success(deviceOverview);
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("获取设备概况统计信息失败，系统异常: {}", e.getMessage(), e);
@@ -300,7 +323,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
         log.info("getVersionDistribution productIdentification:{}", productIdentification);
         try {
             return R.success(superService.countDeviceVersionDistribution(productIdentification));
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("查询设备版本分布失败,系统异常: {}", e.getMessage(), e);
@@ -325,7 +348,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
             DeviceVersionResultVO result = superService.getDeviceVersionByProduct(productIdentification);
             echoService.action(result);
             return R.success(result);
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("查询设备软固件版本集合信息失败，系统异常: {}", e.getMessage(), e);
@@ -348,7 +371,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
             DeviceDetailsResultVO deviceDetailsResultVO = superService.getDeviceDetails(id);
             echoService.action(deviceDetailsResultVO);
             return R.success(deviceDetailsResultVO);
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("获取设备概况统计信息失败，系统异常: {}", e.getMessage(), e);
@@ -371,7 +394,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
             DeviceDetailsResultVO result = superService.findOneByDeviceIdentification(deviceIdentification);
             echoService.action(result);
             return R.success(result);
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("根据设备标识获取设备详情失败，系统异常: {}", e.getMessage(), e);
@@ -387,6 +410,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
      */
     @Operation(summary = "根据多个设备标识获取设备详情", description = "根据多个设备标识获取设备详情(多个英文逗号分割)")
     @GetMapping("/getDeviceDetailsByIdentifications")
+    @WebLog(value = "获取多个设备详情", request = false)
     @Parameters({@Parameter(name = "deviceIdentifications", description = "设备标识列表", required = true),})
     public R<List<DeviceDetailsResultVO>> getDeviceDetailsByIdentifications(@RequestParam List<String> deviceIdentifications) {
         log.info("getDeviceDetailsByIdentifications for deviceIdentifications: {}", JsonUtil.toJson(deviceIdentifications));
@@ -402,7 +426,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
 
             echoService.action(deviceDetailsList);
             return R.success(deviceDetailsList);
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("根据多个设备标识获取设备详情失败，系统异常: {}", e.getMessage(), e);
@@ -419,13 +443,14 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
      */
     @Operation(summary = "获取设备详情分页信息", description = "获取设备详情(分页列表)")
     @PostMapping("/getDeviceDetailsPage")
-    public R<IPage<DeviceDetailsResultVO>> getDeviceDetailsPage(@RequestBody Query params) {
+    @WebLog(value = "获取设备详情分页信息", request = false)
+    public R<IPage<DeviceDetailsResultVO>> getDeviceDetailsPage(@RequestBody PageParams<DeviceDetailsPageQuery> params) {
         log.info("getDeviceDetailsPage params:{}", params);
         try {
             IPage<DeviceDetailsResultVO> page = superService.getDeviceDetailsPage(params);
             echoService.action(page.getRecords());
             return R.success(page);
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("获取设备详情分页信息失败，系统异常: {}", e.getMessage(), e);
@@ -454,21 +479,22 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
             if (!errorList.isEmpty()) {
                 EasyExcelUtils.exportErrorExcel(response, errorList, DeviceImportData.class);
             } else {
-                response.setContentType(StringPool.CONTENT_TYPE);
-                response.setCharacterEncoding(StringPool.UTF_8);
+                response.setContentType(StrPool.CONTENT_TYPE);
+                response.setCharacterEncoding(StrPool.UTF_8);
                 response.getWriter().write(R.success().toString());
             }
 
         } catch (Exception e) {
             log.error("importDeviceExcel failed: {}", e.getMessage(), e);
-            response.setContentType(StringPool.CONTENT_TYPE);
-            response.setCharacterEncoding(StringPool.UTF_8);
+            response.setContentType(StrPool.CONTENT_TYPE);
+            response.setCharacterEncoding(StrPool.UTF_8);
             response.getWriter().write(R.fail("导入失败：" + e.getMessage()).toString());
         }
     }
 
     @Operation(summary = "批量导出设备数据", description = "根据设备ID列表导出多个设备数据为Excel文件")
     @PostMapping("/exportDevices")
+    @WebLog(value = "批量导出设备数据", request = false)
     public void exportDevices(@RequestBody List<Long> ids, HttpServletResponse response) {
         log.info("exportDevices ids:{}", ids);
         try {
@@ -479,15 +505,15 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
             List<DeviceExportData> deviceExportDataList = deviceResultVOList.stream()
                     .distinct()
                     .filter(Objects::nonNull)
-                    .map(device -> BeanUtil.toBeanIgnoreError(device, DeviceExportData.class))
+                    .map(device -> BeanPlusUtil.toBeanIgnoreError(device, DeviceExportData.class))
                     .collect(Collectors.toList());
             //注意：一次性使用输出流：我们确保 response.getOutputStream() 只被调用一次，并且不会与 getWriter() 冲突
             //错误处理：在捕获到异常时，重置响应并使用 PrintWriter 返回错误信息
             if (CollUtil.isNotEmpty(deviceExportDataList)) {
                 EasyExcelUtils.webWriteExcel(response, deviceExportDataList, DeviceExportData.class, "Device_Data_Export");
             } else {
-                response.setContentType(StringPool.CONTENT_TYPE);
-                response.setCharacterEncoding(StringPool.UTF_8);
+                response.setContentType(StrPool.CONTENT_TYPE);
+                response.setCharacterEncoding(StrPool.UTF_8);
                 try (PrintWriter writer = response.getWriter()) {
                     writer.write(R.success().toString());
                 }
@@ -495,8 +521,8 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
         } catch (IOException e) {
             log.error("导出设备数据时发生错误", e);
             response.reset();
-            response.setContentType(StringPool.CONTENT_TYPE);
-            response.setCharacterEncoding(StringPool.UTF_8);
+            response.setContentType(StrPool.CONTENT_TYPE);
+            response.setCharacterEncoding(StrPool.UTF_8);
             try (PrintWriter writer = response.getWriter()) {
                 writer.write(R.fail("导出设备数据时发生错误：" + e.getMessage()).toString());
             } catch (IOException ioException) {

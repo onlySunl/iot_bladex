@@ -9,7 +9,7 @@ import org.springblade.modules.iot.dashboard.vo.result.DashboardTopologySummaryR
 import org.springblade.modules.iot.datascope.DataScopeHelper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,13 +39,14 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/dashboardStats")
 @Tag(name = "仪表盘数据统计")
 public class DashboardStatsController {
     private final DashboardStatsService dashboardStatsService;
+
 
     @Operation(summary = "获取仪表盘资产统计概要统计信息", description = "返回仪表板资产统计的总览统计信息")
     @GetMapping("/assetSummary")

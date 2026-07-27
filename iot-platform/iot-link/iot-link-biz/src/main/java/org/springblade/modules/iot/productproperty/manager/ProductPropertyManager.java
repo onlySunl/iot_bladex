@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.productproperty.manager;
 
-import org.springblade.common.base.manager.SuperManager;
+import org.springblade.core.mp.base.BaseService;
 import org.springblade.modules.iot.productproperty.entity.ProductProperty;
 
 import java.util.List;

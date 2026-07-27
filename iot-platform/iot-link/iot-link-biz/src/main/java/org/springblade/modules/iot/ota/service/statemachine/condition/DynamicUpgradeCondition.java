@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DynamicUpgradeCondition extends BaseUpgradeCondition {
 
+
     @Override
     public String name() {
         return "动态升级模式条件";

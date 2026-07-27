@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.device.mapper.group;
 
-import org.springblade.core.mp.mapper.BladeMapper;
+import org.springblade.core.mp.base.BaseMapper;
 import org.springblade.modules.iot.device.entity.group.DeviceGroup;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -14,8 +14,9 @@ import org.apache.ibatis.annotations.Mapper;
  * @date 2025-06-19 18:05:14
  * @create [2025-06-19 18:05:14] [mqttsnet]
  */
-@Mapper
-public interface DeviceGroupMapper extends BladeMapper<DeviceGroup> {
+@Repository
+public interface DeviceGroupMapper extends SuperMapper<DeviceGroup> {
 
 }
+
 

@@ -5,7 +5,10 @@ import java.util.Optional;
 
 import cn.hutool.core.map.MapUtil;
 import com.alibaba.fastjson2.JSON;
+import org.springblade.core.secure.constant.SecureConstant;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.common.utils.ArgumentAssert;
+import org.springblade.core.tenant.tenant.utils.TenantUtil;
 import org.springblade.modules.iot.device.enumeration.ClientAclActionTypeEnum;
 import org.springblade.modules.iot.device.service.DeviceAclRuleService;
 import org.springblade.modules.iot.device.service.DeviceService;
@@ -17,7 +20,7 @@ import org.springblade.modules.iot.protocol.vo.result.DeviceAuthenticationResult
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,14 +41,16 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @Validated
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/anyTenant/deviceOpen")
 @Tag(name = "anyTenant-设备相关API")
 public class DeviceOpenAnyTenantController {
 
+
     private final DeviceService deviceService;
 
     private final DeviceAclRuleService deviceAclRuleService;
+
 
     @Operation(summary = "Device connection authentication", description = "If the authentication succeeds, the status code 200 is returned. If the authentication fails, the advanced status code is returned")
     @PostMapping(value = "/clientConnectionAuthentication")
@@ -66,7 +71,7 @@ public class DeviceOpenAnyTenantController {
 
         // Resolve the tenant ID based on the device ID, for example, clientId: 1000000000000000001@tenantId
         String tenantId = TenantUtil.extractTenantIdWithDefault(deviceAuthenticationQuery.getClientIdentifier());
-        AuthUtil.setTenantId(tenantId);
+        ContextUtil.setTenantId(tenantId);
         try {
             DeviceAuthenticationResultVO authenticationResult = deviceService.authClient(deviceAuthenticationQuery);
             if (!Boolean.TRUE.equals(authenticationResult.getCertificationResult())) {
@@ -94,7 +99,7 @@ public class DeviceOpenAnyTenantController {
                 .body(buildAuthFailure("Internal error: " + e.getMessage()));
         } finally {
             // 防 ThreadLocal 串味,请求线程归还前清理租户上下文
-            AuthUtil.remove();
+            ContextUtil.remove();
         }
     }
 
@@ -104,6 +109,7 @@ public class DeviceOpenAnyTenantController {
         vo.setErrorMessage(message);
         return vo;
     }
+
 
     /**
      * ACL权限校验接口
@@ -126,7 +132,7 @@ public class DeviceOpenAnyTenantController {
                 .build());
         }
 
-        AuthUtil.setTenantId(Optional.ofNullable(deviceAclCheckQuery.getTenantId()).orElse(ContextConstants.BUILT_IN_TENANT_ID_STR));
+        ContextUtil.setTenantId(Optional.ofNullable(deviceAclCheckQuery.getTenantId()).orElse(ContextConstants.BUILT_IN_TENANT_ID_STR));
         try {
             DeviceAclCheckResultVO result = deviceAclRuleService.checkAclPermission(deviceAclCheckQuery);
             String actionDesc = clientAclActionTypeEnumOptional.get().getDesc();
@@ -145,7 +151,7 @@ public class DeviceOpenAnyTenantController {
                 .build());
         } finally {
             // 防 ThreadLocal 串味,请求线程归还前清理租户上下文
-            AuthUtil.remove();
+            ContextUtil.remove();
         }
     }
 

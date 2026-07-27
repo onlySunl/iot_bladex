@@ -42,6 +42,7 @@ public class OtaUpgradeContext {
      */
     private Long tenantId;
 
+
     /**
      * 升级任务
      */
@@ -72,12 +73,14 @@ public class OtaUpgradeContext {
      */
     private LocalDateTime endTime;
 
+
     /**
      * 获取任务ID
      */
     public Long getTaskId() {
         return Objects.nonNull(upgradeTask) ? upgradeTask.getId() : null;
     }
+
 
     /**
      * 获取资源包ID
@@ -90,7 +93,7 @@ public class OtaUpgradeContext {
      * 获取任务名称
      */
     public String getTaskName() {
-        return Objects.nonNull(upgradeTask) ? upgradeTask.getTaskName() : StringPool.EMPTY;
+        return Objects.nonNull(upgradeTask) ? upgradeTask.getTaskName() : StrPool.EMPTY;
     }
 
     /**
@@ -99,10 +102,11 @@ public class OtaUpgradeContext {
     public String getTargetVersion() {
         if (Objects.isNull(upgradeTask) || Objects.isNull(upgradeTask.getOtaUpgradesResult())
                 || Objects.isNull(upgradeTask.getOtaUpgradesResult().getVersion())) {
-            return StringPool.EMPTY;
+            return StrPool.EMPTY;
         }
         return upgradeTask.getOtaUpgradesResult().getVersion();
     }
+
 
     /**
      * 获取升级方法
@@ -257,6 +261,7 @@ public class OtaUpgradeContext {
     public int getErrorDeviceCount() {
         return Objects.nonNull(deviceErrors) ? deviceErrors.size() : 0;
     }
+
 
     /**
      * 清除错误信息

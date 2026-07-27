@@ -6,7 +6,7 @@ import org.springblade.modules.iot.cacert.event.CaRevokedEvent;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
 import org.springblade.modules.iot.device.entity.Device;
 import org.springblade.modules.iot.device.service.DeviceQueryService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
  * @author mqttsnet
  */
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class CaRevokedCacheEvictListener {
 

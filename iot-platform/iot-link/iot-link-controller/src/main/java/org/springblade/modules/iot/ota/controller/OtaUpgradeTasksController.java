@@ -12,10 +12,13 @@ import java.util.stream.Collectors;
 
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springblade.common.annotation.log.WebLog;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.boot.ctrl.BladeController;
-import org.springblade.core.mp.support.Query;
+import org.springblade.core.mp.base.BaseController;
+import org.springblade.core.boot.request.PageParam;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.common.interfaces.echo.EchoService;
 import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeTasks;
@@ -38,7 +41,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
@@ -63,12 +66,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @create [2024-01-12 22:40:04] [mqttsnet]
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/otaUpgradeTasks")
 @Tag(name = "OTA升级任务")
-public class OtaUpgradeTasksController extends BladeController<OtaUpgradeTasksService, Long, OtaUpgradeTasks, OtaUpgradeTasksSaveVO, OtaUpgradeTasksUpdateVO, OtaUpgradeTasksPageQuery, OtaUpgradeTasksResultVO> {
+public class OtaUpgradeTasksController extends SuperController<OtaUpgradeTasksService, Long, OtaUpgradeTasks, OtaUpgradeTasksSaveVO, OtaUpgradeTasksUpdateVO, OtaUpgradeTasksPageQuery, OtaUpgradeTasksResultVO> {
     private final EchoService echoService;
 
     private final OtaUpgradesService otaUpgradesService;
@@ -82,6 +85,7 @@ public class OtaUpgradeTasksController extends BladeController<OtaUpgradeTasksSe
         return echoService;
     }
 
+
     /**
      * 在上下文中执行异步任务
      *
@@ -90,19 +94,20 @@ public class OtaUpgradeTasksController extends BladeController<OtaUpgradeTasksSe
      * @return {@link CompletableFuture <T>} 任务执行结果
      */
     private <T> CompletableFuture<T> executeWithContext(Supplier<T> task) {
-        Map<String, String> localMap = AuthUtil.getLocalMap();
+        Map<String, String> localMap = ContextUtil.getLocalMap();
         return CompletableFuture.supplyAsync(() -> {
-            AuthUtil.setLocalMap(localMap);
+            ContextUtil.setLocalMap(localMap);
             try {
                 return task.get();
             } finally {
-                AuthUtil.remove();
+                ContextUtil.remove();
             }
         });
     }
 
+
     @Override
-    public QueryWrap<OtaUpgradeTasks> handlerWrapper(OtaUpgradeTasks model, Query params) {
+    public QueryWrap<OtaUpgradeTasks> handlerWrapper(OtaUpgradeTasks model, PageParams<OtaUpgradeTasksPageQuery> params) {
         QueryWrap<OtaUpgradeTasks> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
         DataScopeHelper.startDataScope("ota_upgrade_tasks");
@@ -155,7 +160,7 @@ public class OtaUpgradeTasksController extends BladeController<OtaUpgradeTasksSe
                                         .orElseGet(Collections::emptyList)
                                         .stream()
                                         .filter(Objects::nonNull)
-                                        .map(dto -> BeanUtil.toBeanIgnoreError(dto, OtaUpgradesResultVO.class))
+                                        .map(dto -> BeanPlusUtil.toBeanIgnoreError(dto, OtaUpgradesResultVO.class))
                                         .filter(vo -> vo.getId() != null)
                                         .collect(Collectors.toMap(
                                                 OtaUpgradesResultVO::getId,
@@ -176,7 +181,7 @@ public class OtaUpgradeTasksController extends BladeController<OtaUpgradeTasksSe
                                         .orElseGet(Collections::emptyList)
                                         .stream()
                                         .filter(Objects::nonNull)
-                                        .map(dto -> BeanUtil.toBeanIgnoreError(dto, OtaUpgradeTargetsResultVO.class))
+                                        .map(dto -> BeanPlusUtil.toBeanIgnoreError(dto, OtaUpgradeTargetsResultVO.class))
                                         .collect(Collectors.groupingBy(
                                                 OtaUpgradeTargetsResultVO::getTaskId,
                                                 Collectors.mapping(OtaUpgradeTargetsResultVO::getTargetValue, Collectors.toList())
@@ -200,8 +205,10 @@ public class OtaUpgradeTasksController extends BladeController<OtaUpgradeTasksSe
         });
     }
 
+
     @Operation(summary = "保存OTA升级任务", description = "保存一个新的OTA升级任务")
     @PostMapping("/saveUpgradeTask")
+    @WebLog(value = "保存OTA升级任务", request = false)
     public R<OtaUpgradeTasksSaveVO> saveUpgradeTask(@Valid @RequestBody OtaUpgradeTasksSaveVO saveVO) {
         OtaUpgradeTasksSaveVO saveUpgradeTask = superService.saveUpgradeTask(saveVO);
         return R.success(saveUpgradeTask);
@@ -209,6 +216,7 @@ public class OtaUpgradeTasksController extends BladeController<OtaUpgradeTasksSe
 
     @Operation(summary = "更新OTA升级任务", description = "更新一个现有的OTA升级任务")
     @PutMapping("/updateUpgradeTask")
+    @WebLog(value = "更新OTA升级任务", request = false)
     public R<OtaUpgradeTasksUpdateVO> updateUpgradeTask(@Valid @RequestBody OtaUpgradeTasksUpdateVO updateVO) {
         OtaUpgradeTasksUpdateVO updatedTaskVO = superService.updateUpgradeTask(updateVO);
         return R.success(updatedTaskVO);
@@ -217,6 +225,7 @@ public class OtaUpgradeTasksController extends BladeController<OtaUpgradeTasksSe
     @Operation(summary = "更改OTA升级任务状态", description = "更改OTA升级任务的状态")
     @Parameters({@Parameter(name = "id", description = "任务ID", required = true), @Parameter(name = "status", description = "新任务状态（0：待处理，1：进行中，2：已完成，3：已取消）", required = true)})
     @PutMapping("/changeTaskStatus/{id}")
+    @WebLog(value = "更改OTA升级任务状态", request = false)
     public R<Boolean> changeTaskStatus(@PathVariable("id") Long id, @RequestParam("status") Integer status) {
         log.info("更改任务状态 id:{}, 状态:{}", id, status);
         return R.success(superService.changeTaskStatus(id, status));
@@ -225,6 +234,7 @@ public class OtaUpgradeTasksController extends BladeController<OtaUpgradeTasksSe
     @Operation(summary = "删除OTA升级任务", description = "通过其ID删除OTA升级任务")
     @Parameters({@Parameter(name = "id", description = "OTA升级任务ID", required = true)})
     @DeleteMapping("/deleteOtaUpgradeTask/{id}")
+    @WebLog(value = "删除OTA升级任务", request = false)
     public R<Boolean> deleteOtaUpgradeTask(@PathVariable("id") Long id) {
         log.info("删除OTA升级任务 id: {}", id);
         return R.success(superService.deleteOtaUpgradeTask(id));
@@ -232,6 +242,7 @@ public class OtaUpgradeTasksController extends BladeController<OtaUpgradeTasksSe
 
     @Operation(summary = "批量删除OTA升级任务", description = "通过它们的ID批量删除OTA升级任务")
     @DeleteMapping("/deleteOtaUpgradeTasks")
+    @WebLog(value = "批量删除OTA升级任务", request = false)
     public R<Boolean> deleteOtaUpgradeTasks(@RequestBody List<Long> ids) {
         log.info("批量删除OTA升级任务 ids: {}", ids);
         boolean allDeleted = ids.stream().distinct().allMatch(id -> superService.deleteOtaUpgradeTask(id));
@@ -262,6 +273,7 @@ public class OtaUpgradeTasksController extends BladeController<OtaUpgradeTasksSe
      */
     @Operation(summary = "通过MQTT保存OTA升级记录", description = "从MQTT消息数据保存一个新的OTA升级记录。")
     @PostMapping("/saveOtaUpgradeRecordByMqtt")
+    @WebLog(value = "通过Mqtt保存OTA升级记录", request = false)
     public R<TopoOtaCommandResponseParam> saveOtaUpgradeRecordByMqtt(@Valid @RequestBody TopoOtaCommandResponseParam topoOtaCommandResponseParam) {
         log.info("通过MQTT保存OTA升级记录: {}", JSON.toJSONString(topoOtaCommandResponseParam));
         TopoOtaCommandResponseParam savedRecord = superService.saveOtaUpgradeRecordByMqtt(topoOtaCommandResponseParam);
@@ -276,11 +288,13 @@ public class OtaUpgradeTasksController extends BladeController<OtaUpgradeTasksSe
      */
     @Operation(summary = "北向API保存OTA升级记录", description = "北向API保存一个新的OTA升级记录。")
     @PostMapping("/saveUpgradeRecordByNorthbound")
+    @WebLog(value = "北向API保存OTA升级记录")
     public R<TopoOtaCommandResponseParam> saveUpgradeRecordByNorthbound(@Valid @RequestBody TopoOtaCommandResponseParam topoOtaCommandResponseParam) {
         log.info("北向API保存OTA升级记录: {}", JSON.toJSONString(topoOtaCommandResponseParam));
         TopoOtaCommandResponseParam savedRecord = superService.saveUpgradeRecordByNorthbound(topoOtaCommandResponseParam);
         return R.success(savedRecord);
     }
+
 
     /**
      * Send an OTA upgrade command to a specified device.
@@ -299,5 +313,6 @@ public class OtaUpgradeTasksController extends BladeController<OtaUpgradeTasksSe
             return R.fail(e);
         }
     }
+
 
 }

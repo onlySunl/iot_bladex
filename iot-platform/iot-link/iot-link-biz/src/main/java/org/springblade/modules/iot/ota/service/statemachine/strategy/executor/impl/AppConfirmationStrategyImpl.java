@@ -8,7 +8,7 @@ import org.springblade.modules.iot.ota.enumeration.OtaTaskRecordAppConfirmStatus
 import org.springblade.modules.iot.ota.service.OtaUpgradeRecordsService;
 import org.springblade.modules.iot.ota.service.statemachine.strategy.executor.AppConfirmationStrategy;
 import org.springblade.modules.iot.ota.vo.result.OtaUpgradeRecordsResultVO;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AppConfirmationStrategyImpl implements AppConfirmationStrategy {
 
     private final OtaUpgradeRecordsService otaUpgradeRecordsService;

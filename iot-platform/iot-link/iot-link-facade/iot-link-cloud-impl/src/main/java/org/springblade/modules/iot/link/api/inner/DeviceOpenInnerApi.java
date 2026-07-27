@@ -3,7 +3,7 @@ package org.springblade.modules.iot.link.api.inner;
 import java.util.List;
 
 import org.springblade.core.tool.api.R;
-import org.springblade.core.tool.constant.BladeConstant;
+import org.springblade.common.constant.Constants;
 import org.springblade.modules.iot.device.entity.DeviceAction;
 import org.springblade.modules.iot.device.entity.DeviceCommand;
 import org.springblade.modules.iot.device.vo.result.DeviceDetailsResultVO;

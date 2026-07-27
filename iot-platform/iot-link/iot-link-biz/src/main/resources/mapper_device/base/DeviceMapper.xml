@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.springblade.modules.iot.device.mapper.DeviceMapper">
+<mapper namespace="com.mqttsnet.thinglinks.device.mapper.DeviceMapper">
     <!--
         代码生成器 by 2023-03-14 19:39:59
         自定义sql建议在base文件夹同级新建ext文件夹，并新建同名且同namespace的xml进行编写。方便修改字段时，重新生成此文件。
     -->
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="org.springblade.modules.iot.device.entity.Device">
+    <resultMap id="BaseResultMap" type="com.mqttsnet.thinglinks.device.entity.Device">
         <id column="id" property="id"/>
         <result column="client_id" property="clientId"/>
         <result column="user_name" property="userName"/>
@@ -54,7 +54,7 @@
         <if test="true">deleted = 0</if>
     </sql>
 
-    <select id="selectDeviceOverview" resultType="org.springblade.modules.iot.device.dto.DeviceOverviewResultDTO">
+    <select id="selectDeviceOverview" resultType="com.mqttsnet.thinglinks.device.dto.DeviceOverviewResultDTO">
         SELECT COUNT(*) AS totalDevicesCount,
         COUNT(CASE WHEN device_status = 0 THEN 1 END) AS notActivatedCount,
         COUNT(CASE WHEN device_status = 1 THEN 1 END) AS activatedCount,
@@ -73,7 +73,7 @@
         </if>
     </select>
 
-    <select id="selectDeviceVersionsByProduct" resultType="org.springblade.modules.iot.device.dto.DeviceVersionDTO">
+    <select id="selectDeviceVersionsByProduct" resultType="com.mqttsnet.thinglinks.device.dto.DeviceVersionDTO">
         SELECT
         product_identification,
         GROUP_CONCAT(DISTINCT CASE WHEN sw_version IS NOT NULL AND sw_version != '' THEN sw_version END) AS sw_versions,

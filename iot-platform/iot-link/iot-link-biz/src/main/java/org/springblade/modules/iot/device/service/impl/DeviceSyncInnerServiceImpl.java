@@ -1,80 +1,44 @@
 package org.springblade.modules.iot.device.service.impl;
 
 import java.util.Arrays;
-import org.springblade.common.utils.DateUtil;
 import java.util.Collections;
-import org.springblade.common.utils.DateUtil;
 import java.util.List;
-import org.springblade.common.utils.DateUtil;
 import java.util.Optional;
-import org.springblade.common.utils.DateUtil;
 import java.util.concurrent.CompletableFuture;
-import org.springblade.common.utils.DateUtil;
 import java.util.concurrent.ThreadPoolExecutor;
-import org.springblade.common.utils.DateUtil;
 import java.util.concurrent.atomic.AtomicInteger;
-import org.springblade.common.utils.DateUtil;
 import java.util.stream.IntStream;
-import org.springblade.common.utils.DateUtil;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.common.utils.DateUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.core.tool.api.R;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.mp.support.Query;
-import org.springblade.common.utils.DateUtil;
+import org.springblade.core.boot.request.PageParam;
 import org.springblade.core.secure.utils.AuthUtil;
 import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.broker.MqttBrokerOpenInnerFacade;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.cache.CacheSuperAbstract;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.common.constant.DsConstant;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.context.ContextAwareExecutor;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.entity.DeviceAction;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.enumeration.DeviceActionStatusEnum;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.enumeration.DeviceConnectStatusEnum;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.enumeration.DeviceNodeTypeEnum;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.enumeration.DeviceStatusEnum;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.service.DeviceActionService;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.service.DeviceService;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.service.DeviceSyncInnerService;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.vo.query.DevicePageQuery;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.vo.result.DeviceResultVO;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.vo.save.DeviceActionSaveVO;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.product.enumeration.ProtocolTypeEnum;
-import org.springblade.common.utils.DateUtil;
-import lombok.AllArgsConstructor;
-import org.springblade.common.utils.DateUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.common.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springblade.common.utils.DateUtil;
 import org.springframework.stereotype.Service;
-import org.springblade.common.utils.DateUtil;
 import org.springframework.transaction.annotation.Transactional;
-import org.springblade.common.utils.DateUtil;
 
 /**
  * 设备数据同步业务层接口实现。
@@ -83,8 +47,10 @@ import org.springblade.common.utils.DateUtil;
  * @version 1.0
  * @date 2025/1/11 17:23
  */
+
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class DeviceSyncInnerServiceImpl extends CacheSuperAbstract implements DeviceSyncInnerService {
@@ -136,7 +102,7 @@ public class DeviceSyncInnerServiceImpl extends CacheSuperAbstract implements De
                     .build();
 
             // 先获取第一页数据获取总数
-            Query firstPageParams = new Query<>(1, PAGE_SIZE);
+            PageParams<DevicePageQuery> firstPageParams = new PageParams<>(1, PAGE_SIZE);
             firstPageParams.setModel(queryModel);
             IPage<DeviceResultVO> firstPage = deviceService.getPage(firstPageParams);
 
@@ -155,7 +121,7 @@ public class DeviceSyncInnerServiceImpl extends CacheSuperAbstract implements De
             IntStream.rangeClosed(1, totalPages)
                     .sequential()
                     .forEach(currentPage -> {
-                        AuthUtil.setTenantId(tenantId);
+                        ContextUtil.setTenantId(tenantId);
                         long pageStartTime = System.currentTimeMillis();
 
                         // 查询当前页设备
@@ -183,7 +149,7 @@ public class DeviceSyncInnerServiceImpl extends CacheSuperAbstract implements De
      * @return 当前页设备列表;无数据返回空列表
      */
     private List<DeviceResultVO> fetchDevicePage(int currentPage, DevicePageQuery queryModel) {
-        Query params = new Query<>(currentPage, PAGE_SIZE);
+        PageParams<DevicePageQuery> params = new PageParams<>(currentPage, PAGE_SIZE);
         params.setModel(queryModel);
         return Optional.ofNullable(deviceService.getPage(params))
                 .map(IPage::getRecords)
@@ -262,10 +228,10 @@ public class DeviceSyncInnerServiceImpl extends CacheSuperAbstract implements De
         try {
             ProtocolTypeEnum.fromValue(protocolType)
                     .ifPresent(protocol -> dispatchByProtocol(protocol, device, cache));
-            log.debug(DEVICE_DETAIL_LOG, AuthUtil.getTenantId(), device.getDeviceIdentification(),
+            log.debug(DEVICE_DETAIL_LOG, ContextUtil.getTenantId(), device.getDeviceIdentification(),
                     protocolType, "成功", System.currentTimeMillis() - startTime, "无");
         } catch (Exception e) {
-            log.error(DEVICE_DETAIL_LOG, AuthUtil.getTenantId(), device.getDeviceIdentification(),
+            log.error(DEVICE_DETAIL_LOG, ContextUtil.getTenantId(), device.getDeviceIdentification(),
                     protocolType, "失败", System.currentTimeMillis() - startTime, e.getMessage(), e);
             throw e;
         }
@@ -356,6 +322,7 @@ public class DeviceSyncInnerServiceImpl extends CacheSuperAbstract implements De
         // HTTP心跳或状态查询接口检查逻辑可以在这里实现
     }
 
+
     /**
      * 处理未知协议设备。
      *
@@ -377,7 +344,7 @@ public class DeviceSyncInnerServiceImpl extends CacheSuperAbstract implements De
      */
     private Optional<DeviceConnectStatusEnum> resolveMqttSessionStatus(DeviceCacheVO cache) {
         R<Boolean> r = mqttBrokerOpenInnerFacade.isOnline(
-                AuthUtil.getTenantIdStr(),
+                ContextUtil.getTenantIdStr(),
                 cache.getDeviceIdentification(),
                 cache.getClientId());
         if (r == null || !r.getIsSuccess()) {
@@ -390,6 +357,7 @@ public class DeviceSyncInnerServiceImpl extends CacheSuperAbstract implements De
         return Optional.ofNullable(r.getData())
                 .map(online -> online ? DeviceConnectStatusEnum.ONLINE : DeviceConnectStatusEnum.OFFLINE);
     }
+
 
     /**
      * 更新设备状态,并记录设备动作。
@@ -411,6 +379,7 @@ public class DeviceSyncInnerServiceImpl extends CacheSuperAbstract implements De
         }
     }
 
+
     /**
      * 记录设备动作数据。
      *
@@ -430,6 +399,7 @@ public class DeviceSyncInnerServiceImpl extends CacheSuperAbstract implements De
             log.error("Failed to save device action for device ID: {}", device.getDeviceIdentification(), e);
         }
     }
+
 
     private DeviceActionSaveVO getDeviceActionSaveVO(DeviceResultVO device, DeviceConnectStatusEnum targetStatus, String describable) {
         DeviceActionTypeEnum actionType = getActionTypeForStatus(targetStatus);

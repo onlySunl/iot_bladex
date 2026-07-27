@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.common.base.manager.SuperManager;
-import org.springblade.common.base.request.PageParams;
+import org.springblade.core.mp.base.BaseService;
+import org.springblade.core.boot.request.PageParam;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
 import org.springblade.modules.iot.device.dto.DeviceOverviewResultDTO;
 import org.springblade.modules.iot.device.dto.DeviceVersionDTO;

@@ -7,7 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import org.springblade.core.secure.utils.AuthUtil;
-import org.springblade.core.tool.jackson.JsonUtil;
+import org.springblade.core.tool.utils.JsonUtil;
 import org.springblade.modules.iot.product.event.ProductModelChangedEvent;
 import org.springblade.modules.iot.product.event.source.ProductModelChangedSource;
 import org.springblade.modules.iot.productversion.diff.EntityFieldDiffer;
@@ -62,18 +62,18 @@ public class ProductChangeLogListener {
         // 多租户隔离 fail-fast:DsConstant.BASE_TENANT = "#thread.thinglinks_base" 走 SPEL 取
         // ThreadLocal 数据源名;若 tenantId 缺失,SPEL 返 null → dynamic-datasource 静默
         // fallback 到 primary "0" 默认库 → 跨租户数据串味。这里早返避免此风险。
-        if (AuthUtil.getTenantId() == null) {
+        if (ContextUtil.getTenantId() == null) {
             log.error("[ProductChangeLog] skip record: no tenantId in ContextUtil"
                 + "(可能事件由系统线程发出), productIdentification={}", src.getProductIdentification());
             return;
         }
-        Map<String, String> ctx = AuthUtil.getLocalMap();
+        Map<String, String> ctx = ContextUtil.getLocalMap();
         CompletableFuture.runAsync(() -> {
             try {
-                AuthUtil.setLocalMap(ctx);
+                ContextUtil.setLocalMap(ctx);
                 doRecord(src);
             } finally {
-                AuthUtil.remove();
+                ContextUtil.remove();
             }
         }, linkDefaultExecutor).exceptionally(ex -> {
             log.warn("[ProductChangeLog] record failed productIdentification={} cause={}", src.getProductIdentification(), ex.getMessage());

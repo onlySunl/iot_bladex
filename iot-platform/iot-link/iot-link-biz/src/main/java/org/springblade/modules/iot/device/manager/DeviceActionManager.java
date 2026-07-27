@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.device.manager;
 
-import org.springblade.common.base.manager.SuperManager;
+import org.springblade.core.mp.base.BaseService;
 import org.springblade.modules.iot.device.entity.DeviceAction;
 import org.springblade.modules.iot.device.vo.query.DeviceActionPageQuery;
 import org.springblade.modules.iot.device.vo.result.DeviceActionResultVO;

@@ -11,6 +11,7 @@ import org.springblade.modules.iot.protocol.vo.result.DeviceCommandResultVO;
 
 import java.util.List;
 
+
 /**
  * <p>
  * 业务接口
@@ -21,7 +22,8 @@ import java.util.List;
  * @date 2023-10-20 17:27:25
  * @create [2023-10-20 17:27:25] [mqttsnet]
  */
-public interface DeviceCommandService extends BaseService<DeviceCommand> {
+public interface DeviceCommandService extends SuperService<Long, DeviceCommand> {
+
 
     /**
      * Save device command data.
@@ -39,6 +41,7 @@ public interface DeviceCommandService extends BaseService<DeviceCommand> {
      */
     List<DeviceCommandResultVO> getDeviceCommandResultVOList(DeviceCommandPageQuery query);
 
+
     /**
      * Processes both serial and parallel device command requests.
      *
@@ -53,6 +56,7 @@ public interface DeviceCommandService extends BaseService<DeviceCommand> {
      * @param publishMqttMessageRequestParam the custom message to be sent
      */
     void sendMqttCustomMessage(PublishMqttMessageRequestParam publishMqttMessageRequestParam);
+
 
     /**
      * Send a WebSocket custom message to a device.

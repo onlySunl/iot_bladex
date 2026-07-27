@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.product.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.core.mp.support.Query;
+import org.springblade.core.boot.request.PageParam;
 import org.springblade.modules.iot.device.vo.result.ProductOverviewResultVO;
 import org.springblade.modules.iot.product.vo.param.ProductParamVO;
 import org.springblade.modules.iot.product.vo.query.ProductPageQuery;
@@ -82,7 +82,7 @@ public interface ProductQueryService {
      * @param params 分页查询参数
      * @return 产品分页结果
      */
-    IPage<ProductResultVO> getPage(Query params);
+    IPage<ProductResultVO> getPage(PageParams<ProductPageQuery> params);
 
     /**
      * 查询产品概况(类型/状态统计)。

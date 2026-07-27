@@ -16,7 +16,7 @@ import org.springblade.modules.iot.ota.enumeration.OtaUpgradeScopeEnum;
 import org.springblade.modules.iot.ota.service.OtaUpgradeTargetsService;
 import org.springblade.modules.iot.ota.service.statemachine.strategy.executor.DeviceVersionFilterStrategy;
 import org.springblade.modules.iot.ota.service.statemachine.strategy.scope.UpgradeScopeStrategy;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -33,12 +33,13 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TargetedUpgradeScopeStrategyImpl implements UpgradeScopeStrategy {
 
     private final DeviceService deviceService;
     private final OtaUpgradeTargetsService otaUpgradeTargetsService;
     private final DeviceVersionFilterStrategy deviceVersionFilterStrategy;
+
 
     /**
      * 是否支持该升级范围
@@ -60,6 +61,7 @@ public class TargetedUpgradeScopeStrategyImpl implements UpgradeScopeStrategy {
     public OtaUpgradeScopeEnum getSupportedScope() {
         return OtaUpgradeScopeEnum.TARGETED;
     }
+
 
     /**
      * 获取定向升级范围内的设备

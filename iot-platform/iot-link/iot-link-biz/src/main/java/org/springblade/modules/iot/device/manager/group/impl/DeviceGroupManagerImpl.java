@@ -3,7 +3,7 @@ package org.springblade.modules.iot.device.manager.group.impl;
 import java.util.List;
 
 import cn.hutool.core.collection.CollUtil;
-import org.springblade.common.base.manager.impl.SuperManagerImpl;
+import org.springblade.core.mp.base.BaseServiceImpl;
 import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.modules.iot.device.entity.group.DeviceGroup;
 import org.springblade.modules.iot.device.manager.group.DeviceGroupManager;

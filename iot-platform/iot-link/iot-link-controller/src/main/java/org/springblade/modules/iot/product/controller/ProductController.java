@@ -8,10 +8,18 @@ import java.util.stream.Collectors;
 
 import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springblade.common.annotation.log.WebLog;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.boot.ctrl.BladeController;
-import org.springblade.core.mp.support.Query;
+import org.springblade.core.mp.base.BaseController;
+import org.springblade.core.boot.request.PageParam;
+import org.springblade.core.cache.lock.DistributedLock;
+import org.springblade.core.cache.lock.LockRunResult;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.interfaces.echo.EchoService;
+import org.springblade.core.cache.redis.CacheKey;
+import org.springblade.core.tool.utils.SnowflakeIdUtil;
 import org.springblade.modules.iot.common.lock.link.LinkLockKeyBuilder;
 import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.device.vo.result.ProductOverviewResultVO;
@@ -30,7 +38,7 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -58,12 +66,12 @@ import org.springframework.web.multipart.MultipartFile;
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/product")
 @Tag(name = "产品模型")
-public class ProductController extends BladeController<ProductService, Long, Product, ProductSaveVO,
+public class ProductController extends SuperController<ProductService, Long, Product, ProductSaveVO,
         ProductUpdateVO, ProductPageQuery, ProductResultVO> {
     /**
      * Jackson 单例 ── 导出 JSON 用,ObjectMapper 初始化代价大必须 static final.
@@ -78,8 +86,9 @@ public class ProductController extends BladeController<ProductService, Long, Pro
         return echoService;
     }
 
+
     @Override
-    public QueryWrap<Product> handlerWrapper(Product model, Query params) {
+    public QueryWrap<Product> handlerWrapper(Product model, PageParams<ProductPageQuery> params) {
         QueryWrap<Product> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
         DataScopeHelper.startDataScope("product");
@@ -94,9 +103,10 @@ public class ProductController extends BladeController<ProductService, Long, Pro
      */
     @Operation(summary = "保存产品模型")
     @PostMapping("/saveProduct")
+    @WebLog(value = "保存产品模型", request = false)
     public R<ProductSaveVO> saveProduct(@RequestBody ProductSaveVO saveVO) {
         try {
-            CacheKey lockCacheKey = LinkLockKeyBuilder.forSaveProductByUserId(AuthUtil.getUserId());
+            CacheKey lockCacheKey = LinkLockKeyBuilder.forSaveProductByUserId(ContextUtil.getUserId());
             LockRunResult<ProductSaveVO> lockRunResult = distributedLock.tryLockAndRun(
                     lockCacheKey.getKey(),
                     lockCacheKey.getExpire().getSeconds(),
@@ -106,7 +116,7 @@ public class ProductController extends BladeController<ProductService, Long, Pro
                 return R.fail(R.LOCK_ACQUIRE_ERROR_MESSAGE);
             }
             return R.success(lockRunResult.getResult());
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("产品模型保存失败，系统异常: {}", e.getMessage(), e);
@@ -122,6 +132,7 @@ public class ProductController extends BladeController<ProductService, Long, Pro
      */
     @Operation(summary = "快捷生成产品模型")
     @PostMapping("/generateProductJson")
+    @WebLog(value = "快捷生成产品模型", request = false)
     public R generateProductJson(@RequestBody ProductParamVO paramVO) {
         superService.generateProductJson(paramVO);
         return R.success();
@@ -135,9 +146,10 @@ public class ProductController extends BladeController<ProductService, Long, Pro
      */
     @Operation(summary = "修改产品模型")
     @PutMapping("/updateProduct")
+    @WebLog(value = "修改产品模型", request = false)
     public R<ProductUpdateVO> updateProduct(@RequestBody ProductUpdateVO updateVO) {
         try {
-            CacheKey lockCacheKey = LinkLockKeyBuilder.forUpdateProductByUserId(AuthUtil.getUserId());
+            CacheKey lockCacheKey = LinkLockKeyBuilder.forUpdateProductByUserId(ContextUtil.getUserId());
             LockRunResult<ProductUpdateVO> lockRunResult = distributedLock.tryLockAndRun(
                     lockCacheKey.getKey(),
                     lockCacheKey.getExpire().getSeconds(),
@@ -147,7 +159,7 @@ public class ProductController extends BladeController<ProductService, Long, Pro
                 return R.fail(R.LOCK_ACQUIRE_ERROR_MESSAGE);
             }
             return R.success(lockRunResult.getResult());
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("修改产品模型失败，系统异常: {}", e.getMessage(), e);
@@ -166,6 +178,7 @@ public class ProductController extends BladeController<ProductService, Long, Pro
             @Parameter(name = "id", description = "产品模型ID", required = true)
     })
     @DeleteMapping("/deleteProduct/{id}")
+    @WebLog(value = "删除产品模型", request = false)
     public R<Boolean> deleteProduct(@PathVariable("id") Long id) {
         log.info("deleteProduct id:{}", id);
         return R.success(superService.deleteProduct(id));
@@ -179,11 +192,13 @@ public class ProductController extends BladeController<ProductService, Long, Pro
      */
     @Operation(summary = "批量删除产品模型", description = "根据产品模型ID列表批量删除产品模型")
     @DeleteMapping("/deleteProducts")
+    @WebLog(value = "批量删除产品模型", request = false)
     public R<Boolean> deleteProducts(@RequestBody List<Long> ids) {
         log.info("deleteProducts ids:{}", ids);
         boolean allDeleted = ids.stream().distinct().allMatch(id -> superService.deleteProduct(id));
         return R.success(allDeleted);
     }
+
 
     /**
      * 查询产品物模型信息
@@ -224,6 +239,7 @@ public class ProductController extends BladeController<ProductService, Long, Pro
         return R.success(productDetails);
     }
 
+
     /**
      * 导入产品模型json数据
      *
@@ -232,6 +248,7 @@ public class ProductController extends BladeController<ProductService, Long, Pro
      */
     @Operation(summary = "导入产品模型JSON数据")
     @PostMapping(value = "/importProductJsonFile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @WebLog(value = "导入产品模型", request = false)
     public R<?> importProductJsonFile(@RequestPart("file") @Parameter(description = "产品模型JSON文件", required = true, content = @Content(mediaType = MediaType.APPLICATION_OCTET_STREAM_VALUE)) MultipartFile file,
                                    @RequestParam("appId") @Parameter(description = "应用ID", required = true) String appId) {
         superService.importProductJson(file, appId);
@@ -246,12 +263,13 @@ public class ProductController extends BladeController<ProductService, Long, Pro
             @Parameter(name = "productIdentification", description = "产品标识", required = true)
     })
     @GetMapping(value = "/exportJson/{productIdentification}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @WebLog(value = "导出产品模型JSON", request = false)
     public void exportJson(@PathVariable("productIdentification") String productIdentification, HttpServletResponse response) throws Exception {
         // 查询产品详情
         ProductParamVO productDetails = superService.selectFullProductByProductIdentification(productIdentification);
         ProductModelJsonResultVO productModelJsonResultVO = ProductModelConverter.toProductModelJsonResultVO(productDetails);
         // 生成文件名（格式：productModel_产品标识_用户ID_时间戳.json）
-        String fileName = String.format("productModel_%s_%s_%s.json", productIdentification, AuthUtil.getUserId(), SnowflakeIdUtil.nextId());
+        String fileName = String.format("productModel_%s_%s_%s.json", productIdentification, ContextUtil.getUserId(), SnowflakeIdUtil.nextId());
         // 设置响应头
         response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
@@ -260,6 +278,7 @@ public class ProductController extends BladeController<ProductService, Long, Pro
         OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValue(response.getOutputStream(), productModelJsonResultVO);
         log.info("导出产品模型成功 - 产品标识: {}, 文件名: {}", productIdentification, fileName);
     }
+
 
     /**
      * 获取产品概况统计信息
@@ -287,6 +306,7 @@ public class ProductController extends BladeController<ProductService, Long, Pro
             @Parameter(name = "reInit", description = "是否重新初始化(true:删除后重新初始化, false:仅初始化未初始化的)")
     })
     @PostMapping("/initProductBaseTopics/{productIdentification}")
+    @WebLog(value = "初始化产品基础Topic", request = false)
     public R<Boolean> initProductBaseTopics(
             @PathVariable("productIdentification") String productIdentification,
             @RequestParam(value = "reInit", defaultValue = "false") Boolean reInit) {
@@ -295,5 +315,6 @@ public class ProductController extends BladeController<ProductService, Long, Pro
         String message = Boolean.TRUE.equals(reInit) ? "重新初始化" : "初始化";
         return R.success(result, message + "产品Topic成功");
     }
+
 
 }

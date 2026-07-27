@@ -1,58 +1,35 @@
 package org.springblade.modules.iot.device.service.impl;
 
 import java.util.Collections;
-import org.springblade.common.utils.DateUtil;
 import java.util.List;
-import org.springblade.common.utils.DateUtil;
 import java.util.Map;
-import org.springblade.common.utils.DateUtil;
 import java.util.Objects;
-import org.springblade.common.utils.DateUtil;
 import java.util.Optional;
-import org.springblade.common.utils.DateUtil;
 import java.util.stream.Collectors;
-import org.springblade.common.utils.DateUtil;
 
 import cn.hutool.core.util.StrUtil;
-import org.springblade.common.utils.DateUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.core.tool.api.R;
-import org.springblade.common.utils.DateUtil;
+import org.springblade.modules.iot.tds.constant.TdsConstants;
+import org.springblade.modules.iot.tds.utils.TdsUtils;
 import org.springblade.common.utils.BeanUtil;
 import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.cache.vo.product.ProductModelCacheVO;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.common.constant.DsConstant;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.service.DeviceShadowService;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.vo.query.DeviceShadowPageQuery;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.product.enumeration.ProductTypeEnum;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productproperty.vo.result.ProductPropertyResultVO;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productservice.vo.param.ProductServiceParamVO;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productservice.vo.result.ProductServiceResultVO;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productversion.util.ProductTdsNamer;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.tds.facade.TdsFacade;
-import org.springblade.common.utils.DateUtil;
-import lombok.AllArgsConstructor;
-import org.springblade.common.utils.DateUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.common.utils.DateUtil;
 import org.springframework.stereotype.Service;
-import org.springblade.common.utils.DateUtil;
 import org.springframework.transaction.annotation.Transactional;
-import org.springblade.common.utils.DateUtil;
 
 /**
  * 设备影子业务层接口实现。
@@ -62,8 +39,9 @@ import org.springblade.common.utils.DateUtil;
  * @email 13733918655@163.com
  * @date 2023-10-12 19:49
  */
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class DeviceShadowServiceImpl implements DeviceShadowService {
@@ -71,6 +49,7 @@ public class DeviceShadowServiceImpl implements DeviceShadowService {
     private final LinkCacheDataHelper linkCacheDataHelper;
 
     private final TdsFacade tdsApi;
+
 
     /**
      * 查询设备影子信息。版本路由:query.versionNo 非空则严格按该版本快照解析(支持回看历史版本影子),
@@ -110,7 +89,7 @@ public class DeviceShadowServiceImpl implements DeviceShadowService {
                                                  String boundProductVersionNo) {
         List<ProductServiceResultVO> serviceResultVOs = buildServiceResults(
                 deviceShadowPageQuery, productModelCacheVO, boundProductVersionNo);
-        ProductResultVO result = BeanUtil.toBeanIgnoreError(productModelCacheVO, ProductResultVO.class);
+        ProductResultVO result = BeanPlusUtil.toBeanIgnoreError(productModelCacheVO, ProductResultVO.class);
         result.setServices(serviceResultVOs);
         return result;
     }
@@ -131,14 +110,14 @@ public class DeviceShadowServiceImpl implements DeviceShadowService {
                     .filter(Objects::nonNull)
                     .filter(service -> Objects.equals(service.getServiceCode(), deviceShadowPageQuery.getServiceCode()))
                     .map(service -> buildServiceResultVO(deviceShadowPageQuery, productModelCacheVO,
-                            BeanUtil.toBeanIgnoreError(service, ProductServiceResultVO.class), boundProductVersionNo))
+                            BeanPlusUtil.toBeanIgnoreError(service, ProductServiceResultVO.class), boundProductVersionNo))
                     .collect(Collectors.toList());
         } else {
             // 如果没有指定 serviceCode，则查询所有服务
             return services.stream()
                     .filter(Objects::nonNull)
                     .map(service -> buildServiceResultVO(deviceShadowPageQuery, productModelCacheVO,
-                            BeanUtil.toBeanIgnoreError(service, ProductServiceResultVO.class), boundProductVersionNo))
+                            BeanPlusUtil.toBeanIgnoreError(service, ProductServiceResultVO.class), boundProductVersionNo))
                     .collect(Collectors.toList());
         }
     }
@@ -159,7 +138,7 @@ public class DeviceShadowServiceImpl implements DeviceShadowService {
                 TdsUtils.subTableName(stableName, deviceShadowPageQuery.getDeviceIdentification()),
                 deviceShadowPageQuery);
 
-        ProductServiceResultVO serviceResultVO = BeanUtil.toBeanIgnoreError(service, ProductServiceResultVO.class);
+        ProductServiceResultVO serviceResultVO = BeanPlusUtil.toBeanIgnoreError(service, ProductServiceResultVO.class);
         serviceResultVO.setProperties(buildPropertyResults(service, dataList));
         serviceResultVO.setEchoList(dataList);
         return serviceResultVO;
@@ -195,5 +174,6 @@ public class DeviceShadowServiceImpl implements DeviceShadowService {
         propertyResultVO.setPropertyValue(data.get(propertyResultVO.getPropertyCode()));
         return propertyResultVO;
     }
+
 
 }

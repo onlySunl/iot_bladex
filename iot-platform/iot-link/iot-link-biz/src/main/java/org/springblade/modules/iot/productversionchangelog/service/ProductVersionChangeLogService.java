@@ -13,7 +13,7 @@ import org.springblade.modules.iot.productversionchangelog.enumeration.ProductVe
  * @author mqttsnet
  * @see ProductVersionChangeLog
  */
-public interface ProductVersionChangeLogService extends BaseService<ProductVersionChangeLog> {
+public interface ProductVersionChangeLogService extends SuperService<Long, ProductVersionChangeLog> {
 
     /**
      * 追加一条变更日志(append-only)。

@@ -2,6 +2,7 @@ package org.springblade.modules.iot.inner.controller;
 
 import org.springblade.core.tool.api.R;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.modules.iot.cache.device.DeviceCacheService;
 import org.springblade.modules.iot.cache.product.ProductCacheService;
 import org.springblade.modules.iot.cache.product.ProductModelCacheService;
@@ -10,7 +11,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  * -----------------------------------------------------------------------------
  * Description:
  * 缓存相关 API
- * 不需要登录 注意设置：AuthUtil.setTenantId(tenantId);
+ * 不需要登录 注意设置：ContextUtil.setTenantId(tenantId);
  * -----------------------------------------------------------------------------
  *
  * @author xiaonannet
@@ -39,7 +40,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2024/7/20 19:29
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/inner/cache")
@@ -53,6 +54,7 @@ public class CacheInnerController {
     private final ProductModelCacheService productModelCacheService;
 
     private final ProductVersionPublishOrchestrator productVersionPublishOrchestrator;
+
 
     /**
      * Refreshes the cache with device data for a specific tenant.
@@ -68,7 +70,7 @@ public class CacheInnerController {
     public R<?> refreshDeviceCacheForTenant(@RequestParam("tenantId") Long tenantId) {
         ArgumentAssert.notNull(tenantId, "tenantId Cannot be null");
         log.info("Refreshing device cache for tenant ID: {}", tenantId);
-        AuthUtil.setTenantId(tenantId);
+        ContextUtil.setTenantId(tenantId);
         deviceCacheService.refreshDeviceCacheForTenant(tenantId);
         return R.success();
     }
@@ -87,10 +89,11 @@ public class CacheInnerController {
     public R<?> refreshProductCacheForTenant(@RequestParam("tenantId") Long tenantId) {
         ArgumentAssert.notNull(tenantId, "tenantId Cannot be null");
         log.info("Refreshing product cache for tenant ID: {}", tenantId);
-        AuthUtil.setTenantId(tenantId);
+        ContextUtil.setTenantId(tenantId);
         productCacheService.refreshProductCacheForTenant(tenantId);
         return R.success();
     }
+
 
     /**
      * Refreshes the product model cache for a specific tenant.
@@ -106,7 +109,7 @@ public class CacheInnerController {
     public R<?> refreshProductModelCache(@RequestParam("tenantId") Long tenantId) {
         ArgumentAssert.notNull(tenantId, "tenantId Cannot be null");
         log.info("Refreshing product model cache for tenant ID: {}", tenantId);
-        AuthUtil.setTenantId(tenantId);
+        ContextUtil.setTenantId(tenantId);
         productModelCacheService.refreshAllProductModelCacheForTenant(tenantId);
         return R.success();
     }
@@ -124,7 +127,7 @@ public class CacheInnerController {
     @PostMapping("/retryProductVersionPublish")
     public R<?> retryProductVersionPublish(@RequestParam("tenantId") Long tenantId) {
         ArgumentAssert.notNull(tenantId, "tenantId Cannot be null");
-        AuthUtil.setTenantId(tenantId);
+        ContextUtil.setTenantId(tenantId);
         int retried = productVersionPublishOrchestrator.retryRunningRecordsForTenant(tenantId);
         log.info("[publish-retry-job] tenant={} retried={}", tenantId, retried);
         return R.success();

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.core.mp.support.Query;
+import org.springblade.core.boot.request.PageParam;
 import org.springblade.core.mp.base.BaseService;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeRecords;
 import org.springblade.modules.iot.ota.enumeration.OtaTaskRecordAppConfirmStatusEnum;
@@ -13,6 +13,7 @@ import org.springblade.modules.iot.ota.vo.result.OtaUpgradeRecordsResultVO;
 import org.springblade.modules.iot.ota.vo.result.OtaUpgradeRecordsSummaryResultVO;
 import org.springblade.modules.iot.ota.vo.save.OtaUpgradeRecordsSaveVO;
 import org.springblade.modules.iot.ota.vo.update.OtaUpgradeRecordsUpdateVO;
+
 
 /**
  * <p>
@@ -24,7 +25,8 @@ import org.springblade.modules.iot.ota.vo.update.OtaUpgradeRecordsUpdateVO;
  * @date 2024-01-12 22:42:04
  * @create [2024-01-12 22:42:04] [mqttsnet]
  */
-public interface OtaUpgradeRecordsService extends BaseService<OtaUpgradeRecords> {
+public interface OtaUpgradeRecordsService extends SuperService<Long, OtaUpgradeRecords> {
+
 
     /**
      * 保存新的OTA升级记录。
@@ -48,7 +50,8 @@ public interface OtaUpgradeRecordsService extends BaseService<OtaUpgradeRecords>
      * @param params 查询参数
      * @return {@link IPage < OtaUpgradeRecordsPageQuery >} OTA升级记录分页信息
      */
-    IPage<OtaUpgradeRecordsResultVO> getOtaUpgradeRecordsResultVOPage(Query params);
+    IPage<OtaUpgradeRecordsResultVO> getOtaUpgradeRecordsResultVOPage(PageParams<OtaUpgradeRecordsPageQuery> params);
+
 
     /**
      * Converts OTA upgrade entities to view objects based on the given query.
@@ -58,6 +61,7 @@ public interface OtaUpgradeRecordsService extends BaseService<OtaUpgradeRecords>
      */
     List<OtaUpgradeRecordsResultVO> getOtaUpgradeRecordsResultVOList(OtaUpgradeRecordsPageQuery query);
 
+
     /**
      * Get the OTA upgrade record summary information.
      *
@@ -65,6 +69,7 @@ public interface OtaUpgradeRecordsService extends BaseService<OtaUpgradeRecords>
      * @return {@link OtaUpgradeRecordsSummaryResultVO} The OTA upgrade record summary information.
      */
     OtaUpgradeRecordsSummaryResultVO getOtaUpgradeRecordsSummary(Long taskId);
+
 
     /**
      * Get the OTA upgrade record information by task ID and device identification.

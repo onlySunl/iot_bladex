@@ -1,19 +1,18 @@
 package org.springblade.modules.iot.device.service.impl;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import java.util.Collections;
 import java.util.List;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import org.springblade.common.database.mybatis.conditions.Wraps;
 import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.cache.vo.device.DeviceAclRuleCacheVO;
 import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.device.entity.DeviceAclRule;
 import org.springblade.modules.iot.device.manager.DeviceAclRuleManager;
 import org.springblade.modules.iot.device.service.DeviceAclRuleQueryService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +24,9 @@ import org.springframework.stereotype.Service;
  * @author mqttsnet
  * @since 2026-05-28
  */
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class DeviceAclRuleQueryServiceImpl implements DeviceAclRuleQueryService {
 
@@ -45,7 +45,7 @@ public class DeviceAclRuleQueryServiceImpl implements DeviceAclRuleQueryService 
         }
         // 产品级(deviceId IS NULL 或 '',兼容历史脏数据)∪ 该设备级(deviceId = ?);SQL ORDER BY 保证截断时丢低优先级产品级
         List<DeviceAclRule> rules = deviceAclRuleManager.list(
-            new LambdaQueryWrapper<DeviceAclRule>()
+            Wraps.<DeviceAclRule>lbQ()
                 .eq(DeviceAclRule::getProductIdentification, productIdentification)
                 .eq(DeviceAclRule::getEnabled, Boolean.TRUE)
                 .and(w -> w
@@ -62,7 +62,7 @@ public class DeviceAclRuleQueryServiceImpl implements DeviceAclRuleQueryService 
         }
         // SQL 已按"设备级 desc + priority asc"排好序,Java 不再 sort
         return rules.stream()
-            .map(r -> BeanUtil.toBeanIgnoreError(r, DeviceAclRuleCacheVO.class))
+            .map(r -> BeanPlusUtil.toBeanIgnoreError(r, DeviceAclRuleCacheVO.class))
             .toList();
     }
 }

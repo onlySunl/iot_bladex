@@ -7,7 +7,7 @@ import org.springblade.modules.iot.cacert.enumeration.CaCertAuditTypeEnum;
 import org.springblade.modules.iot.cacert.mapper.audit.CaCertAuditLogMapper;
 import org.springblade.modules.iot.cacert.service.audit.CaCertAuditLogService;
 import org.springblade.modules.iot.common.constant.DsConstant;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -20,8 +20,9 @@ import java.util.List;
  *
  * @author mqttsnet
  */
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class CaCertAuditLogServiceImpl implements CaCertAuditLogService {
 

@@ -3,7 +3,7 @@ package org.springblade.modules.iot.product.service;
 import java.util.List;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.core.mp.support.Query;
+import org.springblade.core.boot.request.PageParam;
 import org.springblade.core.mp.base.BaseService;
 import org.springblade.modules.iot.device.vo.result.ProductOverviewResultVO;
 import org.springblade.modules.iot.product.entity.Product;
@@ -14,6 +14,7 @@ import org.springblade.modules.iot.product.vo.save.ProductSaveVO;
 import org.springblade.modules.iot.product.vo.update.ProductUpdateVO;
 import org.springframework.web.multipart.MultipartFile;
 
+
 /**
  * 产品模型业务接口。
  *
@@ -21,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
-public interface ProductService extends BaseService<Product> {
+public interface ProductService extends SuperService<Long, Product> {
 
     /**
      * 分页查询产品信息。
@@ -29,7 +30,8 @@ public interface ProductService extends BaseService<Product> {
      * @param params 分页查询参数
      * @return 产品分页结果
      */
-    IPage<ProductResultVO> getPage(Query params);
+    IPage<ProductResultVO> getPage(PageParams<ProductPageQuery> params);
+
 
     /**
      * 获取产品模型总量。
@@ -67,7 +69,7 @@ public interface ProductService extends BaseService<Product> {
      *
      * @param productIdentification 产品标识
      * @return {@link ProductParamVO} 产品管理完整参数VO
-     * @throws ServiceException 产品不存在时抛出
+     * @throws org.springblade.core.log.exception.ServiceException 产品不存在时抛出
      */
     ProductParamVO selectFullProductByProductIdentification(String productIdentification);
 

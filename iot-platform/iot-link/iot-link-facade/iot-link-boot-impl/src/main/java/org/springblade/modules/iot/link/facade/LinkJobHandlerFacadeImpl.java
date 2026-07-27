@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.link.facade;
 
 import org.springblade.core.tool.api.R;
-import cn.hutool.core.lang.Assert;
+import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.modules.iot.cache.device.DeviceCacheService;
 import org.springblade.modules.iot.cache.product.ProductCacheService;
 import org.springblade.modules.iot.cache.product.ProductModelCacheService;
@@ -34,7 +34,7 @@ public class LinkJobHandlerFacadeImpl implements LinkJobHandlerFacade {
 
 
     @Override
-    public R<?> refreshDeviceCacheForTenant(String tenantId) {
+    public R<?> refreshDeviceCacheForTenant(Long tenantId) {
         ArgumentAssert.notNull(tenantId, "tenantId Cannot be null");
         log.info("Refreshing device cache for tenant ID: {}", tenantId);
         deviceCacheService.refreshDeviceCacheForTenant(tenantId);
@@ -42,7 +42,7 @@ public class LinkJobHandlerFacadeImpl implements LinkJobHandlerFacade {
     }
 
     @Override
-    public R<?> syncDeviceConnectionStatus(String tenantId) {
+    public R<?> syncDeviceConnectionStatus(Long tenantId) {
         ArgumentAssert.notNull(tenantId, "tenantId cannot be null");
         log.info("Starting device connection status sync for tenantId: {}", tenantId);
         deviceSyncInnerService.syncDeviceConnectionStatus(tenantId);
@@ -50,7 +50,7 @@ public class LinkJobHandlerFacadeImpl implements LinkJobHandlerFacade {
     }
 
     @Override
-    public R<?> refreshProductCacheForTenant(String tenantId) {
+    public R<?> refreshProductCacheForTenant(Long tenantId) {
         ArgumentAssert.notNull(tenantId, "tenantId Cannot be null");
         log.info("Refreshing product cache for tenant ID: {}", tenantId);
         productCacheService.refreshProductCacheForTenant(tenantId);
@@ -58,7 +58,7 @@ public class LinkJobHandlerFacadeImpl implements LinkJobHandlerFacade {
     }
 
     @Override
-    public R<?> refreshProductModelCache(String tenantId) {
+    public R<?> refreshProductModelCache(Long tenantId) {
         ArgumentAssert.notNull(tenantId, "tenantId Cannot be null");
         // 仅做预热:按版本快照维度遍历刷新,每个产品的每个激活态版本 (PUBLISHED/CANARY/SHADOW) 都预热,
         // 避免灰度场景设备命中老版本时还要走 read-through DB IO。
@@ -69,7 +69,7 @@ public class LinkJobHandlerFacadeImpl implements LinkJobHandlerFacade {
     }
 
     @Override
-    public R<?> retryProductVersionPublish(String tenantId) {
+    public R<?> retryProductVersionPublish(Long tenantId) {
         ArgumentAssert.notNull(tenantId, "tenantId Cannot be null");
         // 扫描该租户卡 RUNNING / FAILED 的发布记录幂等重试:事件路径成功的已是 SUCCESS 会跳过;
         // 事件丢失 / JVM 重启 / 服务抖动卡住的在此重试;超 1h 仍 RUNNING 标 FAILED 不再重试。
@@ -81,7 +81,7 @@ public class LinkJobHandlerFacadeImpl implements LinkJobHandlerFacade {
     }
 
     @Override
-    public R<?> otaUpgradeTasksExecute(String tenantId) {
+    public R<?> otaUpgradeTasksExecute(Long tenantId) {
         ArgumentAssert.notNull(tenantId, "tenantId Cannot be null");
         log.info("Executing OTA Upgrade Tasks - Tenant ID: {}", tenantId);
         otaUpgradeTaskExecutionService.otaUpgradeTasksExecute(tenantId);

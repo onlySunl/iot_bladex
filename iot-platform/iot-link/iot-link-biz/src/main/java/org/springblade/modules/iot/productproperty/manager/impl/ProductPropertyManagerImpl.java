@@ -3,7 +3,7 @@ package org.springblade.modules.iot.productproperty.manager.impl;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.ObjectUtil;
-import org.springblade.common.base.manager.impl.SuperManagerImpl;
+import org.springblade.core.mp.base.BaseServiceImpl;
 import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.modules.iot.productproperty.entity.ProductProperty;
 import org.springblade.modules.iot.productproperty.manager.ProductPropertyManager;

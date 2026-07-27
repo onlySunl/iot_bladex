@@ -12,10 +12,13 @@ import java.util.stream.Collectors;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springblade.common.annotation.log.WebLog;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.boot.ctrl.BladeController;
-import org.springblade.core.mp.support.Query;
+import org.springblade.core.mp.base.BaseController;
+import org.springblade.core.boot.request.PageParam;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.common.interfaces.echo.EchoService;
 import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeRecords;
@@ -34,7 +37,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,12 +59,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @create [2024-01-12 22:42:04] [mqttsnet]
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/otaUpgradeRecords")
 @Tag(name = "OTA升级记录")
-public class OtaUpgradeRecordsController extends BladeController<OtaUpgradeRecordsService, Long, OtaUpgradeRecords, OtaUpgradeRecordsSaveVO,
+public class OtaUpgradeRecordsController extends SuperController<OtaUpgradeRecordsService, Long, OtaUpgradeRecords, OtaUpgradeRecordsSaveVO,
         OtaUpgradeRecordsUpdateVO, OtaUpgradeRecordsPageQuery, OtaUpgradeRecordsResultVO> {
     private final EchoService echoService;
     private final OtaUpgradeTasksService otaUpgradeTasksService;
@@ -73,7 +76,7 @@ public class OtaUpgradeRecordsController extends BladeController<OtaUpgradeRecor
     }
 
     @Override
-    public QueryWrap<OtaUpgradeRecords> handlerWrapper(OtaUpgradeRecords model, Query params) {
+    public QueryWrap<OtaUpgradeRecords> handlerWrapper(OtaUpgradeRecords model, PageParams<OtaUpgradeRecordsPageQuery> params) {
         QueryWrap<OtaUpgradeRecords> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
         DataScopeHelper.startDataScope("ota_upgrade_records");
@@ -88,13 +91,13 @@ public class OtaUpgradeRecordsController extends BladeController<OtaUpgradeRecor
      * @return {@link CompletableFuture <T>} 任务执行结果
      */
     private <T> CompletableFuture<T> executeWithContext(Supplier<T> task) {
-        Map<String, String> localMap = AuthUtil.getLocalMap();
+        Map<String, String> localMap = ContextUtil.getLocalMap();
         return CompletableFuture.supplyAsync(() -> {
-            AuthUtil.setLocalMap(localMap);
+            ContextUtil.setLocalMap(localMap);
             try {
                 return task.get();
             } finally {
-                AuthUtil.remove();
+                ContextUtil.remove();
             }
         });
     }
@@ -144,7 +147,7 @@ public class OtaUpgradeRecordsController extends BladeController<OtaUpgradeRecor
                                         .orElseGet(Collections::emptyList)
                                         .stream()
                                         .filter(Objects::nonNull)
-                                        .map(dto -> BeanUtil.toBeanIgnoreError(dto, OtaUpgradeTasksResultVO.class))
+                                        .map(dto -> BeanPlusUtil.toBeanIgnoreError(dto, OtaUpgradeTasksResultVO.class))
                                         .filter(vo -> vo.getId() != null)
                                         .collect(Collectors.toMap(
                                                 OtaUpgradeTasksResultVO::getId,
@@ -163,7 +166,7 @@ public class OtaUpgradeRecordsController extends BladeController<OtaUpgradeRecor
                                         .orElseGet(Collections::emptyList)
                                         .stream()
                                         .filter(Objects::nonNull)
-                                        .map(dto -> BeanUtil.toBeanIgnoreError(dto, OtaUpgradesResultVO.class))
+                                        .map(dto -> BeanPlusUtil.toBeanIgnoreError(dto, OtaUpgradesResultVO.class))
                                         .filter(vo -> vo.getId() != null)
                                         .collect(Collectors.toMap(
                                                 OtaUpgradesResultVO::getId,
@@ -191,6 +194,7 @@ public class OtaUpgradeRecordsController extends BladeController<OtaUpgradeRecor
 
     @Operation(summary = "保存OTA升级记录", description = "保存一个新的OTA升级记录")
     @PostMapping("/saveOtaUpgradeRecord")
+    @WebLog(value = "保存OTA升级记录")
     public R<OtaUpgradeRecordsSaveVO> saveOtaUpgradeRecord(@Valid @RequestBody OtaUpgradeRecordsSaveVO saveVO) {
         OtaUpgradeRecordsSaveVO savedRecord = superService.saveOtaUpgradeRecord(saveVO);
         return R.success(savedRecord);
@@ -198,6 +202,7 @@ public class OtaUpgradeRecordsController extends BladeController<OtaUpgradeRecor
 
     @Operation(summary = "更新OTA升级记录", description = "更新一个现有的OTA升级记录")
     @PutMapping("/updateOtaUpgradeRecord")
+    @WebLog(value = "更新OTA升级记录")
     public R<OtaUpgradeRecordsUpdateVO> updateOtaUpgradeRecord(@Valid @RequestBody OtaUpgradeRecordsUpdateVO updateVO) {
         OtaUpgradeRecordsUpdateVO updatedRecord = superService.updateOtaUpgradeRecord(updateVO);
         return R.success(updatedRecord);
@@ -229,5 +234,6 @@ public class OtaUpgradeRecordsController extends BladeController<OtaUpgradeRecor
         echoService.action(upgradeRecordDetails);
         return R.success(upgradeRecordDetails);
     }
+
 
 }

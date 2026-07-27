@@ -11,6 +11,7 @@ import org.springblade.modules.iot.cacert.vo.save.license.CaCertPemImportSaveVO;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 
+
 /**
  * <p>
  * 业务接口
@@ -20,7 +21,7 @@ import jakarta.validation.constraints.NotNull;
  * @author mqttsnet
  * @since 2025-06-27 15:48:10
  */
-public interface CaCertLicenseService extends BaseService<CaCertLicense> {
+public interface CaCertLicenseService extends SuperService<Long, CaCertLicense> {
 
     /**
      * 导入PEM格式证书
@@ -38,6 +39,7 @@ public interface CaCertLicenseService extends BaseService<CaCertLicense> {
      * @return {@link CaCertLicenseResultVO} 颁发的证书信息
      */
     CaCertLicenseResultVO issueCertificate(@NotNull Long id, @Future LocalDateTime notAfter);
+
 
     /**
      * 吊销CA证书
@@ -74,4 +76,5 @@ public interface CaCertLicenseService extends BaseService<CaCertLicense> {
      */
     CaCertLicenseImpactResultVO getImpact(@NotNull Long id);
 }
+
 

@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.utils.acl;
 
 
-import org.springblade.common.utils.StrPool;
+import org.springblade.core.tool.utils.StringPool;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;

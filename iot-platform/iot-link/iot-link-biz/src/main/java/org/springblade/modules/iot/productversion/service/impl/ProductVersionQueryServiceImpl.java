@@ -7,7 +7,7 @@ import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.productversion.entity.ProductVersion;
 import org.springblade.modules.iot.productversion.manager.ProductVersionManager;
 import org.springblade.modules.iot.productversion.service.ProductVersionQueryService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +19,9 @@ import org.springframework.stereotype.Service;
  * @author mqttsnet
  * @since 2026-05-28
  */
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class ProductVersionQueryServiceImpl implements ProductVersionQueryService {
 

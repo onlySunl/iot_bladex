@@ -9,6 +9,7 @@ import org.springblade.modules.iot.device.vo.query.DeviceAclCheckQuery;
 import org.springblade.modules.iot.protocol.vo.result.DeviceAclCheckResultVO;
 import jakarta.validation.Valid;
 
+
 /**
  * <p>
  * 业务接口
@@ -19,7 +20,8 @@ import jakarta.validation.Valid;
  * @date 2025-06-11 19:57:46
  * @create [2025-06-11 19:57:46] [mqttsnet]
  */
-public interface DeviceAclRuleService extends BaseService<DeviceAclRule> {
+public interface DeviceAclRuleService extends SuperService<Long, DeviceAclRule> {
+
 
     /**
      * Checks the ACL (Access Control List) permission for a given device.
@@ -28,6 +30,7 @@ public interface DeviceAclRuleService extends BaseService<DeviceAclRule> {
      * @return {@link DeviceAclCheckResultVO} The result of the ACL permission check.
      */
     DeviceAclCheckResultVO checkAclPermission(@Valid DeviceAclCheckQuery deviceAclCheckQuery);
+
 
     /**
      * 拉指定设备生效的全部 ACL 规则(产品级 + 设备级)
@@ -38,4 +41,5 @@ public interface DeviceAclRuleService extends BaseService<DeviceAclRule> {
      */
     List<DeviceAclRuleCacheVO> getDeviceAclRuleCacheVOList(String productIdentification, String deviceIdentificationr);
 }
+
 

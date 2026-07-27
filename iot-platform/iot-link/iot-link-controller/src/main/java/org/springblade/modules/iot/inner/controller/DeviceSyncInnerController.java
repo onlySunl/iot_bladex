@@ -1,12 +1,13 @@
 package org.springblade.modules.iot.inner.controller;
 
 import org.springblade.core.tool.api.R;
+import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.modules.iot.device.service.DeviceSyncInnerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @Validated
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/inner/deviceSync")
 @Tag(name = "inner-设备数据同步相关API")
 public class DeviceSyncInnerController {
@@ -51,5 +52,6 @@ public class DeviceSyncInnerController {
         deviceSyncInnerService.syncDeviceConnectionStatus(tenantId);
         return R.success();
     }
+
 
 }

@@ -9,7 +9,8 @@ import java.util.stream.Collectors;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.mp.base.BaseController;
+import org.springblade.common.interfaces.echo.EchoService;
 import org.springblade.modules.iot.productpublishrecord.entity.ProductPublishRecord;
 import org.springblade.modules.iot.productpublishrecord.service.ProductPublishRecordService;
 import org.springblade.modules.iot.productpublishrecord.vo.query.ProductPublishRecordPageQuery;
@@ -19,7 +20,7 @@ import org.springblade.modules.iot.productpublishrecord.vo.update.ProductPublish
 import org.springblade.modules.iot.productversion.entity.ProductVersion;
 import org.springblade.modules.iot.productversion.service.ProductVersionService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,12 +33,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @see ProductPublishRecordService
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/productPublishRecord")
 @Tag(name = "产品发布记录")
-public class ProductPublishRecordController extends BladeController<ProductPublishRecordService, Long,
+public class ProductPublishRecordController extends SuperController<ProductPublishRecordService, Long,
         ProductPublishRecord, ProductPublishRecordSaveVO, ProductPublishRecordUpdateVO,
         ProductPublishRecordPageQuery, ProductPublishRecordResultVO> {
 

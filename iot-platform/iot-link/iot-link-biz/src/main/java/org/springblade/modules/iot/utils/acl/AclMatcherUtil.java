@@ -34,14 +34,15 @@ import lombok.extern.slf4j.Slf4j;
 public class AclMatcherUtil {
 
     // 使用常量定义通配符和分隔符
-    private static final String SINGLE_LEVEL_WILDCARD = StringPool.PLUS;
-    private static final String MULTI_LEVEL_WILDCARD = StringPool.HASH;
-    private static final String SYSTEM_TOPIC_PREFIX = StringPool.DOLLAR;
-    private static final String TOPIC_SEPARATOR = StringPool.SLASH;
+    private static final String SINGLE_LEVEL_WILDCARD = StrPool.PLUS;
+    private static final String MULTI_LEVEL_WILDCARD = StrPool.HASH;
+    private static final String SYSTEM_TOPIC_PREFIX = StrPool.DOLLAR;
+    private static final String TOPIC_SEPARATOR = StrPool.SLASH;
 
     private static final Pattern MULTI_LEVEL_PATTERN = Pattern.compile("^.*$");
     private static final Pattern SYSTEM_TOPIC_PATTERN = Pattern.compile("^\\$[^/]+(?:/[^/]+)*$");
     private static final Pattern NEVER_MATCH_PATTERN = Pattern.compile("a^");
+
 
     private static final Executor PATTERN_COMPILATION_EXECUTOR =
             new ThreadPoolExecutor(
@@ -63,6 +64,7 @@ public class AclMatcherUtil {
             .executor(PATTERN_COMPILATION_EXECUTOR)
             .recordStats() // 启用统计
             .buildAsync(AclMatcherUtil::loadPattern);
+
 
     /**
      * 检查主题是否被允许访问
@@ -132,6 +134,7 @@ public class AclMatcherUtil {
                         .map(t -> safeIsTopicMatch(p, t)))
                 .orElse(false);
     }
+
 
     private static Boolean safeIsTopicMatch(String pattern, String topic) {
         // 特殊处理：通配符#匹配所有主题
@@ -211,6 +214,7 @@ public class AclMatcherUtil {
         regex.append(SYSTEM_TOPIC_PREFIX);
         return Pattern.compile(regex.toString());
     }
+
 
     // 添加缓存统计接口
     public static com.github.benmanes.caffeine.cache.stats.CacheStats getCacheStats() {

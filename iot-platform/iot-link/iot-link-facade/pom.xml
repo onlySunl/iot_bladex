@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Link Facade 聚合：API 接口 + 实现适配器 -->
-
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>iot-link</artifactId>
@@ -15,7 +12,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>iot-link-facade</artifactId>
     <name>${project.artifactId}</name>
-    <description>物联卡业务-facade</description>
+    <description>设备集成服务-facade</description>
     <packaging>pom</packaging>
 
     <modules>

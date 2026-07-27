@@ -7,6 +7,7 @@ import com.alibaba.fastjson2.JSON;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.broker.MqttBrokerOpenInnerFacade;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
@@ -22,7 +23,7 @@ import org.springblade.modules.iot.device.vo.query.DeviceActionPageQuery;
 import org.springblade.modules.iot.device.vo.result.DeviceActionResultVO;
 import org.springblade.modules.iot.device.vo.save.DeviceActionSaveVO;
 import org.springblade.modules.iot.vo.query.KillClientRequestVO;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,14 +38,16 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2023-06-10 16:38:09
  * @create [2023-06-10 16:38:09] [mqttsnet]
  */
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class DeviceActionServiceImpl extends BaseServiceImpl<DeviceActionMapper, DeviceAction> implements DeviceActionService {
+public class DeviceActionServiceImpl extends SuperServiceImpl<DeviceActionManager, Long, DeviceAction> implements DeviceActionService {
 
     private final LinkCacheDataHelper linkCacheDataHelper;
     private final MqttBrokerOpenInnerFacade mqttBrokerOpenInnerFacade;
+
 
     /**
      * 保存设备动作数据
@@ -61,13 +64,13 @@ public class DeviceActionServiceImpl extends BaseServiceImpl<DeviceActionMapper,
         DeviceAction deviceAction = builderDeviceActionSaveVO(deviceActionSaveVO);
 
         // 保存设备动作数据
-        boolean saveSuccess = Optional.of(baseMapper.save(deviceAction)).orElse(false);
+        boolean saveSuccess = Optional.of(superManager.save(deviceAction)).orElse(false);
 
         if (saveSuccess) {
             // 从缓存中获取设备信息
             Optional<DeviceCacheVO> deviceCacheVOOptional = linkCacheDataHelper.getDeviceCacheVO(deviceAction.getDeviceIdentification());
             if (deviceCacheVOOptional.isPresent()) {
-                DeviceActionCacheVO actionCacheVO = BeanUtil.toBeanIgnoreError(deviceAction, DeviceActionCacheVO.class);
+                DeviceActionCacheVO actionCacheVO = BeanPlusUtil.toBeanIgnoreError(deviceAction, DeviceActionCacheVO.class);
                 linkCacheDataHelper.setDeviceActionCacheVO(deviceCacheVOOptional.get().getProductIdentification(), deviceCacheVOOptional.get().getDeviceIdentification(), actionCacheVO);
             }
         }
@@ -83,7 +86,7 @@ public class DeviceActionServiceImpl extends BaseServiceImpl<DeviceActionMapper,
      */
     @Override
     public List<DeviceActionResultVO> getDeviceActionResultVOList(DeviceActionPageQuery query) {
-        return baseMapper.getDeviceActionResultVOList(query);
+        return superManager.getDeviceActionResultVOList(query);
     }
 
     @Override
@@ -112,6 +115,7 @@ public class DeviceActionServiceImpl extends BaseServiceImpl<DeviceActionMapper,
         return r.getIsSuccess();
     }
 
+
     /**
      * 构建 DeviceActionSaveVO 对象
      *
@@ -119,7 +123,7 @@ public class DeviceActionServiceImpl extends BaseServiceImpl<DeviceActionMapper,
      * @return 构建好的 DeviceAction 对象
      */
     private DeviceAction builderDeviceActionSaveVO(DeviceActionSaveVO deviceActionSaveVO) {
-        return BeanUtil.toBeanIgnoreError(deviceActionSaveVO, DeviceAction.class);
+        return BeanPlusUtil.toBeanIgnoreError(deviceActionSaveVO, DeviceAction.class);
     }
 
     /**
@@ -135,5 +139,7 @@ public class DeviceActionServiceImpl extends BaseServiceImpl<DeviceActionMapper,
         ArgumentAssert.notNull(deviceActionSaveVO.getStatus(), "status Cannot be null");
     }
 
+
 }
+
 

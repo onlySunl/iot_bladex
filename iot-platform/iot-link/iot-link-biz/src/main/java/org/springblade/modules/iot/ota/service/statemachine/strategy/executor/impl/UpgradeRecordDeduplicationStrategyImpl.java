@@ -9,7 +9,7 @@ import org.springblade.modules.iot.ota.dto.OtaUpgradeRecordsResultDTO;
 import org.springblade.modules.iot.ota.service.OtaUpgradeRecordsService;
 import org.springblade.modules.iot.ota.service.statemachine.strategy.executor.UpgradeRecordDeduplicationStrategy;
 import org.springblade.modules.iot.ota.vo.result.OtaUpgradeRecordsResultVO;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UpgradeRecordDeduplicationStrategyImpl implements UpgradeRecordDeduplicationStrategy {
 
     private final OtaUpgradeRecordsService otaUpgradeRecordsService;
@@ -53,7 +53,7 @@ public class UpgradeRecordDeduplicationStrategyImpl implements UpgradeRecordDedu
         }
         try {
             Optional<OtaUpgradeRecordsResultVO> recordOptional = otaUpgradeRecordsService.getByTaskIdAndDeviceIdentification(taskId, deviceIdentification);
-            return recordOptional.map(record -> BeanUtil.toBeanIgnoreError(record, OtaUpgradeRecordsResultDTO.class));
+            return recordOptional.map(record -> BeanPlusUtil.toBeanIgnoreError(record, OtaUpgradeRecordsResultDTO.class));
         } catch (Exception e) {
             log.error("查询升级记录DTO异常 - 任务ID: {}, 设备标识: {}", taskId, deviceIdentification, e);
             return Optional.empty();

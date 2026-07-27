@@ -7,6 +7,7 @@ import org.springblade.modules.iot.productproperty.vo.update.ProductPropertyUpda
 
 import java.util.List;
 
+
 /**
  * <p>
  * 业务接口
@@ -17,7 +18,7 @@ import java.util.List;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
-public interface ProductPropertyService extends BaseService<ProductProperty> {
+public interface ProductPropertyService extends SuperService<Long, ProductProperty> {
 
     /**
      * 保存产品模型服务属性
@@ -59,4 +60,5 @@ public interface ProductPropertyService extends BaseService<ProductProperty> {
      */
     List<ProductProperty> findAllByServiceIds(List<Long> serviceIds);
 }
+
 

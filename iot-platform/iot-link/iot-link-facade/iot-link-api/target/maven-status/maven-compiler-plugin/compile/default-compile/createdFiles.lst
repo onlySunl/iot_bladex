@@ -1,8 +1,0 @@
-org\springblade\modules\iot\link\facade\DeviceOpenAnyTenantFacade.class
-org\springblade\modules\iot\link\facade\LinkJobHandlerFacade.class
-org\springblade\modules\iot\link\facade\DeviceCommandFacade.class
-org\springblade\modules\iot\link\facade\DeviceFacade.class
-org\springblade\modules\iot\link\facade\DeviceOpenInnerFacade.class
-org\springblade\modules\iot\link\facade\ProductTopicOpenInnerFacade.class
-org\springblade\modules\iot\link\facade\OtaOpenInnerFacade.class
-org\springblade\modules\iot\link\facade\ProductOpenInnerFacade.class

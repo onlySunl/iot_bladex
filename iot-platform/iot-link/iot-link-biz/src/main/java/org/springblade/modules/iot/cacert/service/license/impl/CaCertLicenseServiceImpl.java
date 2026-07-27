@@ -1,243 +1,68 @@
 package org.springblade.modules.iot.cacert.service.license.impl;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import java.io.ByteArrayInputStream;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.io.File;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.io.IOException;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.nio.file.Files;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.nio.file.Path;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.security.KeyPair;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.security.PublicKey;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.security.cert.CertificateException;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.security.cert.CertificateFactory;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.security.cert.X509Certificate;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.time.LocalDateTime;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Base64;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.HashMap;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.List;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Map;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Objects;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Optional;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.stream.Collectors;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.stream.Stream;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 
 import cn.hutool.core.io.FileUtil;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.util.ZipUtil;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.common.database.mybatis.conditions.Wraps;
 import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.common.utils.BeanUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.tool.utils.StringPool;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.dto.SubjectObjectDN;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.entity.license.CaCertLicense;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.event.CaRevokedEvent;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.enumeration.CaCertAlgorithmEnum;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.enumeration.CaCertAuditTypeEnum;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.enumeration.CaCertSignAlgorithmEnum;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.enumeration.CaCertStatusEnum;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.manager.license.CaCertLicenseManager;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.service.audit.CaCertAuditLogService;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.service.license.CaCertLicenseService;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.vo.result.license.CaCertLicenseImpactResultVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.vo.result.license.CaCertLicenseResultVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.vo.save.license.CaCertLicenseSaveVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.vo.save.license.CaCertPemImportSaveVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.vo.update.license.CaCertLicenseUpdateVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.AppendixType;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.DsConstant;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.entity.Device;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.service.DeviceQueryService;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.utils.FileUploadUtils;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.utils.FreeMarkerUtil;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.file.facade.FileFacade;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.file.vo.result.FileResultVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.utils.x509.CertSerialNumberUtil;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.utils.x509.X509Util;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
-import lombok.AllArgsConstructor;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.apache.commons.io.FileUtils;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springframework.stereotype.Service;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springframework.transaction.annotation.Transactional;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springframework.web.multipart.MultipartFile;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 
 /**
  * <p>
@@ -248,10 +73,11 @@ import org.springblade.core.log.exception.ServiceException;
  * @author mqttsnet
  * @since 2025-06-27 15:48:10
  */
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
-public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMapper, CaCertLicense> implements CaCertLicenseService {
+public class CaCertLicenseServiceImpl extends SuperServiceImpl<CaCertLicenseManager, Long, CaCertLicense> implements CaCertLicenseService {
 
     private final FileFacade fileApi;
 
@@ -261,17 +87,19 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
 
     private final CaCertAuditLogService auditLogService;
 
+
     @Override
     protected <UpdateVO> CaCertLicense updateBefore(UpdateVO vo) {
         CaCertLicenseUpdateVO updateVO = (CaCertLicenseUpdateVO) vo;
 
         checkUpdateVO(updateVO);
 
+
         return super.updateBefore(updateVO);
     }
 
     private void checkUpdateVO(CaCertLicenseUpdateVO updateVO) {
-        CaCertLicense caCertLicense = baseMapper.getById(updateVO.getId());
+        CaCertLicense caCertLicense = superManager.getById(updateVO.getId());
         ArgumentAssert.notNull(caCertLicense, "证书不存在!");
     }
 
@@ -286,7 +114,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
     }
 
     private void checkSaveVO(CaCertLicenseSaveVO saveVO) {
-        if (baseMapper.count(new LambdaQueryWrapper<CaCertLicense>()
+        if (superManager.count(Wraps.<CaCertLicense>lbQ()
                 .eq(CaCertLicense::getCommonName, saveVO.getCommonName())
                 .eq(CaCertLicense::getOrganization, saveVO.getOrganization())
                 .eq(CaCertLicense::getOrganizationalUnit, saveVO.getOrganizationalUnit())
@@ -295,19 +123,21 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
                 .eq(CaCertLicense::getLocalityName, saveVO.getLocalityName())
                 .eq(CaCertLicense::getState, CaCertStatusEnum.ISSUED.getValue())
         ) > 0) {
-            throw new ServiceException("该主体已存在已颁发的证书!");
+            throw BizException.wrap("该主体已存在已颁发的证书!");
         }
     }
 
     @Override
     protected <SaveVO> void saveAfter(SaveVO saveVO, CaCertLicense entity) {
-//        baseMapper.refreshCache(Collections.singletonList(entity));
+//        superManager.refreshCache(Collections.singletonList(entity));
     }
+
 
     @Override
     protected <UpdateVO> void updateAfter(UpdateVO updateVO, CaCertLicense entity) {
-//        baseMapper.refreshCache(Collections.singletonList(entity));
+//        superManager.refreshCache(Collections.singletonList(entity));
     }
+
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -320,16 +150,16 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
             CaCertLicense entity = buildCertificateEntity(caCertPemImportSaveVO.getCertName(), rootCert, caCertPemImportSaveVO.getRemark());
 
             // 保存到数据库
-            baseMapper.save(entity);
+            superManager.save(entity);
 
             // 审计
             auditLogService.record(CaCertAuditTypeEnum.IMPORT, entity.getId(), entity.getSerialNumber(),
                     "name=" + entity.getCertName());
 
             //返回标准化VO
-            return BeanUtil.toBean(entity, CaCertLicenseResultVO.class);
+            return BeanPlusUtil.toBean(entity, CaCertLicenseResultVO.class);
         } catch (Exception e) {
-            throw new ServiceException(e.getMessage());
+            throw BizException.wrap(e.getMessage());
         }
 
     }
@@ -346,7 +176,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
         CaCertLicense entity = new CaCertLicense();
         log.info("证书名称: {}, 品牌: {},version: {}", certName, rootCert.getIssuerX500Principal().getName(), rootCert.getVersion());
         String serialHex = CertSerialNumberUtil.getOpenSSLSerial(rootCert);
-        CaCertLicense caCertLicense = baseMapper.getByCertSerialNumber(serialHex);
+        CaCertLicense caCertLicense = superManager.getByCertSerialNumber(serialHex);
         ArgumentAssert.isNull(caCertLicense, "证书已存在，证书序列号: {}", serialHex);
         try {
             PublicKey publicKey = rootCert.getPublicKey();
@@ -373,18 +203,19 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
             // 根据算法类型提取密钥参数
             String algorithm = publicKey.getAlgorithm();
             CaCertAlgorithmEnum algorithmEnum = CaCertAlgorithmEnum.fromDesc(algorithm)
-                    .orElseThrow(() -> new ServiceException("不支持的密钥算法: " + algorithm));
+                    .orElseThrow(() -> new BizException("不支持的密钥算法: " + algorithm));
             entity.setAlgorithm(algorithmEnum.getValue());
             CaCertSignAlgorithmEnum signAlgorithmEnum = CaCertSignAlgorithmEnum.fromDesc(rootCert.getSigAlgName())
-                    .orElseThrow(() -> new ServiceException("不支持的签名算法: " + rootCert.getSigAlgName()));
+                    .orElseThrow(() -> new BizException("不支持的签名算法: " + rootCert.getSigAlgName()));
             entity.setSignAlgorithm(signAlgorithmEnum.getValue());
 
         } catch (Exception e) {
             log.error("buildCertificateEntity 证书实体构建失败:{}", e.getMessage(), e);
-            throw new ServiceException("证书实体构建失败: " + e.getMessage());
+            throw new BizException("证书实体构建失败: " + e.getMessage());
         }
         return entity;
     }
+
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -395,7 +226,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
 
         // 获取算法枚举
         CaCertAlgorithmEnum algorithm = CaCertAlgorithmEnum.fromValue(caCertLicense.getAlgorithm())
-                .orElseThrow(() -> new ServiceException("不支持的证书算法类型"));
+                .orElseThrow(() -> new BizException("不支持的证书算法类型"));
 
         LocalDateTime notBefore = LocalDateTime.now();
         File tempCertFile = null;
@@ -422,7 +253,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
             FileResultVO uploadResult = fileApi.upload(
                     multipartFile,
                     AppendixType.Link.BASE__CA__CERT__CONTENT,
-                    StringPool.EMPTY,
+                    StrPool.EMPTY,
                     null
             );
 
@@ -439,10 +270,10 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
             caCertLicenseUpdateVO.setCertFileid(uploadResult.getId().toString());
             caCertLicenseUpdateVO.setThumbprint(X509Util.getFingerPrint(rootCert));
             updateById(caCertLicenseUpdateVO);
-            return BeanUtil.toBeanIgnoreError(getById(caCertLicense.getId()), CaCertLicenseResultVO.class);
+            return BeanPlusUtil.toBeanIgnoreError(getById(caCertLicense.getId()), CaCertLicenseResultVO.class);
         } catch (Exception e) {
             log.error("证书生成失败", e);
-            throw new ServiceException("证书生成失败: " + e.getMessage());
+            throw new BizException("证书生成失败: " + e.getMessage());
         } finally {
             // 删除临时文件
             if (tempCertFile != null) {
@@ -450,6 +281,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
             }
         }
     }
+
 
     /**
      * 构建证书主体信息
@@ -468,6 +300,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
                 .commonName(license.getCommonName())
                 .build();
     }
+
 
     /**
      * 获取许可证URL
@@ -507,7 +340,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
                 .map(fileUrlMap.getData()::get)
                 .filter(Objects::nonNull)
                 .distinct()
-                .collect(Collectors.joining(StringPool.COMMA));
+                .collect(Collectors.joining(StrPool.COMMA));
     }
 
     @Override
@@ -522,9 +355,9 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
         ca.setState(CaCertStatusEnum.REVOKED.getValue());
         ca.setRevokeTime(LocalDateTime.now());
         ca.setRevokeReason(revocationReason);
-        boolean ok = baseMapper.updateById(ca);
+        boolean ok = superManager.updateById(ca);
         if (!ok) {
-            throw new ServiceException("CA 证书状态更新失败");
+            throw new BizException("CA 证书状态更新失败");
         }
         log.info("[CaCert] revoked id={} serialNumber={} reason={}",
                 id, ca.getSerialNumber(), revocationReason);
@@ -538,8 +371,8 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
 
     @Override
     public CaCertLicenseResultVO getByCertSerialNumber(String certSerialNumber) {
-        CaCertLicense caCertLicense = baseMapper.getByCertSerialNumber(certSerialNumber);
-        return BeanUtil.toBeanIgnoreError(caCertLicense, CaCertLicenseResultVO.class);
+        CaCertLicense caCertLicense = superManager.getByCertSerialNumber(certSerialNumber);
+        return BeanPlusUtil.toBeanIgnoreError(caCertLicense, CaCertLicenseResultVO.class);
     }
 
     @Override
@@ -587,7 +420,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
                 "根CA证书状态无效，无法用于签发");
 
         CaCertAlgorithmEnum algorithm = CaCertAlgorithmEnum.fromValue(caCertLicense.getAlgorithm())
-                .orElseThrow(() -> new ServiceException("不支持的证书算法类型"));
+                .orElseThrow(() -> new BizException("不支持的证书算法类型"));
 
         // 准备临时目录
         Path tempDir = Files.createTempDirectory(caCertLicense.getSerialNumber() + "client_cert_");
@@ -639,6 +472,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
         return (X509Certificate) cf.generateCertificate(new ByteArrayInputStream(certData));
     }
 
+
     private File createCertPackage(Path tempDir,
                                    X509Certificate clientCert,
                                    KeyPair clientKeyPair,
@@ -670,6 +504,7 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
             throw new RuntimeException(e);
         }
     }
+
 
     /**
      * 使用字符串模板构建README文件内容
@@ -705,4 +540,5 @@ public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseMappe
     }
 
 }
+
 

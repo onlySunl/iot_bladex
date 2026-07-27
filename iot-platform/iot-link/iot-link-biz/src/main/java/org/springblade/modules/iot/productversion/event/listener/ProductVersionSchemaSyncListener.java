@@ -12,7 +12,7 @@ import org.springblade.modules.iot.productversion.event.ProductVersionPurgeReque
 import org.springblade.modules.iot.productversion.event.ProductVersionRolledBackEvent;
 import org.springblade.modules.iot.productversion.event.source.ProductVersionLifecycleEventSource;
 import org.springblade.modules.iot.productversion.publish.orchestrator.ProductVersionPublishOrchestrator;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductVersionSchemaSyncListener {
 
     private final ProductVersionPublishOrchestrator orchestrator;
@@ -94,19 +94,19 @@ public class ProductVersionSchemaSyncListener {
         // ThreadLocal 数据源名,tenantId 缺失时 dynamic-datasource 静默 fallback 到 primary "0"
         // 默认库 → 跨租户数据串味(把 A 租户的 publish_record 写到默认库)。
         // 这里早返并 markFailed,让 record 状态可见(用户能在前端看到失败,而不是默写错库)。
-        if (AuthUtil.getTenantId() == null) {
+        if (ContextUtil.getTenantId() == null) {
             String reason = "no tenantId in ContextUtil (event from system thread?), skip " + tag;
             log.error("[publish-listener] {} skip: {} source={}", tag, reason, src);
             productPublishRecordService.markFailed(src.getPublishRecordId(), reason);
             return CompletableFuture.completedFuture(false);
         }
-        Map<String, String> ctx = AuthUtil.getLocalMap();
+        Map<String, String> ctx = ContextUtil.getLocalMap();
         return CompletableFuture.supplyAsync(() -> {
                 try {
-                    AuthUtil.setLocalMap(ctx);
+                    ContextUtil.setLocalMap(ctx);
                     return action.apply(src);
                 } finally {
-                    AuthUtil.remove();
+                    ContextUtil.remove();
                 }
             }, linkDefaultExecutor)
             .exceptionally(ex -> {
@@ -114,11 +114,11 @@ public class ProductVersionSchemaSyncListener {
                 // 这里 markFailed 走 @DS(BASE_TENANT) 切库 SPEL 取不到 tenantId 会 fallback 到默认库,
                 // 真实租户库的 record 永远停留在 RUNNING,用户看到"卡死"。重新 setLocalMap 让切库正确。
                 try {
-                    AuthUtil.setLocalMap(ctx);
+                    ContextUtil.setLocalMap(ctx);
                     log.error("[publish-listener] {} async failed source={}", tag, src, ex);
                     productPublishRecordService.markFailed(src.getPublishRecordId(), orchestrator.unwrap(ex));
                 } finally {
-                    AuthUtil.remove();
+                    ContextUtil.remove();
                 }
                 return false;
             });

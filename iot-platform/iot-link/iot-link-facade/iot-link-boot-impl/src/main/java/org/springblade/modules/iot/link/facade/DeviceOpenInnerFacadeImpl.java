@@ -8,7 +8,7 @@ import com.alibaba.fastjson2.JSON;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.secure.constant.SecureConstant;
 import org.springblade.core.secure.utils.AuthUtil;
-import cn.hutool.core.lang.Assert;
+import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.modules.iot.device.entity.DeviceAction;
 import org.springblade.modules.iot.device.entity.DeviceCommand;
 import org.springblade.modules.iot.device.service.DeviceActionService;

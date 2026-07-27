@@ -5,7 +5,7 @@ import java.util.Collections;
 import cn.hutool.core.util.StrUtil;
 import org.springblade.modules.iot.device.service.DeviceService;
 import org.springblade.modules.iot.ota.service.OtaUpgradesService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +33,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class OtaModelVersionSwitcher {
 
     private final DeviceService deviceService;

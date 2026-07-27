@@ -12,6 +12,7 @@ import org.springblade.modules.iot.ota.vo.result.OtaUpgradesResultVO;
 import org.springblade.modules.iot.ota.vo.save.OtaUpgradesSaveVO;
 import org.springblade.modules.iot.ota.vo.update.OtaUpgradesUpdateVO;
 
+
 /**
  * <p>
  * 业务接口
@@ -22,7 +23,7 @@ import org.springblade.modules.iot.ota.vo.update.OtaUpgradesUpdateVO;
  * @date 2024-01-12 22:36:27
  * @create [2024-01-12 22:36:27] [mqttsnet]
  */
-public interface OtaUpgradesService extends BaseService<OtaUpgrades> {
+public interface OtaUpgradesService extends SuperService<Long, OtaUpgrades> {
 
     /**
      * Save OTA Upgrade Package
@@ -31,6 +32,7 @@ public interface OtaUpgradesService extends BaseService<OtaUpgrades> {
      * @return {@link OtaUpgradesSaveVO} 返回结果
      */
     OtaUpgradesSaveVO saveUpgradePackage(OtaUpgradesSaveVO saveVO);
+
 
     /**
      * Update OTA Upgrade Package

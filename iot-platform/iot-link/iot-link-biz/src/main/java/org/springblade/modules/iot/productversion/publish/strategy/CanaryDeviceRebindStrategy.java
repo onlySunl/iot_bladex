@@ -2,10 +2,11 @@ package org.springblade.modules.iot.productversion.publish.strategy;
 
 import java.util.List;
 
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.service.DeviceService;
 import org.springblade.modules.iot.productversion.enumeration.ProductPublishStrategyEnum;
 import org.springblade.modules.iot.productversion.vo.canary.CanaryConfigDTO;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Component;
  * —— 白名单规模有界,命中网关连带其子设备,保证不变式 <b>子设备版本 = 所属网关版本</b> 不被拆裂。
  * 本策略仅作用于 CANARY,不影响 FULL / SHADOW。
  *
- * <p>边界:canaryConfigJson 缺失抛 {@link ServiceException};whitelist 为空返 0 + log.warn 不抛(允许"配错就空跑")。</p>
+ * <p>边界:canaryConfigJson 缺失抛 {@link BizException};whitelist 为空返 0 + log.warn 不抛(允许"配错就空跑")。</p>
  *
  * <p>跨域必须走 {@link DeviceService}(底层带 @DS(BASE_TENANT))触发切租户库,不能直接调 DeviceManager,
  * 否则 fallback 到 primary "0" 默认库 → 跨租户数据串味。</p>
@@ -24,7 +25,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CanaryDeviceRebindStrategy implements DeviceRebindStrategy {
 
     private final DeviceService deviceService;
@@ -38,7 +39,7 @@ public class CanaryDeviceRebindStrategy implements DeviceRebindStrategy {
     public int rebind(String productIdentification, String newVersion, String canaryConfigJson) {
         // 配置整段缺失 ── 单独识别,便于运维一眼区分"漏配 / 配错值"两种数据问题
         CanaryConfigDTO config = CanaryConfigDTO.parse(canaryConfigJson)
-            .orElseThrow(() -> new ServiceException(
+            .orElseThrow(() -> BizException.wrap(
                 "CANARY strategy requires canaryConfigJson, but got null/blank. product=" + productIdentification));
 
         List<String> whitelist = config.safeDeviceIdentifications();

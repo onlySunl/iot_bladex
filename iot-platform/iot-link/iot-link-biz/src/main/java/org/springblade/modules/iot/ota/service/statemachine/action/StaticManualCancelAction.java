@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class StaticManualCancelAction extends BaseOtaUpgradeAction {
 
+
     /**
      * 执行手动取消动作
      *
@@ -43,5 +44,6 @@ public class StaticManualCancelAction extends BaseOtaUpgradeAction {
             throw new RuntimeException("静态升级手动取消失败", e);
         }
     }
+
 
 }

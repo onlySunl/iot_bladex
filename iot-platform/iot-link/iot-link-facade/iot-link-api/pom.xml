@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Link API：Feign 接口定义 -->
-
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>iot-link-facade</artifactId>
@@ -15,10 +12,17 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>iot-link-api</artifactId>
     <name>${project.artifactId}</name>
-    <description>基础服务-Api模块</description>
+    <description>设备集成服务-API接口</description>
 
     <dependencies>
-                <dependency>
+        <!-- Blade Common -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-common</artifactId>
+        </dependency>
+
+        <!-- IoT Entity Link -->
+        <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-entity-link</artifactId>
             <version>${project.version}</version>

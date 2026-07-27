@@ -6,7 +6,8 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import org.springblade.core.secure.utils.AuthUtil;
-import org.springblade.core.tool.jackson.JsonUtil;
+import org.springblade.core.tool.utils.JsonUtil;
+import org.springblade.core.tool.utils.SpringUtils;
 import org.springblade.core.tool.utils.StringPool;
 import org.springblade.modules.iot.common.ws.WebSocketAuthGuard;
 import org.springblade.modules.iot.common.ws.WebSocketAuthHeaderCaptor;
@@ -67,13 +68,13 @@ public class QueryDeviceShadowEndpoint {
                         @PathParam("tenantId") String tenantId,
                         @PathParam("deviceIdentification") String deviceIdentification) {
         if (StrUtil.isEmpty(text) || "ping".equals(text)) {
-            return StringPool.EMPTY;
+            return StrPool.EMPTY;
         }
 
         log.info("tenantId={}, deviceIdentification={}, text={}", tenantId, deviceIdentification, text);
-        AuthUtil.setTenantId(tenantId);
-        if (AuthUtil.isEmptyBasePool() || AuthUtil.isEmptyTenantId()) {
-            return StringPool.EMPTY;
+        ContextUtil.setTenantId(tenantId);
+        if (ContextUtil.isEmptyBasePool() || ContextUtil.isEmptyTenantId()) {
+            return StrPool.EMPTY;
         }
         try {
             // 解析消息体:优先按 JSON 解析(新协议带 versionNo);非 JSON 退化为纯 serviceCode
@@ -97,7 +98,7 @@ public class QueryDeviceShadowEndpoint {
         } catch (Exception e) {
             log.error("Failed to get device shadow", e);
         }
-        return StringPool.EMPTY;
+        return StrPool.EMPTY;
     }
 
     /** 出错不抛 RuntimeException(抛了 Tomcat 仍持有 session 泄漏更严重)*/

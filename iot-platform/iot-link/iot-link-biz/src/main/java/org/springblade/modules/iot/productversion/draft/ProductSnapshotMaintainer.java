@@ -5,7 +5,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import org.springblade.core.cache.lock.DistributedLock;
+import org.springblade.core.cache.lock.LockRunResult;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.core.cache.redis.CacheKey;
 import org.springblade.modules.iot.common.lock.link.LinkLockKeyBuilder;
 import org.springblade.modules.iot.product.event.ProductModelChangedEvent;
 import org.springblade.modules.iot.product.event.source.ProductModelChangedSource;
@@ -84,24 +87,24 @@ public class ProductSnapshotMaintainer {
         if (pid == null || pid.isBlank()) {
             return;
         }
-        if (AuthUtil.getTenantId() == null) {
+        if (ContextUtil.getTenantId() == null) {
             log.error("[ProductSnapshotMaintainer] skip refresh: no tenantId in ContextUtil"
                 + "(可能事件由系统线程发出), trigger={} productIdentification={}", trigger, pid);
             return;
         }
-        Map<String, String> ctx = AuthUtil.getLocalMap();
+        Map<String, String> ctx = ContextUtil.getLocalMap();
         CompletableFuture.runAsync(() -> {
             try {
-                AuthUtil.setLocalMap(ctx);
+                ContextUtil.setLocalMap(ctx);
                 // 二次校验子线程上下文(理论上不会丢,留个 fail-fast 防御)
-                if (AuthUtil.getTenantId() == null) {
+                if (ContextUtil.getTenantId() == null) {
                     log.error("[ProductSnapshotMaintainer] tenantId lost after thread hop, trigger={} productIdentification={}",
                         trigger, pid);
                     return;
                 }
                 refreshOneDraftLocked(pid, trigger);
             } finally {
-                AuthUtil.remove();
+                ContextUtil.remove();
             }
         }, linkDefaultExecutor).exceptionally(ex -> {
             log.warn("[ProductSnapshotMaintainer] async refresh failed trigger={} productIdentification={} cause={}",

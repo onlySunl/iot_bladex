@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.device.service.impl;
 
-import org.springblade.common.base.R;
+import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.broker.MqttBrokerOpenInnerFacade;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
 import org.springblade.modules.iot.cache.vo.device.DeviceActionCacheVO;

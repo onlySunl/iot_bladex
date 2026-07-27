@@ -3,7 +3,7 @@ package org.springblade.modules.iot.device.service;
 import java.util.List;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.core.mp.support.Query;
+import org.springblade.core.boot.request.PageParam;
 import org.springblade.core.mp.base.BaseService;
 import org.springblade.modules.iot.device.entity.Device;
 import org.springblade.modules.iot.device.vo.query.DeviceAuthenticationQuery;
@@ -28,6 +28,7 @@ import org.springblade.modules.iot.protocol.vo.result.TopoAddDeviceResultVO;
 import org.springblade.modules.iot.protocol.vo.result.TopoDeviceOperationResultVO;
 import org.springblade.modules.iot.protocol.vo.result.TopoQueryDeviceResultVO;
 
+
 /**
  * <p>
  * 业务接口
@@ -38,7 +39,7 @@ import org.springblade.modules.iot.protocol.vo.result.TopoQueryDeviceResultVO;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
-public interface DeviceService extends BaseService<Device> {
+public interface DeviceService extends SuperService<Long, Device> {
 
     /**
      * 分页查询设备档案信息
@@ -46,7 +47,7 @@ public interface DeviceService extends BaseService<Device> {
      * @param params 分页参数
      * @return 设备信息分页结果
      */
-    IPage<DeviceResultVO> getPage(Query params);
+    IPage<DeviceResultVO> getPage(PageParams<DevicePageQuery> params);
 
     /**
      * 获取设备档案总量
@@ -88,6 +89,7 @@ public interface DeviceService extends BaseService<Device> {
      */
     DeviceResultVO saveDeviceByNorthbound(DeviceSaveVO saveVO);
 
+
     /**
      * 修改设备档案
      *
@@ -124,6 +126,7 @@ public interface DeviceService extends BaseService<Device> {
      */
     Boolean deleteDevices(java.util.List<Long> ids);
 
+
     /**
      * 根据客户端ID查询设备信息
      *
@@ -131,6 +134,7 @@ public interface DeviceService extends BaseService<Device> {
      * @return 设备信息;查不到返 null
      */
     DeviceResultVO findOneByClientId(String clientId);
+
 
     /**
      * 根据设备标识查询设备信息(返 {@link DeviceDetailsResultVO})
@@ -169,6 +173,7 @@ public interface DeviceService extends BaseService<Device> {
      * @return true=CAS 写入生效, false=过期事件被拒绝(DB 已有更新的 hlc)
      */
     boolean updateDeviceConnectionStatusByEvent(String clientId, Integer status, Long eventHlc);
+
 
     /**
      * 查询设备信息VO列表
@@ -241,6 +246,7 @@ public interface DeviceService extends BaseService<Device> {
      */
     TopoDeviceOperationResultVO deleteSubDeviceByMqtt(TopoDeleteSubDeviceParam topoDeleteSubDeviceParam);
 
+
     /**
      * 北向API删除子设备
      *
@@ -257,6 +263,7 @@ public interface DeviceService extends BaseService<Device> {
      */
     TopoDeviceOperationResultVO deviceDataReportByMqtt(TopoDeviceDataReportParam topoDeviceDataReportParam);
 
+
     /**
      * 北向API上报设备数据
      *
@@ -264,6 +271,7 @@ public interface DeviceService extends BaseService<Device> {
      * @return 子设备操作结果
      */
     TopoDeviceOperationResultVO deviceDataReportByNorthbound(TopoDeviceDataReportParam topoDeviceDataReportParam);
+
 
     /**
      * 根据设备ID查询设备详情
@@ -279,7 +287,8 @@ public interface DeviceService extends BaseService<Device> {
      * @param params 分页参数
      * @return 设备详情分页结果
      */
-    IPage<DeviceDetailsResultVO> getDeviceDetailsPage(Query params);
+    IPage<DeviceDetailsResultVO> getDeviceDetailsPage(PageParams<DeviceDetailsPageQuery> params);
+
 
     /**
      * 检查是否有设备正在使用该产品(产品删除 / 修改前的占用校验)。
@@ -382,7 +391,7 @@ public interface DeviceService extends BaseService<Device> {
     /**
      * 切换设备绑定版本(影子发布的"外部切流"入口):把指定产品下给定设备的 bound_product_version_no 改到 targetVersionNo,
      * 命中网关会连带其子设备一并切换(保持子设备版本=网关版本)。校验目标版本存在且处于 已发布/灰度/影子 状态(TD 超表已就绪),
-     * 否则抛 {@link ServiceException}。改绑后由 DeviceRebindEvent 在提交后失效设备缓存,下次上报即按
+     * 否则抛 {@link org.springblade.core.log.exception.ServiceException}。改绑后由 DeviceRebindEvent 在提交后失效设备缓存,下次上报即按
      * 新版本路由到对应超表。幂等:已在目标版本的设备重复切换为同值写入,无副作用。
      *
      * @param productIdentification 产品标识(收口改绑范围 + 校验目标版本归属)

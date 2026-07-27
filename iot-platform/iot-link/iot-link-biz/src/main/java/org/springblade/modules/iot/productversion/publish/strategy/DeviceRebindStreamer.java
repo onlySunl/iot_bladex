@@ -8,7 +8,7 @@ import cn.hutool.core.util.StrUtil;
 import org.springblade.modules.iot.device.entity.Device;
 import org.springblade.modules.iot.device.service.DeviceQueryService;
 import org.springblade.modules.iot.device.service.DeviceService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DeviceRebindStreamer {
 
     /** 单页行数 ── 同时约束:单次 SELECT 行数、单批 UPDATE 的 IN 元素数、单事务大小。 */

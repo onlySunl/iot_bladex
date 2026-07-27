@@ -4,8 +4,8 @@ import java.util.List;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.common.base.manager.impl.SuperManagerImpl;
-import org.springblade.common.base.request.PageParams;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.core.boot.request.PageParam;
 import org.springblade.common.database.mybatis.conditions.Wraps;
 import org.springblade.common.database.mybatis.conditions.query.LbQueryWrap;
 import org.springblade.modules.iot.productversionchangelog.entity.ProductVersionChangeLog;

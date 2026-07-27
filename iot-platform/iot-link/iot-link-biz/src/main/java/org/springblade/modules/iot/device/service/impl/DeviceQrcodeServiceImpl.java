@@ -2,14 +2,15 @@ package org.springblade.modules.iot.device.service.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.secure.utils.AuthUtil;
-import org.springblade.core.tool.jackson.JsonUtil;
+import org.springblade.core.tool.utils.JsonUtil;
+import org.springblade.common.utils.qrcode.QrcodeUtils;
 import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.common.constant.QrcodeConstant;
 import org.springblade.modules.iot.device.service.DeviceQrcodeService;
 import org.springblade.modules.iot.device.service.DeviceService;
 import org.springblade.modules.iot.device.vo.result.DeviceDetailsResultVO;
 import org.springblade.modules.iot.device.vo.result.DeviceQrcodeResultVO;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,8 +38,9 @@ import java.io.InputStream;
  * @email
  * @date 2024/8/19 17:58
  */
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class DeviceQrcodeServiceImpl implements DeviceQrcodeService {
@@ -68,7 +70,7 @@ public class DeviceQrcodeServiceImpl implements DeviceQrcodeService {
                     .setScene(QrcodeConstant.DEVICE_SCENE)
                     .setDeviceIdentification(deviceDetailsResultVO.getDeviceIdentification())
                     .setProductIdentification(deviceDetailsResultVO.getProductIdentification())
-                    .setTenantId(AuthUtil.getTenantIdStr());
+                    .setTenantId(ContextUtil.getTenantIdStr());
 
             // 生成二维码字节数组
             return QrcodeUtils.createQrcode(JsonUtil.toJson(deviceQrcodeResultVO), QrcodeConstant.QR_CODE_LENGTH, logoStream);

@@ -1,6 +1,8 @@
 package org.springblade.modules.iot.inner.controller;
 
+import org.springblade.common.annotation.log.WebLog;
 import org.springblade.core.tool.api.R;
+import org.springblade.common.interfaces.echo.EchoService;
 import org.springblade.modules.iot.product.service.ProductService;
 import org.springblade.modules.iot.product.vo.param.ProductParamVO;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;
@@ -43,6 +45,7 @@ public class ProductOpenInnerController {
      */
     @Operation(summary = "北向API查询产品详情", description = "北向API-根据产品标识查询产品详情")
     @GetMapping("/getProductDetailByNorthbound/{productIdentification}")
+    @WebLog("北向API查询产品详情")
     public R<ProductResultVO> getProductDetailByNorthbound(@Parameter(description = "产品标识", required = true) @PathVariable("productIdentification") String productIdentification) {
         try {
             log.info("getProductDetailByNorthbound productIdentification:{}", productIdentification);
@@ -63,6 +66,7 @@ public class ProductOpenInnerController {
      */
     @Operation(summary = "北向API查询产品物模型", description = "北向API-根据产品标识查询产品物模型（包含已启用的服务、属性、命令）")
     @GetMapping("/getProductThingModelByNorthbound/{productIdentification}")
+    @WebLog("北向API查询产品物模型")
     public R<ProductParamVO> getProductThingModelByNorthbound(@Parameter(description = "产品标识", required = true) @PathVariable("productIdentification") String productIdentification) {
         try {
             log.info("getProductThingModelByNorthbound productIdentification:{}", productIdentification);

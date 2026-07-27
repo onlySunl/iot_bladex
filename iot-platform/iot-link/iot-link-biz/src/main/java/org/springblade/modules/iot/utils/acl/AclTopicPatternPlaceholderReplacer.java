@@ -30,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AclTopicPatternPlaceholderReplacer {
 
+
     public static final String PLACEHOLDER_APP_ID = "${app_id}";
     public static final String PLACEHOLDER_USER_NAME = "${user_name}";
     public static final String PLACEHOLDER_DEVICE_IDENTIFICATION = "${device_identification}";

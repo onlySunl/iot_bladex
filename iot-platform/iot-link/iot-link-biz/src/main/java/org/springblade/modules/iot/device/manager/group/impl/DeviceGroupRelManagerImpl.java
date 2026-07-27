@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.springblade.common.base.manager.impl.SuperManagerImpl;
+import org.springblade.core.mp.base.BaseServiceImpl;
 import org.springblade.modules.iot.device.entity.group.DeviceGroupRel;
 import org.springblade.modules.iot.device.manager.group.DeviceGroupRelManager;
 import org.springblade.modules.iot.device.mapper.group.DeviceGroupRelMapper;

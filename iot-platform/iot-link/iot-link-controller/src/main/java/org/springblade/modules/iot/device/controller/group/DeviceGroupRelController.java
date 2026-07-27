@@ -11,9 +11,11 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.core.boot.ctrl.BladeController;
-import org.springblade.core.mp.support.Query;
+import org.springblade.core.mp.base.BaseController;
+import org.springblade.core.boot.request.PageParam;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.common.interfaces.echo.EchoService;
 import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.device.entity.group.DeviceGroupRel;
 import org.springblade.modules.iot.device.service.DeviceService;
@@ -28,7 +30,7 @@ import org.springblade.modules.iot.device.vo.result.group.DeviceGroupResultVO;
 import org.springblade.modules.iot.device.vo.save.group.DeviceGroupRelSaveVO;
 import org.springblade.modules.iot.device.vo.update.group.DeviceGroupRelUpdateVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,12 +46,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2025-06-23 14:06:46
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/deviceGroupRel")
 @Tag(name = "设备分组资源关系")
-public class DeviceGroupRelController extends BladeController<DeviceGroupRelService, Long, DeviceGroupRel
+public class DeviceGroupRelController extends SuperController<DeviceGroupRelService, Long, DeviceGroupRel
         , DeviceGroupRelSaveVO, DeviceGroupRelUpdateVO, DeviceGroupRelPageQuery, DeviceGroupRelResultVO> {
     private final EchoService echoService;
 
@@ -58,12 +60,13 @@ public class DeviceGroupRelController extends BladeController<DeviceGroupRelServ
     private final DeviceGroupService deviceGroupService;
 
     @Override
-    public QueryWrap<DeviceGroupRel> handlerWrapper(DeviceGroupRel model, Query params) {
+    public QueryWrap<DeviceGroupRel> handlerWrapper(DeviceGroupRel model, PageParams<DeviceGroupRelPageQuery> params) {
         QueryWrap<DeviceGroupRel> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
         DataScopeHelper.startDataScope("device_group_rel");
         return queryWrap;
     }
+
 
     /**
      * 在上下文中执行异步任务
@@ -73,13 +76,13 @@ public class DeviceGroupRelController extends BladeController<DeviceGroupRelServ
      * @return {@link CompletableFuture<T>} 任务执行结果
      */
     private <T> CompletableFuture<T> executeWithContext(Supplier<T> task) {
-        Map<String, String> localMap = AuthUtil.getLocalMap();
+        Map<String, String> localMap = ContextUtil.getLocalMap();
         return CompletableFuture.supplyAsync(() -> {
-            AuthUtil.setLocalMap(localMap);
+            ContextUtil.setLocalMap(localMap);
             try {
                 return task.get();
             } finally {
-                AuthUtil.remove();
+                ContextUtil.remove();
             }
         });
     }
@@ -101,6 +104,7 @@ public class DeviceGroupRelController extends BladeController<DeviceGroupRelServ
                 .distinct()
                 .toList();
 
+
         List<String> deviceIdentifications = Optional.ofNullable(page.getRecords())
                 .orElseGet(Collections::emptyList)
                 .stream()
@@ -108,6 +112,7 @@ public class DeviceGroupRelController extends BladeController<DeviceGroupRelServ
                 .filter(Objects::nonNull)
                 .distinct()
                 .toList();
+
 
         CompletableFuture<Map<Long, DeviceGroupResultVO>> groupFuture = groupIds.isEmpty() ?
                 CompletableFuture.completedFuture(Collections.emptyMap()) :
@@ -178,5 +183,7 @@ public class DeviceGroupRelController extends BladeController<DeviceGroupRelServ
         );
     }
 
+
 }
+
 

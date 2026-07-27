@@ -8,6 +8,7 @@ import org.springblade.modules.iot.device.vo.save.DeviceActionSaveVO;
 
 import java.util.List;
 
+
 /**
  * <p>
  * 业务接口
@@ -18,7 +19,7 @@ import java.util.List;
  * @date 2023-06-10 16:38:09
  * @create [2023-06-10 16:38:09] [mqttsnet]
  */
-public interface DeviceActionService extends BaseService<DeviceAction> {
+public interface DeviceActionService extends SuperService<Long, DeviceAction> {
 
     /**
      * 保存设备动作数据
@@ -45,4 +46,5 @@ public interface DeviceActionService extends BaseService<DeviceAction> {
     Boolean disconnectDevice(String deviceIdentification);
 
 }
+
 

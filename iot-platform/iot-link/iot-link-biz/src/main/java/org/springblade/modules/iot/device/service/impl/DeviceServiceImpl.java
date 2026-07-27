@@ -1,395 +1,108 @@
 package org.springblade.modules.iot.device.service.impl;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import java.security.cert.X509Certificate;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.time.LocalDateTime;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.ArrayList;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Arrays;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Collections;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.List;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Map;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.HashMap;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Objects;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Optional;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.function.Function;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.stream.Collectors;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 
 import cn.hutool.core.bean.BeanUtil;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.bean.copier.CopyOptions;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.collection.CollUtil;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.date.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.map.MapUtil;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.text.CharSequenceUtil;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.util.StrUtil;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import com.alibaba.fastjson2.JSON;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.core.mp.support.Query;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
+import org.springblade.core.boot.request.PageParam;
 import org.springblade.core.mp.base.BaseServiceImpl;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.common.converter.Builder;
+import org.springblade.common.database.mybatis.conditions.Wraps;
 import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.common.utils.BeanUtil;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
+import org.springblade.core.tool.utils.SnowflakeIdUtil;
+import org.springblade.core.tenant.tenant.utils.TenantUtil;
 import org.springblade.modules.iot.cacert.enumeration.CaCertAuditTypeEnum;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.enumeration.CaCertStatusEnum;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.service.audit.CaCertAuditLogService;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.service.license.CaCertLicenseService;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.vo.result.license.CaCertLicenseResultVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.DsConstant;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.entity.Device;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.entity.DeviceAction;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceActionStatusEnum;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceAuthModeEnum;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceConnectStatusEnum;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceEncryptMethodEnum;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceNodeTypeEnum;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceSslTestStepEnum;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceSslTestStepStatusEnum;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceStatusEnum;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.event.publisher.DeviceEventPublisher;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.event.source.DeviceDeletedEventSource;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.event.source.DeviceInfoUpdatedEventSource;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.event.source.DeviceRebindEventSource;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.manager.DeviceManager;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.service.DeviceActionService;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.service.DeviceLocationService;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.service.DeviceService;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.query.DeviceAuthenticationQuery;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.query.DeviceDetailsPageQuery;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.query.DeviceLocationPageQuery;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.query.DevicePageQuery;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.query.DeviceSslTestQuery;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.result.DeviceDetailsResultVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.result.DeviceLocationResultVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.result.DeviceOverviewResultVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.result.DeviceResultVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.result.DeviceSslTestResultVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.result.DeviceSslTestStepVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.result.DeviceVersionResultVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.save.DeviceActionSaveVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.save.DeviceLocationSaveVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.save.DeviceSaveVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.update.DeviceUpdateVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.service.ProductQueryService;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.vo.query.ProductPageQuery;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.entity.ProductVersion;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.enumeration.ProductVersionStatusEnum;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.service.ProductVersionQueryService;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.result.DeviceVersionDistributionVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.enumeration.MqttProtocolTopoStatusEnum;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.TopoAddSubDeviceParam;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.TopoDeleteSubDeviceParam;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.TopoDeviceDataReportParam;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.TopoQueryDeviceParam;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.TopoUpdateSubDeviceStatusParam;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.result.DeviceAuthenticationResultVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.result.DeviceInfoResultVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.result.TopoAddDeviceResultVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.result.TopoDeviceOperationResultVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.result.TopoQueryDeviceResultVO;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.utils.cacert.CertificateVerifierUtil;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.utils.x509.CertSerialNumberUtil;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
-import lombok.AllArgsConstructor;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springframework.stereotype.Service;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springframework.transaction.annotation.Transactional;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.core.log.exception.ServiceException;
 
 /**
  * <p>
@@ -401,11 +114,12 @@ import org.springblade.core.log.exception.ServiceException;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> implements DeviceService {
+public class DeviceServiceImpl extends SuperServiceImpl<DeviceManager, Long, Device> implements DeviceService {
 
     /**
      * 注入只读 {@link ProductQueryService}(独立 bean,零下游 Service 依赖),切库经过 Service AOP 边界、
@@ -432,14 +146,15 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     private final LinkCacheDataHelper linkCacheDataHelper;
 
     @Override
-    public IPage<DeviceResultVO> getPage(Query params) {
-        IPage<Device> page = baseMapper.getPage(params);
-        return BeanUtil.toBeanPage(page, DeviceResultVO.class);
+    public IPage<DeviceResultVO> getPage(PageParams<DevicePageQuery> params) {
+        IPage<Device> page = superManager.getPage(params);
+        return BeanPlusUtil.toBeanPage(page, DeviceResultVO.class);
     }
+
 
     @Override
     public Long findDeviceTotal() {
-        return baseMapper.findDeviceTotal();
+        return superManager.findDeviceTotal();
     }
 
     @Override
@@ -484,11 +199,11 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                 return buildFailureResult("设备不存在");
             }
 
-            DeviceResultVO device = BeanUtil.toBeanIgnoreError(deviceResultVOOptional.get(), DeviceResultVO.class);
+            DeviceResultVO device = BeanPlusUtil.toBeanIgnoreError(deviceResultVOOptional.get(), DeviceResultVO.class);
 
             // 校验认证模式
             DeviceAuthModeEnum deviceAuthMode = DeviceAuthModeEnum.fromValue(device.getAuthMode())
-                    .orElseThrow(() -> new ServiceException("无效的设备认证模式: " + device.getAuthMode()));
+                    .orElseThrow(() -> new BizException("无效的设备认证模式: " + device.getAuthMode()));
 
             if (!deviceAuthMode.getValue().equals(deviceAuthenticationQuery.getAuthMode())) {
                 log.warn("设备认证失败: 认证模式不匹配, 期望:{}, 实际:{}",
@@ -517,7 +232,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
             // 认证成功
             log.info("设备认证成功: clientIdentifier={}", clientIdentifier);
             return buildSuccessResult(device);
-        } catch (ServiceException e) {
+        } catch (BizException e) {
             log.warn("设备认证失败: {}", e.getMessage());
             return buildFailureResult(e.getMessage());
         } catch (Exception e) {
@@ -564,8 +279,8 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     private DeviceAuthenticationResultVO buildSuccessResult(DeviceResultVO device) {
         return DeviceAuthenticationResultVO.builder()
                 .certificationResult(true)
-                .deviceInfoResult(BeanUtil.toBeanIgnoreError(device, DeviceInfoResultVO.class))
-                .tenantId(AuthUtil.getTenantId())
+                .deviceInfoResult(BeanPlusUtil.toBeanIgnoreError(device, DeviceInfoResultVO.class))
+                .tenantId(ContextUtil.getTenantId())
                 .build();
     }
 
@@ -579,7 +294,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         return DeviceAuthenticationResultVO.builder()
                 .certificationResult(false)
                 .errorMessage(errorMessage)
-                .tenantId(AuthUtil.getTenantId())
+                .tenantId(ContextUtil.getTenantId())
                 .build();
     }
 
@@ -854,14 +569,14 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
             log.info("saveDevice deviceLocationSaveVO:{}", deviceLocationSaveVO);
         }
         //保存设备档案
-        baseMapper.save(device);
+        superManager.save(device);
 
         // 发布设备信息更新事件
         deviceEventPublisher.publishDeviceInfoUpdatedEvent(DeviceInfoUpdatedEventSource.builder()
                 .deviceIdentificationList(Collections.singletonList(device.getDeviceIdentification()))
                 .build());
 
-        return BeanUtil.toBeanIgnoreError(device, DeviceSaveVO.class);
+        return BeanPlusUtil.toBeanIgnoreError(device, DeviceSaveVO.class);
     }
 
     /**
@@ -877,15 +592,15 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         ProductResultVO productResultVO = checkedDeviceSaveVO(saveVO);
         // 租户一致性校验（必须是当前租户 ContextUtil）
         if (!TenantUtil.validateTenantConsistency(saveVO.getClientId())) {
-            throw new ServiceException("Tenant information does not match. No authority to operate resources.");
+            throw BizException.wrap("Tenant information does not match. No authority to operate resources.");
         }
 
-        Device device = BeanUtil.copyProperties(saveVO, Device.class);
-        device.setCreatedOrgId(AuthUtil.getCurrentDeptId());
+        Device device = BeanPlusUtil.copyProperties(saveVO, Device.class);
+        device.setCreatedOrgId(ContextUtil.getCurrentDeptId());
         fillBoundProductVersionIfBlank(device, productResultVO);
 
         //保存设备档案
-        baseMapper.save(device);
+        superManager.save(device);
         // 发布设备信息更新事件
         deviceEventPublisher.publishDeviceInfoUpdatedEvent(DeviceInfoUpdatedEventSource.builder()
                 .deviceIdentificationList(Collections.singletonList(device.getDeviceIdentification()))
@@ -908,9 +623,9 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         checkedDeviceUpdateVO(updateVO);
 
         // 从数据库查询设备信息，确保设备存在
-        Device existingDevice = baseMapper.getById(updateVO.getId());
+        Device existingDevice = superManager.getById(updateVO.getId());
         if (existingDevice == null) {
-            throw new ServiceException("Device not found for ID:{}", updateVO.getId());
+            throw BizException.wrap("Device not found for ID:{}", updateVO.getId());
         }
 
         //构建参数
@@ -920,7 +635,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         updateOrInsertDeviceLocation(updateVO, existingDevice);
 
         //更新
-        baseMapper.updateById(device);
+        superManager.updateById(device);
 
         // 发布设备信息更新事件
         deviceEventPublisher.publishDeviceInfoUpdatedEvent(DeviceInfoUpdatedEventSource.builder()
@@ -937,6 +652,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
 
         return updateVO;
     }
+
 
     /**
      * 使用 Builder 构建设备对象
@@ -961,7 +677,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
             locationVO.setDeviceIdentification(existingDevice.getDeviceIdentification());
             if (locationVO.getId() == null) {
                 deviceLocationService.saveDeviceLocation(
-                        BeanUtil.toBeanIgnoreError(locationVO, DeviceLocationSaveVO.class)
+                        BeanPlusUtil.toBeanIgnoreError(locationVO, DeviceLocationSaveVO.class)
                 );
             } else {
                 deviceLocationService.updateDeviceLocation(locationVO);
@@ -980,19 +696,19 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     public Boolean updateDeviceStatus(Long id, Integer status) {
         ArgumentAssert.notNull(id, "id Cannot be null");
         ArgumentAssert.notNull(status, "status Cannot be null");
-        Device device = baseMapper.findOneById(id);
+        Device device = superManager.findOneById(id);
         if (Objects.isNull(device)) {
-            throw new ServiceException("The device does not exist");
+            throw BizException.wrap("The device does not exist");
         }
         if (status.equals(device.getDeviceStatus())) {
-            throw new ServiceException("The device status is the same as the current status");
+            throw BizException.wrap("The device status is the same as the current status");
         }
         // 更新设备连接状态
         UpdateWrapper<Device> updateWrapper = new UpdateWrapper<>();
         updateWrapper.lambda()
                 .eq(Device::getId, device.getId())
                 .set(Device::getDeviceStatus, status);
-        return baseMapper.update(updateWrapper);
+        return superManager.update(updateWrapper);
     }
 
     /**
@@ -1005,16 +721,16 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     @Override
     public Boolean deleteDevice(Long id) {
         ArgumentAssert.notNull(id, "id Cannot be null");
-        Device device = Optional.ofNullable(baseMapper.findOneById(id))
-                .orElseThrow(() -> new ServiceException("The device does not exist"));
-        Boolean removed = baseMapper.removeById(id);
+        Device device = Optional.ofNullable(superManager.findOneById(id))
+                .orElseThrow(() -> BizException.wrap("The device does not exist"));
+        Boolean removed = superManager.removeById(id);
         if (removed) {
             // 发布设备删除事件触发下游清理(分组关系等同步监听器同事务执行);设备缓存由监听器 AFTER_COMMIT 失效。
             deviceEventPublisher.publishDeviceDeletedEvent(DeviceDeletedEventSource.builder()
                     .deviceId(device.getId())
                     .deviceIdentification(device.getDeviceIdentification())
                     .clientId(device.getClientId())
-                    .contextMap(AuthUtil.getLocalMap())
+                    .contextMap(ContextUtil.getLocalMap())
                     .build());
         }
         return removed;
@@ -1035,7 +751,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     @Override
     public DeviceResultVO findOneByClientId(String clientId) {
         ArgumentAssert.notBlank(clientId, "clientId Cannot be null");
-        Device device = baseMapper.findOneByClientId(clientId);
+        Device device = superManager.findOneByClientId(clientId);
         return BeanUtil.copyProperties(device, DeviceResultVO.class);
     }
 
@@ -1048,14 +764,14 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     @Override
     public DeviceDetailsResultVO findOneByDeviceIdentification(String deviceIdentification) {
         ArgumentAssert.notBlank(deviceIdentification, "deviceIdentification Cannot be null");
-        Device device = baseMapper.findOneByDeviceIdentification(deviceIdentification);
+        Device device = superManager.findOneByDeviceIdentification(deviceIdentification);
         if (device == null) {
-            throw new ServiceException("Device not exist");
+            throw BizException.wrap("Device not exist");
         }
 
         // 将Device转换为DeviceDetailsResultVO
         DeviceDetailsResultVO deviceDetailsResultVO =
-                BeanUtil.toBeanIgnoreError(device, DeviceDetailsResultVO.class);
+                BeanPlusUtil.toBeanIgnoreError(device, DeviceDetailsResultVO.class);
 
         // 查询产品信息，如果存在则添加到结果中
         Optional.ofNullable(device.getProductIdentification())
@@ -1082,12 +798,13 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     @Override
     public DeviceResultVO findByDeviceIdentification(String deviceIdentification) {
         ArgumentAssert.notBlank(deviceIdentification, "deviceIdentification Cannot be null");
-        Device device = baseMapper.findOneByDeviceIdentification(deviceIdentification);
+        Device device = superManager.findOneByDeviceIdentification(deviceIdentification);
         if (Objects.isNull(device)) {
-            throw new ServiceException("Device not exist");
+            throw BizException.wrap("Device not exist");
         }
-        return BeanUtil.toBean(device, DeviceResultVO.class);
+        return BeanPlusUtil.toBean(device, DeviceResultVO.class);
     }
+
 
     @Override
     public boolean updateDeviceConnectionStatusById(Long id, Integer connectionStatus) throws IllegalArgumentException {
@@ -1097,16 +814,16 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         // 校验连接状态值
         Optional<DeviceConnectStatusEnum> connectStatusEnumOptional = DeviceConnectStatusEnum.fromValue(connectionStatus);
         if (connectStatusEnumOptional.isEmpty()) {
-            throw new ServiceException("Invalid connection status value");
+            throw BizException.wrap("Invalid connection status value");
         }
 
         // 更新设备连接状态
         updateDeviceConnectionStatus(id, connectStatusEnumOptional.get());
 
         // 查询最新设备信息
-        Device device = baseMapper.findOneById(id);
+        Device device = superManager.findOneById(id);
         if (Objects.isNull(device)) {
-            throw new ServiceException("The device does not exist");
+            throw BizException.wrap("The device does not exist");
         }
 
         // 获取设备类型
@@ -1138,7 +855,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                 .lt(Device::getLastStatusEventHlc, eventHlc)
                 .set(Device::getConnectStatus, status)
                 .set(Device::getLastStatusEventHlc, eventHlc);
-        boolean affected = baseMapper.update(wrapper);
+        boolean affected = superManager.update(wrapper);
         if (!affected) {
             // CAS 拒绝 ── 老事件迟到,DB 已有更新 hlc;info 级别便于运维核查抖动 / 乱序场景
             log.info("[Device.updateByEvent] CAS rejected (stale event) clientId={} hlc={} status={}",
@@ -1151,7 +868,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
 
         // 网关设备 OFFLINE → 子设备联动 OFFLINE(与原 updateDeviceConnectionStatusById 行为一致)
         if (DeviceConnectStatusEnum.OFFLINE.getValue().equals(status)) {
-            Device device = baseMapper.lambdaQuery()
+            Device device = superManager.lambdaQuery()
                     .eq(Device::getClientId, clientId)
                     .one();
             if (device != null) {
@@ -1177,7 +894,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                 .eq(Device::getId, deviceId)
                 .set(Device::getConnectStatus, connectStatusEnum.getValue());
 
-        baseMapper.update(updateWrapper);
+        superManager.update(updateWrapper);
     }
 
     /**
@@ -1196,8 +913,9 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                 .eq(Device::getDeviceStatus, DeviceStatusEnum.ACTIVATED.getValue())
                 .set(Device::getConnectStatus, connectStatus);
 
-        baseMapper.update(updateSubDeviceWrapper);
+        superManager.update(updateSubDeviceWrapper);
     }
+
 
     /**
      * 查询设备信息VO列表
@@ -1207,8 +925,8 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
      */
     @Override
     public List<DeviceResultVO> getDeviceResultVOList(DevicePageQuery query) {
-        List<Device> deviceList = baseMapper.getDevicList(query);
-        return BeanUtil.toBeanList(deviceList, DeviceResultVO.class);
+        List<Device> deviceList = superManager.getDevicList(query);
+        return BeanPlusUtil.toBeanList(deviceList, DeviceResultVO.class);
     }
 
     /**
@@ -1220,11 +938,11 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     @Override
     public List<DeviceDetailsResultVO> getDeviceDetailsResultVOList(DevicePageQuery query) {
         // 获取设备列表
-        List<Device> deviceList = baseMapper.getDevicList(query);
+        List<Device> deviceList = superManager.getDevicList(query);
 
         List<DeviceDetailsResultVO> deviceResultVOS = Optional.ofNullable(deviceList)
                 .filter(CollUtil::isNotEmpty)
-                .map(list -> BeanUtil.toBeanList(list, DeviceDetailsResultVO.class))
+                .map(list -> BeanPlusUtil.toBeanList(list, DeviceDetailsResultVO.class))
                 .orElseGet(Collections::emptyList);
 
         if (deviceResultVOS.isEmpty()) {
@@ -1251,12 +969,13 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         return deviceResultVOS;
     }
 
+
     @Override
     public DeviceOverviewResultVO getDeviceOverview() {
-        Query params = new Query<>();
+        PageParams<DevicePageQuery> params = new PageParams<>();
         params.setModel(new DevicePageQuery());
-        DeviceOverviewResultVO resultVO = BeanUtil.toBeanIgnoreError(
-                baseMapper.selectDeviceOverview(params), DeviceOverviewResultVO.class);
+        DeviceOverviewResultVO resultVO = BeanPlusUtil.toBeanIgnoreError(
+                superManager.selectDeviceOverview(params), DeviceOverviewResultVO.class);
         // 增长指标:今日 / 近7天 / 近30天 新增设备数(按 created_time,3 次轻量 count)
         LocalDateTime todayStart = LocalDateTime.now().toLocalDate().atStartOfDay();
         resultVO.setTodayNewCount(countCreatedSince(todayStart));
@@ -1269,7 +988,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
      * 统计 created_time &gt;= since 的设备数量(逻辑删除由 MyBatis-Plus 自动过滤)。
      */
     private Integer countCreatedSince(LocalDateTime since) {
-        return Math.toIntExact(baseMapper.count(
+        return Math.toIntExact(superManager.count(
                 Wrappers.<Device>lambdaQuery().ge(Device::getCreatedTime, since)));
     }
 
@@ -1281,7 +1000,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                     .fwVersionList(Collections.emptyList())
                     .build();
         }
-        return baseMapper.selectDeviceVersionsByProduct(productIdentification)
+        return superManager.selectDeviceVersionsByProduct(productIdentification)
                 .map(deviceVersionDTO -> {
                     List<String> swVersionList = StrUtil.isNotBlank(deviceVersionDTO.getSwVersions())
                             ? Arrays.asList(deviceVersionDTO.getSwVersions().split(StrUtil.COMMA))
@@ -1299,6 +1018,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                         .fwVersionList(Collections.emptyList())
                         .build());
     }
+
 
     /**
      * MQTT协议下添加子设备
@@ -1372,17 +1092,17 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     @Override
     public DeviceDetailsResultVO getDeviceDetails(Long id) {
         if (id == null) {
-            throw new ServiceException("Device ID cannot be null");
+            throw BizException.wrap("Device ID cannot be null");
         }
 
-        Device device = baseMapper.findOneById(id);
+        Device device = superManager.findOneById(id);
         if (Objects.isNull(device)) {
-            throw new ServiceException("The device does not exist");
+            throw BizException.wrap("The device does not exist");
         }
 
         // 将Device转换为DeviceDetailsResultVO
         DeviceDetailsResultVO deviceDetailsResultVO =
-                BeanUtil.toBeanIgnoreError(device, DeviceDetailsResultVO.class);
+                BeanPlusUtil.toBeanIgnoreError(device, DeviceDetailsResultVO.class);
 
         // 查询产品信息，如果存在则添加到结果中
         Optional.ofNullable(device.getProductIdentification())
@@ -1408,14 +1128,14 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
 
     /** 获取设备详情分页信息 */
     @Override
-    public IPage<DeviceDetailsResultVO> getDeviceDetailsPage(Query params) {
+    public IPage<DeviceDetailsResultVO> getDeviceDetailsPage(PageParams<DeviceDetailsPageQuery> params) {
         // 获取设备分页信息
-        IPage<Device> deviceIPage = baseMapper.getDeviceDetailsPage(params);
+        IPage<Device> deviceIPage = superManager.getDeviceDetailsPage(params);
 
         // 将 Device 转换为 DeviceDetailsResultVO 列表（防空处理）
         List<DeviceDetailsResultVO> deviceDetailsResultVOS = Optional.ofNullable(deviceIPage.getRecords())
                 .filter(CollUtil::isNotEmpty)
-                .map(records -> BeanUtil.toBeanList(records, DeviceDetailsResultVO.class))
+                .map(records -> BeanPlusUtil.toBeanList(records, DeviceDetailsResultVO.class))
                 .orElseGet(Collections::emptyList);
 
         if (deviceDetailsResultVOS.isEmpty()) {
@@ -1462,12 +1182,12 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     @Override
     public boolean isProductInUseByDevices(String productIdentification) {
         if (StrUtil.isBlank(productIdentification)) {
-            throw new ServiceException("Product identification cannot be null or empty.");
+            throw BizException.wrap("Product identification cannot be null or empty.");
         }
 
-        Query params = new Query<>();
+        PageParams<DeviceDetailsPageQuery> params = new PageParams<>();
         params.setModel(new DeviceDetailsPageQuery().setProductIdentification(productIdentification));
-        IPage<Device> deviceIPage = baseMapper.getDeviceDetailsPage(params);
+        IPage<Device> deviceIPage = superManager.getDeviceDetailsPage(params);
         return deviceIPage != null && !deviceIPage.getRecords().isEmpty();
     }
 
@@ -1482,6 +1202,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     public TopoQueryDeviceResultVO queryDeviceByNorthbound(TopoQueryDeviceParam topoQueryDeviceParam) {
         return queryDeviceInfo(topoQueryDeviceParam);
     }
+
 
     /** 根据参数查询设备信息 */
     private TopoQueryDeviceResultVO queryDeviceInfo(TopoQueryDeviceParam topoQueryDeviceParam) {
@@ -1502,7 +1223,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                 .map(ids -> {
                     DevicePageQuery query = new DevicePageQuery();
                     query.setDeviceIdentificationList(ids);
-                    List<Device> devices = baseMapper.getDevicList(query);
+                    List<Device> devices = superManager.getDevicList(query);
                     return Optional.ofNullable(devices).orElseGet(Collections::emptyList);
                 })
                 .map(devices -> devices.stream()
@@ -1536,6 +1257,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                 .setStatusDesc("Query completed");
         return topoQueryDeviceResultVO;
     }
+
 
     private void processDeviceSubDetails(DeviceDetailsResultVO device,
                                          Map<String, ProductResultVO> productResultVOMap,
@@ -1606,6 +1328,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                 .orElseGet(Collections::emptyMap);
     }
 
+
     /**
      * 批量查询所有网关设备的子设备（解决N+1查询问题）
      */
@@ -1645,6 +1368,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         return deviceLocationResultVOList.isEmpty() ? Optional.empty() : Optional.of(deviceLocationResultVOList.get(0));
     }
 
+
     /**
      * 单设备详情页拉产品信息 ── 走 {@link LinkCacheDataHelper#getProductCacheVO} 缓存路径
      * (read-through DB 兜底),避免每次详情请求都直查 DB。
@@ -1654,8 +1378,9 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
      */
     private Optional<ProductResultVO> queryProductInfo(String productIdentification) {
         return linkCacheDataHelper.getProductCacheVO(productIdentification)
-                .map(p -> BeanUtil.toBeanIgnoreError(p, ProductResultVO.class));
+                .map(p -> BeanPlusUtil.toBeanIgnoreError(p, ProductResultVO.class));
     }
+
 
     private TopoDeviceOperationResultVO deviceDataReport(TopoDeviceDataReportParam topoDeviceDataReportParam) {
         // 您的处理逻辑
@@ -1681,7 +1406,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                 .map(ids -> {
                     DevicePageQuery query = new DevicePageQuery();
                     query.setDeviceIdentificationList(ids);
-                    List<Device> devices = baseMapper.getDevicList(query);
+                    List<Device> devices = superManager.getDevicList(query);
                     return Optional.ofNullable(devices).orElseGet(Collections::emptyList);
                 })
                 .map(devices -> devices.stream()
@@ -1698,7 +1423,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                     Optional.ofNullable(deviceMap.get(deviceId))
                             .ifPresentOrElse(
                                     subDevice -> {
-                                        boolean deleteFlag = baseMapper.removeById(subDevice);
+                                        boolean deleteFlag = superManager.removeById(subDevice);
                                         if (deleteFlag) {
                                             // 子设备 MQTT 拓扑删除路径：与 deleteDevice(Long) 共用事件，
                                             // 由各下游同步监听器在同一事务清理残留引用。
@@ -1706,7 +1431,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                                                     .deviceId(subDevice.getId())
                                                     .deviceIdentification(subDevice.getDeviceIdentification())
                                                     .clientId(subDevice.getClientId())
-                                                    .contextMap(AuthUtil.getLocalMap())
+                                                    .contextMap(ContextUtil.getLocalMap())
                                                     .build());
                                         }
                                         MqttProtocolTopoStatusEnum statusEnum = deleteFlag
@@ -1745,7 +1470,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
 
     /** 处理单个子设备的状态:更新并记录动作。 */
     private TopoDeviceOperationResultVO.OperationRsp processSubDeviceStatus(TopoUpdateSubDeviceStatusParam.DeviceStatus subDeviceStatus) {
-        Device subDevice = baseMapper.findOneByDeviceIdentification(subDeviceStatus.getDeviceId());
+        Device subDevice = superManager.findOneByDeviceIdentification(subDeviceStatus.getDeviceId());
         TopoDeviceOperationResultVO.OperationRsp dataItem = new TopoDeviceOperationResultVO.OperationRsp()
                 .setDeviceId(subDeviceStatus.getDeviceId());
 
@@ -1756,7 +1481,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                     .eq(Device::getId, subDevice.getId())
                     .set(Device::getConnectStatus, subDeviceStatus.getStatus().getValue())
                     .set(Device::getLastHeartbeatTime, LocalDateTime.now());
-            boolean updateFlag = baseMapper.update(updateWrapper);
+            boolean updateFlag = superManager.update(updateWrapper);
             recordDeviceAction(subDevice, subDeviceStatus.getStatus());
 
             MqttProtocolTopoStatusEnum updateStatusEnum = updateFlag ? MqttProtocolTopoStatusEnum.SUCCESS : MqttProtocolTopoStatusEnum.FAILURE;
@@ -1814,10 +1539,11 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         }
     }
 
+
     /** 添加网关子设备 */
     private TopoAddDeviceResultVO saveSubDevice(TopoAddSubDeviceParam topoAddSubDeviceParam) {
         // 根据网关ID查找设备
-        Device gatewayDevice = baseMapper.findOneByDeviceIdentification(topoAddSubDeviceParam.getGatewayIdentification());
+        Device gatewayDevice = superManager.findOneByDeviceIdentification(topoAddSubDeviceParam.getGatewayIdentification());
 
         // 假设 gatewayDevice.getType() 方法返回设备类型，且 DeviceType.GATEWAY 代表网关设备类型
         MqttProtocolTopoStatusEnum statusEnum = (gatewayDevice != null && DeviceNodeTypeEnum.GATEWAY.getValue().equals(gatewayDevice.getNodeType()))
@@ -1853,7 +1579,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
 
                     // 转换并保存子设备信息
                     Device subDeviceDO = conversionDeviceBySaveSubDevice(gatewayDevice, item);
-                    boolean saveFlag = baseMapper.save(subDeviceDO);
+                    boolean saveFlag = superManager.save(subDeviceDO);
 
                     // 存储子设备经纬度信息
                     DeviceLocationPageQuery deviceLocationPageQuery = new DeviceLocationPageQuery();
@@ -1864,7 +1590,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                     Optional.ofNullable(deviceLocationResultVOList)
                             .filter(list -> !list.isEmpty())
                             .map(list -> list.get(0))
-                            .map(deviceLocationResultVO -> BeanUtil.toBeanIgnoreError(deviceLocationResultVO, DeviceLocationSaveVO.class))
+                            .map(deviceLocationResultVO -> BeanPlusUtil.toBeanIgnoreError(deviceLocationResultVO, DeviceLocationSaveVO.class))
                             .ifPresent(deviceLocationSaveVO -> {
                                 deviceLocationSaveVO.setDeviceIdentification(subDeviceDO.getDeviceIdentification());
                                 deviceLocationService.saveDeviceLocation(deviceLocationSaveVO);
@@ -1902,11 +1628,12 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         return mqttTopoAddDeviceResultVO;
     }
 
+
     /** 验证 Topo 添加设备参数,并设置对应的状态码和状态描述。 */
     private void checkedTopoAddDeviceParam(TopoAddSubDeviceParam.DeviceInfos item,
                                            TopoAddDeviceResultVO.DataItem dataItem) {
         // 根据设备标识查找子设备
-        Device subDevice = baseMapper.findOneByDeviceIdentification(item.getNodeId());
+        Device subDevice = superManager.findOneByDeviceIdentification(item.getNodeId());
         // 用于拼接错误消息的StringBuilder
         StringBuilder errorMessage = new StringBuilder();
 
@@ -1938,6 +1665,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         }
     }
 
+
     /** 网关子设备转换为 Device DO */
     private Device conversionDeviceBySaveSubDevice(Device gatewayDevice, TopoAddSubDeviceParam.DeviceInfos item) {
         Device device = new Device();
@@ -1953,6 +1681,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         // TODO 产品关联处理,支持多产品关联默认不关联网关设备产品
         return device;
     }
+
 
     private Builder<Device> builderDeviceUpdateVO(DeviceUpdateVO updateVO) {
 
@@ -1978,7 +1707,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                 .with(Device::setProductIdentification, updateVO.getProductIdentification())
                 .with(Device::setNodeType, updateVO.getNodeType())
                 .with(Device::setRemark, updateVO.getRemark())
-                .with(Device::setCreatedOrgId, AuthUtil.getCurrentDeptId());
+                .with(Device::setCreatedOrgId, ContextUtil.getCurrentDeptId());
     }
 
     /**
@@ -1988,12 +1717,12 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
      * @param productResultVO 已校验通过的产品信息(用于回填 boundProductVersionNo)
      */
     private Device builderDeviceSaveVO(DeviceSaveVO saveVO, ProductResultVO productResultVO) {
-        Device device = BeanUtil.copyProperties(saveVO, Device.class);
+        Device device = BeanPlusUtil.copyProperties(saveVO, Device.class);
         //设备clientId 生成规则: 唯一标识 + @ + 租户ID
-        device.setClientId(TenantUtil.buildOptionalItem(SnowflakeIdUtil.nextId(), AuthUtil.getTenantIdStr()));
+        device.setClientId(TenantUtil.buildOptionalItem(SnowflakeIdUtil.nextId(), ContextUtil.getTenantIdStr()));
         //设备标识生成规则: 雪花算法生成
         device.setDeviceIdentification(String.valueOf(SnowflakeIdUtil.nextId()));
-        device.setCreatedOrgId(AuthUtil.getCurrentDeptId());
+        device.setCreatedOrgId(ContextUtil.getCurrentDeptId());
         fillBoundProductVersionIfBlank(device, productResultVO);
         return device;
     }
@@ -2058,11 +1787,11 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         //设备状态
         ArgumentAssert.notNull(saveVO.getDeviceStatus(), "deviceStatus Cannot be null");
         if (!DeviceStatusEnum.ALL_STATE_COLLECTION.contains(saveVO.getDeviceStatus())) {
-            throw new ServiceException("DeviceStatusEnum is not exist");
+            throw BizException.wrap("DeviceStatusEnum is not exist");
         }
 
         //设备类型
-        DeviceNodeTypeEnum.fromValue(saveVO.getNodeType()).orElseThrow(() -> new ServiceException("deviceNodeType is not exist"));
+        DeviceNodeTypeEnum.fromValue(saveVO.getNodeType()).orElseThrow(() -> BizException.wrap("deviceNodeType is not exist"));
 
         //子设备校验：如果是子设备，网关设备ID不能为空
         if (DeviceNodeTypeEnum.SUBDEVICE.getValue().equals(saveVO.getNodeType())) {
@@ -2105,11 +1834,11 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         //设备状态
         ArgumentAssert.notNull(updateVO.getDeviceStatus(), "deviceStatus Cannot be null");
         if (!DeviceStatusEnum.ALL_STATE_COLLECTION.contains(updateVO.getDeviceStatus())) {
-            throw new ServiceException("DeviceStatusEnum is not exist");
+            throw BizException.wrap("DeviceStatusEnum is not exist");
         }
 
         //设备类型
-        DeviceNodeTypeEnum.fromValue(updateVO.getNodeType()).orElseThrow(() -> new ServiceException("deviceNodeType is not exist"));
+        DeviceNodeTypeEnum.fromValue(updateVO.getNodeType()).orElseThrow(() -> BizException.wrap("deviceNodeType is not exist"));
 
         //子设备校验：如果是子设备，网关设备ID不能为空
         if (DeviceNodeTypeEnum.SUBDEVICE.getValue().equals(updateVO.getNodeType())) {
@@ -2123,12 +1852,13 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
 
     }
 
+
     @Override
     public Boolean reportDeviceHeartbeat(String clientIdentifier, Long heartbeatTime, Long eventHlc) {
         //根据客户端标识符查询设备缓存信息
-        Device device = baseMapper.findOneByClientId(clientIdentifier);
+        Device device = superManager.findOneByClientId(clientIdentifier);
         if (Objects.isNull(device)) {
-            throw new ServiceException("客户端标识:{} 设备档案信息不存在", clientIdentifier);
+            throw BizException.wrap("客户端标识:{} 设备档案信息不存在", clientIdentifier);
         }
         try {
             // 1. 心跳时间:无条件更新(每条心跳都续 last_heartbeat_time)
@@ -2138,7 +1868,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
                     ? DateUtil.date(heartbeatTime).toLocalDateTime()
                     : LocalDateTime.now();
             updateDO.setLastHeartbeatTime(heartbeatDateTime);
-            baseMapper.updateById(updateDO);
+            superManager.updateById(updateDO);
             // 2. 在线状态:走 eventHlc HLC CAS 单调写置 ONLINE(替代原直写,防迟到/乱序事件把已离线翻回在线);
             //    eventHlc 缺失/非法则不动状态,交由其它带 hlc 的生命周期事件维护(CONNECT/DISCONNECT 等)。
             //    类级 @DS/@Transactional 覆盖,内部 this 调用同数据源、同事务。
@@ -2154,20 +1884,20 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
 
     @Override
     public Long countByCertSerialNumber(String certSerialNumber) {
-        return baseMapper.count(new LambdaQueryWrapper<Device>()
+        return superManager.count(Wraps.<Device>lbQ()
                 .eq(Device::getCertSerialNumber, certSerialNumber));
     }
 
     @Override
     public Long countOnlineByCertSerialNumber(String certSerialNumber) {
-        return baseMapper.count(new LambdaQueryWrapper<Device>()
+        return superManager.count(Wraps.<Device>lbQ()
                 .eq(Device::getCertSerialNumber, certSerialNumber)
                 .eq(Device::getConnectStatus, DeviceConnectStatusEnum.ONLINE.getValue()));
     }
 
     @Override
     public List<Device> listTopBoundDevicesByCertSerialNumber(String certSerialNumber, int limit) {
-        return baseMapper.list(new LambdaQueryWrapper<Device>()
+        return superManager.list(Wraps.<Device>lbQ()
                 .eq(Device::getCertSerialNumber, certSerialNumber)
                 .orderByDesc(Device::getLastHeartbeatTime)
                 .last("LIMIT " + limit));
@@ -2183,26 +1913,26 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     @Override
     public int bulkRebindByIdentificationsIncludingSubDevices(List<String> rootIdentifications,
                                                               String productIdentification, String toVersion) {
-        int affected = baseMapper.bulkRebindByIdentificationsIncludingSubDevices(
+        int affected = superManager.bulkRebindByIdentificationsIncludingSubDevices(
                 rootIdentifications, productIdentification, toVersion);
         // 灰度按网关粒度改绑会连带子设备(未在 rootIdentifications 内),按 productIdentification 失效缓存以覆盖全部
         deviceEventPublisher.publishDeviceRebindEvent(DeviceRebindEventSource.builder()
                 .productIdentification(productIdentification)
                 .toVersion(toVersion)
-                .contextMap(AuthUtil.getLocalMap())
+                .contextMap(ContextUtil.getLocalMap())
                 .build());
         return affected;
     }
 
     @Override
     public int bulkRebindByIds(List<Long> ids, List<String> identifications, String toVersion) {
-        int affected = baseMapper.bulkRebindByIds(ids, toVersion);
+        int affected = superManager.bulkRebindByIds(ids, toVersion);
         // 仅失效本批标识缓存(按 identifications 精确失效,避免按产品列全量再逐个失效的放大)
         if (CollUtil.isNotEmpty(identifications)) {
             deviceEventPublisher.publishDeviceRebindEvent(DeviceRebindEventSource.builder()
                     .deviceIdentifications(identifications)
                     .toVersion(toVersion)
-                    .contextMap(AuthUtil.getLocalMap())
+                    .contextMap(ContextUtil.getLocalMap())
                     .build());
         }
         return affected;
@@ -2210,12 +1940,12 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
 
     @Override
     public int bulkRebindByProductAndVersion(String productIdentification, String fromVersion, String toVersion) {
-        int affected = baseMapper.bulkRebindByProductAndVersion(productIdentification, fromVersion, toVersion);
+        int affected = superManager.bulkRebindByProductAndVersion(productIdentification, fromVersion, toVersion);
         // 回滚 / 灰度晋升改绑:发改绑事件,监听器失效该产品下设备缓存
         deviceEventPublisher.publishDeviceRebindEvent(DeviceRebindEventSource.builder()
                 .productIdentification(productIdentification)
                 .toVersion(toVersion)
-                .contextMap(AuthUtil.getLocalMap())
+                .contextMap(ContextUtil.getLocalMap())
                 .build());
         return affected;
     }
@@ -2223,7 +1953,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     @Override
     public int switchBoundProductVersion(String productIdentification, List<String> deviceIdentifications, String targetVersionNo) {
         if (StrUtil.isBlank(productIdentification) || CollUtil.isEmpty(deviceIdentifications) || StrUtil.isBlank(targetVersionNo)) {
-            throw new ServiceException("切换设备绑定版本参数不完整:productIdentification / deviceIdentifications / targetVersionNo 均必填");
+            throw BizException.wrap("切换设备绑定版本参数不完整:productIdentification / deviceIdentifications / targetVersionNo 均必填");
         }
         assertSwitchableTargetVersion(productIdentification, targetVersionNo);
         // 复用现成"按标识改绑(连带子设备)"链路:UPDATE 收口 product_identification,改绑后发 DeviceRebindEvent 失效缓存
@@ -2240,7 +1970,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     /**
      * 校验"设备绑定目标版本"可用:须存在于该产品,且处于 已发布/灰度/影子 状态 ── 仅这些状态的 TD 超表已建好,
      * 绑过去才有表可写;DRAFT 未建表、ROLLED_BACK/ARCHIVED 可能已被 purge 清理(drop stable),绑过去上报会
-     * 建子表失败 / 落空表。不合法抛 {@link ServiceException}。新建 / 编辑 / 切换三处复用同一校验口径。
+     * 建子表失败 / 落空表。不合法抛 {@link BizException}。新建 / 编辑 / 切换三处复用同一校验口径。
      *
      * @param productIdentification 产品标识
      * @param versionNo             目标版本号
@@ -2249,7 +1979,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         Integer versionStatus = productVersionQueryService
                 .findByProductIdentificationAndVersionNo(productIdentification, versionNo)
                 .map(ProductVersion::getVersionStatus)
-                .orElseThrow(() -> new ServiceException(
+                .orElseThrow(() -> BizException.wrap(
                         "目标版本不存在:productIdentification=" + productIdentification + ", versionNo=" + versionNo));
         boolean switchable = ProductVersionStatusEnum.PUBLISHED.getValue().equals(versionStatus)
                 || ProductVersionStatusEnum.CANARY.getValue().equals(versionStatus)
@@ -2257,7 +1987,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         if (!switchable) {
             String desc = ProductVersionStatusEnum.fromValue(versionStatus)
                     .map(ProductVersionStatusEnum::getDesc).orElse(String.valueOf(versionStatus));
-            throw new ServiceException("目标版本状态不可切换(需 已发布/灰度/影子,当前=" + desc + "):versionNo=" + versionNo);
+            throw BizException.wrap("目标版本状态不可切换(需 已发布/灰度/影子,当前=" + desc + "):versionNo=" + versionNo);
         }
     }
 
@@ -2267,7 +1997,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         long total = 0L;
         if (StrUtil.isNotBlank(productIdentification)) {
             // 一次分组统计该产品下各 bound_product_version_no 的设备数(MyBatis-Plus listMaps 自动带逻辑删除条件)
-            List<Map<String, Object>> rows = baseMapper.listMaps(
+            List<Map<String, Object>> rows = superManager.listMaps(
                     Wrappers.<Device>query()
                             .select("bound_product_version_no AS versionNo", "COUNT(*) AS deviceCount")
                             .eq("product_identification", productIdentification)

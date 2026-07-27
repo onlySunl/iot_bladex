@@ -1,84 +1,51 @@
 package org.springblade.modules.iot.productversion.publish.orchestrator;
 
 import java.time.LocalDateTime;
-import org.springblade.common.utils.DateUtil;
 import java.time.format.DateTimeFormatter;
-import org.springblade.common.utils.DateUtil;
 import java.util.ArrayList;
-import org.springblade.common.utils.DateUtil;
 import java.util.Collections;
-import org.springblade.common.utils.DateUtil;
 import java.util.EnumMap;
-import org.springblade.common.utils.DateUtil;
 import java.util.List;
-import org.springblade.common.utils.DateUtil;
 import java.util.Map;
-import org.springblade.common.utils.DateUtil;
 import java.util.Optional;
-import org.springblade.common.utils.DateUtil;
 import java.util.concurrent.atomic.AtomicInteger;
-import org.springblade.common.utils.DateUtil;
 
 import cn.hutool.core.collection.CollUtil;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.core.tool.api.R;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.modules.iot.tds.constant.TdsConstants;
+import org.springblade.modules.iot.tds.enumeration.TdDataTypeEnum;
+import org.springblade.modules.iot.tds.model.FieldsVO;
+import org.springblade.modules.iot.tds.model.SuperTableDTO;
 import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.cache.product.ProductModelCacheService;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.service.DeviceService;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.vo.result.DeviceVersionDistributionVO;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.product.enumeration.ProductTypeEnum;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productpublishrecord.entity.ProductPublishRecord;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productpublishrecord.enumeration.ProductPublishRecordIntentEnum;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productpublishrecord.enumeration.ProductPublishRecordStatusEnum;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productpublishrecord.enumeration.PublishDdlOperationEnum;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productpublishrecord.service.ProductPublishRecordService;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productpublishrecord.vo.ddl.PublishDdlItemVO;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productpublishrecord.vo.result.StrategyResultDTO;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productversion.converter.ProductSnapshotConverter;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productversion.entity.ProductVersion;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productversion.vo.canary.CanaryConfigDTO;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productversion.enumeration.ProductPublishStrategyEnum;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productversion.event.source.ProductVersionLifecycleEventSource;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productversion.publish.strategy.DeviceRebindStrategy;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productversion.publish.util.TdSchemaInspector;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productversion.publish.util.TdSchemaInspector.SchemaSnapshot;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productversion.service.ProductVersionService;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productversion.util.ProductTdsNamer;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productversion.vo.snapshot.ProductSnapshotPropertyVO;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productversion.vo.snapshot.ProductSnapshotServiceVO;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productversion.vo.snapshot.ProductSnapshotVO;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.tds.facade.TdsFacade;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.tds.vo.result.SuperTableDescribeVO;
-import org.springblade.common.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.common.utils.DateUtil;
 import org.springframework.stereotype.Service;
-import org.springblade.common.utils.DateUtil;
 
 /**
  * 产品版本发布编排器 ── 把 publish / rollback / purge 三种生命周期动作统一收口:schema sync 编排 /
@@ -540,7 +507,7 @@ public class ProductVersionPublishOrchestrator {
     /**
      * 把快照 service 转成 TD createSuperTable 用的 DTO,末尾做行级字节预校验。单字段 NCHAR/BINARY 字符数
      * cap 到 {@value #TD_VAR_MAX_CHARS}(超出截断 + warn,避免单字段 maxlength 过大让整张 stable 创建失败);
-     * 所有 schema 字段累加字节数若超过 {@link TdSchemaInspector#TD_ROW_MAX_BYTES} 直接抛 {@link ServiceException}
+     * 所有 schema 字段累加字节数若超过 {@link TdSchemaInspector#TD_ROW_MAX_BYTES} 直接抛 {@link BizException}
      * 提示哪些字段超量,避免 TDengine 端报 "Row length exceeds max length" 这种难懂错误。
      *
      * @param stableName 超表名
@@ -604,7 +571,7 @@ public class ProductVersionPublishOrchestrator {
                 a[2] == null ? "" : "(" + a[2] + ")", a[3]))
             .reduce((x, y) -> x + ", " + y)
             .orElse("");
-        throw new ServiceException(String.format(
+        throw BizException.wrap(String.format(
             "服务 '%s' 字段总长度 %d 字节,超过 TDengine 单行上限 %d 字节(NCHAR 占 4 字节/字符)。"
                 + "请缩短 NCHAR 字段的 maxlength。占用 Top 3:%s",
             service.getServiceCode(), total, TdSchemaInspector.TD_ROW_MAX_BYTES, topOffenders));

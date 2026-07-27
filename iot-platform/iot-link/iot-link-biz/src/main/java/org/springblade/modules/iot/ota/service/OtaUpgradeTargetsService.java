@@ -10,6 +10,7 @@ import org.springblade.modules.iot.ota.enumeration.OtaUpgradeTargetStatusEnum;
 import org.springblade.modules.iot.ota.vo.query.OtaUpgradeTargetsPageQuery;
 import org.springblade.modules.iot.ota.vo.save.OtaUpgradeTargetsSaveVO;
 
+
 /**
  * <p>
  * 业务接口
@@ -20,7 +21,7 @@ import org.springblade.modules.iot.ota.vo.save.OtaUpgradeTargetsSaveVO;
  * @date 2025-10-19 16:28:50
  * @create [2025-10-19 16:28:50] [mqttsnet] [代码生成器生成]
  */
-public interface OtaUpgradeTargetsService extends BaseService<OtaUpgradeTargets> {
+public interface OtaUpgradeTargetsService extends SuperService<Long, OtaUpgradeTargets> {
     /**
      * 批量保存OTA升级目标
      *

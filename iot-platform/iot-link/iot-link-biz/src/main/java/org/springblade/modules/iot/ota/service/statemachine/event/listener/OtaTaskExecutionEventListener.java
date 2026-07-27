@@ -17,7 +17,7 @@ import org.springblade.modules.iot.ota.service.statemachine.event.OtaTaskExecuti
 import org.springblade.modules.iot.ota.service.statemachine.event.handler.OtaTaskExecutionHandler;
 import org.springblade.modules.iot.ota.service.statemachine.event.source.OtaTaskExecutionEventSource;
 import org.springblade.modules.iot.utils.ota.OtaUpgradeFileUtils;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class OtaTaskExecutionEventListener {
 
     private final OtaTaskExecutionHandler otaTaskExecutionHandler;
@@ -77,6 +77,7 @@ public class OtaTaskExecutionEventListener {
         }
         deviceIdentificationList.forEach(deviceIdentification -> otaTaskExecutionHandler.processDeviceUpgrade(deviceIdentification, task, upgradePackage, fileInfoMap));
     }
+
 
     /**
      * 获取升级包文件信息

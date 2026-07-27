@@ -1,60 +1,35 @@
 package org.springblade.modules.iot.productcommandrequest.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.util.ReUtil;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Optional;
-import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.mp.base.BaseServiceImpl;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.secure.utils.AuthUtil;
 import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.common.utils.BeanUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.DsConstant;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.constant.ThingModelCodeRule;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.event.publisher.ProductEventPublisher;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.event.source.ProductModelChangedSource;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.service.ProductQueryService;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommandrequest.entity.ProductCommandRequest;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommandrequest.manager.ProductCommandRequestManager;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommandrequest.service.ProductCommandRequestService;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommandrequest.vo.result.ProductCommandRequestResultVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommandrequest.vo.save.ProductCommandRequestSaveVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommandrequest.vo.update.ProductCommandRequestUpdateVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productservice.service.ProductServiceService;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversionchangelog.enumeration.ProductChangeTargetTypeEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversionchangelog.enumeration.ProductVersionChangeTypeEnum;
-import org.springblade.core.log.exception.ServiceException;
-import lombok.AllArgsConstructor;
-import org.springblade.core.log.exception.ServiceException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.core.log.exception.ServiceException;
 import org.springframework.stereotype.Service;
-import org.springblade.core.log.exception.ServiceException;
 import org.springframework.transaction.annotation.Transactional;
-import org.springblade.core.log.exception.ServiceException;
 
 import java.util.List;
-import org.springblade.core.log.exception.ServiceException;
 
 /**
  * <p>
@@ -66,11 +41,12 @@ import org.springblade.core.log.exception.ServiceException;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class ProductCommandRequestServiceImpl extends BaseServiceImpl<ProductCommandRequestMapper, ProductCommandRequest> implements ProductCommandRequestService {
+public class ProductCommandRequestServiceImpl extends SuperServiceImpl<ProductCommandRequestManager, Long, ProductCommandRequest> implements ProductCommandRequestService {
 
     private final ProductServiceService productServiceService;
     /**
@@ -94,7 +70,7 @@ public class ProductCommandRequestServiceImpl extends BaseServiceImpl<ProductCom
         //构建参数
         ProductCommandRequest productCommandRequest = builderProductCommandRequestSaveVO(saveVO);
         //更新
-        baseMapper.save(productCommandRequest);
+        superManager.save(productCommandRequest);
         publishChange(ProductVersionChangeTypeEnum.CREATE, null, productCommandRequest, "新增命令请求参数「" + productCommandRequest.getParameterName() + "」");
         return productCommandRequest;
     }
@@ -110,12 +86,12 @@ public class ProductCommandRequestServiceImpl extends BaseServiceImpl<ProductCom
         log.info("updateProductCommandRequest updateVO:{}", updateVO);
         //校验参数
         checkedProductCommandRequestUpdateVO(updateVO);
-        ProductCommandRequest before = baseMapper.getById(updateVO.getId());
+        ProductCommandRequest before = superManager.getById(updateVO.getId());
         //构建参数
-        ProductCommandRequest productCommandRequest = BeanUtil.toBeanIgnoreError(updateVO, ProductCommandRequest.class);
+        ProductCommandRequest productCommandRequest = BeanPlusUtil.toBeanIgnoreError(updateVO, ProductCommandRequest.class);
         //更新
-        baseMapper.updateById(productCommandRequest);
-        ProductCommandRequest after = baseMapper.getById(updateVO.getId());
+        superManager.updateById(productCommandRequest);
+        ProductCommandRequest after = superManager.getById(updateVO.getId());
         publishChange(ProductVersionChangeTypeEnum.UPDATE, before, after, "编辑命令请求参数「" + (after != null ? after.getParameterName() : updateVO.getParameterName()) + "」");
         return productCommandRequest;
     }
@@ -123,18 +99,18 @@ public class ProductCommandRequestServiceImpl extends BaseServiceImpl<ProductCom
     @Override
     public Boolean deleteProductCommandRequest(Long id) {
         ArgumentAssert.notNull(id, "id Cannot be null");
-        ProductCommandRequest productCommandRequest = baseMapper.getById(id);
+        ProductCommandRequest productCommandRequest = superManager.getById(id);
         if (null == productCommandRequest) {
-            throw new ServiceException("The productCommandRequest does not exist");
+            throw BizException.wrap("The productCommandRequest does not exist");
         }
-        boolean result = baseMapper.removeById(id);
+        boolean result = superManager.removeById(id);
         publishChange(ProductVersionChangeTypeEnum.DELETE, productCommandRequest, null, "删除命令请求参数「" + productCommandRequest.getParameterName() + "」");
         return result;
     }
 
     @Override
     public List<ProductCommandRequestResultVO> selectCommandRequests(List<Long> commandIds) {
-        return BeanUtil.toBeanList(baseMapper.selectCommandRequests(commandIds), ProductCommandRequestResultVO.class);
+        return BeanPlusUtil.toBeanList(superManager.selectCommandRequests(commandIds), ProductCommandRequestResultVO.class);
     }
 
     /**
@@ -152,11 +128,11 @@ public class ProductCommandRequestServiceImpl extends BaseServiceImpl<ProductCom
         ArgumentAssert.notBlank(saveVO.getParameterCode(), "parameterCode Cannot be null");
         //校验编码命名规范
         if (!ReUtil.isMatch(ThingModelCodeRule.PATTERN, saveVO.getParameterCode())) {
-            throw new ServiceException(ThingModelCodeRule.PATTERN_MSG);
+            throw BizException.wrap(ThingModelCodeRule.PATTERN_MSG);
         }
         //校验CODE
-        if (CollUtil.isNotEmpty(baseMapper.checkCode(saveVO.getServiceId(), saveVO.getCommandId(), saveVO.getParameterCode()))) {
-            throw new ServiceException("parameterCode already exists");
+        if (CollUtil.isNotEmpty(superManager.checkCode(saveVO.getServiceId(), saveVO.getCommandId(), saveVO.getParameterCode()))) {
+            throw BizException.wrap("parameterCode already exists");
         }
         ArgumentAssert.notBlank(saveVO.getParameterName(), "parameterName Cannot be null");
     }
@@ -168,8 +144,8 @@ public class ProductCommandRequestServiceImpl extends BaseServiceImpl<ProductCom
      * @return
      */
     private ProductCommandRequest builderProductCommandRequestSaveVO(ProductCommandRequestSaveVO saveVO) {
-        saveVO.setCreatedOrgId(AuthUtil.getCurrentDeptId());
-        return BeanUtil.toBeanIgnoreError(saveVO, ProductCommandRequest.class);
+        saveVO.setCreatedOrgId(ContextUtil.getCurrentDeptId());
+        return BeanPlusUtil.toBeanIgnoreError(saveVO, ProductCommandRequest.class);
     }
 
     private void publishChange(ProductVersionChangeTypeEnum changeType, ProductCommandRequest before, ProductCommandRequest after, String summary) {
@@ -185,8 +161,8 @@ public class ProductCommandRequestServiceImpl extends BaseServiceImpl<ProductCom
                                 .productIdentification(pid)
                                 .changeType(changeType)
                                 .targetType(ProductChangeTargetTypeEnum.COMMAND)
-                                .before(before == null ? null : BeanUtil.toBeanIgnoreError(before, ProductCommandRequestResultVO.class))
-                                .after(after == null ? null : BeanUtil.toBeanIgnoreError(after, ProductCommandRequestResultVO.class))
+                                .before(before == null ? null : BeanPlusUtil.toBeanIgnoreError(before, ProductCommandRequestResultVO.class))
+                                .after(after == null ? null : BeanPlusUtil.toBeanIgnoreError(after, ProductCommandRequestResultVO.class))
                                 .changeSummary(summary)
                                 .build()));
     }
@@ -207,18 +183,19 @@ public class ProductCommandRequestServiceImpl extends BaseServiceImpl<ProductCom
         ArgumentAssert.notBlank(updateVO.getParameterCode(), "parameterCode Cannot be null");
         //校验编码命名规范
         if (!ReUtil.isMatch(ThingModelCodeRule.PATTERN, updateVO.getParameterCode())) {
-            throw new ServiceException(ThingModelCodeRule.PATTERN_MSG);
+            throw BizException.wrap(ThingModelCodeRule.PATTERN_MSG);
         }
         ArgumentAssert.notBlank(updateVO.getParameterName(), "parameterName Cannot be null");
         //校验CODE
-        List<ProductCommandRequest> productCommandRequests = baseMapper.checkCode(updateVO.getServiceId(), updateVO.getCommandId(), updateVO.getParameterCode());
+        List<ProductCommandRequest> productCommandRequests = superManager.checkCode(updateVO.getServiceId(), updateVO.getCommandId(), updateVO.getParameterCode());
         productCommandRequests.stream()
                 .filter(productCommandRequest -> !productCommandRequest.getId().equals(updateVO.getId()))
                 .findAny()
                 .ifPresent(productProperty -> {
-                    throw new ServiceException("parameterCode already exists");
+                    throw BizException.wrap("parameterCode already exists");
                 });
     }
 
 }
+
 

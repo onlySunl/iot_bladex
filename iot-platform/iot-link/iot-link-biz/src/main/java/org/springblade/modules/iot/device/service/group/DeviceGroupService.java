@@ -7,6 +7,7 @@ import org.springblade.modules.iot.device.entity.group.DeviceGroup;
 import org.springblade.modules.iot.device.vo.query.group.DeviceGroupPageQuery;
 import org.springblade.modules.iot.device.vo.result.group.DeviceGroupResultVO;
 
+
 /**
  * <p>
  * 业务接口
@@ -17,7 +18,7 @@ import org.springblade.modules.iot.device.vo.result.group.DeviceGroupResultVO;
  * @date 2025-06-19 18:05:14
  * @create [2025-06-19 18:05:14] [mqttsnet]
  */
-public interface DeviceGroupService extends BaseService<DeviceGroup> {
+public interface DeviceGroupService extends SuperService<Long, DeviceGroup> {
 
     /**
      * 查询树结构
@@ -27,6 +28,7 @@ public interface DeviceGroupService extends BaseService<DeviceGroup> {
      */
     List<DeviceGroupResultVO> findTree(DeviceGroupPageQuery query);
 
+
     /**
      * 获取设备分组结果VO列表
      *
@@ -35,4 +37,5 @@ public interface DeviceGroupService extends BaseService<DeviceGroup> {
      */
     List<DeviceGroupResultVO> getDeviceGroupResultVOList(DeviceGroupPageQuery query);
 }
+
 

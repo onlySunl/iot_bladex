@@ -45,6 +45,7 @@ import org.springframework.context.annotation.Lazy;
 @Slf4j
 public abstract class BaseOtaUpgradeAction implements Action<OtaUpgradeTaskStatusEnum, OtaUpgradeEventEnum, OtaUpgradeContext> {
 
+
     @Lazy
     @Autowired
     protected OtaUpgradeTasksService otaUpgradeTasksService;
@@ -187,6 +188,7 @@ public abstract class BaseOtaUpgradeAction implements Action<OtaUpgradeTaskStatu
                 .collect(Collectors.toList());
     }
 
+
     /**
      * 创建升级记录
      *
@@ -200,7 +202,7 @@ public abstract class BaseOtaUpgradeAction implements Action<OtaUpgradeTaskStatu
         Optional<OtaUpgradeRecordsResultVO> existingRecordOpt = otaUpgradeRecordsService.getByTaskIdAndDeviceIdentification(context.getTaskId(), device.getDeviceIdentification());
         if (existingRecordOpt.isPresent()) {
             log.info("设备标识: {} 升级记录已存在 - 任务ID: {}", device.getDeviceIdentification(), context.getTaskId());
-            return Optional.of(BeanUtil.toBeanIgnoreError(existingRecordOpt.get(), OtaUpgradeRecordsResultDTO.class));
+            return Optional.of(BeanPlusUtil.toBeanIgnoreError(existingRecordOpt.get(), OtaUpgradeRecordsResultDTO.class));
         }
         OtaUpgradeRecords record = new OtaUpgradeRecords();
         record.setUpgradeId(context.getUpgradeTaskId());
@@ -216,7 +218,7 @@ public abstract class BaseOtaUpgradeAction implements Action<OtaUpgradeTaskStatu
         }
         OtaUpgradeRecords savedRecord = otaUpgradeRecordsService.save(record);
         log.info("创建升级记录成功 - 任务ID: {}, 设备标识: {}, 记录ID: {}", context.getTaskId(), device.getDeviceIdentification(), savedRecord.getId());
-        return Optional.of(BeanUtil.toBeanIgnoreError(savedRecord, OtaUpgradeRecordsResultDTO.class));
+        return Optional.of(BeanPlusUtil.toBeanIgnoreError(savedRecord, OtaUpgradeRecordsResultDTO.class));
     }
 
     /**

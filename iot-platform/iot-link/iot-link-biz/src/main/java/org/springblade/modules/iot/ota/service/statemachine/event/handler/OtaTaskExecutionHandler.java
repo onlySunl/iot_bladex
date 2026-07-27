@@ -7,6 +7,10 @@ import java.util.Optional;
 import com.alibaba.fastjson2.JSON;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.modules.iot.protocol.factory.ProtocolMessageAdapter;
+import org.springblade.modules.iot.protocol.model.EncryptionDetailsDTO;
+import org.springblade.modules.iot.protocol.model.ProtocolDataMessageDTO;
+import org.springblade.core.tool.utils.SnowflakeIdUtil;
 import org.springblade.modules.iot.broker.MqttBrokerOpenInnerFacade;
 import org.springblade.modules.iot.broker.WebSocketBrokerOpenInnerFacade;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
@@ -28,7 +32,7 @@ import org.springblade.modules.iot.product.enumeration.ProtocolTypeEnum;
 import org.springblade.modules.iot.protocol.vo.param.TopoOtaCommandRequestParam;
 import org.springblade.modules.iot.vo.query.PublishMessageRequestVO;
 import org.springblade.modules.iot.vo.query.PublishWebSocketMessageRequestVO;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +48,7 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class OtaTaskExecutionHandler {
 
     private final LinkCacheDataHelper linkCacheDataHelper;
@@ -76,6 +80,7 @@ public class OtaTaskExecutionHandler {
             log.error("设备OTA升级指令执行异常 - 设备标识: {}, 任务ID: {}", deviceIdentification, upgradeTask.getTaskName(), e);
         }
     }
+
 
     /**
      * 发送OTA升级命令
@@ -162,7 +167,7 @@ public class OtaTaskExecutionHandler {
     private R sendMessage(String topic, String qos, String message) {
         PublishMessageRequestVO request = new PublishMessageRequestVO()
                 .setReqId(Long.valueOf(SnowflakeIdUtil.nextId()))
-                .setTenantId(AuthUtil.getTenantIdStr())
+                .setTenantId(ContextUtil.getTenantIdStr())
                 .setTopic(topic)
                 .setQos(qos)
                 .setClientType("web")
@@ -183,7 +188,7 @@ public class OtaTaskExecutionHandler {
     private R sendWebSocketMessage(String topic, String clientId, String message) {
         PublishWebSocketMessageRequestVO request = new PublishWebSocketMessageRequestVO()
                 .setReqId(Long.valueOf(SnowflakeIdUtil.nextId()))
-                .setTenantId(AuthUtil.getTenantIdStr())
+                .setTenantId(ContextUtil.getTenantIdStr())
                 .setTopic(topic)
                 .setClientId(clientId)
                 .setClientType("web")

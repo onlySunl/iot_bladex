@@ -9,6 +9,7 @@ import org.springblade.modules.iot.device.vo.update.DeviceLocationUpdateVO;
 
 import java.util.List;
 
+
 /**
  * <p>
  * 业务接口
@@ -19,7 +20,7 @@ import java.util.List;
  * @date 2023-05-30 23:05:31
  * @create [2023-05-30 23:05:31] [mqttsnet]
  */
-public interface DeviceLocationService extends BaseService<DeviceLocation> {
+public interface DeviceLocationService extends SuperService<Long, DeviceLocation> {
 
     /**
      * 保存设备位置信息
@@ -45,4 +46,5 @@ public interface DeviceLocationService extends BaseService<DeviceLocation> {
      */
     List<DeviceLocationResultVO> getDeviceLocationResultVOList(DeviceLocationPageQuery query);
 }
+
 

@@ -3,7 +3,7 @@ package org.springblade.modules.iot.ota.service.statemachine.action;
 import org.springblade.modules.iot.ota.enumeration.OtaUpgradeEventEnum;
 import org.springblade.modules.iot.ota.enumeration.OtaUpgradeTaskStatusEnum;
 import org.springblade.modules.iot.ota.service.statemachine.context.OtaUpgradeContext;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -20,8 +20,9 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class StaticForceCompleteAction extends BaseOtaUpgradeAction {
+
 
     /**
      * 执行静态升级强制完成动作
@@ -41,5 +42,6 @@ public class StaticForceCompleteAction extends BaseOtaUpgradeAction {
             throw new RuntimeException("处理静态升级强制完成事件异常: " + e.getMessage(), e);
         }
     }
+
 
 }

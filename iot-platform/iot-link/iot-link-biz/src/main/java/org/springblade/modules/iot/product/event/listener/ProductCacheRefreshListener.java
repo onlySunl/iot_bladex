@@ -11,7 +11,7 @@ import org.springblade.modules.iot.product.event.handler.ProductInfoUpdatedCache
 import org.springblade.modules.iot.product.event.handler.ProductModelUpdatedCacheHandler;
 import org.springblade.modules.iot.product.event.source.ProductModelChangedSource;
 import org.springblade.modules.iot.productversionchangelog.enumeration.ProductChangeTargetTypeEnum;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -35,7 +35,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductCacheRefreshListener {
 
     private final ProductInfoUpdatedCacheHandler productInfoUpdatedCacheHandler;
@@ -52,7 +52,7 @@ public class ProductCacheRefreshListener {
         String pid = src.getProductIdentification();
         // 多租户隔离 fail-fast:DsConstant.BASE_TENANT 走 SPEL 取 ThreadLocal 数据源名,
         // tenantId 缺失时 dynamic-datasource 静默 fallback 到 primary "0" 默认库,跨租户串味。
-        if (AuthUtil.getTenantId() == null) {
+        if (ContextUtil.getTenantId() == null) {
             log.error("[ProductCacheRefresh] skip refresh: no tenantId in ContextUtil"
                 + "(可能事件由系统线程发出), productIdentification={}", pid);
             return;
@@ -60,17 +60,17 @@ public class ProductCacheRefreshListener {
         boolean productInfo = Optional.ofNullable(src.getTargetType())
             .filter(ProductChangeTargetTypeEnum.PRODUCT_INFO::equals)
             .isPresent();
-        Map<String, String> ctx = AuthUtil.getLocalMap();
+        Map<String, String> ctx = ContextUtil.getLocalMap();
         CompletableFuture.runAsync(() -> {
             try {
-                AuthUtil.setLocalMap(ctx);
+                ContextUtil.setLocalMap(ctx);
                 if (productInfo) {
                     productInfoUpdatedCacheHandler.handleProductUpdatedCache(pid);
                 } else {
                     productModelUpdatedCacheHandler.handleProductModelUpdatedCache(pid);
                 }
             } finally {
-                AuthUtil.remove();
+                ContextUtil.remove();
             }
         }, linkDefaultExecutor).exceptionally(ex -> {
             log.error("[ProductCacheRefresh] failed productIdentification={}", pid, ex);

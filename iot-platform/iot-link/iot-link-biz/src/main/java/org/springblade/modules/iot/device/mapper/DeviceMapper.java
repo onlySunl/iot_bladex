@@ -2,12 +2,12 @@ package org.springblade.modules.iot.device.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
-import org.springblade.core.mp.mapper.BladeMapper;
+import org.springblade.core.mp.base.BaseMapper;
 import org.springblade.modules.iot.device.dto.DeviceOverviewResultDTO;
 import org.springblade.modules.iot.device.dto.DeviceVersionDTO;
 import org.springblade.modules.iot.device.entity.Device;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -19,8 +19,8 @@ import org.apache.ibatis.annotations.Mapper;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
-@Mapper
-public interface DeviceMapper extends BladeMapper<Device> {
+@Repository
+public interface DeviceMapper extends SuperMapper<Device> {
     /**
      * 根据条件查询设备概述统计数据
      *

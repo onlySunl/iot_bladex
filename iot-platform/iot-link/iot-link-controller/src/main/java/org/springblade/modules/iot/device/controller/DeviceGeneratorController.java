@@ -1,62 +1,36 @@
 package org.springblade.modules.iot.device.controller;
 
 import java.math.BigDecimal;
-import org.springblade.common.utils.DateUtil;
 import java.math.RoundingMode;
-import org.springblade.common.utils.DateUtil;
 import java.util.ArrayList;
-import org.springblade.common.utils.DateUtil;
 import java.util.List;
-import org.springblade.common.utils.DateUtil;
 import java.util.concurrent.atomic.AtomicInteger;
-import org.springblade.common.utils.DateUtil;
 
 import cn.hutool.core.date.DateUtil;
-import org.springblade.common.utils.DateUtil;
 import cn.hutool.core.date.TimeInterval;
-import org.springblade.common.utils.DateUtil;
 import cn.hutool.core.util.RandomUtil;
-import org.springblade.common.utils.DateUtil;
 import cn.hutool.log.StaticLog;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.core.tool.api.R;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.core.secure.utils.AuthUtil;
-import org.springblade.common.utils.DateUtil;
+import org.springblade.common.utils.ArgumentAssert;
+import org.springblade.core.tenant.tenant.utils.TenantUtil;
 import org.springblade.modules.iot.device.entity.Device;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.entity.DeviceLocation;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.service.DeviceLocationService;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.service.DeviceService;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.product.service.ProductService;
-import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;
-import org.springblade.common.utils.DateUtil;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springblade.common.utils.DateUtil;
 import io.swagger.v3.oas.annotations.Parameter;
-import org.springblade.common.utils.DateUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springblade.common.utils.DateUtil;
 import jakarta.annotation.Resource;
-import org.springblade.common.utils.DateUtil;
-import lombok.AllArgsConstructor;
-import org.springblade.common.utils.DateUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.common.utils.DateUtil;
 import org.springframework.validation.annotation.Validated;
-import org.springblade.common.utils.DateUtil;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springblade.common.utils.DateUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springblade.common.utils.DateUtil;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springblade.common.utils.DateUtil;
 import org.springframework.web.bind.annotation.RestController;
-import org.springblade.common.utils.DateUtil;
 
 /**
  * 设备数据生成控制器
@@ -65,7 +39,7 @@ import org.springblade.common.utils.DateUtil;
  * @author mqttsnet
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/device/generator")
@@ -150,7 +124,7 @@ public class DeviceGeneratorController {
         validateParameters(totalDevices, batchSize, startNumber);
 
         // 设置租户上下文
-        AuthUtil.setTenantId(tenantId);
+        ContextUtil.setTenantId(tenantId);
 
         ProductResultVO productResultVO = productService.findOneByProductIdentification(productId);
         ArgumentAssert.notNull(productResultVO, "产品不存在");
@@ -229,6 +203,7 @@ public class DeviceGeneratorController {
         ArgumentAssert.isFalse(batchSize > 1000, "批次大小不能超过1000");
     }
 
+
     /**
      * 生成单个设备数据
      */
@@ -239,7 +214,7 @@ public class DeviceGeneratorController {
                 .appId("thinglinks-test")
                 .deviceName(buildDeviceName(productResultVO, deviceNumber))
                 .deviceIdentification(buildDeviceIdentifier(productResultVO, deviceNumber))
-                .clientId(buildClientId(productResultVO, deviceNumber, AuthUtil.getTenantId()))
+                .clientId(buildClientId(productResultVO, deviceNumber, ContextUtil.getTenantId()))
                 .userName(username)
                 .password(password)
                 .authMode(0)
@@ -282,6 +257,7 @@ public class DeviceGeneratorController {
                 .remark("随机位置-" + deviceIdentification + " 偏移:(" + longitudeOffset + "," + latitudeOffset + ")")
                 .build();
     }
+
 
     /**
      * 构建设备标识信息

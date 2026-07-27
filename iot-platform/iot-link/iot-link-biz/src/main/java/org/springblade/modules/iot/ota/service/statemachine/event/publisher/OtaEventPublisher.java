@@ -8,7 +8,7 @@ import org.springblade.modules.iot.ota.service.statemachine.event.OtaTaskExecuti
 import org.springblade.modules.iot.ota.service.statemachine.event.OtaTaskExecutionResultEvent;
 import org.springblade.modules.iot.ota.service.statemachine.event.source.OtaTaskExecutionEventSource;
 import org.springblade.modules.iot.ota.service.statemachine.event.source.OtaTaskExecutionResultEventSource;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class OtaEventPublisher {
 
     private final ApplicationEventPublisher eventPublisher;

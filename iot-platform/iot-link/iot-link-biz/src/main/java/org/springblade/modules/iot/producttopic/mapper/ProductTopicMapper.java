@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.producttopic.mapper;
 
-import org.springblade.core.mp.mapper.BladeMapper;
+import org.springblade.core.mp.base.BaseMapper;
 import org.springblade.modules.iot.producttopic.entity.ProductTopic;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -14,8 +14,9 @@ import org.apache.ibatis.annotations.Mapper;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet] 
  */
-@Mapper
-public interface ProductTopicMapper extends BladeMapper<ProductTopic> {
+@Repository
+public interface ProductTopicMapper extends SuperMapper<ProductTopic> {
 
 }
+
 

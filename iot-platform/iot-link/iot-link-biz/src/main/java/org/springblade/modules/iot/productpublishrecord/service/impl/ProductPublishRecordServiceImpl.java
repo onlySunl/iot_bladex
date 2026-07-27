@@ -14,7 +14,7 @@ import org.springblade.modules.iot.productpublishrecord.manager.ProductPublishRe
 import org.springblade.modules.iot.productpublishrecord.service.ProductPublishRecordService;
 import org.springblade.modules.iot.productpublishrecord.vo.ddl.PublishDdlItemVO;
 import org.springblade.modules.iot.productpublishrecord.vo.result.StrategyResultDTO;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +24,12 @@ import org.springframework.stereotype.Service;
  * @author mqttsnet
  * @see ProductPublishRecordService
  */
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class ProductPublishRecordServiceImpl
-    extends BaseServiceImpl<ProductPublishRecordMapper, ProductPublishRecord>
+    extends SuperServiceImpl<ProductPublishRecordManager, Long, ProductPublishRecord>
     implements ProductPublishRecordService {
 
     private final ProductPublishRecordManager productPublishRecordManager;

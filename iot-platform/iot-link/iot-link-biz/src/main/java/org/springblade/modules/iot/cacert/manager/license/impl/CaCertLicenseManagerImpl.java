@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.cacert.manager.license.impl;
 
 import cn.hutool.core.text.CharSequenceUtil;
-import org.springblade.common.base.manager.impl.SuperManagerImpl;
+import org.springblade.core.mp.base.BaseServiceImpl;
 import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.modules.iot.cacert.entity.license.CaCertLicense;
 import org.springblade.modules.iot.cacert.manager.license.CaCertLicenseManager;

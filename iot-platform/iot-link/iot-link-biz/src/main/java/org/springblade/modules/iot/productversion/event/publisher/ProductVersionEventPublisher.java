@@ -5,7 +5,7 @@ import org.springblade.modules.iot.productversion.event.ProductVersionPublishedE
 import org.springblade.modules.iot.productversion.event.ProductVersionPurgeRequestedEvent;
 import org.springblade.modules.iot.productversion.event.ProductVersionRolledBackEvent;
 import org.springblade.modules.iot.productversion.event.source.ProductVersionLifecycleEventSource;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductVersionEventPublisher {
 
     private final ApplicationEventPublisher applicationEventPublisher;

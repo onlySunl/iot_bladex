@@ -6,6 +6,7 @@ import java.util.List;
 import org.springblade.core.mp.base.BaseService;
 import org.springblade.modules.iot.device.entity.group.DeviceGroupRel;
 
+
 /**
  * <p>
  * 业务接口
@@ -15,7 +16,7 @@ import org.springblade.modules.iot.device.entity.group.DeviceGroupRel;
  * @author mqttsnet
  * @since 2025-06-23 14:06:46
  */
-public interface DeviceGroupRelService extends BaseService<DeviceGroupRel> {
+public interface DeviceGroupRelService extends SuperService<Long, DeviceGroupRel> {
 
     /**
      * 根据分组ID删除设备分组关系
@@ -23,6 +24,7 @@ public interface DeviceGroupRelService extends BaseService<DeviceGroupRel> {
      * @param groupIdList 分组ID列表
      */
     void removeByGroupIds(Collection<Long> groupIdList);
+
 
     /**
      * 根据分组ID查询设备标识列表
@@ -41,4 +43,5 @@ public interface DeviceGroupRelService extends BaseService<DeviceGroupRel> {
      */
     void removeByDeviceIdentification(String deviceIdentification);
 }
+
 

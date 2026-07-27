@@ -18,6 +18,7 @@ import org.springblade.modules.iot.protocol.vo.param.TopoOtaReadResponseParam;
 import org.springblade.modules.iot.protocol.vo.param.TopoOtaReportParam;
 import org.springblade.modules.iot.protocol.vo.param.TopoOtaReportResponseParam;
 
+
 /**
  * <p>
  * 业务接口
@@ -28,7 +29,7 @@ import org.springblade.modules.iot.protocol.vo.param.TopoOtaReportResponseParam;
  * @date 2024-01-12 22:40:04
  * @create [2024-01-12 22:40:04] [mqttsnet]
  */
-public interface OtaUpgradeTasksService extends BaseService<OtaUpgradeTasks> {
+public interface OtaUpgradeTasksService extends SuperService<Long, OtaUpgradeTasks> {
 
     /**
      * Save OTA Upgrade Task
@@ -54,6 +55,7 @@ public interface OtaUpgradeTasksService extends BaseService<OtaUpgradeTasks> {
      * @return {@link Boolean} 返回结果
      */
     Boolean changeTaskStatus(Long id, Integer status);
+
 
     /**
      * Delete OTA Upgrade Task
@@ -103,6 +105,7 @@ public interface OtaUpgradeTasksService extends BaseService<OtaUpgradeTasks> {
      */
     TopoOtaPullResponseParam otaPullByMqtt(TopoOtaPullParam topoOtaPullParam);
 
+
     /**
      * 北向API拉取OTA信息
      *
@@ -126,6 +129,7 @@ public interface OtaUpgradeTasksService extends BaseService<OtaUpgradeTasks> {
      * @return {@link TopoOtaReportResponseParam} OTA信息记录
      */
     TopoOtaReportResponseParam otaReportByNorthbound(TopoOtaReportParam topoOtaReportParam);
+
 
     /**
      * 通过MQTT事件 OTA读取响应

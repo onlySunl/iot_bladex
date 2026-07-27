@@ -231,6 +231,7 @@ public class example2_GMCA {
 		System.out.println("=============测试国密证书数字签名=============");
 	}
 
+
 	public static void testSM2EcDc() throws Exception {
 
 		System.out.println("=============测试国密SM2加解密=============");

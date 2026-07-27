@@ -2,7 +2,7 @@ package org.springblade.modules.iot.device.manager.group;
 
 import java.util.List;
 
-import org.springblade.common.base.manager.SuperManager;
+import org.springblade.core.mp.base.BaseService;
 import org.springblade.modules.iot.device.entity.group.DeviceGroup;
 import org.springblade.modules.iot.device.vo.query.group.DeviceGroupPageQuery;
 
