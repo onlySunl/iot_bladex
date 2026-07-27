@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.broker.api;
 
-import com.mqttsnet.basic.constant.Constants;
+import org.springblade.common.constant.Constants;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.constant.BladeConstant;
 import org.springblade.modules.iot.broker.api.hystrix.DeviceDownlinkApiFallback;

@@ -1,7 +1,7 @@
 package org.springblade.common.cache.common;
 
 
-import com.mqttsnet.basic.model.cache.CacheKeyBuilder;
+import org.springblade.common.cache.CacheKeyBuilder;
 import org.springblade.common.cache.CacheKeyTable;
 
 /**

@@ -1,6 +1,6 @@
 package org.springblade.common.properties;
 
-import com.mqttsnet.basic.constant.Constants;
+import org.springblade.common.constant.Constants;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;

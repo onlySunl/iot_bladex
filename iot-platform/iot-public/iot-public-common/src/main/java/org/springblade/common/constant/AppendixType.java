@@ -3,7 +3,7 @@ package org.springblade.common.constant;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mqttsnet.basic.utils.ArgumentAssert;
+import org.springblade.common.utils.ArgumentAssert;
 
 /**
  * 附件表中事先约定的业务类型。

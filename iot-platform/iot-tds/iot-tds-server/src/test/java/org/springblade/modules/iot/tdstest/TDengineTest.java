@@ -2,12 +2,12 @@ package org.springblade.modules.iot.tdstest;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.mqttsnet.basic.context.ContextUtil;
-import com.mqttsnet.basic.tds.enumeration.TdDataTypeEnum;
-import com.mqttsnet.basic.tds.model.Fields;
-import com.mqttsnet.basic.tds.model.SuperTableDTO;
-import com.mqttsnet.basic.tds.model.TableDTO;
-import com.mqttsnet.basic.tds.utils.TdsUtils;
+import org.springblade.common.cache.ContextUtil;
+import org.springblade.common.tds.enumeration.TdDataTypeEnum;
+import org.springblade.common.tds.Fields;
+import org.springblade.common.tds.SuperTableDTO;
+import org.springblade.common.tds.TableDTO;
+import org.springblade.common.tds.utils.TdsUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.BeforeEach;

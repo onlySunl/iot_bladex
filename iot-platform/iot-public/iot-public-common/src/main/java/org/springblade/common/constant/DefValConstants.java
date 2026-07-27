@@ -1,6 +1,6 @@
 package org.springblade.common.constant;
 
-import com.mqttsnet.basic.utils.TreeUtil;
+import org.springblade.common.utils.tree.TreeUtil;
 
 /**
  * 默认值

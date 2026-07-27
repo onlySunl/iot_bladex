@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.broker.api;
 
-import com.mqttsnet.basic.constant.Constants;
+import org.springblade.common.constant.Constants;
 import org.springblade.core.tool.constant.BladeConstant;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;

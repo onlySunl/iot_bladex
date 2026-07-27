@@ -6,9 +6,9 @@ import java.util.Random;
 import org.springblade.common.cache.CacheKeyModular;
 import org.springblade.common.cache.CacheKeyTable;
 import org.springblade.common.entity.CustomBaseEntity;
-import com.mqttsnet.basic.context.ContextUtil;
-import com.mqttsnet.basic.model.cache.CacheKey;
-import com.mqttsnet.basic.model.cache.CacheKeyBuilder;
+import org.springblade.common.cache.ContextUtil;
+import org.springblade.common.cache.CacheKey;
+import org.springblade.common.cache.CacheKeyBuilder;
 
 /**
  * 产品模型 TD 超级表 / 子表结构缓存 KEY ── 按 (productIdentification, versionNo, serviceCode[, deviceIdentification]) 维度切分。

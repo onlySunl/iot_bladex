@@ -1,6 +1,6 @@
 package org.springblade.model.enumeration.system;
 
-import com.mqttsnet.basic.interfaces.BaseEnum;
+import org.springblade.common.enums.BaseEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 

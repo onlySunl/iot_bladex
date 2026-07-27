@@ -2,9 +2,9 @@ package org.springblade.modules.iot.tds.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import com.mqttsnet.basic.tds.model.Fields;
-import com.mqttsnet.basic.tds.model.SuperTableDTO;
-import com.mqttsnet.basic.tds.model.TableDTO;
+import org.springblade.common.tds.Fields;
+import org.springblade.common.tds.SuperTableDTO;
+import org.springblade.common.tds.TableDTO;
 import org.springblade.core.log.exception.ServiceException;
 
 import java.util.List;

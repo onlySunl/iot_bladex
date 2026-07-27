@@ -2,7 +2,7 @@ package org.springblade.modules.iot.vo.result.script;
 
 import com.google.common.base.Joiner;
 import org.springblade.common.utils.StrPool;
-import com.mqttsnet.basic.model.cache.CacheKey;
+import org.springblade.common.cache.CacheKey;
 import org.springblade.common.cache.rule.groovy.GroovyScriptCacheKeyBuilder;
 import org.springblade.model.vo.AuditableResultVO;
 import io.swagger.v3.oas.annotations.media.Schema;

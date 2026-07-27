@@ -3,7 +3,7 @@ package org.springblade.modules.iot.mqs.kafka.controller;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import com.mqttsnet.basic.kafka.producer.KafkaProducerService;
+import org.springblade.common.mq.KafkaProducerService;
 import org.springblade.modules.iot.common.mq.KafkaSendResultHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -2,7 +2,7 @@ package org.springblade.model.entity.system;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.mqttsnet.basic.base.entity.TreeEntity;
+import org.springblade.common.base.TreeEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

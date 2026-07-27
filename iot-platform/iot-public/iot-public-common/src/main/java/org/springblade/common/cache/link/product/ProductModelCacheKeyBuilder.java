@@ -5,9 +5,9 @@ import java.time.Duration;
 import org.springblade.common.cache.CacheKeyModular;
 import org.springblade.common.cache.CacheKeyTable;
 import org.springblade.common.entity.CustomBaseEntity;
-import com.mqttsnet.basic.context.ContextUtil;
-import com.mqttsnet.basic.model.cache.CacheKey;
-import com.mqttsnet.basic.model.cache.CacheKeyBuilder;
+import org.springblade.common.cache.ContextUtil;
+import org.springblade.common.cache.CacheKey;
+import org.springblade.common.cache.CacheKeyBuilder;
 
 /**
  * 产品物模型缓存 KEY ── 按 (productIdentification, version) 双维度切分,value 为 ProductModelCacheVO。

@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 import cn.hutool.core.map.MapUtil;
-import com.mqttsnet.basic.base.entity.Entity;
-import com.mqttsnet.basic.interfaces.echo.EchoVO;
+import org.springblade.common.base.Entity;
+import org.springblade.common.echo.EchoVO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -12,9 +12,9 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.mqttsnet.basic.context.ContextConstants;
+import org.springblade.common.constant.ContextConstants;
 
-import com.mqttsnet.basic.kafka.producer.KafkaProducerService;
+import org.springblade.common.mq.KafkaProducerService;
 import org.springblade.core.tool.jackson.JsonUtil;
 import org.springblade.core.tool.utils.SpringUtil;
 import org.springblade.modules.iot.broker.common.session.WsDeviceSessionRegistry;

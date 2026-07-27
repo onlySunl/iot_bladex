@@ -6,7 +6,7 @@ import java.util.Objects;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
-import com.mqttsnet.basic.utils.ArgumentAssert;
+import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.broker.BifroMqFacade;

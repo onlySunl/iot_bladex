@@ -2,7 +2,7 @@ package org.springblade.common.properties;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.map.MapUtil;
-import com.mqttsnet.basic.constant.Constants;
+import org.springblade.common.constant.Constants;
 import org.springblade.model.enumeration.HttpMethod;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
