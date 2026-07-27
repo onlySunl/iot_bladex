@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mqttsnet.thinglinks.device.mapper.DeviceMapper">
+    <!--
+        代码生成器 by 2023-03-14 19:39:59
+        自定义sql建议在base文件夹同级新建ext文件夹，并新建同名且同namespace的xml进行编写。方便修改字段时，重新生成此文件。
+    -->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mqttsnet.thinglinks.device.entity.Device">
+        <id column="id" property="id"/>
+        <result column="client_id" property="clientId"/>
+        <result column="user_name" property="userName"/>
+        <result column="password" property="password"/>
+        <result column="app_id" property="appId"/>
+        <result column="auth_mode" property="authMode"/>
+        <result column="encrypt_key" property="encryptKey"/>
+        <result column="encrypt_vector" property="encryptVector"/>
+        <result column="sign_key" property="signKey"/>
+        <result column="encrypt_method" property="encryptMethod"/>
+        <result column="device_identification" property="deviceIdentification"/>
+        <result column="device_name" property="deviceName"/>
+        <result column="connector" property="connector"/>
+        <result column="description" property="description"/>
+        <result column="device_status" property="deviceStatus"/>
+        <result column="connect_status" property="connectStatus"/>
+        <result column="device_tags" property="deviceTags"/>
+        <result column="product_identification" property="productIdentification"/>
+        <result column="sw_version" property="swVersion"/>
+        <result column="fw_version" property="fwVersion"/>
+        <result column="device_sdk_version" property="deviceSdkVersion"/>
+        <result column="gateway_id" property="gatewayId"/>
+        <result column="node_type" property="nodeType"/>
+        <result column="remark" property="remark"/>
+        <result column="deleted" property="deleted"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="updated_time" property="updatedTime"/>
+        <result column="updated_by" property="updatedBy"/>
+        <result column="created_org_id" property="createdOrgId"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, client_id, user_name, password, app_id, auth_mode, 
+        encrypt_key, encrypt_vector, sign_key, encrypt_method, device_identification, device_name, 
+        connector, description, device_status, connect_status, device_tags, product_identification,
+        sw_version, fw_version, device_sdk_version, gateway_id, node_type, remark, deleted,
+        created_time, created_by, updated_time, updated_by, created_org_id
+    </sql>
+
+    <!-- 逻辑删除条件 - 可在其他SQL中引用 -->
+    <sql id="LogicDelete_Condition">
+        <if test="true">deleted = 0</if>
+    </sql>
+
+    <select id="selectDeviceOverview" resultType="com.mqttsnet.thinglinks.device.dto.DeviceOverviewResultDTO">
+        SELECT COUNT(*) AS totalDevicesCount,
+        COUNT(CASE WHEN device_status = 0 THEN 1 END) AS notActivatedCount,
+        COUNT(CASE WHEN device_status = 1 THEN 1 END) AS activatedCount,
+        COUNT(CASE WHEN device_status = 2 THEN 1 END) AS lockedCount,
+        COUNT(CASE WHEN connect_status = 2 THEN 1 END) AS offlineCount,
+        COUNT(CASE WHEN connect_status = 1 THEN 1 END) AS onlineCount,
+        COUNT(CASE WHEN connect_status = 0 THEN 1 END) AS notConnectedCount,
+        COUNT(CASE WHEN node_type = 1 THEN 1 END) AS gatewayDeviceCount,
+        COUNT(CASE WHEN node_type = 0 THEN 1 END) AS ordinaryCount,
+        COUNT(CASE WHEN node_type = 2 THEN 1 END) AS subDeviceCount
+        FROM device
+        WHERE
+        <include refid="LogicDelete_Condition"/>
+        <if test="ew != null and ew.sqlSegment != null and ew.sqlSegment != ''">
+            AND ${ew.sqlSegment}
+        </if>
+    </select>
+
+    <select id="selectDeviceVersionsByProduct" resultType="com.mqttsnet.thinglinks.device.dto.DeviceVersionDTO">
+        SELECT
+        product_identification,
+        GROUP_CONCAT(DISTINCT CASE WHEN sw_version IS NOT NULL AND sw_version != '' THEN sw_version END) AS sw_versions,
+        GROUP_CONCAT(DISTINCT CASE WHEN fw_version IS NOT NULL AND fw_version != '' THEN fw_version END) AS fw_versions
+        FROM
+        device
+        WHERE
+        product_identification = #{productIdentification}
+        AND
+        <include refid="LogicDelete_Condition"/>
+        GROUP BY
+        product_identification
+    </select>
+
+</mapper>

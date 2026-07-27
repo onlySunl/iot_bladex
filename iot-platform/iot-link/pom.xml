@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Link 模块聚合：设备生命周期管理、OTA、产品物模型 -->
-
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-        <parent>
+    <parent>
         <groupId>org.springblade</groupId>
         <artifactId>iot-platform</artifactId>
-        <version>4.9.0.RELEASE</version>
+        <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-
+    
     <modelVersion>4.0.0</modelVersion>
     <artifactId>iot-link</artifactId>
     <name>${project.artifactId}</name>
@@ -18,6 +16,9 @@
     <packaging>pom</packaging>
 
     <modules>
-
+        <module>iot-link-facade</module>
+        <module>iot-link-server</module>
+        <module>iot-link-biz</module>
+        <module>iot-link-controller</module>
     </modules>
 </project>

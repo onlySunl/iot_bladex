@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mqttsnet.thinglinks.device.mapper.DeviceAclRuleMapper">
+    <!--
+        代码生成器 by 2025-06-11 19:57:46
+        自定义sql建议在base文件夹同级新建ext文件夹，并新建同名且同namespace的xml进行编写。方便修改字段时，重新生成此文件。
+    -->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mqttsnet.thinglinks.device.entity.DeviceAclRule">
+        <id column="id" property="id"/>
+        <result column="rule_name" property="ruleName"/>
+        <result column="device_identification" property="deviceIdentification"/>
+        <result column="action_type" property="actionType"/>
+        <result column="priority" property="priority"/>
+        <result column="topic_pattern" property="topicPattern"/>
+        <result column="ip_whitelist" property="ipWhitelist"/>
+        <result column="decision" property="decision"/>
+        <result column="enabled" property="enabled"/>
+        <result column="remark" property="remark"/>
+        <result column="deleted" property="deleted"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="updated_time" property="updatedTime"/>
+        <result column="updated_by" property="updatedBy"/>
+        <result column="created_org_id" property="createdOrgId"/>
+        <result column="product_identification" property="productIdentification"/>
+        <result column="rule_level" property="ruleLevel"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,ruleName, device_identification, action_type, priority, topic_pattern, ip_whitelist,
+        decision, enabled, remark, deleted, created_time, created_by, updated_time, 
+        updated_by, created_org_id, product_identification, rule_level
+    </sql>
+
+    <!-- 逻辑删除条件 - 可在其他SQL中引用 -->
+    <sql id="LogicDelete_Condition">
+        <if test="true">deleted = 0</if>
+    </sql>
+
+</mapper>

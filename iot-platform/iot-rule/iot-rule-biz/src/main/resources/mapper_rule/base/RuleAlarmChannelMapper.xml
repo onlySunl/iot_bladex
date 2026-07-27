@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mqttsnet.thinglinks.mapper.alarm.RuleAlarmChannelMapper">
+    <!--
+        代码生成器 by 2023-09-09 21:14:58
+        自定义sql建议在base文件夹同级新建ext文件夹，并新建同名且同namespace的xml进行编写。方便修改字段时，重新生成此文件。
+    -->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mqttsnet.thinglinks.entity.alarm.RuleAlarmChannel">
+        <id column="id" property="id"/>
+        <result column="channel_name" property="channelName"/>
+        <result column="channel_type" property="channelType"/>
+        <result column="channel_config" property="channelConfig"/>
+        <result column="status" property="status"/>
+        <result column="remark" property="remark"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_by" property="updatedBy"/>
+        <result column="updated_time" property="updatedTime"/>
+        <result column="created_org_id" property="createdOrgId"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, channel_name, channel_type, channel_config, status, remark, 
+        created_by, created_time, updated_by, updated_time, created_org_id
+    </sql>
+
+</mapper>

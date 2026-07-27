@@ -1,0 +1,133 @@
+package org.springblade.modules.iot.product.manager.impl;
+
+import java.util.List;
+
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.text.CharSequenceUtil;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.common.base.request.PageParams;
+import org.springblade.common.database.mybatis.conditions.Wraps;
+import org.springblade.common.database.mybatis.conditions.query.LbQueryWrap;
+import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.modules.iot.product.entity.Product;
+import org.springblade.modules.iot.product.manager.ProductManager;
+import org.springblade.modules.iot.product.mapper.ProductMapper;
+import org.springblade.modules.iot.product.vo.query.ProductPageQuery;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+/**
+ * <p>
+ * 通用业务实现类
+ * 产品模型
+ * </p>
+ *
+ * @author mqttsnet
+ * @date 2023-03-14 19:39:59
+ * @create [2023-03-14 19:39:59] [mqttsnet]
+ */
+@Slf4j
+@RequiredArgsConstructor
+@Service
+public class ProductManagerImpl extends BaseServiceImpl<ProductMapper, Product> implements ProductManager {
+
+    private final ProductMapper productMapper;
+
+    @Override
+    public IPage<Product> getPage(PageParams<ProductPageQuery> params) {
+        IPage<Product> page = params.buildPage(Product.class);
+
+        ProductPageQuery paramsModel = params.getModel();
+
+        LbQueryWrap<Product> wrap = Wraps.lbQ();
+        wrap.eq(StrUtil.isNotBlank(paramsModel.getProductIdentification()), Product::getProductIdentification, paramsModel.getProductIdentification())
+                .in(!CollUtil.isEmpty(paramsModel.getProductIdentificationList()), Product::getProductIdentification, paramsModel.getProductIdentificationList());
+
+        return productMapper.selectPage(page, wrap);
+    }
+
+    @Override
+    public Product findOneByProductId(Long productId) {
+        return productMapper.selectById(productId);
+    }
+
+    @Override
+    public List<Product> getProductList(ProductPageQuery query) {
+        QueryWrap<Product> queryWrap = new QueryWrap<>();
+        queryWrap.lambda().eq(CharSequenceUtil.isNotBlank(query.getAppId()), Product::getAppId, query.getAppId());
+        queryWrap.lambda().eq(CharSequenceUtil.isNotBlank(query.getProductName()), Product::getProductName, query.getProductName());
+        queryWrap.lambda().eq(CharSequenceUtil.isNotBlank(query.getManufacturerId()), Product::getManufacturerId, query.getManufacturerId());
+        queryWrap.lambda().eq(CharSequenceUtil.isNotBlank(query.getModel()), Product::getModel, query.getModel());
+        queryWrap.lambda().eq(CharSequenceUtil.isNotBlank(query.getProductIdentification()), Product::getProductIdentification, query.getProductIdentification());
+        queryWrap.lambda().in(CollUtil.isNotEmpty(query.getProductIdentificationList()), Product::getProductIdentification, query.getProductIdentificationList());
+        queryWrap.lambda().eq(query.getProductStatus() != null, Product::getProductStatus, query.getProductStatus());
+        return productMapper.selectList(queryWrap);
+    }
+
+    @Override
+    public Product findOneByProductIdentification(String productIdentification) {
+        QueryWrap<Product> queryWrap = new QueryWrap<>();
+        queryWrap.lambda().eq(CharSequenceUtil.isNotBlank(productIdentification), Product::getProductIdentification, productIdentification);
+        return productMapper.selectOne(queryWrap);
+    }
+
+    @Override
+    public List<Product> findListByProductIdentificationList(List<String> productIdentificationList) {
+        QueryWrap<Product> queryWrap = new QueryWrap<>();
+        queryWrap.lambda().in(CollUtil.isNotEmpty(productIdentificationList), Product::getProductIdentification, productIdentificationList);
+        return productMapper.selectList(queryWrap);
+    }
+
+    @Override
+    public Product findOneByManufacturerIdAndModelAndDeviceType(String manufacturerId, String model, String deviceType) {
+        QueryWrap<Product> queryWrap = new QueryWrap<>();
+        queryWrap.lambda().eq(CharSequenceUtil.isNotBlank(manufacturerId), Product::getManufacturerId, manufacturerId);
+        queryWrap.lambda().eq(CharSequenceUtil.isNotBlank(model), Product::getModel, model);
+        queryWrap.lambda().eq(CharSequenceUtil.isNotBlank(deviceType), Product::getDeviceType, deviceType);
+        return productMapper.selectOne(queryWrap);
+    }
+
+    /**
+     * 获取产品模型总量
+     *
+     * @return {@link Long} 产品模型数据总量
+     */
+    @Override
+    public Long findProductTotal() {
+        return productMapper.selectCount(null);
+    }
+
+    @Override
+    public Long countPublishedProducts() {
+        LbQueryWrap<Product> wrap = Wraps.lbQ();
+        wrap.isNotNull(Product::getActiveVersionNo).ne(Product::getActiveVersionNo, "");
+        return productMapper.selectCount(wrap);
+    }
+
+    @Override
+    public Long countCanaryInProgressProducts() {
+        LbQueryWrap<Product> wrap = Wraps.lbQ();
+        wrap.isNotNull(Product::getPreviousFullVersionNo).ne(Product::getPreviousFullVersionNo, "");
+        return productMapper.selectCount(wrap);
+    }
+
+    @Override
+    public int clearPreviousFullVersion(String productIdentification) {
+        if (StrUtil.isBlank(productIdentification)) {
+            return 0;
+        }
+        // 用 set(col, null) 显式 SET NULL,绕过全局 update-strategy=NOT_NULL(updateById 会跳过 null)
+        LambdaUpdateWrapper<Product> wrap = Wrappers.<Product>lambdaUpdate()
+                .eq(Product::getProductIdentification, productIdentification)
+                .set(Product::getPreviousFullVersionNo, null);
+        return productMapper.update(null, wrap);
+    }
+
+}
+
+
