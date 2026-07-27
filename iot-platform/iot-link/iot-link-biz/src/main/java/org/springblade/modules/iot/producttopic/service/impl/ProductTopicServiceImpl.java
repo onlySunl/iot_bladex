@@ -1,31 +1,56 @@
 package org.springblade.modules.iot.producttopic.service.impl;
 
 import java.util.Collections;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.List;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Map;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Objects;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Optional;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.stream.Collectors;
+import org.springblade.core.log.exception.ServiceException;
 
 import cn.hutool.core.collection.CollectionUtil;
+import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.util.StrUtil;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.dynamic.datasource.annotation.DS;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.enumeration.ProductTypeEnum;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.producttopic.config.ProductTopicTemplate;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.producttopic.config.ProductTopicTemplateConfig;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.producttopic.entity.ProductTopic;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.producttopic.enumeration.ProductTopicTypeEnum;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.producttopic.manager.ProductTopicManager;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.producttopic.service.ProductTopicService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.producttopic.vo.save.ProductTopicSaveVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.producttopic.vo.update.ProductTopicUpdateVO;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.AllArgsConstructor;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.stereotype.Service;
+import org.springblade.core.log.exception.ServiceException;
 
 /**
  * <p>
@@ -52,7 +77,7 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
                 .eq(ProductTopic::getProductIdentification, updateVO.getProductIdentification())
                 .eq(ProductTopic::getTopic, updateVO.getTopic())
                 .ne(ProductTopic::getId, updateVO.getId())) > 0) {
-            throw BizException.wrap("Topic已存在");
+            throw new ServiceException("Topic已存在");
         }
 
         return super.updateBefore(updateVO);
@@ -65,7 +90,7 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
         if (superManager.count(Wrappers.<ProductTopic>lbQ()
                 .eq(ProductTopic::getProductIdentification, saveVO.getProductIdentification())
                 .eq(ProductTopic::getTopic, saveVO.getTopic())) > 0) {
-            throw BizException.wrap("Topic已存在");
+            throw new ServiceException("Topic已存在");
         }
 
         return super.saveBefore(saveVO);
@@ -104,7 +129,7 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
                 // 删除该产品的所有基础Topic
                 boolean deleteSuccess = deleteBaseTopicByProductIdentification(productIdentification);
                 if (!deleteSuccess) {
-                    throw BizException.wrap("删除现有基础Topic失败，无法重新初始化");
+                    throw new ServiceException("删除现有基础Topic失败，无法重新初始化");
                 }
             } else {
                 // 不重新初始化，直接跳过
@@ -179,7 +204,7 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
             log.info("成功删除产品[{}]的{}个基础Topic", productIdentification, existingTopics.size());
         } else {
             log.error("删除产品[{}]基础Topic失败", productIdentification);
-            throw BizException.wrap("删除产品基础Topic失败");
+            throw new ServiceException("删除产品基础Topic失败");
         }
         return deleteSuccess;
     }
@@ -193,14 +218,14 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
     private List<ProductTopicTemplate> getTopicTemplates(ProductTypeEnum productTypeEnum) {
         Map<String, List<ProductTopicTemplate>> templates = topicTemplateConfig.getProductTopicTemplates();
         if (CollectionUtil.isEmpty(templates)) {
-            throw BizException.wrap("Nacos配置中未找到Topic模板配置");
+            throw new ServiceException("Nacos配置中未找到Topic模板配置");
         }
 
         // 根据产品类型获取对应的模板
         String typeKey = getProductTypeKey(productTypeEnum);
         List<ProductTopicTemplate> templateList = templates.get(typeKey);
         if (CollectionUtil.isEmpty(templateList)) {
-            throw BizException.wrap("不支持的产品类型: " + productTypeEnum.getDesc());
+            throw new ServiceException("不支持的产品类型: " + productTypeEnum.getDesc());
         }
 
         return templateList;

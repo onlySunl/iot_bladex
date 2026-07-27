@@ -6,7 +6,7 @@ import java.util.List;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.mp.base.BaseServiceImpl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.device.entity.group.DeviceGroup;
 import org.springblade.modules.iot.device.manager.group.DeviceGroupManager;

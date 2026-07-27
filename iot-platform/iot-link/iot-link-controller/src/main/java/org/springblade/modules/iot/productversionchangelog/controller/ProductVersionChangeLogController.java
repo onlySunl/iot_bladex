@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springblade.core.tool.api.R;
 import org.springblade.core.boot.ctrl.BladeController;
-import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.productversionchangelog.entity.ProductVersionChangeLog;
 import org.springblade.modules.iot.productversionchangelog.service.ProductVersionChangeLogService;
 import org.springblade.modules.iot.productversionchangelog.vo.query.ProductVersionChangeLogPageQuery;

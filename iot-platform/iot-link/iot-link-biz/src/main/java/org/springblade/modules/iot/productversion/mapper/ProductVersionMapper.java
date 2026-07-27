@@ -2,7 +2,7 @@ package org.springblade.modules.iot.productversion.mapper;
 
 import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.productversion.entity.ProductVersion;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 产品物模型版本快照 Mapper。
@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
  * @author mqttsnet
  * @see ProductVersion
  */
-@Repository
+@Mapper
 public interface ProductVersionMapper extends BladeMapper<ProductVersion> {
 }

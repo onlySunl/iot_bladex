@@ -1,39 +1,138 @@
 package org.springblade.modules.iot.dashboard.service.impl;
 
 import java.time.LocalDateTime;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.time.format.DateTimeFormatter;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Collections;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Comparator;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.LinkedHashMap;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.List;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Map;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Objects;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Optional;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.concurrent.CompletableFuture;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.concurrent.ThreadPoolExecutor;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.stream.Collectors;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.stream.Stream;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 
 import com.alibaba.fastjson2.JSON;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.dynamic.datasource.annotation.DS;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.cache.link.counter.DownLinkDataCounterCacheKeyBuilder;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.cache.link.counter.UpLinkDataCounterCacheKeyBuilder;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.context.ContextAwareExecutor;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.dashboard.enumeration.LinkDataTypeEnum;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.dashboard.enumeration.TimeUnitEnum;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.dashboard.service.DashboardStatsService;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.dashboard.vo.query.DashboardDetailsQuery;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.dashboard.vo.result.DashboardDetailsResultVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.dashboard.vo.result.DashboardSummaryResultVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.dashboard.vo.result.DashboardTopologySummaryResultVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.service.DeviceService;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.service.ProductQueryService;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.AllArgsConstructor;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.stereotype.Service;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.transaction.annotation.Transactional;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 
 /**
  * -----------------------------------------------------------------------------
@@ -60,7 +159,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class DashboardStatsServiceImpl implements DashboardStatsService {
-    private static final DateTimeFormatter YYYYMMDD_FORMATTER = DateTimeFormatter.ofPattern(DateUtils.YYYYMMDD_FORMAT);
+    private static final DateTimeFormatter YYYYMMDD_FORMATTER = DateTimeFormatter.ofPattern(DateUtil.YYYYMMDD_FORMAT);
 
     private final DeviceService deviceService;
     private final ProductQueryService productQueryService;
@@ -101,8 +200,8 @@ public class DashboardStatsServiceImpl implements DashboardStatsService {
         LocalDateTime endTime = LocalDateTime.now();
         LocalDateTime startTime = endTime.minusDays(2);
         DashboardDetailsQuery detailsQuery = new DashboardDetailsQuery();
-        detailsQuery.setStartTime(startTime.format(DateUtils.YYYYMMDDHHMM_FORMATTER));
-        detailsQuery.setEndTime(endTime.format(DateUtils.YYYYMMDDHHMM_FORMATTER));
+        detailsQuery.setStartTime(startTime.format(DateUtil.YYYYMMDDHHMM_FORMATTER));
+        detailsQuery.setEndTime(endTime.format(DateUtil.YYYYMMDDHHMM_FORMATTER));
         detailsQuery.setTime("1h");
         detailsQuery.setLimit(72L);
 
@@ -181,15 +280,15 @@ public class DashboardStatsServiceImpl implements DashboardStatsService {
      *                     - time: 时间单位代码，支持 1m(分钟)、1h(小时)、1d(天)
      *                     - limit: 最大数据条数限制
      * @return {@link DashboardDetailsResultVO} 包含上下行数据详细统计结果的对象
-     * @throws BizException             当开始时间晚于结束时间时抛出
+     * @throws ServiceException             当开始时间晚于结束时间时抛出
      * @throws IllegalArgumentException 当时间单位代码无效时抛出
      */
     public DashboardDetailsResultVO getDetails(DashboardDetailsQuery detailsQuery) {
-        LocalDateTime startDateTime = LocalDateTime.parse(detailsQuery.getStartTime(), DateUtils.YYYYMMDDHHMM_FORMATTER);
-        LocalDateTime endDateTime = LocalDateTime.parse(detailsQuery.getEndTime(), DateUtils.YYYYMMDDHHMM_FORMATTER);
+        LocalDateTime startDateTime = LocalDateTime.parse(detailsQuery.getStartTime(), DateUtil.YYYYMMDDHHMM_FORMATTER);
+        LocalDateTime endDateTime = LocalDateTime.parse(detailsQuery.getEndTime(), DateUtil.YYYYMMDDHHMM_FORMATTER);
 
         if (startDateTime.isAfter(endDateTime)) {
-            throw BizException.wrap("开始时间必须早于结束时间");
+            throw new ServiceException("开始时间必须早于结束时间");
         }
 
         TimeUnitEnum timeUnit = TimeUnitEnum.fromCode(detailsQuery.getTime())

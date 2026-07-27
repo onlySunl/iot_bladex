@@ -84,7 +84,7 @@ public class ProductPropertyController extends BladeController<ProductPropertySe
                 return R.fail(R.LOCK_ACQUIRE_ERROR_MESSAGE);
             }
             return R.success(lockRunResult.getResult());
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("产品模型服务属性保存失败，系统异常: {}", e.getMessage(), e);
@@ -112,7 +112,7 @@ public class ProductPropertyController extends BladeController<ProductPropertySe
                 return R.fail(R.LOCK_ACQUIRE_ERROR_MESSAGE);
             }
             return R.success(lockRunResult.getResult());
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("修改产品模型服务属性失败，系统异常: {}", e.getMessage(), e);

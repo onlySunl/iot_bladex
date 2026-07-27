@@ -2,7 +2,7 @@ package org.springblade.modules.iot.mapper.script;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.entity.script.RuleGroovyScript;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * @date 2025-03-24 09:54:10
  * @create [2025-03-24 09:54:10] [mqttsnet]
  */
-@Repository
+@Mapper
 public interface RuleGroovyScriptMapper extends BladeMapper<RuleGroovyScript> {
 
 }

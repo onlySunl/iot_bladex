@@ -86,7 +86,7 @@ public class DeviceShadowController {
             ProductResultVO result = deviceShadowService.queryDeviceShadow(deviceShadowPageQuery);
             echoService.action(result);
             return R.success(result);
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("查询设备影子失败，系统异常: {}", e.getMessage(), e);

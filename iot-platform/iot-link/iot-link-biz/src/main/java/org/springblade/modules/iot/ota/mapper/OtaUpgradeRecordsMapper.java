@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Constants;
 import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeRecordsSummaryResultDTO;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeRecords;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -18,7 +18,7 @@ import org.apache.ibatis.annotations.Param;
  * @date 2024-01-12 22:42:04
  * @create [2024-01-12 22:42:04] [mqttsnet]
  */
-@Repository
+@Mapper
 public interface OtaUpgradeRecordsMapper extends BladeMapper<OtaUpgradeRecords> {
 
     /**

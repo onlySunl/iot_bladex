@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.entity.bridge.BridgeExecutionTrace;
 import org.springblade.modules.iot.vo.query.bridge.BridgeExecutionTracePageQuery;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 import java.util.Map;
@@ -18,7 +18,7 @@ import java.util.Map;
  * @author mqttsnet
  * @date 2026-04-28
  */
-@Repository
+@Mapper
 public interface BridgeExecutionTraceMapper extends BladeMapper<BridgeExecutionTrace> {
 
     /**

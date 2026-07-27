@@ -2,7 +2,7 @@ package org.springblade.modules.iot.ota.mapper;
 
 import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.ota.entity.OtaUpgrades;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * @date 2024-01-12 22:36:27
  * @create [2024-01-12 22:36:27] [mqttsnet]
  */
-@Repository
+@Mapper
 public interface OtaUpgradesMapper extends BladeMapper<OtaUpgrades> {
 
 }

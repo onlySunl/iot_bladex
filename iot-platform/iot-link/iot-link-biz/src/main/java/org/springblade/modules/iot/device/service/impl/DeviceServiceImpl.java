@@ -1,103 +1,394 @@
 package org.springblade.modules.iot.device.service.impl;
 
 import java.security.cert.X509Certificate;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.time.LocalDateTime;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.ArrayList;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Arrays;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Collections;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.List;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Map;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.HashMap;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Objects;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Optional;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.function.Function;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.stream.Collectors;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 
 import cn.hutool.core.bean.BeanUtil;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.bean.copier.CopyOptions;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.collection.CollUtil;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.date.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.map.MapUtil;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.text.CharSequenceUtil;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.util.StrUtil;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import com.alibaba.fastjson2.JSON;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.dynamic.datasource.annotation.DS;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.mp.support.Query;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.BeanUtil;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.enumeration.CaCertAuditTypeEnum;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.enumeration.CaCertStatusEnum;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.service.audit.CaCertAuditLogService;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.service.license.CaCertLicenseService;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cacert.vo.result.license.CaCertLicenseResultVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.entity.Device;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.entity.DeviceAction;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceActionStatusEnum;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceAuthModeEnum;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceConnectStatusEnum;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceEncryptMethodEnum;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceNodeTypeEnum;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceSslTestStepEnum;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceSslTestStepStatusEnum;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceStatusEnum;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.event.publisher.DeviceEventPublisher;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.event.source.DeviceDeletedEventSource;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.event.source.DeviceInfoUpdatedEventSource;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.event.source.DeviceRebindEventSource;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.manager.DeviceManager;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.service.DeviceActionService;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.service.DeviceLocationService;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.service.DeviceService;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.query.DeviceAuthenticationQuery;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.query.DeviceDetailsPageQuery;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.query.DeviceLocationPageQuery;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.query.DevicePageQuery;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.query.DeviceSslTestQuery;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.result.DeviceDetailsResultVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.result.DeviceLocationResultVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.result.DeviceOverviewResultVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.result.DeviceResultVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.result.DeviceSslTestResultVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.result.DeviceSslTestStepVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.result.DeviceVersionResultVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.save.DeviceActionSaveVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.save.DeviceLocationSaveVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.save.DeviceSaveVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.update.DeviceUpdateVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.service.ProductQueryService;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.vo.query.ProductPageQuery;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.entity.ProductVersion;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.enumeration.ProductVersionStatusEnum;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.service.ProductVersionQueryService;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.result.DeviceVersionDistributionVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.enumeration.MqttProtocolTopoStatusEnum;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.TopoAddSubDeviceParam;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.TopoDeleteSubDeviceParam;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.TopoDeviceDataReportParam;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.TopoQueryDeviceParam;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.TopoUpdateSubDeviceStatusParam;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.result.DeviceAuthenticationResultVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.result.DeviceInfoResultVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.result.TopoAddDeviceResultVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.result.TopoDeviceOperationResultVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.result.TopoQueryDeviceResultVO;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.utils.cacert.CertificateVerifierUtil;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.utils.x509.CertSerialNumberUtil;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.AllArgsConstructor;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.stereotype.Service;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.transaction.annotation.Transactional;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.core.log.exception.ServiceException;
 
 /**
  * <p>
@@ -196,7 +487,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
 
             // 校验认证模式
             DeviceAuthModeEnum deviceAuthMode = DeviceAuthModeEnum.fromValue(device.getAuthMode())
-                    .orElseThrow(() -> new BizException("无效的设备认证模式: " + device.getAuthMode()));
+                    .orElseThrow(() -> new ServiceException("无效的设备认证模式: " + device.getAuthMode()));
 
             if (!deviceAuthMode.getValue().equals(deviceAuthenticationQuery.getAuthMode())) {
                 log.warn("设备认证失败: 认证模式不匹配, 期望:{}, 实际:{}",
@@ -225,7 +516,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
             // 认证成功
             log.info("设备认证成功: clientIdentifier={}", clientIdentifier);
             return buildSuccessResult(device);
-        } catch (BizException e) {
+        } catch (ServiceException e) {
             log.warn("设备认证失败: {}", e.getMessage());
             return buildFailureResult(e.getMessage());
         } catch (Exception e) {
@@ -585,7 +876,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         ProductResultVO productResultVO = checkedDeviceSaveVO(saveVO);
         // 租户一致性校验（必须是当前租户 ContextUtil）
         if (!TenantUtil.validateTenantConsistency(saveVO.getClientId())) {
-            throw BizException.wrap("Tenant information does not match. No authority to operate resources.");
+            throw new ServiceException("Tenant information does not match. No authority to operate resources.");
         }
 
         Device device = BeanUtil.copyProperties(saveVO, Device.class);
@@ -618,7 +909,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         // 从数据库查询设备信息，确保设备存在
         Device existingDevice = superManager.getById(updateVO.getId());
         if (existingDevice == null) {
-            throw BizException.wrap("Device not found for ID:{}", updateVO.getId());
+            throw new ServiceException("Device not found for ID:{}", updateVO.getId());
         }
 
         //构建参数
@@ -690,10 +981,10 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         ArgumentAssert.notNull(status, "status Cannot be null");
         Device device = superManager.findOneById(id);
         if (Objects.isNull(device)) {
-            throw BizException.wrap("The device does not exist");
+            throw new ServiceException("The device does not exist");
         }
         if (status.equals(device.getDeviceStatus())) {
-            throw BizException.wrap("The device status is the same as the current status");
+            throw new ServiceException("The device status is the same as the current status");
         }
         // 更新设备连接状态
         UpdateWrapper<Device> updateWrapper = new UpdateWrapper<>();
@@ -714,7 +1005,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     public Boolean deleteDevice(Long id) {
         ArgumentAssert.notNull(id, "id Cannot be null");
         Device device = Optional.ofNullable(superManager.findOneById(id))
-                .orElseThrow(() -> BizException.wrap("The device does not exist"));
+                .orElseThrow(() -> new ServiceException("The device does not exist"));
         Boolean removed = superManager.removeById(id);
         if (removed) {
             // 发布设备删除事件触发下游清理(分组关系等同步监听器同事务执行);设备缓存由监听器 AFTER_COMMIT 失效。
@@ -758,7 +1049,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         ArgumentAssert.notBlank(deviceIdentification, "deviceIdentification Cannot be null");
         Device device = superManager.findOneByDeviceIdentification(deviceIdentification);
         if (device == null) {
-            throw BizException.wrap("Device not exist");
+            throw new ServiceException("Device not exist");
         }
 
         // 将Device转换为DeviceDetailsResultVO
@@ -792,7 +1083,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         ArgumentAssert.notBlank(deviceIdentification, "deviceIdentification Cannot be null");
         Device device = superManager.findOneByDeviceIdentification(deviceIdentification);
         if (Objects.isNull(device)) {
-            throw BizException.wrap("Device not exist");
+            throw new ServiceException("Device not exist");
         }
         return BeanUtil.toBean(device, DeviceResultVO.class);
     }
@@ -805,7 +1096,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         // 校验连接状态值
         Optional<DeviceConnectStatusEnum> connectStatusEnumOptional = DeviceConnectStatusEnum.fromValue(connectionStatus);
         if (connectStatusEnumOptional.isEmpty()) {
-            throw BizException.wrap("Invalid connection status value");
+            throw new ServiceException("Invalid connection status value");
         }
 
         // 更新设备连接状态
@@ -814,7 +1105,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         // 查询最新设备信息
         Device device = superManager.findOneById(id);
         if (Objects.isNull(device)) {
-            throw BizException.wrap("The device does not exist");
+            throw new ServiceException("The device does not exist");
         }
 
         // 获取设备类型
@@ -1080,12 +1371,12 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     @Override
     public DeviceDetailsResultVO getDeviceDetails(Long id) {
         if (id == null) {
-            throw BizException.wrap("Device ID cannot be null");
+            throw new ServiceException("Device ID cannot be null");
         }
 
         Device device = superManager.findOneById(id);
         if (Objects.isNull(device)) {
-            throw BizException.wrap("The device does not exist");
+            throw new ServiceException("The device does not exist");
         }
 
         // 将Device转换为DeviceDetailsResultVO
@@ -1170,7 +1461,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     @Override
     public boolean isProductInUseByDevices(String productIdentification) {
         if (StrUtil.isBlank(productIdentification)) {
-            throw BizException.wrap("Product identification cannot be null or empty.");
+            throw new ServiceException("Product identification cannot be null or empty.");
         }
 
         Query params = new Query<>();
@@ -1766,11 +2057,11 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         //设备状态
         ArgumentAssert.notNull(saveVO.getDeviceStatus(), "deviceStatus Cannot be null");
         if (!DeviceStatusEnum.ALL_STATE_COLLECTION.contains(saveVO.getDeviceStatus())) {
-            throw BizException.wrap("DeviceStatusEnum is not exist");
+            throw new ServiceException("DeviceStatusEnum is not exist");
         }
 
         //设备类型
-        DeviceNodeTypeEnum.fromValue(saveVO.getNodeType()).orElseThrow(() -> BizException.wrap("deviceNodeType is not exist"));
+        DeviceNodeTypeEnum.fromValue(saveVO.getNodeType()).orElseThrow(() -> new ServiceException("deviceNodeType is not exist"));
 
         //子设备校验：如果是子设备，网关设备ID不能为空
         if (DeviceNodeTypeEnum.SUBDEVICE.getValue().equals(saveVO.getNodeType())) {
@@ -1813,11 +2104,11 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         //设备状态
         ArgumentAssert.notNull(updateVO.getDeviceStatus(), "deviceStatus Cannot be null");
         if (!DeviceStatusEnum.ALL_STATE_COLLECTION.contains(updateVO.getDeviceStatus())) {
-            throw BizException.wrap("DeviceStatusEnum is not exist");
+            throw new ServiceException("DeviceStatusEnum is not exist");
         }
 
         //设备类型
-        DeviceNodeTypeEnum.fromValue(updateVO.getNodeType()).orElseThrow(() -> BizException.wrap("deviceNodeType is not exist"));
+        DeviceNodeTypeEnum.fromValue(updateVO.getNodeType()).orElseThrow(() -> new ServiceException("deviceNodeType is not exist"));
 
         //子设备校验：如果是子设备，网关设备ID不能为空
         if (DeviceNodeTypeEnum.SUBDEVICE.getValue().equals(updateVO.getNodeType())) {
@@ -1836,7 +2127,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         //根据客户端标识符查询设备缓存信息
         Device device = superManager.findOneByClientId(clientIdentifier);
         if (Objects.isNull(device)) {
-            throw BizException.wrap("客户端标识:{} 设备档案信息不存在", clientIdentifier);
+            throw new ServiceException("客户端标识:{} 设备档案信息不存在", clientIdentifier);
         }
         try {
             // 1. 心跳时间:无条件更新(每条心跳都续 last_heartbeat_time)
@@ -1931,7 +2222,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     @Override
     public int switchBoundProductVersion(String productIdentification, List<String> deviceIdentifications, String targetVersionNo) {
         if (StrUtil.isBlank(productIdentification) || CollUtil.isEmpty(deviceIdentifications) || StrUtil.isBlank(targetVersionNo)) {
-            throw BizException.wrap("切换设备绑定版本参数不完整:productIdentification / deviceIdentifications / targetVersionNo 均必填");
+            throw new ServiceException("切换设备绑定版本参数不完整:productIdentification / deviceIdentifications / targetVersionNo 均必填");
         }
         assertSwitchableTargetVersion(productIdentification, targetVersionNo);
         // 复用现成"按标识改绑(连带子设备)"链路:UPDATE 收口 product_identification,改绑后发 DeviceRebindEvent 失效缓存
@@ -1948,7 +2239,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
     /**
      * 校验"设备绑定目标版本"可用:须存在于该产品,且处于 已发布/灰度/影子 状态 ── 仅这些状态的 TD 超表已建好,
      * 绑过去才有表可写;DRAFT 未建表、ROLLED_BACK/ARCHIVED 可能已被 purge 清理(drop stable),绑过去上报会
-     * 建子表失败 / 落空表。不合法抛 {@link BizException}。新建 / 编辑 / 切换三处复用同一校验口径。
+     * 建子表失败 / 落空表。不合法抛 {@link ServiceException}。新建 / 编辑 / 切换三处复用同一校验口径。
      *
      * @param productIdentification 产品标识
      * @param versionNo             目标版本号
@@ -1957,7 +2248,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         Integer versionStatus = productVersionQueryService
                 .findByProductIdentificationAndVersionNo(productIdentification, versionNo)
                 .map(ProductVersion::getVersionStatus)
-                .orElseThrow(() -> BizException.wrap(
+                .orElseThrow(() -> new ServiceException(
                         "目标版本不存在:productIdentification=" + productIdentification + ", versionNo=" + versionNo));
         boolean switchable = ProductVersionStatusEnum.PUBLISHED.getValue().equals(versionStatus)
                 || ProductVersionStatusEnum.CANARY.getValue().equals(versionStatus)
@@ -1965,7 +2256,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<DeviceMapper, Device> imp
         if (!switchable) {
             String desc = ProductVersionStatusEnum.fromValue(versionStatus)
                     .map(ProductVersionStatusEnum::getDesc).orElse(String.valueOf(versionStatus));
-            throw BizException.wrap("目标版本状态不可切换(需 已发布/灰度/影子,当前=" + desc + "):versionNo=" + versionNo);
+            throw new ServiceException("目标版本状态不可切换(需 已发布/灰度/影子,当前=" + desc + "):versionNo=" + versionNo);
         }
     }
 

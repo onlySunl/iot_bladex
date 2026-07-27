@@ -61,7 +61,7 @@ public class DeviceActionController extends BladeController<DeviceActionService,
         try {
             boolean result = superService.disconnectDevice(deviceIdentification);
             return result ? R.success() : R.fail("断开连接失败");
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("断开设备连接失败，设备标识[{}]，异常信息: {}", deviceIdentification, e.getMessage(), e);

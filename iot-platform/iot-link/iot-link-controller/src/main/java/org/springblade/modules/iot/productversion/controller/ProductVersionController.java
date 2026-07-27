@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springblade.core.tool.api.R;
 import org.springblade.core.boot.ctrl.BladeController;
-import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.productversion.entity.ProductVersion;
 import org.springblade.modules.iot.productversion.service.ProductVersionService;
 import org.springblade.modules.iot.productversion.vo.diff.ProductVersionDiffVO;
@@ -112,7 +112,7 @@ public class ProductVersionController extends BladeController<ProductVersionServ
     public R<ProductVersion> publish(@RequestBody @Valid ProductVersionPublishVO vo) {
         try {
             return R.success(superService.publish(vo));
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         }
     }
@@ -127,7 +127,7 @@ public class ProductVersionController extends BladeController<ProductVersionServ
     public R<ProductVersion> rollback(@RequestBody @Valid ProductVersionRollbackVO vo) {
         try {
             return R.success(superService.rollback(vo));
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         }
     }
@@ -142,7 +142,7 @@ public class ProductVersionController extends BladeController<ProductVersionServ
     public R<ProductVersion> purgeHistory(@RequestBody @Valid ProductVersionPurgeVO vo) {
         try {
             return R.success(superService.purgeHistory(vo));
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         }
     }
@@ -160,7 +160,7 @@ public class ProductVersionController extends BladeController<ProductVersionServ
                                         @RequestParam String targetVersion) {
         try {
             return R.success(superService.diff(productIdentification, sourceVersion, targetVersion));
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         }
     }

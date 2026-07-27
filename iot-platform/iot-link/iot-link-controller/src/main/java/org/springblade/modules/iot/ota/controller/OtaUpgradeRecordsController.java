@@ -16,7 +16,7 @@ import org.springblade.core.tool.api.R;
 import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.core.mp.support.Query;
 import org.springblade.core.secure.utils.AuthUtil;
-import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeRecords;
 import org.springblade.modules.iot.ota.service.OtaUpgradeRecordsService;

@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import cn.hutool.core.util.StrUtil;
-import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeRecordsResultDTO;
 import org.springblade.modules.iot.ota.service.OtaUpgradeRecordsService;
 import org.springblade.modules.iot.ota.service.statemachine.strategy.executor.UpgradeRecordDeduplicationStrategy;

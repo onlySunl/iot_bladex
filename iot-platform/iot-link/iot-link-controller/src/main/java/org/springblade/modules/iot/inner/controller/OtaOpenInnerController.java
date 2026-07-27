@@ -90,7 +90,7 @@ public class OtaOpenInnerController {
         AuthUtil.setTenantId(param.getTenantId());
         try {
             return R.success(otaUpgradeTaskExecutionService.otaUpgradeAppConfirmation(param.getTaskId(), param.getDeviceIdentificationList(), param.getAppConfirmationStatus() ? OtaTaskRecordAppConfirmStatusEnum.CONFIRMED : OtaTaskRecordAppConfirmStatusEnum.REJECTED));
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("OTA升级任务APP确认升级，系统异常: {}", e.getMessage(), e);

@@ -1,41 +1,76 @@
 package org.springblade.modules.iot.device.service.impl;
 
 import java.util.Collection;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.List;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Optional;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.function.Consumer;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.stream.Collectors;
+import org.springblade.core.log.exception.ServiceException;
 
 import cn.hutool.core.collection.CollectionUtil;
+import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.map.MapUtil;
+import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.util.StrUtil;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.dynamic.datasource.annotation.DS;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.BeanUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cache.vo.device.DeviceAclRuleCacheVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.entity.DeviceAclRule;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.ClientAclActionTypeEnum;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceAclRuleActionTypeEnum;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceAclRuleLevelEnum;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.event.publisher.DeviceAclRuleEventPublisher;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.event.source.DeviceAclRuleChangedEventSource;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.manager.DeviceAclRuleManager;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.service.DeviceAclRuleService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.query.DeviceAclCheckQuery;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.save.DeviceAclRuleSaveVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.update.DeviceAclRuleUpdateVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.result.DeviceAclCheckResultVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.result.DeviceInfoResultVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.utils.acl.AclMatcherUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.utils.acl.AclTopicPatternPlaceholderReplacer;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.AllArgsConstructor;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.stereotype.Service;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.transaction.annotation.Transactional;
+import org.springblade.core.log.exception.ServiceException;
 
 /**
  * <p>
@@ -136,16 +171,16 @@ public class DeviceAclRuleServiceImpl extends BaseServiceImpl<DeviceAclRuleMappe
                                                         Consumer<String> deviceIdSetter,
                                                         String currentDeviceId) {
         if (StrUtil.isBlank(productIdentification)) {
-            throw BizException.wrap("产品标识不能为空");
+            throw new ServiceException("产品标识不能为空");
         }
         DeviceAclRuleLevelEnum level = DeviceAclRuleLevelEnum.fromValue(ruleLevel)
-            .orElseThrow(() -> BizException.wrap("规则级别非法:仅支持 0(产品级)或 1(设备级)"));
+            .orElseThrow(() -> new ServiceException("规则级别非法:仅支持 0(产品级)或 1(设备级)"));
         if (level == DeviceAclRuleLevelEnum.PRODUCT_LEVEL) {
             // 产品级:强制 null,避免与设备级"空 deviceId"混淆 + 兼容 IS NULL 唯一性查询
             deviceIdSetter.accept(null);
         } else if (level == DeviceAclRuleLevelEnum.DEVICE_LEVEL) {
             if (StrUtil.isBlank(currentDeviceId)) {
-                throw BizException.wrap("设备级规则必须填写设备标识");
+                throw new ServiceException("设备级规则必须填写设备标识");
             }
         }
         return level;
@@ -183,7 +218,7 @@ public class DeviceAclRuleServiceImpl extends BaseServiceImpl<DeviceAclRuleMappe
         String dimension = level == DeviceAclRuleLevelEnum.DEVICE_LEVEL
             ? StrUtil.format("产品 [{}] 设备 [{}]", productId, deviceId)
             : StrUtil.format("产品 [{}] (产品级)", productId);
-        throw BizException.wrap("{} 下已存在优先级 {} 的规则,请调整 priority 或编辑现有规则",
+        throw new ServiceException("{} 下已存在优先级 {} 的规则,请调整 priority 或编辑现有规则",
             dimension, priority);
     }
 

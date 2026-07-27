@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springblade.core.tool.jackson.JsonUtil;
-import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.cache.vo.product.ProductModelCacheVO;
 import org.springblade.modules.iot.product.vo.param.ProductParamVO;
 import org.springblade.modules.iot.productcommand.vo.param.ProductCommandParamVO;

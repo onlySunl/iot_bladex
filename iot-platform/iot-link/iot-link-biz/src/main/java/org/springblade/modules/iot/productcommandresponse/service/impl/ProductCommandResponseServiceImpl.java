@@ -1,33 +1,60 @@
 package org.springblade.modules.iot.productcommandresponse.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.util.ReUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Optional;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.dynamic.datasource.annotation.DS;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.secure.utils.AuthUtil;
-import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.BeanUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.constant.ThingModelCodeRule;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.event.publisher.ProductEventPublisher;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.event.source.ProductModelChangedSource;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.service.ProductQueryService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommandresponse.entity.ProductCommandResponse;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommandresponse.manager.ProductCommandResponseManager;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommandresponse.service.ProductCommandResponseService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommandresponse.vo.result.ProductCommandResponseResultVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommandresponse.vo.save.ProductCommandResponseSaveVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommandresponse.vo.update.ProductCommandResponseUpdateVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productservice.service.ProductServiceService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversionchangelog.enumeration.ProductChangeTargetTypeEnum;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversionchangelog.enumeration.ProductVersionChangeTypeEnum;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.AllArgsConstructor;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.stereotype.Service;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.transaction.annotation.Transactional;
+import org.springblade.core.log.exception.ServiceException;
 
 import java.util.List;
+import org.springblade.core.log.exception.ServiceException;
 
 /**
  * <p>
@@ -98,7 +125,7 @@ public class ProductCommandResponseServiceImpl extends BaseServiceImpl<ProductCo
         ArgumentAssert.notNull(id, "id Cannot be null");
         ProductCommandResponse productCommandResponse = superManager.getById(id);
         if (null == productCommandResponse) {
-            throw BizException.wrap("The ProductCommandResponse does not exist");
+            throw new ServiceException("The ProductCommandResponse does not exist");
         }
         boolean result = superManager.removeById(id);
         publishChange(ProductVersionChangeTypeEnum.DELETE, productCommandResponse, null, "删除命令响应参数「" + productCommandResponse.getParameterName() + "」");
@@ -125,11 +152,11 @@ public class ProductCommandResponseServiceImpl extends BaseServiceImpl<ProductCo
         ArgumentAssert.notBlank(saveVO.getParameterCode(), "parameterCode Cannot be null");
         //校验编码命名规范
         if (!ReUtil.isMatch(ThingModelCodeRule.PATTERN, saveVO.getParameterCode())) {
-            throw BizException.wrap(ThingModelCodeRule.PATTERN_MSG);
+            throw new ServiceException(ThingModelCodeRule.PATTERN_MSG);
         }
         //校验CODE
         if (CollUtil.isNotEmpty(superManager.checkCode(saveVO.getServiceId(), saveVO.getCommandId(), saveVO.getParameterCode()))) {
-            throw BizException.wrap("parameterCode already exists");
+            throw new ServiceException("parameterCode already exists");
         }
         ArgumentAssert.notBlank(saveVO.getParameterName(), "parameterName Cannot be null");
     }
@@ -180,7 +207,7 @@ public class ProductCommandResponseServiceImpl extends BaseServiceImpl<ProductCo
         ArgumentAssert.notBlank(updateVO.getParameterCode(), "parameterCode Cannot be null");
         //校验编码命名规范
         if (!ReUtil.isMatch(ThingModelCodeRule.PATTERN, updateVO.getParameterCode())) {
-            throw BizException.wrap(ThingModelCodeRule.PATTERN_MSG);
+            throw new ServiceException(ThingModelCodeRule.PATTERN_MSG);
         }
         ArgumentAssert.notBlank(updateVO.getParameterName(), "parameterName Cannot be null");
         //校验CODE
@@ -189,7 +216,7 @@ public class ProductCommandResponseServiceImpl extends BaseServiceImpl<ProductCo
                 .filter(productCommandResponse -> !productCommandResponse.getId().equals(updateVO.getId()))
                 .findAny()
                 .ifPresent(productProperty -> {
-                    throw BizException.wrap("parameterCode already exists");
+                    throw new ServiceException("parameterCode already exists");
                 });
     }
 

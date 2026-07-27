@@ -7,7 +7,7 @@ import org.springblade.modules.iot.device.dto.DeviceOverviewResultDTO;
 import org.springblade.modules.iot.device.dto.DeviceVersionDTO;
 import org.springblade.modules.iot.device.entity.Device;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
-@Repository
+@Mapper
 public interface DeviceMapper extends BladeMapper<Device> {
     /**
      * 根据条件查询设备概述统计数据

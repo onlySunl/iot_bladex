@@ -1,32 +1,58 @@
 package org.springblade.modules.iot.device.service.impl;
 
 import java.util.Collections;
+import org.springblade.common.utils.DateUtil;
 import java.util.List;
+import org.springblade.common.utils.DateUtil;
 import java.util.Map;
+import org.springblade.common.utils.DateUtil;
 import java.util.Objects;
+import org.springblade.common.utils.DateUtil;
 import java.util.Optional;
+import org.springblade.common.utils.DateUtil;
 import java.util.stream.Collectors;
+import org.springblade.common.utils.DateUtil;
 
 import cn.hutool.core.util.StrUtil;
+import org.springblade.common.utils.DateUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.common.utils.DateUtil;
+import org.springblade.common.utils.BeanUtil;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.cache.vo.product.ProductModelCacheVO;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.service.DeviceShadowService;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.vo.query.DeviceShadowPageQuery;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.product.enumeration.ProductTypeEnum;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productproperty.vo.result.ProductPropertyResultVO;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productservice.vo.param.ProductServiceParamVO;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productservice.vo.result.ProductServiceResultVO;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productversion.util.ProductTdsNamer;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.tds.facade.TdsFacade;
+import org.springblade.common.utils.DateUtil;
 import lombok.AllArgsConstructor;
+import org.springblade.common.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.common.utils.DateUtil;
 import org.springframework.stereotype.Service;
+import org.springblade.common.utils.DateUtil;
 import org.springframework.transaction.annotation.Transactional;
+import org.springblade.common.utils.DateUtil;
 
 /**
  * 设备影子业务层接口实现。
@@ -164,7 +190,7 @@ public class DeviceShadowServiceImpl implements DeviceShadowService {
 
     private ProductPropertyResultVO buildPropertyResultVO(ProductPropertyResultVO propertyResultVO, Map<String, Object> data) {
         Optional.ofNullable(data.get(TdsConstants.TS))
-                .map(ts -> DateUtils.date2LocalDateTime(DateUtils.parseDatetime(ts.toString())))
+                .map(ts -> DateUtil.date2LocalDateTime(DateUtil.parseDatetime(ts.toString())))
                 .ifPresent(propertyResultVO::setCreatedTime);
         propertyResultVO.setPropertyValue(data.get(propertyResultVO.getPropertyCode()));
         return propertyResultVO;
