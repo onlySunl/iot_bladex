@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.product.manager.impl;
+import org.springblade.common.base.request.PageParams;
 
 import java.util.List;
 

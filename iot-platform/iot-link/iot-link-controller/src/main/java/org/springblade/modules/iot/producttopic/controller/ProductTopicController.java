@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.producttopic.controller;
+import org.springblade.common.base.request.PageParams;
 
 import org.springblade.core.mp.base.BaseController;
 import org.springblade.core.boot.request.PageParam;

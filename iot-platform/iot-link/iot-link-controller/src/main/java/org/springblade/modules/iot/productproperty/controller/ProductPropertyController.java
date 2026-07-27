@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.productproperty.controller;
+import org.springblade.common.base.request.PageParams;
 
 import java.util.concurrent.TimeUnit;
 

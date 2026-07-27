@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.ota.manager;
+import org.springblade.common.base.request.PageParams;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springblade.core.mp.base.BaseService;
