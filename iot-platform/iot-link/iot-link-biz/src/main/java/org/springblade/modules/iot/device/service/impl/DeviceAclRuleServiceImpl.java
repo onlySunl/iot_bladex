@@ -218,8 +218,8 @@ public class DeviceAclRuleServiceImpl extends BaseServiceImpl<DeviceAclRuleMappe
         String dimension = level == DeviceAclRuleLevelEnum.DEVICE_LEVEL
             ? StrUtil.format("产品 [{}] 设备 [{}]", productId, deviceId)
             : StrUtil.format("产品 [{}] (产品级)", productId);
-        throw new ServiceException("{} 下已存在优先级 {} 的规则,请调整 priority 或编辑现有规则",
-            dimension, priority);
+        throw new ServiceException(String.format("%s 下已存在优先级 %s 的规则,请调整 priority 或编辑现有规则",
+            dimension, priority));
     }
 
     /** save VO 重载 ── excludeId 默认 null(新增无需排除自身)。 */
