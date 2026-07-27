@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Link 实体：设备/产品/OTA/分组的 DTO/VO/Entity -->
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>org.springblade</groupId>
+        <artifactId>iot-entity</artifactId>
+        <version>4.9.0.RELEASE</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>iot-entity-link</artifactId>
+    <name>${project.artifactId}</name>
+    <description>设备集成服务-实体模块</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-excel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-core</artifactId>
+            <version>1.0.8.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-public-common</artifactId>
+            <version>4.9.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+
+
+    </dependencies>
+
+</project>

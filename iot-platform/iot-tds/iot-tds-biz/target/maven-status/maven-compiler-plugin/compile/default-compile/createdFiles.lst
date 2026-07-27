@@ -1,0 +1,4 @@
+org\springblade\modules\iot\tds\mapper\TDengineMapper.class
+org\springblade\modules\iot\tds\service\TdsService.class
+org\springblade\modules\iot\tds\service\impl\TDengineServiceImpl.class
+org\springblade\modules\iot\tds\service\impl\TdsSqlGuard.class

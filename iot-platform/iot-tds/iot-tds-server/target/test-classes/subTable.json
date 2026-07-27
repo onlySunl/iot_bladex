@@ -1,0 +1,12 @@
+{
+  "productType": "COMMON",
+  "productIdentification": "b6d1914cfe824acf974fb24a242a05bc",
+  "serviceList": [
+    "test",
+    "test2"
+  ],
+  "devices": [
+    11111,
+    22222
+  ]
+}

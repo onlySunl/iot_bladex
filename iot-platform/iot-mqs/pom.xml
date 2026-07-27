@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- MQS 模块聚合：消息消费与事件处理、Kafka 总线 -->
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        <parent>
+        <groupId>org.springblade</groupId>
+        <artifactId>iot-platform</artifactId>
+        <version>4.9.0.RELEASE</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>iot-mqs</artifactId>
+    <name>${project.artifactId}</name>
+    <description>消息治理服务</description>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>iot-mqs-facade</module>
+        <module>iot-mqs-server</module><module>iot-mqs-biz</module>
+        <module>iot-mqs-biz-bus</module>
+        <module>iot-mqs-controller</module>
+    </modules>
+</project>

@@ -1,0 +1,54 @@
+package org.springblade.modules.iot.vo.result.linkage;
+
+import org.springblade.model.vo.AuditableResultVO;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.Accessors;
+
+/**
+ * <p>
+ * 表单查询方法返回值VO
+ * 规则条件动作表
+ * </p>
+ *
+ * @author mqttsnet
+ * @date 2023-07-19 23:24:37
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(callSuper = true)
+@Accessors(chain = true)
+@EqualsAndHashCode(callSuper = true)
+@Builder
+@Schema(title = "RuleConditionActionResultVO", description = "规则条件动作表")
+public class RuleConditionActionResultVO extends AuditableResultVO {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 规则条件ID
+     */
+    @Schema(description = "规则条件ID")
+    private Long ruleConditionId;
+    /**
+     * 执行动作
+     */
+    @Schema(description = "执行动作")
+    private Integer actionType;
+    /**
+     * 动作内容
+     */
+    @Schema(description = "动作内容")
+    private String actionContent;
+    /**
+     * 描述
+     */
+
+
+}

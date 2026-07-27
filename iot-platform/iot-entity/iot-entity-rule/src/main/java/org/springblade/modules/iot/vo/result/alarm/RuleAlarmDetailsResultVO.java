@@ -1,0 +1,80 @@
+package org.springblade.modules.iot.vo.result.alarm;
+
+import org.springblade.model.vo.AuditableResultVO;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.Accessors;
+
+import java.io.Serial;
+import java.util.List;
+
+/**
+ * <p>
+ * 表单查询方法返回值VO
+ * 告警规则详情VO
+ * </p>
+ *
+ * @author mqttsnet
+ * @date 2023-09-09 21:14:37
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(callSuper = true)
+@Accessors(chain = true)
+@EqualsAndHashCode(callSuper = true)
+@Builder
+@Schema(title = "RuleAlarmDetailsResultVO", description = "告警规则详情VO")
+public class RuleAlarmDetailsResultVO extends AuditableResultVO {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 应用ID
+     */
+    @Schema(description = "应用ID")
+    private String appId;
+    /**
+     * 告警名称
+     */
+    @Schema(description = "告警名称")
+    private String alarmName;
+    /**
+     * 告警编码
+     */
+    @Schema(description = "告警编码")
+    private String alarmIdentification;
+    /**
+     * 告警场景
+     */
+    @Schema(description = "告警场景")
+    private String alarmScene;
+    /**
+     * 告警渠道ID集合
+     */
+    @Schema(description = "告警渠道ID集合")
+    private String alarmChannelIds;
+    /**
+     * 告警级别
+     */
+    @Schema(description = "告警级别")
+    private Integer level;
+    /**
+     * 启用状态
+     */
+    /**
+     * 描述
+     */
+
+
+    @Schema(description = "告警渠道详情集合")
+    private List<RuleAlarmChannelDetailsResultVO> ruleAlarmChannelDetailsResultVOList;
+
+
+}

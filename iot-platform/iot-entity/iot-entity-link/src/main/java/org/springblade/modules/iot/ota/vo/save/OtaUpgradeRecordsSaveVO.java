@@ -1,0 +1,165 @@
+package org.springblade.modules.iot.ota.vo.save;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+/**
+ * <p>
+ * 表单保存方法VO
+ * OTA升级记录表
+ * </p>
+ *
+ * @author mqttsnet
+ * @date 2024-01-12 22:42:04
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(callSuper = true)
+@EqualsAndHashCode
+@Builder
+@Schema(title = "OtaUpgradeRecordsSaveVO", description = "OTA升级记录表")
+public class OtaUpgradeRecordsSaveVO implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 升级包ID，关联ota_upgrades表
+     */
+    @Schema(description = "升级包ID，关联ota_upgrades表")
+    @NotNull(message = "请填写升级包ID，关联ota_upgrades表")
+    private Long upgradeId;
+
+    /**
+     * 任务ID，关联ota_upgrade_tasks表
+     */
+    @Schema(description = "任务ID，关联ota_upgrade_tasks表")
+    @NotNull(message = "请填写任务ID，关联ota_upgrade_tasks表")
+    private Long taskId;
+    /**
+     * 设备标识
+     */
+    @Schema(description = "设备标识")
+    @NotEmpty(message = "请填写设备标识")
+    @Size(max = 100, message = "设备标识长度不能超过{max}")
+    private String deviceIdentification;
+    /**
+     * 升级状态(0:待升级、1:升级中、2:升级成功、3:升级失败)
+     */
+    @Schema(description = "升级状态(0:待升级、1:升级中、2:升级成功、3:升级失败)")
+    @NotNull(message = "请填写升级状态(0:待升级、1:升级中、2:升级成功、3:升级失败)")
+    private Integer upgradeStatus;
+
+    /**
+     * 待升级的源版本号
+     */
+    @Schema(description = "待升级的源版本号")
+    private String sourceVersion;
+
+    /**
+     * 目标版本号
+     */
+    @Schema(description = "目标版本号")
+    private String targetVersion;
+
+    /**
+     * APP确认状态
+     */
+    @Schema(description = "APP确认状态")
+    private Integer appConfirmationStatus;
+
+    /**
+     * APP确认时间
+     */
+    @Schema(description = "APP确认时间")
+    private LocalDateTime appConfirmationTime;
+
+    /**
+     * 指令下发状态
+     */
+    @Schema(description = "指令下发状态")
+    private Integer commandSendStatus;
+
+    /**
+     * 最新指令下发时间
+     */
+    @Schema(description = "最新指令下发时间")
+    private LocalDateTime lastCommandSendTime;
+
+    /**
+     * OTA指令内容
+     */
+    @Schema(description = "OTA指令内容")
+    private String commandContent;
+
+    /**
+     * 升级进度（百分比）
+     */
+    @Schema(description = "升级进度（百分比）")
+    @NotNull(message = "请填写升级进度（百分比）")
+    private Integer progress;
+    /**
+     * 错误代码
+     */
+    @Schema(description = "错误代码")
+    @Size(max = 100, message = "错误代码长度不能超过{max}")
+    private String errorCode;
+    /**
+     * 错误信息
+     */
+    @Schema(description = "错误信息")
+    @Size(max = 255, message = "错误信息长度不能超过{max}")
+    private String errorMessage;
+    /**
+     * 升级开始时间
+     */
+    @Schema(description = "升级开始时间")
+    private LocalDateTime startTime;
+    /**
+     * 升级结束时间
+     */
+    @Schema(description = "升级结束时间")
+    private LocalDateTime endTime;
+    /**
+     * 升级成功详细信息
+     */
+    @Schema(description = "升级成功详细信息")
+    @Size(max = 2147483647, message = "升级成功详细信息长度不能超过{max}")
+    private String successDetails;
+    /**
+     * 升级失败详细信息
+     */
+    @Schema(description = "升级失败详细信息")
+    @Size(max = 2147483647, message = "升级失败详细信息长度不能超过{max}")
+    private String failureDetails;
+    /**
+     * 升级过程日志
+     */
+    @Schema(description = "升级过程日志")
+    @Size(max = 2147483647, message = "升级过程日志长度不能超过{max}")
+    private String logDetails;
+    /**
+     * 描述
+     */
+    @Schema(description = "描述")
+    @Size(max = 255, message = "描述长度不能超过{max}")
+    private String remark;
+    /**
+     * 创建人组织
+     */
+    @Schema(description = "创建人组织")
+    private Long createdOrgId;
+
+}

@@ -1,0 +1,269 @@
+package org.springblade.modules.iot.service.alarm.impl;
+
+import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson2.JSON;
+import com.baomidou.dynamic.datasource.annotation.DS;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.constant.DsConstant;
+import org.springblade.modules.iot.dto.alarm.channel.dingtalk.DingTalkMessageParamDTO;
+import org.springblade.modules.iot.dto.alarm.channel.fs.FeishuMessageParamDTO;
+import org.springblade.modules.iot.dto.alarm.channel.site.SiteMessageParamDTO;
+import org.springblade.modules.iot.dto.alarm.channel.wechat.WeChatWorkMessageParamDTO;
+import org.springblade.modules.iot.entity.alarm.RuleAlarmChannel;
+import org.springblade.modules.iot.enumeration.alarm.AlarmChannelTypeEnum;
+import org.springblade.modules.iot.manager.alarm.RuleAlarmChannelManager;
+import org.springblade.modules.iot.msg.enumeration.NoticeRemindModeEnum;
+import org.springblade.modules.iot.service.alarm.RuleAlarmChannelService;
+import org.springblade.modules.iot.vo.query.alarm.RuleAlarmChannelPageQuery;
+import org.springblade.modules.iot.vo.result.alarm.RuleAlarmChannelDetailsResultVO;
+import org.springblade.modules.iot.vo.result.alarm.RuleAlarmChannelResultVO;
+import org.springblade.modules.iot.vo.save.alarm.RuleAlarmChannelSaveVO;
+import org.springblade.modules.iot.vo.update.alarm.RuleAlarmChannelUpdateVO;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * <p>
+ * 业务实现类
+ * 告警规则渠道表
+ * </p>
+ *
+ * @author mqttsnet
+ * @date 2023-09-09 21:14:58
+ * @create [2023-09-09 21:14:58] [mqttsnet]
+ */
+@DS(DsConstant.BASE_TENANT)
+@Slf4j
+@RequiredArgsConstructor
+@Service
+public class RuleAlarmChannelServiceImpl extends BladeServiceImpl<RuleAlarmChannelManager, RuleAlarmChannel> implements RuleAlarmChannelService {
+
+
+    /**
+     * Save the alarm channel.
+     *
+     * @param saveVO Parameters for saving.
+     * @return {@link RuleAlarmChannelSaveVO} Entity.
+     */
+    @Override
+    public RuleAlarmChannelSaveVO saveAlarmChannel(RuleAlarmChannelSaveVO saveVO) {
+        log.info("Saving alarm channel. channelType={}, status={}", saveVO.getChannelType(), saveVO.getStatus());
+
+        // Validate the parameters.
+        checkedAlarmChannelSaveVO(saveVO);
+
+        // Build the parameters.
+        RuleAlarmChannel alarmChannel = builderAlarmChannelSaveVO(saveVO);
+
+        // Persist the alarm channel.
+        baseMapper.save(alarmChannel);
+
+        return BeanPlusUtil.toBeanIgnoreError(alarmChannel, RuleAlarmChannelSaveVO.class);
+    }
+
+    /**
+     * Validate the parameters for addition.
+     *
+     * @param saveVO Parameters for saving.
+     */
+    private void checkedAlarmChannelSaveVO(RuleAlarmChannelSaveVO saveVO) {
+        ArgumentAssert.notBlank(saveVO.getChannelName(), "Alarm channel name cannot be blank.");
+        AlarmChannelTypeEnum channelType = validateChannelType(saveVO.getChannelType());
+        saveVO.setChannelConfig(normalizeAndValidateChannelConfig(channelType, saveVO.getChannelConfig()));
+    }
+
+    /**
+     * Construct save parameters.
+     *
+     * @param saveVO Parameters for saving.
+     * @return {@link RuleAlarmChannel} Alarm channel entity.
+     */
+    private RuleAlarmChannel builderAlarmChannelSaveVO(RuleAlarmChannelSaveVO saveVO) {
+        return BeanPlusUtil.copyProperties(saveVO, RuleAlarmChannel.class);
+    }
+
+    /**
+     * Update the alarm channel.
+     *
+     * @param updateVO Parameters for updating.
+     * @return {@link RuleAlarmChannelUpdateVO} Update result.
+     */
+    @Override
+    public RuleAlarmChannelUpdateVO updateAlarmChannel(RuleAlarmChannelUpdateVO updateVO) {
+        log.info("Updating alarm channel. id={}, channelType={}, status={}",
+                updateVO.getId(), updateVO.getChannelType(), updateVO.getStatus());
+
+        // Validate the parameters.
+        checkedAlarmChannelUpdateVO(updateVO);
+
+        // Construct the parameters.
+        RuleAlarmChannel alarmChannel = builderAlarmChannelUpdateVO(updateVO);
+
+        // Update the alarm channel in database.
+        baseMapper.updateById(alarmChannel);
+
+        return updateVO;
+    }
+
+    /**
+     * Delete the alarm channel.
+     *
+     * @param id ID.
+     * @return {@link Boolean} Boolean value. true: successful, false: failed.
+     */
+    @Override
+    public Boolean deleteAlarmChannel(Long id) {
+        ArgumentAssert.notNull(id, "id cannot be null");
+
+        RuleAlarmChannel alarmChannel = baseMapper.getById(id);
+
+        if (null == alarmChannel) {
+            throw new ServiceException("The alarm channel does not exist");
+        }
+
+        // TODO Validate if the alarm channel is in use, e.g., if it has associated rules or records.
+        // if (isAlarmChannelInUse(id)) {
+        //     throw new ServiceException("The alarm channel is currently in use and cannot be deleted");
+        // }
+
+        return baseMapper.removeById(id);
+    }
+
+    /**
+     * Retrieve the details of the alarm channel.
+     *
+     * @param id ID.
+     * @return {@link RuleAlarmChannelDetailsResultVO} Entity.
+     */
+    @Override
+    public RuleAlarmChannelDetailsResultVO getAlarmChannelDetails(Long id) {
+        if (id == null) {
+            throw new ServiceException("Alarm channel ID cannot be null");
+        }
+
+        RuleAlarmChannel alarmChannel = baseMapper.getById(id);
+        if (alarmChannel == null) {
+            throw new ServiceException("Alarm channel does not exist");
+        }
+
+        return BeanPlusUtil.toBeanIgnoreError(alarmChannel, RuleAlarmChannelDetailsResultVO.class);
+    }
+
+    /**
+     * Retrieve a list of rule alarm channel VO.
+     *
+     * @param query Search parameters for rule alarm channels.
+     * @return {@link List<RuleAlarmChannelResultVO>} List of rule alarm channel VO.
+     */
+    @Override
+    public List<RuleAlarmChannelResultVO> getRuleAlarmChannelResultVOList(RuleAlarmChannelPageQuery query) {
+        List<RuleAlarmChannel> ruleAlarmChannelList = baseMapper.getRuleAlarmChannelList(query);
+        return BeanPlusUtil.toBeanList(ruleAlarmChannelList, RuleAlarmChannelResultVO.class);
+    }
+
+    /**
+     * Validate the parameters for updating.
+     *
+     * @param updateVO Parameters for updating.
+     */
+    private void checkedAlarmChannelUpdateVO(RuleAlarmChannelUpdateVO updateVO) {
+        ArgumentAssert.notNull(updateVO.getId(), "id cannot be null");
+
+        RuleAlarmChannel existingChannel = baseMapper.getById(updateVO.getId());
+        if (null == existingChannel) {
+            throw new ServiceException("Alarm channel does not exist");
+        }
+
+        ArgumentAssert.notBlank(updateVO.getChannelName(), "Alarm channel name cannot be blank.");
+        AlarmChannelTypeEnum channelType = validateChannelType(updateVO.getChannelType());
+        updateVO.setChannelConfig(normalizeAndValidateChannelConfig(channelType, updateVO.getChannelConfig()));
+    }
+
+    private AlarmChannelTypeEnum validateChannelType(Integer channelType) {
+        return AlarmChannelTypeEnum.fromValue(channelType)
+                .orElseThrow(() -> new ServiceException("Unsupported alarm channel type: " + channelType));
+    }
+
+    private String normalizeAndValidateChannelConfig(AlarmChannelTypeEnum channelType, String channelConfig) {
+        if (AlarmChannelTypeEnum.SITE_MESSAGE.equals(channelType)) {
+            SiteMessageParamDTO config = parseChannelConfig(StrUtil.blankToDefault(channelConfig, "{}"),
+                    SiteMessageParamDTO.class, channelType);
+            SiteMessageParamDTO normalized = SiteMessageParamDTO.builder()
+                    .remindMode(normalizeRemindMode(config.getRemindMode()))
+                    .target(StrUtil.blankToDefault(config.getTarget(), "01"))
+                    .autoRead(config.getAutoRead() == null ? false : config.getAutoRead())
+                    .url(config.getUrl())
+                    .recipientList(normalizeRecipientList(config.getRecipientList()))
+                    .build();
+            return JSON.toJSONString(normalized);
+        }
+        ArgumentAssert.notBlank(channelConfig, "Alarm channel config cannot be blank.");
+        switch (channelType) {
+            case DING_TALK:
+                DingTalkMessageParamDTO dingTalk = parseChannelConfig(channelConfig, DingTalkMessageParamDTO.class, channelType);
+                ArgumentAssert.notBlank(dingTalk.getToken(), "DingTalk alarm channel token cannot be blank.");
+                ArgumentAssert.notBlank(dingTalk.getSecret(), "DingTalk alarm channel secret cannot be blank.");
+                break;
+            case ENTERPRISE_WECHAT:
+                WeChatWorkMessageParamDTO weChat = parseChannelConfig(channelConfig, WeChatWorkMessageParamDTO.class, channelType);
+                ArgumentAssert.notBlank(weChat.getToken(), "Enterprise WeChat alarm channel token cannot be blank.");
+                break;
+            case FS:
+                FeishuMessageParamDTO feishu = parseChannelConfig(channelConfig, FeishuMessageParamDTO.class, channelType);
+                ArgumentAssert.notBlank(feishu.getToken(), "Feishu alarm channel token cannot be blank.");
+                ArgumentAssert.notBlank(feishu.getAppId(), "Feishu alarm channel appId cannot be blank.");
+                ArgumentAssert.notBlank(feishu.getAppSecret(), "Feishu alarm channel appSecret cannot be blank.");
+                break;
+            default:
+                throw new ServiceException("Unsupported alarm channel type: " + channelType);
+        }
+        return channelConfig;
+    }
+
+    private <T> T parseChannelConfig(String channelConfig, Class<T> clazz, AlarmChannelTypeEnum channelType) {
+        try {
+            T config = JSON.parseObject(channelConfig, clazz);
+            if (config == null) {
+                throw new ServiceException("Alarm channel config cannot be blank.");
+            }
+            return config;
+        } catch (ServiceException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new ServiceException("Invalid " + channelType.getDesc() + " alarm channel config.");
+        }
+    }
+
+    private String normalizeRemindMode(String remindMode) {
+        if (Arrays.stream(NoticeRemindModeEnum.values()).anyMatch(item -> item.getCode().equals(remindMode))) {
+            return remindMode;
+        }
+        return NoticeRemindModeEnum.EARLY_WARNING.getCode();
+    }
+
+    private List<String> normalizeRecipientList(List<String> recipientList) {
+        if (recipientList == null) {
+            return List.of();
+        }
+        return recipientList.stream()
+                .filter(StrUtil::isNotBlank)
+                .map(String::trim)
+                .distinct()
+                .toList();
+    }
+
+    /**
+     * Construct update parameters.
+     *
+     * @param updateVO Parameters for updating.
+     * @return {@link RuleAlarmChannel} Alarm channel entity.
+     */
+    private RuleAlarmChannel builderAlarmChannelUpdateVO(RuleAlarmChannelUpdateVO updateVO) {
+        return BeanPlusUtil.copyProperties(updateVO, RuleAlarmChannel.class);
+    }
+
+}

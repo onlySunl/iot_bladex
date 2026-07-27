@@ -1,0 +1,98 @@
+package org.springblade.modules.iot.vo.result.alarm;
+
+import org.springblade.model.vo.AuditableResultVO;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.Accessors;
+
+import java.io.Serial;
+import java.time.LocalDateTime;
+
+/**
+ * <p>
+ * 表单查询方法返回值VO
+ * 告警记录详情VO
+ * </p>
+ *
+ * @author mqttsnet
+ * @date 2023-09-09 21:15:22
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(callSuper = true)
+@Accessors(chain = true)
+@EqualsAndHashCode(callSuper = true)
+@Builder
+@Schema(title = "RuleAlarmRecordDetailsResultVO", description = "告警记录详情VO")
+public class RuleAlarmRecordDetailsResultVO extends AuditableResultVO {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 应用ID
+     */
+    @Schema(description = "应用ID")
+    private String appId;
+    /**
+     * 告警编码
+     */
+    @Schema(description = "告警编码")
+    private String alarmIdentification;
+    /**
+     * 渠道ID
+     */
+    @Schema(description = "渠道ID")
+    private Long channelId;
+    /**
+     * 发生时间
+     */
+    @Schema(description = "发生时间")
+    private LocalDateTime occurredTime;
+    /**
+     * 处理时间
+     */
+    @Schema(description = "处理时间")
+    private LocalDateTime handledTime;
+    /**
+     * 处理记录
+     */
+    @Schema(description = "处理记录")
+    private String handlingNotes;
+    /**
+     * 解决时间
+     */
+    @Schema(description = "解决时间")
+    private LocalDateTime resolvedTime;
+    /**
+     * 解决记录
+     */
+    @Schema(description = "解决记录")
+    private String resolutionNotes;
+    /**
+     * 告警具体内容信息
+     */
+    @Schema(description = "告警具体内容信息")
+    private String contentData;
+    /**
+     * 处理状态
+     */
+    @Schema(description = "处理状态")
+    private Integer handledStatus;
+    /**
+     * 描述
+     */
+
+    /**
+     * 告警规则详情信息
+     */
+    @Schema(description = "告警规则详情信息")
+    private RuleAlarmDetailsResultVO ruleAlarmDetailsResultVO;
+
+}

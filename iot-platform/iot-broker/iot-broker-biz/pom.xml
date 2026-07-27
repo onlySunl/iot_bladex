@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Broker 业务层：协议接入/WS会话/消息下行 -->
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>org.springblade</groupId>
+        <artifactId>iot-broker</artifactId>
+        <version>4.9.0.RELEASE</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>iot-broker-biz</artifactId>
+    <name>${project.artifactId}</name>
+    <description>Broker服务-业务模块</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-entity-broker</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-mybatis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-fileupload</artifactId>
+                    <groupId>commons-fileupload</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-broker-api</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+
+        <!-- ============================================================== -->
+        <!-- broker 协议接入层依赖                                            -->
+        <!-- broker 是所有协议（ws / mqtt / coap / lwm2m / tcp ...）的统一入口 -->
+        <!-- 上行投 Kafka,下行 Encoder ← DeviceCommand                       -->
+        <!-- mqs 仅消费 Kafka 做无状态业务处理（不持有 ws session）           -->
+        <!-- ============================================================== -->
+
+        <!-- 共享协议 entity（DistedEvent / ClientConnectedEvent / WsEventEnum
+             / DeviceProtocolEvent / WsCommandProtocolEncoder 等） -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-entity-mqs</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- broker 协议接入层投上行消息到 Kafka（thingLinksKafkaTemplate） -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+
+        <!-- WebSocket @ServerEndpoint 容器（spring-boot 3 + jakarta） -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.websocket</groupId>
+            <artifactId>jakarta.websocket-client-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-cache-starter</artifactId>
+            <version>1.0.8.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-core</artifactId>
+            <version>1.0.8.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-rocketmq-starter</artifactId>
+            <version>1.0.8.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-public-common</artifactId>
+            <version>4.9.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+</project>
+

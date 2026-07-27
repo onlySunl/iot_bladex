@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Rule 模块聚合：规则引擎、数据桥接、脚本与插件管理 -->
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        <parent>
+        <groupId>org.springblade</groupId>
+        <artifactId>iot-platform</artifactId>
+        <version>4.9.0.RELEASE</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>iot-rule</artifactId>
+    <name>${project.artifactId}</name>
+    <description>规则引擎服务服务</description>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>iot-rule-facade</module>
+        <module>iot-rule-server</module><module>iot-rule-biz</module>
+        <module>iot-rule-biz-bridge</module>
+        <module>iot-rule-controller</module>
+    </modules>
+</project>

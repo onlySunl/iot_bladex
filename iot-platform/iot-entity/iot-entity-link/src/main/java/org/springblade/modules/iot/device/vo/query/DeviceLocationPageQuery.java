@@ -1,0 +1,98 @@
+package org.springblade.modules.iot.device.vo.query;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import java.io.Serial;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.List;
+
+/**
+ * <p>
+ * 表单查询条件VO
+ * 设备位置表
+ * </p>
+ *
+ * @author mqttsnet
+ * @date 2023-05-30 23:05:31
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(callSuper = true)
+@EqualsAndHashCode
+@Builder
+@Schema(title = "DeviceLocationPageQuery", description = "设备位置表")
+public class DeviceLocationPageQuery implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    @Schema(description = "主键")
+    private Long id;
+
+    /**
+     * 设备标识
+     */
+    @Schema(description = "设备标识")
+    private String deviceIdentification;
+
+    /**
+     * 设备标识集合
+     */
+    @Schema(description = "设备标识集合")
+    private List<String> deviceIdentificationList;
+
+    /**
+     * 纬度
+     */
+    @Schema(description = "纬度")
+    private BigDecimal latitude;
+    /**
+     * 经度
+     */
+    @Schema(description = "经度")
+    private BigDecimal longitude;
+    /**
+     * 位置名称
+     */
+    @Schema(description = "位置名称")
+    private String fullName;
+    /**
+     * 省,直辖市编码
+     */
+    @Schema(description = "省,直辖市编码")
+    private String provinceCode;
+    /**
+     * 市编码
+     */
+    @Schema(description = "市编码")
+    private String cityCode;
+
+    /**
+     * 市编码集合
+     */
+    @Schema(description = "市编码集合")
+    private List<String> cityCodeList;
+    /**
+     * 区县
+     */
+    @Schema(description = "区县")
+    private String regionCode;
+    /**
+     * 备注
+     */
+    @Schema(description = "备注")
+    private String remark;
+    /**
+     * 创建人组织
+     */
+    @Schema(description = "创建人组织")
+    private Long createdOrgId;
+
+}

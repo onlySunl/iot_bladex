@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TDS 模块聚合：时序数据服务 -->
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        <parent>
+        <groupId>org.springblade</groupId>
+        <artifactId>iot-platform</artifactId>
+        <version>4.9.0.RELEASE</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>iot-tds</artifactId>
+    <name>${project.artifactId}</name>
+    <description>时序数据服务服务</description>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>iot-tds-facade</module>
+        <module>iot-tds-server</module>
+        <module>iot-tds-biz</module>
+        <module>iot-tds-controller</module>
+    </modules>
+</project>

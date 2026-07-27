@@ -1,0 +1,96 @@
+package org.springblade.modules.iot.device.service.group.impl;
+import org.springblade.modules.iot.D:workspaceIOTiot_bladex_v1.0iot-platformiot-linkiot-link-bizsrcmainjavaorgspringblademodulesiotdeviceservicegroupimplDeviceGroupRelServiceImpl.java.mapper.DeviceGroupRelMapper;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.modules.iot.device.entity.group.DeviceGroupRel;
+import org.springblade.modules.iot.device.service.group.DeviceGroupRelService;
+import org.springblade.modules.iot.device.vo.save.group.DeviceGroupRelSaveVO;
+import org.springblade.modules.iot.device.vo.update.group.DeviceGroupRelUpdateVO;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+/**
+ * <p>
+ * 涓氬姟瀹炵幇绫?
+ * 璁惧鍒嗙粍鍏崇郴琛?
+ * </p>
+ *
+ * @author mqttsnet
+ * @since 2025-06-23 14:06:46
+ */
+@Slf4j
+@AllArgsConstructor
+@Service
+public class DeviceGroupRelServiceImpl extends BaseServiceImpl<DeviceGroupRelMapper, DeviceGroupRel> implements DeviceGroupRelService {
+
+    @Override
+    protected <UpdateVO> DeviceGroupRel updateBefore(UpdateVO vo) {
+        DeviceGroupRelUpdateVO updateVO = (DeviceGroupRelUpdateVO) vo;
+
+        if (updateVO.getGroupId() != null && StrUtil.isNotBlank(updateVO.getDeviceIdentification())) {
+            if (superManager.count(Wrappers.<DeviceGroupRel>lbQ()
+                    .eq(DeviceGroupRel::getGroupId, updateVO.getGroupId())
+                    .eq(DeviceGroupRel::getDeviceIdentification, updateVO.getDeviceIdentification())
+                    .ne(DeviceGroupRel::getId, updateVO.getId())) > 0) {
+                throw BizException.wrap("The device is already in this group");
+            }
+        }
+
+        return super.updateBefore(updateVO);
+    }
+
+    @Override
+    protected <SaveVO> DeviceGroupRel saveBefore(SaveVO vo) {
+        DeviceGroupRelSaveVO saveVO = (DeviceGroupRelSaveVO) vo;
+
+        if (superManager.count(Wrappers.<DeviceGroupRel>lbQ()
+                .eq(DeviceGroupRel::getGroupId, saveVO.getGroupId())
+                .eq(DeviceGroupRel::getDeviceIdentification, saveVO.getDeviceIdentification())) > 0) {
+            throw BizException.wrap("The device is already in this group");
+        }
+
+        return super.saveBefore(saveVO);
+    }
+
+    @Override
+    public void removeByGroupIds(Collection<Long> groupIdList) {
+        if (CollUtil.isEmpty(groupIdList)) {
+            log.warn("GroupId list is empty, skip deletion");
+            return;
+        }
+        superManager.remove(Wrappers.<DeviceGroupRel>lbQ().in(DeviceGroupRel::getGroupId, groupIdList));
+    }
+
+    @Override
+    public List<String> getDeviceIdentificationsByGroupIds(Collection<Long> groupIdList) {
+        if (CollUtil.isEmpty(groupIdList)) {
+            log.warn("GroupId list is empty, skip query");
+            return List.of();
+        }
+        Optional<List<DeviceGroupRel>> deviceGroupRelListOptional = superManager.getDeviceGroupRelListByGroupIds(groupIdList);
+        return deviceGroupRelListOptional.map(deviceGroupRels -> deviceGroupRels.stream().map(DeviceGroupRel::getDeviceIdentification).distinct().toList()).orElseGet(List::of);
+    }
+
+    @Override
+    public void removeByDeviceIdentification(String deviceIdentification) {
+        // 绌哄€煎畨鍏細deviceIdentification 缂哄け鏃剁洿鎺ヨ烦杩囷紝閬垮厤绌哄瓧绗︿覆鏉′欢鍖归厤鍒板叏琛ㄦ暟鎹?
+        Optional.ofNullable(deviceIdentification)
+                .filter(StrUtil::isNotBlank)
+                .ifPresent(identification -> {
+                    boolean ok = superManager.remove(Wrappers.<DeviceGroupRel>lbQ()
+                            .eq(DeviceGroupRel::getDeviceIdentification, identification));
+                    log.info("Clean device_group_rel for deleted device, deviceIdentification={}, ok={}",
+                        identification, ok);
+                });
+    }
+}
+

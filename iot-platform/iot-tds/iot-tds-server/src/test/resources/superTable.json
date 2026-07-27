@@ -1,0 +1,72 @@
+{
+  "productType": "COMMON",
+  "productIdentification": "b6d1914cfe824acf974fb24a242a05bc",
+  "serviceList": [
+    {
+      "serviceName": "测试服务",
+      "serviceType": "1",
+      "serviceCode": "test",
+      "propertyList": [
+        {
+          "propertyCode": "test",
+          "propertyName": "测试属性1",
+          "datatype": "int",
+          "enumlist": "",
+          "max": 10,
+          "maxlength": 10,
+          "method": "RW",
+          "min": 1,
+          "step": "1",
+          "unit": "M",
+          "required": 1
+        },
+        {
+          "propertyCode": "test2",
+          "propertyName": "测试属性2",
+          "datatype": "int",
+          "enumlist": "",
+          "max": 10,
+          "maxlength": 10,
+          "method": "RW",
+          "min": 1,
+          "step": "1",
+          "unit": "M",
+          "required": 1
+        }
+      ]
+    },
+    {
+      "serviceName": "测试服务2",
+      "serviceType": "1",
+      "serviceCode": "test2",
+      "propertyList": [
+        {
+          "propertyCode": "test3",
+          "propertyName": "测试属性3",
+          "datatype": "int",
+          "enumlist": "",
+          "max": 10,
+          "maxlength": 10,
+          "method": "RW",
+          "min": 1,
+          "step": "1",
+          "unit": "M",
+          "required": 1
+        },
+        {
+          "propertyCode": "test4",
+          "propertyName": "测试属性4",
+          "datatype": "int",
+          "enumlist": "",
+          "max": 10,
+          "maxlength": 10,
+          "method": "RW",
+          "min": 1,
+          "step": "1",
+          "unit": "M",
+          "required": 1
+        }
+      ]
+    }
+  ]
+}

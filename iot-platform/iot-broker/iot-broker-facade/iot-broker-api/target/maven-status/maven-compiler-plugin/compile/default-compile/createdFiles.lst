@@ -1,0 +1,4 @@
+org\springblade\modules\iot\broker\MqttBrokerOpenInnerFacade.class
+org\springblade\modules\iot\broker\DeviceDownlinkFacade.class
+org\springblade\modules\iot\broker\BifroMqFacade.class
+org\springblade\modules\iot\broker\WebSocketBrokerOpenInnerFacade.class

@@ -1,0 +1,6 @@
+org\springblade\modules\iot\broker\BifroMqFacadeImpl.class
+org\springblade\modules\iot\broker\api\hystrix\BifroMQApiFallback.class
+org\springblade\modules\iot\broker\api\BifroMQApi.class
+org\springblade\modules\iot\broker\DeviceDownlinkFacadeImpl.class
+org\springblade\modules\iot\broker\WebSocketBrokerOpenInnerFacadeImpl.class
+org\springblade\modules\iot\broker\MqttBrokerOpenInnerFacadeImpl.class

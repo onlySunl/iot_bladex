@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- IoT Platform 根聚合工程 (ThingLinks 迁移版) -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.springblade</groupId>
+        <artifactId>iot_bladex</artifactId>
+        <version>4.9.0.RELEASE</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>iot-platform</artifactId>
+    <packaging>pom</packaging>
+    <name>iot-platform</name>
+    <description>IOT IoT Platform Aggregation (ThingLinks Migration)</description>
+
+    <modules>
+        <module>iot-public</module>
+        <module>iot-entity</module>
+        <module>iot-broker</module>
+        <module>iot-link</module>
+        <module>iot-mqs</module>
+        <module>iot-rule</module>
+        <module>iot-sdk</module>
+        <module>iot-tds</module>
+    </modules>
+</project>

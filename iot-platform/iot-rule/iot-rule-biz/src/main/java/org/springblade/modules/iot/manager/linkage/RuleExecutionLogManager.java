@@ -1,0 +1,66 @@
+package org.springblade.modules.iot.manager.linkage;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import org.springblade.modules.iot.entity.linkage.RuleExecutionLog;
+import org.springblade.modules.iot.vo.query.linkage.RuleExecutionLogPageQuery;
+import org.springblade.modules.iot.vo.result.linkage.RuleExecutionLogStatsResultVO;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * <p>
+ * 通用业务接口
+ * 规则执行日志表
+ * </p>
+ *
+ * @author mqttsnet
+ * @date 2024-12-02 18:41:26
+ * @create [2024-12-02 18:41:26] [mqttsnet]
+ */
+public interface RuleExecutionLogManager extends BladeMapper<RuleExecutionLog> {
+
+    /**
+     * 按场景联动执行日志查询条件获取列表。
+     *
+     * @param query 查询条件
+     * @return 执行日志列表
+     */
+    List<RuleExecutionLog> getRuleExecutionLogList(RuleExecutionLogPageQuery query);
+
+    /**
+     * 按查询条件聚合执行日志统计。
+     *
+     * @param query 查询条件
+     * @return 统计结果
+     */
+    RuleExecutionLogStatsResultVO getRuleExecutionLogStats(RuleExecutionLogPageQuery query);
+
+    /**
+     * 按查询条件获取执行日志时间范围。
+     *
+     * @param query 查询条件
+     * @return 时间范围
+     */
+    Map<String, Object> getRuleExecutionLogTimeBounds(RuleExecutionLogPageQuery query);
+
+    /**
+     * 按查询条件聚合执行日志趋势。
+     *
+     * @param query       查询条件
+     * @param granularity 时间粒度
+     * @return 趋势点
+     */
+    List<RuleExecutionLogStatsResultVO.TimelinePoint> getRuleExecutionLogTimeline(RuleExecutionLogPageQuery query,
+                                                                                  String granularity);
+
+    /**
+     * 按查询条件分批获取待清理的执行日志主键。
+     *
+     * @param query 查询条件
+     * @param limit 批次大小
+     * @return 执行日志主键
+     */
+    List<Long> getRuleExecutionLogIds(RuleExecutionLogPageQuery query, int limit);
+
+}

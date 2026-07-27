@@ -1,0 +1,5 @@
+org\springblade\modules\iot\inner\controller\WebSocketBrokerOpenInnerController.class
+org\springblade\modules\iot\inner\controller\MqttBrokerOpenInnerController.class
+org\springblade\modules\iot\broker\ws\endpoint\WsDeviceHandshakeConfigurator.class
+org\springblade\modules\iot\broker\ws\endpoint\WebSocketDeviceOpenAccessProtocolEndpoint.class
+org\springblade\modules\iot\inner\controller\DeviceDownlinkController.class

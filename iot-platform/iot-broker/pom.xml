@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Broker 模块聚合：多协议设备接入层 (WS/MQTT/CoAP/TCP) -->
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>org.springblade</groupId>
+        <artifactId>iot-platform</artifactId>
+        <version>4.9.0.RELEASE</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>iot-broker</artifactId>
+    <name>${project.artifactId}</name>
+    <description>Broker服务服务</description>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>iot-broker-facade</module>
+        <module>iot-broker-server</module>
+        <module>iot-broker-biz</module>
+        <module>iot-broker-controller</module>
+    </modules>
+</project>
+
