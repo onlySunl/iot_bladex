@@ -17,6 +17,9 @@ public class DeviceAclRuleCacheVO implements Serializable {
     private String ruleContent;
     private String deviceId;
     private String productId;
+    private String actionType;
+    private String dimension;
+    private Integer priority;
     private Integer status;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
