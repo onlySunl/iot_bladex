@@ -46,7 +46,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class ProductCommandResponseServiceImpl extends SuperServiceImpl<ProductCommandResponseManager, Long, ProductCommandResponse> implements ProductCommandResponseService {
+public class ProductCommandResponseServiceImpl extends BaseServiceImpl<ProductCommandResponseManager, ProductCommandResponse> implements ProductCommandResponseService {
 
     private final ProductServiceService productServiceService;
     /**

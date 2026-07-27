@@ -55,7 +55,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/deviceAclRule")
 @Tag(name = "设备访问控制(ACL)规则")
-public class DeviceAclRuleController extends SuperController<DeviceAclRuleService, Long, DeviceAclRule
+public class DeviceAclRuleController extends BaseController<DeviceAclRuleService, Long, DeviceAclRule
         , DeviceAclRuleSaveVO, DeviceAclRuleUpdateVO, DeviceAclRulePageQuery, DeviceAclRuleResultVO> {
     private final EchoService echoService;
 

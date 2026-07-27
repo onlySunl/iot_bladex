@@ -14,7 +14,7 @@ import org.springblade.modules.iot.productpublishrecord.vo.result.StrategyResult
  * @author mqttsnet
  * @see ProductPublishRecord
  */
-public interface ProductPublishRecordService extends SuperService<Long, ProductPublishRecord> {
+public interface ProductPublishRecordService extends BaseService<ProductPublishRecord> {
 
     /**
      * 写入一条 PUBLISH 记录(默认状态 SUCCESS,失败由 caller 调 markFailed 修改)。sourceVersion 首发为 null。

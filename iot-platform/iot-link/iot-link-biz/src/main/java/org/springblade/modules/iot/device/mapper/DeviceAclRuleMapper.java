@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @create [2025-06-11 19:57:46] [mqttsnet]
  */
 @Repository
-public interface DeviceAclRuleMapper extends SuperMapper<DeviceAclRule> {
+public interface DeviceAclRuleMapper extends BaseMapper<DeviceAclRule> {
 
 }
 

@@ -51,7 +51,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 public class ProductVersionServiceImpl
-    extends SuperServiceImpl<ProductVersionManager, Long, ProductVersion>
+    extends BaseServiceImpl<ProductVersionManager, ProductVersion>
     implements ProductVersionService {
 
     private final ProductVersionManager productVersionManager;

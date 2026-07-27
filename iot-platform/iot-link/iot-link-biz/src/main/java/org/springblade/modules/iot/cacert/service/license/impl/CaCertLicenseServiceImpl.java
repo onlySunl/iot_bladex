@@ -77,7 +77,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class CaCertLicenseServiceImpl extends SuperServiceImpl<CaCertLicenseManager, Long, CaCertLicense> implements CaCertLicenseService {
+public class CaCertLicenseServiceImpl extends BaseServiceImpl<CaCertLicenseManager, CaCertLicense> implements CaCertLicenseService {
 
     private final FileFacade fileApi;
 

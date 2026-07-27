@@ -16,7 +16,7 @@ import java.util.List;
  * @date 2023-10-20 17:27:25
  * @create [2023-10-20 17:27:25] [mqttsnet]
  */
-public interface DeviceCommandManager extends SuperManager<DeviceCommand> {
+public interface DeviceCommandManager extends BaseService<DeviceCommand> {
     /**
      * Fetch a list of device command result VOs.
      *

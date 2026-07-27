@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @create [2023-05-30 23:05:31] [mqttsnet]
  */
 @Repository
-public interface DeviceLocationMapper extends SuperMapper<DeviceLocation> {
+public interface DeviceLocationMapper extends BaseMapper<DeviceLocation> {
 
 }
 

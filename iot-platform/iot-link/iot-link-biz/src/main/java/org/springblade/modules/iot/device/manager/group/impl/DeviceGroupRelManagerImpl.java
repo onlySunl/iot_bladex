@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class DeviceGroupRelManagerImpl extends SuperManagerImpl<DeviceGroupRelMapper, DeviceGroupRel> implements DeviceGroupRelManager {
+public class DeviceGroupRelManagerImpl extends BaseServiceImpl<DeviceGroupRelMapper, DeviceGroupRel> implements DeviceGroupRelManager {
 
     private final DeviceGroupRelMapper deviceGroupRelMapper;
 

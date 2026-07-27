@@ -71,7 +71,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/product")
 @Tag(name = "产品模型")
-public class ProductController extends SuperController<ProductService, Long, Product, ProductSaveVO,
+public class ProductController extends BaseController<ProductService, Long, Product, ProductSaveVO,
         ProductUpdateVO, ProductPageQuery, ProductResultVO> {
     /**
      * Jackson 单例 ── 导出 JSON 用,ObjectMapper 初始化代价大必须 static final.

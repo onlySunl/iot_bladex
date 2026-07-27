@@ -27,7 +27,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class ProductPropertyManagerImpl extends SuperManagerImpl<ProductPropertyMapper, ProductProperty> implements ProductPropertyManager {
+public class ProductPropertyManagerImpl extends BaseServiceImpl<ProductPropertyMapper, ProductProperty> implements ProductPropertyManager {
 
     private final ProductPropertyMapper productPropertyMapper;
 

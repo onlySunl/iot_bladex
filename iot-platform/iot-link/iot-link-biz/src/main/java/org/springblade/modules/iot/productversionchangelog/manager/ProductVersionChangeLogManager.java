@@ -14,7 +14,7 @@ import org.springblade.modules.iot.productversionchangelog.vo.query.ProductVersi
  * @author mqttsnet
  * @see ProductVersionChangeLog
  */
-public interface ProductVersionChangeLogManager extends SuperManager<ProductVersionChangeLog> {
+public interface ProductVersionChangeLogManager extends BaseService<ProductVersionChangeLog> {
 
     /**
      * 分页查询变更日志(按 created_time 倒序)。

@@ -16,7 +16,7 @@ import org.springblade.modules.iot.device.vo.query.group.DeviceGroupPageQuery;
  * @date 2025-06-19 18:05:14
  * @create [2025-06-19 18:05:14] [mqttsnet]
  */
-public interface DeviceGroupManager extends SuperManager<DeviceGroup> {
+public interface DeviceGroupManager extends BaseService<DeviceGroup> {
 
     /**
      * 根据分页查询设备分组

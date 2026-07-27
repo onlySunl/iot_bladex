@@ -18,7 +18,7 @@ import org.springblade.modules.iot.device.vo.result.group.DeviceGroupResultVO;
  * @date 2025-06-19 18:05:14
  * @create [2025-06-19 18:05:14] [mqttsnet]
  */
-public interface DeviceGroupService extends SuperService<Long, DeviceGroup> {
+public interface DeviceGroupService extends BaseService<DeviceGroup> {
 
     /**
      * 查询树结构

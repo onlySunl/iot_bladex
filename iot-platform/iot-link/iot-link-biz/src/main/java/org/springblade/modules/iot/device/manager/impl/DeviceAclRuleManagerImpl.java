@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class DeviceAclRuleManagerImpl extends SuperManagerImpl<DeviceAclRuleMapper, DeviceAclRule>
+public class DeviceAclRuleManagerImpl extends BaseServiceImpl<DeviceAclRuleMapper, DeviceAclRule>
         implements DeviceAclRuleManager {
 }

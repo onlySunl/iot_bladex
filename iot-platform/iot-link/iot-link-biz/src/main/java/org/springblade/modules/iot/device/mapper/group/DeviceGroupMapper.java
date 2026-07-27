@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @create [2025-06-19 18:05:14] [mqttsnet]
  */
 @Repository
-public interface DeviceGroupMapper extends SuperMapper<DeviceGroup> {
+public interface DeviceGroupMapper extends BaseMapper<DeviceGroup> {
 
 }
 

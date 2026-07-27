@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @create [2025-10-19 16:28:50] [mqttsnet] [代码生成器生成]
  */
 @Repository
-public interface OtaUpgradeTargetsMapper extends SuperMapper<OtaUpgradeTargets> {
+public interface OtaUpgradeTargetsMapper extends BaseMapper<OtaUpgradeTargets> {
 
 }
 

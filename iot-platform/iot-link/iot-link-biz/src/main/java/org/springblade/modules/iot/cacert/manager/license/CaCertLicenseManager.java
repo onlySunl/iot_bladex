@@ -12,7 +12,7 @@ import org.springblade.modules.iot.cacert.entity.license.CaCertLicense;
  * @author mqttsnet
  * @since 2025-06-27 15:48:10
  */
-public interface CaCertLicenseManager extends SuperManager<CaCertLicense> {
+public interface CaCertLicenseManager extends BaseService<CaCertLicense> {
 
     /**
      * 根据证书序列号查询证书

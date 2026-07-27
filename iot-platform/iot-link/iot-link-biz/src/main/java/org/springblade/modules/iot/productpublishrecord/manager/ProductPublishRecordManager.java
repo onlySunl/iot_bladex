@@ -15,7 +15,7 @@ import org.springblade.modules.iot.productpublishrecord.vo.query.ProductPublishR
  * @author mqttsnet
  * @see ProductPublishRecord
  */
-public interface ProductPublishRecordManager extends SuperManager<ProductPublishRecord> {
+public interface ProductPublishRecordManager extends BaseService<ProductPublishRecord> {
 
     /**
      * 分页查询发布记录。

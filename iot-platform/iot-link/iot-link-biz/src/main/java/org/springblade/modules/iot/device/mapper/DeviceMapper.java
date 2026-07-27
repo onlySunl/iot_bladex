@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
 @Repository
-public interface DeviceMapper extends SuperMapper<Device> {
+public interface DeviceMapper extends BaseMapper<Device> {
     /**
      * 根据条件查询设备概述统计数据
      *

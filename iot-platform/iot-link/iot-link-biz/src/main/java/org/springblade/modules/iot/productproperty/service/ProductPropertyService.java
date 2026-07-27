@@ -18,7 +18,7 @@ import java.util.List;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
-public interface ProductPropertyService extends SuperService<Long, ProductProperty> {
+public interface ProductPropertyService extends BaseService<ProductProperty> {
 
     /**
      * 保存产品模型服务属性

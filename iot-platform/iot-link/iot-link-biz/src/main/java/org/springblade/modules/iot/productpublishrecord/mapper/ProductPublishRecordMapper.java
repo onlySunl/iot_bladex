@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
  * @see ProductPublishRecord
  */
 @Repository
-public interface ProductPublishRecordMapper extends SuperMapper<ProductPublishRecord> {
+public interface ProductPublishRecordMapper extends BaseMapper<ProductPublishRecord> {
 }

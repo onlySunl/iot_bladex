@@ -42,7 +42,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class DeviceManagerImpl extends SuperManagerImpl<DeviceMapper, Device> implements DeviceManager {
+public class DeviceManagerImpl extends BaseServiceImpl<DeviceMapper, Device> implements DeviceManager {
 
     private final DeviceMapper deviceMapper;
 

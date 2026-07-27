@@ -51,7 +51,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/deviceGroupRel")
 @Tag(name = "设备分组资源关系")
-public class DeviceGroupRelController extends SuperController<DeviceGroupRelService, Long, DeviceGroupRel
+public class DeviceGroupRelController extends BaseController<DeviceGroupRelService, Long, DeviceGroupRel
         , DeviceGroupRelSaveVO, DeviceGroupRelUpdateVO, DeviceGroupRelPageQuery, DeviceGroupRelResultVO> {
     private final EchoService echoService;
 

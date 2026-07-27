@@ -36,7 +36,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class DeviceLocationServiceImpl extends SuperServiceImpl<DeviceLocationManager, Long, DeviceLocation> implements DeviceLocationService {
+public class DeviceLocationServiceImpl extends BaseServiceImpl<DeviceLocationManager, DeviceLocation> implements DeviceLocationService {
 
 
     /**

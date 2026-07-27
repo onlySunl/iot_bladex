@@ -46,7 +46,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class ProductServiceServiceImpl extends SuperServiceImpl<ProductServiceManager, Long, ProductServices> implements ProductServiceService {
+public class ProductServiceServiceImpl extends BaseServiceImpl<ProductServiceManager, ProductServices> implements ProductServiceService {
 
     /**
      * 注入只读 {@link ProductQueryService}(独立 bean,零下游 Service 依赖),

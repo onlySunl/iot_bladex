@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/productTopic")
 @Tag(name = "产品Topic信息")
-public class ProductTopicController extends SuperController<ProductTopicService, Long, ProductTopic, ProductTopicSaveVO,
+public class ProductTopicController extends BaseController<ProductTopicService, Long, ProductTopic, ProductTopicSaveVO,
         ProductTopicUpdateVO, ProductTopicPageQuery, ProductTopicResultVO> {
     private final EchoService echoService;
 

@@ -18,7 +18,7 @@ import java.util.List;
  * @date 2024-01-12 22:36:27
  * @create [2024-01-12 22:36:27] [mqttsnet]
  */
-public interface OtaUpgradesManager extends SuperManager<OtaUpgrades> {
+public interface OtaUpgradesManager extends BaseService<OtaUpgrades> {
 
     /**
      * Queries the paginated details of OTA upgrade packages.

@@ -64,7 +64,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/otaUpgradeRecords")
 @Tag(name = "OTA升级记录")
-public class OtaUpgradeRecordsController extends SuperController<OtaUpgradeRecordsService, Long, OtaUpgradeRecords, OtaUpgradeRecordsSaveVO,
+public class OtaUpgradeRecordsController extends BaseController<OtaUpgradeRecordsService, Long, OtaUpgradeRecords, OtaUpgradeRecordsSaveVO,
         OtaUpgradeRecordsUpdateVO, OtaUpgradeRecordsPageQuery, OtaUpgradeRecordsResultVO> {
     private final EchoService echoService;
     private final OtaUpgradeTasksService otaUpgradeTasksService;

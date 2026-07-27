@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
-public interface ProductPropertyManager extends SuperManager<ProductProperty> {
+public interface ProductPropertyManager extends BaseService<ProductProperty> {
 
     /**
      * 根据服务ID查询属性信息

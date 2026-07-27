@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class ProductVersionManagerImpl extends SuperManagerImpl<ProductVersionMapper, ProductVersion>
+public class ProductVersionManagerImpl extends BaseServiceImpl<ProductVersionMapper, ProductVersion>
     implements ProductVersionManager {
 
     private final ProductVersionMapper productVersionMapper;

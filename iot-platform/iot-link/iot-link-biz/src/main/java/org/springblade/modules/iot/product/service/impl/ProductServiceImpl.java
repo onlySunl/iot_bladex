@@ -88,7 +88,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class ProductServiceImpl extends SuperServiceImpl<ProductManager, Long, Product> implements ProductService {
+public class ProductServiceImpl extends BaseServiceImpl<ProductManager, Product> implements ProductService {
 
     private final ProductServiceService productServiceService;
 

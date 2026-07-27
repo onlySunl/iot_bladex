@@ -59,7 +59,7 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 @RestController
 @RequestMapping("/caCertLicense")
 @Tag(name = "CA许可证证书")
-public class CaCertLicenseController extends SuperController<CaCertLicenseService, Long, CaCertLicense
+public class CaCertLicenseController extends BaseController<CaCertLicenseService, Long, CaCertLicense
         , CaCertLicenseSaveVO, CaCertLicenseUpdateVO, CaCertLicensePageQuery, CaCertLicenseResultVO> {
     private final EchoService echoService;
     private final CaCertAuditLogService auditLogService;

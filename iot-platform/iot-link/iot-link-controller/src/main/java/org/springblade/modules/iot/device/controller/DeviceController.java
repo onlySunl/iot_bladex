@@ -85,7 +85,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/device")
 @Tag(name = "设备档案信息")
-public class DeviceController extends SuperController<DeviceService, Long, Device, DeviceSaveVO, DeviceUpdateVO, DevicePageQuery, DeviceResultVO> {
+public class DeviceController extends BaseController<DeviceService, Long, Device, DeviceSaveVO, DeviceUpdateVO, DevicePageQuery, DeviceResultVO> {
     private final EchoService echoService;
 
     private final DeviceEasyExcelService deviceEasyExcelService;

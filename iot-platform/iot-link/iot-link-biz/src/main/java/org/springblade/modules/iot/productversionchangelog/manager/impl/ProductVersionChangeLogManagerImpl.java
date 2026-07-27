@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class ProductVersionChangeLogManagerImpl
-    extends SuperManagerImpl<ProductVersionChangeLogMapper, ProductVersionChangeLog>
+    extends BaseServiceImpl<ProductVersionChangeLogMapper, ProductVersionChangeLog>
     implements ProductVersionChangeLogManager {
 
     private final ProductVersionChangeLogMapper productVersionChangeLogMapper;

@@ -29,7 +29,7 @@ import java.util.Objects;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class DeviceActionManagerImpl extends SuperManagerImpl<DeviceActionMapper, DeviceAction> implements DeviceActionManager {
+public class DeviceActionManagerImpl extends BaseServiceImpl<DeviceActionMapper, DeviceAction> implements DeviceActionManager {
 
     private final DeviceActionMapper deviceActionMapper;
 

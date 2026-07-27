@@ -27,7 +27,7 @@ import java.util.Objects;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class DeviceCommandManagerImpl extends SuperManagerImpl<DeviceCommandMapper, DeviceCommand> implements DeviceCommandManager {
+public class DeviceCommandManagerImpl extends BaseServiceImpl<DeviceCommandMapper, DeviceCommand> implements DeviceCommandManager {
     private final DeviceCommandMapper deviceCommandMapper;
 
     /**

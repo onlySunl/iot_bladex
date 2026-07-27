@@ -43,7 +43,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class DeviceActionServiceImpl extends SuperServiceImpl<DeviceActionManager, Long, DeviceAction> implements DeviceActionService {
+public class DeviceActionServiceImpl extends BaseServiceImpl<DeviceActionManager, DeviceAction> implements DeviceActionService {
 
     private final LinkCacheDataHelper linkCacheDataHelper;
     private final MqttBrokerOpenInnerFacade mqttBrokerOpenInnerFacade;

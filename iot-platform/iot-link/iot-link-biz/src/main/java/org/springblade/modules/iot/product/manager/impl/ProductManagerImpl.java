@@ -34,7 +34,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class ProductManagerImpl extends SuperManagerImpl<ProductMapper, Product> implements ProductManager {
+public class ProductManagerImpl extends BaseServiceImpl<ProductMapper, Product> implements ProductManager {
 
     private final ProductMapper productMapper;
 

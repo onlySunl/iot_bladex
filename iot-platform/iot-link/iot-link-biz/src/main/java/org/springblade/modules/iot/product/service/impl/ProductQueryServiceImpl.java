@@ -96,7 +96,7 @@ public class ProductQueryServiceImpl implements ProductQueryService {
 
     @Override
     public Long countThingModelServices() {
-        // 走已注入的 ProductServiceManager(SuperManager#count,继承自 IService),
+        // 走已注入的 ProductServiceManager(BaseService#count,继承自 IService),
         // 保持"Service → Manager"层级,不直接碰 mapper。
         return productServiceManager.count();
     }

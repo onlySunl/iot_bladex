@@ -19,7 +19,7 @@ import java.util.List;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
-public interface ProductCommandResponseService extends SuperService<Long, ProductCommandResponse> {
+public interface ProductCommandResponseService extends BaseService<ProductCommandResponse> {
 
     ProductCommandResponse saveProductCommandResponse(ProductCommandResponseSaveVO saveVO);
 

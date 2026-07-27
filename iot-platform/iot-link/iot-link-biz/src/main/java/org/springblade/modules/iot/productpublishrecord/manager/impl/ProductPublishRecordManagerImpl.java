@@ -27,7 +27,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class ProductPublishRecordManagerImpl extends SuperManagerImpl<ProductPublishRecordMapper, ProductPublishRecord>
+public class ProductPublishRecordManagerImpl extends BaseServiceImpl<ProductPublishRecordMapper, ProductPublishRecord>
         implements ProductPublishRecordManager {
 
     private final ProductPublishRecordMapper productPublishRecordMapper;

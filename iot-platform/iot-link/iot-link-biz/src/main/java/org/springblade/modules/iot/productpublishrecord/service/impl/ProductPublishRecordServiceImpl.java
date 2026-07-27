@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class ProductPublishRecordServiceImpl
-    extends SuperServiceImpl<ProductPublishRecordManager, Long, ProductPublishRecord>
+    extends BaseServiceImpl<ProductPublishRecordManager, ProductPublishRecord>
     implements ProductPublishRecordService {
 
     private final ProductPublishRecordManager productPublishRecordManager;

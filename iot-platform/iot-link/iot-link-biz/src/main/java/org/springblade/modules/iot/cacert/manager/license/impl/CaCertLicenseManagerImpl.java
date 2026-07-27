@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class CaCertLicenseManagerImpl extends SuperManagerImpl<CaCertLicenseMapper, CaCertLicense> implements CaCertLicenseManager {
+public class CaCertLicenseManagerImpl extends BaseServiceImpl<CaCertLicenseMapper, CaCertLicense> implements CaCertLicenseManager {
 
     private final CaCertLicenseMapper caCertLicenseMapper;
 

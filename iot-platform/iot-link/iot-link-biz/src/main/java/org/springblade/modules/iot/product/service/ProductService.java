@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
-public interface ProductService extends SuperService<Long, Product> {
+public interface ProductService extends BaseService<Product> {
 
     /**
      * 分页查询产品信息。

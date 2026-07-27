@@ -21,7 +21,7 @@ import org.springblade.modules.iot.ota.vo.save.OtaUpgradeTargetsSaveVO;
  * @date 2025-10-19 16:28:50
  * @create [2025-10-19 16:28:50] [mqttsnet] [代码生成器生成]
  */
-public interface OtaUpgradeTargetsService extends SuperService<Long, OtaUpgradeTargets> {
+public interface OtaUpgradeTargetsService extends BaseService<OtaUpgradeTargets> {
     /**
      * 批量保存OTA升级目标
      *

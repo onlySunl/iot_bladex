@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class OtaUpgradeTargetsManagerImpl extends SuperManagerImpl<OtaUpgradeTargetsMapper, OtaUpgradeTargets> implements OtaUpgradeTargetsManager {
+public class OtaUpgradeTargetsManagerImpl extends BaseServiceImpl<OtaUpgradeTargetsMapper, OtaUpgradeTargets> implements OtaUpgradeTargetsManager {
     private final OtaUpgradeTargetsMapper otaUpgradeTargetsMapper;
 
     @Override

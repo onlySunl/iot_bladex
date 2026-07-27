@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @create [2023-03-14 19:39:59] [mqttsnet] 
  */
 @Repository
-public interface ProductTopicMapper extends SuperMapper<ProductTopic> {
+public interface ProductTopicMapper extends BaseMapper<ProductTopic> {
 
 }
 
