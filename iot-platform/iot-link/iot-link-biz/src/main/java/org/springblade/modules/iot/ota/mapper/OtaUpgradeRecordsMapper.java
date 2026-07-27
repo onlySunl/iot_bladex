@@ -19,7 +19,7 @@ import org.apache.ibatis.annotations.Param;
  * @create [2024-01-12 22:42:04] [mqttsnet]
  */
 @Repository
-public interface OtaUpgradeRecordsMapper extends SuperMapper<OtaUpgradeRecords> {
+public interface OtaUpgradeRecordsMapper extends BaseMapper<OtaUpgradeRecords> {
 
     /**
      * 查询OTA升级记录统计信息

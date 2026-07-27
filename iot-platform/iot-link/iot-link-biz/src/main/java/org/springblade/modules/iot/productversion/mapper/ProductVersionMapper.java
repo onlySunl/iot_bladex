@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
  * @see ProductVersion
  */
 @Repository
-public interface ProductVersionMapper extends SuperMapper<ProductVersion> {
+public interface ProductVersionMapper extends BaseMapper<ProductVersion> {
 }

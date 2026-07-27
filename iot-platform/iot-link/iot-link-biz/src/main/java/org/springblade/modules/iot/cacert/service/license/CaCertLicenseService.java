@@ -21,7 +21,7 @@ import jakarta.validation.constraints.NotNull;
  * @author mqttsnet
  * @since 2025-06-27 15:48:10
  */
-public interface CaCertLicenseService extends SuperService<Long, CaCertLicense> {
+public interface CaCertLicenseService extends BaseService<CaCertLicense> {
 
     /**
      * 导入PEM格式证书

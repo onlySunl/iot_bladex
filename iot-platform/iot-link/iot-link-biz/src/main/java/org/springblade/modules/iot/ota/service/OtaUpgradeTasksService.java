@@ -29,7 +29,7 @@ import org.springblade.modules.iot.protocol.vo.param.TopoOtaReportResponseParam;
  * @date 2024-01-12 22:40:04
  * @create [2024-01-12 22:40:04] [mqttsnet]
  */
-public interface OtaUpgradeTasksService extends SuperService<Long, OtaUpgradeTasks> {
+public interface OtaUpgradeTasksService extends BaseService<OtaUpgradeTasks> {
 
     /**
      * Save OTA Upgrade Task

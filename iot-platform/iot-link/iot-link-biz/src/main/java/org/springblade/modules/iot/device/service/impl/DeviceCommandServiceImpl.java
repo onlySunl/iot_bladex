@@ -64,7 +64,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class DeviceCommandServiceImpl extends SuperServiceImpl<DeviceCommandManager, Long, DeviceCommand> implements DeviceCommandService {
+public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandManager, DeviceCommand> implements DeviceCommandService {
 
     private final LinkCacheDataHelper linkCacheDataHelper;
     private final MqttBrokerOpenInnerFacade mqttBrokerOpenInnerFacade;

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @create [2023-10-20 17:27:25] [mqttsnet]
  */
 @Repository
-public interface DeviceCommandMapper extends SuperMapper<DeviceCommand> {
+public interface DeviceCommandMapper extends BaseMapper<DeviceCommand> {
 
 }
 

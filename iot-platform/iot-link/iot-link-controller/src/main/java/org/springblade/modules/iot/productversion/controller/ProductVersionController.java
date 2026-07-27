@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 产品物模型版本前端控制器。继承 {@link SuperController} 得标准 CRUD(save 仅占位,实际创建走 /publish;
+ * 产品物模型版本前端控制器。继承 {@link BaseController} 得标准 CRUD(save 仅占位,实际创建走 /publish;
  * update 仅改 remark);业务动作发布 / 回滚 / 历史清理 / 版本 diff 单独定义。
  *
  * @author mqttsnet
@@ -45,7 +45,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/productVersion")
 @Tag(name = "产品物模型版本")
-public class ProductVersionController extends SuperController<ProductVersionService, Long, ProductVersion,
+public class ProductVersionController extends BaseController<ProductVersionService, Long, ProductVersion,
     ProductVersionSaveVO, ProductVersionUpdateVO, ProductVersionPageQuery, ProductVersionResultVO> {
 
     private final EchoService echoService;
@@ -86,7 +86,7 @@ public class ProductVersionController extends SuperController<ProductVersionServ
 
     /**
      * 按业务键 (productIdentification, versionNo) 反查单个版本行(含完整 productSnapshotJson),
-     * 供前端版本预览弹窗回源取快照。URL 不能用 {@code /detail} 否则与父类 {@link SuperController#getDetail} 冲突。
+     * 供前端版本预览弹窗回源取快照。URL 不能用 {@code /detail} 否则与父类 {@link BaseController#getDetail} 冲突。
      *
      * @param versionNo 版本序号(雪花标识)
      * @return {@link R} 版本行;不存在返回 null

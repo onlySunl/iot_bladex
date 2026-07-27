@@ -16,7 +16,7 @@ import org.springblade.modules.iot.ota.vo.query.OtaUpgradeTargetsPageQuery;
  * @date 2025-10-19 16:28:50
  * @create [2025-10-19 16:28:50] [mqttsnet] [代码生成器生成]
  */
-public interface OtaUpgradeTargetsManager extends SuperManager<OtaUpgradeTargets> {
+public interface OtaUpgradeTargetsManager extends BaseService<OtaUpgradeTargets> {
 
     /**
      * 根据查询条件分页查询OTA升级目标列表

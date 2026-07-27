@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class ProductTopicManagerImpl extends SuperManagerImpl<ProductTopicMapper, ProductTopic> implements ProductTopicManager {
+public class ProductTopicManagerImpl extends BaseServiceImpl<ProductTopicMapper, ProductTopic> implements ProductTopicManager {
 
 }
 

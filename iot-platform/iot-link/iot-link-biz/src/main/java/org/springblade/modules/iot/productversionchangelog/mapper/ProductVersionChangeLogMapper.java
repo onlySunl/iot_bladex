@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
  * @see ProductVersionChangeLog
  */
 @Repository
-public interface ProductVersionChangeLogMapper extends SuperMapper<ProductVersionChangeLog> {
+public interface ProductVersionChangeLogMapper extends BaseMapper<ProductVersionChangeLog> {
 }

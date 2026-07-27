@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * @since 2025-06-23 14:06:46
  */
 @Repository
-public interface DeviceGroupRelMapper extends SuperMapper<DeviceGroupRel> {
+public interface DeviceGroupRelMapper extends BaseMapper<DeviceGroupRel> {
 
 }
 

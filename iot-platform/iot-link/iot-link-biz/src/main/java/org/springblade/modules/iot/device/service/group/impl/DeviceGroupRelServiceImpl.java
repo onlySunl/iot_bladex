@@ -33,7 +33,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class DeviceGroupRelServiceImpl extends SuperServiceImpl<DeviceGroupRelManager, Long, DeviceGroupRel> implements DeviceGroupRelService {
+public class DeviceGroupRelServiceImpl extends BaseServiceImpl<DeviceGroupRelManager, DeviceGroupRel> implements DeviceGroupRelService {
 
 
     @Override

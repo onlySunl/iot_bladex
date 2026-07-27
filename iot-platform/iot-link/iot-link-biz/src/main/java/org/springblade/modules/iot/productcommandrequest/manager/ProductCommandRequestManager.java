@@ -16,7 +16,7 @@ import java.util.List;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
-public interface ProductCommandRequestManager extends SuperManager<ProductCommandRequest> {
+public interface ProductCommandRequestManager extends BaseService<ProductCommandRequest> {
 
     /**
      * 校验CODE

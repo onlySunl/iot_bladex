@@ -22,7 +22,7 @@ import java.util.List;
  * @date 2023-10-20 17:27:25
  * @create [2023-10-20 17:27:25] [mqttsnet]
  */
-public interface DeviceCommandService extends SuperService<Long, DeviceCommand> {
+public interface DeviceCommandService extends BaseService<DeviceCommand> {
 
 
     /**

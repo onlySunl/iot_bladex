@@ -44,7 +44,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/deviceCommand")
 @Tag(name = "设备命令下发及响应")
-public class DeviceCommandController extends SuperController<DeviceCommandService, Long, DeviceCommand, DeviceCommandSaveVO,
+public class DeviceCommandController extends BaseController<DeviceCommandService, Long, DeviceCommand, DeviceCommandSaveVO,
         DeviceCommandUpdateVO, DeviceCommandPageQuery, DeviceCommandResultVO> {
     private final EchoService echoService;
 

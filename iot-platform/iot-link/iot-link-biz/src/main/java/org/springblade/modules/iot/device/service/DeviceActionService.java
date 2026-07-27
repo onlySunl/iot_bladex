@@ -19,7 +19,7 @@ import java.util.List;
  * @date 2023-06-10 16:38:09
  * @create [2023-06-10 16:38:09] [mqttsnet]
  */
-public interface DeviceActionService extends SuperService<Long, DeviceAction> {
+public interface DeviceActionService extends BaseService<DeviceAction> {
 
     /**
      * 保存设备动作数据

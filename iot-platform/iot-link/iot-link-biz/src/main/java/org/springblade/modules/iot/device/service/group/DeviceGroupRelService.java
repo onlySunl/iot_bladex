@@ -16,7 +16,7 @@ import org.springblade.modules.iot.device.entity.group.DeviceGroupRel;
  * @author mqttsnet
  * @since 2025-06-23 14:06:46
  */
-public interface DeviceGroupRelService extends SuperService<Long, DeviceGroupRel> {
+public interface DeviceGroupRelService extends BaseService<DeviceGroupRel> {
 
     /**
      * 根据分组ID删除设备分组关系

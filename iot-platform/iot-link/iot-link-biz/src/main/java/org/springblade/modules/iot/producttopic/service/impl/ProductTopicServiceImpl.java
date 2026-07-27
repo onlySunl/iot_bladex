@@ -42,7 +42,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class ProductTopicServiceImpl extends SuperServiceImpl<ProductTopicManager, Long, ProductTopic> implements ProductTopicService {
+public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicManager, ProductTopic> implements ProductTopicService {
 
     private final ProductTopicTemplateConfig topicTemplateConfig;
 

@@ -52,7 +52,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class DeviceAclRuleServiceImpl extends SuperServiceImpl<DeviceAclRuleManager, Long, DeviceAclRule> implements DeviceAclRuleService {
+public class DeviceAclRuleServiceImpl extends BaseServiceImpl<DeviceAclRuleManager, DeviceAclRule> implements DeviceAclRuleService {
 
     private final LinkCacheDataHelper linkCacheDataHelper;
     private final DeviceAclRuleEventPublisher deviceAclRuleEventPublisher;
@@ -84,7 +84,7 @@ public class DeviceAclRuleServiceImpl extends SuperServiceImpl<DeviceAclRuleMana
     }
 
     /**
-     * SuperServiceImpl.removeByIds 没有 after 钩子,显式 override 发变更事件,
+     * BaseServiceImpl.removeByIds 没有 after 钩子,显式 override 发变更事件,
      * 让 {@code DeviceAclRuleCacheEvictListener} 在事务提交后失效缓存。
      */
     @Override

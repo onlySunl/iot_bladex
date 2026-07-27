@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @create [2024-01-12 22:40:04] [mqttsnet]
  */
 @Repository
-public interface OtaUpgradeTasksMapper extends SuperMapper<OtaUpgradeTasks> {
+public interface OtaUpgradeTasksMapper extends BaseMapper<OtaUpgradeTasks> {
 
 }
 

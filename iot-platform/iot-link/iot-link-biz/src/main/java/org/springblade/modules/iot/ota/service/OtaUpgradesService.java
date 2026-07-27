@@ -23,7 +23,7 @@ import org.springblade.modules.iot.ota.vo.update.OtaUpgradesUpdateVO;
  * @date 2024-01-12 22:36:27
  * @create [2024-01-12 22:36:27] [mqttsnet]
  */
-public interface OtaUpgradesService extends SuperService<Long, OtaUpgrades> {
+public interface OtaUpgradesService extends BaseService<OtaUpgrades> {
 
     /**
      * Save OTA Upgrade Package

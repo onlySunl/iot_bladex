@@ -45,7 +45,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class OtaUpgradeRecordsServiceImpl extends SuperServiceImpl<OtaUpgradeRecordsManager, Long, OtaUpgradeRecords> implements OtaUpgradeRecordsService {
+public class OtaUpgradeRecordsServiceImpl extends BaseServiceImpl<OtaUpgradeRecordsManager, OtaUpgradeRecords> implements OtaUpgradeRecordsService {
 
     /**
      * Save a new OTA upgrade record.

@@ -39,7 +39,7 @@ import org.springblade.modules.iot.protocol.vo.result.TopoQueryDeviceResultVO;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
-public interface DeviceService extends SuperService<Long, Device> {
+public interface DeviceService extends BaseService<Device> {
 
     /**
      * 分页查询设备档案信息

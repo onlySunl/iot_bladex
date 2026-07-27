@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/deviceAction")
 @Tag(name = "设备动作数据")
-public class DeviceActionController extends SuperController<DeviceActionService, Long, DeviceAction, DeviceActionSaveVO,
+public class DeviceActionController extends BaseController<DeviceActionService, Long, DeviceAction, DeviceActionSaveVO,
         DeviceActionUpdateVO, DeviceActionPageQuery, DeviceActionResultVO> {
     private final EchoService echoService;
 

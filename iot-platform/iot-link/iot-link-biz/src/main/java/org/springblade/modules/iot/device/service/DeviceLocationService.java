@@ -20,7 +20,7 @@ import java.util.List;
  * @date 2023-05-30 23:05:31
  * @create [2023-05-30 23:05:31] [mqttsnet]
  */
-public interface DeviceLocationService extends SuperService<Long, DeviceLocation> {
+public interface DeviceLocationService extends BaseService<DeviceLocation> {
 
     /**
      * 保存设备位置信息

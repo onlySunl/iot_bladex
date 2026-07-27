@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  * @author mqttsnet
  */
 @Repository
-public interface CaCertAuditLogMapper extends SuperMapper<CaCertAuditLog> {
+public interface CaCertAuditLogMapper extends BaseMapper<CaCertAuditLog> {
 }

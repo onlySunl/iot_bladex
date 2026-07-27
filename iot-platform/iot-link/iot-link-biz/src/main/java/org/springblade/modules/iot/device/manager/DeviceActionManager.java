@@ -17,7 +17,7 @@ import java.util.List;
  * @date 2023-06-10 16:38:09
  * @create [2023-06-10 16:38:09] [mqttsnet]
  */
-public interface DeviceActionManager extends SuperManager<DeviceAction> {
+public interface DeviceActionManager extends BaseService<DeviceAction> {
 
     /**
      * 查询设备动作数据VO列表

@@ -18,7 +18,7 @@ import org.springblade.modules.iot.product.vo.query.ProductPageQuery;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
-public interface ProductManager extends SuperManager<Product> {
+public interface ProductManager extends BaseService<Product> {
 
     /**
      * 分页查询产品信息

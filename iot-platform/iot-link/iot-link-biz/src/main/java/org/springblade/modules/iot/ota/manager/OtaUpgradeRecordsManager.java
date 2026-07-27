@@ -20,7 +20,7 @@ import org.springblade.modules.iot.ota.vo.query.OtaUpgradeRecordsPageQuery;
  * @date 2024-01-12 22:42:04
  * @create [2024-01-12 22:42:04] [mqttsnet]
  */
-public interface OtaUpgradeRecordsManager extends SuperManager<OtaUpgradeRecords> {
+public interface OtaUpgradeRecordsManager extends BaseService<OtaUpgradeRecords> {
 
     /**
      * Queries the paginated details of OTA upgrade records.

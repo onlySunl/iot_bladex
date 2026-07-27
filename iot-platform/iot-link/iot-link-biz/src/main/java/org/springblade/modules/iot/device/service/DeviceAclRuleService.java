@@ -20,7 +20,7 @@ import jakarta.validation.Valid;
  * @date 2025-06-11 19:57:46
  * @create [2025-06-11 19:57:46] [mqttsnet]
  */
-public interface DeviceAclRuleService extends SuperService<Long, DeviceAclRule> {
+public interface DeviceAclRuleService extends BaseService<DeviceAclRule> {
 
 
     /**

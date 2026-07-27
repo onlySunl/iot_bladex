@@ -13,7 +13,7 @@ import org.springblade.modules.iot.producttopic.entity.ProductTopic;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
-public interface ProductTopicManager extends SuperManager<ProductTopic> {
+public interface ProductTopicManager extends BaseService<ProductTopic> {
 
 }
 

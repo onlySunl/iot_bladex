@@ -17,7 +17,7 @@ import java.util.List;
  * @date 2023-05-30 23:05:31
  * @create [2023-05-30 23:05:31] [mqttsnet]
  */
-public interface DeviceLocationManager extends SuperManager<DeviceLocation> {
+public interface DeviceLocationManager extends BaseService<DeviceLocation> {
 
     /**
      * 查询设备位置信息VO列表

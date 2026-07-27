@@ -89,7 +89,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class OtaUpgradeTasksServiceImpl extends SuperServiceImpl<OtaUpgradeTasksManager, Long, OtaUpgradeTasks> implements OtaUpgradeTasksService {
+public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksManager, OtaUpgradeTasks> implements OtaUpgradeTasksService {
 
     private final OtaUpgradesService otaUpgradesService;
 
@@ -515,7 +515,7 @@ public class OtaUpgradeTasksServiceImpl extends SuperServiceImpl<OtaUpgradeTasks
             return rec;
         }).orElseGet(() -> createNewOtaUpgradeRecordsDO(topoOtaCommandResponseParam, startTime, endTime));
 
-        otaUpgradeRecordsService.getSuperManager().saveOrUpdate(record);
+        otaUpgradeRecordsService.getBaseService().saveOrUpdate(record);
 
         return topoOtaCommandResponseParam;
     }

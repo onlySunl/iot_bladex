@@ -119,7 +119,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class DeviceServiceImpl extends SuperServiceImpl<DeviceManager, Long, Device> implements DeviceService {
+public class DeviceServiceImpl extends BaseServiceImpl<DeviceManager, Device> implements DeviceService {
 
     /**
      * 注入只读 {@link ProductQueryService}(独立 bean,零下游 Service 依赖),切库经过 Service AOP 边界、

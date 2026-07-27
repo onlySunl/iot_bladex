@@ -28,7 +28,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class ProductCommandRequestManagerImpl extends SuperManagerImpl<ProductCommandRequestMapper, ProductCommandRequest> implements ProductCommandRequestManager {
+public class ProductCommandRequestManagerImpl extends BaseServiceImpl<ProductCommandRequestMapper, ProductCommandRequest> implements ProductCommandRequestManager {
 
     private final ProductCommandRequestMapper productCommandRequestMapper;
 

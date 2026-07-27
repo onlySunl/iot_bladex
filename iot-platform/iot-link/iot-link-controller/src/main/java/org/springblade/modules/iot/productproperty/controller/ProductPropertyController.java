@@ -53,7 +53,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/productProperty")
 @Tag(name = "产品模型服务属性")
-public class ProductPropertyController extends SuperController<ProductPropertyService, Long, ProductProperty, ProductPropertySaveVO,
+public class ProductPropertyController extends BaseController<ProductPropertyService, Long, ProductProperty, ProductPropertySaveVO,
         ProductPropertyUpdateVO, ProductPropertyPageQuery, ProductPropertyResultVO> {
     private final EchoService echoService;
     private final DistributedLock distributedLock;

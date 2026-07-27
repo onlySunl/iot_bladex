@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/productVersionChangeLog")
 @Tag(name = "产品物模型版本变更日志")
-public class ProductVersionChangeLogController extends SuperController<ProductVersionChangeLogService, Long, ProductVersionChangeLog,
+public class ProductVersionChangeLogController extends BaseController<ProductVersionChangeLogService, Long, ProductVersionChangeLog,
     ProductVersionChangeLogSaveVO, ProductVersionChangeLogUpdateVO, ProductVersionChangeLogPageQuery, ProductVersionChangeLogResultVO> {
 
     private final EchoService echoService;

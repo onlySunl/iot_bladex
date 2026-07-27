@@ -42,7 +42,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/productCommandRequest")
 @Tag(name = "产品模型设备下发服务命令属性")
-public class ProductCommandRequestController extends SuperController<ProductCommandRequestService, Long, ProductCommandRequest, ProductCommandRequestSaveVO,
+public class ProductCommandRequestController extends BaseController<ProductCommandRequestService, Long, ProductCommandRequest, ProductCommandRequestSaveVO,
         ProductCommandRequestUpdateVO, ProductCommandRequestPageQuery, ProductCommandRequestResultVO> {
     private final EchoService echoService;
 

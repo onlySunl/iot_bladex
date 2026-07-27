@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/deviceLocation")
 @Tag(name = "设备位置")
-public class DeviceLocationController extends SuperController<DeviceLocationService, Long, DeviceLocation, DeviceLocationSaveVO,
+public class DeviceLocationController extends BaseController<DeviceLocationService, Long, DeviceLocation, DeviceLocationSaveVO,
         DeviceLocationUpdateVO, DeviceLocationPageQuery, DeviceLocationResultVO> {
     private final EchoService echoService;
 

@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/productPublishRecord")
 @Tag(name = "产品发布记录")
-public class ProductPublishRecordController extends SuperController<ProductPublishRecordService, Long,
+public class ProductPublishRecordController extends BaseController<ProductPublishRecordService, Long,
         ProductPublishRecord, ProductPublishRecordSaveVO, ProductPublishRecordUpdateVO,
         ProductPublishRecordPageQuery, ProductPublishRecordResultVO> {
 

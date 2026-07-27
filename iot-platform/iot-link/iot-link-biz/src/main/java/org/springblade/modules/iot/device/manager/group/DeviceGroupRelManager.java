@@ -16,7 +16,7 @@ import org.springblade.modules.iot.device.entity.group.DeviceGroupRel;
  * @author mqttsnet
  * @since 2025-06-23 14:06:46
  */
-public interface DeviceGroupRelManager extends SuperManager<DeviceGroupRel> {
+public interface DeviceGroupRelManager extends BaseService<DeviceGroupRel> {
 
 
     /**

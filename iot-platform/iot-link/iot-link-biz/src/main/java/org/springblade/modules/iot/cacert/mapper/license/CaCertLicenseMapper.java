@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * @since 2025-06-27 15:48:10
  */
 @Repository
-public interface CaCertLicenseMapper extends SuperMapper<CaCertLicense> {
+public interface CaCertLicenseMapper extends BaseMapper<CaCertLicense> {
 
 }
 

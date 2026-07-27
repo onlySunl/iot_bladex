@@ -18,7 +18,7 @@ import org.springblade.modules.iot.productversion.vo.save.ProductVersionRollback
  * @author mqttsnet
  * @see ProductVersion
  */
-public interface ProductVersionService extends SuperService<Long, ProductVersion> {
+public interface ProductVersionService extends BaseService<ProductVersion> {
 
     /**
      * 找/创建产品当前 DRAFT 草稿行,并按当前产品树重新生成 snapshot 写回。草稿生命周期单一入口:任意物模型

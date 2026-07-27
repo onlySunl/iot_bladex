@@ -15,7 +15,7 @@ import org.springblade.modules.iot.productversion.vo.query.ProductVersionPageQue
  * @author mqttsnet
  * @see ProductVersion
  */
-public interface ProductVersionManager extends SuperManager<ProductVersion> {
+public interface ProductVersionManager extends BaseService<ProductVersion> {
 
     /**
      * 分页查询版本列表。

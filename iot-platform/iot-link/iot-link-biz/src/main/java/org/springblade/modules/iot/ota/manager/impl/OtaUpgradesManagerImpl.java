@@ -31,7 +31,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class OtaUpgradesManagerImpl extends SuperManagerImpl<OtaUpgradesMapper, OtaUpgrades> implements OtaUpgradesManager {
+public class OtaUpgradesManagerImpl extends BaseServiceImpl<OtaUpgradesMapper, OtaUpgrades> implements OtaUpgradesManager {
 
     private final OtaUpgradesMapper otaUpgradesMapper;
 

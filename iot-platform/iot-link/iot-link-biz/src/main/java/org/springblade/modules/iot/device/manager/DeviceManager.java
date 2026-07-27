@@ -23,7 +23,7 @@ import org.springblade.modules.iot.device.vo.query.DevicePageQuery;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
-public interface DeviceManager extends SuperManager<Device> {
+public interface DeviceManager extends BaseService<Device> {
 
     Long findDeviceTotal();
 

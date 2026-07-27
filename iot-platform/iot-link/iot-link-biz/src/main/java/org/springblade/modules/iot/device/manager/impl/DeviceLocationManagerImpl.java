@@ -30,7 +30,7 @@ import java.util.Objects;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class DeviceLocationManagerImpl extends SuperManagerImpl<DeviceLocationMapper, DeviceLocation> implements DeviceLocationManager {
+public class DeviceLocationManagerImpl extends BaseServiceImpl<DeviceLocationMapper, DeviceLocation> implements DeviceLocationManager {
 
     private final DeviceLocationMapper deviceLocationMapper;
 
