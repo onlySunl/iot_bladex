@@ -30,7 +30,7 @@ public class RemoteTenantFallbackFactory implements FallbackFactory<RemoteTenant
         return new RemoteTenantService() {
 
             @Override
-            public R<List<Tenant>> list(Tenant qsDevice) {
+            public R<List<Tenant>> list() {
                 return null;
             }
         };

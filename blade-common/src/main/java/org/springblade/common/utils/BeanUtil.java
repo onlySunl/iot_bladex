@@ -2,6 +2,7 @@ package org.springblade.common.utils;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springblade.core.tool.jackson.JsonUtil;
 import org.springblade.core.tool.utils.CollectionUtil;
 
 import java.util.Collections;
@@ -26,7 +27,7 @@ public class BeanUtil {
         if (source == null) {
             return null;
         }
-        return org.springblade.core.tool.utils.BeanUtil.toBean(source, targetClass);
+        return org.springblade.core.tool.utils.BeanUtil.toBean(JsonUtil.toMap(source), targetClass);
     }
 
     /**
@@ -42,7 +43,7 @@ public class BeanUtil {
             return null;
         }
         try {
-            return org.springblade.core.tool.utils.BeanUtil.toBean(source, targetClass);
+            return org.springblade.core.tool.utils.BeanUtil.toBean(JsonUtil.toMap(source), targetClass);
         } catch (Exception e) {
             return null;
         }
@@ -61,7 +62,7 @@ public class BeanUtil {
             return Collections.emptyList();
         }
         return sourceList.stream()
-                .map(source -> org.springblade.core.tool.utils.BeanUtil.toBean(source, targetClass))
+                .map(source -> org.springblade.core.tool.utils.BeanUtil.toBean(JsonUtil.toMap(source), targetClass))
                 .collect(Collectors.toList());
     }
 
@@ -79,7 +80,7 @@ public class BeanUtil {
         }
         Page<T> targetPage = new Page<>(sourcePage.getCurrent(), sourcePage.getSize(), sourcePage.getTotal());
         List<T> records = sourcePage.getRecords().stream()
-                .map(record -> org.springblade.core.tool.utils.BeanUtil.toBean(record, targetClass))
+                .map(record -> org.springblade.core.tool.utils.BeanUtil.toBean(JsonUtil.toMap(record), targetClass))
                 .collect(Collectors.toList());
         targetPage.setRecords(records);
         return targetPage;
@@ -95,7 +96,7 @@ public class BeanUtil {
      * @return 目标对象
      */
     public static <T> T toBean(Object source, Class<T> targetClass, boolean ignoreNull) {
-        T target = org.springblade.core.tool.utils.BeanUtil.toBean(source, targetClass);
+        T target = org.springblade.core.tool.utils.BeanUtil.toBean(JsonUtil.toMap(source), targetClass);
         if (ignoreNull && target != null) {
             // 忽略空值的逻辑可以在这里实现
         }

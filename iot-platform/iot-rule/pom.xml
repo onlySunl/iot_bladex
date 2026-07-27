@@ -19,9 +19,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>iot-rule-facade</module>
-        <module>iot-rule-server</module><module>iot-rule-biz</module>
-        <module>iot-rule-biz-bridge</module>
-        <module>iot-rule-controller</module>
+
     </modules>
 </project>
