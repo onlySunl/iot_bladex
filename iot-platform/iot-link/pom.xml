@@ -28,7 +28,7 @@
     <parent>
         <artifactId>iot-platform</artifactId>
         <groupId>org.springblade</groupId>
-        <version>${revision}</version>
+        <version>4.9.0.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -59,26 +59,43 @@
     <!-- ======================================== -->
     <dependencyManagement>
         <dependencies>
-            <!-- 内部模块依赖 -->
+            <!-- ==================== 内部模块依赖 ==================== -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-link-biz</artifactId>
-                <version>${revision}</version>
+                <version>4.9.0.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-link-api</artifactId>
-                <version>${revision}</version>
+                <version>4.9.0.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-link-boot-impl</artifactId>
-                <version>${revision}</version>
+                <version>4.9.0.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-link-cloud-impl</artifactId>
-                <version>${revision}</version>
+                <version>4.9.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-link-controller</artifactId>
+                <version>4.9.0.RELEASE</version>
+            </dependency>
+
+            <!-- ==================== BladeX 框架依赖 ==================== -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-boot</artifactId>
+                <version>4.9.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-common</artifactId>
+                <version>4.9.0.RELEASE</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

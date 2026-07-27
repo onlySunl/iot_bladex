@@ -19,4 +19,25 @@
         <module>iot-rule-boot-impl</module>
         <module>iot-rule-cloud-impl</module>
     </modules>
+
+    <!-- 依赖管理 (子模块继承) -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-rule-api</artifactId>
+                <version>4.9.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-boot</artifactId>
+                <version>4.9.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-common</artifactId>
+                <version>4.9.0.RELEASE</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
