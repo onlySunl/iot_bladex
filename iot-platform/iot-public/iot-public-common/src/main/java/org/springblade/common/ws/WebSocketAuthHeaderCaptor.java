@@ -3,7 +3,7 @@ package org.springblade.common.ws;
 import java.util.List;
 import java.util.Map;
 
-import com.mqttsnet.basic.context.ContextConstants;
+import org.springblade.common.constant.ContextConstants;
 import jakarta.websocket.HandshakeResponse;
 import jakarta.websocket.server.HandshakeRequest;
 import jakarta.websocket.server.ServerEndpointConfig;

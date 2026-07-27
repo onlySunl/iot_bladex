@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 import cn.hutool.core.map.MapUtil;
-import com.mqttsnet.basic.interfaces.echo.EchoVO;
+import org.springblade.common.echo.EchoVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

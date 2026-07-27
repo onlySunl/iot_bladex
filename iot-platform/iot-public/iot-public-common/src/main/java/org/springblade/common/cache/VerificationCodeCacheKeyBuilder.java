@@ -2,7 +2,7 @@ package org.springblade.common.cache;
 
 
 
-import com.mqttsnet.basic.model.cache.CacheKeyBuilder;
+import org.springblade.common.cache.CacheKeyBuilder;
 
 import java.time.Duration;
 

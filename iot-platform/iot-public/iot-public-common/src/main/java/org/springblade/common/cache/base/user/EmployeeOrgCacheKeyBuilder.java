@@ -3,8 +3,8 @@ package org.springblade.common.cache.base.user;
 import org.springblade.common.cache.CacheKeyModular;
 import org.springblade.common.cache.CacheKeyTable;
 import org.springblade.common.entity.CustomBaseEntity;
-import com.mqttsnet.basic.model.cache.CacheKey;
-import com.mqttsnet.basic.model.cache.CacheKeyBuilder;
+import org.springblade.common.cache.CacheKey;
+import org.springblade.common.cache.CacheKeyBuilder;
 import org.springblade.core.tool.utils.Func;
 
 import java.time.Duration;

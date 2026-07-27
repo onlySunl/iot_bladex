@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.common.mq;
 
-import com.mqttsnet.basic.kafka.producer.KafkaProducerService;
+import org.springblade.common.mq.KafkaProducerService;
 
 /**
  * Kafka producer service stub.

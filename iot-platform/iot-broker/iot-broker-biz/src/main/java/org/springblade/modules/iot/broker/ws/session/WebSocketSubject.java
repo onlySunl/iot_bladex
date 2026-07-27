@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import cn.hutool.core.lang.Assert;
-import com.mqttsnet.basic.utils.ArgumentAssert;
+import org.springblade.common.utils.ArgumentAssert;
 import jakarta.websocket.CloseReason;
 import jakarta.websocket.Session;
 

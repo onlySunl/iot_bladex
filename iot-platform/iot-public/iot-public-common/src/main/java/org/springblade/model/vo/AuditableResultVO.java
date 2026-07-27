@@ -1,9 +1,9 @@
 package org.springblade.model.vo;
 
 import cn.hutool.core.map.MapUtil;
-import com.mqttsnet.basic.annotation.echo.Echo;
-import com.mqttsnet.basic.base.entity.Entity;
-import com.mqttsnet.basic.interfaces.echo.EchoVO;
+import org.springblade.common.annotation.echo.Echo;
+import org.springblade.common.base.Entity;
+import org.springblade.common.echo.EchoVO;
 import org.springblade.model.constant.EchoApi;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;

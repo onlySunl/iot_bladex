@@ -1,7 +1,7 @@
 package org.springblade.model.vo;
 
 import cn.hutool.core.collection.CollUtil;
-import com.mqttsnet.basic.context.ContextUtil;
+import org.springblade.common.cache.ContextUtil;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

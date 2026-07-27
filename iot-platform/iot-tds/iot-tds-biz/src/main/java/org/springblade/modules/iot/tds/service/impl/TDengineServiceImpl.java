@@ -1,10 +1,10 @@
 package org.springblade.modules.iot.tds.service.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
-import com.mqttsnet.basic.tds.model.Fields;
-import com.mqttsnet.basic.tds.model.SuperTableDTO;
-import com.mqttsnet.basic.tds.model.TableDTO;
-import com.mqttsnet.basic.tds.model.TagsSelectDTO;
+import org.springblade.common.tds.Fields;
+import org.springblade.common.tds.SuperTableDTO;
+import org.springblade.common.tds.TableDTO;
+import org.springblade.common.tds.TagsSelectDTO;
 import org.springblade.common.constant.DsConstant;
 import org.springblade.modules.iot.tds.mapper.TDengineMapper;
 import org.springblade.modules.iot.tds.service.TdsService;

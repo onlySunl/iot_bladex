@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.tds.facade;
 
-import com.mqttsnet.basic.tds.model.SuperTableDTO;
-import com.mqttsnet.basic.tds.model.TableDTO;
+import org.springblade.common.tds.SuperTableDTO;
+import org.springblade.common.tds.TableDTO;
 import org.springblade.core.tool.api.R;
 
 import org.springblade.modules.iot.tds.vo.result.SuperTableDescribeVO;

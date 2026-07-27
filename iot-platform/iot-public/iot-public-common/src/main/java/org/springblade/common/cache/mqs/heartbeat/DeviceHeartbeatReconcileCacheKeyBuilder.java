@@ -2,9 +2,9 @@ package org.springblade.common.cache.mqs.heartbeat;
 
 import java.time.Duration;
 
-import com.mqttsnet.basic.context.ContextUtil;
-import com.mqttsnet.basic.model.cache.CacheKey;
-import com.mqttsnet.basic.model.cache.CacheKeyBuilder;
+import org.springblade.common.cache.ContextUtil;
+import org.springblade.common.cache.CacheKey;
+import org.springblade.common.cache.CacheKeyBuilder;
 import org.springblade.common.cache.CacheKeyModular;
 import org.springblade.common.cache.CacheKeyTable;
 

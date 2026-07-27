@@ -5,7 +5,7 @@ import com.tangzc.autotable.annotation.AutoColumn;
 import java.io.Serial;
 
 import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.mqttsnet.basic.base.entity.TreeEntity;
+import org.springblade.common.base.TreeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

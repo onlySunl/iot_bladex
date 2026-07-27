@@ -4,8 +4,8 @@ package org.springblade.common.cache.base.common;
 import org.springblade.common.cache.CacheKeyModular;
 import org.springblade.common.cache.CacheKeyTable;
 import org.springblade.common.entity.CustomBaseEntity;
-import com.mqttsnet.basic.model.cache.CacheHashKey;
-import com.mqttsnet.basic.model.cache.CacheKeyBuilder;
+import org.springblade.common.cache.CacheHashKey;
+import org.springblade.common.cache.CacheKeyBuilder;
 
 import java.io.Serializable;
 

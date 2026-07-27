@@ -2,7 +2,7 @@ package org.springblade.model.vo.save;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import com.mqttsnet.basic.utils.ArgumentAssert;
+import org.springblade.common.utils.ArgumentAssert;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

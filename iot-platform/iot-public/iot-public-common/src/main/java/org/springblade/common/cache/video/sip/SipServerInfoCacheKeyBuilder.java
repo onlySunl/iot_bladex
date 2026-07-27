@@ -5,8 +5,8 @@ import java.time.Duration;
 import org.springblade.common.cache.CacheKeyModular;
 import org.springblade.common.cache.CacheKeyTable;
 import org.springblade.common.entity.CustomBaseEntity;
-import com.mqttsnet.basic.model.cache.CacheKey;
-import com.mqttsnet.basic.model.cache.CacheKeyBuilder;
+import org.springblade.common.cache.CacheKey;
+import org.springblade.common.cache.CacheKeyBuilder;
 
 /**
  * SIP 服务信息 Redis 缓存 Key 构建器
