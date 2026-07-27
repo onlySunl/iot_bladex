@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.product.controller;
+import org.springblade.common.base.request.PageParams;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;

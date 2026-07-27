@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.productcommand.controller;
+import org.springblade.common.base.request.PageParams;
 
 import org.springblade.common.annotation.log.WebLog;
 import org.springblade.core.tool.api.R;

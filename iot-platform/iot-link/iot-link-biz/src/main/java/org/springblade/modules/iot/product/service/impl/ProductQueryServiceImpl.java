@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.product.service.impl;
+import org.springblade.common.base.request.PageParams;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.metadata.IPage;

@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.productpublishrecord.manager.impl;
+import org.springblade.common.base.request.PageParams;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
