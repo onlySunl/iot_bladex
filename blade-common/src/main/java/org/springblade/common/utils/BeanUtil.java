@@ -2,9 +2,7 @@ package org.springblade.common.utils;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springblade.core.tool.utils.BeanUtil;
 import org.springblade.core.tool.utils.CollectionUtil;
-import org.springblade.core.tool.utils.Func;
 
 import java.util.Collections;
 import java.util.List;
@@ -12,9 +10,24 @@ import java.util.stream.Collectors;
 
 /**
  * Bean 工具类
- * 继承 BladeX 的 BeanUtil，补充缺失的方法
+ * 补充 BladeX BeanUtil 缺失的方法
  */
-public class BeanUtil extends BeanUtil {
+public class BeanUtil {
+
+    /**
+     * 对象转换
+     *
+     * @param source      源对象
+     * @param targetClass 目标类型
+     * @param <T>         目标类型
+     * @return 目标对象
+     */
+    public static <T> T toBean(Object source, Class<T> targetClass) {
+        if (source == null) {
+            return null;
+        }
+        return org.springblade.core.tool.utils.BeanUtil.toBean(source, targetClass);
+    }
 
     /**
      * 对象转换（忽略错误）
@@ -29,7 +42,7 @@ public class BeanUtil extends BeanUtil {
             return null;
         }
         try {
-            return toBean(source, targetClass);
+            return org.springblade.core.tool.utils.BeanUtil.toBean(source, targetClass);
         } catch (Exception e) {
             return null;
         }
@@ -48,7 +61,7 @@ public class BeanUtil extends BeanUtil {
             return Collections.emptyList();
         }
         return sourceList.stream()
-                .map(source -> toBean(source, targetClass))
+                .map(source -> org.springblade.core.tool.utils.BeanUtil.toBean(source, targetClass))
                 .collect(Collectors.toList());
     }
 
@@ -66,7 +79,7 @@ public class BeanUtil extends BeanUtil {
         }
         Page<T> targetPage = new Page<>(sourcePage.getCurrent(), sourcePage.getSize(), sourcePage.getTotal());
         List<T> records = sourcePage.getRecords().stream()
-                .map(record -> toBean(record, targetClass))
+                .map(record -> org.springblade.core.tool.utils.BeanUtil.toBean(record, targetClass))
                 .collect(Collectors.toList());
         targetPage.setRecords(records);
         return targetPage;
@@ -82,7 +95,7 @@ public class BeanUtil extends BeanUtil {
      * @return 目标对象
      */
     public static <T> T toBean(Object source, Class<T> targetClass, boolean ignoreNull) {
-        T target = toBean(source, targetClass);
+        T target = org.springblade.core.tool.utils.BeanUtil.toBean(source, targetClass);
         if (ignoreNull && target != null) {
             // 忽略空值的逻辑可以在这里实现
         }
