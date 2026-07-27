@@ -1,7 +1,9 @@
 package org.springblade.modules.iot.productcommandrequest.controller;
 
+import org.springblade.common.annotation.log.WebLog;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.mp.base.BaseController;
+import org.springblade.common.interfaces.echo.EchoService;
 import org.springblade.modules.iot.productcommandrequest.entity.ProductCommandRequest;
 import org.springblade.modules.iot.productcommandrequest.service.ProductCommandRequestService;
 import org.springblade.modules.iot.productcommandrequest.vo.query.ProductCommandRequestPageQuery;
@@ -13,7 +15,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,12 +37,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/productCommandRequest")
 @Tag(name = "产品模型设备下发服务命令属性")
-public class ProductCommandRequestController extends BladeController<ProductCommandRequestService, Long, ProductCommandRequest, ProductCommandRequestSaveVO,
+public class ProductCommandRequestController extends SuperController<ProductCommandRequestService, Long, ProductCommandRequest, ProductCommandRequestSaveVO,
         ProductCommandRequestUpdateVO, ProductCommandRequestPageQuery, ProductCommandRequestResultVO> {
     private final EchoService echoService;
 
@@ -48,6 +50,7 @@ public class ProductCommandRequestController extends BladeController<ProductComm
     public EchoService getEchoService() {
         return echoService;
     }
+
 
     /**
      * 新增 产品模型设备下发服务命令属性信息表
@@ -57,9 +60,11 @@ public class ProductCommandRequestController extends BladeController<ProductComm
      */
     @Operation(summary = "保存产品模型设备下发服务命令属性")
     @PostMapping("/saveProductCommandRequest")
+    @WebLog(value = "保存产品模型设备下发服务命令属性", request = false)
     public R saveProductCommandRequest(@Valid @RequestBody ProductCommandRequestSaveVO saveVO) {
         return R.success(superService.saveProductCommandRequest(saveVO));
     }
+
 
     /**
      * 修改 产品模型设备下发服务命令属性信息表
@@ -69,6 +74,7 @@ public class ProductCommandRequestController extends BladeController<ProductComm
      */
     @Operation(summary = "修改产品模型设备下发服务命令属性")
     @PutMapping("/updateProductCommandRequest")
+    @WebLog(value = "修改产品模型设备下发服务命令属性", request = false)
     public R updateProductCommandRequest(@Valid @RequestBody ProductCommandRequestUpdateVO updateVO) {
         return R.success(superService.updateProductCommandRequest(updateVO));
     }
@@ -84,10 +90,12 @@ public class ProductCommandRequestController extends BladeController<ProductComm
             @Parameter(description = "产品模型设备下发服务命令属性ID", required = true)
     })
     @DeleteMapping("/deleteProductCommandRequest/{id}")
+    @WebLog(value = "删除产品模型设备下发服务命令属性", request = false)
     public R<Boolean> deleteProductCommandRequest(@PathVariable("id") Long id) {
         log.info("deleteProductCommandRequest id:{}", id);
         return R.success(superService.deleteProductCommandRequest(id));
     }
 
 }
+
 

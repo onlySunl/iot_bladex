@@ -2,9 +2,12 @@ package org.springblade.modules.iot.ota.controller;
 
 import java.util.List;
 
+import org.springblade.common.annotation.log.WebLog;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.boot.ctrl.BladeController;
-import org.springblade.core.mp.support.Query;
+import org.springblade.core.mp.base.BaseController;
+import org.springblade.core.boot.request.PageParam;
+import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.common.interfaces.echo.EchoService;
 import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.ota.entity.OtaUpgrades;
 import org.springblade.modules.iot.ota.service.OtaUpgradesService;
@@ -18,7 +21,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,12 +45,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @create [2024-01-12 22:36:27] [mqttsnet]
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/otaUpgrades")
 @Tag(name = "OTA升级包")
-public class OtaUpgradesController extends BladeController<OtaUpgradesService, Long, OtaUpgrades, OtaUpgradesSaveVO,
+public class OtaUpgradesController extends SuperController<OtaUpgradesService, Long, OtaUpgrades, OtaUpgradesSaveVO,
         OtaUpgradesUpdateVO, OtaUpgradesPageQuery, OtaUpgradesResultVO> {
     private final EchoService echoService;
 
@@ -56,8 +59,9 @@ public class OtaUpgradesController extends BladeController<OtaUpgradesService, L
         return echoService;
     }
 
+
     @Override
-    public QueryWrap<OtaUpgrades> handlerWrapper(OtaUpgrades model, Query params) {
+    public QueryWrap<OtaUpgrades> handlerWrapper(OtaUpgrades model, PageParams<OtaUpgradesPageQuery> params) {
         QueryWrap<OtaUpgrades> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
         DataScopeHelper.startDataScope("ota_upgrades");
@@ -66,6 +70,7 @@ public class OtaUpgradesController extends BladeController<OtaUpgradesService, L
 
     @Operation(summary = "保存OTA升级包", description = "保存一个新的OTA升级包")
     @PostMapping("/saveUpgradePackage")
+    @WebLog(value = "保存OTA升级包", request = false)
     public R<OtaUpgradesSaveVO> saveUpgradePackage(@Valid @RequestBody OtaUpgradesSaveVO saveVO) {
         OtaUpgradesSaveVO createdSaveVO = superService.saveUpgradePackage(saveVO);
         return R.success(createdSaveVO);
@@ -73,6 +78,7 @@ public class OtaUpgradesController extends BladeController<OtaUpgradesService, L
 
     @Operation(summary = "更新OTA升级包", description = "更新一个现有的OTA升级包")
     @PutMapping("/updateUpgradePackage")
+    @WebLog(value = "更新OTA升级包", request = false)
     public R<OtaUpgradesUpdateVO> updateUpgradePackage(@Valid @RequestBody OtaUpgradesUpdateVO updateVO) {
         OtaUpgradesUpdateVO updatedSaveVO = superService.updateUpgradePackage(updateVO);
         return R.success(updatedSaveVO);
@@ -84,6 +90,7 @@ public class OtaUpgradesController extends BladeController<OtaUpgradesService, L
             @Parameter(name = "status", description = "OTA升级包状态", required = true)
     })
     @PutMapping("/updateOtaUpgradeStatus/{id}")
+    @WebLog(value = "更新OTA升级包状态", request = false)
     public R<Boolean> updateOtaUpgradeStatus(@PathVariable("id") Long id, @RequestParam("status") Integer status) {
         log.info("更新OTA升级状态 id:{}, 状态:{}", id, status);
         return R.success(superService.updateOtaUpgradeStatus(id, status));
@@ -94,6 +101,7 @@ public class OtaUpgradesController extends BladeController<OtaUpgradesService, L
             @Parameter(name = "id", description = "OTA升级包ID", required = true)
     })
     @DeleteMapping("/deleteOtaUpgrade/{id}")
+    @WebLog(value = "删除OTA升级包", request = false)
     public R<Boolean> deleteOtaUpgrade(@PathVariable("id") Long id) {
         log.info("删除OTA升级包 id: {}", id);
         return R.success(superService.deleteOtaUpgrade(id));
@@ -110,10 +118,12 @@ public class OtaUpgradesController extends BladeController<OtaUpgradesService, L
 
     @Operation(summary = "批量删除OTA升级包", description = "通过它们的ID批量删除OTA升级包")
     @DeleteMapping("/deleteOtaUpgrades")
+    @WebLog(value = "批量删除OTA升级包", request = false)
     public R<Boolean> deleteOtaUpgrades(@RequestBody List<Long> ids) {
         log.info("批量删除OTA升级包 ids: {}", ids);
         boolean allDeleted = ids.stream().distinct().allMatch(id -> superService.deleteOtaUpgrade(id));
         return R.success(allDeleted);
     }
+
 
 }

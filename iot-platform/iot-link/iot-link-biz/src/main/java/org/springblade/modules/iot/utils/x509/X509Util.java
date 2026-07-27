@@ -91,6 +91,7 @@ public class X509Util {
 
     private static final String PRIVATE_KEY_PATH = "/etc/mqttsnet/thinglinks/ssl/root.privateKey";
 
+
     static {
         // 添加BouncyCastle支持
         Security.addProvider(new BouncyCastleProvider());
@@ -110,6 +111,7 @@ public class X509Util {
         }
     }
 
+
     /**
      * 生成RSA密钥对
      *
@@ -121,6 +123,7 @@ public class X509Util {
         keyPairGenerator.initialize(KEY_SIZE);
         return keyPairGenerator.generateKeyPair();
     }
+
 
     /**
      * 根据n和d生成RSA公钥
@@ -153,6 +156,7 @@ public class X509Util {
         // 使用ECPublicKeySpec构造ECC公钥
         return KeyFactory.getInstance("EC", PROVIDER).generatePublic(ecPublicKeySpec);
     }
+
 
     /**
      * 标准化DN构建方法（强制RFC顺序和必填校验）
@@ -367,6 +371,7 @@ public class X509Util {
         return new JcaX509CertificateConverter().setProvider(PROVIDER).getCertificate(certGen.build(sigGen));
     }
 
+
     /**
      * 生成用户数字证书（增强版）
      *
@@ -409,6 +414,7 @@ public class X509Util {
             default -> throw new IllegalArgumentException("无效API类型: " + api);
         };
     }
+
 
     /**
      * 使用传统API生成用户证书
@@ -465,6 +471,7 @@ public class X509Util {
 
         return certGen.generate(caPrivateKey, PROVIDER);
     }
+
 
     /**
      * 使用BC底层API生成用户证书
@@ -524,6 +531,7 @@ public class X509Util {
                 .getCertificate(certGen.build(signer));
     }
 
+
     /**
      * 使用JCA风格生成用户证书（推荐）
      *
@@ -577,6 +585,7 @@ public class X509Util {
                 .getCertificate(certGen.build(signer));
     }
 
+
     /**
      * 生成安全的证书序列号
      *
@@ -598,6 +607,7 @@ public class X509Util {
                 .createSubjectKeyIdentifier(publicKey)
                 .getEncoded();
     }
+
 
     /**
      * 将certificate转换为PEM格式
@@ -622,6 +632,7 @@ public class X509Util {
         }
     }
 
+
     /**
      * 生成CRL证书吊销列表
      *
@@ -644,6 +655,7 @@ public class X509Util {
         return new JcaX509CRLConverter().setProvider(PROVIDER).getCRL(crlGen.build(sigGen));
     }
 
+
     /**
      * 计算X509数字证书的指纹
      * SHA-256算法
@@ -656,6 +668,7 @@ public class X509Util {
         byte[] digest = md.digest(cert.getEncoded());
         return new String(Hex.encode(digest));
     }
+
 
     /**
      * 验证根CA数字证书的完整性
@@ -715,6 +728,7 @@ public class X509Util {
         return true;
     }
 
+
     /**
      * 从文件中读取X509证书
      *
@@ -725,6 +739,7 @@ public class X509Util {
         CertificateFactory cf = CertificateFactory.getInstance("X.509", PROVIDER);
         return (X509Certificate) cf.generateCertificate(new FileInputStream(certFile));
     }
+
 
     /**
      * 从文件中读取私钥
@@ -766,6 +781,7 @@ public class X509Util {
         return keyPair;
     }
 
+
     /**
      * 读取文件
      *
@@ -776,6 +792,7 @@ public class X509Util {
     public static byte[] readFile(String path) throws IOException {
         return Files.readAllBytes(Paths.get(path));
     }
+
 
     /**
      * 保存密钥或证书到文件（自动创建目录）
@@ -820,6 +837,7 @@ public class X509Util {
             throw new IllegalArgumentException("Failed to convert certificate to Base64", e);
         }
     }
+
 
     /**
      * 将私钥转换为纯Base64字符串
@@ -879,6 +897,7 @@ public class X509Util {
         }
     }
 
+
     /**
      * 将PEM格式内容转换为纯Base64字符串（自动清理头尾标记和换行符）
      *
@@ -906,6 +925,7 @@ public class X509Util {
         }
         return Base64.getEncoder().encodeToString(bytes);
     }
+
 
     /**
      * 将PEM格式的根CA证书解析为X509Certificate对象

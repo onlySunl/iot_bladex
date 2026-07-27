@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.ota.service.impl;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import java.util.List;
 import java.util.Objects;
@@ -9,7 +8,7 @@ import java.util.stream.Collectors;
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.mp.base.BaseServiceImpl;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import org.springblade.common.database.mybatis.conditions.Wraps;
 import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeTargetsResultDTO;
@@ -19,7 +18,7 @@ import org.springblade.modules.iot.ota.manager.OtaUpgradeTargetsManager;
 import org.springblade.modules.iot.ota.service.OtaUpgradeTargetsService;
 import org.springblade.modules.iot.ota.vo.query.OtaUpgradeTargetsPageQuery;
 import org.springblade.modules.iot.ota.vo.save.OtaUpgradeTargetsSaveVO;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -33,10 +32,12 @@ import org.springframework.stereotype.Service;
  * @date 2025-10-19 16:28:50
  * @create [2025-10-19 16:28:50] [mqttsnet] [代码生成器生成]
  */
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
-public class OtaUpgradeTargetsServiceImpl extends BaseServiceImpl<OtaUpgradeTargetsMapper, OtaUpgradeTargets> implements OtaUpgradeTargetsService {
+public class OtaUpgradeTargetsServiceImpl extends SuperServiceImpl<OtaUpgradeTargetsManager, Long, OtaUpgradeTargets> implements OtaUpgradeTargetsService {
+
 
     @Override
     public void saveBatchForOtaUpgradeTargets(List<OtaUpgradeTargetsSaveVO> otaUpgradeTargetsSaveVOList) {
@@ -44,7 +45,7 @@ public class OtaUpgradeTargetsServiceImpl extends BaseServiceImpl<OtaUpgradeTarg
             return;
         }
         // 批量保存
-        baseMapper.saveBatch(BeanUtil.toBeanList(otaUpgradeTargetsSaveVOList, OtaUpgradeTargets.class));
+        superManager.saveBatch(BeanPlusUtil.toBeanList(otaUpgradeTargetsSaveVOList, OtaUpgradeTargets.class));
     }
 
     @Override
@@ -53,7 +54,7 @@ public class OtaUpgradeTargetsServiceImpl extends BaseServiceImpl<OtaUpgradeTarg
             log.warn("任务ID为空，无法删除OTA升级目标");
             return;
         }
-        baseMapper.remove(new LambdaQueryWrapper<OtaUpgradeTargets>().eq(OtaUpgradeTargets::getTaskId, taskId));
+        superManager.remove(Wraps.<OtaUpgradeTargets>lbQ().eq(OtaUpgradeTargets::getTaskId, taskId));
     }
 
     /**
@@ -99,7 +100,7 @@ public class OtaUpgradeTargetsServiceImpl extends BaseServiceImpl<OtaUpgradeTarg
      */
     @Override
     public List<OtaUpgradeTargetsResultDTO> getOtaUpgradeTargetsResultDTOList(OtaUpgradeTargetsPageQuery query) {
-        return BeanUtil.toBeanList(baseMapper.getOtaUpgradeTargetsList(query), OtaUpgradeTargetsResultDTO.class);
+        return BeanPlusUtil.toBeanList(superManager.getOtaUpgradeTargetsList(query), OtaUpgradeTargetsResultDTO.class);
     }
 
     /**
@@ -124,7 +125,7 @@ public class OtaUpgradeTargetsServiceImpl extends BaseServiceImpl<OtaUpgradeTarg
             }
 
             // 更新目标状态
-            boolean updated = baseMapper.update(Wrappers.<OtaUpgradeTargets>lbU()
+            boolean updated = superManager.update(Wraps.<OtaUpgradeTargets>lbU()
                     .set(OtaUpgradeTargets::getTargetStatus, otaUpgradeTargetStatusEnum.getValue())
                     .eq(OtaUpgradeTargets::getTaskId, taskId)
                     .eq(OtaUpgradeTargets::getTargetValue, targetValue));

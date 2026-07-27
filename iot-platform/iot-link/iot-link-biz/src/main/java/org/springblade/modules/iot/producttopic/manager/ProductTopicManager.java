@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.producttopic.manager;
 
-import org.springblade.common.base.manager.SuperManager;
+import org.springblade.core.mp.base.BaseService;
 import org.springblade.modules.iot.producttopic.entity.ProductTopic;
 
 /**

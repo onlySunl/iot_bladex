@@ -1,5 +1,7 @@
 package org.springblade.modules.iot.device.easyexcel;
 
+import org.springblade.common.easyexcel.ExcelCheckResult;
+
 import java.util.List;
 
 /**
@@ -22,6 +24,7 @@ import java.util.List;
  * @date 2024/6/20 18:03
  */
 public interface DeviceEasyExcelService {
+
 
     /**
      * check import excel data

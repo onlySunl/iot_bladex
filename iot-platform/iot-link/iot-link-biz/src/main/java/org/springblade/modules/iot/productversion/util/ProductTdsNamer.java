@@ -1,6 +1,9 @@
 package org.springblade.modules.iot.productversion.util;
 
 import cn.hutool.core.util.StrUtil;
+import org.springblade.core.secure.constant.SecureConstant;
+import org.springblade.modules.iot.tds.utils.TdsUtils;
+
 /**
  * 产品物模型版本化 TD 表命名工具。带版本拼 productType_productIdentification_versionNo_serviceCode;无版本
  * (向后兼容旧设备)落到公共 {@link TdsUtils#superTableName(String, String, String)}。versionNo 来源可能是

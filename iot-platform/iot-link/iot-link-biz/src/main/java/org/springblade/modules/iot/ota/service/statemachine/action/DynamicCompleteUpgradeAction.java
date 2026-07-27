@@ -3,7 +3,7 @@ package org.springblade.modules.iot.ota.service.statemachine.action;
 import org.springblade.modules.iot.ota.enumeration.OtaUpgradeEventEnum;
 import org.springblade.modules.iot.ota.enumeration.OtaUpgradeTaskStatusEnum;
 import org.springblade.modules.iot.ota.service.statemachine.context.OtaUpgradeContext;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -21,8 +21,9 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DynamicCompleteUpgradeAction extends BaseOtaUpgradeAction {
+
 
     /**
      * 执行动态升级完成动作
@@ -74,5 +75,6 @@ public class DynamicCompleteUpgradeAction extends BaseOtaUpgradeAction {
         // 动态升级完成条件：超时 或 到达计划结束时间
         return isTimeout || isScheduledEndTimeReached;
     }
+
 
 }

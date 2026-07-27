@@ -1,5 +1,4 @@
 package org.springblade.modules.iot.device.service.impl;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import java.util.Collections;
 import java.util.List;
@@ -8,8 +7,8 @@ import java.util.Optional;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.core.mp.support.Query;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import org.springblade.core.boot.request.PageParam;
+import org.springblade.common.database.mybatis.conditions.Wraps;
 import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
 import org.springblade.modules.iot.common.constant.DsConstant;
@@ -19,7 +18,7 @@ import org.springblade.modules.iot.device.manager.DeviceManager;
 import org.springblade.modules.iot.device.service.DeviceQueryService;
 import org.springblade.modules.iot.device.vo.query.DevicePageQuery;
 import org.springblade.modules.iot.device.vo.result.DeviceResultVO;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +29,9 @@ import org.springframework.stereotype.Service;
  * @author mqttsnet
  * @since 2026-05-18
  */
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class DeviceQueryServiceImpl implements DeviceQueryService {
 
@@ -48,27 +48,27 @@ public class DeviceQueryServiceImpl implements DeviceQueryService {
     }
 
     @Override
-    public IPage<DeviceResultVO> getPage(Query params) {
+    public IPage<DeviceResultVO> getPage(PageParams<DevicePageQuery> params) {
         IPage<Device> page = deviceManager.getPage(params);
-        return BeanUtil.toBeanPage(page, DeviceResultVO.class);
+        return BeanPlusUtil.toBeanPage(page, DeviceResultVO.class);
     }
 
     @Override
     public Long countByCertSerialNumber(String certSerialNumber) {
-        return deviceManager.count(new LambdaQueryWrapper<Device>()
+        return deviceManager.count(Wraps.<Device>lbQ()
             .eq(Device::getCertSerialNumber, certSerialNumber));
     }
 
     @Override
     public Long countOnlineByCertSerialNumber(String certSerialNumber) {
-        return deviceManager.count(new LambdaQueryWrapper<Device>()
+        return deviceManager.count(Wraps.<Device>lbQ()
             .eq(Device::getCertSerialNumber, certSerialNumber)
             .eq(Device::getConnectStatus, DeviceConnectStatusEnum.ONLINE.getValue()));
     }
 
     @Override
     public List<Device> listTopBoundDevicesByCertSerialNumber(String certSerialNumber, int limit) {
-        return deviceManager.list(new LambdaQueryWrapper<Device>()
+        return deviceManager.list(Wraps.<Device>lbQ()
             .eq(Device::getCertSerialNumber, certSerialNumber)
             .orderByDesc(Device::getLastHeartbeatTime)
             .last("LIMIT " + limit));
@@ -79,7 +79,7 @@ public class DeviceQueryServiceImpl implements DeviceQueryService {
         if (StrUtil.isBlank(certSerialNumber)) {
             return Collections.emptyList();
         }
-        return Optional.ofNullable(deviceManager.list(new LambdaQueryWrapper<Device>()
+        return Optional.ofNullable(deviceManager.list(Wraps.<Device>lbQ()
                 .eq(Device::getCertSerialNumber, certSerialNumber)))
             .orElseGet(Collections::emptyList);
     }

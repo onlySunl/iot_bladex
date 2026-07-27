@@ -29,7 +29,7 @@ import org.springblade.modules.iot.ota.service.statemachine.action.StaticTimeout
 import org.springblade.modules.iot.ota.service.statemachine.condition.DynamicUpgradeCondition;
 import org.springblade.modules.iot.ota.service.statemachine.condition.StaticUpgradeCondition;
 import org.springblade.modules.iot.ota.service.statemachine.context.OtaUpgradeContext;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -54,7 +54,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Slf4j
 @Configuration
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class OtaUpgradeStateMachineConfig {
 
     /**
@@ -190,6 +190,7 @@ public class OtaUpgradeStateMachineConfig {
                 .on(OtaUpgradeEventEnum.DEVICE_OFFLINE)
                 .when(dynamicUpgradeCondition::canHandleDeviceEvent)
                 .perform(dynamicDeviceOfflineAction);
+
 
         // 无需APP确认升级：IN_PROGRESS → IN_PROGRESS（使用单独Action类）
         builder.internalTransition()

@@ -4,7 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
-import org.springblade.core.mp.base.BaseEntity;
+import org.springblade.core.mp.base.Entity;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeTasksResultDTO;
 import org.springblade.modules.iot.ota.dto.OtaUpgradesResultDTO;
 import lombok.AllArgsConstructor;
@@ -43,6 +43,7 @@ public class OtaTaskExecutionEventSource extends Entity<Long> implements Seriali
      * OTA升级包信息
      */
     private OtaUpgradesResultDTO upgradePackage;
+
 
     /**
      * 需要升级的设备标识列表

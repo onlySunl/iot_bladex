@@ -6,9 +6,12 @@ import java.nio.file.Files;
 import java.time.LocalDateTime;
 
 import cn.hutool.core.io.FileUtil;
+import org.springblade.common.annotation.log.WebLog;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.boot.ctrl.BladeController;
-import org.springblade.core.mp.support.Query;
+import org.springblade.core.mp.base.BaseController;
+import org.springblade.core.boot.request.PageParam;
+import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.common.interfaces.echo.EchoService;
 import org.springblade.modules.iot.cacert.entity.audit.CaCertAuditLog;
 import org.springblade.modules.iot.cacert.entity.license.CaCertLicense;
 import org.springblade.modules.iot.cacert.service.audit.CaCertAuditLogService;
@@ -28,7 +31,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.http.MediaType;
@@ -51,12 +54,12 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
  * @since 2025-06-27
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/caCertLicense")
 @Tag(name = "CA许可证证书")
-public class CaCertLicenseController extends BladeController<CaCertLicenseService, Long, CaCertLicense
+public class CaCertLicenseController extends SuperController<CaCertLicenseService, Long, CaCertLicense
         , CaCertLicenseSaveVO, CaCertLicenseUpdateVO, CaCertLicensePageQuery, CaCertLicenseResultVO> {
     private final EchoService echoService;
     private final CaCertAuditLogService auditLogService;
@@ -67,7 +70,7 @@ public class CaCertLicenseController extends BladeController<CaCertLicenseServic
     }
 
     @Override
-    public QueryWrap<CaCertLicense> handlerWrapper(CaCertLicense model, Query params) {
+    public QueryWrap<CaCertLicense> handlerWrapper(CaCertLicense model, PageParams<CaCertLicensePageQuery> params) {
         QueryWrap<CaCertLicense> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
         DataScopeHelper.startDataScope("ca_cert_license");
@@ -113,6 +116,7 @@ public class CaCertLicenseController extends BladeController<CaCertLicenseServic
      */
     @Operation(summary = "吊销 CA 证书", description = "吊销证书 + 失效绑定设备 cache")
     @PutMapping("/revoke/{id}")
+    @WebLog(value = "吊销 CA 证书", request = false)
     public R<Boolean> revokeCertificate(
             @PathVariable("id") @NotNull Long id,
             @RequestParam(required = false) String revocationReason) {
@@ -155,4 +159,5 @@ public class CaCertLicenseController extends BladeController<CaCertLicenseServic
         return R.success(auditLogService.listByCaId(id));
     }
 }
+
 

@@ -3,7 +3,7 @@ package org.springblade.modules.iot.device.event.publisher;
 import com.alibaba.fastjson2.JSON;
 import org.springblade.modules.iot.device.event.DeviceAclRuleChangedEvent;
 import org.springblade.modules.iot.device.event.source.DeviceAclRuleChangedEventSource;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  * @since 2026-05-28
  */
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class DeviceAclRuleEventPublisher {
 

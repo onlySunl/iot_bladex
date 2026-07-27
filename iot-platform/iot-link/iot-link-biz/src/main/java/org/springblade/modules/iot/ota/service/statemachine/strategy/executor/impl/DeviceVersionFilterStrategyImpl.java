@@ -47,7 +47,7 @@ public class DeviceVersionFilterStrategyImpl implements DeviceVersionFilterStrat
             }
 
             // 解析源版本号列表（逗号分隔）
-            List<String> sourceVersionList = List.of(sourceVersions.split(StringPool.COMMA));
+            List<String> sourceVersionList = List.of(sourceVersions.split(StrPool.COMMA));
             // 检查设备版本是否在源版本号列表中
             boolean isMatch = sourceVersionList.stream()
                     .anyMatch(sourceVersion -> sourceVersion.trim().equals(deviceCurrentVersion.trim()));
@@ -66,10 +66,10 @@ public class DeviceVersionFilterStrategyImpl implements DeviceVersionFilterStrat
         return Optional.ofNullable(task.getOtaUpgradesResult())
                 .flatMap(otaUpgradesResult -> OtaPackageTypeEnum.fromValue(otaUpgradesResult.getPackageType()))
                 .map(packageType -> switch (packageType) {
-                    case SOFTWARE -> Optional.ofNullable(device.getSwVersion()).orElse(StringPool.EMPTY);
-                    case FIRMWARE -> Optional.ofNullable(device.getFwVersion()).orElse(StringPool.EMPTY);
+                    case SOFTWARE -> Optional.ofNullable(device.getSwVersion()).orElse(StrPool.EMPTY);
+                    case FIRMWARE -> Optional.ofNullable(device.getFwVersion()).orElse(StrPool.EMPTY);
                 })
-                .orElse(StringPool.EMPTY);
+                .orElse(StrPool.EMPTY);
     }
 
     /**
@@ -114,7 +114,7 @@ public class DeviceVersionFilterStrategyImpl implements DeviceVersionFilterStrat
         if (StrUtil.isBlank(sourceVersions)) {
             return Collections.emptyList();
         }
-        return Stream.of(sourceVersions.split(StringPool.COMMA))
+        return Stream.of(sourceVersions.split(StrPool.COMMA))
                 .map(String::trim)
                 .filter(StrUtil::isNotBlank)
                 .toList();

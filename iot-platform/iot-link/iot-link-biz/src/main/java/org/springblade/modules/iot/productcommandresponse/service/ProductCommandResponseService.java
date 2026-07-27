@@ -8,6 +8,7 @@ import org.springblade.modules.iot.productcommandresponse.vo.update.ProductComma
 
 import java.util.List;
 
+
 /**
  * <p>
  * 业务接口
@@ -18,7 +19,7 @@ import java.util.List;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
-public interface ProductCommandResponseService extends BaseService<ProductCommandResponse> {
+public interface ProductCommandResponseService extends SuperService<Long, ProductCommandResponse> {
 
     ProductCommandResponse saveProductCommandResponse(ProductCommandResponseSaveVO saveVO);
 
@@ -46,4 +47,5 @@ public interface ProductCommandResponseService extends BaseService<ProductComman
      */
     List<ProductCommandResponseResultVO> selectCommandResponses(List<Long> commandIds);
 }
+
 

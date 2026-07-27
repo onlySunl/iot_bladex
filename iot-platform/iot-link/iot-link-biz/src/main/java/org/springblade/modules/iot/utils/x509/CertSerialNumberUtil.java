@@ -36,6 +36,7 @@ public class CertSerialNumberUtil {
                 raw;
     }
 
+
     /**
      * 获取OpenSSL风格序列号（32字符十六进制，补零）
      */

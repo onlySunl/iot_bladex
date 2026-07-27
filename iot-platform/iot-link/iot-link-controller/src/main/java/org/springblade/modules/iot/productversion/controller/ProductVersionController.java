@@ -2,8 +2,11 @@ package org.springblade.modules.iot.productversion.controller;
 
 import java.util.List;
 
+import org.springblade.common.annotation.log.WebLog;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.mp.base.BaseController;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.interfaces.echo.EchoService;
 import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.productversion.entity.ProductVersion;
 import org.springblade.modules.iot.productversion.service.ProductVersionService;
@@ -19,7 +22,7 @@ import org.springblade.modules.iot.productversion.vo.update.ProductVersionUpdate
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,12 +40,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @see ProductVersionService
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/productVersion")
 @Tag(name = "产品物模型版本")
-public class ProductVersionController extends BladeController<ProductVersionService, Long, ProductVersion,
+public class ProductVersionController extends SuperController<ProductVersionService, Long, ProductVersion,
     ProductVersionSaveVO, ProductVersionUpdateVO, ProductVersionPageQuery, ProductVersionResultVO> {
 
     private final EchoService echoService;
@@ -59,7 +62,7 @@ public class ProductVersionController extends BladeController<ProductVersionServ
     @GetMapping("/listByProduct")
     public R<List<ProductVersionResultVO>> listByProduct(@RequestParam String productIdentification) {
         List<ProductVersion> list = superService.listByProductIdentification(productIdentification);
-        List<ProductVersionResultVO> result = BeanUtil.toBeanList(list, ProductVersionResultVO.class);
+        List<ProductVersionResultVO> result = BeanPlusUtil.toBeanList(list, ProductVersionResultVO.class);
         echoService.action(result);
         return R.success(result);
     }
@@ -73,7 +76,7 @@ public class ProductVersionController extends BladeController<ProductVersionServ
     @GetMapping("/currentDraft")
     public R<ProductVersionResultVO> currentDraft(@RequestParam String productIdentification) {
         ProductVersionResultVO vo = superService.findDraft(productIdentification)
-            .map(v -> BeanUtil.toBeanIgnoreError(v, ProductVersionResultVO.class))
+            .map(v -> BeanPlusUtil.toBeanIgnoreError(v, ProductVersionResultVO.class))
             .orElse(null);
         if (vo != null) {
             echoService.action(vo);
@@ -94,7 +97,7 @@ public class ProductVersionController extends BladeController<ProductVersionServ
                                                        @RequestParam String versionNo) {
         ProductVersionResultVO vo = superService
             .findByProductIdentificationAndVersionNo(productIdentification, versionNo)
-            .map(v -> BeanUtil.toBeanIgnoreError(v, ProductVersionResultVO.class))
+            .map(v -> BeanPlusUtil.toBeanIgnoreError(v, ProductVersionResultVO.class))
             .orElse(null);
         if (vo != null) {
             echoService.action(vo);
@@ -109,10 +112,11 @@ public class ProductVersionController extends BladeController<ProductVersionServ
      */
     @Operation(summary = "发布新版本")
     @PostMapping("/publish")
+    @WebLog("发布产品版本")
     public R<ProductVersion> publish(@RequestBody @Valid ProductVersionPublishVO vo) {
         try {
             return R.success(superService.publish(vo));
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         }
     }
@@ -124,10 +128,11 @@ public class ProductVersionController extends BladeController<ProductVersionServ
      */
     @Operation(summary = "回滚版本")
     @PostMapping("/rollback")
+    @WebLog("回滚产品版本")
     public R<ProductVersion> rollback(@RequestBody @Valid ProductVersionRollbackVO vo) {
         try {
             return R.success(superService.rollback(vo));
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         }
     }
@@ -139,10 +144,11 @@ public class ProductVersionController extends BladeController<ProductVersionServ
      */
     @Operation(summary = "历史清理")
     @PostMapping("/purgeHistory")
+    @WebLog("清理产品历史版本 TD 资源")
     public R<ProductVersion> purgeHistory(@RequestBody @Valid ProductVersionPurgeVO vo) {
         try {
             return R.success(superService.purgeHistory(vo));
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         }
     }
@@ -160,7 +166,7 @@ public class ProductVersionController extends BladeController<ProductVersionServ
                                         @RequestParam String targetVersion) {
         try {
             return R.success(superService.diff(productIdentification, sourceVersion, targetVersion));
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         }
     }

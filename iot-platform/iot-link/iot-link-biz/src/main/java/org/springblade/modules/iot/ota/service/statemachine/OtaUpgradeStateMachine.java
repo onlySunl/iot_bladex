@@ -128,7 +128,7 @@ public class OtaUpgradeStateMachine {
      */
     private OtaUpgradeContext createUpgradeContext(OtaUpgradeTasksResultDTO upgradeTask) {
         return OtaUpgradeContext.builder()
-                .tenantId(AuthUtil.getTenantId())
+                .tenantId(ContextUtil.getTenantId())
                 .upgradeTask(upgradeTask)
                 .build();
     }

@@ -2,7 +2,8 @@ package org.springblade.modules.iot.product.service.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.core.mp.support.Query;
+import org.springblade.core.boot.request.PageParam;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.device.vo.result.ProductOverviewResultVO;
@@ -30,7 +31,7 @@ import org.springblade.modules.iot.productservice.entity.ProductServices;
 import org.springblade.modules.iot.productservice.enumeration.ProductServiceStatusEnum;
 import org.springblade.modules.iot.productservice.manager.ProductServiceManager;
 import org.springblade.modules.iot.productservice.vo.param.ProductServiceParamVO;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -50,8 +51,9 @@ import java.util.stream.Collectors;
  * @author mqttsnet
  * @since 2026-05-18
  */
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class ProductQueryServiceImpl implements ProductQueryService {
 
@@ -64,17 +66,17 @@ public class ProductQueryServiceImpl implements ProductQueryService {
 
     @Override
     public ProductResultVO findOneByProductId(Long productId) {
-        return BeanUtil.toBeanIgnoreError(productManager.findOneByProductId(productId), ProductResultVO.class);
+        return BeanPlusUtil.toBeanIgnoreError(productManager.findOneByProductId(productId), ProductResultVO.class);
     }
 
     @Override
     public ProductResultVO findOneByProductIdentification(String productIdentification) {
-        return BeanUtil.toBeanIgnoreError(productManager.findOneByProductIdentification(productIdentification), ProductResultVO.class);
+        return BeanPlusUtil.toBeanIgnoreError(productManager.findOneByProductIdentification(productIdentification), ProductResultVO.class);
     }
 
     @Override
     public List<ProductResultVO> getProductResultVOList(ProductPageQuery query) {
-        return BeanUtil.toBeanList(productManager.getProductList(query), ProductResultVO.class);
+        return BeanPlusUtil.toBeanList(productManager.getProductList(query), ProductResultVO.class);
     }
 
     @Override
@@ -100,9 +102,9 @@ public class ProductQueryServiceImpl implements ProductQueryService {
     }
 
     @Override
-    public IPage<ProductResultVO> getPage(Query params) {
+    public IPage<ProductResultVO> getPage(PageParams<ProductPageQuery> params) {
         IPage<Product> page = productManager.getPage(params);
-        return BeanUtil.toBeanPage(page, ProductResultVO.class);
+        return BeanPlusUtil.toBeanPage(page, ProductResultVO.class);
     }
 
     @Override
@@ -171,9 +173,9 @@ public class ProductQueryServiceImpl implements ProductQueryService {
     public ProductParamVO selectFullProductByProductIdentification(String productIdentification,
                                                                    boolean includeInactiveServices) {
         Product product = Optional.ofNullable(productManager.findOneByProductIdentification(productIdentification))
-                .orElseThrow(() -> new ServiceException("Product not found: " + productIdentification));
+                .orElseThrow(() -> BizException.wrap("Product not found: " + productIdentification));
 
-        ProductParamVO productDetails = BeanUtil.toBeanIgnoreError(product, ProductParamVO.class);
+        ProductParamVO productDetails = BeanPlusUtil.toBeanIgnoreError(product, ProductParamVO.class);
 
         ProductServices condition = new ProductServices();
         condition.setProductId(product.getId());
@@ -192,23 +194,23 @@ public class ProductQueryServiceImpl implements ProductQueryService {
                 .orElse(Collections.emptyList());
 
         List<ProductServiceParamVO> services = productServicesList.stream().map(ps -> {
-            ProductServiceParamVO svc = BeanUtil.toBeanIgnoreError(ps, ProductServiceParamVO.class);
+            ProductServiceParamVO svc = BeanPlusUtil.toBeanIgnoreError(ps, ProductServiceParamVO.class);
 
             List<ProductCommandParamVO> commands = productCommandList.stream()
                     .filter(command -> Objects.equals(command.getServiceId(), ps.getId()))
                     .map(command -> {
-                        ProductCommandParamVO commandParamVO = BeanUtil.toBeanIgnoreError(command, ProductCommandParamVO.class);
+                        ProductCommandParamVO commandParamVO = BeanPlusUtil.toBeanIgnoreError(command, ProductCommandParamVO.class);
 
                         List<ProductCommandRequestParamVO> requests = productCommandRequestManager.selectCommandRequests(Collections.singletonList(command.getId()))
                                 .stream()
-                                .map(req -> BeanUtil.toBeanIgnoreError(req, ProductCommandRequestParamVO.class))
+                                .map(req -> BeanPlusUtil.toBeanIgnoreError(req, ProductCommandRequestParamVO.class))
                                 .filter(req -> Objects.equals(req.getCommandId(), command.getId()))
                                 .collect(Collectors.toList());
                         commandParamVO.setRequests(requests);
 
                         List<ProductCommandResponseParamVO> responses = productCommandResponseManager.selectCommandResponses(Collections.singletonList(command.getId()))
                                 .stream()
-                                .map(rsp -> BeanUtil.toBeanIgnoreError(rsp, ProductCommandResponseParamVO.class))
+                                .map(rsp -> BeanPlusUtil.toBeanIgnoreError(rsp, ProductCommandResponseParamVO.class))
                                 .filter(rsp -> Objects.equals(rsp.getCommandId(), command.getId()))
                                 .collect(Collectors.toList());
                         commandParamVO.setResponses(responses);
@@ -220,7 +222,7 @@ public class ProductQueryServiceImpl implements ProductQueryService {
 
             List<ProductPropertyParamVO> properties = productPropertiesList.stream()
                     .filter(property -> Objects.equals(property.getServiceId(), ps.getId()))
-                    .map(pp -> BeanUtil.toBeanIgnoreError(pp, ProductPropertyParamVO.class))
+                    .map(pp -> BeanPlusUtil.toBeanIgnoreError(pp, ProductPropertyParamVO.class))
                     .collect(Collectors.toList());
             svc.setProperties(properties);
 

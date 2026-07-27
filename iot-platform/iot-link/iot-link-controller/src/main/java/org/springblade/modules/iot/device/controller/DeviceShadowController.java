@@ -1,13 +1,16 @@
 package org.springblade.modules.iot.device.controller;
 
 import org.springblade.core.tool.api.R;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.interfaces.echo.EchoService;
+import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.modules.iot.device.service.DeviceShadowService;
 import org.springblade.modules.iot.device.vo.query.DeviceShadowPageQuery;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -27,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @create [2023-10-12 19:39:59] [mqttsnet]
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/deviceShadow")
@@ -36,6 +39,7 @@ public class DeviceShadowController {
 
     // 常量表示 60分钟的纳秒数
     private static final long TEN_MINUTES_IN_NANOSECONDS = 60 * 60 * 1_000_000_000L;
+
 
     @Autowired
     private DeviceShadowService deviceShadowService;
@@ -86,7 +90,7 @@ public class DeviceShadowController {
             ProductResultVO result = deviceShadowService.queryDeviceShadow(deviceShadowPageQuery);
             echoService.action(result);
             return R.success(result);
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("查询设备影子失败，系统异常: {}", e.getMessage(), e);
@@ -94,5 +98,7 @@ public class DeviceShadowController {
         }
     }
 
+
 }
+
 

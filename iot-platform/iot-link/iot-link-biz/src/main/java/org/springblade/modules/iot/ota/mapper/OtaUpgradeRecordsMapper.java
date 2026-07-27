@@ -2,10 +2,10 @@ package org.springblade.modules.iot.ota.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
-import org.springblade.core.mp.mapper.BladeMapper;
+import org.springblade.core.mp.base.BaseMapper;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeRecordsSummaryResultDTO;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeRecords;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -18,8 +18,8 @@ import org.apache.ibatis.annotations.Param;
  * @date 2024-01-12 22:42:04
  * @create [2024-01-12 22:42:04] [mqttsnet]
  */
-@Mapper
-public interface OtaUpgradeRecordsMapper extends BladeMapper<OtaUpgradeRecords> {
+@Repository
+public interface OtaUpgradeRecordsMapper extends SuperMapper<OtaUpgradeRecords> {
 
     /**
      * 查询OTA升级记录统计信息
@@ -29,5 +29,7 @@ public interface OtaUpgradeRecordsMapper extends BladeMapper<OtaUpgradeRecords> 
      */
     OtaUpgradeRecordsSummaryResultDTO selectOtaUpgradeRecordsSummary(@Param(Constants.WRAPPER) Wrapper<OtaUpgradeRecords> wrapper);
 
+
 }
+
 

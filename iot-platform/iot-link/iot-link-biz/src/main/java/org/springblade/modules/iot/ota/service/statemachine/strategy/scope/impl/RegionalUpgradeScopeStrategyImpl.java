@@ -25,7 +25,7 @@ import org.springblade.modules.iot.ota.enumeration.OtaUpgradeScopeEnum;
 import org.springblade.modules.iot.ota.service.OtaUpgradeTargetsService;
 import org.springblade.modules.iot.ota.service.statemachine.strategy.executor.DeviceVersionFilterStrategy;
 import org.springblade.modules.iot.ota.service.statemachine.strategy.scope.UpgradeScopeStrategy;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -41,7 +41,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class RegionalUpgradeScopeStrategyImpl implements UpgradeScopeStrategy {
 
     private final DeviceService deviceService;
@@ -143,7 +143,7 @@ public class RegionalUpgradeScopeStrategyImpl implements UpgradeScopeStrategy {
      */
     private Stream<String> extractCityCodesStream(String regionCodeStr) {
         return Optional.ofNullable(regionCodeStr)
-                .filter(StrUtil::isNotBlank).stream().flatMap(str -> Arrays.stream(str.split(StringPool.COMMA))
+                .filter(StrUtil::isNotBlank).stream().flatMap(str -> Arrays.stream(str.split(StrPool.COMMA))
                         .skip(1)
                         .map(String::trim)
                         .filter(StrUtil::isNotBlank));

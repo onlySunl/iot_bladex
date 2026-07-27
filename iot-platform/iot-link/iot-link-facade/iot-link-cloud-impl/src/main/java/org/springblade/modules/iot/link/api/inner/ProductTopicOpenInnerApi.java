@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.link.api.inner;
 
 import org.springblade.core.tool.api.R;
-import org.springblade.core.tool.constant.BladeConstant;
+import org.springblade.common.constant.Constants;
 import org.springblade.modules.iot.link.api.inner.hystrix.ProductTopicOpenInnerApiFallback;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.cloud.openfeign.FeignClient;

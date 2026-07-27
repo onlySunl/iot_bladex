@@ -1,5 +1,6 @@
 package org.springblade.modules.iot.inner.controller;
 
+import org.springblade.common.annotation.log.WebLog;
 import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.producttopic.service.ProductTopicService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,6 +38,7 @@ public class ProductTopicOpenInnerController {
      */
     @Operation(summary = "北向API批量查询产品Topic")
     @PostMapping("/findTopicsByIds")
+    @WebLog("北向API批量查询产品Topic")
     public R<List<String>> findTopicsByIds(@RequestBody(required = false) List<Long> ids) {
         try {
             if (ids == null || ids.isEmpty()) {

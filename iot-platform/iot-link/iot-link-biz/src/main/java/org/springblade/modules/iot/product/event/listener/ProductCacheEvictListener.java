@@ -8,7 +8,7 @@ import org.springblade.core.secure.utils.AuthUtil;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
 import org.springblade.modules.iot.product.event.ProductCacheEvictEvent;
 import org.springblade.modules.iot.product.event.source.ProductCacheEvictSource;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
@@ -27,7 +27,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductCacheEvictListener {
 
     private final LinkCacheDataHelper linkCacheDataHelper;
@@ -39,8 +39,8 @@ public class ProductCacheEvictListener {
             return;
         }
         boolean restored = false;
-        if (AuthUtil.getTenantId() == null && CollUtil.isNotEmpty(src.getContextMap())) {
-            AuthUtil.setLocalMap(src.getContextMap());
+        if (ContextUtil.getTenantId() == null && CollUtil.isNotEmpty(src.getContextMap())) {
+            ContextUtil.setLocalMap(src.getContextMap());
             restored = true;
         }
         try {
@@ -50,7 +50,7 @@ public class ProductCacheEvictListener {
                     src.getProductIdentification(), e.getMessage());
         } finally {
             if (restored) {
-                AuthUtil.remove();
+                ContextUtil.remove();
             }
         }
     }

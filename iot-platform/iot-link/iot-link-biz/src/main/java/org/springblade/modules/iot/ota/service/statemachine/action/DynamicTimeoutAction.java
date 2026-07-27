@@ -3,7 +3,7 @@ package org.springblade.modules.iot.ota.service.statemachine.action;
 import org.springblade.modules.iot.ota.enumeration.OtaUpgradeEventEnum;
 import org.springblade.modules.iot.ota.enumeration.OtaUpgradeTaskStatusEnum;
 import org.springblade.modules.iot.ota.service.statemachine.context.OtaUpgradeContext;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -20,8 +20,9 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DynamicTimeoutAction extends BaseOtaUpgradeAction {
+
 
     /**
      * 执行动态升级超时动作
@@ -37,6 +38,7 @@ public class DynamicTimeoutAction extends BaseOtaUpgradeAction {
 
         try {
             log.warn("动态升级超时 - 任务ID: {}", context.getTaskId());
+
 
         } catch (Exception e) {
             throw new RuntimeException("处理动态升级超时事件异常: " + e.getMessage(), e);

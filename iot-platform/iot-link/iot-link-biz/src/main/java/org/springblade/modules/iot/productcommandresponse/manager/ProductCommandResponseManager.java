@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.productcommandresponse.manager;
 
-import org.springblade.common.base.manager.SuperManager;
+import org.springblade.core.mp.base.BaseService;
 import org.springblade.modules.iot.productcommandresponse.entity.ProductCommandResponse;
 import org.springblade.modules.iot.productcommandresponse.vo.save.ProductCommandResponseSaveVO;
 

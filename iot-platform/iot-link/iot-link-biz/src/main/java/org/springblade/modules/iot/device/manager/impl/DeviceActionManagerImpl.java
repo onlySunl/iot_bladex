@@ -2,8 +2,8 @@ package org.springblade.modules.iot.device.manager.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.springblade.common.base.manager.impl.SuperManagerImpl;
-import org.springblade.common.utils.StringUtils;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.core.tool.utils.StringUtils;
 import org.springblade.modules.iot.device.entity.DeviceAction;
 import org.springblade.modules.iot.device.manager.DeviceActionManager;
 import org.springblade.modules.iot.device.mapper.DeviceActionMapper;

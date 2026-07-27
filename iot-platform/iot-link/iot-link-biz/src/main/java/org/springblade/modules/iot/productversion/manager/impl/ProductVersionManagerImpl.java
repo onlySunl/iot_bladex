@@ -5,8 +5,8 @@ import java.util.Optional;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.common.base.manager.impl.SuperManagerImpl;
-import org.springblade.common.base.request.PageParams;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.core.boot.request.PageParam;
 import org.springblade.common.database.mybatis.conditions.Wraps;
 import org.springblade.common.database.mybatis.conditions.query.LbQueryWrap;
 import org.springblade.modules.iot.productversion.entity.ProductVersion;
@@ -86,7 +86,7 @@ public class ProductVersionManagerImpl extends SuperManagerImpl<ProductVersionMa
         LbQueryWrap<ProductVersion> wrap = Wraps.lbQ();
         wrap.eq(ProductVersion::getProductIdentification, productIdentification)
             .eq(ProductVersion::getVersionStatus,
-                com.mqttsnet.thinglinks.productversion.enumeration.ProductVersionStatusEnum.DRAFT.getValue())
+                org.springblade.modules.iot.productversion.enumeration.ProductVersionStatusEnum.DRAFT.getValue())
             .orderByDesc(ProductVersion::getCreatedTime)
             .last("LIMIT 1");
         return Optional.ofNullable(productVersionMapper.selectOne(wrap));

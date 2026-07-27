@@ -7,6 +7,7 @@ import org.springblade.modules.iot.productcommand.vo.update.ProductCommandUpdate
 
 import java.util.List;
 
+
 /**
  * <p>
  * 业务接口
@@ -17,7 +18,7 @@ import java.util.List;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
-public interface ProductCommandService extends BaseService<ProductCommand> {
+public interface ProductCommandService extends SuperService<Long, ProductCommand> {
 
     /**
      * 保存产品模型设备服务命令
@@ -50,4 +51,5 @@ public interface ProductCommandService extends BaseService<ProductCommand> {
      */
     List<ProductCommand> findAllByServiceIds(List<Long> serviceIds);
 }
+
 

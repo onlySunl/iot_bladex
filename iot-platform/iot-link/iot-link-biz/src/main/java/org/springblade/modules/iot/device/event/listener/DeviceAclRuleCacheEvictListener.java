@@ -5,7 +5,7 @@ import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
 import org.springblade.modules.iot.device.enumeration.DeviceAclRuleLevelEnum;
 import org.springblade.modules.iot.device.event.DeviceAclRuleChangedEvent;
 import org.springblade.modules.iot.device.event.source.DeviceAclRuleChangedEventSource;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
@@ -21,7 +21,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
  * @since 2026-05-28
  */
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class DeviceAclRuleCacheEvictListener {
 

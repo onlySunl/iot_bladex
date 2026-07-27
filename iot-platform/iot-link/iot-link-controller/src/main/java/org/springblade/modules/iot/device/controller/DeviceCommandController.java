@@ -2,8 +2,10 @@ package org.springblade.modules.iot.device.controller;
 
 import java.util.List;
 
+import org.springblade.common.annotation.log.WebLog;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.mp.base.BaseController;
+import org.springblade.common.interfaces.echo.EchoService;
 import org.springblade.modules.iot.device.entity.DeviceCommand;
 import org.springblade.modules.iot.device.service.DeviceCommandService;
 import org.springblade.modules.iot.device.vo.query.DeviceCommandPageQuery;
@@ -16,7 +18,7 @@ import org.springblade.modules.iot.protocol.vo.result.DeviceCommandResultVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,12 +39,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @create [2023-10-20 17:27:25] [mqttsnet]
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/deviceCommand")
 @Tag(name = "设备命令下发及响应")
-public class DeviceCommandController extends BladeController<DeviceCommandService, Long, DeviceCommand, DeviceCommandSaveVO,
+public class DeviceCommandController extends SuperController<DeviceCommandService, Long, DeviceCommand, DeviceCommandSaveVO,
         DeviceCommandUpdateVO, DeviceCommandPageQuery, DeviceCommandResultVO> {
     private final EchoService echoService;
 
@@ -92,6 +94,7 @@ public class DeviceCommandController extends BladeController<DeviceCommandServic
      */
     @Operation(summary = "Create Device Command", description = "Saves a new device command to the database.")
     @PostMapping("/save")
+    @WebLog(value = "Save Device Command", request = false)
     public R<DeviceCommand> saveDeviceCommand(@RequestBody DeviceCommandSaveVO deviceCommandSaveVO) {
         DeviceCommand savedDeviceCommand = superService.saveDeviceCommand(deviceCommandSaveVO);
         return R.success(savedDeviceCommand);
@@ -115,6 +118,7 @@ public class DeviceCommandController extends BladeController<DeviceCommandServic
         }
     }
 
+
     /**
      * Send a WebSocket custom message to a specified MQTT topic with the provided details.
      *
@@ -131,6 +135,7 @@ public class DeviceCommandController extends BladeController<DeviceCommandServic
             return R.fail("Failed to send message");
         }
     }
+
 
 }
 

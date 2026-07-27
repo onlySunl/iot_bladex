@@ -3,9 +3,11 @@ package org.springblade.modules.iot.device.controller;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.boot.ctrl.BladeController;
-import org.springblade.core.mp.support.Query;
+import org.springblade.core.mp.base.BaseController;
+import org.springblade.core.boot.request.PageParam;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.common.interfaces.echo.EchoService;
 import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.device.entity.DeviceAclRule;
 import org.springblade.modules.iot.device.service.DeviceAclRuleService;
@@ -20,7 +22,7 @@ import org.springblade.modules.iot.product.service.ProductService;
 import org.springblade.modules.iot.product.vo.query.ProductPageQuery;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
@@ -48,12 +50,12 @@ import java.util.stream.Collectors;
  * @create [2025-06-11 19:57:46] [mqttsnet] [代码生成器生成]
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/deviceAclRule")
 @Tag(name = "设备访问控制(ACL)规则")
-public class DeviceAclRuleController extends BladeController<DeviceAclRuleService, Long, DeviceAclRule
+public class DeviceAclRuleController extends SuperController<DeviceAclRuleService, Long, DeviceAclRule
         , DeviceAclRuleSaveVO, DeviceAclRuleUpdateVO, DeviceAclRulePageQuery, DeviceAclRuleResultVO> {
     private final EchoService echoService;
 
@@ -67,7 +69,7 @@ public class DeviceAclRuleController extends BladeController<DeviceAclRuleServic
     }
 
     @Override
-    public QueryWrap<DeviceAclRule> handlerWrapper(DeviceAclRule model, Query params) {
+    public QueryWrap<DeviceAclRule> handlerWrapper(DeviceAclRule model, PageParams<DeviceAclRulePageQuery> params) {
         QueryWrap<DeviceAclRule> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
         DataScopeHelper.startDataScope("device_acl_rule");
@@ -82,13 +84,13 @@ public class DeviceAclRuleController extends BladeController<DeviceAclRuleServic
      * @return {@link CompletableFuture<T>} 任务执行结果
      */
     private <T> CompletableFuture<T> executeWithContext(Supplier<T> task) {
-        Map<String, String> localMap = AuthUtil.getLocalMap();
+        Map<String, String> localMap = ContextUtil.getLocalMap();
         return CompletableFuture.supplyAsync(() -> {
-            AuthUtil.setLocalMap(localMap);
+            ContextUtil.setLocalMap(localMap);
             try {
                 return task.get();
             } finally {
-                AuthUtil.remove();
+                ContextUtil.remove();
             }
         });
     }
@@ -235,4 +237,5 @@ public class DeviceAclRuleController extends BladeController<DeviceAclRuleServic
     }
 
 }
+
 

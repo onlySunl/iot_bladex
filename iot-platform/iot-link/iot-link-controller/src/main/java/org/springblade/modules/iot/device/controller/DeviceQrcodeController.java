@@ -1,12 +1,13 @@
 package org.springblade.modules.iot.device.controller;
 
+import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.modules.iot.device.service.DeviceQrcodeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -40,7 +41,7 @@ import java.io.OutputStream;
  * @date 2024/8/19 17:54
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/deviceQrcode")
@@ -48,6 +49,7 @@ import java.io.OutputStream;
 public class DeviceQrcodeController {
 
     private final DeviceQrcodeService deviceQrcodeService;
+
 
     /**
      * 根据设备唯一标识生成带有Logo的设备二维码

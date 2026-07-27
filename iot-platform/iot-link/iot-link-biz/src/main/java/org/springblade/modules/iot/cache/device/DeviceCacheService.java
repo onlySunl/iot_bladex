@@ -10,15 +10,15 @@ import java.util.stream.IntStream;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.common.base.PageParams;
-import org.springblade.common.cache.repository.CachePlusOps;
-import org.springblade.common.cache.ContextUtil;
-import org.springblade.common.cache.CacheKey;
+import org.springblade.core.boot.request.PageParam;
+import org.springblade.core.cache.redis.CachePlusOps;
+import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.core.cache.redis.CacheKey;
 import org.springblade.common.utils.ArgumentAssert;
-import org.springblade.common.utils.BeanPlusUtil;
+import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.cache.CacheSuperAbstract;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
-import org.springblade.modules.iot.cache.device.DeviceCacheKeyBuilder;
+import org.springblade.modules.iot.common.cache.link.device.DeviceCacheKeyBuilder;
 import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.context.ContextAwareExecutor;
 import org.springblade.modules.iot.device.service.DeviceQueryService;
@@ -133,30 +133,37 @@ public class DeviceCacheService extends CacheSuperAbstract {
                         pageSuccess.incrementAndGet();
                     } catch (Exception e) {
                         pageFail.incrementAndGet();
-                        log.error(DEVICE_DETAIL_LOG, tenantId, device.getDeviceIdentification(), "失败", System.currentTimeMillis() - deviceStart, e.getClass().getSimpleName(), e.getMessage());
+                        log.error(DEVICE_DETAIL_LOG, tenantId, device.getDeviceIdentification(), "失败", System.currentTimeMillis() - deviceStart, e.getClass().getSimpleName() + ":" + e.getMessage(), e);
                     }
+                    return null;
                 }))
+                .map(future -> future.thenApply(result -> (Void) null))
                 .toList();
 
-        // 等待当前页所有设备处理完成
-        CompletableFuture.allOf(deviceFutures.toArray(new CompletableFuture[0])).join();
-        totalSuccess.addAndGet(pageSuccess.get());
-        totalFail.addAndGet(pageFail.get());
+        CompletableFuture.allOf(deviceFutures.toArray(new CompletableFuture[0]))
+                .thenAccept(v -> {
+                    totalSuccess.addAndGet(pageSuccess.get());
+                    totalFail.addAndGet(pageFail.get());
+                })
+                .exceptionally(ex -> {
+                    log.error("批次处理异常", ex);
+                    return null;
+                });
     }
 
+
     /**
-     * 刷新单个设备缓存。
+     * 刷新单个设备的缓存。
      *
-     * @param deviceIdentification 设备标识
-     * @return 是否刷新成功
+     * @param deviceIdentification 设备标识,不能为空
+     * @return 刷新是否成功
+     * @see DeviceQueryService#findDeviceCacheVO(String)
      */
     public boolean refreshDeviceCache(String deviceIdentification) {
         try {
-            if (StrUtil.isBlank(deviceIdentification)) {
-                log.warn("设备标识为空,无法刷新缓存");
-                return false;
-            }
-            // 从 DB 加载设备 VO
+            log.info("开始刷新{}设备缓存: {}", ContextUtil.getTenantId(), deviceIdentification);
+            ArgumentAssert.notBlank(deviceIdentification, "deviceIdentification is null");
+            // 获取设备信息 ── DeviceService.findDeviceCacheVO 已下线,统一走 DeviceQueryService (leaf 服务)
             Optional<DeviceCacheVO> deviceCacheVOOptional = deviceQueryService.findDeviceCacheVO(deviceIdentification);
             if (deviceCacheVOOptional.isEmpty()) {
                 log.warn("未找到设备信息: {}", deviceIdentification);

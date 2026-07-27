@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.link.api.anytenant;
 
-import org.springblade.core.tool.constant.BladeConstant;
+import org.springblade.common.constant.Constants;
 import org.springblade.modules.iot.device.vo.query.DeviceAuthenticationQuery;
 import org.springblade.modules.iot.link.api.anytenant.hystrix.DeviceOpenAnyTenantApiFallback;
 import org.springblade.modules.iot.protocol.vo.result.DeviceAuthenticationResultVO;

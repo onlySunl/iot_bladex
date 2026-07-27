@@ -13,7 +13,7 @@ import org.springblade.modules.iot.device.event.DeviceRebindEvent;
 import org.springblade.modules.iot.device.event.source.DeviceDeletedEventSource;
 import org.springblade.modules.iot.device.event.source.DeviceRebindEventSource;
 import org.springblade.modules.iot.device.service.DeviceQueryService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
@@ -31,7 +31,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DeviceCacheEvictListener {
 
     private final LinkCacheDataHelper linkCacheDataHelper;
@@ -89,8 +89,8 @@ public class DeviceCacheEvictListener {
      */
     private void runWithContext(Map<String, String> contextMap, Runnable action, String tag, String key) {
         boolean restored = false;
-        if (AuthUtil.getTenantId() == null && CollUtil.isNotEmpty(contextMap)) {
-            AuthUtil.setLocalMap(contextMap);
+        if (ContextUtil.getTenantId() == null && CollUtil.isNotEmpty(contextMap)) {
+            ContextUtil.setLocalMap(contextMap);
             restored = true;
         }
         try {
@@ -99,7 +99,7 @@ public class DeviceCacheEvictListener {
             log.warn("[device-cache-evict] {} evict failed key={} err={}", tag, key, e.getMessage());
         } finally {
             if (restored) {
-                AuthUtil.remove();
+                ContextUtil.remove();
             }
         }
     }

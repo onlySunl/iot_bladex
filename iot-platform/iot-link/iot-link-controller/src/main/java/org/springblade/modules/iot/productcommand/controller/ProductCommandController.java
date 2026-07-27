@@ -1,8 +1,11 @@
 package org.springblade.modules.iot.productcommand.controller;
 
+import org.springblade.common.annotation.log.WebLog;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.boot.ctrl.BladeController;
-import org.springblade.core.mp.support.Query;
+import org.springblade.core.mp.base.BaseController;
+import org.springblade.core.boot.request.PageParam;
+import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.common.interfaces.echo.EchoService;
 import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.productcommand.entity.ProductCommand;
 import org.springblade.modules.iot.productcommand.service.ProductCommandService;
@@ -15,7 +18,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,12 +40,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/productCommand")
 @Tag(name = "产品模型设备服务命令")
-public class ProductCommandController extends BladeController<ProductCommandService, Long, ProductCommand, ProductCommandSaveVO,
+public class ProductCommandController extends SuperController<ProductCommandService, Long, ProductCommand, ProductCommandSaveVO,
         ProductCommandUpdateVO, ProductCommandPageQuery, ProductCommandResultVO> {
     private final EchoService echoService;
 
@@ -52,7 +55,7 @@ public class ProductCommandController extends BladeController<ProductCommandServ
     }
 
     @Override
-    public QueryWrap<ProductCommand> handlerWrapper(ProductCommand model, Query params) {
+    public QueryWrap<ProductCommand> handlerWrapper(ProductCommand model, PageParams<ProductCommandPageQuery> params) {
         QueryWrap<ProductCommand> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
         DataScopeHelper.startDataScope("product_command");
@@ -67,9 +70,11 @@ public class ProductCommandController extends BladeController<ProductCommandServ
      */
     @Operation(summary = "保存产品模型设备服务命令")
     @PostMapping("/saveProductCommand")
+    @WebLog(value = "保存产品模型设备服务命令", request = false)
     public R saveProductCommand(@Valid @RequestBody ProductCommandSaveVO saveVO) {
         return R.success(superService.saveProductCommand(saveVO));
     }
+
 
     /**
      * 修改 产品模型设备服务命令信息表
@@ -79,6 +84,7 @@ public class ProductCommandController extends BladeController<ProductCommandServ
      */
     @Operation(summary = "修改产品模型设备服务命令")
     @PutMapping("/updateProductCommand")
+    @WebLog(value = "修改产品模型设备服务命令", request = false)
     public R updateProductCommand(@Valid @RequestBody ProductCommandUpdateVO updateVO) {
         return R.success(superService.updateProductCommand(updateVO));
     }
@@ -94,10 +100,12 @@ public class ProductCommandController extends BladeController<ProductCommandServ
             @Parameter(name = "id", description = "产品模型设备服务命令ID", required = true)
     })
     @DeleteMapping("/deleteProductCommand/{id}")
+    @WebLog(value = "删除产品模型设备服务命令", request = false)
     public R<Boolean> deleteProductCommand(@PathVariable("id") Long id) {
         log.info("deleteProductCommand id:{}", id);
         return R.success(superService.deleteProductCommand(id));
     }
 
 }
+
 

@@ -1,7 +1,9 @@
 package org.springblade.modules.iot.ota.controller;
 
-import org.springblade.core.boot.ctrl.BladeController;
-import org.springblade.core.mp.support.Query;
+import org.springblade.core.mp.base.BaseController;
+import org.springblade.core.boot.request.PageParam;
+import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.common.interfaces.echo.EchoService;
 import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeTargets;
 import org.springblade.modules.iot.ota.service.OtaUpgradeTargetsService;
@@ -10,7 +12,7 @@ import org.springblade.modules.iot.ota.vo.result.OtaUpgradeTargetsResultVO;
 import org.springblade.modules.iot.ota.vo.save.OtaUpgradeTargetsSaveVO;
 import org.springblade.modules.iot.ota.vo.update.OtaUpgradeTargetsUpdateVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,12 +29,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @create [2025-10-19 16:28:50] [mqttsnet] [代码生成器生成]
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/otaUpgradeTargets")
 @Tag(name = "OTA升级目标")
-public class OtaUpgradeTargetsController extends BladeController<OtaUpgradeTargetsService, Long, OtaUpgradeTargets
+public class OtaUpgradeTargetsController extends SuperController<OtaUpgradeTargetsService, Long, OtaUpgradeTargets
         , OtaUpgradeTargetsSaveVO, OtaUpgradeTargetsUpdateVO, OtaUpgradeTargetsPageQuery, OtaUpgradeTargetsResultVO> {
     private final EchoService echoService;
 
@@ -42,12 +44,14 @@ public class OtaUpgradeTargetsController extends BladeController<OtaUpgradeTarge
     }
 
     @Override
-    public QueryWrap<OtaUpgradeTargets> handlerWrapper(OtaUpgradeTargets model, Query params) {
+    public QueryWrap<OtaUpgradeTargets> handlerWrapper(OtaUpgradeTargets model, PageParams<OtaUpgradeTargetsPageQuery> params) {
         QueryWrap<OtaUpgradeTargets> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
         DataScopeHelper.startDataScope("ota_upgrade_targets");
         return queryWrap;
     }
 
+
 }
+
 

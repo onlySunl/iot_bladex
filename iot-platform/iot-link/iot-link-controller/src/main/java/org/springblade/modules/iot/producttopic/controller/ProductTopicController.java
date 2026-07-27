@@ -1,7 +1,9 @@
 package org.springblade.modules.iot.producttopic.controller;
 
-import org.springblade.core.boot.ctrl.BladeController;
-import org.springblade.core.mp.support.Query;
+import org.springblade.core.mp.base.BaseController;
+import org.springblade.core.boot.request.PageParam;
+import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.common.interfaces.echo.EchoService;
 import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.producttopic.entity.ProductTopic;
 import org.springblade.modules.iot.producttopic.service.ProductTopicService;
@@ -10,7 +12,7 @@ import org.springblade.modules.iot.producttopic.vo.result.ProductTopicResultVO;
 import org.springblade.modules.iot.producttopic.vo.save.ProductTopicSaveVO;
 import org.springblade.modules.iot.producttopic.vo.update.ProductTopicUpdateVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,12 +29,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/productTopic")
 @Tag(name = "产品Topic信息")
-public class ProductTopicController extends BladeController<ProductTopicService, Long, ProductTopic, ProductTopicSaveVO,
+public class ProductTopicController extends SuperController<ProductTopicService, Long, ProductTopic, ProductTopicSaveVO,
         ProductTopicUpdateVO, ProductTopicPageQuery, ProductTopicResultVO> {
     private final EchoService echoService;
 
@@ -42,12 +44,15 @@ public class ProductTopicController extends BladeController<ProductTopicService,
     }
 
     @Override
-    public QueryWrap<ProductTopic> handlerWrapper(ProductTopic model, Query params) {
+    public QueryWrap<ProductTopic> handlerWrapper(ProductTopic model, PageParams<ProductTopicPageQuery> params) {
         QueryWrap<ProductTopic> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
         DataScopeHelper.startDataScope("product_topic");
         return queryWrap;
     }
 
+
+
 }
+
 

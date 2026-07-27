@@ -1,8 +1,11 @@
 package org.springblade.modules.iot.inner.controller;
 
 import com.alibaba.fastjson2.JSON;
+import org.springblade.common.annotation.log.WebLog;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.modules.iot.ota.enumeration.OtaTaskRecordAppConfirmStatusEnum;
 import org.springblade.modules.iot.ota.service.OtaUpgradeTaskExecutionService;
 import org.springblade.modules.iot.ota.service.OtaUpgradeTasksService;
@@ -20,7 +23,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,14 +36,14 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Description:
  * OTA相关内部接口（inner）
- * Feign 服务间 RPC(Nacos 直连、不过网关)：透传 TenantId、无需 Token；注意设置 AuthUtil.setTenantId(tenantId)。
+ * Feign 服务间 RPC(Nacos 直连、不过网关)：透传 TenantId、无需 Token；注意设置 ContextUtil.setTenantId(tenantId)。
  *
  * @author mqttsnet
  * @version 1.0.0
  * @since 2025/12/15
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/inner/otaOpen")
@@ -49,6 +52,7 @@ public class OtaOpenInnerController {
 
     private final OtaUpgradeTaskExecutionService otaUpgradeTaskExecutionService;
     private final OtaUpgradeTasksService otaUpgradeTasksService;
+
 
     /**
      * Executes the OTA (Over-the-Air) upgrade tasks for a specific tenant identified by the tenant ID.
@@ -68,7 +72,7 @@ public class OtaOpenInnerController {
     public R<?> otaUpgradeTasksExecute(@RequestParam("tenantId") Long tenantId) {
         ArgumentAssert.notNull(tenantId, "tenantId Cannot be null");
         log.info("Executing OTA Upgrade Tasks - Tenant ID: {}", tenantId);
-        AuthUtil.setTenantId(tenantId);
+        ContextUtil.setTenantId(tenantId);
         otaUpgradeTaskExecutionService.otaUpgradeTasksExecute(tenantId);
         return R.success();
     }
@@ -87,10 +91,10 @@ public class OtaOpenInnerController {
     @PostMapping("/otaUpgradeAppConfirmation")
     public R<DeviceOtaUpgradeAppConfirmationResultVO> otaUpgradeAppConfirmation(@RequestBody @Validated DeviceOtaUpgradeAppConfirmationParam param) {
         log.info("otaUpgradeAppConfirmation...OTA升级任务APP确认升级...param: {}", JSON.toJSONString(param));
-        AuthUtil.setTenantId(param.getTenantId());
+        ContextUtil.setTenantId(param.getTenantId());
         try {
             return R.success(otaUpgradeTaskExecutionService.otaUpgradeAppConfirmation(param.getTaskId(), param.getDeviceIdentificationList(), param.getAppConfirmationStatus() ? OtaTaskRecordAppConfirmStatusEnum.CONFIRMED : OtaTaskRecordAppConfirmStatusEnum.REJECTED));
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("OTA升级任务APP确认升级，系统异常: {}", e.getMessage(), e);
@@ -125,6 +129,7 @@ public class OtaOpenInnerController {
      */
     @Operation(summary = "北向API保存OTA升级记录", description = "北向API-保存OTA升级记录")
     @PostMapping("/saveOtaUpgradeRecordByNorthbound")
+    @WebLog("北向API保存OTA升级记录")
     public R<TopoOtaCommandResponseParam> saveOtaUpgradeRecordByNorthbound(@Valid @RequestBody TopoOtaCommandResponseParam topoOtaCommandResponseParam) {
         try {
             log.info("saveOtaUpgradeRecordByNorthbound param:{}", JSON.toJSONString(topoOtaCommandResponseParam));
@@ -163,6 +168,7 @@ public class OtaOpenInnerController {
      */
     @Operation(summary = "北向API-OTA拉取软固件信息", description = "北向API-OTA拉取软固件信息")
     @PostMapping("/otaPullByNorthbound")
+    @WebLog("北向API-OTA拉取软固件信息")
     public R<TopoOtaPullResponseParam> otaPullByNorthbound(@Valid @RequestBody TopoOtaPullParam topoOtaPullParam) {
         try {
             log.info("otaPullByNorthbound param:{}", JSON.toJSONString(topoOtaPullParam));
@@ -201,6 +207,7 @@ public class OtaOpenInnerController {
      */
     @Operation(summary = "北向API-OTA上报软固件版本", description = "北向API-OTA上报软固件版本")
     @PostMapping("/otaReportByNorthbound")
+    @WebLog("北向API-OTA上报软固件版本")
     public R<TopoOtaReportResponseParam> otaReportByNorthbound(@Valid @RequestBody TopoOtaReportParam topoOtaReportParam) {
         try {
             log.info("otaReportByNorthbound param:{}", JSON.toJSONString(topoOtaReportParam));
@@ -239,6 +246,7 @@ public class OtaOpenInnerController {
      */
     @Operation(summary = "北向API-OTA读取设备软固件版本信息响应", description = "北向API-OTA读取设备软固件版本信息响应")
     @PostMapping("/otaReadResponseByNorthbound")
+    @WebLog("北向API-OTA读取设备软固件版本信息响应")
     public R<?> otaReadResponseByNorthbound(@Valid @RequestBody TopoOtaReadResponseParam topoOtaReadResponseParam) {
         try {
             log.info("otaReadResponseByNorthbound param:{}", JSON.toJSONString(topoOtaReadResponseParam));
@@ -259,6 +267,7 @@ public class OtaOpenInnerController {
      */
     @Operation(summary = "北向API-OTA获取可升级版本列表", description = "北向API-OTA获取可升级版本列表")
     @GetMapping("/getAvailableUpgradeVersions")
+    @WebLog("北向API-OTA获取可升级版本列表")
     public R<TopoOtaListUpgradeableVersionsResponseParam> getAvailableUpgradeVersionsByNorthbound(
             @Parameter(description = "设备标识") @RequestParam("deviceIdentification") String deviceIdentification,
             @Parameter(description = "包类型") @RequestParam("packageType") Integer packageType) {

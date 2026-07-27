@@ -17,6 +17,7 @@ import org.springblade.modules.iot.ota.vo.result.DeviceOtaUpgradeAppConfirmation
  */
 public interface OtaUpgradeTaskExecutionService {
 
+
     /**
      * 执行OTA升级任务
      * 定时任务方法，扫描需要执行的OTA升级任务
@@ -32,12 +33,14 @@ public interface OtaUpgradeTaskExecutionService {
      */
     void executeUpgradeTask(OtaUpgradeTasksResultDTO upgradeTask);
 
+
     /**
      * 发送设备OTA 升级命令
      *
      * @param sendDeviceOtaUpgradeCommandRequestParam 升级命令参数
      */
     void sendDeviceOtaUpgradeCommand(SendDeviceOtaUpgradeCommandRequestParam sendDeviceOtaUpgradeCommandRequestParam);
+
 
     /**
      * 执行OTA升级任务（直接指定设备标识）

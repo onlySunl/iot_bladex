@@ -3,6 +3,8 @@ package org.springblade.modules.iot.device.service.impl;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.mp.base.BaseServiceImpl;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.common.converter.Builder;
+import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.device.entity.DeviceLocation;
@@ -12,7 +14,7 @@ import org.springblade.modules.iot.device.vo.query.DeviceLocationPageQuery;
 import org.springblade.modules.iot.device.vo.result.DeviceLocationResultVO;
 import org.springblade.modules.iot.device.vo.save.DeviceLocationSaveVO;
 import org.springblade.modules.iot.device.vo.update.DeviceLocationUpdateVO;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,11 +31,13 @@ import java.util.List;
  * @date 2023-05-30 23:05:31
  * @create [2023-05-30 23:05:31] [mqttsnet]
  */
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class DeviceLocationServiceImpl extends BaseServiceImpl<DeviceLocationMapper, DeviceLocation> implements DeviceLocationService {
+public class DeviceLocationServiceImpl extends SuperServiceImpl<DeviceLocationManager, Long, DeviceLocation> implements DeviceLocationService {
+
 
     /**
      * 保存设备位置信息
@@ -50,9 +54,9 @@ public class DeviceLocationServiceImpl extends BaseServiceImpl<DeviceLocationMap
         DeviceLocation deviceLocation = builderDeviceLocationSaveVO(deviceLocationSaveVO);
 
         // 保存设备位置信息
-        baseMapper.save(deviceLocation);
+        superManager.save(deviceLocation);
 
-        return BeanUtil.toBeanIgnoreError(deviceLocation, DeviceLocationSaveVO.class);
+        return BeanPlusUtil.toBeanIgnoreError(deviceLocation, DeviceLocationSaveVO.class);
     }
 
     /**
@@ -67,13 +71,13 @@ public class DeviceLocationServiceImpl extends BaseServiceImpl<DeviceLocationMap
 
         checkedDeviceLocationUpdateVO(deviceLocationUpdateVO);
 
-        deviceLocationUpdateVO.setCreatedOrgId(AuthUtil.getCurrentDeptId());
+        deviceLocationUpdateVO.setCreatedOrgId(ContextUtil.getCurrentDeptId());
 
         //构建参数
         Builder<DeviceLocation> deviceLocationBuilder = builderDeviceLocationUpdateVO(deviceLocationUpdateVO);
 
         //更新
-        baseMapper.updateById(deviceLocationBuilder.with(DeviceLocation::setId, deviceLocationUpdateVO.getId()).build());
+        superManager.updateById(deviceLocationBuilder.with(DeviceLocation::setId, deviceLocationUpdateVO.getId()).build());
         return deviceLocationUpdateVO;
     }
 
@@ -85,7 +89,7 @@ public class DeviceLocationServiceImpl extends BaseServiceImpl<DeviceLocationMap
      */
     @Override
     public List<DeviceLocationResultVO> getDeviceLocationResultVOList(DeviceLocationPageQuery query) {
-        return baseMapper.getDeviceLocationResultVOList(query);
+        return superManager.getDeviceLocationResultVOList(query);
     }
 
     /**
@@ -139,9 +143,10 @@ public class DeviceLocationServiceImpl extends BaseServiceImpl<DeviceLocationMap
      * @return 构建好的 DeviceLocation 对象
      */
     private DeviceLocation builderDeviceLocationSaveVO(DeviceLocationSaveVO deviceLocationSaveVO) {
-        DeviceLocation deviceLocation = BeanUtil.toBeanIgnoreError(deviceLocationSaveVO, DeviceLocation.class);
-        deviceLocation.setCreatedOrgId(AuthUtil.getCurrentDeptId());
+        DeviceLocation deviceLocation = BeanPlusUtil.toBeanIgnoreError(deviceLocationSaveVO, DeviceLocation.class);
+        deviceLocation.setCreatedOrgId(ContextUtil.getCurrentDeptId());
         return deviceLocation;
     }
 }
+
 

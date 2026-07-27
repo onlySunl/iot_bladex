@@ -6,6 +6,7 @@ import org.springblade.modules.iot.producttopic.entity.ProductTopic;
 
 import java.util.List;
 
+
 /**
  * <p>
  * 业务接口
@@ -16,7 +17,8 @@ import java.util.List;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
-public interface ProductTopicService extends BaseService<ProductTopic> {
+public interface ProductTopicService extends SuperService<Long, ProductTopic> {
+
 
     /**
      * 初始化产品基础Topic
@@ -26,6 +28,7 @@ public interface ProductTopicService extends BaseService<ProductTopic> {
      * @param reInit                是否重新初始化
      */
     void initProductBaseTopics(String productIdentification, ProductTypeEnum productTypeEnum, Boolean reInit);
+
 
     /**
      * 根据 ID 列表批量查 topic 模板字符串(北向桥接 TOPIC_IDS 模式用)。
@@ -39,5 +42,7 @@ public interface ProductTopicService extends BaseService<ProductTopic> {
      */
     List<String> findTopicsByIds(List<Long> ids);
 
+
 }
+
 

@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.productversion.publish.strategy;
 
 import org.springblade.modules.iot.productversion.enumeration.ProductPublishStrategyEnum;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class FullDeviceRebindStrategy implements DeviceRebindStrategy {
 
     private final DeviceRebindStreamer deviceRebindStreamer;

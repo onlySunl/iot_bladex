@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class StaticTimeoutCheckAction extends BaseOtaUpgradeAction {
 
+
     /**
      * 执行超时检查动作
      *

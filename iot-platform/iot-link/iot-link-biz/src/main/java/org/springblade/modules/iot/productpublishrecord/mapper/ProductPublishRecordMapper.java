@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.productpublishrecord.mapper;
 
-import org.springblade.core.mp.mapper.BladeMapper;
+import org.springblade.core.mp.base.BaseMapper;
 import org.springblade.modules.iot.productpublishrecord.entity.ProductPublishRecord;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * 产品发布记录 Mapper。
@@ -10,6 +10,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @author mqttsnet
  * @see ProductPublishRecord
  */
-@Mapper
-public interface ProductPublishRecordMapper extends BladeMapper<ProductPublishRecord> {
+@Repository
+public interface ProductPublishRecordMapper extends SuperMapper<ProductPublishRecord> {
 }

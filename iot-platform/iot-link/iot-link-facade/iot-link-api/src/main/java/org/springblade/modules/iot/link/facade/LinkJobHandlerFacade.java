@@ -31,7 +31,7 @@ public interface LinkJobHandlerFacade {
      * @param tenantId Identifier of the tenant whose device cache needs to be refreshed.
      * @return Response indicating the result of the cache refresh operation.
      */
-    R<?> refreshDeviceCacheForTenant(String tenantId);
+    R<?> refreshDeviceCacheForTenant(Long tenantId);
 
 
     /**
@@ -40,7 +40,7 @@ public interface LinkJobHandlerFacade {
      * @param tenantId 租户ID
      * @return 操作结果
      */
-    R<?> syncDeviceConnectionStatus(String tenantId);
+    R<?> syncDeviceConnectionStatus(Long tenantId);
 
     /**
      * Refreshes the product cache for a specific tenant.
@@ -48,7 +48,7 @@ public interface LinkJobHandlerFacade {
      * @param tenantId Identifier of the tenant whose product cache needs to be refreshed.
      * @return Response indicating the result of the cache refresh operation.
      */
-    R<?> refreshProductCacheForTenant(String tenantId);
+    R<?> refreshProductCacheForTenant(Long tenantId);
 
 
     /**
@@ -57,7 +57,7 @@ public interface LinkJobHandlerFacade {
      * @param tenantId Identifier of the tenant whose product model cache needs to be refreshed.
      * @return Response indicating the result of the cache refresh operation.
      */
-    R<?> refreshProductModelCache(String tenantId);
+    R<?> refreshProductModelCache(Long tenantId);
 
 
     /**
@@ -67,7 +67,7 @@ public interface LinkJobHandlerFacade {
      * @param tenantId 租户 ID
      * @return 执行结果
      */
-    R<?> retryProductVersionPublish(String tenantId);
+    R<?> retryProductVersionPublish(Long tenantId);
 
 
     /**
@@ -76,5 +76,5 @@ public interface LinkJobHandlerFacade {
      * @param tenantId Identifier of the tenant for whom OTA upgrade tasks need to be executed.
      * @return Response indicating the result of the OTA upgrade task execution.
      */
-    R<?> otaUpgradeTasksExecute(String tenantId);
+    R<?> otaUpgradeTasksExecute(Long tenantId);
 }

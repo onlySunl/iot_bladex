@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.link.api.device;
 
 import org.springblade.core.tool.api.R;
-import org.springblade.core.tool.constant.BladeConstant;
+import org.springblade.common.constant.Constants;
 import org.springblade.modules.iot.device.vo.result.DeviceDetailsResultVO;
 import org.springblade.modules.iot.link.api.device.hystrix.DeviceApiFallback;
 import io.swagger.v3.oas.annotations.Operation;

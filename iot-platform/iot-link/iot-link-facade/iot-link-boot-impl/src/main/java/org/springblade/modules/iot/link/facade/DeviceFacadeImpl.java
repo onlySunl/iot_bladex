@@ -29,7 +29,7 @@ public class DeviceFacadeImpl implements DeviceFacade {
     public R<Boolean> updateDeviceConnectionStatus(Long id, Integer connectionStatus) {
         try {
             return R.success(deviceService.updateDeviceConnectionStatusById(id, connectionStatus));
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("修改设备连接状态失败，系统异常: {}", e.getMessage(), e);
@@ -51,7 +51,7 @@ public class DeviceFacadeImpl implements DeviceFacade {
             }).filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
 
             return R.success(deviceDetailsList);
-        } catch (ServiceException be) {
+        } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("根据多个设备标识获取设备详情失败，系统异常: {}", e.getMessage(), e);

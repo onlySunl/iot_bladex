@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.device.mapper;
 
-import org.springblade.core.mp.mapper.BladeMapper;
+import org.springblade.core.mp.base.BaseMapper;
 import org.springblade.modules.iot.device.entity.DeviceAclRule;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -14,8 +14,9 @@ import org.apache.ibatis.annotations.Mapper;
  * @date 2025-06-11 19:57:46
  * @create [2025-06-11 19:57:46] [mqttsnet]
  */
-@Mapper
-public interface DeviceAclRuleMapper extends BladeMapper<DeviceAclRule> {
+@Repository
+public interface DeviceAclRuleMapper extends SuperMapper<DeviceAclRule> {
 
 }
+
 

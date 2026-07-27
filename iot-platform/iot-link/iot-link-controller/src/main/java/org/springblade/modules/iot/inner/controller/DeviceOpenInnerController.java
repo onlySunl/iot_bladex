@@ -5,8 +5,12 @@ import java.util.Optional;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
+import org.springblade.common.annotation.log.WebLog;
 import org.springblade.core.tool.api.R;
+import org.springblade.core.secure.constant.SecureConstant;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.common.interfaces.echo.EchoService;
+import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.modules.iot.device.entity.DeviceAction;
 import org.springblade.modules.iot.device.entity.DeviceCommand;
 import org.springblade.modules.iot.device.service.DeviceActionService;
@@ -34,7 +38,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -58,7 +62,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @Validated
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/inner/deviceOpen")
 @Tag(name = "inner-设备相关API")
 public class DeviceOpenInnerController {
@@ -77,6 +81,7 @@ public class DeviceOpenInnerController {
 
     @Autowired
     private EchoService echoService;
+
 
     /**
      * 修改设备连接状态
@@ -97,7 +102,8 @@ public class DeviceOpenInnerController {
                 .map(id -> StrUtil.subAfter(id, ContextConstants.SPECIAL_CHARACTER, true))
                 .orElse(ContextConstants.BUILT_IN_TENANT_ID_STR);
 
-        AuthUtil.setTenantIdStr(tenantId);
+        ContextUtil.setTenantIdStr(tenantId);
+
 
         DeviceResultVO deviceResultVO = deviceService.findOneByClientId(clientIdentifier);
         ArgumentAssert.notNull(deviceResultVO, "设备不存在");
@@ -134,10 +140,11 @@ public class DeviceOpenInnerController {
                 .filter(StrUtil::isNotBlank)
                 .map(id -> StrUtil.subAfter(id, ContextConstants.SPECIAL_CHARACTER, true))
                 .orElse(ContextConstants.BUILT_IN_TENANT_ID_STR);
-        AuthUtil.setTenantIdStr(tenantId);
+        ContextUtil.setTenantIdStr(tenantId);
 
         return R.success(deviceService.updateDeviceConnectionStatusByEvent(clientIdentifier, connectionStatus, eventHlc));
     }
+
 
     /**
      * （MQTT）协议新增子设备档案
@@ -185,6 +192,7 @@ public class DeviceOpenInnerController {
      */
     @Operation(summary = "北向API修改子设备连接状态", description = "北向API-修改子设备连接状态")
     @PutMapping("/updateSubDeviceConnectStatusByNorthbound")
+    @WebLog("北向API修改子设备连接状态")
     public R<TopoDeviceOperationResultVO> updateSubDeviceConnectStatusByNorthbound(
             @RequestBody @Parameter(description = "连接状态参数") TopoUpdateSubDeviceStatusParam topoUpdateSubDeviceStatusParam) {
         try {
@@ -218,6 +226,7 @@ public class DeviceOpenInnerController {
      */
     @Operation(summary = "北向API删除子设备", description = "北向API-删除子设备")
     @PutMapping("/deleteSubDeviceByNorthbound")
+    @WebLog("北向API删除子设备")
     public R<TopoDeviceOperationResultVO> deleteSubDeviceByNorthbound(@RequestBody @Parameter(description = "删除参数") TopoDeleteSubDeviceParam topoDeleteSubDeviceParam) {
         try {
             log.info("deleteSubDeviceByNorthbound param:{}", JSON.toJSONString(topoDeleteSubDeviceParam));
@@ -228,6 +237,7 @@ public class DeviceOpenInnerController {
             return R.fail("删除子设备失败: " + e.getMessage());
         }
     }
+
 
     /**
      * MQTT协议数据上报
@@ -250,6 +260,7 @@ public class DeviceOpenInnerController {
      */
     @Operation(summary = "北向API设备数据上报", description = "北向API-设备数据上报")
     @PostMapping("/deviceDataReportByNorthbound")
+    @WebLog("北向API设备数据上报")
     public R<TopoDeviceOperationResultVO> deviceDataReportByNorthbound(@RequestBody @Parameter(description = "数据上报参数") TopoDeviceDataReportParam topoDeviceDataReportParam) {
         try {
             log.info("deviceDataReportByNorthbound param:{}", JSON.toJSONString(topoDeviceDataReportParam));
@@ -281,6 +292,7 @@ public class DeviceOpenInnerController {
      */
     @Operation(summary = "Create Device Command", description = "Saves a new device command to the database.")
     @PostMapping("/saveDeviceCommand")
+    @WebLog(value = "Save Device Command", request = false)
     public R<DeviceCommand> saveDeviceCommand(@RequestBody DeviceCommandSaveVO deviceCommandSaveVO) {
         DeviceCommand savedDeviceCommand = deviceCommandService.saveDeviceCommand(deviceCommandSaveVO);
         return R.success(savedDeviceCommand);
@@ -306,6 +318,7 @@ public class DeviceOpenInnerController {
      */
     @Operation(summary = "北向API查询设备信息", description = "北向API-查询设备信息")
     @PostMapping("/queryDeviceByNorthbound")
+    @WebLog("北向API查询设备信息")
     public R<TopoQueryDeviceResultVO> queryDeviceByNorthbound(@RequestBody TopoQueryDeviceParam topoQueryDeviceParam) {
         try {
             log.info("queryDeviceByNorthbound param:{}", JSON.toJSONString(topoQueryDeviceParam));
@@ -378,6 +391,7 @@ public class DeviceOpenInnerController {
         }
     }
 
+
     /**
      * 下发设备命令（串行和并行）
      *
@@ -397,6 +411,7 @@ public class DeviceOpenInnerController {
             return R.fail("下发设备命令失败: " + e.getMessage());
         }
     }
+
 
     /**
      * 北向API-下发设备命令
@@ -462,6 +477,7 @@ public class DeviceOpenInnerController {
      */
     @Operation(summary = "北向API修改设备状态", description = "北向API-修改设备状态")
     @PutMapping("/updateDeviceStatusByNorthbound/{deviceIdentification}")
+    @WebLog("北向API修改设备状态")
     public R<Boolean> updateDeviceStatusByNorthbound(
             @Parameter(description = "设备标识", required = true) @PathVariable("deviceIdentification") String deviceIdentification,
             @Parameter(description = "设备状态（0:未激活、1:已激活、2:已禁用）", required = true) @RequestParam("status") Integer status) {

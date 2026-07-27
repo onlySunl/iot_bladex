@@ -1,57 +1,32 @@
 package org.springblade.modules.iot.producttopic.service.impl;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import java.util.Collections;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.List;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Map;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Objects;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Optional;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.stream.Collectors;
-import org.springblade.core.log.exception.ServiceException;
 
 import cn.hutool.core.collection.CollectionUtil;
-import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.util.StrUtil;
-import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.mp.base.BaseServiceImpl;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.secure.utils.AuthUtil;
-import org.springblade.core.log.exception.ServiceException;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import org.springblade.common.database.mybatis.conditions.Wraps;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.DsConstant;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.enumeration.ProductTypeEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.producttopic.config.ProductTopicTemplate;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.producttopic.config.ProductTopicTemplateConfig;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.producttopic.entity.ProductTopic;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.producttopic.enumeration.ProductTopicTypeEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.producttopic.manager.ProductTopicManager;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.producttopic.service.ProductTopicService;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.producttopic.vo.save.ProductTopicSaveVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.producttopic.vo.update.ProductTopicUpdateVO;
-import org.springblade.core.log.exception.ServiceException;
-import lombok.AllArgsConstructor;
-import org.springblade.core.log.exception.ServiceException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.core.log.exception.ServiceException;
 import org.springframework.stereotype.Service;
-import org.springblade.core.log.exception.ServiceException;
 
 /**
  * <p>
@@ -63,10 +38,11 @@ import org.springblade.core.log.exception.ServiceException;
  * @date 2023-03-14 19:39:59
  * @create [2023-03-14 19:39:59] [mqttsnet]
  */
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
-public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper, ProductTopic> implements ProductTopicService {
+public class ProductTopicServiceImpl extends SuperServiceImpl<ProductTopicManager, Long, ProductTopic> implements ProductTopicService {
 
     private final ProductTopicTemplateConfig topicTemplateConfig;
 
@@ -74,11 +50,11 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
     protected <UpdateVO> ProductTopic updateBefore(UpdateVO vo) {
         ProductTopicUpdateVO updateVO = (ProductTopicUpdateVO) vo;
 
-        if (baseMapper.count(new LambdaQueryWrapper<ProductTopic>()
+        if (superManager.count(Wraps.<ProductTopic>lbQ()
                 .eq(ProductTopic::getProductIdentification, updateVO.getProductIdentification())
                 .eq(ProductTopic::getTopic, updateVO.getTopic())
                 .ne(ProductTopic::getId, updateVO.getId())) > 0) {
-            throw new ServiceException("Topic已存在");
+            throw BizException.wrap("Topic已存在");
         }
 
         return super.updateBefore(updateVO);
@@ -88,24 +64,26 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
     protected <SaveVO> ProductTopic saveBefore(SaveVO vo) {
         ProductTopicSaveVO saveVO = (ProductTopicSaveVO) vo;
 
-        if (baseMapper.count(new LambdaQueryWrapper<ProductTopic>()
+        if (superManager.count(Wraps.<ProductTopic>lbQ()
                 .eq(ProductTopic::getProductIdentification, saveVO.getProductIdentification())
                 .eq(ProductTopic::getTopic, saveVO.getTopic())) > 0) {
-            throw new ServiceException("Topic已存在");
+            throw BizException.wrap("Topic已存在");
         }
 
         return super.saveBefore(saveVO);
     }
 
+
     @Override
     protected <SaveVO> void saveAfter(SaveVO saveVO, ProductTopic entity) {
-//        baseMapper.refreshProductTopicCache(Collections.singletonList(entity));
+//        superManager.refreshProductTopicCache(Collections.singletonList(entity));
     }
 
     @Override
     protected <UpdateVO> void updateAfter(UpdateVO updateVO, ProductTopic entity) {
-//        baseMapper.refreshProductTopicCache(Collections.singletonList(entity));
+//        superManager.refreshProductTopicCache(Collections.singletonList(entity));
     }
+
 
     /**
      * 初始化产品基础Topic
@@ -130,7 +108,7 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
                 // 删除该产品的所有基础Topic
                 boolean deleteSuccess = deleteBaseTopicByProductIdentification(productIdentification);
                 if (!deleteSuccess) {
-                    throw new ServiceException("删除现有基础Topic失败，无法重新初始化");
+                    throw BizException.wrap("删除现有基础Topic失败，无法重新初始化");
                 }
             } else {
                 // 不重新初始化，直接跳过
@@ -140,7 +118,7 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
         }
         log.info("产品[{}]没有基础Topic，执行首次初始化", productIdentification);
         List<ProductTopic> productTopics = buildProductTopics(templates, productIdentification);
-        baseMapper.saveBatch(productTopics);
+        superManager.saveBatch(productTopics);
         log.info("成功为产品[{}]初始化了{}个基础Topic", productIdentification, productTopics.size());
 
     }
@@ -168,7 +146,7 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
         if (safeIds.isEmpty()) {
             return Collections.emptyList();
         }
-        return Optional.ofNullable(baseMapper.listByIds(safeIds))
+        return Optional.ofNullable(superManager.listByIds(safeIds))
                 .orElse(Collections.emptyList())
                 .stream()
                 .map(ProductTopic::getTopic)
@@ -176,6 +154,7 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
                 .distinct()
                 .collect(Collectors.toList());
     }
+
 
     /**
      * 根据产品标识删除所有基础Topic
@@ -186,7 +165,7 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
     private boolean deleteBaseTopicByProductIdentification(String productIdentification) {
         log.info("开始删除产品所有Topic - 产品标识: {}", productIdentification);
         // 查询该产品的所有基础Topic
-        List<ProductTopic> existingTopics = baseMapper.list(new LambdaQueryWrapper<ProductTopic>()
+        List<ProductTopic> existingTopics = superManager.list(Wraps.<ProductTopic>lbQ()
                 .eq(ProductTopic::getProductIdentification, productIdentification)
                 .eq(ProductTopic::getTopicType, ProductTopicTypeEnum.BASIC.getValue()));
 
@@ -200,15 +179,16 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
                 .map(ProductTopic::getId)
                 .distinct()
                 .collect(Collectors.toList());
-        boolean deleteSuccess = baseMapper.removeByIds(topicIds);
+        boolean deleteSuccess = superManager.removeByIds(topicIds);
         if (deleteSuccess) {
             log.info("成功删除产品[{}]的{}个基础Topic", productIdentification, existingTopics.size());
         } else {
             log.error("删除产品[{}]基础Topic失败", productIdentification);
-            throw new ServiceException("删除产品基础Topic失败");
+            throw BizException.wrap("删除产品基础Topic失败");
         }
         return deleteSuccess;
     }
+
 
     /**
      * 获取Topic模板
@@ -219,14 +199,14 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
     private List<ProductTopicTemplate> getTopicTemplates(ProductTypeEnum productTypeEnum) {
         Map<String, List<ProductTopicTemplate>> templates = topicTemplateConfig.getProductTopicTemplates();
         if (CollectionUtil.isEmpty(templates)) {
-            throw new ServiceException("Nacos配置中未找到Topic模板配置");
+            throw BizException.wrap("Nacos配置中未找到Topic模板配置");
         }
 
         // 根据产品类型获取对应的模板
         String typeKey = getProductTypeKey(productTypeEnum);
         List<ProductTopicTemplate> templateList = templates.get(typeKey);
         if (CollectionUtil.isEmpty(templateList)) {
-            throw new ServiceException("不支持的产品类型: " + productTypeEnum.getDesc());
+            throw BizException.wrap("不支持的产品类型: " + productTypeEnum.getDesc());
         }
 
         return templateList;
@@ -257,7 +237,7 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
      * @return {@link Boolean} 是否已初始化
      */
     private boolean isAlreadyInitialized(String productIdentification) {
-        Long count = baseMapper.lambdaQuery()
+        Long count = superManager.lambdaQuery()
                 .eq(ProductTopic::getProductIdentification, productIdentification)
                 .eq(ProductTopic::getTopicType, ProductTopicTypeEnum.BASIC.getValue())
                 .count();
@@ -294,9 +274,10 @@ public class ProductTopicServiceImpl extends BaseServiceImpl<ProductTopicMapper,
         productTopic.setFunctionType(template.getFunctionType());
         productTopic.setRemark(template.getRemark());
         productTopic.setTopicType(template.getTopicType());
-        productTopic.setCreatedOrgId(AuthUtil.getCurrentDeptId());
+        productTopic.setCreatedOrgId(ContextUtil.getCurrentDeptId());
         return productTopic;
     }
 
 }
+
 

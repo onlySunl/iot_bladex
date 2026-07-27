@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springblade.core.tool.jackson.JsonUtil;
+import org.springblade.core.tool.utils.JsonUtil;
 import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.cache.vo.product.ProductModelCacheVO;
 import org.springblade.modules.iot.product.vo.param.ProductParamVO;
@@ -45,7 +45,7 @@ public class ProductSnapshotConverter {
             return ProductSnapshotVO.builder().build();
         }
 
-        ProductSnapshotVO target = BeanUtil.toBeanIgnoreError(source, ProductSnapshotVO.class);
+        ProductSnapshotVO target = BeanPlusUtil.toBeanIgnoreError(source, ProductSnapshotVO.class);
 
         Optional.ofNullable(versionRow).ifPresent(v -> {
             target.setVersionNo(v.getVersionNo());
@@ -88,8 +88,8 @@ public class ProductSnapshotConverter {
      */
     public ProductModelCacheVO toModelCacheVO(ProductSnapshotVO snapshot) {
         if (snapshot == null) return null;
-        ProductModelCacheVO vo = BeanUtil.toBeanIgnoreError(snapshot, ProductModelCacheVO.class);
-        // services 节点 BeanUtil.toBeanIgnoreError 不会递归转,手工补一下;
+        ProductModelCacheVO vo = BeanPlusUtil.toBeanIgnoreError(snapshot, ProductModelCacheVO.class);
+        // services 节点 BeanPlusUtil.toBeanIgnoreError 不会递归转,手工补一下;
         // 运行时物模型只取启用服务 —— 停用服务虽在快照里(供版本 diff)但不参与设备解析
         List<ProductSnapshotServiceVO> activeServices = Optional.ofNullable(snapshot.getServices())
             .orElse(Collections.emptyList())
@@ -97,7 +97,7 @@ public class ProductSnapshotConverter {
             .filter(svc -> Objects.equals(svc.getServiceStatus(),
                 ProductServiceStatusEnum.ACTIVATED.getValue()))
             .collect(Collectors.toList());
-        vo.setServices(BeanUtil.toBeanList(activeServices, ProductServiceParamVO.class));
+        vo.setServices(BeanPlusUtil.toBeanList(activeServices, ProductServiceParamVO.class));
         return vo;
     }
 
@@ -133,7 +133,7 @@ public class ProductSnapshotConverter {
     }
 
     private ProductSnapshotServiceVO toSnapshotService(ProductServiceParamVO source) {
-        ProductSnapshotServiceVO svc = BeanUtil.toBeanIgnoreError(source, ProductSnapshotServiceVO.class);
+        ProductSnapshotServiceVO svc = BeanPlusUtil.toBeanIgnoreError(source, ProductSnapshotServiceVO.class);
         svc.setProperties(toSnapshotProperties(source.getProperties()));
         svc.setCommands(toSnapshotCommands(source.getCommands()));
         return svc;
@@ -143,7 +143,7 @@ public class ProductSnapshotConverter {
         return Optional.ofNullable(source)
             .orElse(Collections.emptyList())
             .stream()
-            .map(p -> BeanUtil.toBeanIgnoreError(p, ProductSnapshotPropertyVO.class))
+            .map(p -> BeanPlusUtil.toBeanIgnoreError(p, ProductSnapshotPropertyVO.class))
             .collect(Collectors.toList());
     }
 
@@ -156,7 +156,7 @@ public class ProductSnapshotConverter {
     }
 
     private ProductSnapshotCommandVO toSnapshotCommand(ProductCommandParamVO source) {
-        ProductSnapshotCommandVO cmd = BeanUtil.toBeanIgnoreError(source, ProductSnapshotCommandVO.class);
+        ProductSnapshotCommandVO cmd = BeanPlusUtil.toBeanIgnoreError(source, ProductSnapshotCommandVO.class);
         cmd.setRequests(toSnapshotRequestParameters(source.getRequests()));
         cmd.setResponses(toSnapshotResponseParameters(source.getResponses()));
         return cmd;
@@ -166,7 +166,7 @@ public class ProductSnapshotConverter {
         return Optional.ofNullable(source)
             .orElse(Collections.emptyList())
             .stream()
-            .map(p -> BeanUtil.toBeanIgnoreError(p, ProductSnapshotCommandParameterVO.class))
+            .map(p -> BeanPlusUtil.toBeanIgnoreError(p, ProductSnapshotCommandParameterVO.class))
             .collect(Collectors.toList());
     }
 
@@ -174,7 +174,7 @@ public class ProductSnapshotConverter {
         return Optional.ofNullable(source)
             .orElse(Collections.emptyList())
             .stream()
-            .map(p -> BeanUtil.toBeanIgnoreError(p, ProductSnapshotCommandParameterVO.class))
+            .map(p -> BeanPlusUtil.toBeanIgnoreError(p, ProductSnapshotCommandParameterVO.class))
             .collect(Collectors.toList());
     }
 }

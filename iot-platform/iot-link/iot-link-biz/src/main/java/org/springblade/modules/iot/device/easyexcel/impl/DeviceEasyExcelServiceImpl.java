@@ -16,6 +16,10 @@ import cn.hutool.core.util.StrUtil;
 import cn.idev.excel.annotation.ExcelProperty;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.common.easyexcel.ExcelCheckResult;
+import org.springblade.common.easyexcel.ExcelImportErrDto;
+import org.springblade.core.tool.utils.SnowflakeIdUtil;
+import org.springblade.core.tenant.tenant.utils.TenantUtil;
 import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.device.easyexcel.DeviceEasyExcelService;
 import org.springblade.modules.iot.device.easyexcel.DeviceImportData;
@@ -29,7 +33,7 @@ import org.springblade.modules.iot.device.vo.result.DeviceResultVO;
 import org.springblade.modules.iot.product.service.ProductQueryService;
 import org.springblade.modules.iot.product.vo.query.ProductPageQuery;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,8 +57,9 @@ import org.springframework.transaction.annotation.Transactional;
  * @email
  * @date 2024/6/20 18:50
  */
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class DeviceEasyExcelServiceImpl implements DeviceEasyExcelService {
@@ -62,6 +67,7 @@ public class DeviceEasyExcelServiceImpl implements DeviceEasyExcelService {
     private final DeviceService deviceService;
     private final ProductQueryService productQueryService;
     private final DeviceEventPublisher deviceEventPublisher;
+
 
     /**
      * Checks the imported Excel data for devices.
@@ -209,7 +215,7 @@ public class DeviceEasyExcelServiceImpl implements DeviceEasyExcelService {
         device.setUserName(StrUtil.isNotBlank(data.getUserName()) ? data.getUserName() : RandomUtil.randomString(32));
         String password = StrUtil.isNotBlank(data.getPassword()) ? data.getPassword() : RandomUtil.randomString(32);
         device.setPassword(password);
-        device.setClientId(TenantUtil.buildOptionalItem(StrUtil.isNotBlank(data.getClientId()) ? data.getClientId() : SnowflakeIdUtil.nextId(), AuthUtil.getTenantIdStr()));
+        device.setClientId(TenantUtil.buildOptionalItem(StrUtil.isNotBlank(data.getClientId()) ? data.getClientId() : SnowflakeIdUtil.nextId(), ContextUtil.getTenantIdStr()));
         device.setAuthMode(DeviceAuthModeEnum.ACCOUNT_MODE.getValue());
         device.setEncryptMethod(Integer.valueOf(data.getEncryptMethod()));
         device.setEncryptKey(data.getEncryptKey());
@@ -237,5 +243,6 @@ public class DeviceEasyExcelServiceImpl implements DeviceEasyExcelService {
         }
         return device;
     }
+
 
 }

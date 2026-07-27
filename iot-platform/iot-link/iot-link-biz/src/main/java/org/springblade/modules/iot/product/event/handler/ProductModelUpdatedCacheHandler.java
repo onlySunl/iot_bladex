@@ -1,7 +1,8 @@
 package org.springblade.modules.iot.product.event.handler;
 
+import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.modules.iot.cache.product.ProductModelCacheService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductModelUpdatedCacheHandler {
 
     private final ProductModelCacheService productModelCacheService;

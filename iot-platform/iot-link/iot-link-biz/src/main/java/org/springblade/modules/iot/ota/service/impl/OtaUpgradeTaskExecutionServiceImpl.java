@@ -1,76 +1,43 @@
 package org.springblade.modules.iot.ota.service.impl;
 
 import java.time.Duration;
-import org.springblade.core.log.exception.ServiceException;
 import java.time.Instant;
-import org.springblade.core.log.exception.ServiceException;
 import java.time.LocalDateTime;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.ArrayList;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Collections;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.List;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Objects;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Optional;
-import org.springblade.core.log.exception.ServiceException;
 
 import cn.hutool.core.collection.CollUtil;
-import org.springblade.core.log.exception.ServiceException;
 import com.alibaba.cola.statemachine.StateMachine;
-import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.secure.utils.AuthUtil;
 import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.common.utils.BeanUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.DsConstant;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeTasksResultDTO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeTasks;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.enumeration.OtaTaskRecordAppConfirmStatusEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.enumeration.OtaUpgradeEventEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.enumeration.OtaUpgradeMethodEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.enumeration.OtaUpgradeTaskStatusEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.service.OtaUpgradeRecordsService;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.service.OtaUpgradeTaskExecutionService;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.service.OtaUpgradeTasksService;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.service.statemachine.config.OtaUpgradeStateMachineConfig;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.service.statemachine.context.OtaUpgradeContext;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.service.statemachine.strategy.executor.AppConfirmationStrategy;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.param.SendDeviceOtaUpgradeCommandRequestParam;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.query.OtaUpgradeTasksPageQuery;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.result.DeviceOtaUpgradeAppConfirmationResultVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.result.OtaUpgradeRecordsResultVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.result.OtaUpgradeTasksResultVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.update.OtaUpgradeRecordsUpdateVO;
-import org.springblade.core.log.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.core.log.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springblade.core.log.exception.ServiceException;
 import org.springframework.stereotype.Service;
-import org.springblade.core.log.exception.ServiceException;
 
 /**
  * Description:
@@ -83,6 +50,7 @@ import org.springblade.core.log.exception.ServiceException;
  * @version 1.0.0
  * @since 2025/10/13
  */
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
 @Service
 public class OtaUpgradeTaskExecutionServiceImpl implements OtaUpgradeTaskExecutionService {
@@ -107,6 +75,7 @@ public class OtaUpgradeTaskExecutionServiceImpl implements OtaUpgradeTaskExecuti
         this.dynamicUpgradeStateMachine = dynamicUpgradeStateMachine;
         this.staticUpgradeStateMachine = staticUpgradeStateMachine;
     }
+
 
     @Override
     public void otaUpgradeTasksExecute(Long tenantId) {
@@ -182,11 +151,12 @@ public class OtaUpgradeTaskExecutionServiceImpl implements OtaUpgradeTaskExecuti
         log.info("OTA升级任务执行完成 - 任务ID: {}, 当前状态: {} -> 下一状态: {}, 耗时: {}ms", otaUpgradeTasksResultDTO.getId(), currentStatus, nextStatus, executionTime);
     }
 
+
     @Override
     public void sendDeviceOtaUpgradeCommand(SendDeviceOtaUpgradeCommandRequestParam param) {
         OtaUpgradeTasksResultVO otaUpgradeTasksResultVO = otaUpgradeTasksService.getUpgradeTaskDetails(param.getUpgradeTaskId());
         ArgumentAssert.notNull(otaUpgradeTasksResultVO, "Upgrade task not found");
-        OtaUpgradeTasksResultDTO otaUpgradeTasksResultDTO = BeanUtil.toBeanIgnoreError(otaUpgradeTasksResultVO, OtaUpgradeTasksResultDTO.class);
+        OtaUpgradeTasksResultDTO otaUpgradeTasksResultDTO = BeanPlusUtil.toBeanIgnoreError(otaUpgradeTasksResultVO, OtaUpgradeTasksResultDTO.class);
         executeUpgradeTaskWithDevices(otaUpgradeTasksResultDTO, param.getDeviceIdentificationList());
     }
 
@@ -236,6 +206,7 @@ public class OtaUpgradeTaskExecutionServiceImpl implements OtaUpgradeTaskExecuti
                     OtaUpgradeEventEnum.START_UPGRADE;
         };
     }
+
 
     /**
      * 执行OTA升级任务（手动重试指定设备）
@@ -315,12 +286,12 @@ public class OtaUpgradeTaskExecutionServiceImpl implements OtaUpgradeTaskExecuti
         // 1. 检查任务是否可以执行（必须为 PENDING 或 IN_PROGRESS 状态）
         if (isTaskExecutable(otaUpgradeTasksResultDTO)) {
             log.warn("任务不可执行（手动重试） - 任务ID: {}, 任务状态: {}", otaUpgradeTasksResultDTO.getId(), otaUpgradeTasksResultDTO.getTaskStatus());
-            throw new ServiceException("The task is not within the execution cycle and cannot be manually retried!");
+            throw BizException.wrap("The task is not within the execution cycle and cannot be manually retried!");
         }
         // 2. 验证设备标识列表
         if (CollUtil.isEmpty(deviceIdentifications)) {
             log.warn("设备标识列表为空（手动重试） - 任务ID: {}", otaUpgradeTasksResultDTO.getId());
-            throw new ServiceException("Please select the devices that need to be upgraded again!");
+            throw BizException.wrap("Please select the devices that need to be upgraded again!");
         }
         // 3. 创建升级上下文并设置指定设备列表
         OtaUpgradeContext upgradeContext = createUpgradeContext(otaUpgradeTasksResultDTO);
@@ -380,7 +351,7 @@ public class OtaUpgradeTaskExecutionServiceImpl implements OtaUpgradeTaskExecuti
      */
     private OtaUpgradeContext createUpgradeContext(OtaUpgradeTasksResultDTO upgradeTask) {
         return OtaUpgradeContext.builder()
-                .tenantId(AuthUtil.getTenantId())
+                .tenantId(ContextUtil.getTenantId())
                 .upgradeTask(upgradeTask)
                 .build();
     }
@@ -407,7 +378,7 @@ public class OtaUpgradeTaskExecutionServiceImpl implements OtaUpgradeTaskExecuti
         }
         OtaUpgradeTasks otaUpgradeTasks = otaUpgradeTasksService.getById(taskId);
         if (Objects.isNull(otaUpgradeTasks)) {
-            throw new ServiceException("OTA升级任务不存在");
+            throw BizException.wrap("OTA升级任务不存在");
         }
         //记录操作成功的设备标识列表
         List<String> successDeviceIdentificationList = new ArrayList<>();

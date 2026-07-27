@@ -1,146 +1,79 @@
 package org.springblade.modules.iot.ota.service.impl;
 
 import java.time.Instant;
-import org.springblade.core.log.exception.ServiceException;
 import java.time.LocalDateTime;
-import org.springblade.core.log.exception.ServiceException;
 import java.time.ZoneId;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Arrays;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Collection;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Collections;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Comparator;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.List;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Map;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Objects;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Optional;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.function.Function;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.stream.Collectors;
-import org.springblade.core.log.exception.ServiceException;
 
 import cn.hutool.core.collection.CollUtil;
-import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.collection.CollectionUtil;
-import org.springblade.core.log.exception.ServiceException;
 import com.alibaba.fastjson2.JSON;
-import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.core.mp.support.Query;
-import org.springblade.core.log.exception.ServiceException;
+import org.springblade.core.boot.request.PageParam;
 import org.springblade.core.mp.base.BaseServiceImpl;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.common.converter.Builder;
 import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.common.utils.BeanUtil;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.tool.utils.StringPool;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.DsConstant;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.service.DeviceService;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.result.DeviceDetailsResultVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.update.DeviceUpdateVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.converter.OtaUpgradeCommandConverter;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeFileResultDTO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeTargetsResultDTO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeTasksResultDTO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.dto.OtaUpgradesResultDTO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeRecords;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeTasks;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.entity.OtaUpgrades;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.enumeration.OtaPackageSignMethodEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.enumeration.OtaPackageStatusEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.enumeration.OtaPackageTypeEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.enumeration.OtaTaskRecordAppConfirmStatusEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.enumeration.OtaUpgradeMethodEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.enumeration.OtaUpgradeScopeEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.enumeration.OtaUpgradeTargetStatusEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.enumeration.OtaUpgradeTaskStatusEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.manager.OtaUpgradeTasksManager;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.service.OtaUpgradeRecordsService;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.service.OtaUpgradeTargetsService;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.service.OtaUpgradeTasksService;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.service.OtaUpgradesService;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.query.OtaUpgradeRecordsPageQuery;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.query.OtaUpgradeTargetsPageQuery;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.query.OtaUpgradeTasksPageQuery;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.query.OtaUpgradesPageQuery;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.result.OtaUpgradeRecordsResultVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.result.OtaUpgradeTasksResultVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.enumeration.OtaUpgradeRecordStatusEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.service.support.OtaModelVersionSwitcher;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.result.OtaUpgradesResultVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.save.OtaUpgradeTargetsSaveVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.save.OtaUpgradeTasksSaveVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.update.OtaUpgradeTasksUpdateVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.TopoOtaCommandResponseParam;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.TopoOtaListUpgradeableVersionsResponseParam;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.TopoOtaPullParam;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.TopoOtaPullResponseParam;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.TopoOtaReadResponseParam;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.TopoOtaReportParam;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.TopoOtaReportResponseParam;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.utils.ota.OtaUpgradeFileUtils;
-import org.springblade.core.log.exception.ServiceException;
-import lombok.AllArgsConstructor;
-import org.springblade.core.log.exception.ServiceException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.core.log.exception.ServiceException;
 import org.springframework.stereotype.Service;
-import org.springblade.core.log.exception.ServiceException;
 
 /**
  * <p>
@@ -152,10 +85,11 @@ import org.springblade.core.log.exception.ServiceException;
  * @date 2024-01-12 22:40:04
  * @create [2024-01-12 22:40:04] [mqttsnet]
  */
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
-public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksMapper, OtaUpgradeTasks> implements OtaUpgradeTasksService {
+public class OtaUpgradeTasksServiceImpl extends SuperServiceImpl<OtaUpgradeTasksManager, Long, OtaUpgradeTasks> implements OtaUpgradeTasksService {
 
     private final OtaUpgradesService otaUpgradesService;
 
@@ -168,6 +102,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
     private final OtaUpgradeFileUtils otaUpgradeFileUtils;
 
     private final OtaModelVersionSwitcher otaModelVersionSwitcher;
+
 
     /**
      * Save OTA Upgrade Task
@@ -183,18 +118,18 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
 
         OtaUpgrades otaUpgrade = otaUpgradesService.getById(saveVO.getUpgradeId());
         if (Objects.isNull(otaUpgrade)) {
-            throw new ServiceException("OTA upgrade package does not exist");
+            throw BizException.wrap("OTA upgrade package does not exist");
         }
 
         // Map the saveVO to your OtaUpgradeTask entity
         OtaUpgradeTasks otaUpgradeTask = buildOtaUpgradeTaskFromSaveVO(saveVO);
 
         // Persist the OtaUpgradeTask entity using your manager or repository
-        boolean save = baseMapper.save(otaUpgradeTask);
+        boolean save = superManager.save(otaUpgradeTask);
 
         // Return the saved entity or a custom response
         if (!save) {
-            throw new ServiceException("Failed to save OTA upgrade task");
+            throw BizException.wrap("Failed to save OTA upgrade task");
         }
 
         if (!OtaUpgradeScopeEnum.ALL_DEVICES.getValue().equals(saveVO.getUpgradeScope())) {
@@ -203,12 +138,12 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
                     .setTaskId(otaUpgradeTask.getId())
                     .setTargetValue(targetValue)
                     .setTargetStatus(OtaUpgradeTargetStatusEnum.PENDING.getValue())
-                    .setCreatedOrgId(AuthUtil.getCurrentDeptId())).collect(Collectors.toList());
+                    .setCreatedOrgId(ContextUtil.getCurrentDeptId())).collect(Collectors.toList());
             otaUpgradeTargetsService.saveBatchForOtaUpgradeTargets(otaUpgradeTargetsSaveVOList);
         }
 
         // Map the saved entity back to OtaUpgradeTasksSaveVO if needed
-        return BeanUtil.toBeanIgnoreError(otaUpgradeTask, OtaUpgradeTasksSaveVO.class);
+        return BeanPlusUtil.toBeanIgnoreError(otaUpgradeTask, OtaUpgradeTasksSaveVO.class);
     }
 
     /**
@@ -225,19 +160,19 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
         validateOtaUpgradeTasksUpdateVO(updateVO);
 
         // Fetch the existing task and update with new details
-        OtaUpgradeTasks otaUpgradeTask = baseMapper.getById(updateVO.getId());
+        OtaUpgradeTasks otaUpgradeTask = superManager.getById(updateVO.getId());
 
         if (Objects.isNull(otaUpgradeTask)) {
-            throw new ServiceException("OTA upgrade task not found");
+            throw BizException.wrap("OTA upgrade task not found");
         }
         Builder<OtaUpgradeTasks> otaUpgradeTasksBuilder = builderOtaUpgradeTasksUpdateVO(updateVO);
         otaUpgradeTask = otaUpgradeTasksBuilder.with(OtaUpgradeTasks::setId, updateVO.getId()).build();
 
         // Save the updated entity
-        baseMapper.updateById(otaUpgradeTask);
+        superManager.updateById(otaUpgradeTask);
 
         // Map the updated entity back to OtaUpgradeTasksUpdateVO if needed
-        return BeanUtil.toBeanIgnoreError(otaUpgradeTask, OtaUpgradeTasksUpdateVO.class);
+        return BeanPlusUtil.toBeanIgnoreError(otaUpgradeTask, OtaUpgradeTasksUpdateVO.class);
     }
 
     /**
@@ -252,15 +187,15 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
         ArgumentAssert.notNull(id, "Task ID cannot be null");
         ArgumentAssert.notNull(status, "Status cannot be null");
 
-        OtaUpgradeTasks otaUpgradeTask = baseMapper.getById(id);
+        OtaUpgradeTasks otaUpgradeTask = superManager.getById(id);
         if (Objects.isNull(otaUpgradeTask)) {
-            throw new ServiceException("OTA upgrade task does not exist");
+            throw BizException.wrap("OTA upgrade task does not exist");
         }
         OtaUpgradeTaskStatusEnum.fromValue(status)
-                .orElseThrow(() -> new ServiceException("Invalid task status"));
+                .orElseThrow(() -> BizException.wrap("Invalid task status"));
 
         otaUpgradeTask.setTaskStatus(status);
-        return baseMapper.updateById(otaUpgradeTask);
+        return superManager.updateById(otaUpgradeTask);
     }
 
     /**
@@ -273,9 +208,9 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
     public Boolean deleteOtaUpgradeTask(Long id) {
         ArgumentAssert.notNull(id, "Task ID cannot be null");
 
-        OtaUpgradeTasks task = baseMapper.getById(id);
+        OtaUpgradeTasks task = superManager.getById(id);
         if (Objects.isNull(task)) {
-            throw new ServiceException("OTA upgrade task does not exist");
+            throw new BizException("OTA upgrade task does not exist");
         }
         // 不允许删除PENDING、IN_PROGRESS、COMPLETED状态的任务
         ArgumentAssert.isTrue(OtaUpgradeTaskStatusEnum.PENDING.getValue().equals(task.getTaskStatus()), "OTA upgrade task is pending, cannot be deleted");
@@ -283,7 +218,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
         ArgumentAssert.isTrue(OtaUpgradeTaskStatusEnum.COMPLETED.getValue().equals(task.getTaskStatus()), "OTA upgrade task is completed, cannot be deleted");
         // Delete associated upgrade targets
         otaUpgradeTargetsService.deleteByTaskId(id);
-        return baseMapper.removeById(id);
+        return superManager.removeById(id);
     }
 
     /**
@@ -298,14 +233,14 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
     public OtaUpgradeTasksResultVO getUpgradeTaskDetails(Long taskId) {
         ArgumentAssert.notNull(taskId, "Task ID cannot be null");
 
-        OtaUpgradeTasks otaUpgradeTask = baseMapper.getById(taskId);
+        OtaUpgradeTasks otaUpgradeTask = superManager.getById(taskId);
         ArgumentAssert.notNull(otaUpgradeTask, "OTA upgrade task does not exist");
 
-        OtaUpgradeTasksResultVO resultVO = BeanUtil.toBeanIgnoreError(otaUpgradeTask, OtaUpgradeTasksResultVO.class);
+        OtaUpgradeTasksResultVO resultVO = BeanPlusUtil.toBeanIgnoreError(otaUpgradeTask, OtaUpgradeTasksResultVO.class);
 
         OtaUpgrades otaUpgrade = otaUpgradesService.getById(otaUpgradeTask.getUpgradeId());
         ArgumentAssert.notNull(otaUpgrade, "Associated OTA upgrade package does not exist");
-        OtaUpgradesResultVO otaUpgradesResultVO = BeanUtil.toBeanIgnoreError(otaUpgrade, OtaUpgradesResultVO.class);
+        OtaUpgradesResultVO otaUpgradesResultVO = BeanPlusUtil.toBeanIgnoreError(otaUpgrade, OtaUpgradesResultVO.class);
         resultVO.setOtaUpgradesResult(otaUpgradesResultVO);
 
         OtaUpgradeTargetsPageQuery otaUpgradeTargetsPageQuery = new OtaUpgradeTargetsPageQuery().setTaskId(taskId);
@@ -316,18 +251,19 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
 
     @Override
     public List<OtaUpgradeTasksResultDTO> getUpgradeTaskDetailsList(OtaUpgradeTasksPageQuery query) {
-        List<OtaUpgradeTasks> otaUpgradeTasksList = baseMapper.getOtaUpgradeTasksList(query);
-        List<OtaUpgradeTasksResultDTO> otaUpgradeTasksResultDTOList = BeanUtil.toBeanList(otaUpgradeTasksList, OtaUpgradeTasksResultDTO.class);
+        List<OtaUpgradeTasks> otaUpgradeTasksList = superManager.getOtaUpgradeTasksList(query);
+        List<OtaUpgradeTasksResultDTO> otaUpgradeTasksResultDTOList = BeanPlusUtil.toBeanList(otaUpgradeTasksList, OtaUpgradeTasksResultDTO.class);
         List<OtaUpgradesResultVO> otaUpgradesResultVOList = otaUpgradesService.selectListByIds(otaUpgradeTasksList.stream().map(OtaUpgradeTasks::getUpgradeId).distinct().collect(Collectors.toList()));
         Map<Long, OtaUpgradesResultVO> otaUpgradesResultVOMap = CollectionUtil.isNotEmpty(otaUpgradesResultVOList) ?
                 otaUpgradesResultVOList.stream().collect(Collectors.toMap(OtaUpgradesResultVO::getId, Function.identity(), (existing, replacement) -> existing)) : Collections.emptyMap();
         otaUpgradeTasksResultDTOList.forEach(otaUpgradeTasksResultDTO -> {
             if (otaUpgradesResultVOMap.containsKey(otaUpgradeTasksResultDTO.getUpgradeId())) {
-                otaUpgradeTasksResultDTO.setOtaUpgradesResult(BeanUtil.toBeanIgnoreError(otaUpgradesResultVOMap.get(otaUpgradeTasksResultDTO.getUpgradeId()), OtaUpgradesResultDTO.class));
+                otaUpgradeTasksResultDTO.setOtaUpgradesResult(BeanPlusUtil.toBeanIgnoreError(otaUpgradesResultVOMap.get(otaUpgradeTasksResultDTO.getUpgradeId()), OtaUpgradesResultDTO.class));
             }
         });
         return otaUpgradeTasksResultDTOList;
     }
+
 
     /**
      * Save an OTA upgrade record from MQTT events.
@@ -384,7 +320,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
     }
 
     private TopoOtaReportResponseParam handleOtaReport(TopoOtaReportParam topoOtaReportParam) {
-        OtaPackageTypeEnum.fromValue(topoOtaReportParam.getPackageType()).orElseThrow(() -> new ServiceException("Invalid package type"));
+        OtaPackageTypeEnum.fromValue(topoOtaReportParam.getPackageType()).orElseThrow(() -> BizException.wrap("Invalid package type"));
         // Check if the device exists
         DeviceDetailsResultVO deviceDetailsResultVO = deviceService.findOneByDeviceIdentification(topoOtaReportParam.getDeviceIdentification());
         ArgumentAssert.notNull(deviceDetailsResultVO, "Device not found");
@@ -425,7 +361,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
 
     private void handleOtaResponse(TopoOtaReadResponseParam topoOtaReadResponseParam) {
         log.info("handle Ota  Response...request:{}", JSON.toJSONString(topoOtaReadResponseParam));
-        OtaPackageTypeEnum.fromValue(topoOtaReadResponseParam.getPackageType()).orElseThrow(() -> new ServiceException("Invalid package type"));
+        OtaPackageTypeEnum.fromValue(topoOtaReadResponseParam.getPackageType()).orElseThrow(() -> BizException.wrap("Invalid package type"));
         // Check if the device exists
         DeviceDetailsResultVO deviceDetailsResultVO = deviceService.findOneByDeviceIdentification(topoOtaReadResponseParam.getDeviceIdentification());
         ArgumentAssert.notNull(deviceDetailsResultVO, "Device not found");
@@ -448,6 +384,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
                 topoOtaReadResponseParam.getPackageType());
     }
 
+
     /**
      * pull OTA upgrade task
      * 从升级记录中查找匹配的升级任务
@@ -457,7 +394,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
      */
     private TopoOtaPullResponseParam handleOtaPull(TopoOtaPullParam topoOtaPullParam) {
         log.info("OTA pull request: {}", JSON.toJSONString(topoOtaPullParam));
-        OtaPackageTypeEnum.fromValue(topoOtaPullParam.getPackageType()).orElseThrow(() -> new ServiceException("Invalid package type"));
+        OtaPackageTypeEnum.fromValue(topoOtaPullParam.getPackageType()).orElseThrow(() -> BizException.wrap("Invalid package type"));
         // Check if the device exists
         DeviceDetailsResultVO deviceDetailsResultVO = deviceService.findOneByDeviceIdentification(topoOtaPullParam.getDeviceIdentification());
 
@@ -475,24 +412,24 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
         List<OtaUpgradeRecordsResultVO> upgradeRecords = otaUpgradeRecordsService.getOtaUpgradeRecordsResultVOList(recordsQuery);
 
         if (upgradeRecords.isEmpty()) {
-            throw new ServiceException("No OTA upgrade package found for the device");
+            throw BizException.wrap("No OTA upgrade package found for the device");
         }
 
         // 获取最新的升级记录（按创建时间排序）
         OtaUpgradeRecordsResultVO record = upgradeRecords.stream()
                 .max(Comparator.comparing(OtaUpgradeRecordsResultVO::getCreatedTime, Comparator.nullsLast(Comparator.naturalOrder())))
-                .orElseThrow(() -> new ServiceException("No OTA upgrade package found for the device"));
+                .orElseThrow(() -> BizException.wrap("No OTA upgrade package found for the device"));
 
         // 根据升级记录中的升级包ID查询升级包信息
         OtaUpgrades otaUpgrade = otaUpgradesService.getById(record.getUpgradeId());
         if (Objects.isNull(otaUpgrade)) {
-            throw new ServiceException("OTA upgrade package not found");
+            throw BizException.wrap("OTA upgrade package not found");
         }
-        OtaUpgradesResultDTO otaUpgradesResultDTO = BeanUtil.toBeanIgnoreError(otaUpgrade, OtaUpgradesResultDTO.class);
+        OtaUpgradesResultDTO otaUpgradesResultDTO = BeanPlusUtil.toBeanIgnoreError(otaUpgrade, OtaUpgradesResultDTO.class);
 
         // 验证升级包的包类型是否匹配
         if (!topoOtaPullParam.getPackageType().equals(otaUpgradesResultDTO.getPackageType())) {
-            throw new ServiceException("OTA upgrade package type mismatch");
+            throw BizException.wrap("OTA upgrade package type mismatch");
         }
 
         List<Long> fileIds = otaUpgradesResultDTO.getFileIds();
@@ -501,7 +438,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
 
         // 获取任务详情
         OtaUpgradeTasksResultVO taskDetails = this.getUpgradeTaskDetails(record.getTaskId());
-        OtaUpgradeTasksResultDTO otaUpgradeTasksResultDTO = BeanUtil.toBeanIgnoreError(taskDetails, OtaUpgradeTasksResultDTO.class);
+        OtaUpgradeTasksResultDTO otaUpgradeTasksResultDTO = BeanPlusUtil.toBeanIgnoreError(taskDetails, OtaUpgradeTasksResultDTO.class);
 
         return OtaUpgradeCommandConverter.buildOtaPullResponseParam(
                 deviceDetailsResultVO.getDeviceIdentification(),
@@ -519,6 +456,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
     private Map<Long, OtaUpgradeFileResultDTO> getOtaUpgradeFileInfoMap(List<Long> fileIds) {
         return otaUpgradeFileUtils.getOtaUpgradeFileInfoMap(fileIds);
     }
+
 
     /**
      * Handles and persists the OTA upgrade record to the database. This method abstracts the common logic for
@@ -564,7 +502,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
         OtaUpgradeRecordsPageQuery query = new OtaUpgradeRecordsPageQuery()
                 .setTaskId(topoOtaCommandResponseParam.getOtaTaskId())
                 .setDeviceIdentification(topoOtaCommandResponseParam.getDeviceIdentification());
-        Query params = new Query<>();
+        PageParams<OtaUpgradeRecordsPageQuery> params = new PageParams<>();
         params.setModel(query);
 
         Optional<OtaUpgradeRecords> existingRecordOpt = otaUpgradeRecordsService.getOtaUpgradeRecordsResultVOPage(params).getRecords().stream()
@@ -582,8 +520,9 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
         return topoOtaCommandResponseParam;
     }
 
+
     private OtaUpgradeRecords convertToOtaUpgradeRecordsDO(OtaUpgradeRecordsResultVO otaUpgradeRecordsResultVO) {
-        return BeanUtil.toBeanIgnoreError(otaUpgradeRecordsResultVO, OtaUpgradeRecords.class);
+        return BeanPlusUtil.toBeanIgnoreError(otaUpgradeRecordsResultVO, OtaUpgradeRecords.class);
     }
 
     // Method to update an existing DO with response params
@@ -616,6 +555,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
                 .build();
     }
 
+
     private void updateDeviceInfo(DeviceDetailsResultVO deviceDetailsResultVO, OtaUpgradeTasksResultVO otaTask, TopoOtaCommandResponseParam topoOtaCommandResponseParam) {
         DeviceUpdateVO deviceUpdateVO = new DeviceUpdateVO();
         deviceUpdateVO.setId(deviceDetailsResultVO.getId());
@@ -630,15 +570,15 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
 
     private void validateOtaUpgradeTasksSaveVO(OtaUpgradeTasksSaveVO saveVO) {
         OtaUpgradeMethodEnum.fromValue(saveVO.getUpgradeMethod())
-                .orElseThrow(() -> new ServiceException("Invalid upgrade method"));
+                .orElseThrow(() -> BizException.wrap("Invalid upgrade method"));
 
         OtaUpgradeScopeEnum.fromValue(saveVO.getUpgradeScope())
-                .orElseThrow(() -> new ServiceException("Invalid upgrade scope"));
+                .orElseThrow(() -> BizException.wrap("Invalid upgrade scope"));
     }
 
     private OtaUpgradeTasks buildOtaUpgradeTaskFromSaveVO(OtaUpgradeTasksSaveVO saveVO) {
-        saveVO.setCreatedOrgId(AuthUtil.getCurrentDeptId());
-        return BeanUtil.toBeanIgnoreError(saveVO, OtaUpgradeTasks.class);
+        saveVO.setCreatedOrgId(ContextUtil.getCurrentDeptId());
+        return BeanPlusUtil.toBeanIgnoreError(saveVO, OtaUpgradeTasks.class);
     }
 
     private void validateOtaUpgradeTasksUpdateVO(OtaUpgradeTasksUpdateVO updateVO) {
@@ -673,14 +613,14 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
         ArgumentAssert.notNull(taskId, "Task ID cannot be null");
         ArgumentAssert.notNull(status, "Status cannot be null");
 
-        OtaUpgradeTasks otaUpgradeTask = baseMapper.getById(taskId);
+        OtaUpgradeTasks otaUpgradeTask = superManager.getById(taskId);
         if (Objects.isNull(otaUpgradeTask)) {
             log.warn("OTA upgrade task not found - taskId: {}", taskId);
             return false;
         }
 
         otaUpgradeTask.setTaskStatus(status.getValue());
-        boolean result = baseMapper.updateById(otaUpgradeTask);
+        boolean result = superManager.updateById(otaUpgradeTask);
 
         if (result) {
             log.info("Successfully updated task status - taskId: {}, status: {}", taskId, status);
@@ -703,14 +643,14 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
         ArgumentAssert.notNull(taskId, "Task ID cannot be null");
         ArgumentAssert.isTrue(retryCount >= 0, "Retry count cannot be negative");
 
-        OtaUpgradeTasks otaUpgradeTask = baseMapper.getById(taskId);
+        OtaUpgradeTasks otaUpgradeTask = superManager.getById(taskId);
         if (Objects.isNull(otaUpgradeTask)) {
             log.warn("OTA upgrade task not found - taskId: {}", taskId);
             return false;
         }
 
         otaUpgradeTask.setCurrentRetryCount(retryCount);
-        boolean result = baseMapper.updateById(otaUpgradeTask);
+        boolean result = superManager.updateById(otaUpgradeTask);
 
         if (result) {
             log.info("Successfully updated task retry count - taskId: {}, retryCount: {}", taskId, retryCount);
@@ -732,9 +672,9 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
         if (CollUtil.isEmpty(ids)) {
             return Collections.emptyList();
         }
-        List<OtaUpgradeTasks> tasks = baseMapper.listByIds(ids);
+        List<OtaUpgradeTasks> tasks = superManager.listByIds(ids);
         return Optional.ofNullable(tasks)
-                .map(taskList -> BeanUtil.toBeanList(taskList, OtaUpgradeTasksResultVO.class))
+                .map(taskList -> BeanPlusUtil.toBeanList(taskList, OtaUpgradeTasksResultVO.class))
                 .orElse(Collections.emptyList());
     }
 
@@ -748,7 +688,7 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
     @Override
     public TopoOtaListUpgradeableVersionsResponseParam getAvailableUpgradeVersionsByNorthbound(String deviceIdentification, Integer packageType) {
         log.info("getAvailableUpgradeVersionsByNorthbound - deviceIdentification: {}, packageType: {}", deviceIdentification, packageType);
-        OtaPackageTypeEnum.fromValue(packageType).orElseThrow(() -> new ServiceException("Invalid package type"));
+        OtaPackageTypeEnum.fromValue(packageType).orElseThrow(() -> BizException.wrap("Invalid package type"));
 
         DeviceDetailsResultVO deviceDetailsResultVO = deviceService.findOneByDeviceIdentification(deviceIdentification);
         ArgumentAssert.notNull(deviceDetailsResultVO, "Device not found");
@@ -860,19 +800,19 @@ public class OtaUpgradeTasksServiceImpl extends BaseServiceImpl<OtaUpgradeTasksM
      */
     private String extractFileSign(OtaUpgradesResultDTO otaUpgradesResultDTO) {
         if (otaUpgradesResultDTO.getSignMethod() == null) {
-            return StringPool.EMPTY;
+            return StrPool.EMPTY;
         }
 
         List<Long> fileIds = otaUpgradesResultDTO.getFileIds();
 
         Map<Long, OtaUpgradeFileResultDTO> fileInfoMap = getOtaUpgradeFileInfoMap(fileIds);
         if (fileInfoMap.isEmpty()) {
-            return StringPool.EMPTY;
+            return StrPool.EMPTY;
         }
 
         OtaUpgradeFileResultDTO fileInfo = fileInfoMap.values().iterator().next();
         return OtaPackageSignMethodEnum.fromValue(otaUpgradesResultDTO.getSignMethod())
                 .flatMap(fileInfo::getFileSign)
-                .orElse(StringPool.EMPTY);
+                .orElse(StrPool.EMPTY);
     }
 }

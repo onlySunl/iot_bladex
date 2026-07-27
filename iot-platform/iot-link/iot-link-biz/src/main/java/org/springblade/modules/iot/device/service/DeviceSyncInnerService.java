@@ -21,6 +21,7 @@ package org.springblade.modules.iot.device.service;
  */
 public interface DeviceSyncInnerService {
 
+
     /**
      * 同步设备连接状态
      *

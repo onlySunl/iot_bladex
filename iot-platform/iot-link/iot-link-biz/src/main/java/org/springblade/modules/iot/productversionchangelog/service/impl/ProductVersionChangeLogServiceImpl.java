@@ -11,7 +11,7 @@ import org.springblade.modules.iot.productversionchangelog.enumeration.ProductCh
 import org.springblade.modules.iot.productversionchangelog.enumeration.ProductVersionChangeTypeEnum;
 import org.springblade.modules.iot.productversionchangelog.manager.ProductVersionChangeLogManager;
 import org.springblade.modules.iot.productversionchangelog.service.ProductVersionChangeLogService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,11 +23,12 @@ import org.springframework.transaction.annotation.Transactional;
  * @author mqttsnet
  * @see ProductVersionChangeLogService
  */
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class ProductVersionChangeLogServiceImpl
-    extends BaseServiceImpl<ProductVersionChangeLogMapper, ProductVersionChangeLog>
+    extends SuperServiceImpl<ProductVersionChangeLogManager, Long, ProductVersionChangeLog>
     implements ProductVersionChangeLogService {
 
     private final ProductVersionChangeLogManager productVersionChangeLogManager;

@@ -6,7 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import org.springblade.modules.iot.device.event.DeviceDeletedEvent;
 import org.springblade.modules.iot.device.event.source.DeviceDeletedEventSource;
 import org.springblade.modules.iot.device.service.group.DeviceGroupRelService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -33,7 +33,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DeviceGroupRelDeviceDeletedListener {
 
     private final DeviceGroupRelService deviceGroupRelService;

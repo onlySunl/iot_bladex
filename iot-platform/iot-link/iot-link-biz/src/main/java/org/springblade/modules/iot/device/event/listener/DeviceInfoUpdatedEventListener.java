@@ -8,7 +8,7 @@ import org.springblade.core.secure.utils.AuthUtil;
 import org.springblade.modules.iot.device.event.DeviceInfoUpdatedEvent;
 import org.springblade.modules.iot.device.event.handler.DeviceInfoUpdatedCacheHandler;
 import org.springblade.modules.iot.device.event.source.DeviceInfoUpdatedEventSource;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -27,7 +27,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DeviceInfoUpdatedEventListener {
 
     private final DeviceInfoUpdatedCacheHandler deviceInfoUpdatedCacheHandler;
@@ -36,17 +36,17 @@ public class DeviceInfoUpdatedEventListener {
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT, fallbackExecution = true)
     public CompletableFuture<Boolean> handleDeviceInfoUpdatedEvent(DeviceInfoUpdatedEvent event) {
-        Map<String, String> localMap = AuthUtil.getLocalMap();
+        Map<String, String> localMap = ContextUtil.getLocalMap();
         return CompletableFuture.supplyAsync(() -> {
             try {
-                AuthUtil.setLocalMap(localMap);
+                ContextUtil.setLocalMap(localMap);
                 if (event.getSource() instanceof DeviceInfoUpdatedEventSource source) {
                     return deviceInfoUpdatedCacheHandler.handleDeviceInfoUpdatedCache(source.getDeviceIdentificationList());
                 }
                 log.warn("无效的事件源类型: {}", event.getSource().getClass());
                 return false;
             } finally {
-                AuthUtil.remove();
+                ContextUtil.remove();
             }
         }, linkDefaultExecutor).exceptionally(ex -> {
             log.error("处理设备更新事件失败", ex);

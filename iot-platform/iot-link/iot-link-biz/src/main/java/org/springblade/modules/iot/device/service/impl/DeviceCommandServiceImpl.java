@@ -1,90 +1,54 @@
 package org.springblade.modules.iot.device.service.impl;
 
 import java.util.ArrayList;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Collections;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.List;
-import org.springblade.core.log.exception.ServiceException;
 import java.util.Optional;
-import org.springblade.core.log.exception.ServiceException;
 
 import com.alibaba.fastjson2.JSON;
-import org.springblade.core.log.exception.ServiceException;
 import com.alibaba.fastjson2.JSONObject;
-import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.mp.base.BaseServiceImpl;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.secure.utils.AuthUtil;
 import org.springblade.core.log.exception.ServiceException;
+import org.springblade.modules.iot.protocol.factory.ProtocolMessageAdapter;
+import org.springblade.modules.iot.protocol.model.EncryptionDetailsDTO;
+import org.springblade.modules.iot.protocol.model.ProtocolDataMessageDTO;
+import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.common.utils.BeanUtil;
-import org.springblade.core.log.exception.ServiceException;
+import org.springblade.core.tool.utils.SnowflakeIdUtil;
 import org.springblade.modules.iot.broker.MqttBrokerOpenInnerFacade;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.broker.WebSocketBrokerOpenInnerFacade;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.broker.DeviceDownlinkFacade;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.vo.query.DownlinkCommand;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.BizConstant;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.DsConstant;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.entity.DeviceCommand;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceCommandStatusEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceCommandTypeEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceNodeTypeEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.enumeration.DeviceStatusEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.manager.DeviceCommandManager;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.service.DeviceCommandService;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.service.DeviceService;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.query.DeviceCommandPageQuery;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.query.DevicePageQuery;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.result.DeviceResultVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.save.DeviceCommandSaveVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.enumeration.QosEnum;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.CommandIssueRequestParam;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.DeviceCommandWrapperParam;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.PublishMqttMessageRequestParam;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.param.PublishWebSocketMessageRequestParam;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.protocol.vo.result.DeviceCommandResultVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.vo.query.PublishMessageRequestVO;
-import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.vo.query.PublishWebSocketMessageRequestVO;
-import org.springblade.core.log.exception.ServiceException;
-import lombok.AllArgsConstructor;
-import org.springblade.core.log.exception.ServiceException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.core.log.exception.ServiceException;
 import org.springframework.stereotype.Service;
-import org.springblade.core.log.exception.ServiceException;
 
 /**
  * <p>
@@ -96,10 +60,11 @@ import org.springblade.core.log.exception.ServiceException;
  * @date 2023-10-20 17:27:25
  * @create [2023-10-20 17:27:25] [mqttsnet]
  */
+@DS(DsConstant.BASE_TENANT)
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
-public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMapper, DeviceCommand> implements DeviceCommandService {
+public class DeviceCommandServiceImpl extends SuperServiceImpl<DeviceCommandManager, Long, DeviceCommand> implements DeviceCommandService {
 
     private final LinkCacheDataHelper linkCacheDataHelper;
     private final MqttBrokerOpenInnerFacade mqttBrokerOpenInnerFacade;
@@ -107,6 +72,7 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
     private final DeviceDownlinkFacade deviceDownlinkFacade;
     private final DeviceService deviceService;
     private final ProtocolMessageAdapter protocolMessageAdapter;
+
 
     /**
      * Saves a device command to the database after validation.
@@ -120,7 +86,7 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
         // Validate the input, build the DeviceCommand object, and save it to the database.
         return Optional.of(deviceCommandSaveVO).filter(this::checkDeviceCommandSaveVO).map(this::buildDeviceCommand).map(deviceCommand -> {
             deviceCommand.setCommandIdentification(SnowflakeIdUtil.nextId());
-            return baseMapper.save(deviceCommand) ? deviceCommand : null;
+            return superManager.save(deviceCommand) ? deviceCommand : null;
         }).orElseThrow(() -> new IllegalArgumentException("Invalid DeviceCommandSaveVO input"));
     }
 
@@ -132,7 +98,7 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
      */
     @Override
     public List<DeviceCommandResultVO> getDeviceCommandResultVOList(DeviceCommandPageQuery query) {
-        return BeanUtil.toBeanList(baseMapper.getDeviceCommandResultVOList(query), DeviceCommandResultVO.class);
+        return BeanPlusUtil.toBeanList(superManager.getDeviceCommandResultVOList(query), DeviceCommandResultVO.class);
     }
 
     @Override
@@ -142,8 +108,8 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
         boolean hasTopic = topicKeyword != null && !topicKeyword.isEmpty();
         // 仅取命令下发(0)/命令响应(1),OTA(2)不入调试台;设备空=当前租户全部;倒序取近 N 条(命中 idx_device_cmdtype_ctime)。
         // topic 存在 content/remark 报文中:原始/新结构化下发在 content.topic,响应新记录在 content.topic。
-        return BeanUtil.toBeanList(
-                baseMapper.lambdaQuery()
+        return BeanPlusUtil.toBeanList(
+                superManager.lambdaQuery()
                         .in(DeviceCommand::getCommandType,
                                 DeviceCommandTypeEnum.COMMAND_ISSUE.getValue(),
                                 DeviceCommandTypeEnum.COMMAND_RESPONSE.getValue())
@@ -215,7 +181,7 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
         // 处理响应结果
         if (!response.getIsSuccess()) {
             log.error("【MQTT消息发送失败】耗时: {}ms, 错误信息: {}", costTime, response.getMsg());
-            throw new ServiceException("MQTT message sending failed. Please try again! Time consumed: {}ms", costTime);
+            throw BizException.wrap("MQTT message sending failed. Please try again! Time consumed: {}ms", costTime);
         } else {
             log.info("【MQTT消息发送成功】<<< 耗时: {}ms, 响应信息: {}", costTime, response.getMsg());
         }
@@ -223,6 +189,7 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
         recordCustomDownlink(publishMqttMessageRequestParam.getDeviceIdentification(),
                 publishMqttMessageRequestParam.getTopic(), publishMqttMessageRequestParam.getPayloadAsSmartString());
     }
+
 
     @Override
     public void sendWebSocketCustomMessage(PublishWebSocketMessageRequestParam publishWebSocketMessageRequestParam) {
@@ -272,7 +239,7 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
      * @return DeviceCommand object
      */
     private DeviceCommand buildDeviceCommand(DeviceCommandSaveVO deviceCommandSaveVO) {
-        return BeanUtil.toBeanIgnoreError(deviceCommandSaveVO, DeviceCommand.class);
+        return BeanPlusUtil.toBeanIgnoreError(deviceCommandSaveVO, DeviceCommand.class);
     }
 
     /**
@@ -321,7 +288,7 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
             DeviceCommand savedCommand = saveDeviceCommand(deviceCommandSaveVO);
 
             // Convert to result VO and add to results
-            DeviceCommandResultVO resultVO = BeanUtil.toBean(savedCommand, DeviceCommandResultVO.class);
+            DeviceCommandResultVO resultVO = BeanPlusUtil.toBean(savedCommand, DeviceCommandResultVO.class);
             results.add(resultVO);
         });
 
@@ -349,7 +316,7 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
      */
     private List<DeviceResultVO> getSingleDeviceResultVO(String deviceIdentification) {
         Optional<DeviceCacheVO> deviceCacheVOOptional = linkCacheDataHelper.getDeviceCacheVO(deviceIdentification);
-        return deviceCacheVOOptional.map(deviceCacheVO -> Collections.singletonList(BeanUtil.toBeanIgnoreError(deviceCacheVO, DeviceResultVO.class))).orElse(Collections.emptyList());
+        return deviceCacheVOOptional.map(deviceCacheVO -> Collections.singletonList(BeanPlusUtil.toBeanIgnoreError(deviceCacheVO, DeviceResultVO.class))).orElse(Collections.emptyList());
     }
 
     /**
@@ -386,6 +353,7 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
             return content.toJSONString();
         }
     }
+
 
     /**
      * Builds and sends a command message to the device.
@@ -438,7 +406,7 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
                 .orElse(null);
         R response = deviceDownlinkFacade.dispatch(DownlinkCommand.builder()
                 .protocolType(protocolType)
-                .tenantId(String.valueOf(AuthUtil.getTenantId()))
+                .tenantId(String.valueOf(ContextUtil.getTenantId()))
                 .clientId(deviceCacheVO.getClientId())
                 .deviceIdentification(deviceCacheVO.getDeviceIdentification())
                 .topic(responseTopic)
@@ -450,6 +418,7 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
 
     /** 下发结果:dispatch 响应 + 实际发出的命令报文(cloudReq),落库到 content 供展示与重发。 */
     private record SendOutcome(R response, String sentPayload, String topic) {}
+
 
     /**
      * Generates a response topic string using the provided version and device ID.
@@ -479,6 +448,7 @@ public class DeviceCommandServiceImpl extends BaseServiceImpl<DeviceCommandMappe
         // Construct the response topic string
         return String.format("/%s/devices/%s%s", sdkVersion, deviceId, "/command");
     }
+
 
     /**
      * Build command message.

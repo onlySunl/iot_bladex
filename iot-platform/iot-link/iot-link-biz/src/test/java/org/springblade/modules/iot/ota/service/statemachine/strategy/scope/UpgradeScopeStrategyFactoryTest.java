@@ -45,7 +45,7 @@ class UpgradeScopeStrategyFactoryTest {
     void getStrategyRequiredShouldThrowWhenUnsupported() {
         UpgradeScopeStrategyFactory factory = new UpgradeScopeStrategyFactory(List.of());
 
-        assertThrows(ServiceException.class, () -> factory.getStrategyRequired(999));
+        assertThrows(BizException.class, () -> factory.getStrategyRequired(999));
     }
 
     private UpgradeScopeStrategy strategy(OtaUpgradeScopeEnum supportedScope) {

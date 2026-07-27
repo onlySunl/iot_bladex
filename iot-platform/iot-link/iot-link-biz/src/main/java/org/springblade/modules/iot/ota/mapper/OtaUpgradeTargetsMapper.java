@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.ota.mapper;
 
-import org.springblade.core.mp.mapper.BladeMapper;
+import org.springblade.core.mp.base.BaseMapper;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeTargets;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -14,8 +14,9 @@ import org.apache.ibatis.annotations.Mapper;
  * @date 2025-10-19 16:28:50
  * @create [2025-10-19 16:28:50] [mqttsnet] [代码生成器生成]
  */
-@Mapper
-public interface OtaUpgradeTargetsMapper extends BladeMapper<OtaUpgradeTargets> {
+@Repository
+public interface OtaUpgradeTargetsMapper extends SuperMapper<OtaUpgradeTargets> {
 
 }
+
 

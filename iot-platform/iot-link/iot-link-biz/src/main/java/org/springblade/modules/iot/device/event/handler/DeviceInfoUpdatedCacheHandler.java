@@ -2,8 +2,9 @@ package org.springblade.modules.iot.device.event.handler;
 
 import java.util.List;
 
+import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.modules.iot.cache.device.DeviceCacheService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +19,11 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DeviceInfoUpdatedCacheHandler {
 
     private final DeviceCacheService deviceCacheService;
+
 
     /**
      * 处理设备信息更新缓存

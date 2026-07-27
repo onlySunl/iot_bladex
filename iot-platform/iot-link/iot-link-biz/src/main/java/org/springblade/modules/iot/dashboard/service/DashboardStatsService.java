@@ -47,4 +47,5 @@ public interface DashboardStatsService {
      */
     DashboardDetailsResultVO getAssetStatsDetails(DashboardDetailsQuery detailsQuery);
 
+
 }

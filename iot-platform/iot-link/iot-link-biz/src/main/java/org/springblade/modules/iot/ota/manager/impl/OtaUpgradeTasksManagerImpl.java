@@ -4,12 +4,12 @@ import java.util.List;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.common.base.manager.impl.SuperManagerImpl;
-import org.springblade.common.base.request.PageParams;
+import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.core.boot.request.PageParam;
 import org.springblade.common.database.mybatis.conditions.Wraps;
 import org.springblade.common.database.mybatis.conditions.query.LbQueryWrap;
 import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
-import org.springblade.common.utils.StringUtils;
+import org.springblade.core.tool.utils.StringUtils;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeTasks;
 import org.springblade.modules.iot.ota.manager.OtaUpgradeTasksManager;
 import org.springblade.modules.iot.ota.mapper.OtaUpgradeTasksMapper;

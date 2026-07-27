@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.device.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.core.mp.support.Query;
+import org.springblade.core.boot.request.PageParam;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
 import org.springblade.modules.iot.device.entity.Device;
 import org.springblade.modules.iot.device.vo.query.DevicePageQuery;
@@ -75,7 +75,7 @@ public interface DeviceQueryService {
      * @param params 设备分页查询参数
      * @return 设备分页结果(元素为 {@link DeviceResultVO})
      */
-    IPage<DeviceResultVO> getPage(Query params);
+    IPage<DeviceResultVO> getPage(PageParams<DevicePageQuery> params);
 
     /**
      * 拉某产品下全量设备的 deviceIdentification 清单(去重,过滤空值),专供灰度 percent 模式做一致性哈希取子集。
