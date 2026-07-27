@@ -1,24 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<!--
+    设备集成服务模块
+    
+    模块结构:
+    ├── iot-link-biz/          # 业务逻辑层
+    │   ├── 设备接入管理
+    │   ├── 设备消息处理
+    │   ├── 产品管理
+    │   ├── 物模型管理
+    │   ├── OTA 升级管理
+    │   └── 缓存管理
+    │
+    ├── iot-link-controller/   # 控制器层
+    │   └── REST API 接口
+    │
+    ├── iot-link-facade/       # 门面接口层
+    │   ├── iot-link-api           # API 接口定义
+    │   ├── iot-link-boot-impl     # Boot 模式实现
+    │   └── iot-link-cloud-impl    # Cloud 模式实现
+    │
+    └── iot-link-server/       # 服务启动层
+        └── 独立服务部署
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>org.springblade</groupId>
         <artifactId>iot-platform</artifactId>
-        <version>4.9.0.RELEASE</version>
+        <groupId>org.springblade</groupId>
+        <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    
     <modelVersion>4.0.0</modelVersion>
     <artifactId>iot-link</artifactId>
-    <name>${project.artifactId}</name>
-    <description>设备集成服务</description>
     <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+    <description>设备集成服务 - 设备接入与管理</description>
 
+    <!-- ======================================== -->
+    <!-- 子模块定义                                  -->
+    <!-- ======================================== -->
     <modules>
-        <module>iot-link-facade</module>
-        <module>iot-link-server</module>
+        <!-- 业务逻辑层: 核心业务实现 -->
         <module>iot-link-biz</module>
+        
+        <!-- 控制器层: REST API 接口 -->
         <module>iot-link-controller</module>
+        
+        <!-- 门面接口层: API 定义和实现 -->
+        <module>iot-link-facade</module>
+        
+        <!-- 服务启动层: 独立服务部署 -->
+        <module>iot-link-server</module>
     </modules>
+
+    <!-- ======================================== -->
+    <!-- 依赖管理 (子模块继承)                       -->
+    <!-- ======================================== -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- 内部模块依赖 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-link-biz</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-link-api</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-link-boot-impl</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-link-cloud-impl</artifactId>
+                <version>${revision}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

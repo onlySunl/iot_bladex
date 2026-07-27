@@ -1,133 +1,256 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<!--
+    设备集成服务 - 业务模块
+    
+    职责:
+    - 设备接入与管理
+    - 设备消息处理
+    - 设备影子管理
+    - 物模型管理
+    - 设备分组管理
+    - OTA 升级管理
+    - 产品管理
+    - 产品版本管理
+    - 产品命令管理
+    - 告警管理
+    - 缓存管理
+    - 异步处理
+    - 数据桥接
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>iot-link</artifactId>
         <groupId>org.springblade</groupId>
-        <version>4.9.0.RELEASE</version>
+        <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
     <artifactId>iot-link-biz</artifactId>
     <name>${project.artifactId}</name>
-    <description>设备集成服务-业务模块</description>
+    <description>设备集成服务 - 业务逻辑模块</description>
 
     <dependencies>
-        <!-- IoT Entity 模块 -->
+        <!-- ======================================== -->
+        <!-- 内部模块依赖                                -->
+        <!-- ======================================== -->
+        
+        <!-- 实体模块: 设备集成相关实体定义 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-entity-link</artifactId>
         </dependency>
+        
+        <!-- API 模块: 设备集成接口定义 -->
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-entity-tds</artifactId>
+            <artifactId>iot-link-api</artifactId>
         </dependency>
-
-        <!-- BladeX 核心依赖 -->
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-core-boot</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-core-secure</artifactId>
-        </dependency>
-
-        <!-- 公共模块 -->
+        
+        <!-- 公共模块: 工具类和通用组件 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-common</artifactId>
         </dependency>
+
+        <!-- ======================================== -->
+        <!-- BladeX 框架依赖                             -->
+        <!-- ======================================== -->
+        
+        <!-- 核心启动器: 包含 Spring Boot 核心功能 -->
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>blade-api</artifactId>
+            <artifactId>blade-core-boot</artifactId>
+        </dependency>
+        
+        <!-- 工具模块: 通用工具类 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-tool</artifactId>
+        </dependency>
+        
+        <!-- 安全模块: 认证授权 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-secure</artifactId>
+        </dependency>
+        
+        <!-- MyBatis Plus: ORM 框架 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-mybatis-plus</artifactId>
+        </dependency>
+        
+        <!-- 缓存模块: Redis 缓存支持 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-cache</artifactId>
+        </dependency>
+        
+        <!-- 锁模块: 分布式锁支持 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-lock</artifactId>
+        </dependency>
+        
+        <!-- 限流模块: 接口限流 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-limit</artifactId>
+        </dependency>
+        
+        <!-- 多租户模块: 租户数据隔离 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-tenant</artifactId>
+        </dependency>
+        
+        <!-- 日志模块: 操作日志记录 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-log</artifactId>
+        </dependency>
+        
+        <!-- Swagger 模块: API 文档 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-swagger</artifactId>
         </dependency>
 
-        <!-- WebSocket -->
+        <!-- ======================================== -->
+        <!-- 数据库相关依赖                              -->
+        <!-- ======================================== -->
+        
+        <!-- MySQL 驱动 -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
         </dependency>
+        
+        <!-- Druid 连接池 -->
         <dependency>
-            <groupId>jakarta.websocket</groupId>
-            <artifactId>jakarta.websocket-client-api</artifactId>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-3-starter</artifactId>
         </dependency>
-
-        <!-- Web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!-- MyBatis-Plus -->
+        
+        <!-- MyBatis Plus 扩展 -->
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-extension</artifactId>
+            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+        </dependency>
+        
+        <!-- MyBatis Plus Join: 多表查询支持 -->
+        <dependency>
+            <groupId>com.github.yulichang</groupId>
+            <artifactId>mybatis-plus-join-boot-starter</artifactId>
+            <version>1.5.3</version>
         </dependency>
 
-        <!-- 对象反射比对 -->
+        <!-- ======================================== -->
+        <!-- 缓存相关依赖                                -->
+        <!-- ======================================== -->
+        
+        <!-- Redisson: 分布式锁和队列 -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- 测试 -->
+        <!-- ======================================== -->
+        <!-- 消息队列依赖                                -->
+        <!-- ======================================== -->
+        
+        <!-- RocketMQ: 消息队列 -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <scope>test</scope>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- JMH 核心依赖 -->
+        <!-- ======================================== -->
+        <!-- 工具类依赖                                  -->
+        <!-- ======================================== -->
+        
+        <!-- Hutool: 通用工具集 -->
         <dependency>
-            <groupId>org.openjdk.jmh</groupId>
-            <artifactId>jmh-core</artifactId>
-            <version>1.37</version>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
         </dependency>
+        
+        <!-- EasyExcel: Excel 导入导出 -->
         <dependency>
-            <groupId>org.openjdk.jmh</groupId>
-            <artifactId>jmh-generator-annprocess</artifactId>
-            <version>1.37</version>
-            <scope>provided</scope>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
         </dependency>
-
-        <!-- 异步分析工具 -->
+        
+        <!-- Guava: Google 工具库 -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>32.1.3-jre</version>
+        </dependency>
+        
+        <!-- Fastjson2: JSON 处理 -->
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>2.0.42</version>
+        </dependency>
+        
+        <!-- Async Tool: 异步编程工具 -->
+        <dependency>
+            <groupId>com.aizuda</groupId>
+            <artifactId>async-tool</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+        
+        <!-- Oshi: 系统监控 -->
         <dependency>
             <groupId>com.github.oshi</groupId>
             <artifactId>oshi-core</artifactId>
-            <version>6.4.0</version>
         </dependency>
 
+        <!-- ======================================== -->
+        <!-- 网络协议依赖                                -->
+        <!-- ======================================== -->
+        
+        <!-- Netty: 网络通信框架 -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+        </dependency>
+        
+        <!-- MQTT Client: MQTT 客户端 -->
+        <dependency>
+            <groupId>org.eclipse.paho</groupId>
+            <artifactId>org.eclipse.paho.mqttv5.client</artifactId>
+        </dependency>
+
+        <!-- ======================================== -->
+        <!-- 脚本引擎依赖                                -->
+        <!-- ======================================== -->
+        
+        <!-- Groovy: 脚本引擎 -->
+        <dependency>
+            <groupId>org.apache.groovy</groupId>
+            <artifactId>groovy</artifactId>
+        </dependency>
+        
+        <!-- Groovy JSON: JSON 处理 -->
+        <dependency>
+            <groupId>org.apache.groovy</groupId>
+            <artifactId>groovy-json</artifactId>
+        </dependency>
+
+        <!-- ======================================== -->
+        <!-- 测试依赖                                   -->
+        <!-- ======================================== -->
+        
+        <!-- Spring Test: 测试支持 -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.4</version>
-                <configuration>
-                    <skip>false</skip>
-                    <skipTests>false</skipTests>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

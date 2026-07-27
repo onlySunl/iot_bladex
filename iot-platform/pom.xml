@@ -1,5 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- IoT Platform 根聚合工程 (ThingLinks 迁移版) -->
+<!--
+    IoT Platform 根聚合工程
+    
+    项目结构:
+    ├── iot-entity/          # 实体模块层 (所有业务实体定义)
+    │   ├── iot-entity-link      # 设备集成实体
+    │   ├── iot-entity-broker    # MQTT Broker 实体
+    │   ├── iot-entity-mqs       # 消息队列实体
+    │   ├── iot-entity-rule      # 规则引擎实体
+    │   ├── iot-entity-tds       # 时序数据实体
+    │   └── iot-entity-common    # 公共实体
+    │
+    ├── iot-broker/          # MQTT Broker 服务层
+    │   ├── iot-broker-biz       # Broker 业务逻辑
+    │   ├── iot-broker-controller # Broker 控制器
+    │   ├── iot-broker-facade    # Broker 门面接口
+    │   └── iot-broker-server    # Broker 服务启动
+    │
+    ├── iot-link/            # 设备集成服务层
+    │   ├── iot-link-biz         # 设备集成业务逻辑
+    │   ├── iot-link-controller  # 设备集成控制器
+    │   ├── iot-link-facade      # 设备集成门面接口
+    │   └── iot-link-server      # 设备集成服务启动
+    │
+    ├── iot-mqs/             # 消息队列服务层
+    │   ├── iot-mqs-biz          # 消息队列业务逻辑
+    │   ├── iot-mqs-biz-bus      # 消息总线
+    │   ├── iot-mqs-controller   # 消息队列控制器
+    │   ├── iot-mqs-facade       # 消息队列门面接口
+    │   └── iot-mqs-server       # 消息队列服务启动
+    │
+    ├── iot-rule/            # 规则引擎服务层
+    │   ├── iot-rule-biz         # 规则引擎业务逻辑
+    │   ├── iot-rule-biz-bridge  # 规则引擎数据桥接
+    │   ├── iot-rule-controller  # 规则引擎控制器
+    │   ├── iot-rule-facade      # 规则引擎门面接口
+    │   └── iot-rule-server      # 规则引擎服务启动
+    │
+    ├── iot-sdk/             # SDK 模块
+    │   ├── iot-sdk-core         # SDK 核心
+    │   └── iot-simple-sdk       # 简单 SDK
+    │
+    └── iot-tds/             # 时序数据服务层
+        ├── iot-tds-biz          # 时序数据业务逻辑
+        ├── iot-tds-controller   # 时序数据控制器
+        ├── iot-tds-facade       # 时序数据门面接口
+        └── iot-tds-server       # 时序数据服务启动
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -14,15 +61,318 @@
     <artifactId>iot-platform</artifactId>
     <packaging>pom</packaging>
     <name>iot-platform</name>
-    <description>IOT IoT Platform Aggregation (ThingLinks Migration)</description>
+    <description>IoT 物联网平台聚合模块 - 基于 ThingLinks 迁移</description>
 
+    <!-- ======================================== -->
+    <!-- 子模块定义 (按业务域分组)                    -->
+    <!-- ======================================== -->
     <modules>
+        <!-- 实体模块层: 所有业务实体定义 -->
         <module>iot-entity</module>
+        
+        <!-- MQTT Broker 服务层: MQTT 消息代理 -->
         <module>iot-broker</module>
+        
+        <!-- 设备集成服务层: 设备接入与管理 -->
         <module>iot-link</module>
+        
+        <!-- 消息队列服务层: 消息路由与处理 -->
         <module>iot-mqs</module>
+        
+        <!-- 规则引擎服务层: 场景联动与规则执行 -->
         <module>iot-rule</module>
+        
+        <!-- SDK 模块: 客户端开发工具包 -->
         <module>iot-sdk</module>
+        
+        <!-- 时序数据服务层: 时序数据存储与查询 -->
         <module>iot-tds</module>
     </modules>
+
+    <!-- ======================================== -->
+    <!-- 依赖版本管理                               -->
+    <!-- ======================================== -->
+    <properties>
+        <!-- IoT Platform 版本 -->
+        <iot-platform.version>4.9.0.RELEASE</iot-platform.version>
+        
+        <!-- 数据库相关 -->
+        <mysql.version>8.0.33</mysql.version>
+        <druid.version>1.2.20</druid.version>
+        <mybatis-plus.version>3.5.5</mybatis-plus.version>
+        
+        <!-- 缓存相关 -->
+        <redisson.version>3.24.3</redisson.version>
+        
+        <!-- 消息队列 -->
+        <rocketmq.version>2.2.3</rocketmq.version>
+        <kafka.version>3.5.1</kafka.version>
+        
+        <!-- 工具类 -->
+        <hutool.version>5.8.22</hutool.version>
+        <easyexcel.version>3.3.3</easyexcel.version>
+        <oshi.version>6.4.0</oshi.version>
+        
+        <!-- 协议相关 -->
+        <netty.version>4.1.100.Final</netty.version>
+        <mqtt-client.version>1.2.5</mqtt-client.version>
+        
+        <!-- 脚本引擎 -->
+        <groovy.version>4.0.15</groovy.version>
+    </properties>
+
+    <!-- ======================================== -->
+    <!-- 依赖管理 (子模块继承)                       -->
+    <!-- ======================================== -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- ======================================== -->
+            <!-- 内部模块依赖                                -->
+            <!-- ======================================== -->
+            
+            <!-- 实体模块 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-entity-link</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-entity-broker</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-entity-mqs</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-entity-rule</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-entity-tds</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            
+            <!-- 业务模块 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-link-biz</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-link-api</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-link-boot-impl</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-link-cloud-impl</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-rule-biz</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-rule-api</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-rule-boot-impl</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-rule-cloud-impl</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-broker-biz</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-broker-api</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-mqs-biz</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-mqs-api</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-tds-biz</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-tds-api</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            
+            <!-- SDK 模块 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-sdk-core</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-simple-sdk</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+
+            <!-- ======================================== -->
+            <!-- 数据库相关依赖                              -->
+            <!-- ======================================== -->
+            <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-3-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <!-- ======================================== -->
+            <!-- 缓存相关依赖                                -->
+            <!-- ======================================== -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+
+            <!-- ======================================== -->
+            <!-- 消息队列依赖                                -->
+            <!-- ======================================== -->
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${rocketmq.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>${kafka.version}</version>
+            </dependency>
+
+            <!-- ======================================== -->
+            <!-- 工具类依赖                                  -->
+            <!-- ======================================== -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${easyexcel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.oshi</groupId>
+                <artifactId>oshi-core</artifactId>
+                <version>${oshi.version}</version>
+            </dependency>
+
+            <!-- ======================================== -->
+            <!-- 网络协议依赖                                -->
+            <!-- ======================================== -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.paho</groupId>
+                <artifactId>org.eclipse.paho.mqttv5.client</artifactId>
+                <version>${mqtt-client.version}</version>
+            </dependency>
+
+            <!-- ======================================== -->
+            <!-- 脚本引擎依赖                                -->
+            <!-- ======================================== -->
+            <dependency>
+                <groupId>org.apache.groovy</groupId>
+                <artifactId>groovy</artifactId>
+                <version>${groovy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.groovy</groupId>
+                <artifactId>groovy-json</artifactId>
+                <version>${groovy.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- ======================================== -->
+    <!-- 构建配置                                    -->
+    <!-- ======================================== -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- ======================================== -->
+    <!-- 发布配置                                    -->
+    <!-- ======================================== -->
+    <distributionManagement>
+        <repository>
+            <id>blade-release</id>
+            <name>Release Repository</name>
+            <url>http://nexus.bladex.vip/repository/bladex-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>blade-snapshots</id>
+            <name>Snapshot Repository</name>
+            <url>http://nexus.bladex.vip/repository/bladex-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

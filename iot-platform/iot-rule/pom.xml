@@ -1,25 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<!--
+    规则引擎服务模块
+    
+    模块结构:
+    ├── iot-rule-biz/          # 业务逻辑层
+    │   ├── 规则定义与管理
+    │   ├── 规则执行引擎
+    │   ├── 场景联动
+    │   ├── 告警规则
+    │   ├── 数据转发
+    │   └── 条件评估
+    │
+    ├── iot-rule-biz-bridge/   # 数据桥接层
+    │   └── 数据源和数据目标桥接
+    │
+    ├── iot-rule-controller/   # 控制器层
+    │   └── REST API 接口
+    │
+    ├── iot-rule-facade/       # 门面接口层
+    │   ├── iot-rule-api           # API 接口定义
+    │   ├── iot-rule-boot-impl     # Boot 模式实现
+    │   └── iot-rule-cloud-impl    # Cloud 模式实现
+    │
+    └── iot-rule-server/       # 服务启动层
+        └── 独立服务部署
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>org.springblade</groupId>
         <artifactId>iot-platform</artifactId>
-        <version>4.9.0.RELEASE</version>
+        <groupId>org.springblade</groupId>
+        <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    
     <modelVersion>4.0.0</modelVersion>
     <artifactId>iot-rule</artifactId>
-    <name>${project.artifactId}</name>
-    <description>规则引擎服务</description>
     <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+    <description>规则引擎服务 - 场景联动与规则执行</description>
 
+    <!-- ======================================== -->
+    <!-- 子模块定义                                  -->
+    <!-- ======================================== -->
     <modules>
-        <module>iot-rule-facade</module>
-        <module>iot-rule-server</module>
+        <!-- 业务逻辑层: 核心业务实现 -->
         <module>iot-rule-biz</module>
+        
+        <!-- 数据桥接层: 数据源和数据目标桥接 -->
         <module>iot-rule-biz-bridge</module>
+        
+        <!-- 控制器层: REST API 接口 -->
         <module>iot-rule-controller</module>
+        
+        <!-- 门面接口层: API 定义和实现 -->
+        <module>iot-rule-facade</module>
+        
+        <!-- 服务启动层: 独立服务部署 -->
+        <module>iot-rule-server</module>
     </modules>
+
+    <!-- ======================================== -->
+    <!-- 依赖管理 (子模块继承)                       -->
+    <!-- ======================================== -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- 内部模块依赖 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-rule-biz</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-rule-api</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-rule-boot-impl</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-rule-cloud-impl</artifactId>
+                <version>${revision}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
