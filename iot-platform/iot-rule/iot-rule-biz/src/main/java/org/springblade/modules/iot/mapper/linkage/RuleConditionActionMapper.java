@@ -2,7 +2,7 @@ package org.springblade.modules.iot.mapper.linkage;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.entity.linkage.RuleConditionAction;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * @date 2023-07-19 23:24:37
  * @create [2023-07-19 23:24:37] [mqttsnet]
  */
-@Repository
+@Mapper
 public interface RuleConditionActionMapper extends BladeMapper<RuleConditionAction> {
 
 }

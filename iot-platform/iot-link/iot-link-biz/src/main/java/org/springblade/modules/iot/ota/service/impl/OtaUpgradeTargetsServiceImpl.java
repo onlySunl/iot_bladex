@@ -9,7 +9,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.mp.base.BaseServiceImpl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeTargetsResultDTO;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeTargets;

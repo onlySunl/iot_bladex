@@ -7,7 +7,7 @@ import com.alibaba.fastjson2.JSON;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.mp.base.BaseServiceImpl;
-import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.broker.MqttBrokerOpenInnerFacade;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
 import org.springblade.modules.iot.cache.vo.device.DeviceActionCacheVO;

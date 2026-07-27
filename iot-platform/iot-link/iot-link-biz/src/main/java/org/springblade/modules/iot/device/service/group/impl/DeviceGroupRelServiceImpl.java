@@ -1,23 +1,40 @@
 package org.springblade.modules.iot.device.service.group.impl;
 
 import java.util.Collection;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.List;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Optional;
+import org.springblade.core.log.exception.ServiceException;
 
 import cn.hutool.core.collection.CollUtil;
+import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.util.StrUtil;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.dynamic.datasource.annotation.DS;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.entity.group.DeviceGroupRel;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.manager.group.DeviceGroupRelManager;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.service.group.DeviceGroupRelService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.save.group.DeviceGroupRelSaveVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.update.group.DeviceGroupRelUpdateVO;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.AllArgsConstructor;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.stereotype.Service;
+import org.springblade.core.log.exception.ServiceException;
 
 /**
  * <p>
@@ -42,7 +59,7 @@ public class DeviceGroupRelServiceImpl extends BaseServiceImpl<DeviceGroupRelMap
                     .eq(DeviceGroupRel::getGroupId, updateVO.getGroupId())
                     .eq(DeviceGroupRel::getDeviceIdentification, updateVO.getDeviceIdentification())
                     .ne(DeviceGroupRel::getId, updateVO.getId())) > 0) {
-                throw BizException.wrap("The device is already in this group");
+                throw new ServiceException("The device is already in this group");
             }
         }
 
@@ -56,7 +73,7 @@ public class DeviceGroupRelServiceImpl extends BaseServiceImpl<DeviceGroupRelMap
         if (superManager.count(Wrappers.<DeviceGroupRel>lbQ()
                 .eq(DeviceGroupRel::getGroupId, saveVO.getGroupId())
                 .eq(DeviceGroupRel::getDeviceIdentification, saveVO.getDeviceIdentification())) > 0) {
-            throw BizException.wrap("The device is already in this group");
+            throw new ServiceException("The device is already in this group");
         }
 
         return super.saveBefore(saveVO);

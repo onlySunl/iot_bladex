@@ -1,43 +1,80 @@
 package org.springblade.modules.iot.device.service.impl;
 
 import java.util.Arrays;
+import org.springblade.common.utils.DateUtil;
 import java.util.Collections;
+import org.springblade.common.utils.DateUtil;
 import java.util.List;
+import org.springblade.common.utils.DateUtil;
 import java.util.Optional;
+import org.springblade.common.utils.DateUtil;
 import java.util.concurrent.CompletableFuture;
+import org.springblade.common.utils.DateUtil;
 import java.util.concurrent.ThreadPoolExecutor;
+import org.springblade.common.utils.DateUtil;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.springblade.common.utils.DateUtil;
 import java.util.stream.IntStream;
+import org.springblade.common.utils.DateUtil;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
+import org.springblade.common.utils.DateUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.core.tool.api.R;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.core.mp.support.Query;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.broker.MqttBrokerOpenInnerFacade;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.cache.CacheSuperAbstract;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.context.ContextAwareExecutor;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.entity.DeviceAction;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.enumeration.DeviceActionStatusEnum;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.enumeration.DeviceConnectStatusEnum;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.enumeration.DeviceNodeTypeEnum;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.enumeration.DeviceStatusEnum;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.service.DeviceActionService;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.service.DeviceService;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.service.DeviceSyncInnerService;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.vo.query.DevicePageQuery;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.vo.result.DeviceResultVO;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.vo.save.DeviceActionSaveVO;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.product.enumeration.ProtocolTypeEnum;
+import org.springblade.common.utils.DateUtil;
 import lombok.AllArgsConstructor;
+import org.springblade.common.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.common.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springblade.common.utils.DateUtil;
 import org.springframework.stereotype.Service;
+import org.springblade.common.utils.DateUtil;
 import org.springframework.transaction.annotation.Transactional;
+import org.springblade.common.utils.DateUtil;
 
 /**
  * 设备数据同步业务层接口实现。
@@ -422,7 +459,7 @@ public class DeviceSyncInnerServiceImpl extends CacheSuperAbstract implements De
                 .append(", DeviceIdentification: ").append(device.getDeviceIdentification())
                 .append(", Current Status: ").append(currentStatus)
                 .append(", Target Status: ").append(targetStatus)
-                .append(", Timestamp: ").append(DateUtils.millisecondStampL())
+                .append(", Timestamp: ").append(DateUtil.millisecondStampL())
                 .append(", Source: System Sync");
 
         if (!currentStatus.equals(targetStatus)) {

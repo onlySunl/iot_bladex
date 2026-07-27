@@ -2,7 +2,7 @@ package org.springblade.modules.iot.mapper.alarm;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.entity.alarm.RuleAlarmChannel;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * @date 2023-09-09 21:14:58
  * @create [2023-09-09 21:14:58] [mqttsnet]
  */
-@Repository
+@Mapper
 public interface RuleAlarmChannelMapper extends BladeMapper<RuleAlarmChannel> {
 
 }

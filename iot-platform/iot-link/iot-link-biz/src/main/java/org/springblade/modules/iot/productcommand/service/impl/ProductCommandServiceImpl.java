@@ -1,33 +1,60 @@
 package org.springblade.modules.iot.productcommand.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.util.ReUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Optional;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.dynamic.datasource.annotation.DS;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.secure.utils.AuthUtil;
-import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.BeanUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.constant.ThingModelCodeRule;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.event.publisher.ProductEventPublisher;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.event.source.ProductModelChangedSource;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.service.ProductQueryService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommand.entity.ProductCommand;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommand.manager.ProductCommandManager;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommand.service.ProductCommandService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommand.vo.result.ProductCommandResultVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommand.vo.save.ProductCommandSaveVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommand.vo.update.ProductCommandUpdateVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productservice.service.ProductServiceService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversionchangelog.enumeration.ProductChangeTargetTypeEnum;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversionchangelog.enumeration.ProductVersionChangeTypeEnum;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.AllArgsConstructor;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.stereotype.Service;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.transaction.annotation.Transactional;
+import org.springblade.core.log.exception.ServiceException;
 
 import java.util.List;
+import org.springblade.core.log.exception.ServiceException;
 
 /**
  * <p>
@@ -98,7 +125,7 @@ public class ProductCommandServiceImpl extends BaseServiceImpl<ProductCommandMap
         ArgumentAssert.notNull(id, "id Cannot be null");
         ProductCommand productCommand = superManager.getById(id);
         if (null == productCommand) {
-            throw BizException.wrap("The productCommand does not exist");
+            throw new ServiceException("The productCommand does not exist");
         }
         boolean result = superManager.removeById(id);
         publishChange(ProductVersionChangeTypeEnum.DELETE, productCommand, null, "删除命令「" + productCommand.getCommandName() + "」");
@@ -122,11 +149,11 @@ public class ProductCommandServiceImpl extends BaseServiceImpl<ProductCommandMap
         ArgumentAssert.notBlank(saveVO.getCommandCode(), "commandCode Cannot be null");
         //校验编码命名规范
         if (!ReUtil.isMatch(ThingModelCodeRule.PATTERN, saveVO.getCommandCode())) {
-            throw BizException.wrap(ThingModelCodeRule.PATTERN_MSG);
+            throw new ServiceException(ThingModelCodeRule.PATTERN_MSG);
         }
         //校验CODE
         if (CollUtil.isNotEmpty(superManager.checkCode(saveVO.getServiceId(), saveVO.getCommandCode()))) {
-            throw BizException.wrap("commandCode already exists");
+            throw new ServiceException("commandCode already exists");
         }
         ArgumentAssert.notBlank(saveVO.getCommandName(), "commandName Cannot be null");
     }
@@ -174,7 +201,7 @@ public class ProductCommandServiceImpl extends BaseServiceImpl<ProductCommandMap
         ArgumentAssert.notBlank(updateVO.getCommandCode(), "commandCode Cannot be null");
         //校验编码命名规范
         if (!ReUtil.isMatch(ThingModelCodeRule.PATTERN, updateVO.getCommandCode())) {
-            throw BizException.wrap(ThingModelCodeRule.PATTERN_MSG);
+            throw new ServiceException(ThingModelCodeRule.PATTERN_MSG);
         }
         ArgumentAssert.notBlank(updateVO.getCommandName(), "commandName Cannot be null");
 
@@ -184,7 +211,7 @@ public class ProductCommandServiceImpl extends BaseServiceImpl<ProductCommandMap
                 .filter(productCommand -> !productCommand.getId().equals(updateVO.getId()))
                 .findAny()
                 .ifPresent(productProperty -> {
-                    throw BizException.wrap("commandCode already exists");
+                    throw new ServiceException("commandCode already exists");
                 });
     }
 

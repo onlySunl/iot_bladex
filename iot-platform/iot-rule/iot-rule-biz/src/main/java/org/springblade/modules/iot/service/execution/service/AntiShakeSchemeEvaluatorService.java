@@ -1,13 +1,20 @@
 package org.springblade.modules.iot.service.execution.service;
 
 import org.springblade.core.tool.utils.DateUtil;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.dto.linkage.AntiShakeSchemePolicyDTO;
+import org.springblade.common.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.common.utils.DateUtil;
 
 import java.util.List;
+import org.springblade.common.utils.DateUtil;
 import java.util.Map;
+import org.springblade.common.utils.DateUtil;
 import java.util.Optional;
+import org.springblade.common.utils.DateUtil;
 import java.util.concurrent.TimeUnit;
+import org.springblade.common.utils.DateUtil;
 
 /**
  * -----------------------------------------------------------------------------
@@ -59,7 +66,7 @@ public class AntiShakeSchemeEvaluatorService<T> {
      * @return The data that satisfies the anti-shake policy, or null if the policy conditions are not met.
      */
     private T applyPolicy(Map<Long, T> dataCollection, AntiShakeSchemePolicyDTO antiShakeSchemePolicyDTO) {
-        final Long currentMicro = DateUtils.microsecondStampL();
+        final Long currentMicro = DateUtil.microsecondStampL();
 
         // 统一时间单位到微秒（policyDTO frequency 的时间单位为秒）
         long frameMicro = TimeUnit.SECONDS.toMicros(antiShakeSchemePolicyDTO.getFrequency().getTimeValue());

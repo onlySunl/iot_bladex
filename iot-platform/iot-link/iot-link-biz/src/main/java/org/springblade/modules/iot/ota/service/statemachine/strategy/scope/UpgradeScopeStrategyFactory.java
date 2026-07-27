@@ -1,15 +1,24 @@
 package org.springblade.modules.iot.ota.service.statemachine.strategy.scope;
 
 import java.util.List;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Map;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Objects;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Optional;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.function.Function;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.stream.Collectors;
+import org.springblade.core.log.exception.ServiceException;
 
 import org.springblade.modules.iot.ota.enumeration.OtaUpgradeScopeEnum;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.stereotype.Component;
+import org.springblade.core.log.exception.ServiceException;
 
 /**
  * 升级范围策略工厂
@@ -77,13 +86,13 @@ public class UpgradeScopeStrategyFactory {
      *
      * @param upgradeScope 升级范围
      * @return 策略
-     * @throws BizException 如果策略不存在
+     * @throws ServiceException 如果策略不存在
      */
     public UpgradeScopeStrategy getStrategyRequired(Integer upgradeScope) {
         return getStrategy(upgradeScope)
                 .orElseThrow(() -> {
                     log.error("不支持的升级范围策略: {}", upgradeScope);
-                    return new BizException("不支持的升级范围: " + upgradeScope);
+                    return new ServiceException("不支持的升级范围: " + upgradeScope);
                 });
     }
 
@@ -113,13 +122,13 @@ public class UpgradeScopeStrategyFactory {
      *
      * @param upgradeScope 升级范围枚举
      * @return 策略
-     * @throws BizException 如果策略不存在
+     * @throws ServiceException 如果策略不存在
      */
     public UpgradeScopeStrategy getStrategyRequired(OtaUpgradeScopeEnum upgradeScope) {
         return getStrategy(upgradeScope)
                 .orElseThrow(() -> {
                     log.error("不支持的升级范围策略: {}", upgradeScope);
-                    return new BizException("不支持的升级范围: " + upgradeScope);
+                    return new ServiceException("不支持的升级范围: " + upgradeScope);
                 });
     }
 

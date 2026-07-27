@@ -1,39 +1,72 @@
 package org.springblade.modules.iot.ota.service.impl;
 
 import java.util.Collections;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.List;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Objects;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Optional;
+import org.springblade.core.log.exception.ServiceException;
 
 import cn.hutool.core.collection.CollUtil;
+import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.util.StrUtil;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.dynamic.datasource.annotation.DS;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.mp.support.Query;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.BeanUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.dto.OtaUpgradesResultDTO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.entity.OtaUpgrades;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.enumeration.OtaPackageSignMethodEnum;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.enumeration.OtaPackageStatusEnum;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.enumeration.OtaPackageTypeEnum;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.manager.OtaUpgradeTasksManager;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.manager.OtaUpgradesManager;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.service.OtaUpgradesService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.query.OtaUpgradeTasksPageQuery;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.query.OtaUpgradesPageQuery;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.result.OtaUpgradesDetailsResultVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.result.OtaUpgradesResultVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.save.OtaUpgradesSaveVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.ota.vo.update.OtaUpgradesUpdateVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.service.ProductQueryService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.AllArgsConstructor;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.stereotype.Service;
+import org.springblade.core.log.exception.ServiceException;
 
 /**
  * <p>
@@ -122,10 +155,10 @@ public class OtaUpgradesServiceImpl extends BaseServiceImpl<OtaUpgradesMapper, O
         // Here you should define your OtaUpgrade entity class which represents your OTA upgrade package
         OtaUpgrades otaUpgrades = superManager.getById(id);
         if (Objects.isNull(otaUpgrades)) {
-            throw BizException.wrap("OTA upgrade package does not exist");
+            throw new ServiceException("OTA upgrade package does not exist");
         }
         if (status.equals(otaUpgrades.getStatus())) {
-            throw BizException.wrap("The OTA upgrade package status is the same as the current status");
+            throw new ServiceException("The OTA upgrade package status is the same as the current status");
         }
 
         otaUpgrades.setStatus(status);
@@ -143,13 +176,13 @@ public class OtaUpgradesServiceImpl extends BaseServiceImpl<OtaUpgradesMapper, O
         ArgumentAssert.notNull(id, "id Cannot be null");
         OtaUpgrades otaUpgrade = superManager.getById(id);
         if (Objects.isNull(otaUpgrade)) {
-            throw BizException.wrap("OTA upgrade package does not exist");
+            throw new ServiceException("OTA upgrade package does not exist");
         }
 
         Query params = new Query<>();
         params.setModel(new OtaUpgradeTasksPageQuery().setUpgradeId(id));
         if (otaUpgradeTasksManager.getOtaUpgradeTasksPage(params).getTotal() > 0) {
-            throw BizException.wrap("OTA upgrade package is in use and cannot be deleted");
+            throw new ServiceException("OTA upgrade package is in use and cannot be deleted");
         }
         // Additional checks can be added here if necessary
         return superManager.removeById(id);
@@ -192,19 +225,19 @@ public class OtaUpgradesServiceImpl extends BaseServiceImpl<OtaUpgradesMapper, O
     }
 
     private void validateOtaUpgradesSaveVO(OtaUpgradesSaveVO saveVO) {
-        OtaPackageTypeEnum.fromValue(saveVO.getPackageType()).orElseThrow(() -> BizException.wrap("Invalid package type"));
+        OtaPackageTypeEnum.fromValue(saveVO.getPackageType()).orElseThrow(() -> new ServiceException("Invalid package type"));
 
-        OtaPackageSignMethodEnum.fromValue(saveVO.getSignMethod()).orElseThrow(() -> BizException.wrap("Invalid sign method"));
+        OtaPackageSignMethodEnum.fromValue(saveVO.getSignMethod()).orElseThrow(() -> new ServiceException("Invalid sign method"));
 
-        OtaPackageStatusEnum.fromValue(saveVO.getStatus()).orElseThrow(() -> BizException.wrap("Invalid status"));
+        OtaPackageStatusEnum.fromValue(saveVO.getStatus()).orElseThrow(() -> new ServiceException("Invalid status"));
 
         if (!VersionValidator.isValidVersion(saveVO.getVersion())) {
-            throw BizException.wrap("无效版本号");
+            throw new ServiceException("无效版本号");
         }
 
         // 校验升级包版本号是否重复
         if (superManager.count(Wrappers.<OtaUpgrades>lbQ().eq(OtaUpgrades::getPackageType, saveVO.getPackageType()).eq(OtaUpgrades::getVersion, saveVO.getVersion())) > 0) {
-            throw BizException.wrap("升级版本号已存在");
+            throw new ServiceException("升级版本号已存在");
         }
     }
 
@@ -215,20 +248,20 @@ public class OtaUpgradesServiceImpl extends BaseServiceImpl<OtaUpgradesMapper, O
 
     private void validateOtaUpgradesUpdateVO(OtaUpgradesUpdateVO updateVO) {
 
-        OtaUpgrades existingOtaUpgrade = Optional.ofNullable(superManager.getById(updateVO.getId())).orElseThrow(() -> BizException.wrap("OTA upgrade package not found"));
+        OtaUpgrades existingOtaUpgrade = Optional.ofNullable(superManager.getById(updateVO.getId())).orElseThrow(() -> new ServiceException("OTA upgrade package not found"));
 
         //TODO Validate the updateVO object
         String productIdentification = existingOtaUpgrade.getProductIdentification();
 
-        OtaPackageTypeEnum.fromValue(updateVO.getPackageType()).orElseThrow(() -> BizException.wrap("Invalid package type"));
+        OtaPackageTypeEnum.fromValue(updateVO.getPackageType()).orElseThrow(() -> new ServiceException("Invalid package type"));
 
-        OtaPackageSignMethodEnum.fromValue(updateVO.getSignMethod()).orElseThrow(() -> BizException.wrap("Invalid sign method"));
+        OtaPackageSignMethodEnum.fromValue(updateVO.getSignMethod()).orElseThrow(() -> new ServiceException("Invalid sign method"));
 
-        OtaPackageStatusEnum.fromValue(updateVO.getStatus()).orElseThrow(() -> BizException.wrap("Invalid status"));
+        OtaPackageStatusEnum.fromValue(updateVO.getStatus()).orElseThrow(() -> new ServiceException("Invalid status"));
 
         // 校验升级包版本号是否合法
         if (!VersionValidator.isValidVersion(updateVO.getVersion())) {
-            throw BizException.wrap("无效版本号");
+            throw new ServiceException("无效版本号");
         }
 
         // 校验升级包版本号是否重复
@@ -236,7 +269,7 @@ public class OtaUpgradesServiceImpl extends BaseServiceImpl<OtaUpgradesMapper, O
                 .eq(OtaUpgrades::getPackageType, updateVO.getPackageType())
                 .eq(OtaUpgrades::getVersion, updateVO.getVersion())
                 .ne(OtaUpgrades::getId, updateVO.getId())) > 0) {
-            throw BizException.wrap("升级版本号已存在");
+            throw new ServiceException("升级版本号已存在");
         }
     }
 

@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.alibaba.cola.statemachine.Action;
-import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.device.vo.result.DeviceResultVO;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeRecordsResultDTO;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeTasksResultDTO;

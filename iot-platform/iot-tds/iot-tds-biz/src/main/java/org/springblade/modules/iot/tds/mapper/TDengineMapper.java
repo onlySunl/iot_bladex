@@ -8,7 +8,7 @@ import com.mqttsnet.basic.tds.model.TableDTO;
 import com.mqttsnet.basic.tds.model.TagsSelectDTO;
 import org.springblade.modules.iot.tds.vo.result.SuperTableDescribeVO;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +23,7 @@ import java.util.Map;
  * 整条 DDL 失败。tenantLine / illegalSql 同理:TD 表无租户列、SQL 也非标准,均不应被这些 MySQL 取向的拦截器解析改写。
  * 隔离靠 @DS 切到 TD 数据源 + 库名维度,与这些拦截器无关。</p>
  */
-@Repository
+@Mapper
 @InterceptorIgnore(tenantLine = "true", blockAttack = "true", illegalSql = "true")
 public interface TDengineMapper {
 

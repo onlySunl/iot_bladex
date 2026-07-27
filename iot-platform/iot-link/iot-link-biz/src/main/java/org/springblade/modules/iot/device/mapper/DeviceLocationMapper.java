@@ -2,7 +2,7 @@ package org.springblade.modules.iot.device.mapper;
 
 import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.device.entity.DeviceLocation;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * @date 2023-05-30 23:05:31
  * @create [2023-05-30 23:05:31] [mqttsnet]
  */
-@Repository
+@Mapper
 public interface DeviceLocationMapper extends BladeMapper<DeviceLocation> {
 
 }

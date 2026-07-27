@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.entity.linkage.RuleExecutionLog;
 import org.springblade.modules.iot.vo.query.linkage.RuleExecutionLogPageQuery;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,7 @@ import java.util.Map;
  * @date 2024-12-02 18:41:26
  * @create [2024-12-02 18:41:26] [mqttsnet]
  */
-@Repository
+@Mapper
 public interface RuleExecutionLogMapper extends BladeMapper<RuleExecutionLog> {
 
     /**

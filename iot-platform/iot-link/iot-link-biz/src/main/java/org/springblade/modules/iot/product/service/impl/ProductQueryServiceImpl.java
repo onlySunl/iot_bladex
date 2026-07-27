@@ -3,7 +3,7 @@ package org.springblade.modules.iot.product.service.impl;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springblade.core.mp.support.Query;
-import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.common.utils.BeanUtil;
 import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.device.vo.result.ProductOverviewResultVO;
 import java.time.LocalDateTime;
@@ -171,7 +171,7 @@ public class ProductQueryServiceImpl implements ProductQueryService {
     public ProductParamVO selectFullProductByProductIdentification(String productIdentification,
                                                                    boolean includeInactiveServices) {
         Product product = Optional.ofNullable(productManager.findOneByProductIdentification(productIdentification))
-                .orElseThrow(() -> BizException.wrap("Product not found: " + productIdentification));
+                .orElseThrow(() -> new ServiceException("Product not found: " + productIdentification));
 
         ProductParamVO productDetails = BeanUtil.toBeanIgnoreError(product, ProductParamVO.class);
 

@@ -67,7 +67,7 @@ public interface ProductService extends BaseService<Product> {
      *
      * @param productIdentification 产品标识
      * @return {@link ProductParamVO} 产品管理完整参数VO
-     * @throws com.mqttsnet.basic.exception.BizException 产品不存在时抛出
+     * @throws ServiceException 产品不存在时抛出
      */
     ProductParamVO selectFullProductByProductIdentification(String productIdentification);
 

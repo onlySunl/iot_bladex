@@ -2,7 +2,7 @@ package org.springblade.modules.iot.cacert.mapper.license;
 
 import org.springblade.core.mp.mapper.BladeMapper;
 import org.springblade.modules.iot.cacert.entity.license.CaCertLicense;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  * @author mqttsnet
  * @since 2025-06-27 15:48:10
  */
-@Repository
+@Mapper
 public interface CaCertLicenseMapper extends BladeMapper<CaCertLicense> {
 
 }

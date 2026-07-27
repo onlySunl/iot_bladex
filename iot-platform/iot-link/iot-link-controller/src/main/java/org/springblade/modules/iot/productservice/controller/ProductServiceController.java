@@ -85,7 +85,7 @@ public class ProductServiceController extends BladeController<ProductServiceServ
                 return R.fail(R.LOCK_ACQUIRE_ERROR_MESSAGE);
             }
             return R.success(lockRunResult.getResult());
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("产品模型服务保存失败，系统异常: {}", e.getMessage(), e);
@@ -113,7 +113,7 @@ public class ProductServiceController extends BladeController<ProductServiceServ
                 return R.fail(R.LOCK_ACQUIRE_ERROR_MESSAGE);
             }
             return R.success(lockRunResult.getResult());
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("修改产品模型服务失败，系统异常: {}", e.getMessage(), e);

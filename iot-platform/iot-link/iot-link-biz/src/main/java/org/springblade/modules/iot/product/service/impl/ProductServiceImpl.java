@@ -1,74 +1,142 @@
 package org.springblade.modules.iot.product.service.impl;
 
 import java.io.IOException;
+import org.springblade.core.log.exception.ServiceException;
 import java.nio.charset.StandardCharsets;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Collections;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.List;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Objects;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Optional;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.concurrent.atomic.AtomicLong;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.stream.Collectors;
+import org.springblade.core.log.exception.ServiceException;
 
 import cn.hutool.core.collection.CollUtil;
+import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.io.FileUtil;
+import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.io.IoUtil;
+import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.util.ObjectUtil;
+import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.util.StrUtil;
+import org.springblade.core.log.exception.ServiceException;
 import com.alibaba.fastjson2.JSON;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.dynamic.datasource.annotation.DS;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.mp.support.Query;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.secure.utils.AuthUtil;
-import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.BeanUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.service.DeviceService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.device.vo.result.ProductOverviewResultVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.entity.Product;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.enumeration.ProductStatusEnum;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.enumeration.ProductTypeEnum;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.enumeration.ProtocolTypeEnum;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.event.publisher.ProductEventPublisher;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.event.source.ProductCacheEvictSource;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.event.source.ProductModelChangedSource;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.manager.ProductManager;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.service.ProductService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.vo.param.ProductParamVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.vo.query.ProductPageQuery;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.vo.save.ProductSaveVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.vo.update.ProductUpdateVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommand.entity.ProductCommand;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommand.service.ProductCommandService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommand.vo.param.ProductCommandParamVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommand.vo.save.ProductCommandSaveVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommandrequest.entity.ProductCommandRequest;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommandrequest.service.ProductCommandRequestService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommandrequest.vo.param.ProductCommandRequestParamVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommandrequest.vo.save.ProductCommandRequestSaveVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommandresponse.entity.ProductCommandResponse;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommandresponse.service.ProductCommandResponseService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommandresponse.vo.param.ProductCommandResponseParamVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productcommandresponse.vo.save.ProductCommandResponseSaveVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productproperty.entity.ProductProperty;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productproperty.service.ProductPropertyService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productproperty.vo.param.ProductPropertyParamVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productproperty.vo.save.ProductPropertySaveVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productservice.entity.ProductServices;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productservice.enumeration.ProductServiceStatusEnum;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productservice.service.ProductServiceService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productservice.vo.param.ProductServiceParamVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productservice.vo.save.ProductServiceSaveVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.producttopic.service.ProductTopicService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.service.ProductVersionService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversionchangelog.enumeration.ProductChangeTargetTypeEnum;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversionchangelog.enumeration.ProductVersionChangeTypeEnum;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.AllArgsConstructor;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.stereotype.Service;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.transaction.annotation.Transactional;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.web.multipart.MultipartFile;
+import org.springblade.core.log.exception.ServiceException;
 
 /**
  * <p>
@@ -200,10 +268,10 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         ArgumentAssert.notNull(id, "id Cannot be null");
         Product product = superManager.getById(id);
         if (null == product) {
-            throw BizException.wrap("The product does not exist");
+            throw new ServiceException("The product does not exist");
         }
         if (deviceService.isProductInUseByDevices(product.getProductIdentification())) {
-            throw BizException.wrap("The product is bound to the device and cannot be deleted");
+            throw new ServiceException("The product is bound to the device and cannot be deleted");
         }
         String productIdentification = product.getProductIdentification();
         // 级联软删 product_version 所有版本行(DRAFT + 历史 PUBLISHED/CANARY/SHADOW),
@@ -227,13 +295,13 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
      *
      * @param productIdentification 产品标识
      * @return {@link ProductParamVO} 产品管理完整参数VO
-     * @throws com.mqttsnet.basic.exception.BizException 如果产品不存在
+     * @throws ServiceException 如果产品不存在
      */
     @Override
     public ProductParamVO selectFullProductByProductIdentification(String productIdentification) {
         // 查询产品，如果不存在则抛出异常
         Product product = Optional.ofNullable(superManager.findOneByProductIdentification(productIdentification))
-            .orElseThrow(() -> BizException.wrap("Product not found: " + productIdentification));
+            .orElseThrow(() -> new ServiceException("Product not found: " + productIdentification));
 
         // 转换基本产品信息
         ProductParamVO productDetails = BeanUtil.toBeanIgnoreError(product, ProductParamVO.class);
@@ -308,7 +376,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
     public void importProductJson(MultipartFile file, String appId) {
         String originalFilename = file.getOriginalFilename();
         if (!"json".equalsIgnoreCase(FileUtil.getSuffix(originalFilename))) {
-            throw BizException.wrap("the file suffix must be json");
+            throw new ServiceException("the file suffix must be json");
         }
         try {
             String jsonContent = IoUtil.read(file.getInputStream(), StandardCharsets.UTF_8);
@@ -320,7 +388,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
             this.productJsonDataAnalysis(productParamVO);
         } catch (IOException e) {
             log.error("import product json error: {}", e.getMessage(), e);
-            throw BizException.wrap("import product json failed!");
+            throw new ServiceException("import product json failed!");
         }
     }
 
@@ -409,7 +477,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
             return true;
         } catch (Exception e) {
             log.error("初始化产品基础Topic失败 - 产品标识: {}", productIdentification, e);
-            throw BizException.wrap("初始化产品基础Topic失败请重试");
+            throw new ServiceException("初始化产品基础Topic失败请重试");
         }
     }
 
@@ -426,7 +494,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
     private void checkedProductSaveVO(ProductSaveVO saveVO) {
         ArgumentAssert.notNull(saveVO.getProductType(), "productType Cannot be null");
         if (!ProductTypeEnum.TYPE_COLLECTION.contains(saveVO.getProductType())) {
-            throw BizException.wrap("productType is not exist");
+            throw new ServiceException("productType is not exist");
         }
         ArgumentAssert.notBlank(saveVO.getAppId(), "appId Cannot be null");
         ArgumentAssert.notBlank(saveVO.getProductName(), "productName Cannot be null");
@@ -438,17 +506,17 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         Optional<ProtocolTypeEnum> protocolTypeOptional = ProtocolTypeEnum.fromValue(saveVO.getProtocolType());
 
         if (protocolTypeOptional.isEmpty()) {
-            throw BizException.wrap("protocolType is not exist");
+            throw new ServiceException("protocolType is not exist");
         }
         ArgumentAssert.notBlank(saveVO.getDeviceType(), "deviceType Cannot be null");
         //验证产品模型是否存在
         Product product = superManager.findOneByManufacturerIdAndModelAndDeviceType(saveVO.getManufacturerId(), saveVO.getModel(), saveVO.getDeviceType());
         if (ObjectUtil.isNotNull(product)) {
-            throw BizException.wrap("product model already exists");
+            throw new ServiceException("product model already exists");
         }
         //产品模型状态
         ArgumentAssert.notNull(saveVO.getProductStatus(), "productStatus Cannot be null");
-        ProductStatusEnum.fromValue(saveVO.getProductStatus()).orElseThrow(() -> BizException.wrap("productStatus is not exist"));
+        ProductStatusEnum.fromValue(saveVO.getProductStatus()).orElseThrow(() -> new ServiceException("productStatus is not exist"));
 
         // 注:产品版本号(product_version)不再由创建/编辑表单维护。
         // 版本生命周期由 ProductVersionService 的草稿/发布流程接管 ──
@@ -479,7 +547,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         ArgumentAssert.notNull(updateVO.getId(), "id Cannot be null");
         ArgumentAssert.notNull(updateVO.getProductType(), "productType Cannot be null");
         if (!ProductTypeEnum.TYPE_COLLECTION.contains(updateVO.getProductType())) {
-            throw BizException.wrap("productType is not exist");
+            throw new ServiceException("productType is not exist");
         }
         ArgumentAssert.notBlank(updateVO.getAppId(), "appId Cannot be null");
         ArgumentAssert.notBlank(updateVO.getProductName(), "productName Cannot be null");
@@ -491,12 +559,12 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         Optional<ProtocolTypeEnum> protocolTypeOptional = ProtocolTypeEnum.fromValue(updateVO.getProtocolType());
 
         if (protocolTypeOptional.isEmpty()) {
-            throw BizException.wrap("protocolType is not exist");
+            throw new ServiceException("protocolType is not exist");
         }
         ArgumentAssert.notBlank(updateVO.getDeviceType(), "deviceType Cannot be null");
         //产品模型状态
         ArgumentAssert.notNull(updateVO.getProductStatus(), "productStatus Cannot be null");
-        ProductStatusEnum.fromValue(updateVO.getProductStatus()).orElseThrow(() -> BizException.wrap("productStatus is not exist"));
+        ProductStatusEnum.fromValue(updateVO.getProductStatus()).orElseThrow(() -> new ServiceException("productStatus is not exist"));
 
         // 注:产品版本号(product_version)不再由创建/编辑表单维护,
         // 版本生命周期由 ProductVersionService 的草稿/发布流程接管。
@@ -519,12 +587,12 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         checkedProductSaveVO(BeanUtil.toBeanIgnoreError(product, ProductSaveVO.class));
         boolean saveProductFlag = superManager.save(product);
         if (!saveProductFlag) {
-            throw BizException.wrap("Product information storage fails");
+            throw new ServiceException("Product information storage fails");
         }
         //添加服务数据
         List<ProductServiceParamVO> services = productVO.getServices();
         if (CollUtil.isEmpty(services)) {
-            throw BizException.wrap("The product service information is empty. Please check the product model JSON file.");
+            throw new ServiceException("The product service information is empty. Please check the product model JSON file.");
         }
         ProductServiceParamVO productServiceParamVO;
         for (ProductServiceParamVO service : services) {
@@ -535,7 +603,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
             productServices.setCreatedOrgId(AuthUtil.getCurrentDeptId());
             ProductServices productService = productServiceService.saveProductService(productServices);
             if (ObjectUtil.isNull(productService)) {
-                throw BizException.wrap("Service capability Data storage fails");
+                throw new ServiceException("Service capability Data storage fails");
             }
             //添加属性数据
             List<ProductPropertyParamVO> properties = productServiceParamVO.getProperties();
@@ -547,7 +615,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
                     propertySaveVO.setCreatedOrgId(AuthUtil.getCurrentDeptId());
                     ProductProperty productProperty = productPropertyService.saveProductProperty(propertySaveVO);
                     if (ObjectUtil.isNull(productProperty)) {
-                        throw BizException.wrap("Property capability Data storage fails");
+                        throw new ServiceException("Property capability Data storage fails");
                     }
                 }
             }
@@ -562,7 +630,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
                     productCommand.setCreatedOrgId(AuthUtil.getCurrentDeptId());
                     ProductCommand saveProductCommand = productCommandService.saveProductCommand(productCommand);
                     if (ObjectUtil.isNull(saveProductCommand)) {
-                        throw BizException.wrap("command capability Data storage fails");
+                        throw new ServiceException("command capability Data storage fails");
                     }
                     //产品请求服务命令
                     List<ProductCommandRequestParamVO> requests = productCommandParamVO.getRequests();
@@ -574,7 +642,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
                             productCommandRequest.setCreatedOrgId(AuthUtil.getCurrentDeptId());
                             ProductCommandRequest saveCommandRequestFlag = productCommandRequestService.saveProductCommandRequest(productCommandRequest);
                             if (ObjectUtil.isNull(saveCommandRequestFlag)) {
-                                throw BizException.wrap("productCommandRequest capability Data storage fails");
+                                throw new ServiceException("productCommandRequest capability Data storage fails");
                             }
                         }
                     }
@@ -588,7 +656,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
                             commandResponse.setCreatedOrgId(AuthUtil.getCurrentDeptId());
                             ProductCommandResponse saveCommandResponseFlag = productCommandResponseService.saveProductCommandResponse(commandResponse);
                             if (ObjectUtil.isNull(saveCommandResponseFlag)) {
-                                throw BizException.wrap("productCommandResponse capability Data storage fails");
+                                throw new ServiceException("productCommandResponse capability Data storage fails");
                             }
                         }
                     }
@@ -627,7 +695,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         ArgumentAssert.notBlank(newActiveVersion, "newActiveVersion must not be blank");
 
         Product product = Optional.ofNullable(superManager.findOneByProductIdentification(productIdentification))
-                .orElseThrow(() -> BizException.wrap("Product not found: " + productIdentification));
+                .orElseThrow(() -> new ServiceException("Product not found: " + productIdentification));
         String previousActive = product.getActiveVersionNo();
         product.setActiveVersionNo(newActiveVersion);
         if (recordCurrentAsPrevious) {
@@ -655,7 +723,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         ArgumentAssert.notBlank(targetVersion, "targetVersion must not be blank");
 
         Product product = Optional.ofNullable(superManager.findOneByProductIdentification(productIdentification))
-                .orElseThrow(() -> BizException.wrap("Product not found: " + productIdentification));
+                .orElseThrow(() -> new ServiceException("Product not found: " + productIdentification));
         product.setActiveVersionNo(targetVersion);
         superManager.updateById(product);
         // 回滚后产品脱离灰度态,显式清空 previousFullVersionNo。updateById 在 NOT_NULL 策略下写不掉 null,

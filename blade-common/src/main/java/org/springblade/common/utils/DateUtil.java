@@ -7,6 +7,9 @@ import java.util.Date;
 
 public class DateUtil extends org.springblade.core.tool.utils.DateUtil {
     public static final String YYYYMMDD_FORMAT = "yyyyMMdd";
+    public static final String YYYYMMDDHHMM_FORMAT = "yyyyMMddHHmm";
+    public static final String CHINESE_DATETIME_FORMAT = "yyyy年MM月dd日 HH:mm:ss";
+    public static final String CHINESE_DATETIME_FORMAT_LINE = "yyyy年MM月dd日 HH时mm分";
 
     public static final String HHMM_FORMAT = "HHmm";
 
@@ -16,6 +19,7 @@ public class DateUtil extends org.springblade.core.tool.utils.DateUtil {
     public static final DateTimeFormatter FMT_TIME     = DateTimeFormatter.ofPattern("HH:mm:ss");
     public static final DateTimeFormatter FMT_COMPACT  = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
     public static final DateTimeFormatter FMT_ISO      = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+    public static final DateTimeFormatter YYYYMMDDHHMM_FORMATTER = DateTimeFormatter.ofPattern(YYYYMMDDHHMM_FORMAT);
 
     private DateUtil() {
         // 工具类，禁止实例化
@@ -150,5 +154,39 @@ public class DateUtil extends org.springblade.core.tool.utils.DateUtil {
     public static long betweenDays(LocalDateTime start, LocalDateTime end) {
         if (start == null || end == null) return 0L;
         return ChronoUnit.DAYS.between(start.toLocalDate(), end.toLocalDate());
+    }
+
+    // ═══════════════════════════════════════════
+    //  兼容 DateUtils 方法（用于迁移）
+    // ═══════════════════════════════════════════
+
+    /** Date → LocalDateTime（兼容 DateUtils.date2LocalDateTime） */
+    public static LocalDateTime date2LocalDateTime(Date date) {
+        return toLocalDateTime(date);
+    }
+
+    /** LocalDateTime → Date（兼容 DateUtils.localDateTime2Date） */
+    public static Date localDateTime2Date(LocalDateTime ldt) {
+        return toDate(ldt);
+    }
+
+    /** 获取当前毫秒时间戳（兼容 DateUtils.millisecondStampL） */
+    public static long millisecondStampL() {
+        return System.currentTimeMillis();
+    }
+
+    /** 解析日期时间字符串为 Date（兼容 DateUtils.parseDatetime） */
+    public static Date parseDatetime(String str) {
+        if (str == null || str.isBlank()) return null;
+        LocalDateTime ldt = parse(str);
+        return toDate(ldt);
+    }
+
+    /** 解析日期时间字符串为 Date（指定格式） */
+    public static Date parseDatetime(String str, String pattern) {
+        if (str == null || str.isBlank()) return null;
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern(pattern);
+        LocalDateTime ldt = LocalDateTime.parse(str, fmt);
+        return toDate(ldt);
     }
 }

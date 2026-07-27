@@ -16,7 +16,7 @@ import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.core.mp.support.Query;
 import org.springblade.core.secure.utils.AuthUtil;
 import org.springblade.core.tool.jackson.JsonUtil;
-import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.common.utils.BeanUtil;
 import org.springblade.core.tool.utils.StringPool;
 import org.springblade.modules.iot.common.lock.link.LinkLockKeyBuilder;
 import org.springblade.modules.iot.datascope.DataScopeHelper;
@@ -121,7 +121,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
                 return R.fail(R.LOCK_ACQUIRE_ERROR_MESSAGE);
             }
             return R.success(lockRunResult.getResult());
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("设备档案保存失败，系统异常: {}", e.getMessage(), e);
@@ -149,7 +149,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
                 return R.fail(R.LOCK_ACQUIRE_ERROR_MESSAGE);
             }
             return R.success(lockRunResult.getResult());
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("修改设备档案失败，系统异常: {}", e.getMessage(), e);
@@ -171,7 +171,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
         log.info("updateDeviceStatus id:{},status:{}", id, status);
         try {
             return R.success(superService.updateDeviceStatus(id, status));
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("修改设备状态失败，系统异常: {}", e.getMessage(), e);
@@ -192,7 +192,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
         log.info("deleteDevice id:{}", id);
         try {
             return R.success(superService.deleteDevice(id));
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("删除设备失败，系统异常: {}", e.getMessage(), e);
@@ -214,7 +214,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
             // 走 service 层 deleteDevices ── 整批单事务,避免老 stream().allMatch
             // "N 个独立事务串行,失败后前 K-1 条已提交"造成的孤儿设备 / 孤儿分组关系
             return R.success(superService.deleteDevices(ids));
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("批量删除设备失败，系统异常: {}", e.getMessage(), e);
@@ -236,7 +236,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
         log.info("updateDeviceConnectionStatus id:{}, connectionStatus:{}", id, connectionStatus);
         try {
             return R.success(superService.updateDeviceConnectionStatusById(id, connectionStatus));
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("修改设备连接状态失败，系统异常: {}", e.getMessage(), e);
@@ -259,7 +259,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
             int affected = superService.switchBoundProductVersion(
                     switchVO.getProductIdentification(), switchVO.getDeviceIdentifications(), switchVO.getTargetVersionNo());
             return R.success(affected);
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("切换设备绑定版本失败,系统异常: {}", e.getMessage(), e);
@@ -279,7 +279,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
             DataScopeHelper.startDataScope("device");
             DeviceOverviewResultVO deviceOverview = superService.getDeviceOverview();
             return R.success(deviceOverview);
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("获取设备概况统计信息失败，系统异常: {}", e.getMessage(), e);
@@ -300,7 +300,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
         log.info("getVersionDistribution productIdentification:{}", productIdentification);
         try {
             return R.success(superService.countDeviceVersionDistribution(productIdentification));
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("查询设备版本分布失败,系统异常: {}", e.getMessage(), e);
@@ -325,7 +325,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
             DeviceVersionResultVO result = superService.getDeviceVersionByProduct(productIdentification);
             echoService.action(result);
             return R.success(result);
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("查询设备软固件版本集合信息失败，系统异常: {}", e.getMessage(), e);
@@ -348,7 +348,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
             DeviceDetailsResultVO deviceDetailsResultVO = superService.getDeviceDetails(id);
             echoService.action(deviceDetailsResultVO);
             return R.success(deviceDetailsResultVO);
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("获取设备概况统计信息失败，系统异常: {}", e.getMessage(), e);
@@ -371,7 +371,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
             DeviceDetailsResultVO result = superService.findOneByDeviceIdentification(deviceIdentification);
             echoService.action(result);
             return R.success(result);
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("根据设备标识获取设备详情失败，系统异常: {}", e.getMessage(), e);
@@ -402,7 +402,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
 
             echoService.action(deviceDetailsList);
             return R.success(deviceDetailsList);
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("根据多个设备标识获取设备详情失败，系统异常: {}", e.getMessage(), e);
@@ -425,7 +425,7 @@ public class DeviceController extends BladeController<DeviceService, Long, Devic
             IPage<DeviceDetailsResultVO> page = superService.getDeviceDetailsPage(params);
             echoService.action(page.getRecords());
             return R.success(page);
-        } catch (BizException be) {
+        } catch (ServiceException be) {
             return R.fail(be);
         } catch (Exception e) {
             log.error("获取设备详情分页信息失败，系统异常: {}", e.getMessage(), e);

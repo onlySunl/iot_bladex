@@ -1,34 +1,62 @@
 package org.springblade.modules.iot.productproperty.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import org.springblade.core.log.exception.ServiceException;
 import cn.hutool.core.util.ReUtil;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Optional;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.dynamic.datasource.annotation.DS;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.secure.utils.AuthUtil;
-import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.common.utils.BeanUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.constant.ThingModelCodeRule;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.event.publisher.ProductEventPublisher;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.event.source.ProductModelChangedSource;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.service.ProductQueryService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productproperty.entity.ProductProperty;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productproperty.enumeration.DataTypeEnum;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productproperty.manager.ProductPropertyManager;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productproperty.service.ProductPropertyService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productproperty.vo.result.ProductPropertyResultVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productproperty.vo.save.ProductPropertySaveVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productproperty.vo.update.ProductPropertyUpdateVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productservice.service.ProductServiceService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversionchangelog.enumeration.ProductChangeTargetTypeEnum;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversionchangelog.enumeration.ProductVersionChangeTypeEnum;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.AllArgsConstructor;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.stereotype.Service;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.transaction.annotation.Transactional;
+import org.springblade.core.log.exception.ServiceException;
 
 import java.util.List;
+import org.springblade.core.log.exception.ServiceException;
 
 /**
  * <p>
@@ -99,7 +127,7 @@ public class ProductPropertyServiceImpl extends BaseServiceImpl<ProductPropertyM
         ArgumentAssert.notNull(id, "id Cannot be null");
         ProductProperty productProperty = superManager.getById(id);
         if (null == productProperty) {
-            throw BizException.wrap("The productProperty does not exist");
+            throw new ServiceException("The productProperty does not exist");
         }
         boolean result = superManager.removeById(id);
         publishChange(ProductVersionChangeTypeEnum.DELETE, productProperty, null, "删除属性「" + productProperty.getPropertyName() + "」");
@@ -128,16 +156,16 @@ public class ProductPropertyServiceImpl extends BaseServiceImpl<ProductPropertyM
         ArgumentAssert.notBlank(saveVO.getPropertyCode(), "propertyCode Cannot be null");
         //校验编码命名规范
         if (!ReUtil.isMatch(ThingModelCodeRule.PATTERN, saveVO.getPropertyCode())) {
-            throw BizException.wrap(ThingModelCodeRule.PATTERN_MSG);
+            throw new ServiceException(ThingModelCodeRule.PATTERN_MSG);
         }
         //校验CODE
         if (CollUtil.isNotEmpty(superManager.checkCode(saveVO.getServiceId(), saveVO.getPropertyCode()))) {
-            throw BizException.wrap("propertyCode already exists");
+            throw new ServiceException("propertyCode already exists");
         }
         ArgumentAssert.notBlank(saveVO.getPropertyName(), "propertyName Cannot be null");
         ArgumentAssert.notBlank(saveVO.getDatatype(), "datatype Cannot be null");
         if (!DataTypeEnum.TYPE_COLLECTION.contains(saveVO.getDatatype())) {
-            throw BizException.wrap("datatype does not exist");
+            throw new ServiceException("datatype does not exist");
         }
     }
 
@@ -182,12 +210,12 @@ public class ProductPropertyServiceImpl extends BaseServiceImpl<ProductPropertyM
         ArgumentAssert.notBlank(updateVO.getPropertyCode(), "propertyCode Cannot be null");
         //校验编码命名规范
         if (!ReUtil.isMatch(ThingModelCodeRule.PATTERN, updateVO.getPropertyCode())) {
-            throw BizException.wrap(ThingModelCodeRule.PATTERN_MSG);
+            throw new ServiceException(ThingModelCodeRule.PATTERN_MSG);
         }
         ArgumentAssert.notBlank(updateVO.getPropertyName(), "propertyName Cannot be null");
         ArgumentAssert.notBlank(updateVO.getDatatype(), "datatype Cannot be null");
         if (!DataTypeEnum.TYPE_COLLECTION.contains(updateVO.getDatatype())) {
-            throw BizException.wrap("datatype does not exist");
+            throw new ServiceException("datatype does not exist");
         }
         //校验CODE
         List<ProductProperty> productProperties = superManager.checkCode(updateVO.getServiceId(), updateVO.getPropertyCode());
@@ -195,7 +223,7 @@ public class ProductPropertyServiceImpl extends BaseServiceImpl<ProductPropertyM
                 .filter(productProperty -> !productProperty.getId().equals(updateVO.getId()))
                 .findAny()
                 .ifPresent(productProperty -> {
-                    throw BizException.wrap("propertyCode already exists");
+                    throw new ServiceException("propertyCode already exists");
                 });
     }
 

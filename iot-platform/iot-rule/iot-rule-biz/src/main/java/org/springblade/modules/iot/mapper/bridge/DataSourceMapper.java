@@ -2,7 +2,7 @@ package org.springblade.modules.iot.mapper.bridge;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.entity.bridge.DataSource;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
  * @author mqttsnet
  * @date 2026-04-28
  */
-@Repository
+@Mapper
 public interface DataSourceMapper extends BladeMapper<DataSource> {
 }

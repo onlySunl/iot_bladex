@@ -1,43 +1,80 @@
 package org.springblade.modules.iot.mqs.service.impl;
 
 import java.util.ArrayList;
+import org.springblade.common.utils.DateUtil;
 import java.util.Collections;
+import org.springblade.common.utils.DateUtil;
 import java.util.HashMap;
+import org.springblade.common.utils.DateUtil;
 import java.util.List;
+import org.springblade.common.utils.DateUtil;
 import java.util.Map;
+import org.springblade.common.utils.DateUtil;
 import java.util.Objects;
+import org.springblade.common.utils.DateUtil;
 import java.util.Optional;
+import org.springblade.common.utils.DateUtil;
 import java.util.concurrent.CompletableFuture;
+import org.springblade.common.utils.DateUtil;
 import java.util.stream.Collectors;
+import org.springblade.common.utils.DateUtil;
 
 import cn.hutool.core.collection.CollUtil;
+import org.springblade.common.utils.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import org.springblade.common.utils.DateUtil;
 import com.alibaba.fastjson2.JSON;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.core.tool.api.R;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.common.tds.TdsConstants;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.common.tds.TdDataTypeEnum;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.common.tds.Fields;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.common.tds.TableDTO;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.common.tds.TdsUtils;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.cache.vo.product.ProductModelCacheVO;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.manager.DeviceManager;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.mqs.event.report.DeviceDataReportContext;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.mqs.event.report.DeviceDataReportPostProcessor;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.mqs.service.DeviceDataProcessingService;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.product.enumeration.ProductTypeEnum;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productproperty.vo.result.ProductPropertyResultVO;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productservice.vo.param.ProductServiceParamVO;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productservice.vo.result.ProductServiceResultVO;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.productversion.util.ProductTdsNamer;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.protocol.vo.param.TopoDeviceDataReportParam;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.tds.facade.TdsFacade;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.tds.vo.result.SuperTableDescribeVO;
+import org.springblade.common.utils.DateUtil;
 import lombok.RequiredArgsConstructor;
+import org.springblade.common.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.common.utils.DateUtil;
 import org.springframework.stereotype.Service;
+import org.springblade.common.utils.DateUtil;
 
 /**
  * Description:
@@ -175,7 +212,7 @@ public class DeviceDataProcessingServiceImpl implements DeviceDataProcessingServ
                 // ?????????????????????????~??????????
                 Long eventTime = Optional.ofNullable(service.getEventTime())
                     .map(DateUtils::convertOrGenerateNanoseconds)
-                    .orElse(DateUtils.nanosecondStampL());
+                    .orElse(DateUtil.nanosecondStampL());
 
 
                 List<Fields> schemaFieldsList = new ArrayList<>();
@@ -197,7 +234,7 @@ public class DeviceDataProcessingServiceImpl implements DeviceDataProcessingServ
                     } else if (TdsConstants.EVENT_TIME.equals(superTableDescribeVO.getField())) {
                         // ????????????????????????????event_time ??????????                        fields.setFieldValue(eventTime);
                     } else if (TdsConstants.TS.equals(superTableDescribeVO.getField())) {
-                        // ????????????????????????????ts ?????~??????????                        fields.setFieldValue(DateUtils.nanosecondStampL());
+                        // ????????????????????????????ts ?????~??????????                        fields.setFieldValue(DateUtil.nanosecondStampL());
                     }
 
                     if (TdsConstants.TAG.equals(superTableDescribeVO.getNote())) {

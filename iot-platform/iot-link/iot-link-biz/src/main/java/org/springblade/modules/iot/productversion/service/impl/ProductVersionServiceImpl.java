@@ -1,42 +1,78 @@
 package org.springblade.modules.iot.productversion.service.impl;
 
 import java.time.LocalDateTime;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.List;
+import org.springblade.core.log.exception.ServiceException;
 import java.util.Optional;
+import org.springblade.core.log.exception.ServiceException;
 
 import cn.hutool.core.util.StrUtil;
+import org.springblade.core.log.exception.ServiceException;
 import com.baomidou.dynamic.datasource.annotation.DS;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.mp.base.BaseServiceImpl;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.service.ProductQueryService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.service.ProductService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.vo.param.ProductParamVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productpublishrecord.entity.ProductPublishRecord;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productpublishrecord.service.ProductPublishRecordService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.converter.ProductSnapshotConverter;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.diff.ProductSnapshotDiffCalculator;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.entity.ProductVersion;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.enumeration.ProductPublishStrategyEnum;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.enumeration.ProductVersionStatusEnum;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.event.publisher.ProductVersionEventPublisher;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.event.source.ProductVersionLifecycleEventSource;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.manager.ProductVersionManager;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.service.ProductVersionService;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.vo.diff.ProductVersionDiffSummaryVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.vo.diff.ProductVersionDiffVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.vo.result.ProductVersionStatisticsResultVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.vo.save.ProductVersionPublishVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.vo.save.ProductVersionPurgeVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.vo.save.ProductVersionRollbackVO;
+import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.productversion.vo.snapshot.ProductSnapshotVO;
+import org.springblade.core.log.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.context.annotation.Lazy;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.stereotype.Service;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.transaction.annotation.Propagation;
+import org.springblade.core.log.exception.ServiceException;
 import org.springframework.transaction.annotation.Transactional;
+import org.springblade.core.log.exception.ServiceException;
 
 /**
  * 产品物模型版本业务实现。
@@ -99,7 +135,7 @@ public class ProductVersionServiceImpl
         // 1. 拉当前产品完整树(含停用服务 ── 快照须为完整物模型;services 仍可能为空,产品刚 create 时即如此)
         ProductParamVO fullTree = productQueryService.selectFullProductByProductIdentification(productIdentification, true);
         if (fullTree == null) {
-            throw BizException.wrap("Product not found: " + productIdentification);
+            throw new ServiceException("Product not found: " + productIdentification);
         }
 
         // 2. 找当前所有 DRAFT 行 ── 正常只有 1 个;>1 说明历史并发漏网 / 锁失效,做一次自愈。
@@ -203,7 +239,7 @@ public class ProductVersionServiceImpl
 
         ProductResultVO product = Optional.ofNullable(
                 productQueryService.findOneByProductIdentification(productIdentification))
-            .orElseThrow(() -> BizException.wrap("Product not found: " + productIdentification));
+            .orElseThrow(() -> new ServiceException("Product not found: " + productIdentification));
 
         ProductPublishStrategyEnum strategy = ProductPublishStrategyEnum.fromValue(vo.getPublishStrategy())
             .orElse(ProductPublishStrategyEnum.FULL);
@@ -276,14 +312,14 @@ public class ProductVersionServiceImpl
 
         ProductResultVO product = Optional.ofNullable(
                 productQueryService.findOneByProductIdentification(productIdentification))
-            .orElseThrow(() -> BizException.wrap("Product not found: " + productIdentification));
+            .orElseThrow(() -> new ServiceException("Product not found: " + productIdentification));
 
         ProductVersion targetRow = productVersionManager
             .findByProductIdentificationAndVersionNo(productIdentification, targetVersion)
-            .orElseThrow(() -> BizException.wrap("Target version not found: " + targetVersion));
+            .orElseThrow(() -> new ServiceException("Target version not found: " + targetVersion));
 
         if (StrUtil.equals(product.getActiveVersionNo(), targetVersion)) {
-            throw BizException.wrap("Already on target version, no rollback needed");
+            throw new ServiceException("Already on target version, no rollback needed");
         }
 
         String fromVersion = product.getActiveVersionNo();
@@ -327,18 +363,18 @@ public class ProductVersionServiceImpl
 
         ProductResultVO product = Optional.ofNullable(
                 productQueryService.findOneByProductIdentification(productIdentification))
-            .orElseThrow(() -> BizException.wrap("Product not found: " + productIdentification));
+            .orElseThrow(() -> new ServiceException("Product not found: " + productIdentification));
 
         if (StrUtil.equals(product.getActiveVersionNo(), version)) {
-            throw BizException.wrap("Cannot purge the current effective version");
+            throw new ServiceException("Cannot purge the current effective version");
         }
         if (StrUtil.equals(product.getPreviousFullVersionNo(), version)) {
-            throw BizException.wrap("Cannot purge the canary previous full version");
+            throw new ServiceException("Cannot purge the canary previous full version");
         }
 
         ProductVersion versionRow = productVersionManager
             .findByProductIdentificationAndVersionNo(productIdentification, version)
-            .orElseThrow(() -> BizException.wrap("Version not found: " + version));
+            .orElseThrow(() -> new ServiceException("Version not found: " + version));
 
         versionRow.setVersionStatus(ProductVersionStatusEnum.ARCHIVED.getValue());
         versionRow.setRemark(Optional.ofNullable(vo.getPurgeRemark()).orElse(versionRow.getRemark()));
@@ -421,13 +457,13 @@ public class ProductVersionServiceImpl
         }
 
         ProductSnapshotVO targetSnapshot = loadSnapshot(productIdentification, targetVersion)
-            .orElseThrow(() -> BizException.wrap("Target version not found: " + targetVersion));
+            .orElseThrow(() -> new ServiceException("Target version not found: " + targetVersion));
 
         // source 显式传了但找不到 → 必须抛错,避免静默退化为"全部新增"误导用户(首次发布场景才允许 source 为空)
         ProductSnapshotVO sourceSnapshot = null;
         if (StrUtil.isNotBlank(sourceVersion)) {
             sourceSnapshot = loadSnapshot(productIdentification, sourceVersion)
-                .orElseThrow(() -> BizException.wrap("Source version not found: " + sourceVersion));
+                .orElseThrow(() -> new ServiceException("Source version not found: " + sourceVersion));
         }
 
         return productSnapshotDiffCalculator.diff(sourceSnapshot, targetSnapshot);
