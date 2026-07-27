@@ -41,12 +41,7 @@
             <groupId>org.springblade</groupId>
             <artifactId>iot-entity-link</artifactId>
         </dependency>
-        
-        <!-- API 模块: 设备集成接口定义 -->
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-link-api</artifactId>
-        </dependency>
+
         
         <!-- 公共模块: 工具类和通用组件 -->
         <dependency>
@@ -78,10 +73,11 @@
         
         <!-- MyBatis Plus: ORM 框架 -->
         <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-starter-mybatis-plus</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
         </dependency>
-        
+
+
         <!-- 缓存模块: Redis 缓存支持 -->
         <dependency>
             <groupId>org.springblade</groupId>
@@ -89,16 +85,16 @@
         </dependency>
         
         <!-- 锁模块: 分布式锁支持 -->
-        <dependency>
+      <!--  <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-starter-lock</artifactId>
         </dependency>
-        
+        -->
         <!-- 限流模块: 接口限流 -->
-        <dependency>
+      <!--  <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-starter-limit</artifactId>
-        </dependency>
+        </dependency>-->
         
         <!-- 多租户模块: 租户数据隔离 -->
         <dependency>
@@ -138,13 +134,6 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
-        </dependency>
-        
-        <!-- MyBatis Plus Join: 多表查询支持 -->
-        <dependency>
-            <groupId>com.github.yulichang</groupId>
-            <artifactId>mybatis-plus-join-boot-starter</artifactId>
-            <version>1.5.3</version>
         </dependency>
 
         <!-- ======================================== -->
@@ -194,15 +183,10 @@
         <dependency>
             <groupId>com.alibaba.fastjson2</groupId>
             <artifactId>fastjson2</artifactId>
-            <version>2.0.42</version>
         </dependency>
         
         <!-- Async Tool: 异步编程工具 -->
-        <dependency>
-            <groupId>com.aizuda</groupId>
-            <artifactId>async-tool</artifactId>
-            <version>1.1.0</version>
-        </dependency>
+
         
         <!-- Oshi: 系统监控 -->
         <dependency>
@@ -218,12 +202,6 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-        </dependency>
-        
-        <!-- MQTT Client: MQTT 客户端 -->
-        <dependency>
-            <groupId>org.eclipse.paho</groupId>
-            <artifactId>org.eclipse.paho.mqttv5.client</artifactId>
         </dependency>
 
         <!-- ======================================== -->

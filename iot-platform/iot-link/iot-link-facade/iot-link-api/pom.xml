@@ -16,10 +16,6 @@
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>blade-core-boot</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
             <artifactId>blade-common</artifactId>
         </dependency>
     </dependencies>

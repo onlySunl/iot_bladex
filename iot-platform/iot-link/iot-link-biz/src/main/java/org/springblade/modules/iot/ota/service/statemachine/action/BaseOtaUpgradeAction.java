@@ -1,24 +1,12 @@
 package org.springblade.modules.iot.ota.service.statemachine.action;
 
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import com.alibaba.cola.statemachine.Action;
-import org.springblade.common.utils.BeanUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springblade.modules.iot.device.vo.result.DeviceResultVO;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeRecordsResultDTO;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeTasksResultDTO;
 import org.springblade.modules.iot.ota.dto.OtaUpgradesResultDTO;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeRecords;
-import org.springblade.modules.iot.ota.enumeration.OtaTaskRecordAppConfirmStatusEnum;
-import org.springblade.modules.iot.ota.enumeration.OtaTaskRecordCommandSendStatusEnum;
-import org.springblade.modules.iot.ota.enumeration.OtaUpgradeEventEnum;
-import org.springblade.modules.iot.ota.enumeration.OtaUpgradeRecordStatusEnum;
-import org.springblade.modules.iot.ota.enumeration.OtaUpgradeTaskStatusEnum;
+import org.springblade.modules.iot.ota.enumeration.*;
 import org.springblade.modules.iot.ota.service.OtaUpgradeRecordsService;
 import org.springblade.modules.iot.ota.service.OtaUpgradeTasksService;
 import org.springblade.modules.iot.ota.service.statemachine.OtaUpgradeStateMachine;
@@ -27,10 +15,16 @@ import org.springblade.modules.iot.ota.service.statemachine.event.publisher.OtaE
 import org.springblade.modules.iot.ota.service.statemachine.strategy.executor.DeviceVersionFilterStrategy;
 import org.springblade.modules.iot.ota.service.statemachine.strategy.scope.UpgradeScopeStrategyFactory;
 import org.springblade.modules.iot.ota.vo.result.OtaUpgradeRecordsResultVO;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
+
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * 基础OTA升级动作抽象类
