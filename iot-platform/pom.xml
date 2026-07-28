@@ -333,6 +333,12 @@
                 <artifactId>groovy-json</artifactId>
                 <version>${groovy.version}</version>
             </dependency>
+            <!-- COLA 状态机 -->
+            <dependency>
+                <groupId>com.alibaba.cola</groupId>
+                <artifactId>cola-component-statemachine</artifactId>
+                <version>5.0.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
