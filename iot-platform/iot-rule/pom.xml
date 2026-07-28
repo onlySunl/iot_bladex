@@ -105,8 +105,8 @@
             </dependency>
             <dependency>
                 <groupId>org.springblade</groupId>
-                <artifactId>blade-starter-mybatis-plus</artifactId>
-                <version>4.9.0.RELEASE</version>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>3.5.5</version>
             </dependency>
             <dependency>
                 <groupId>org.springblade</groupId>

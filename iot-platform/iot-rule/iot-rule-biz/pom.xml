@@ -75,7 +75,7 @@
         <!-- MyBatis Plus: ORM 框架 -->
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>blade-starter-mybatis-plus</artifactId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
         
         <!-- 缓存模块: Redis 缓存支持 -->
