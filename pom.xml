@@ -426,6 +426,7 @@
         <module>blade-core-cache</module>
         <module>blade-annotation</module>
         <module>blade-core-tds</module>
+        <module>blade-core-databridge</module>
     </modules>
 
     <build>

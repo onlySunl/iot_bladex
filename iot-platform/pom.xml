@@ -389,6 +389,12 @@
                 <artifactId>blade-core-tds</artifactId>
                 <version>4.9.0.RELEASE</version>
             </dependency>
+            <!-- 核心数据桥接模块 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-databridge</artifactId>
+                <version>4.9.0.RELEASE</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
