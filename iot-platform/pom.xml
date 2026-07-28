@@ -357,6 +357,12 @@
                 <artifactId>blade-core-database</artifactId>
                 <version>4.9.0.RELEASE</version>
             </dependency>
+            <!-- 核心缓存模块 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-cache</artifactId>
+                <version>4.9.0.RELEASE</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
