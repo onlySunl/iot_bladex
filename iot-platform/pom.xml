@@ -88,6 +88,7 @@
         <!-- 时序数据服务层: 时序数据存储与查询 -->
         <module>iot-tds</module>
         <module>iot-common</module>
+        <module>iot-model</module>
     </modules>
 
     <!-- ======================================== -->

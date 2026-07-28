@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>iot-platform</artifactId>
+        <groupId>org.springblade</groupId>
+        <version>4.9.0.RELEASE</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>iot-model</artifactId>
+    <name>${project.artifactId}</name>
+    <description>IoT 模型模块</description>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <!-- 本地框架模块 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-basic</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <!-- IoT 公共模块 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-common</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>
