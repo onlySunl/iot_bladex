@@ -377,6 +377,12 @@
                 <artifactId>blade-core-basic</artifactId>
                 <version>4.9.0.RELEASE</version>
             </dependency>
+            <!-- 自定义注解模块 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-annotation</artifactId>
+                <version>4.9.0.RELEASE</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

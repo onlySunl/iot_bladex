@@ -424,6 +424,7 @@
         <module>blade-core-mvc</module>
         <module>blade-core-database</module>
         <module>blade-core-cache</module>
+        <module>blade-annotation</module>
     </modules>
 
     <build>
