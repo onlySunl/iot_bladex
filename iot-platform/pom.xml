@@ -339,6 +339,12 @@
                 <artifactId>cola-component-statemachine</artifactId>
                 <version>5.0.0</version>
             </dependency>
+            <!-- 基础实体模块 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-base-entity</artifactId>
+                <version>4.9.0.RELEASE</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
