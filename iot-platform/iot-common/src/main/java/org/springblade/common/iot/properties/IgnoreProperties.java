@@ -6,6 +6,7 @@ import org.springblade.basic.constant.Constants;
 import lombok.Data;
 import org.springblade.core.secure.provider.HttpMethod;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 import org.springframework.http.server.PathContainer;
 import org.springframework.web.util.pattern.PathPattern;
 import org.springframework.web.util.pattern.PathPatternParser;
@@ -26,6 +27,7 @@ import static org.springblade.basic.utils.CollHelper.putAll;
  * @date 2019/01/03
  */
 @Data
+@Component
 @ConfigurationProperties(prefix = IgnoreProperties.PREFIX)
 public class IgnoreProperties {
     public static final String PREFIX = Constants.PROJECT_PREFIX + ".ignore";

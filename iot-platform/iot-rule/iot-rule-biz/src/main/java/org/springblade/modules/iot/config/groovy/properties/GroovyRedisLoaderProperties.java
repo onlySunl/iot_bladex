@@ -5,6 +5,7 @@ import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 import org.springframework.lang.NonNull;
@@ -15,6 +16,7 @@ import org.springframework.lang.NonNull;
  * @author mqttsnet 2022/09/25 13:34
  */
 @Data
+@Component
 @ConfigurationProperties(prefix = GroovyRedisLoaderProperties.PREFIX)
 public class GroovyRedisLoaderProperties implements InitializingBean, EnvironmentAware {
 

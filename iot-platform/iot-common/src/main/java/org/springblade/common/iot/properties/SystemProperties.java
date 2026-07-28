@@ -4,6 +4,7 @@ import org.springblade.basic.constant.Constants;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import java.util.Map;
 @Setter
 @Getter
 @RefreshScope
+@Component
 @ConfigurationProperties(prefix = SystemProperties.PREFIX)
 public class SystemProperties {
     public static final String PREFIX = Constants.PROJECT_PREFIX + ".system";
