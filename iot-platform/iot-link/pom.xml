@@ -1,139 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    设备集成服务模块
-    
-    模块结构:
-    ├── iot-link-biz/          # 业务逻辑层
-    │   ├── 设备接入管理
-    │   ├── 设备消息处理
-    │   ├── 产品管理
-    │   ├── 物模型管理
-    │   ├── OTA 升级管理
-    │   └── 缓存管理
-    │
-    ├── iot-link-controller/   # 控制器层
-    │   └── REST API 接口
-    │
-    ├── iot-link-facade/       # 门面接口层
-    │   ├── iot-link-api           # API 接口定义
-    │   ├── iot-link-boot-impl     # Boot 模式实现
-    │   └── iot-link-cloud-impl    # Cloud 模式实现
-    │
-    └── iot-link-server/       # 服务启动层
-        └── 独立服务部署
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>iot-platform</artifactId>
         <groupId>org.springblade</groupId>
         <version>4.9.0.RELEASE</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+
     <artifactId>iot-link</artifactId>
-    <packaging>pom</packaging>
     <name>${project.artifactId}</name>
-    <description>设备集成服务 - 设备接入与管理</description>
+    <description>设备集成服务模块</description>
+    <packaging>pom</packaging>
 
-    <!-- ======================================== -->
-    <!-- 子模块定义                                  -->
-    <!-- ======================================== -->
     <modules>
-
+        <module>iot-link-biz</module>
+        <module>iot-link-controller</module>
+        <module>iot-link-facade</module>
+        <module>iot-link-server</module>
     </modules>
 
-    <!-- ======================================== -->
-    <!-- 依赖管理 (子模块继承)                       -->
-    <!-- ======================================== -->
-    <dependencyManagement>
-        <dependencies>
-            <!-- ==================== 内部模块依赖 ==================== -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-link-biz</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-link-api</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-link-boot-impl</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-link-cloud-impl</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-link-controller</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-
-            <!-- ==================== BladeX 框架依赖 ==================== -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-core-boot</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-common</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>3.5.5</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-starter-cache</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-starter-tenant</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-starter-log</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-starter-swagger</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-core-secure</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-core-tool</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-
-            <!-- ==================== 第三方依赖 ==================== -->
-            <dependency>
-                <groupId>com.alibaba.fastjson2</groupId>
-                <artifactId>fastjson2</artifactId>
-                <version>2.0.40</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba.fastjson2</groupId>
-                <artifactId>fastjson2-extension</artifactId>
-                <version>2.0.40</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <dependencies>
+        <!-- 本地框架模块 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-basic</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-mvc</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-database</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-cache</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+    </dependencies>
 </project>

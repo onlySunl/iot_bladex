@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mqttsnet.thinglinks.producttopic.mapper.ProductTopicMapper">
+    <!--
+        代码生成器 by 2023-03-14 19:39:59
+        自定义sql建议在base文件夹同级新建ext文件夹，并新建同名且同namespace的xml进行编写。方便修改字段时，重新生成此文件。
+    -->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mqttsnet.thinglinks.producttopic.entity.ProductTopic">
+        <id column="id" property="id"/>
+        <result column="product_id" property="productId"/>
+        <result column="topic_type" property="topicType"/>
+        <result column="topic" property="topic"/>
+        <result column="publisher" property="publisher"/>
+        <result column="subscriber" property="subscriber"/>
+        <result column="remark" property="remark"/>
+        <result column="deleted" property="deleted"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="updated_time" property="updatedTime"/>
+        <result column="updated_by" property="updatedBy"/>
+        <result column="created_org_id" property="createdOrgId"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, product_id, topic_type, topic, publisher, subscriber, 
+        remark, deleted, created_time, created_by, updated_time, updated_by, created_org_id
+
+    </sql>
+
+    <!-- 逻辑删除条件 - 可在其他SQL中引用 -->
+    <sql id="LogicDelete_Condition">
+        <if test="true">deleted = 0</if>
+    </sql>
+
+</mapper>

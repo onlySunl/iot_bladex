@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mqttsnet.thinglinks.ota.mapper.OtaUpgradeTasksMapper">
+    <!--
+        代码生成器 by 2024-01-12 22:40:04
+        自定义sql建议在base文件夹同级新建ext文件夹，并新建同名且同namespace的xml进行编写。方便修改字段时，重新生成此文件。
+    -->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mqttsnet.thinglinks.ota.entity.OtaUpgradeTasks">
+        <id column="id" property="id"/>
+        <result column="upgrade_id" property="upgradeId"/>
+        <result column="task_name" property="taskName"/>
+        <result column="upgrade_method" property="upgradeMethod"/>
+        <result column="upgrade_scope" property="upgradeScope"/>
+        <result column="task_status" property="taskStatus"/>
+        <result column="scheduled_start_time" property="scheduledStartTime"/>
+        <result column="scheduled_end_time" property="scheduledEndTime"/>
+        <result column="max_retry_count" property="maxRetryCount"/>
+        <result column="current_retry_count" property="currentRetryCount"/>
+        <result column="description" property="description"/>
+        <result column="remark" property="remark"/>
+        <result column="deleted" property="deleted"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_by" property="updatedBy"/>
+        <result column="updated_time" property="updatedTime"/>
+        <result column="created_org_id" property="createdOrgId"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, upgrade_id, task_name, upgrade_method, upgrade_scope, task_status, scheduled_start_time,scheduled_end_time, max_retry_count, current_retry_count, description, remark, deleted,
+        created_by, created_time, updated_by, updated_time, created_org_id
+
+    </sql>
+
+    <!-- 逻辑删除条件 - 可在其他SQL中引用 -->
+    <sql id="LogicDelete_Condition">
+        <if test="true">deleted = 0</if>
+    </sql>
+
+</mapper>

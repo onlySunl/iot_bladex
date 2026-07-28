@@ -1,0 +1,467 @@
+package org.springblade.modules.iot.device.service.impl;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
+import com.baomidou.dynamic.datasource.annotation.DS;
+import org.springblade.core.tool.api.R;
+import org.springblade.core.database.mybatis.BladeServiceImpl;
+import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.core.mvc.exception.ServiceException;
+import org.springblade.modules.iot.protocol.factory.ProtocolMessageAdapter;
+import org.springblade.modules.iot.protocol.model.EncryptionDetailsDTO;
+import org.springblade.modules.iot.protocol.model.ProtocolDataMessageDTO;
+import org.springblade.common.utils.ArgumentAssert;
+import org.springblade.common.utils.BeanUtil;
+import org.springblade.core.tool.utils.SnowflakeIdUtil;
+import org.springblade.modules.iot.broker.MqttBrokerOpenInnerFacade;
+import org.springblade.modules.iot.broker.WebSocketBrokerOpenInnerFacade;
+import org.springblade.modules.iot.broker.DeviceDownlinkFacade;
+import org.springblade.modules.iot.vo.query.DownlinkCommand;
+import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
+import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
+import org.springblade.modules.iot.common.constant.BizConstant;
+import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.modules.iot.device.entity.DeviceCommand;
+import org.springblade.modules.iot.device.enumeration.DeviceCommandStatusEnum;
+import org.springblade.modules.iot.device.enumeration.DeviceCommandTypeEnum;
+import org.springblade.modules.iot.device.enumeration.DeviceNodeTypeEnum;
+import org.springblade.modules.iot.device.enumeration.DeviceStatusEnum;
+import org.springblade.modules.iot.device.manager.DeviceCommandManager;
+import org.springblade.modules.iot.device.service.DeviceCommandService;
+import org.springblade.modules.iot.device.service.DeviceService;
+import org.springblade.modules.iot.device.vo.query.DeviceCommandPageQuery;
+import org.springblade.modules.iot.device.vo.query.DevicePageQuery;
+import org.springblade.modules.iot.device.vo.result.DeviceResultVO;
+import org.springblade.modules.iot.device.vo.save.DeviceCommandSaveVO;
+import org.springblade.modules.iot.enumeration.QosEnum;
+import org.springblade.modules.iot.protocol.vo.param.CommandIssueRequestParam;
+import org.springblade.modules.iot.protocol.vo.param.DeviceCommandWrapperParam;
+import org.springblade.modules.iot.protocol.vo.param.PublishMqttMessageRequestParam;
+import org.springblade.modules.iot.protocol.vo.param.PublishWebSocketMessageRequestParam;
+import org.springblade.modules.iot.protocol.vo.result.DeviceCommandResultVO;
+import org.springblade.modules.iot.vo.query.PublishMessageRequestVO;
+import org.springblade.modules.iot.vo.query.PublishWebSocketMessageRequestVO;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+/**
+ * <p>
+ * 业务实现类
+ * 设备命令下发及响应表
+ * </p>
+ *
+ * @author mqttsnet
+ * @date 2023-10-20 17:27:25
+ * @create [2023-10-20 17:27:25] [mqttsnet]
+ */
+@DS(DsConstant.BASE_TENANT)
+@Slf4j
+@RequiredArgsConstructor
+@Service
+public class DeviceCommandServiceImpl extends BladeServiceImpl<DeviceCommandManager, Long, DeviceCommand> implements DeviceCommandService {
+
+    private final LinkCacheDataHelper linkCacheDataHelper;
+    private final MqttBrokerOpenInnerFacade mqttBrokerOpenInnerFacade;
+    private final WebSocketBrokerOpenInnerFacade webSocketBrokerOpenInnerFacade;
+    private final DeviceDownlinkFacade deviceDownlinkFacade;
+    private final DeviceService deviceService;
+    private final ProtocolMessageAdapter protocolMessageAdapter;
+
+
+    /**
+     * Saves a device command to the database after validation.
+     *
+     * @param deviceCommandSaveVO The device command data transfer object.
+     * @return The saved DeviceCommand entity.
+     * @throws IllegalArgumentException if input validation fails.
+     */
+    @Override
+    public DeviceCommand saveDeviceCommand(DeviceCommandSaveVO deviceCommandSaveVO) {
+        // Validate the input, build the DeviceCommand object, and save it to the database.
+        return Optional.of(deviceCommandSaveVO).filter(this::checkDeviceCommandSaveVO).map(this::buildDeviceCommand).map(deviceCommand -> {
+            deviceCommand.setCommandIdentification(SnowflakeIdUtil.nextId());
+            return superManager.save(deviceCommand) ? deviceCommand : null;
+        }).orElseThrow(() -> new IllegalArgumentException("Invalid DeviceCommandSaveVO input"));
+    }
+
+    /**
+     * Fetch a list of device command result VOs.
+     *
+     * @param query the query parameters
+     * @return a list of DeviceCommandResultVOs
+     */
+    @Override
+    public List<DeviceCommandResultVO> getDeviceCommandResultVOList(DeviceCommandPageQuery query) {
+        return BeanPlusUtil.toBeanList(superManager.getDeviceCommandResultVOList(query), DeviceCommandResultVO.class);
+    }
+
+    @Override
+    public List<DeviceCommandResultVO> listDebugHistory(String deviceIdentification, String topic, Integer limit) {
+        int safeLimit = (limit == null || limit <= 0) ? 100 : Math.min(limit, 500);
+        String topicKeyword = topic == null ? null : topic.trim();
+        boolean hasTopic = topicKeyword != null && !topicKeyword.isEmpty();
+        // 仅取命令下发(0)/命令响应(1),OTA(2)不入调试台;设备空=当前租户全部;倒序取近 N 条(命中 idx_device_cmdtype_ctime)。
+        // topic 存在 content/remark 报文中:原始/新结构化下发在 content.topic,响应新记录在 content.topic。
+        return BeanPlusUtil.toBeanList(
+                superManager.lambdaQuery()
+                        .in(DeviceCommand::getCommandType,
+                                DeviceCommandTypeEnum.COMMAND_ISSUE.getValue(),
+                                DeviceCommandTypeEnum.COMMAND_RESPONSE.getValue())
+                        .eq(deviceIdentification != null && !deviceIdentification.isEmpty(), DeviceCommand::getDeviceIdentification, deviceIdentification)
+                        .and(hasTopic, query -> query
+                                .like(DeviceCommand::getContent, topicKeyword)
+                                .or()
+                                .like(DeviceCommand::getRemark, topicKeyword))
+                        .orderByDesc(DeviceCommand::getCreatedTime)
+                        .last("LIMIT " + safeLimit)
+                        .list(),
+                DeviceCommandResultVO.class);
+    }
+
+    /**
+     * Processes both serial and parallel device command requests.
+     *
+     * @param commandWrapper wrapper containing both serial and parallel command requests
+     * @return list of device command results
+     */
+    @Override
+    public List<DeviceCommandResultVO> processDeviceCommands(DeviceCommandWrapperParam commandWrapper) {
+        List<DeviceCommandResultVO> results = new ArrayList<>();
+
+        // Process serial commands
+        Optional.ofNullable(commandWrapper.getSerial()).orElseGet(Collections::emptyList)
+                .stream()
+                .map(this::processSingleCommand)
+                .forEach(results::addAll);
+
+        // Process parallel commands（不使用 parallelStream，避免 @DS 数据源上下文在 ForkJoinPool 线程中丢失）
+        Optional.ofNullable(commandWrapper.getParallel()).orElseGet(Collections::emptyList)
+                .stream()
+                .map(this::processSingleCommand)
+                .forEach(results::addAll);
+
+        return results;
+    }
+
+    @Override
+    public void sendMqttCustomMessage(PublishMqttMessageRequestParam publishMqttMessageRequestParam) {
+        log.info("发送MQTT消息 - Topic: {}, 租户: {}, 负载类型: {}, 是否为Base64: {}",
+                publishMqttMessageRequestParam.getTopic(),
+                publishMqttMessageRequestParam.getTenantId(),
+                publishMqttMessageRequestParam.getPayload() != null ? publishMqttMessageRequestParam.getPayload().getClass().getSimpleName() : "null",
+                publishMqttMessageRequestParam.isPayloadBase64());
+
+        PublishMessageRequestVO publishMessageRequestVO = PublishMessageRequestVO.builder()
+                .reqId(Long.valueOf(SnowflakeIdUtil.nextId()))
+                .tenantId(publishMqttMessageRequestParam.getTenantId())
+                .topic(publishMqttMessageRequestParam.getTopic())
+                .qos(publishMqttMessageRequestParam.getQos())
+                .clientType("web")
+                .payload(publishMqttMessageRequestParam.getPayloadAsSmartString())
+                .forceBase64Decode(publishMqttMessageRequestParam.isPayloadBase64())
+                .expirySeconds(publishMqttMessageRequestParam.getExpirySeconds())
+                .build();
+
+        log.info("发送MQTT消息 - 最终负载长度: {}, 强制解码: {}", publishMessageRequestVO.getPayload() != null ?
+                publishMessageRequestVO.getPayload().length() : 0, publishMessageRequestVO.getForceBase64Decode());
+
+        long startTime = System.currentTimeMillis();
+
+        // 执行发送
+        R response = mqttBrokerOpenInnerFacade.sendMessage(publishMessageRequestVO);
+
+        long costTime = System.currentTimeMillis() - startTime;
+
+        // 处理响应结果
+        if (!response.getIsSuccess()) {
+            log.error("【MQTT消息发送失败】耗时: {}ms, 错误信息: {}", costTime, response.getMsg());
+            throw BizException.wrap("MQTT message sending failed. Please try again! Time consumed: {}ms", costTime);
+        } else {
+            log.info("【MQTT消息发送成功】<<< 耗时: {}ms, 响应信息: {}", costTime, response.getMsg());
+        }
+        // 原始下行也落 device_command(type=0),供调试台历史与一键重发;设备标识由前端传入,记录失败不影响已成功的发送
+        recordCustomDownlink(publishMqttMessageRequestParam.getDeviceIdentification(),
+                publishMqttMessageRequestParam.getTopic(), publishMqttMessageRequestParam.getPayloadAsSmartString());
+    }
+
+
+    @Override
+    public void sendWebSocketCustomMessage(PublishWebSocketMessageRequestParam publishWebSocketMessageRequestParam) {
+        PublishWebSocketMessageRequestVO publishMessageRequestVO = new PublishWebSocketMessageRequestVO();
+        publishMessageRequestVO.setReqId(Long.valueOf(SnowflakeIdUtil.nextId()));
+        publishMessageRequestVO.setTenantId(publishWebSocketMessageRequestParam.getTenantId());
+        publishMessageRequestVO.setTopic(publishWebSocketMessageRequestParam.getTopic());
+        publishMessageRequestVO.setClientId(publishWebSocketMessageRequestParam.getClientId());
+        publishMessageRequestVO.setClientType("web");
+        publishMessageRequestVO.setPayload(publishWebSocketMessageRequestParam.getPayload());
+
+        R response = webSocketBrokerOpenInnerFacade.sendMessage(publishMessageRequestVO);
+        if (!response.getIsSuccess()) {
+            log.warn("Failed to send WebSocket message: {}", response.getMsg());
+        }
+    }
+
+    /**
+     * 自定义/原始下行落 device_command(type=0):供调试台历史与一键重发。
+     * 设备标识由前端传入(原始 topic 不一定含设备段,故不从 topic 解析);无设备标识则不记录。
+     * 记录失败仅告警,不影响已成功的发送。
+     */
+    private void recordCustomDownlink(String deviceIdentification, String topic, String payload) {
+        if (deviceIdentification == null || deviceIdentification.isEmpty()) {
+            return;
+        }
+        try {
+            DeviceCommandSaveVO saveVO = new DeviceCommandSaveVO();
+            saveVO.setDeviceIdentification(deviceIdentification);
+            saveVO.setCommandType(DeviceCommandTypeEnum.COMMAND_ISSUE.getValue());
+            saveVO.setStatus(DeviceCommandStatusEnum.SUCCESS.getValue());
+            // 原始下行 content 存 {topic,payload}:topic 原样保留,查询时解析,不单独建列
+            JSONObject raw = new JSONObject();
+            raw.put("topic", topic);
+            raw.put("payload", payload);
+            saveVO.setContent(raw.toJSONString());
+            saveDeviceCommand(saveVO);
+        } catch (Exception e) {
+            log.warn("记录自定义下行到 device_command 失败(不影响发送): {}", e.getMessage());
+        }
+    }
+
+    /**
+     * Build DeviceCommand from DeviceCommandSaveVO.
+     *
+     * @param deviceCommandSaveVO input VO object
+     * @return DeviceCommand object
+     */
+    private DeviceCommand buildDeviceCommand(DeviceCommandSaveVO deviceCommandSaveVO) {
+        return BeanPlusUtil.toBeanIgnoreError(deviceCommandSaveVO, DeviceCommand.class);
+    }
+
+    /**
+     * Validate the DeviceCommandSaveVO object.
+     *
+     * @param deviceCommandSaveVO the input VO to validate
+     * @return true if validation passes
+     */
+    private Boolean checkDeviceCommandSaveVO(DeviceCommandSaveVO deviceCommandSaveVO) {
+        ArgumentAssert.notNull(deviceCommandSaveVO, "deviceCommandSaveVO cannot be null");
+        ArgumentAssert.notBlank(deviceCommandSaveVO.getDeviceIdentification(), "deviceIdentification cannot be null");
+        // Add other validation checks as required...
+        return true;
+    }
+
+    /**
+     * Processes a single command request for a device or all devices.
+     *
+     * @param commandRequest The command request parameters.
+     * @return List of device command results
+     */
+    protected List<DeviceCommandResultVO> processSingleCommand(CommandIssueRequestParam commandRequest) {
+        List<DeviceCommandResultVO> results = new ArrayList<>();
+
+        // Retrieve the list of devices based on the identification provided.
+        String productIdentification = commandRequest.getProductIdentification();
+        String deviceIdentification = commandRequest.getDeviceIdentification();
+
+        List<DeviceResultVO> deviceResultVOList;
+
+        if (BizConstant.ALL.equals(deviceIdentification)) {
+            // 获取所有设备的结果列表
+            deviceResultVOList = getAllDeviceResultVOs(productIdentification);
+        } else {
+            // 获取单个设备的结果列表
+            deviceResultVOList = getSingleDeviceResultVO(deviceIdentification);
+        }
+        // Process each device command.
+        deviceResultVOList.forEach(deviceResultVO -> {
+            // Build and send the command message.
+            SendOutcome outcome = buildAndSendMessage(deviceResultVO.getDeviceIdentification(), commandRequest);
+
+            DeviceCommandSaveVO deviceCommandSaveVO = createDeviceCommandSaveVO(deviceResultVO, outcome);
+
+            // Save the command for record keeping.
+            DeviceCommand savedCommand = saveDeviceCommand(deviceCommandSaveVO);
+
+            // Convert to result VO and add to results
+            DeviceCommandResultVO resultVO = BeanPlusUtil.toBean(savedCommand, DeviceCommandResultVO.class);
+            results.add(resultVO);
+        });
+
+        return results;
+    }
+
+    /**
+     * Retrieves a list of all device result value objects for a specific product.
+     *
+     * @param productIdentification a product identification string used to find devices.
+     * @return A list of DeviceResultVO objects, each representing a device linked to the product.
+     */
+    private List<DeviceResultVO> getAllDeviceResultVOs(String productIdentification) {
+        DevicePageQuery devicePageQuery = new DevicePageQuery();
+        devicePageQuery.setProductIdentification(productIdentification);
+        devicePageQuery.setDeviceStatus(DeviceStatusEnum.ACTIVATED.getValue());
+        return deviceService.getDeviceResultVOList(devicePageQuery);
+    }
+
+    /**
+     * Retrieves the device result value object for a single device.
+     *
+     * @param deviceIdentification The device's unique identifier.
+     * @return A list containing the single DeviceResultVO.
+     */
+    private List<DeviceResultVO> getSingleDeviceResultVO(String deviceIdentification) {
+        Optional<DeviceCacheVO> deviceCacheVOOptional = linkCacheDataHelper.getDeviceCacheVO(deviceIdentification);
+        return deviceCacheVOOptional.map(deviceCacheVO -> Collections.singletonList(BeanPlusUtil.toBeanIgnoreError(deviceCacheVO, DeviceResultVO.class))).orElse(Collections.emptyList());
+    }
+
+    /**
+     * Creates a DeviceCommandSaveVO object based on the command request and response.
+     *
+     * @param deviceResultVO The device result value object.
+     * @param response       The response from the MQTT broker.
+     * @return A populated DeviceCommandSaveVO object.
+     */
+    private DeviceCommandSaveVO createDeviceCommandSaveVO(DeviceResultVO deviceResultVO, SendOutcome outcome) {
+        R response = outcome.response();
+        DeviceCommandSaveVO deviceCommandSaveVO = new DeviceCommandSaveVO();
+        deviceCommandSaveVO.setDeviceIdentification(deviceResultVO.getDeviceIdentification());
+        deviceCommandSaveVO.setCommandType(DeviceCommandTypeEnum.COMMAND_ISSUE.getValue());
+        deviceCommandSaveVO.setStatus(response.getIsSuccess()
+                ? DeviceCommandStatusEnum.SUCCESS.getValue()
+                : DeviceCommandStatusEnum.FAILURE.getValue());
+        // content 存「实际发出的命令报文」(cloudReq,含 serviceCode/cmd/params/versionNo/topic),供历史展示、topic 查询与一键重发;
+        // 派发结果留痕到 remark。serviceCode/cmd/版本/topic 查询时由 content 解析,不单独建列。
+        deviceCommandSaveVO.setContent(buildCommandRecordContent(outcome));
+        deviceCommandSaveVO.setRemark(response.toString());
+        return deviceCommandSaveVO;
+    }
+
+    private String buildCommandRecordContent(SendOutcome outcome) {
+        try {
+            JSONObject content = JSON.parseObject(outcome.sentPayload());
+            content.put("topic", outcome.topic());
+            return content.toJSONString();
+        } catch (Exception e) {
+            JSONObject content = new JSONObject();
+            content.put("topic", outcome.topic());
+            content.put("payload", outcome.sentPayload());
+            return content.toJSONString();
+        }
+    }
+
+
+    /**
+     * Builds and sends a command message to the device.
+     *
+     * @param deviceIdentification The deviceIdentification value object.
+     * @param commandRequest       The command issue request parameters.
+     * @return The response from the MQTT Or WebSocket broker.
+     */
+    private SendOutcome buildAndSendMessage(String deviceIdentification, CommandIssueRequestParam commandRequest) {
+        // Retrieve the device cache VO from the cache
+        Optional<DeviceCacheVO> deviceCacheVOOptional = linkCacheDataHelper.getDeviceCacheVO(deviceIdentification);
+        ArgumentAssert.isTrue(deviceCacheVOOptional.isPresent(), "Device does not exist!");
+        DeviceCacheVO deviceCacheVO = deviceCacheVOOptional.get();
+        // Build the encryption details if all necessary information is present
+        Optional<EncryptionDetailsDTO> encryptionDetailsOpt = Optional.of(deviceCacheVO).map(drv -> EncryptionDetailsDTO.builder().mId(Long.valueOf(SnowflakeIdUtil.nextId())).signKey(drv.getSignKey()).encryptKey(drv.getEncryptKey()).encryptVector(drv.getEncryptVector()).cipherFlag(drv.getEncryptMethod()).build());
+
+        // 构造命令业务体 JSON 串。buildCommandMessage 内部已 JSON.toJSONString 一次,
+        // 这里不能再 .map(JSON::toJSONString)(会把 JSON 串当对象再序列化 → dataBody 多重转义)。
+        // 单次序列化的 JSON 串交给 buildResponse,明文时其内部会还原成对象塞进 dataBody。
+        String commandMessageJson = Optional.ofNullable(commandRequest).map(cr -> buildCommandMessage(deviceCacheVO, cr)).orElse("{}");
+
+        // Try to build the response using the encryption details
+        Optional<ProtocolDataMessageDTO> handleResultOpt = encryptionDetailsOpt.flatMap(encryptionDetails -> {
+            log.info("处理报文加密....commandMessageJson:{},encryptionDetails:{}", commandMessageJson, JSON.toJSONString(encryptionDetails));
+            try {
+                // Attempt to build the response with encryption details and return as an Optional
+                return Optional.ofNullable(protocolMessageAdapter.buildResponse(commandMessageJson, encryptionDetails));
+            } catch (Exception e) {
+                // Log and handle any exceptions that occur during response building
+                log.error("Failed to build the response due to an exception....commandMessageJson:{},encryptionDetails:{}", commandMessageJson, JSON.toJSONString(encryptionDetails), e);
+                return Optional.empty();
+            }
+        });
+
+        // Prepare the MQTT message content with a default response if handleResult is absent
+        String messageContent = handleResultOpt.map(JSON::toJSONString).orElseGet(() -> {
+            // Log the absence of handleResult and use a default empty message
+            log.warn("No response object was constructed; using default empty message.");
+            return "{}";
+        });
+
+        // Generate the response topic string
+        String responseTopic = generateResponseTopic(deviceCacheVO);
+
+        // 按产品协议类型分流下行,收敛到共享派发器;协议解析不出由派发器兜底 MQTT。
+        // protocolType 取值同 ProtocolTypeEnum.getValue():MQTT 走 topic,WebSocket 走 clientId。
+        String protocolType = linkCacheDataHelper
+                .resolveProtocolType(deviceCacheVO.getProductIdentification(),
+                        deviceCacheVO.getBoundProductVersionNo())
+                .orElse(null);
+        R response = deviceDownlinkFacade.dispatch(DownlinkCommand.builder()
+                .protocolType(protocolType)
+                .tenantId(String.valueOf(ContextUtil.getTenantId()))
+                .clientId(deviceCacheVO.getClientId())
+                .deviceIdentification(deviceCacheVO.getDeviceIdentification())
+                .topic(responseTopic)
+                .qos(QosEnum.EXACTLY_ONCE.getValue().toString())
+                .payload(messageContent)
+                .build());
+        return new SendOutcome(response, commandMessageJson, responseTopic);
+    }
+
+    /** 下发结果:dispatch 响应 + 实际发出的命令报文(cloudReq),落库到 content 供展示与重发。 */
+    private record SendOutcome(R response, String sentPayload, String topic) {}
+
+
+    /**
+     * Generates a response topic string using the provided version and device ID.
+     *
+     * @param deviceCacheVO The device result value object.
+     * @return A complete response topic string.
+     */
+    protected String generateResponseTopic(DeviceCacheVO deviceCacheVO) {
+        // Determine the device node type using Optional and the enum's fromValue method
+        DeviceNodeTypeEnum deviceNodeTypeEnum = Optional.ofNullable(deviceCacheVO.getNodeType())
+                .flatMap(DeviceNodeTypeEnum::fromValue)
+                .orElse(DeviceNodeTypeEnum.ORDINARY);
+
+        // Get the SDK version, defaulting to "defaultSdkVersion" if not present
+        String sdkVersion = Optional.ofNullable(deviceCacheVO.getDeviceSdkVersion()).orElse("defaultSdkVersion");
+
+        // Determine the device ID based on the node type
+        String deviceId;
+        if (DeviceNodeTypeEnum.SUBDEVICE.equals(deviceNodeTypeEnum)) {
+            // Use gatewayId if the device is a subdevice or gateway
+            deviceId = Optional.ofNullable(deviceCacheVO.getGatewayId()).orElse("defaultGatewayId");
+        } else {
+            // Use deviceIdentification for ordinary devices
+            deviceId = Optional.ofNullable(deviceCacheVO.getDeviceIdentification()).orElse("defaultDeviceIdentification");
+        }
+
+        // Construct the response topic string
+        return String.format("/%s/devices/%s%s", sdkVersion, deviceId, "/command");
+    }
+
+
+    /**
+     * Build command message.
+     *
+     * @param deviceCacheVO  device result VO
+     * @param commandRequest command request
+     * @return command message
+     */
+    private String buildCommandMessage(DeviceCacheVO deviceCacheVO, CommandIssueRequestParam commandRequest) {
+        // Adapter logic to build the command message should be placed here.
+        commandRequest.setDeviceIdentification(deviceCacheVO.getDeviceIdentification());
+        return JSON.toJSONString(commandRequest);
+    }
+
+}
+

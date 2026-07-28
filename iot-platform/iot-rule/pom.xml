@@ -1,142 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    规则引擎服务模块
-    
-    模块结构:
-    ├── iot-rule-biz/          # 业务逻辑层
-    │   ├── 规则定义与管理
-    │   ├── 规则执行引擎
-    │   ├── 场景联动
-    │   ├── 告警规则
-    │   ├── 数据转发
-    │   └── 条件评估
-    │
-    ├── iot-rule-biz-bridge/   # 数据桥接层
-    │   └── 数据源和数据目标桥接
-    │
-    ├── iot-rule-controller/   # 控制器层
-    │   └── REST API 接口
-    │
-    ├── iot-rule-facade/       # 门面接口层
-    │   ├── iot-rule-api           # API 接口定义
-    │   ├── iot-rule-boot-impl     # Boot 模式实现
-    │   └── iot-rule-cloud-impl    # Cloud 模式实现
-    │
-    └── iot-rule-server/       # 服务启动层
-        └── 独立服务部署
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>iot-platform</artifactId>
         <groupId>org.springblade</groupId>
         <version>4.9.0.RELEASE</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+
     <artifactId>iot-rule</artifactId>
-    <packaging>pom</packaging>
     <name>${project.artifactId}</name>
-    <description>规则引擎服务 - 场景联动与规则执行</description>
+    <description>规则引擎服务模块</description>
+    <packaging>pom</packaging>
 
-    <!-- ======================================== -->
-    <!-- 子模块定义                                  -->
-    <!-- ======================================== -->
     <modules>
-
+        <module>iot-rule-biz</module>
+        <module>iot-rule-biz-bridge</module>
+        <module>iot-rule-controller</module>
+        <module>iot-rule-facade</module>
+        <module>iot-rule-server</module>
     </modules>
 
-    <!-- ======================================== -->
-    <!-- 依赖管理 (子模块继承)                       -->
-    <!-- ======================================== -->
-    <dependencyManagement>
-        <dependencies>
-            <!-- ==================== 内部模块依赖 ==================== -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-rule-biz</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-rule-api</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-rule-boot-impl</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-rule-cloud-impl</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-rule-controller</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-
-            <!-- ==================== BladeX 框架依赖 ==================== -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-core-boot</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-common</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>3.5.5</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-starter-cache</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-starter-tenant</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-starter-log</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-starter-swagger</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-core-secure</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-core-tool</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-
-            <!-- ==================== 第三方依赖 ==================== -->
-            <dependency>
-                <groupId>com.alibaba.fastjson2</groupId>
-                <artifactId>fastjson2</artifactId>
-                <version>2.0.40</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba.fastjson2</groupId>
-                <artifactId>fastjson2-extension</artifactId>
-                <version>2.0.40</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <dependencies>
+        <!-- 本地框架模块 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-basic</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-mvc</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-database</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-cache</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+    </dependencies>
 </project>

@@ -1,0 +1,100 @@
+package org.springblade.modules.iot.rule.facade.impl;
+
+import org.springblade.core.tool.api.R;
+import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.core.mvc.exception.ServiceException;
+import org.springblade.common.utils.ArgumentAssert;
+import org.springblade.modules.iot.bridge.scheduler.BridgeMaintenanceScheduler;
+import org.springblade.modules.iot.rule.facade.RuleJobHandlerFacade;
+import org.springblade.modules.iot.service.linkage.RuleService;
+import org.springblade.modules.iot.service.script.RuleGroovyScriptService;
+import org.springblade.modules.iot.vo.param.script.RuleGroovyScriptExecuteScriptParam;
+import org.springblade.modules.iot.vo.result.linkage.RuleDetailsResultVO;
+import org.springblade.modules.iot.vo.result.script.GroovyScriptEngineExecutorResultVO;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+/**
+ * @author tangyh
+ * @since 2024/12/24 21:07
+ */
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class RuleJobHandlerFacadeImpl implements RuleJobHandlerFacade {
+    private final RuleService ruleService;
+
+    private final RuleGroovyScriptService ruleGroovyScriptService;
+
+    private final BridgeMaintenanceScheduler bridgeMaintenanceScheduler;
+
+    @Override
+    public R<RuleDetailsResultVO> triggerRulePolicy(Long tenantId, String ruleIdentification) {
+
+        ArgumentAssert.notNull(tenantId, "tenantId  Cannot be null");
+        ArgumentAssert.notEmpty(ruleIdentification, "ruleIdentification Cannot be null");
+        log.info("Trigger Rule Policy - Tenant ID: {}, Rule Identification: {}", tenantId, ruleIdentification);
+        try {
+            ContextUtil.setTenantId(tenantId);
+            RuleDetailsResultVO ruleDetailsResultVO = ruleService.triggerRulePolicy(tenantId, ruleIdentification);
+            log.info("Successfully triggered rule policy - Tenant ID: {}, Rule Identification: {}, Result: {}", tenantId, ruleIdentification, ruleDetailsResultVO);
+            return R.success(ruleDetailsResultVO);
+        } catch (BizException bizException) {
+            log.warn("Business exception while triggering rule policy - Tenant ID: {}, Rule Identification: {}, Message: {}", tenantId, ruleIdentification, bizException.getMessage(), bizException);
+            return R.fail("Business error triggering rule policy: " + bizException.getMessage());
+        } catch (Exception e) {
+            log.error("Unexpected error while triggering rule policy - Tenant ID: {}, Rule Identification: {}", tenantId, ruleIdentification, e);
+            return R.fail("Unexpected error triggering rule policy: " + e.getMessage());
+        }
+
+    }
+
+    @Override
+    public R<Boolean> flushGroovyScriptCache() {
+        try {
+            return R.success(ruleGroovyScriptService.flushGroovyScriptCache());
+        } catch (BizException bizException) {
+            log.warn("Business exception while flushing groovy script cache: ", bizException);
+            return R.fail(bizException);
+        } catch (Exception e) {
+            log.error("Unexpected error while flushing groovy script cache: ", e);
+            return R.fail("Unexpected error flushing groovy script cache: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public R<GroovyScriptEngineExecutorResultVO> executeScript(RuleGroovyScriptExecuteScriptParam param) {
+        try {
+            return R.success(ruleGroovyScriptService.executeScript(param));
+        } catch (BizException bizException) {
+            log.warn("Business exception while executing script: ", bizException);
+            return R.fail(bizException);
+        } catch (Exception e) {
+            log.error("Unexpected error while executing script: ", e);
+            return R.fail("Unexpected error executing script: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public R<Boolean> runBridgeHealthCheck() {
+        try {
+            bridgeMaintenanceScheduler.runHealthCheck(true);
+            return R.success(true);
+        } catch (Exception e) {
+            log.error("Bridge health check failed", e);
+            return R.fail("Bridge health check failed: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public R<Boolean> runBridgeTraceCleanup(Integer retentionDays) {
+        try {
+            bridgeMaintenanceScheduler.cleanupOldTraces(retentionDays);
+            return R.success(true);
+        } catch (Exception e) {
+            log.error("Bridge trace cleanup failed", e);
+            return R.fail("Bridge trace cleanup failed: " + e.getMessage());
+        }
+    }
+}
