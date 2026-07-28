@@ -363,6 +363,18 @@
                 <artifactId>blade-core-cache</artifactId>
                 <version>4.9.0.RELEASE</version>
             </dependency>
+            <!-- BladeX API 模块 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-api</artifactId>
+                <version>4.9.0.RELEASE</version>
+            </dependency>
+            <!-- BladeX 核心基础模块 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-basic</artifactId>
+                <version>4.9.0.RELEASE</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
