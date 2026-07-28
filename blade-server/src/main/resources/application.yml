@@ -213,6 +213,7 @@ blade:
   #redis序列化方式
   redis:
     serializer-type: protostuff
+  ignore:
   #日志配置
   log:
     request:

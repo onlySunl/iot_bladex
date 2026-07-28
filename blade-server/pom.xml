@@ -24,69 +24,28 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-common</artifactId>
+            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-api</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <!-- ===== 2. IOT 视频平台公共模块 ===== -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-platform</artifactId>
+            <version>4.9.0.RELEASE</version>
         </dependency>
 
-        <!-- ===== 2. NVR 视频平台公共模块 ===== -->
+        <!-- ===== 3. NVR 视频平台公共模块 ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>nvr-common</artifactId>
+            <artifactId>nvr-platform</artifactId>
+            <version>4.9.0.RELEASE</version>
         </dependency>
 
-
-
-        <!-- ===== 4. NVR 各厂商 API 模块 ===== -->
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-api-dahua</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-api-gb28181</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-api-haikang</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-api-haikang-isup</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-api-jt1078</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-api-onvif</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-api-qs</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-api-zlm</artifactId>
-        </dependency>
-
-        <!-- ===== 5. NVR 协议底层实现模块 ===== -->
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-protocol-qs</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-protocol-haikang-isup</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-protocol-zlm</artifactId>
-        </dependency>
-
-        <!-- ===== 6. Redisson 分布式锁/队列（规则引擎使用） ===== -->
+        <!-- ===== 3. Redisson 分布式锁/队列（规则引擎使用） ===== -->
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>

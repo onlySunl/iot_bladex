@@ -27,13 +27,6 @@
             <artifactId>blade-common</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>thinglinks-core</artifactId>
-            <version>1.0.8.3</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-basic</artifactId>
             <version>4.9.0.RELEASE</version>

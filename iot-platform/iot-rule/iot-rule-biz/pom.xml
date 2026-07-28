@@ -15,54 +15,7 @@
     <description>规则引擎服务-业务模块</description>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-rule-entity</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-oauth-api</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-file-sdk</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-databases</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-cache-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-echo-starter</artifactId>
-        </dependency>
-
         <!-- ============================== 北向集成 / 数据桥接 ============================== -->
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-databridge-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-rocketmq-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-dinger-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-mvc</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -83,21 +36,6 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-extension</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-condition-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-plugins-starter</artifactId>
-            <version>${thinglinks-util.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-groovy-engine-starter</artifactId>
-            <version>${thinglinks-util.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-link-biz</artifactId>

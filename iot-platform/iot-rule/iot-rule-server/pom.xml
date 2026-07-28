@@ -27,26 +27,6 @@
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-oauth-api</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-oauth-cloud-impl</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-common-config</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-link-cloud-impl</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
             <artifactId>iot-broker-cloud-impl</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
@@ -54,32 +34,6 @@
             <groupId>org.springblade</groupId>
             <artifactId>iot-tds-cloud-impl</artifactId>
             <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-system-cloud-impl</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-base-cloud-impl</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-data-scope-sdk</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-all-cloud</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-dynamic-tp-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

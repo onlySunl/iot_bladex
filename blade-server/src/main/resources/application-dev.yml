@@ -41,6 +41,7 @@ blade:
     super-token: 22a980123b63b5581e1ad0f1c5852e56cefcdeedd466737ba77996ddf2ba67c538439dd7e45115d1952ac8148a633a80
   mybatis-plus:
     sqlLog: true
+
   #分布式锁配置
   lock:
     ##是否启用分布式锁

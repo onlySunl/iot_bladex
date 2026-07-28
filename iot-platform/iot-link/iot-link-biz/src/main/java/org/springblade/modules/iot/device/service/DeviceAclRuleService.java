@@ -2,7 +2,7 @@ package org.springblade.modules.iot.device.service;
 
 import java.util.List;
 
-import org.springblade.basic.base.service.SuperService;
+import org.springblade.basic.mvc.service.SuperService;
 import org.springblade.modules.iot.cache.vo.device.DeviceAclRuleCacheVO;
 import org.springblade.modules.iot.device.entity.DeviceAclRule;
 import org.springblade.modules.iot.device.vo.query.DeviceAclCheckQuery;

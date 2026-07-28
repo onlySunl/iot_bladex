@@ -28,7 +28,7 @@ import java.io.Serial;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "iot_device_command", comment = "DeviceCommand table")
-public class DeviceCommand extends Entity {
+public class DeviceCommand extends Entity<Long> {
     @Serial
     private static final long serialVersionUID = 1L;
 

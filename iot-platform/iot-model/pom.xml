@@ -21,12 +21,6 @@
             <artifactId>blade-core-basic</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
-        <!-- IoT 公共模块 -->
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-common</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>

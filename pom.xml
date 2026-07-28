@@ -71,7 +71,6 @@
     <!-- ==================== 全局依赖版本统一管理 ==================== -->
     <dependencyManagement>
         <dependencies>
-
             <!-- ===== 1. BladeX 顶层 BOM & 基础框架 ===== -->
             <dependency>
                 <groupId>org.springblade.platform</groupId>
@@ -80,14 +79,12 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
             <!-- ===== 覆盖 mybatis-plus-join 版本（兼容 MyBatis-Plus 3.5.8+） ===== -->
             <dependency>
                 <groupId>com.github.yulichang</groupId>
                 <artifactId>mybatis-plus-join-boot-starter</artifactId>
                 <version>${mybatis-plus-join.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>blade-core-boot</artifactId>
@@ -168,129 +165,6 @@
                 <version>${angus.mail.version}</version>
             </dependency>
 
-            <!-- ===== 7. IOT 物联网平台聚合与基础模块 ===== -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-platform</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <!-- ===== 8. NVR 视频监控平台聚合与子模块 ===== -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-platform</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-common</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <!-- ===== 9. IOT 内部子模块（供blade-server引用） ===== -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-link</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-entity-broker</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-entity-link</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-entity-mqs</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-entity-rule</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>iot-entity-tds</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <!-- ===== 10. NVR API 子模块（供blade-server引用） ===== -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-api-dahua</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-api-gb28181</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-api-haikang</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-api-haikang-isup</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-api-jt1078</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-api-onvif</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-api-qs</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-api-zlm</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <!-- ===== 11. NVR Protocol 子模块（供blade-server引用） ===== -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-protocol-qs</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-protocol-haikang-isup</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>nvr-protocol-zlm</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <!-- ===== 12. Redisson 分布式锁/队列（3.27.2 兼容 Spring Boot 3.2.x） ===== -->
-            <!--  <dependency>
-                  <groupId>org.redisson</groupId>
-                  <artifactId>redisson-spring-boot-starter</artifactId>
-                  <version>3.27.2</version>
-              </dependency>-->
-
-            <!-- ===== 13. Redis 连接池（Lettuce 必需） ===== -->
-            <!-- <dependency>
-                 <groupId>org.apache.commons</groupId>
-                 <artifactId>commons-pool2</artifactId>
-                 <version>2.12.0</version>
-             </dependency>-->
 
             <!-- ===== 14. MapStruct 版本管理（1.5.5 兼容 Lombok） ===== -->
             <dependency>
@@ -303,32 +177,11 @@
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.mqttsnet.basic</groupId>
-                <artifactId>thinglinks-core</artifactId>
-                <version>${thinglinks.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.mqttsnet.basic</groupId>
-                <artifactId>thinglinks-mvc</artifactId>
-                <version>${thinglinks.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.mqttsnet.basic</groupId>
-                <artifactId>thinglinks-databridge-starter</artifactId>
-                <version>${thinglinks.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.mqttsnet.basic</groupId>
-                <artifactId>thinglinks-condition-starter</artifactId>
-                <version>${thinglinks.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <!-- ==================== 全局公共依赖（所有子模块自动继承） ==================== -->
     <dependencies>
-
         <!-- ===== 0. 自动建表注解（全局，覆盖BOM中的provided scope） ===== -->
         <dependency>
             <groupId>com.tangzc</groupId>
@@ -560,7 +413,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <!-- ==================== 子模块列表 ==================== -->
     <modules>
         <module>blade-server</module>

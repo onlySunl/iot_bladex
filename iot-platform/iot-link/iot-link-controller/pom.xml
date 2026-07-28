@@ -13,22 +13,10 @@
     <artifactId>iot-link-controller</artifactId>
     <name>${project.artifactId}</name>
     <description>设备集成服务-控制器模块</description>
-
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-data-scope-sdk</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
             <artifactId>iot-link-biz</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-login-user-resolver</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
     </dependencies>

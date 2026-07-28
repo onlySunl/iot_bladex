@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.device.service;
 
-import org.springblade.basic.base.service.SuperService;
+import org.springblade.basic.mvc.service.SuperService;
 import org.springblade.modules.iot.device.entity.DeviceLocation;
 import org.springblade.modules.iot.device.vo.query.DeviceLocationPageQuery;
 import org.springblade.modules.iot.device.vo.result.DeviceLocationResultVO;

@@ -16,16 +16,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-link-entity</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-file-sdk</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
@@ -34,35 +24,21 @@
             <artifactId>jakarta.websocket-client-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-databases</artifactId>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-database</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-cache-starter</artifactId>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-cache</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-echo-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-mvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-protocol-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-dynamic-tp-starter</artifactId>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-mvc</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-system-api</artifactId>
-            <version>4.9.0.RELEASE</version>
+            <artifactId>iot-entity-link</artifactId>
         </dependency>
 
         <dependency>
@@ -77,11 +53,7 @@
             <version>4.9.0.RELEASE</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-base-api</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -143,8 +115,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-statemachine-starter</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring</artifactId>
         </dependency>
 
     </dependencies>

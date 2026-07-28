@@ -8,7 +8,6 @@ import org.springblade.basic.base.service.impl.SuperServiceImpl;
 import org.springblade.basic.database.mybatis.conditions.Wraps;
 import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.basic.utils.TreeUtil;
-import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.device.entity.group.DeviceGroup;
 import org.springblade.modules.iot.device.manager.group.DeviceGroupManager;
 import org.springblade.modules.iot.device.service.group.DeviceGroupRelService;

@@ -3,8 +3,8 @@ package org.springblade.modules.iot.device.service;
 import java.util.List;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.basic.base.request.PageParams;
-import org.springblade.basic.base.service.SuperService;
+import org.springblade.basic.mvc.request.PageParams;
+import org.springblade.basic.mvc.service.SuperService;
 import org.springblade.modules.iot.device.entity.Device;
 import org.springblade.modules.iot.device.vo.query.DeviceAuthenticationQuery;
 import org.springblade.modules.iot.device.vo.query.DeviceDetailsPageQuery;

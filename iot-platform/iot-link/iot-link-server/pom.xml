@@ -13,31 +13,10 @@
     <artifactId>iot-link-server</artifactId>
     <name>${project.artifactId}</name>
     <description>设备集成服务-启动模块</description>
-
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-link-controller</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-oauth-api</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-oauth-cloud-impl</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-common-config</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-base-cloud-impl</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
@@ -50,28 +29,6 @@
             <artifactId>iot-tds-cloud-impl</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-system-cloud-impl</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-data-scope-sdk</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-all-cloud</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-dynamic-tp-starter</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

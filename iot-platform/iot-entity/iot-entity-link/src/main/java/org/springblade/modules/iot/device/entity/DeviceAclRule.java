@@ -28,7 +28,7 @@ import java.io.Serial;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "iot_device_acl_rule", comment = "DeviceAclRule table")
-public class DeviceAclRule extends Entity {
+public class DeviceAclRule extends Entity<Long> {
     @Serial
     private static final long serialVersionUID = 1L;
 

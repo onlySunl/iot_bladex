@@ -16,8 +16,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>thinglinks-rule-api</module>
-        <module>thinglinks-rule-boot-impl</module>
-        <module>thinglinks-rule-cloud-impl</module>
+        <module>iot-rule-api</module>
+        <module>iot-rule-boot-impl</module>
+        <module>iot-rule-cloud-impl</module>
     </modules>
 </project>

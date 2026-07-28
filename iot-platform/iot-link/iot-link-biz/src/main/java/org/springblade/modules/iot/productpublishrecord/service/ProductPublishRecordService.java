@@ -3,7 +3,7 @@ package org.springblade.modules.iot.productpublishrecord.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.springblade.basic.base.service.SuperService;
+import org.springblade.basic.mvc.service.SuperService;
 import org.springblade.modules.iot.productpublishrecord.entity.ProductPublishRecord;
 import org.springblade.modules.iot.productpublishrecord.vo.ddl.PublishDdlItemVO;
 import org.springblade.modules.iot.productpublishrecord.vo.result.StrategyResultDTO;

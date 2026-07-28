@@ -30,7 +30,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "iot_device_group_rel", comment = "DeviceGroupRel table")
-public class DeviceGroupRel extends Entity {
+public class DeviceGroupRel extends Entity<Long> {
     @Serial
     private static final long serialVersionUID = 1L;
 

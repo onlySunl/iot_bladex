@@ -99,18 +99,6 @@
     </dependency>
     <dependency>
       <groupId>com.mqttsnet.basic</groupId>
-      <artifactId>thinglinks-cache-starter</artifactId>
-      <version>1.0.8.3</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.mqttsnet.basic</groupId>
-      <artifactId>thinglinks-core</artifactId>
-      <version>1.0.8.3</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.mqttsnet.basic</groupId>
       <artifactId>thinglinks-rocketmq-starter</artifactId>
       <version>1.0.8.3</version>
       <scope>compile</scope>

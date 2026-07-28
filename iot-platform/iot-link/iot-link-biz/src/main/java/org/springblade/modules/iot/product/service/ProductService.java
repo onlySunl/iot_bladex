@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springblade.basic.base.request.PageParams;
-import org.springblade.basic.base.service.SuperService;
+import org.springblade.basic.mvc.service.SuperService;
 import org.springblade.modules.iot.device.vo.result.ProductOverviewResultVO;
 import org.springblade.modules.iot.product.entity.Product;
 import org.springblade.modules.iot.product.vo.param.ProductParamVO;

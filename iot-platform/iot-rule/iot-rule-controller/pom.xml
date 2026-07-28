@@ -17,24 +17,8 @@
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-data-scope-sdk</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springblade</groupId>
             <artifactId>iot-rule-biz</artifactId>
             <version>4.9.0.RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-login-user-resolver</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>iot-condition-starter</artifactId>
         </dependency>
     </dependencies>
 </project>

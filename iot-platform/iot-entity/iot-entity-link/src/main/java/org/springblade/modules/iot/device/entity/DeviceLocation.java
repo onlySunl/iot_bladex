@@ -29,7 +29,7 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 @Builder(toBuilder = true)
 @AutoTable(value = "iot_device_location", comment = "DeviceLocation table")
-public class DeviceLocation extends Entity {
+public class DeviceLocation extends Entity<Long> {
     @Serial
     private static final long serialVersionUID = 1L;
 
