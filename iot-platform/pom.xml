@@ -351,6 +351,12 @@
                 <artifactId>blade-core-mvc</artifactId>
                 <version>4.9.0.RELEASE</version>
             </dependency>
+            <!-- 核心数据库模块 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-database</artifactId>
+                <version>4.9.0.RELEASE</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

@@ -536,6 +536,7 @@
         <module>nvr-platform</module>
         <module>blade-base-entity</module>
         <module>blade-core-mvc</module>
+        <module>blade-core-database</module>
     </modules>
 
     <build>
