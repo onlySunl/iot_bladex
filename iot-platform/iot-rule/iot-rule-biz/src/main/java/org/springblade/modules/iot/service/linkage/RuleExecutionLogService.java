@@ -17,7 +17,7 @@ import org.springblade.modules.iot.vo.result.linkage.RuleExecutionLogStatsResult
  * @date 2024-12-02 18:41:26
  * @create [2024-12-02 18:41:26] [mqttsnet]
  */
-public interface RuleExecutionLogService extends BaseService<Long, RuleExecutionLog> {
+public interface RuleExecutionLogService extends BaseService<RuleExecutionLog> {
 
 
     /**

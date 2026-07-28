@@ -1,34 +1,21 @@
 package org.springblade.modules.iot.alarm.controller;
 
-import org.springblade.common.annotation.log.WebLog;
-import org.springblade.core.tool.api.R;
-import org.springblade.core.mp.base.BaseController;
-import org.springblade.common.base.request.PageParams;
-import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
-import org.springblade.common.interfaces.echo.EchoService;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
-import org.springblade.modules.iot.entity.alarm.RuleAlarmChannel;
-import org.springblade.modules.iot.service.alarm.RuleAlarmChannelService;
-import org.springblade.modules.iot.vo.query.alarm.RuleAlarmChannelPageQuery;
-import org.springblade.modules.iot.vo.result.alarm.RuleAlarmChannelDetailsResultVO;
-import org.springblade.modules.iot.vo.result.alarm.RuleAlarmChannelResultVO;
-import org.springblade.modules.iot.vo.save.alarm.RuleAlarmChannelSaveVO;
-import org.springblade.modules.iot.vo.update.alarm.RuleAlarmChannelUpdateVO;
+import com.mqttsnet.basic.annotation.log.WebLog;
+import com.mqttsnet.basic.interfaces.echo.EchoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.service.alarm.RuleAlarmChannelService;
+import org.springblade.modules.iot.vo.result.alarm.RuleAlarmChannelDetailsResultVO;
+import org.springblade.modules.iot.vo.save.alarm.RuleAlarmChannelSaveVO;
+import org.springblade.modules.iot.vo.update.alarm.RuleAlarmChannelUpdateVO;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -46,23 +33,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/ruleAlarmChannel")
 @Tag(name = "告警规则渠道")
-public class RuleAlarmChannelController extends BaseController<RuleAlarmChannelService, Long, RuleAlarmChannel, RuleAlarmChannelSaveVO,
-        RuleAlarmChannelUpdateVO, RuleAlarmChannelPageQuery, RuleAlarmChannelResultVO> {
+public class RuleAlarmChannelController extends BladeController {
     private final EchoService echoService;
 
-    @Override
+
     public EchoService getEchoService() {
         return echoService;
     }
 
-    @Override
-    public QueryWrap<RuleAlarmChannel> handlerWrapper(RuleAlarmChannel model, PageParams<RuleAlarmChannelPageQuery> params) {
-        QueryWrap<RuleAlarmChannel> queryWrap = super.handlerWrapper(model, params);
-        // 开启数据权限
-        DataScopeHelper.startDataScope("rule_alarm_channel");
-        return queryWrap;
-    }
-
+    private final RuleAlarmChannelService superService;
 
     /**
      * 保存告警渠道
@@ -74,7 +53,7 @@ public class RuleAlarmChannelController extends BaseController<RuleAlarmChannelS
     @PostMapping("/saveAlarmChannel")
     @WebLog(value = "保存告警渠道", request = false)
     public R<RuleAlarmChannelSaveVO> saveAlarmChannel(@RequestBody RuleAlarmChannelSaveVO saveVO) {
-        return R.success(superService.saveAlarmChannel(saveVO));
+        return R.data(superService.saveAlarmChannel(saveVO));
     }
 
     /**
@@ -87,7 +66,7 @@ public class RuleAlarmChannelController extends BaseController<RuleAlarmChannelS
     @PutMapping("/updateAlarmChannel")
     @WebLog(value = "修改告警渠道", request = false)
     public R<RuleAlarmChannelUpdateVO> updateAlarmChannel(@RequestBody RuleAlarmChannelUpdateVO updateVO) {
-        return R.success(superService.updateAlarmChannel(updateVO));
+        return R.data(superService.updateAlarmChannel(updateVO));
     }
 
     /**
@@ -103,7 +82,7 @@ public class RuleAlarmChannelController extends BaseController<RuleAlarmChannelS
     @DeleteMapping("/deleteAlarmChannel/{id}")
     @WebLog(value = "删除告警渠道", request = false)
     public R<Boolean> deleteAlarmChannel(@PathVariable("id") Long id) {
-        return R.success(superService.deleteAlarmChannel(id));
+        return R.data(superService.deleteAlarmChannel(id));
     }
 
     /**
@@ -120,7 +99,7 @@ public class RuleAlarmChannelController extends BaseController<RuleAlarmChannelS
     public R<RuleAlarmChannelDetailsResultVO> getAlarmChannelDetails(@PathVariable("id") Long id) {
         RuleAlarmChannelDetailsResultVO result = superService.getAlarmChannelDetails(id);
         echoService.action(result);
-        return R.success(result);
+        return R.data(result);
     }
 
 }

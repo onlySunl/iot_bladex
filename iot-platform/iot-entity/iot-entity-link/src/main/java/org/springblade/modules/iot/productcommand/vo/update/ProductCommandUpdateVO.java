@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.productcommand.vo.update;
 
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springblade.modules.iot.product.constant.ThingModelCodeRule;
 import jakarta.validation.constraints.NotEmpty;
@@ -36,7 +36,7 @@ public class ProductCommandUpdateVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Schema(description = "命令id")
-    @NotNull(message = "请填写命令id", groups = CustomBaseEntity.Update.class)
+    @NotNull(message = "请填写命令id", groups = Entity.Update.class)
     private Long id;
 
     /**

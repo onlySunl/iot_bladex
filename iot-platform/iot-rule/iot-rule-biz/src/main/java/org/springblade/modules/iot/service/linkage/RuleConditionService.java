@@ -1,10 +1,7 @@
 package org.springblade.modules.iot.service.linkage;
 
+import com.obs.services.model.PolicyConditionItem;
 import org.springblade.core.mp.base.BaseService;
-import org.springblade.common.condition.model.dto.ConditionInfoDTO;
-import org.springblade.common.condition.model.dto.ConditionParamResult;
-import org.springblade.common.condition.model.dto.SingleConditionDTO;
-import org.springblade.common.condition.operator.ConditionOperator;
 import org.springblade.modules.iot.entity.linkage.RuleCondition;
 import org.springblade.modules.iot.vo.query.linkage.RuleConditionPageQuery;
 import org.springblade.modules.iot.vo.result.linkage.RuleConditionResultVO;
@@ -24,7 +21,7 @@ import java.util.List;
  * @date 2023-07-19 23:36:30
  * @create [2023-07-19 23:36:30] [mqttsnet]
  */
-public interface RuleConditionService extends BaseService<Long, RuleCondition> {
+public interface RuleConditionService extends BaseService<RuleCondition> {
 
     /**
      * 保存规则条件表
@@ -56,14 +53,14 @@ public interface RuleConditionService extends BaseService<Long, RuleCondition> {
      *
      * @return A list of all condition operators.
      */
-    List<ConditionOperator> getAllOperator();
+    List<PolicyConditionItem.ConditionOperator> getAllOperator();
 
     /**
      * Retrieve all available condition operator connectors.
      *
      * @return A list of all condition operator connectors.
      */
-    List<ConditionOperator> getAllOperatorConnect();
+    List<PolicyConditionItem.ConditionOperator> getAllOperatorConnect();
 
     /**
      * Validate the provided conditions.

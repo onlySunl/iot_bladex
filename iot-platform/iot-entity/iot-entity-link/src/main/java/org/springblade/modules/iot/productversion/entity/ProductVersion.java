@@ -1,5 +1,5 @@
 package org.springblade.modules.iot.productversion.entity;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.AutoColumn;
 
@@ -27,7 +27,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "iot_product_version", comment = "ProductVersion table")
-public class ProductVersion extends CustomBaseEntity {
+public class ProductVersion extends Entity {
 
     @Serial
     private static final long serialVersionUID = 1L;

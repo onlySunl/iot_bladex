@@ -14,7 +14,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 /**
  * <p>
  * 设备档案缓存VO
@@ -30,7 +30,7 @@ import org.springblade.common.entity.CustomBaseEntity;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @Schema(title = "DeviceCacheVO", description = "设备档案缓存VO")
-public class DeviceCacheVO extends CustomBaseEntity implements Serializable, EchoVO {
+public class DeviceCacheVO extends Entity implements Serializable, EchoVO {
 
     @Serial
     private static final long serialVersionUID = 1L;

@@ -21,7 +21,7 @@ import java.util.List;
  * @date 2023-09-09 21:14:58
  * @create [2023-09-09 21:14:58] [mqttsnet]
  */
-public interface RuleAlarmChannelService extends BaseService<Long, RuleAlarmChannel> {
+public interface RuleAlarmChannelService extends BaseService<RuleAlarmChannel> {
 
     /**
      * Save alarm rule channel.

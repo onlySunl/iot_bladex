@@ -3,7 +3,7 @@ import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.AutoColumn;
 
 import com.baomidou.mybatisplus.annotation.TableLogic;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,7 +29,7 @@ import java.io.Serial;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "iot_product_command_request", comment = "ProductCommandRequest table")
-public class ProductCommandRequest extends CustomBaseEntity {
+public class ProductCommandRequest extends Entity {
     @Serial
     private static final long serialVersionUID = 1L;
 

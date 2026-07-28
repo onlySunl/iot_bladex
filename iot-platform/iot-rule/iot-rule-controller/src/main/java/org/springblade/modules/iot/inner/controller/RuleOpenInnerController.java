@@ -1,11 +1,17 @@
 package org.springblade.modules.iot.inner.controller;
 
 import com.alibaba.fastjson2.JSON;
+import com.mqttsnet.basic.context.ContextUtil;
+import com.mqttsnet.basic.exception.BizException;
+import com.mqttsnet.basic.interfaces.echo.EchoService;
+import com.mqttsnet.basic.utils.ArgumentAssert;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.secure.utils.AuthUtil;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.interfaces.echo.EchoService;
-import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.modules.iot.bridge.scheduler.BridgeMaintenanceScheduler;
 import org.springblade.modules.iot.service.linkage.RuleService;
 import org.springblade.modules.iot.service.plugin.PluginInfoService;
@@ -14,20 +20,8 @@ import org.springblade.modules.iot.vo.param.script.RuleGroovyScriptDirectCompile
 import org.springblade.modules.iot.vo.param.script.RuleGroovyScriptExecuteScriptParam;
 import org.springblade.modules.iot.vo.result.linkage.RuleDetailsResultVO;
 import org.springblade.modules.iot.vo.result.script.GroovyScriptEngineExecutorResultVO;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Rule 规则内部接口(inner)：Feign 服务间 RPC(Nacos 直连、不过网关),透传 TenantId、无需 Token；网关拒绝外部访问。处理时注意 ContextUtil.setTenantId(tenantId)。
@@ -73,11 +67,8 @@ public class RuleOpenInnerController {
             RuleDetailsResultVO ruleDetailsResultVO = ruleService.triggerRulePolicy(tenantId, ruleIdentification);
             log.info("Successfully triggered rule policy - tenantId: {}, Rule Identification: {}, Result: {}", tenantId, ruleIdentification, ruleDetailsResultVO);
             echoService.action(ruleDetailsResultVO);
-            return R.success(ruleDetailsResultVO);
-        } catch (BizException bizException) {
-            log.warn("Business exception while triggering rule policy - tenantId: {}, Rule Identification: {}, Message: {}", tenantId, ruleIdentification, bizException.getMessage(), bizException);
-            return R.fail("Business error triggering rule policy: " + bizException.getMessage());
-        } catch (Exception e) {
+            return R.data(ruleDetailsResultVO);
+        }  catch (Exception e) {
             log.error("Unexpected error while triggering rule policy - tenantId: {}, Rule Identification: {}", tenantId, ruleIdentification, e);
             return R.fail("Unexpected error triggering rule policy: " + e.getMessage());
         }
@@ -92,7 +83,7 @@ public class RuleOpenInnerController {
     public R<Boolean> flushGroovyScriptCache() {
         log.info("Flushing Groovy Script Cache - tenantId: {}", ContextUtil.getTenantIdStr());
         try {
-            return R.success(ruleGroovyScriptService.flushGroovyScriptCache());
+            return R.data(ruleGroovyScriptService.flushGroovyScriptCache());
         } catch (BizException bizException) {
             log.warn("Business exception while flushing Groovy script cache - tenantId: {}, Message: {}", ContextUtil.getTenantIdStr(), bizException.getMessage(), bizException);
             return R.fail("Business error flushing Groovy script cache: " + bizException.getMessage());
@@ -119,7 +110,7 @@ public class RuleOpenInnerController {
         try {
             ContextUtil.setTenantId(tenantId);
             Boolean result = pluginInfoService.installPlugin(pluginId, instanceId);
-            return result ? R.success(true) : R.fail("Plugin installation failed.");
+            return result ? R.data(true) : R.fail("Plugin installation failed.");
         } catch (Exception e) {
             log.error("Failed to install plugin for pluginId: {} under tenantId: {}. Error: {}", pluginId, tenantId, e.getMessage(), e);
             return R.fail("Failed to install plugin. Error: " + e.getMessage());
@@ -142,7 +133,7 @@ public class RuleOpenInnerController {
         try {
             ContextUtil.setTenantId(tenantId);
             Boolean result = pluginInfoService.unInstallPlugin(pluginId, instanceId);
-            return result ? R.success(true) : R.fail("Plugin uninstallation failed.");
+            return result ? R.data(true) : R.fail("Plugin uninstallation failed.");
         } catch (Exception e) {
             log.error("Failed to uninstall plugin for pluginId: {} under tenantId: {}. Error: {}", pluginId, tenantId, e.getMessage(), e);
             return R.fail("Failed to uninstall plugin. Error: " + e.getMessage());
@@ -159,7 +150,7 @@ public class RuleOpenInnerController {
         log.info("Executing script param: {}", JSON.toJSONString(param));
         ArgumentAssert.isTrue(JSON.isValid(param.getExecuteParams()), "执行参数格式不正确");
         try {
-            return R.success(ruleGroovyScriptService.executeScript(param));
+            return R.data(ruleGroovyScriptService.executeScript(param));
         } catch (Exception e) {
             log.error("Failed to execute script", e);
             throw BizException.wrap("编译执行脚本失败", e.getMessage());
@@ -174,7 +165,7 @@ public class RuleOpenInnerController {
     @PostMapping("/executeScriptContent")
     public R<GroovyScriptEngineExecutorResultVO> executeScriptContent(@RequestBody RuleGroovyScriptDirectCompileParam param) {
         try {
-            return R.success(ruleGroovyScriptService.runDirectCompile(param));
+            return R.data(ruleGroovyScriptService.runDirectCompile(param));
         } catch (Exception e) {
             log.error("Failed to execute script content", e);
             throw BizException.wrap("编译执行脚本内容失败", e.getMessage());
@@ -189,7 +180,7 @@ public class RuleOpenInnerController {
     public R<Boolean> runBridgeHealthCheck() {
         try {
             bridgeMaintenanceScheduler.runHealthCheck(true);
-            return R.success(true);
+            return R.data(true);
         } catch (Exception e) {
             log.error("Bridge health check failed", e);
             return R.fail("Bridge health check failed: " + e.getMessage());
@@ -204,7 +195,7 @@ public class RuleOpenInnerController {
     public R<Boolean> runBridgeTraceCleanup(@RequestParam(value = "retentionDays", required = false) Integer retentionDays) {
         try {
             bridgeMaintenanceScheduler.cleanupOldTraces(retentionDays);
-            return R.success(true);
+            return R.data(true);
         } catch (Exception e) {
             log.error("Bridge trace cleanup failed", e);
             return R.fail("Bridge trace cleanup failed: " + e.getMessage());

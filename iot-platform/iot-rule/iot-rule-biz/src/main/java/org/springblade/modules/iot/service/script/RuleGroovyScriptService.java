@@ -24,7 +24,7 @@ import java.util.List;
  * @date 2025-03-24 09:54:10
  * @create [2025-03-24 09:54:10] [mqttsnet]
  */
-public interface RuleGroovyScriptService extends BaseService<Long, RuleGroovyScript> {
+public interface RuleGroovyScriptService extends BaseService<RuleGroovyScript> {
 
 
     /**

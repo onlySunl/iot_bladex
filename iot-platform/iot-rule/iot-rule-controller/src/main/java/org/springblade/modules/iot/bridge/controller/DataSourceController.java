@@ -1,13 +1,9 @@
 package org.springblade.modules.iot.bridge.controller;
 
-import org.springblade.common.annotation.log.WebLog;
+import com.mqttsnet.basic.annotation.log.WebLog;
+import com.mqttsnet.basic.interfaces.echo.EchoService;
+import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.mp.base.BaseController;
-import org.springblade.common.base.request.PageParams;
-import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.interfaces.echo.EchoService;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.entity.bridge.DataSource;
 import org.springblade.modules.iot.service.bridge.DataSourceService;
 import org.springblade.modules.iot.vo.query.bridge.DataSourcePageQuery;
@@ -45,22 +41,17 @@ import java.util.function.Supplier;
 @RestController
 @RequestMapping("/dataSource")
 @Tag(name = "数据桥接-数据源")
-public class DataSourceController extends BaseController<DataSourceService, Long, DataSource,
-        DataSourceSaveVO, DataSourceUpdateVO, DataSourcePageQuery, DataSourceResultVO> {
+public class DataSourceController extends BladeController {
 
     private final EchoService echoService;
 
-    @Override
+
     public EchoService getEchoService() {
         return echoService;
     }
 
-    @Override
-    public QueryWrap<DataSource> handlerWrapper(DataSource model, PageParams<DataSourcePageQuery> params) {
-        QueryWrap<DataSource> queryWrap = super.handlerWrapper(model, params);
-        DataScopeHelper.startDataScope("rule_data_source");
-        return queryWrap;
-    }
+    private final DataSourceService superService;
+
 
     @Operation(summary = "保存数据源", description = "默认 enable=false,必须测试连接成功后手动启用")
     @PostMapping("/saveDataSource")
@@ -131,12 +122,10 @@ public class DataSourceController extends BaseController<DataSourceService, Long
      */
     private <T> R<T> wrap(String opDesc, Supplier<T> action) {
         try {
-            return R.success(action.get());
-        } catch (BizException be) {
-            return R.fail(be);
-        } catch (Exception e) {
+            return R.data(action.get());
+        }  catch (Exception e) {
             log.error("{} 失败: {}", opDesc, e.getMessage(), e);
-            return R.fail();
+            return R.fail("");
         }
     }
 
@@ -149,12 +138,10 @@ public class DataSourceController extends BaseController<DataSourceService, Long
      */
     private R<Boolean> wrapBool(String opDesc, Supplier<Boolean> action) {
         try {
-            return R.success(action.get());
-        } catch (BizException be) {
-            return R.fail(be);
+            return R.data(action.get());
         } catch (Exception e) {
             log.error("{} 失败: {}", opDesc, e.getMessage(), e);
-            return R.success(false);
+            return R.fail("");
         }
     }
 }

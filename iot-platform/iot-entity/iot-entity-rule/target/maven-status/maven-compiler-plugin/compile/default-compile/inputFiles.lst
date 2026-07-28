@@ -8,6 +8,7 @@ D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\mai
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\save\plugin\PluginInstanceMappingSaveVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\dto\script\ProductInfoDTO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\update\linkage\RuleUpdateVO.java
+D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\result\server\MemResultVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\dto\linkage\RuleConditionPolicyDTO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\dto\linkage\execution\RuleActionExecutionExtendParamsDTO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\dto\bridge\protocol\dm\DmCredentialDto.java
@@ -23,6 +24,7 @@ D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\mai
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\update\bridge\DataBridgeUpdateVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\result\linkage\RuleExecutionLogStepResultVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\query\bridge\BridgeExecutionTracePageQuery.java
+D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\result\server\JvmResultVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\enumeration\linkage\RuleActionTypeEnum.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\dto\bridge\protocol\clickhouse\ClickHouseCredentialDto.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\dto\alarm\channel\fs\FeishuMessageParamDTO.java
@@ -46,6 +48,7 @@ D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\mai
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\enumeration\plugin\PluginLevelEnum.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\update\bridge\DataSourceUpdateVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\query\plugin\PluginInfoPageQuery.java
+D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\result\server\SysResultVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\query\bridge\DataSourcePageQuery.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\result\linkage\RuleResultVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\update\linkage\RuleConditionUpdateVO.java
@@ -63,6 +66,7 @@ D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\mai
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\dto\bridge\protocol\webhook\WebhookCredentialDto.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\dto\bridge\protocol\http\HttpCredentialDto.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\dto\script\OrderInfoDTO.java
+D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\result\server\ServerResultVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\result\alarm\RuleAlarmChannelDetailsResultVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\dto\linkage\execution\RuleExecutionLogExtendParamsDTO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\update\script\RuleGroovyScriptUpdateVO.java
@@ -158,6 +162,7 @@ D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\mai
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\dto\linkage\condition\group\DevicePropertiesLeftParamDTO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\dto\linkage\RuleConditionActionPolicyDTO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\param\linkage\RuleParamVO.java
+D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\result\server\CpuResultVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\result\bridge\DataSourceResultVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\dto\bridge\protocol\rocketmq\RocketmqConnectionDto.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\dto\bridge\protocol\influxdb\InfluxDbCredentialDto.java
@@ -193,6 +198,7 @@ D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\mai
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\param\script\RuleGroovyScriptDirectCompileParam.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\query\alarm\RuleAlarmChannelPageQuery.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\result\plugin\PluginInfoDetailsResultVO.java
+D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\result\server\SysFileResultVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\entity\bridge\DataSource.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\vo\result\bridge\SubscriptionSourceResultVO.java
 D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\src\main\java\org\springblade\modules\iot\dto\bridge\protocol\mqtt\MqttCredentialDto.java

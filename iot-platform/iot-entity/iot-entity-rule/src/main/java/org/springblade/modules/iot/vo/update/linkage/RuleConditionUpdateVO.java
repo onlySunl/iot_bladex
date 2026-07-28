@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.vo.update.linkage;
 
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.CustomBaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

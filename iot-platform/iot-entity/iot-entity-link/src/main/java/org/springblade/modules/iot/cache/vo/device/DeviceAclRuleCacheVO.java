@@ -4,7 +4,7 @@ import cn.hutool.core.map.MapUtil;
 import com.mqttsnet.basic.interfaces.echo.EchoVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -25,7 +25,7 @@ import java.util.Map;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @Schema(title = "DeviceAclRuleCacheVO", description = "设备访问控制(ACL)规则")
-public class DeviceAclRuleCacheVO extends CustomBaseEntity implements Serializable, EchoVO {
+public class DeviceAclRuleCacheVO extends Entity implements Serializable, EchoVO {
 
     @Serial
     private static final long serialVersionUID = 1L;

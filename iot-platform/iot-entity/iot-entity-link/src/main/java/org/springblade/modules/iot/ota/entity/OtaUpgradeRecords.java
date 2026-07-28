@@ -1,5 +1,5 @@
 package org.springblade.modules.iot.ota.entity;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.AutoColumn;
 
@@ -29,7 +29,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "ota_upgrade_records", comment = "OtaUpgradeRecords table")
-public class OtaUpgradeRecords extends CustomBaseEntity {
+public class OtaUpgradeRecords extends Entity {
     @Serial
     private static final long serialVersionUID = 1L;
 

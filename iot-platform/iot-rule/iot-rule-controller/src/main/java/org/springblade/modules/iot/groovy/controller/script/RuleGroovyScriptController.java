@@ -1,39 +1,26 @@
 package org.springblade.modules.iot.groovy.controller.script;
 
 import com.alibaba.fastjson2.JSON;
-import org.springblade.common.annotation.log.WebLog;
-import org.springblade.core.tool.api.R;
-import org.springblade.core.mp.base.BaseController;
-import org.springblade.common.base.request.PageParams;
-import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.interfaces.echo.EchoService;
-import org.springblade.common.utils.ArgumentAssert;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
-import org.springblade.modules.iot.entity.script.RuleGroovyScript;
-import org.springblade.modules.iot.service.script.RuleGroovyScriptService;
-import org.springblade.modules.iot.vo.param.script.RuleGroovyScriptDirectCompileParam;
-import org.springblade.modules.iot.vo.query.script.RuleGroovyScriptPageQuery;
-import org.springblade.modules.iot.vo.result.script.GroovyScriptEngineExecutorResultVO;
-import org.springblade.modules.iot.vo.result.script.RuleGroovyScriptResultVO;
-import org.springblade.modules.iot.vo.result.script.RuleScriptExecStatVO;
-import org.springblade.modules.iot.vo.save.script.RuleGroovyScriptSaveVO;
-import org.springblade.modules.iot.vo.update.script.RuleGroovyScriptUpdateVO;
+import com.mqttsnet.basic.annotation.log.WebLog;
+import com.mqttsnet.basic.interfaces.echo.EchoService;
+import com.mqttsnet.basic.utils.ArgumentAssert;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.log.exception.ServiceException;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.service.script.RuleGroovyScriptService;
+import org.springblade.modules.iot.vo.param.script.RuleGroovyScriptDirectCompileParam;
+import org.springblade.modules.iot.vo.result.script.GroovyScriptEngineExecutorResultVO;
+import org.springblade.modules.iot.vo.result.script.RuleScriptExecStatVO;
+import org.springblade.modules.iot.vo.save.script.RuleGroovyScriptSaveVO;
+import org.springblade.modules.iot.vo.update.script.RuleGroovyScriptUpdateVO;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 规则脚本表前端控制器。
@@ -48,22 +35,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/groovyScript")
 @Tag(name = "规则脚本")
-public class RuleGroovyScriptController extends BaseController<RuleGroovyScriptService, Long, RuleGroovyScript
-        , RuleGroovyScriptSaveVO, RuleGroovyScriptUpdateVO, RuleGroovyScriptPageQuery, RuleGroovyScriptResultVO> {
+public class RuleGroovyScriptController extends BladeController {
     private final EchoService echoService;
 
-    @Override
+
     public EchoService getEchoService() {
         return echoService;
     }
 
-    @Override
-    public QueryWrap<RuleGroovyScript> handlerWrapper(RuleGroovyScript model, PageParams<RuleGroovyScriptPageQuery> params) {
-        QueryWrap<RuleGroovyScript> queryWrap = super.handlerWrapper(model, params);
-        // 开启数据权限
-        DataScopeHelper.startDataScope("rule_groovy_script");
-        return queryWrap;
-    }
+    private final RuleGroovyScriptService superService;
 
 
     /**
@@ -74,12 +54,10 @@ public class RuleGroovyScriptController extends BaseController<RuleGroovyScriptS
     @WebLog(value = "保存规则脚本", request = false)
     public R<RuleGroovyScriptSaveVO> saveGroovyScript(@RequestBody @Validated RuleGroovyScriptSaveVO saveVO) {
         try {
-            return R.success(superService.saveGroovyScript(saveVO));
-        } catch (BizException be) {
-            return R.fail(be);
+            return R.data(superService.saveGroovyScript(saveVO));
         } catch (Exception e) {
             log.error("规则脚本保存失败，系统异常: {}", e.getMessage(), e);
-            return R.fail();
+            return R.fail("规则脚本保存失败");
         }
     }
 
@@ -91,12 +69,10 @@ public class RuleGroovyScriptController extends BaseController<RuleGroovyScriptS
     @WebLog(value = "修改规则脚本", request = false)
     public R<RuleGroovyScriptUpdateVO> updateGroovyScript(@RequestBody @Validated RuleGroovyScriptUpdateVO updateVO) {
         try {
-            return R.success(superService.updateGroovyScript(updateVO));
-        } catch (BizException be) {
-            return R.fail(be);
+            return R.data(superService.updateGroovyScript(updateVO));
         } catch (Exception e) {
             log.error("规则脚本修改失败，系统异常: {}", e.getMessage(), e);
-            return R.fail();
+            return R.fail("规则脚本修改失败");
         }
     }
 
@@ -111,12 +87,10 @@ public class RuleGroovyScriptController extends BaseController<RuleGroovyScriptS
     public R<Boolean> deleteGroovyScript(@PathVariable("id") Long id) {
         log.info("deleteGroovyScript id:{}", id);
         try {
-            return R.success(superService.deleteGroovyScript(id));
-        } catch (BizException be) {
-            return R.fail(be);
+            return R.data(superService.deleteGroovyScript(id));
         } catch (Exception e) {
             log.error("删除规则脚本失败，系统异常: {}", e.getMessage(), e);
-            return R.fail();
+            return R.fail("删除规则脚本失败");
         }
     }
 
@@ -129,10 +103,10 @@ public class RuleGroovyScriptController extends BaseController<RuleGroovyScriptS
         log.info("直接编译执行脚本测试，param：{}", JSON.toJSONString(param));
         ArgumentAssert.isTrue(JSON.isValid(param.getExecuteParams()), "执行参数格式不正确");
         try {
-            return R.success(superService.runDirectCompile(param));
+            return R.data(superService.runDirectCompile(param));
         } catch (Exception e) {
             log.error("Failed to execute script", e);
-            throw BizException.wrap("直接编译执行脚本失败", e.getMessage());
+            throw new ServiceException("直接编译执行脚本失败"+e.getMessage());
         }
 
     }
@@ -144,7 +118,7 @@ public class RuleGroovyScriptController extends BaseController<RuleGroovyScriptS
     @Operation(summary = "脚本执行统计", description = "按脚本唯一键读累计执行统计:总次数 / 成功 / 失败")
     @GetMapping("/execStat/{id}")
     public R<RuleScriptExecStatVO> execStat(@Parameter(description = "脚本主键", required = true) @PathVariable("id") Long id) {
-        return R.success(superService.getExecStat(id));
+        return R.data(superService.getExecStat(id));
     }
 
 

@@ -5,8 +5,8 @@ import java.io.Serializable;
 import java.util.Map;
 
 import cn.hutool.core.map.MapUtil;
-import org.springblade.common.entity.CustomBaseEntity;
-import org.springblade.common.echo.EchoVO;
+import org.springblade.basic.base.entity.Entity;
+import org.springblade.basic.interfaces.echo.EchoVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,10 +28,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
 @Builder
 @Schema(description = "设备分组关系")
-public class DeviceGroupRelResultVO extends CustomBaseEntity implements Serializable, EchoVO {
+public class DeviceGroupRelResultVO extends Entity implements Serializable, EchoVO {
     @Serial
     private static final long serialVersionUID = 1L;
     @Builder.Default

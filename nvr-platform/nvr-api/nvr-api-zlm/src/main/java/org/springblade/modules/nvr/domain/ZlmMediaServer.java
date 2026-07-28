@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.tangzc.autotable.annotation.AutoColumn;
 import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
-import org.springblade.core.tool.utils.Func;
 import org.springblade.common.entity.CustomBaseEntity;
 import org.springblade.modules.nvr.config.ZLMServerConfig;
 import lombok.Data;

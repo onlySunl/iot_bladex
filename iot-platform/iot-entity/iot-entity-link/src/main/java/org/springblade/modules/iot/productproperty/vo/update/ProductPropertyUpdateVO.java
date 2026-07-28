@@ -2,7 +2,7 @@ package org.springblade.modules.iot.productproperty.vo.update;
 
 import org.springblade.modules.iot.product.constant.ThingModelCodeRule;
 
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -37,7 +37,7 @@ public class ProductPropertyUpdateVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Schema(description = "属性id")
-    @NotNull(message = "请填写属性id", groups = CustomBaseEntity.Update.class)
+    @NotNull(message = "请填写属性id", groups = Entity.Update.class)
     private Long id;
 
     /**

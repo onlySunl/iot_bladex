@@ -1,38 +1,24 @@
 package org.springblade.modules.iot.alarm.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.common.annotation.log.WebLog;
-import org.springblade.core.tool.api.R;
-import org.springblade.core.mp.base.BaseController;
-import org.springblade.common.base.request.PageParams;
-import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
-import org.springblade.common.interfaces.echo.EchoService;
-import org.springblade.core.tool.utils.JsonUtil;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
-import org.springblade.modules.iot.entity.alarm.RuleAlarmRecord;
-import org.springblade.modules.iot.protocol.vo.param.DeviceAlarmNotificationRequestParam;
-import org.springblade.modules.iot.service.alarm.RuleAlarmRecordService;
-import org.springblade.modules.iot.vo.param.linkage.RuleAlarmRecordHandleParamVO;
-import org.springblade.modules.iot.vo.query.alarm.RuleAlarmRecordPageQuery;
-import org.springblade.modules.iot.vo.result.alarm.RuleAlarmRecordDetailsResultVO;
-import org.springblade.modules.iot.vo.result.alarm.RuleAlarmRecordResultVO;
-import org.springblade.modules.iot.vo.save.alarm.RuleAlarmRecordSaveVO;
-import org.springblade.modules.iot.vo.update.alarm.RuleAlarmRecordUpdateVO;
+import com.mqttsnet.basic.annotation.log.WebLog;
+import com.mqttsnet.basic.interfaces.echo.EchoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.tool.api.R;
+import org.springblade.core.tool.jackson.JsonUtil;
+import org.springblade.modules.iot.protocol.vo.param.DeviceAlarmNotificationRequestParam;
+import org.springblade.modules.iot.service.alarm.RuleAlarmRecordService;
+import org.springblade.modules.iot.vo.param.linkage.RuleAlarmRecordHandleParamVO;
+import org.springblade.modules.iot.vo.result.alarm.RuleAlarmRecordDetailsResultVO;
+import org.springblade.modules.iot.vo.save.alarm.RuleAlarmRecordSaveVO;
+import org.springblade.modules.iot.vo.update.alarm.RuleAlarmRecordUpdateVO;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -50,31 +36,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/ruleAlarmRecord")
 @Tag(name = "告警记录")
-public class RuleAlarmRecordController extends BaseController<RuleAlarmRecordService, Long, RuleAlarmRecord, RuleAlarmRecordSaveVO, RuleAlarmRecordUpdateVO,
-        RuleAlarmRecordPageQuery, RuleAlarmRecordResultVO> {
+public class RuleAlarmRecordController extends BladeController {
     private final EchoService echoService;
 
-    @Override
+
     public EchoService getEchoService() {
         return echoService;
     }
+    private final RuleAlarmRecordService superService;
 
-
-    @Override
-    public QueryWrap<RuleAlarmRecord> handlerWrapper(RuleAlarmRecord model, PageParams<RuleAlarmRecordPageQuery> params) {
-        QueryWrap<RuleAlarmRecord> queryWrap = super.handlerWrapper(model, params);
-        // 开启数据权限
-        DataScopeHelper.startDataScope("rule_alarm_record");
-        return queryWrap;
-    }
-
-    @Override
-    public void handlerResult(IPage<RuleAlarmRecordResultVO> page) {
-        superService.fillAlarmRuleDetails(page.getRecords());
-        if (echoService != null) {
-            echoService.action(page);
-        }
-    }
 
 
     /**
@@ -87,7 +57,7 @@ public class RuleAlarmRecordController extends BaseController<RuleAlarmRecordSer
     @PostMapping("/saveAlarmRecord")
     @WebLog(value = "保存告警记录", request = false)
     public R<RuleAlarmRecordSaveVO> saveAlarmRecord(@RequestBody RuleAlarmRecordSaveVO saveVO) {
-        return R.success(superService.saveAlarmRecord(saveVO));
+        return R.data(superService.saveAlarmRecord(saveVO));
     }
 
     /**
@@ -100,7 +70,7 @@ public class RuleAlarmRecordController extends BaseController<RuleAlarmRecordSer
     @PutMapping("/updateAlarmRecord")
     @WebLog(value = "修改告警记录", request = false)
     public R<RuleAlarmRecordUpdateVO> updateAlarmRecord(@RequestBody RuleAlarmRecordUpdateVO updateVO) {
-        return R.success(superService.updateAlarmRecord(updateVO));
+        return R.data(superService.updateAlarmRecord(updateVO));
     }
 
     /**
@@ -116,7 +86,7 @@ public class RuleAlarmRecordController extends BaseController<RuleAlarmRecordSer
     @DeleteMapping("/deleteAlarmRecord/{id}")
     @WebLog(value = "删除告警记录", request = false)
     public R<Boolean> deleteAlarmRecord(@PathVariable("id") Long id) {
-        return R.success(superService.deleteAlarmRecord(id));
+        return R.data(superService.deleteAlarmRecord(id));
     }
 
     /**
@@ -133,14 +103,14 @@ public class RuleAlarmRecordController extends BaseController<RuleAlarmRecordSer
     public R<RuleAlarmRecordDetailsResultVO> getAlarmRecordDetails(@PathVariable("id") Long id) {
         RuleAlarmRecordDetailsResultVO result = superService.getAlarmRecordDetails(id);
         echoService.action(result);
-        return R.success(result);
+        return R.data(result);
     }
 
     @Operation(summary = "处理或解决告警记录", description = "处理或解决告警记录")
     @PutMapping("/handleOrSolveAlarmRecord")
     @WebLog(value = "处理或解决告警记录", request = false)
     public R<RuleAlarmRecordUpdateVO> handleOrSolveAlarmRecord(@RequestBody RuleAlarmRecordHandleParamVO recordHandleParamVO) {
-        return R.success(superService.handleOrSolveAlarmRecord(recordHandleParamVO));
+        return R.data(superService.handleOrSolveAlarmRecord(recordHandleParamVO));
     }
 
 

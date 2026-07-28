@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Link 模块聚合：设备生命周期管理、OTA、产品物模型 -->
+<!--
+    设备集成服务模块
+    
+    模块结构:
+    ├── iot-link-biz/          # 业务逻辑层
+    │   ├── 设备接入管理
+    │   ├── 设备消息处理
+    │   ├── 产品管理
+    │   ├── 物模型管理
+    │   ├── OTA 升级管理
+    │   └── 缓存管理
+    │
+    ├── iot-link-controller/   # 控制器层
+    │   └── REST API 接口
+    │
+    ├── iot-link-facade/       # 门面接口层
+    │   ├── iot-link-api           # API 接口定义
+    │   ├── iot-link-boot-impl     # Boot 模式实现
+    │   └── iot-link-cloud-impl    # Cloud 模式实现
+    │
+    └── iot-link-server/       # 服务启动层
+        └── 独立服务部署
+-->
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
@@ -8,12 +30,18 @@
   <version>4.9.0.RELEASE</version>
   <packaging>pom</packaging>
   <name>iot-link</name>
-  <description>设备集成服务</description>
+  <description>设备集成服务 - 设备接入与管理</description>
   <distributionManagement>
     <repository>
-      <id>maven-releases</id>
-      <url>http://140.143.155.241:18085/repository/maven-releases/</url>
+      <id>blade-release</id>
+      <name>Release Repository</name>
+      <url>http://nexus.bladex.vip/repository/bladex-releases/</url>
     </repository>
+    <snapshotRepository>
+      <id>blade-snapshots</id>
+      <name>Snapshot Repository</name>
+      <url>http://nexus.bladex.vip/repository/bladex-snapshots/</url>
+    </snapshotRepository>
   </distributionManagement>
   <dependencies>
     <dependency>
@@ -33,12 +61,6 @@
       <artifactId>blade-core-boot</artifactId>
       <version>4.9.0.RELEASE</version>
       <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.springblade</groupId>
-          <artifactId>blade-core-cloud</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springblade</groupId>
@@ -239,25 +261,25 @@
     <dependency>
       <groupId>cn.hutool</groupId>
       <artifactId>hutool-core</artifactId>
-      <version>5.8.32</version>
+      <version>5.8.22</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>cn.hutool</groupId>
       <artifactId>hutool-crypto</artifactId>
-      <version>5.8.32</version>
+      <version>5.8.22</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>cn.hutool</groupId>
       <artifactId>hutool-http</artifactId>
-      <version>5.8.32</version>
+      <version>5.8.22</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>cn.hutool</groupId>
       <artifactId>hutool-json</artifactId>
-      <version>5.8.32</version>
+      <version>5.8.22</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

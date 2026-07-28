@@ -2,7 +2,7 @@ package org.springblade.modules.iot.entity.alarm;
 import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.AutoColumn;
 
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.CustomBaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

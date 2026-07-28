@@ -1,11 +1,17 @@
 package org.springblade.modules.iot.linkage.controller;
 
+import com.mqttsnet.basic.base.controller.SuperController;
+import com.mqttsnet.basic.base.request.PageParams;
+import com.mqttsnet.basic.database.mybatis.conditions.query.QueryWrap;
+import com.mqttsnet.basic.interfaces.echo.EchoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.core.tool.api.R;
-import org.springblade.core.mp.base.BaseController;
-import org.springblade.common.base.request.PageParams;
-import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
-import org.springblade.common.interfaces.echo.EchoService;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.entity.linkage.RuleExecutionLog;
 import org.springblade.modules.iot.service.linkage.RuleExecutionLogService;
 import org.springblade.modules.iot.vo.query.linkage.RuleExecutionLogPageQuery;
@@ -14,19 +20,8 @@ import org.springblade.modules.iot.vo.result.linkage.RuleExecutionLogResultVO;
 import org.springblade.modules.iot.vo.result.linkage.RuleExecutionLogStatsResultVO;
 import org.springblade.modules.iot.vo.save.linkage.RuleExecutionLogSaveVO;
 import org.springblade.modules.iot.vo.update.linkage.RuleExecutionLogUpdateVO;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -44,9 +39,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/ruleExecutionLog")
 @Tag(name = "规则执行日志")
-public class RuleExecutionLogController extends BaseController<RuleExecutionLogService, Long, RuleExecutionLog, RuleExecutionLogSaveVO,
-        RuleExecutionLogUpdateVO, RuleExecutionLogPageQuery, RuleExecutionLogResultVO> {
+    public class RuleExecutionLogController extends BladeController {
     private final EchoService echoService;
+    private final RuleExecutionLogService superService;
 
     @Override
     public EchoService getEchoService() {
@@ -82,7 +77,7 @@ public class RuleExecutionLogController extends BaseController<RuleExecutionLogS
         log.info("getRuleExecutionLogDetails id: {}", id);
         RuleExecutionLogDetailsResultVO result = superService.getRuleExecutionLogDetails(id);
         echoService.action(result);
-        return R.success(result);
+        return R.data(result);
     }
 
     /**
@@ -95,7 +90,7 @@ public class RuleExecutionLogController extends BaseController<RuleExecutionLogS
     @PostMapping("/stats")
     public R<RuleExecutionLogStatsResultVO> stats(@RequestBody PageParams<RuleExecutionLogPageQuery> params) {
         RuleExecutionLogPageQuery query = params == null ? null : params.getModel();
-        return R.success(superService.getRuleExecutionLogStats(query));
+        return R.data(superService.getRuleExecutionLogStats(query));
     }
 
     /**
@@ -108,7 +103,7 @@ public class RuleExecutionLogController extends BaseController<RuleExecutionLogS
     @PostMapping("/clear")
     public R<Long> clear(@RequestBody PageParams<RuleExecutionLogPageQuery> params) {
         RuleExecutionLogPageQuery query = params == null ? null : params.getModel();
-        return R.success(superService.clearRuleExecutionLogs(query));
+        return R.data(superService.clearRuleExecutionLogs(query));
     }
 
 }

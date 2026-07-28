@@ -51,12 +51,7 @@
       <version>3.5.14</version>
       <scope>compile</scope>
     </dependency>
-    <dependency>
-      <groupId>org.springblade</groupId>
-      <artifactId>iot-public-common</artifactId>
-      <version>4.9.0.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
+
     <dependency>
       <groupId>com.baomidou</groupId>
       <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>

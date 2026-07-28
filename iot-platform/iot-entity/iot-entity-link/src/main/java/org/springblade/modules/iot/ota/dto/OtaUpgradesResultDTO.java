@@ -17,7 +17,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 
 /**
  * <p>
@@ -35,7 +35,7 @@ import org.springblade.common.entity.CustomBaseEntity;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Builder
-public class OtaUpgradesResultDTO extends CustomBaseEntity implements Serializable, EchoVO {
+public class OtaUpgradesResultDTO extends Entity implements Serializable, EchoVO {
 
     @Serial
     private static final long serialVersionUID = 1L;

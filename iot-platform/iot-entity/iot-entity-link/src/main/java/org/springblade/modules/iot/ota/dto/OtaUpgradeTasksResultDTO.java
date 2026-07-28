@@ -3,7 +3,7 @@ package org.springblade.modules.iot.ota.dto;
 import cn.hutool.core.map.MapUtil;
 import com.mqttsnet.basic.interfaces.echo.EchoVO;
 import lombok.*;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -25,7 +25,7 @@ import java.util.Map;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Builder
-public class OtaUpgradeTasksResultDTO extends CustomBaseEntity implements Serializable, EchoVO {
+public class OtaUpgradeTasksResultDTO extends Entity implements Serializable, EchoVO {
 
     @Serial
     private static final long serialVersionUID = 1L;

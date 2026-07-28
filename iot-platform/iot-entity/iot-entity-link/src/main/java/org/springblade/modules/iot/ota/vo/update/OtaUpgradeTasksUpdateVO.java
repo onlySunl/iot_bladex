@@ -4,7 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -37,7 +37,7 @@ public class OtaUpgradeTasksUpdateVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Schema(description = "主键")
-    @NotNull(message = "请填写主键", groups = CustomBaseEntity.Update.class)
+    @NotNull(message = "请填写主键", groups = Entity.Update.class)
     private Long id;
 
     /**

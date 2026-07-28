@@ -84,6 +84,7 @@ org\springblade\modules\iot\vo\update\plugin\PluginInstanceMappingUpdateVO$Plugi
 org\springblade\modules\iot\dto\alarm\RuleAlarmRecipientDTO$RuleAlarmRecipientDTOBuilder.class
 org\springblade\modules\iot\vo\query\linkage\RuleConditionPageQuery$RuleConditionPageQueryBuilder.class
 org\springblade\modules\iot\dto\bridge\protocol\clickhouse\ClickHouseCredentialDto.class
+org\springblade\modules\iot\vo\result\server\MemResultVO.class
 org\springblade\modules\iot\vo\result\linkage\RuleConditionResultVO$RuleConditionResultVOBuilder.class
 org\springblade\modules\iot\dto\alarm\channel\fs\FeishuMessageParamDTO.class
 org\springblade\modules\iot\entity\bridge\DataBridge.class
@@ -162,6 +163,7 @@ org\springblade\modules\iot\entity\bridge\DataSource.class
 org\springblade\modules\iot\vo\result\plugin\PluginResultVO.class
 org\springblade\modules\iot\entity\alarm\RuleAlarmRecord$RuleAlarmRecordBuilder.class
 org\springblade\modules\iot\vo\query\linkage\RuleInstancePageQuery.class
+org\springblade\modules\iot\vo\result\server\SysResultVO$SysResultVOBuilder.class
 org\springblade\modules\iot\vo\result\plugin\PluginResultVO$PluginResultVOBuilder.class
 org\springblade\modules\iot\vo\result\script\GroovyScriptEngineExecutorResultVO$GroovyScriptEngineExecutorResultVOBuilder.class
 org\springblade\modules\iot\vo\result\linkage\RuleConditionExecutionLogDetailsResultVO.class
@@ -184,7 +186,9 @@ org\springblade\modules\iot\enumeration\plugin\PluginTypeEnum.class
 org\springblade\modules\iot\vo\update\plugin\PluginInstanceUpdateVO$PluginInstanceUpdateVOBuilder.class
 org\springblade\modules\iot\vo\result\alarm\RuleAlarmChannelDetailsResultVO$RuleAlarmChannelDetailsResultVOBuilder.class
 org\springblade\modules\iot\vo\query\plugin\PluginInstancePageQuery.class
+org\springblade\modules\iot\vo\result\server\MemResultVO$MemResultVOBuilder.class
 org\springblade\modules\iot\vo\update\linkage\RuleInstanceUpdateVO$RuleInstanceUpdateVOBuilder.class
+org\springblade\modules\iot\vo\result\server\JvmResultVO$JvmResultVOBuilder.class
 org\springblade\modules\iot\vo\update\plugin\PluginInstanceHeartbeatUpdateVO.class
 org\springblade\modules\iot\vo\query\linkage\RuleConditionExecutionLogPageQuery.class
 org\springblade\modules\iot\vo\result\alarm\RuleAlarmResultVO$RuleAlarmResultVOBuilder.class
@@ -201,6 +205,7 @@ org\springblade\modules\iot\entity\plugin\PluginInfo.class
 org\springblade\modules\iot\enumeration\linkage\RuleInstanceStatusEnum.class
 org\springblade\modules\iot\vo\save\bridge\DataBridgeSaveVO.class
 org\springblade\modules\iot\dto\linkage\condition\group\DeviceActionLeftParamDTO.class
+org\springblade\modules\iot\vo\result\server\ServerResultVO.class
 org\springblade\modules\iot\vo\param\linkage\RuleAlarmRecordHandleParamVO$RuleAlarmRecordHandleParamVOBuilder.class
 org\springblade\modules\iot\enumeration\linkage\RuleExecutionStatusEnum.class
 org\springblade\modules\iot\vo\result\linkage\RuleConditionResultVO.class
@@ -232,6 +237,7 @@ org\springblade\modules\iot\vo\query\linkage\RuleActionExecutionLogPageQuery.cla
 org\springblade\modules\iot\vo\update\linkage\RuleExecutionLogUpdateVO$RuleExecutionLogUpdateVOBuilder.class
 org\springblade\modules\iot\dto\bridge\protocol\kingbase\KingBaseConnectionDto.class
 org\springblade\modules\iot\vo\update\bridge\DataBridgeUpdateVO$DataBridgeUpdateVOBuilder.class
+org\springblade\modules\iot\vo\result\server\JvmResultVO.class
 org\springblade\modules\iot\entity\bridge\SubscriptionSource.class
 org\springblade\modules\iot\vo\query\alarm\RuleAlarmPageQuery.class
 org\springblade\modules\iot\vo\result\plugin\PluginInfoDetailsResultVO.class
@@ -247,6 +253,7 @@ org\springblade\modules\iot\entity\linkage\RuleActionExecutionLog.class
 org\springblade\modules\iot\vo\param\linkage\RuleParamVO$RuleParamVOBuilder.class
 org\springblade\modules\iot\dto\linkage\RuleConditionActionPolicyDTO.class
 org\springblade\modules\iot\dto\linkage\RuleConditionPolicyDTO$RuleConditionPolicyDTOBuilder.class
+org\springblade\modules\iot\vo\result\server\CpuResultVO$CpuResultVOBuilder.class
 org\springblade\modules\iot\dto\linkage\execution\RuleActionExecutionExtendParamsDTO$RuleActionExecutionExtendParamsDTOBuilder.class
 org\springblade\modules\iot\constants\BridgeChannelConstant.class
 org\springblade\modules\iot\vo\update\linkage\RuleConditionExecutionLogUpdateVO$RuleConditionExecutionLogUpdateVOBuilder.class
@@ -275,6 +282,7 @@ org\springblade\modules\iot\vo\param\plugin\PluginActionRequestParamVO.class
 org\springblade\modules\iot\vo\query\linkage\RuleActionExecutionLogPageQuery$RuleActionExecutionLogPageQueryBuilder.class
 org\springblade\modules\iot\entity\plugin\PluginInstanceHeartbeat$PluginInstanceHeartbeatBuilder.class
 org\springblade\modules\iot\vo\update\linkage\RuleConditionExecutionLogUpdateVO.class
+org\springblade\modules\iot\vo\result\server\CpuResultVO.class
 org\springblade\modules\iot\enumeration\plugin\PluginInstanceStatusEnum.class
 org\springblade\modules\iot\vo\param\linkage\RuleConditionActionParamVO.class
 org\springblade\modules\iot\vo\save\linkage\RuleConditionActionSaveVO$RuleConditionActionSaveVOBuilder.class
@@ -288,6 +296,7 @@ org\springblade\modules\iot\vo\query\plugin\PluginInstanceHeartbeatPageQuery$Plu
 org\springblade\modules\iot\vo\save\linkage\RuleExecutionLogSaveVO$RuleExecutionLogSaveVOBuilder.class
 org\springblade\modules\iot\entity\linkage\RuleInstance$RuleInstanceBuilder.class
 org\springblade\modules\iot\vo\query\linkage\RulePageQuery$RulePageQueryBuilder.class
+org\springblade\modules\iot\vo\result\server\ServerResultVO$ServerResultVOBuilder.class
 org\springblade\modules\iot\enumeration\alarm\AlarmChannelTypeEnum.class
 org\springblade\modules\iot\dto\linkage\condition\group\DeviceActionRightParamsDTO$DeviceActionRightParamsDTOBuilder.class
 org\springblade\modules\iot\entity\alarm\RuleAlarmChannel.class
@@ -340,6 +349,7 @@ org\springblade\modules\iot\vo\result\script\RuleGroovyScriptResultVO$RuleGroovy
 org\springblade\modules\iot\vo\update\linkage\RuleExecutionLogUpdateVO.class
 org\springblade\modules\iot\vo\result\linkage\RuleConditionExecutionLogResultVO$RuleConditionExecutionLogResultVOBuilder.class
 org\springblade\modules\iot\vo\save\plugin\PluginInfoSaveVO$PluginInfoSaveVOBuilder.class
+org\springblade\modules\iot\vo\result\server\SysResultVO.class
 org\springblade\modules\iot\dto\alarm\RuleAlarmChannelTemplateDTO$RuleAlarmChannelTemplateDTOBuilder.class
 org\springblade\modules\iot\dto\bridge\protocol\redis\RedisConnectionDto.class
 org\springblade\modules\iot\enumeration\bridge\BridgeHealthStatusEnum.class
@@ -368,6 +378,7 @@ org\springblade\modules\iot\dto\bridge\protocol\ProtocolCredentialDto.class
 org\springblade\modules\iot\vo\result\script\GroovyScriptEngineExecutorResultVO.class
 org\springblade\modules\iot\dto\script\ProductInfoDTO.class
 org\springblade\modules\iot\vo\param\script\RuleGroovyScriptExecuteScriptParam$RuleGroovyScriptExecuteScriptParamBuilder.class
+org\springblade\modules\iot\vo\result\server\SysFileResultVO.class
 org\springblade\modules\iot\dto\linkage\AntiShakeSchemePolicyDTO$Occurrence.class
 org\springblade\modules\iot\vo\result\plugin\PluginInfoDetailsResultVO$PluginInstanceDetails$PortMapping$PortMappingBuilder.class
 org\springblade\modules\iot\cache\vo\bridge\DataBridgeCacheVO.class
@@ -394,6 +405,7 @@ org\springblade\modules\iot\vo\result\plugin\PluginInfoResultVO.class
 org\springblade\modules\iot\entity\linkage\RuleConditionExecutionLog.class
 org\springblade\modules\iot\vo\result\alarm\RuleAlarmRecordDetailsResultVO.class
 org\springblade\modules\iot\dto\alarm\RuleAlarmChannelTemplateDTO.class
+org\springblade\modules\iot\vo\result\server\SysFileResultVO$SysFileResultVOBuilder.class
 org\springblade\modules\iot\dto\linkage\condition\group\DevicePropertiesLeftParamDTO.class
 org\springblade\modules\iot\vo\update\alarm\RuleAlarmUpdateVO$RuleAlarmUpdateVOBuilder.class
 org\springblade\modules\iot\vo\update\linkage\RuleInstanceFlowUpdateVO.class

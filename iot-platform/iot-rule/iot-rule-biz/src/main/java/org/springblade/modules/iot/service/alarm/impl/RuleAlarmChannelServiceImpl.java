@@ -3,11 +3,14 @@ package org.springblade.modules.iot.service.alarm.impl;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.core.mp.base.BaseServiceImpl;
+import com.mqttsnet.basic.utils.ArgumentAssert;
+import com.mqttsnet.basic.utils.BeanPlusUtil;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.common.constant.DsConstant;
+import org.springblade.common.enums.NoticeRemindModeEnum;
 import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.utils.ArgumentAssert;
-import org.springblade.common.utils.BeanUtil;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.core.mp.base.BaseServiceImpl;
 import org.springblade.modules.iot.dto.alarm.channel.dingtalk.DingTalkMessageParamDTO;
 import org.springblade.modules.iot.dto.alarm.channel.fs.FeishuMessageParamDTO;
 import org.springblade.modules.iot.dto.alarm.channel.site.SiteMessageParamDTO;
@@ -15,19 +18,18 @@ import org.springblade.modules.iot.dto.alarm.channel.wechat.WeChatWorkMessagePar
 import org.springblade.modules.iot.entity.alarm.RuleAlarmChannel;
 import org.springblade.modules.iot.enumeration.alarm.AlarmChannelTypeEnum;
 import org.springblade.modules.iot.manager.alarm.RuleAlarmChannelManager;
-import org.springblade.modules.iot.msg.enumeration.NoticeRemindModeEnum;
+import org.springblade.modules.iot.mapper.alarm.RuleAlarmChannelMapper;
 import org.springblade.modules.iot.service.alarm.RuleAlarmChannelService;
 import org.springblade.modules.iot.vo.query.alarm.RuleAlarmChannelPageQuery;
 import org.springblade.modules.iot.vo.result.alarm.RuleAlarmChannelDetailsResultVO;
 import org.springblade.modules.iot.vo.result.alarm.RuleAlarmChannelResultVO;
 import org.springblade.modules.iot.vo.save.alarm.RuleAlarmChannelSaveVO;
 import org.springblade.modules.iot.vo.update.alarm.RuleAlarmChannelUpdateVO;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+
 
 /**
  * <p>
@@ -43,8 +45,9 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class RuleAlarmChannelServiceImpl extends BaseServiceImpl<RuleAlarmChannelManager, Long, RuleAlarmChannel> implements RuleAlarmChannelService {
+public class RuleAlarmChannelServiceImpl extends BaseServiceImpl<RuleAlarmChannelMapper, RuleAlarmChannel> implements RuleAlarmChannelService {
 
+    private final RuleAlarmChannelManager superManager;
 
     /**
      * Save the alarm channel.
@@ -63,7 +66,7 @@ public class RuleAlarmChannelServiceImpl extends BaseServiceImpl<RuleAlarmChanne
         RuleAlarmChannel alarmChannel = builderAlarmChannelSaveVO(saveVO);
 
         // Persist the alarm channel.
-        superManager.save(alarmChannel);
+        this.save(alarmChannel);
 
         return BeanPlusUtil.toBeanIgnoreError(alarmChannel, RuleAlarmChannelSaveVO.class);
     }
@@ -107,7 +110,7 @@ public class RuleAlarmChannelServiceImpl extends BaseServiceImpl<RuleAlarmChanne
         RuleAlarmChannel alarmChannel = builderAlarmChannelUpdateVO(updateVO);
 
         // Update the alarm channel in database.
-        superManager.updateById(alarmChannel);
+        this.updateById(alarmChannel);
 
         return updateVO;
     }
@@ -122,10 +125,10 @@ public class RuleAlarmChannelServiceImpl extends BaseServiceImpl<RuleAlarmChanne
     public Boolean deleteAlarmChannel(Long id) {
         ArgumentAssert.notNull(id, "id cannot be null");
 
-        RuleAlarmChannel alarmChannel = superManager.getById(id);
+        RuleAlarmChannel alarmChannel = this.getById(id);
 
         if (null == alarmChannel) {
-            throw BizException.wrap("The alarm channel does not exist");
+            throw new ServiceException("The alarm channel does not exist");
         }
 
         // TODO Validate if the alarm channel is in use, e.g., if it has associated rules or records.
@@ -133,7 +136,7 @@ public class RuleAlarmChannelServiceImpl extends BaseServiceImpl<RuleAlarmChanne
         //     throw BizException.wrap("The alarm channel is currently in use and cannot be deleted");
         // }
 
-        return superManager.removeById(id);
+        return this.removeById(id);
     }
 
     /**
@@ -145,12 +148,12 @@ public class RuleAlarmChannelServiceImpl extends BaseServiceImpl<RuleAlarmChanne
     @Override
     public RuleAlarmChannelDetailsResultVO getAlarmChannelDetails(Long id) {
         if (id == null) {
-            throw BizException.wrap("Alarm channel ID cannot be null");
+            throw new ServiceException("Alarm channel ID cannot be null");
         }
 
         RuleAlarmChannel alarmChannel = superManager.getById(id);
         if (alarmChannel == null) {
-            throw new BizException("Alarm channel does not exist");
+            throw new ServiceException("Alarm channel does not exist");
         }
 
         return BeanPlusUtil.toBeanIgnoreError(alarmChannel, RuleAlarmChannelDetailsResultVO.class);
@@ -178,7 +181,7 @@ public class RuleAlarmChannelServiceImpl extends BaseServiceImpl<RuleAlarmChanne
 
         RuleAlarmChannel existingChannel = superManager.getById(updateVO.getId());
         if (null == existingChannel) {
-            throw BizException.wrap("Alarm channel does not exist");
+            throw new ServiceException("Alarm channel does not exist");
         }
 
         ArgumentAssert.notBlank(updateVO.getChannelName(), "Alarm channel name cannot be blank.");
@@ -188,7 +191,7 @@ public class RuleAlarmChannelServiceImpl extends BaseServiceImpl<RuleAlarmChanne
 
     private AlarmChannelTypeEnum validateChannelType(Integer channelType) {
         return AlarmChannelTypeEnum.fromValue(channelType)
-                .orElseThrow(() -> BizException.wrap("Unsupported alarm channel type: " + channelType));
+                .orElseThrow(() -> new ServiceException("Unsupported alarm channel type: " + channelType));
     }
 
     private String normalizeAndValidateChannelConfig(AlarmChannelTypeEnum channelType, String channelConfig) {
@@ -222,7 +225,7 @@ public class RuleAlarmChannelServiceImpl extends BaseServiceImpl<RuleAlarmChanne
                 ArgumentAssert.notBlank(feishu.getAppSecret(), "Feishu alarm channel appSecret cannot be blank.");
                 break;
             default:
-                throw BizException.wrap("Unsupported alarm channel type: " + channelType);
+                throw new ServiceException("Unsupported alarm channel type: " + channelType);
         }
         return channelConfig;
     }
@@ -231,13 +234,11 @@ public class RuleAlarmChannelServiceImpl extends BaseServiceImpl<RuleAlarmChanne
         try {
             T config = JSON.parseObject(channelConfig, clazz);
             if (config == null) {
-                throw BizException.wrap("Alarm channel config cannot be blank.");
+                throw new ServiceException("Alarm channel config cannot be blank.");
             }
             return config;
-        } catch (BizException e) {
-            throw e;
-        } catch (Exception e) {
-            throw BizException.wrap("Invalid " + channelType.getDesc() + " alarm channel config.");
+        }  catch (Exception e) {
+            throw new ServiceException("Invalid " + channelType.getDesc() + " alarm channel config.");
         }
     }
 

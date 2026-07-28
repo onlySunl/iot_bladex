@@ -1,5 +1,5 @@
 package org.springblade.modules.iot.device.entity;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.AutoColumn;
 
@@ -26,7 +26,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "iot_device", comment = "Device table")
-public class Device extends CustomBaseEntity {
+public class Device extends Entity {
     @Serial
     private static final long serialVersionUID = 1L;
 

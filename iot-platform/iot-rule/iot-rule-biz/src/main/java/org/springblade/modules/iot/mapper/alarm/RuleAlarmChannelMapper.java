@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.mapper.alarm;
 
-import org.springblade.core.mp.base.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springblade.modules.iot.entity.alarm.RuleAlarmChannel;
 import org.springframework.stereotype.Repository;
 

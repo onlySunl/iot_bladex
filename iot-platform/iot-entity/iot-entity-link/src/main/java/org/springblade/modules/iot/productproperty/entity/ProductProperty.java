@@ -1,5 +1,5 @@
 package org.springblade.modules.iot.productproperty.entity;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.AutoColumn;
 
@@ -29,7 +29,7 @@ import java.io.Serial;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "iot_product_property", comment = "ProductProperty table")
-public class ProductProperty extends CustomBaseEntity {
+public class ProductProperty extends Entity {
     @Serial
     private static final long serialVersionUID = 1L;
 

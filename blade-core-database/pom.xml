@@ -3,7 +3,7 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>BladeX</artifactId>
+        <artifactId>iot_bladex</artifactId>
         <groupId>org.springblade</groupId>
         <version>4.9.0.RELEASE</version>
     </parent>
@@ -16,11 +16,7 @@
 
     <dependencies>
         <!-- BladeX 基础实体 -->
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-base-entity</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
+
         <!-- MyBatis-Plus -->
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -48,6 +44,34 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-basic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-uid</artifactId>
+            <version>1.0.8.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-core</artifactId>
+            <version>1.1.5</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>p6spy</groupId>
+            <artifactId>p6spy</artifactId>
+            <version>3.9.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-annotation</artifactId>
+            <version>1.0.8.3</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

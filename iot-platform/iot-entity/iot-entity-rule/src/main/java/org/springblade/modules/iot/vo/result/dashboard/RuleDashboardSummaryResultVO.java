@@ -17,7 +17,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.CustomBaseEntity;
 
 /**
  * -----------------------------------------------------------------------------

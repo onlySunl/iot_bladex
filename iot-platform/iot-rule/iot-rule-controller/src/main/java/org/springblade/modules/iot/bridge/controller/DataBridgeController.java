@@ -1,39 +1,23 @@
 package org.springblade.modules.iot.bridge.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.common.annotation.log.WebLog;
-import org.springblade.core.tool.api.R;
-import org.springblade.core.mp.base.BaseController;
-import org.springblade.common.base.request.PageParams;
-import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.interfaces.echo.EchoService;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
-import org.springblade.modules.iot.entity.bridge.DataBridge;
-import org.springblade.modules.iot.service.bridge.DataBridgeService;
-import org.springblade.modules.iot.vo.query.bridge.DataBridgePageQuery;
-import org.springblade.modules.iot.vo.result.bridge.DataBridgeResultVO;
-import org.springblade.modules.iot.vo.save.bridge.DataBridgeSaveVO;
-import org.springblade.modules.iot.vo.update.bridge.DataBridgeUpdateVO;
+import com.mqttsnet.basic.annotation.log.WebLog;
+import com.mqttsnet.basic.interfaces.echo.EchoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.service.bridge.DataBridgeService;
+import org.springblade.modules.iot.vo.result.bridge.DataBridgeResultVO;
+import org.springblade.modules.iot.vo.save.bridge.DataBridgeSaveVO;
+import org.springblade.modules.iot.vo.update.bridge.DataBridgeUpdateVO;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -48,32 +32,18 @@ import java.util.function.Supplier;
 @RestController
 @RequestMapping("/dataBridge")
 @Tag(name = "数据桥接-规则")
-public class DataBridgeController extends BaseController<DataBridgeService, Long, DataBridge,
-        DataBridgeSaveVO, DataBridgeUpdateVO, DataBridgePageQuery, DataBridgeResultVO> {
+public class DataBridgeController extends BladeController {
 
     private final EchoService echoService;
 
-    @Override
     public EchoService getEchoService() {
         return echoService;
     }
 
-    @Override
-    public QueryWrap<DataBridge> handlerWrapper(DataBridge model, PageParams<DataBridgePageQuery> params) {
-        QueryWrap<DataBridge> queryWrap = super.handlerWrapper(model, params);
-        DataScopeHelper.startDataScope("rule_data_bridge");
-        return queryWrap;
-    }
+    private final DataBridgeService superService;
 
-    /**
-     * page 钩子 ── PageController 默认 page 走 BeanPlusUtil.toBeanPage 直转,不经
-     * service.getDataBridgeResultVOList,dataSourceCode/Name 默认空。先调父类做字典回显,再 attach。
-     */
-    @Override
-    public void handlerResult(IPage<DataBridgeResultVO> page) {
-        super.handlerResult(page);
-        Optional.ofNullable(page).ifPresent(p -> superService.attachDataSourceInfo(p.getRecords()));
-    }
+
+
 
     @Operation(summary = "保存桥接规则", description = "默认 enable=false,必须测试发送成功后手动启用")
     @PostMapping("/saveDataBridge")
@@ -145,12 +115,10 @@ public class DataBridgeController extends BaseController<DataBridgeService, Long
      */
     private <T> R<T> wrap(String opDesc, Supplier<T> action) {
         try {
-            return R.success(action.get());
-        } catch (BizException be) {
-            return R.fail(be);
+            return R.data(action.get());
         } catch (Exception e) {
             log.error("{} 失败: {}", opDesc, e.getMessage(), e);
-            return R.fail();
+            return R.fail("");
         }
     }
 }

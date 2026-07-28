@@ -1,5 +1,5 @@
 package org.springblade.modules.iot.entity.bridge;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.CustomBaseEntity;
 import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.AutoColumn;
 

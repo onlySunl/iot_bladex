@@ -18,7 +18,7 @@ import java.util.List;
  * @author mqttsnet
  * @date 2026-04-28
  */
-public interface DataSourceService extends BaseService<Long, DataSource> {
+public interface DataSourceService extends BaseService<DataSource> {
 
     /**
      * 查询数据源 VO 列表（列表接口屏蔽 connectionJson + credentialJson 敏感字段，防止凭证明文外泄）。

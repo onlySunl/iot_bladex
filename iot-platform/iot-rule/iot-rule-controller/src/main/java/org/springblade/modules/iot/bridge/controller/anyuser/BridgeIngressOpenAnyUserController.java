@@ -5,10 +5,10 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.digest.HMac;
 import com.alibaba.fastjson2.JSON;
-import org.springblade.core.tool.api.R;
-import org.springblade.common.databridge.model.SourceMessage;
-import org.springblade.common.databridge.source.http.HttpSource;
+import com.mqttsnet.basic.databridge.model.SourceMessage;
+import com.mqttsnet.basic.databridge.source.http.HttpSource;
 import org.springblade.core.log.exception.ServiceException;
+import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.entity.bridge.DataSource;
 import org.springblade.modules.iot.entity.bridge.SubscriptionSource;
 import org.springblade.modules.iot.service.bridge.DataSourceService;
@@ -70,14 +70,14 @@ public class BridgeIngressOpenAnyUserController {
             HttpServletRequest request) {
         // 1) 查订阅源(走 Service,@DS 切租户库)
         SubscriptionSource src = Optional.ofNullable(subscriptionSourceService.getByCode(sourceCode))
-                .orElseThrow(() -> BizException.wrap("订阅源不存在 sourceCode=" + sourceCode));
+                .orElseThrow(() -> new ServiceException("订阅源不存在 sourceCode=" + sourceCode));
         if (!Boolean.TRUE.equals(src.getEnable())) {
-            throw BizException.wrap("订阅源未启用 sourceCode=" + sourceCode);
+            throw new ServiceException("订阅源未启用 sourceCode=" + sourceCode);
         }
 
         // 2) 校验签名(credentialJson 配置 secretKey 时启用)
         DataSource ds = Optional.ofNullable(dataSourceService.getById(src.getDataSourceId()))
-                .orElseThrow(() -> BizException.wrap("关联数据源不存在 dsId=" + src.getDataSourceId()));
+                .orElseThrow(() -> new ServiceException("关联数据源不存在 dsId=" + src.getDataSourceId()));
         verifySignatureIfRequired(ds, signature, timestamp, body);
 
         // 3) 构造 SourceMessage 触发 handler
@@ -92,9 +92,9 @@ public class BridgeIngressOpenAnyUserController {
         if (!httpSource.ingest(sourceCode, msg)) {
             log.warn("[BridgeIngress] no handler registered for sourceCode={} (lifecycle not started?)",
                     sourceCode);
-            throw BizException.wrap("订阅源回调未注册,请检查订阅源是否启用并使用 HTTP 协议数据源");
+            throw new ServiceException("订阅源回调未注册,请检查订阅源是否启用并使用 HTTP 协议数据源");
         }
-        return R.success(null);
+        return R.success();
     }
 
     /**
@@ -113,23 +113,23 @@ public class BridgeIngressOpenAnyUserController {
             return;
         }
         if (StrUtil.hasBlank(signature, timestamp)) {
-            throw BizException.wrap("缺少 X-Signature / X-Timestamp header");
+            throw new ServiceException("缺少 X-Signature / X-Timestamp header");
         }
         long ts;
         try {
             ts = Long.parseLong(timestamp);
         } catch (NumberFormatException e) {
-            throw BizException.wrap("X-Timestamp 格式无效");
+            throw new ServiceException("X-Timestamp 格式无效");
         }
         if (Math.abs(System.currentTimeMillis() - ts) > TIMESTAMP_TOLERANCE_MS) {
-            throw BizException.wrap("请求时间戳超出窗口(防重放)");
+            throw new ServiceException("请求时间戳超出窗口(防重放)");
         }
         HMac hmac = SecureUtil.hmacSha256(secretKey.getBytes(StandardCharsets.UTF_8));
         String expected = hmac.digestHex(timestamp + StrUtil.nullToEmpty(body));
         if (!StrUtil.equalsIgnoreCase(expected, signature)) {
             log.warn("[BridgeIngress] signature mismatch expected_len={} actual_len={}",
                     expected.length(), signature.length());
-            throw BizException.wrap("签名校验失败");
+            throw new ServiceException("签名校验失败");
         }
     }
 

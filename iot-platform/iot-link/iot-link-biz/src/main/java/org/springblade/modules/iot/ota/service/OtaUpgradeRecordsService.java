@@ -2,9 +2,7 @@ package org.springblade.modules.iot.ota.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.common.base.request.PageParams;
 import org.springblade.core.mp.base.BaseService;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeRecords;
 import org.springblade.modules.iot.ota.enumeration.OtaTaskRecordAppConfirmStatusEnum;
@@ -25,7 +23,7 @@ import org.springblade.modules.iot.ota.vo.update.OtaUpgradeRecordsUpdateVO;
  * @date 2024-01-12 22:42:04
  * @create [2024-01-12 22:42:04] [mqttsnet]
  */
-public interface OtaUpgradeRecordsService extends BaseService<Long, OtaUpgradeRecords> {
+public interface OtaUpgradeRecordsService extends BaseService<OtaUpgradeRecords> {
 
 
     /**

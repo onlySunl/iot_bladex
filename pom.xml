@@ -54,6 +54,8 @@
         <jakarta.mail.version>2.1.3</jakarta.mail.version>
         <angus.mail.version>1.0.0</angus.mail.version>
 
+        <thinglinks.version>1.0.8.3</thinglinks.version>
+
         <!-- ==================== Docker 镜像仓库 ==================== -->
         <docker.registry.url>192.168.0.188</docker.registry.url>
         <docker.username>admin</docker.username>
@@ -107,14 +109,27 @@
                 <artifactId>blade-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-basic</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-mvc</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!-- ===== 2. 第三方通用组件 ===== -->
             <dependency>
                 <groupId>com.tangzc</groupId>
                 <artifactId>auto-table-annotation</artifactId>
                 <version>${auto.table.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring</artifactId>
+                <version>4.3.1</version>
+            </dependency>
             <!-- ===== 3. 网络通信 & 协议库 ===== -->
             <dependency>
                 <groupId>io.netty</groupId>
@@ -288,7 +303,26 @@
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.mqttsnet.basic</groupId>
+                <artifactId>thinglinks-core</artifactId>
+                <version>${thinglinks.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mqttsnet.basic</groupId>
+                <artifactId>thinglinks-mvc</artifactId>
+                <version>${thinglinks.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mqttsnet.basic</groupId>
+                <artifactId>thinglinks-databridge-starter</artifactId>
+                <version>${thinglinks.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mqttsnet.basic</groupId>
+                <artifactId>thinglinks-condition-starter</artifactId>
+                <version>${thinglinks.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -534,7 +568,7 @@
         <module>blade-api</module>
         <module>iot-platform</module>
         <module>nvr-platform</module>
-        <module>blade-base-entity</module>
+        <module>blade-core-basic</module>
         <module>blade-core-mvc</module>
         <module>blade-core-database</module>
         <module>blade-core-cache</module>

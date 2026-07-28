@@ -2,7 +2,7 @@ package org.springblade.modules.iot.productcommandresponse.vo.update;
 
 import org.springblade.modules.iot.product.constant.ThingModelCodeRule;
 
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -14,7 +14,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springblade.modules.iot.product.constant.ThingModelCodeRule;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -41,7 +40,7 @@ public class ProductCommandResponseUpdateVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Schema(description = "id")
-    @NotNull(message = "请填写id", groups = CustomBaseEntity.Update.class)
+    @NotNull(message = "请填写id", groups = Entity.Update.class)
     private Long id;
 
     /**

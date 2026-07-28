@@ -6,7 +6,7 @@ import java.io.Serial;
 import java.time.LocalDateTime;
 
 import com.baomidou.mybatisplus.annotation.TableLogic;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,7 +30,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "iot_device_group_rel", comment = "DeviceGroupRel table")
-public class DeviceGroupRel extends CustomBaseEntity {
+public class DeviceGroupRel extends Entity {
     @Serial
     private static final long serialVersionUID = 1L;
 

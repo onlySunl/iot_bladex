@@ -32,9 +32,10 @@
             <version>1.0.8.3</version>
             <scope>compile</scope>
         </dependency>
+
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-public-common</artifactId>
+            <artifactId>blade-core-basic</artifactId>
             <version>4.9.0.RELEASE</version>
             <scope>compile</scope>
         </dependency>

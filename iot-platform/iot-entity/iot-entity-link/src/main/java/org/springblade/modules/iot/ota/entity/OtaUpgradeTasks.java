@@ -1,5 +1,5 @@
 package org.springblade.modules.iot.ota.entity;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.AutoColumn;
 
@@ -29,7 +29,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "ota_upgrade_tasks", comment = "OtaUpgradeTasks table")
-public class OtaUpgradeTasks extends CustomBaseEntity {
+public class OtaUpgradeTasks extends Entity {
     @Serial
     private static final long serialVersionUID = 1L;
 

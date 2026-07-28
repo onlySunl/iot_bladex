@@ -1,5 +1,5 @@
 package org.springblade.modules.iot.device.entity;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.AutoColumn;
 
@@ -29,7 +29,7 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 @Builder(toBuilder = true)
 @AutoTable(value = "iot_device_location", comment = "DeviceLocation table")
-public class DeviceLocation extends CustomBaseEntity {
+public class DeviceLocation extends Entity {
     @Serial
     private static final long serialVersionUID = 1L;
 

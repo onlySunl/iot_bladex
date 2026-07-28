@@ -1,38 +1,22 @@
 package org.springblade.modules.iot.bridge.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.common.annotation.log.WebLog;
-import org.springblade.core.tool.api.R;
-import org.springblade.core.mp.base.BaseController;
-import org.springblade.common.base.request.PageParams;
-import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.interfaces.echo.EchoService;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
-import org.springblade.modules.iot.entity.bridge.SubscriptionSource;
-import org.springblade.modules.iot.service.bridge.SubscriptionSourceService;
-import org.springblade.modules.iot.vo.query.bridge.SubscriptionSourcePageQuery;
-import org.springblade.modules.iot.vo.result.bridge.SubscriptionSourceResultVO;
-import org.springblade.modules.iot.vo.save.bridge.SubscriptionSourceSaveVO;
-import org.springblade.modules.iot.vo.update.bridge.SubscriptionSourceUpdateVO;
+import com.mqttsnet.basic.annotation.log.WebLog;
+import com.mqttsnet.basic.interfaces.echo.EchoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.service.bridge.SubscriptionSourceService;
+import org.springblade.modules.iot.vo.result.bridge.SubscriptionSourceResultVO;
+import org.springblade.modules.iot.vo.save.bridge.SubscriptionSourceSaveVO;
+import org.springblade.modules.iot.vo.update.bridge.SubscriptionSourceUpdateVO;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -47,34 +31,18 @@ import java.util.function.Supplier;
 @RestController
 @RequestMapping("/subscriptionSource")
 @Tag(name = "数据桥接-订阅源")
-public class SubscriptionSourceController extends BaseController<SubscriptionSourceService, Long, SubscriptionSource,
-        SubscriptionSourceSaveVO, SubscriptionSourceUpdateVO, SubscriptionSourcePageQuery, SubscriptionSourceResultVO> {
+public class SubscriptionSourceController extends BladeController {
 
     private final EchoService echoService;
 
-    @Override
+
     public EchoService getEchoService() {
         return echoService;
     }
 
-    @Override
-    public QueryWrap<SubscriptionSource> handlerWrapper(SubscriptionSource model,
-                                                       PageParams<SubscriptionSourcePageQuery> params) {
-        QueryWrap<SubscriptionSource> queryWrap = super.handlerWrapper(model, params);
-        DataScopeHelper.startDataScope("rule_subscription_source");
-        return queryWrap;
-    }
+    private final  SubscriptionSourceService superService;
 
-    /**
-     * page 钩子,反填关联数据源(同 DataBridgeController)。
-     *
-     * @param page 分页结果
-     */
-    @Override
-    public void handlerResult(IPage<SubscriptionSourceResultVO> page) {
-        super.handlerResult(page);
-        Optional.ofNullable(page).ifPresent(p -> superService.attachDataSourceInfo(p.getRecords()));
-    }
+
 
     @Operation(summary = "保存订阅源", description = "默认 enable=false,必须手动启用")
     @PostMapping("/saveSubscriptionSource")
@@ -130,12 +98,10 @@ public class SubscriptionSourceController extends BaseController<SubscriptionSou
      */
     private <T> R<T> wrap(String opDesc, Supplier<T> action) {
         try {
-            return R.success(action.get());
-        } catch (BizException be) {
-            return R.fail(be);
+            return R.data(action.get());
         } catch (Exception e) {
             log.error("{} 失败: {}", opDesc, e.getMessage(), e);
-            return R.fail();
+            return R.fail("");
         }
     }
 }

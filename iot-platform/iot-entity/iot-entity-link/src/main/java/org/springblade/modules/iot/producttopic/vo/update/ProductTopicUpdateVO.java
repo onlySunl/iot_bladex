@@ -3,7 +3,7 @@ package org.springblade.modules.iot.producttopic.vo.update;
 import java.io.Serial;
 import java.io.Serializable;
 
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -35,7 +35,7 @@ public class ProductTopicUpdateVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Schema(description = "id")
-    @NotNull(message = "请填写id", groups = CustomBaseEntity.Update.class)
+    @NotNull(message = "请填写id", groups = Entity.Update.class)
     private Long id;
 
     /**

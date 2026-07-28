@@ -1,32 +1,22 @@
 package org.springblade.modules.iot.bridge.controller;
 
-import org.springblade.common.annotation.log.WebLog;
-import org.springblade.core.tool.api.R;
-import org.springblade.core.mp.base.BaseController;
-import org.springblade.common.base.request.PageParams;
-import org.springblade.common.database.mybatis.conditions.query.QueryWrap;
-import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.interfaces.echo.EchoService;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
-import org.springblade.modules.iot.entity.bridge.BridgeExecutionTrace;
-import org.springblade.modules.iot.service.bridge.BridgeExecutionTraceService;
-import org.springblade.modules.iot.vo.query.bridge.BridgeExecutionTracePageQuery;
-import org.springblade.modules.iot.vo.result.bridge.BridgeExecutionTraceResultVO;
-import org.springblade.modules.iot.vo.result.bridge.BridgeExecutionTraceStatsResultVO;
+import com.mqttsnet.basic.annotation.log.WebLog;
+import com.mqttsnet.basic.base.request.PageParams;
+import com.mqttsnet.basic.interfaces.echo.EchoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.boot.ctrl.BladeController;
+import org.springblade.core.tool.api.R;
+import org.springblade.modules.iot.service.bridge.BridgeExecutionTraceService;
+import org.springblade.modules.iot.vo.query.bridge.BridgeExecutionTracePageQuery;
+import org.springblade.modules.iot.vo.result.bridge.BridgeExecutionTraceResultVO;
+import org.springblade.modules.iot.vo.result.bridge.BridgeExecutionTraceStatsResultVO;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 桥接执行 trace 控制器(链路回放)。
@@ -41,33 +31,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/bridgeExecutionTrace")
 @Tag(name = "桥接执行 trace(链路回放)")
-public class BridgeExecutionTraceController extends BaseController<BridgeExecutionTraceService, Long, BridgeExecutionTrace,
-        Object, Object, BridgeExecutionTracePageQuery, BridgeExecutionTraceResultVO> {
+public class BridgeExecutionTraceController extends BladeController {
 
     private final EchoService echoService;
 
-    @Override
+
     public EchoService getEchoService() {
         return echoService;
     }
 
-    @Override
-    public QueryWrap<BridgeExecutionTrace> handlerWrapper(BridgeExecutionTrace model,
-                                                         PageParams<BridgeExecutionTracePageQuery> params) {
-        QueryWrap<BridgeExecutionTrace> queryWrap = super.handlerWrapper(model, params);
-        DataScopeHelper.startDataScope("rule_bridge_execution_trace");
-        return queryWrap;
-    }
+    private final BridgeExecutionTraceService superService;
+
 
     @Operation(summary = "trace 统计", description = "按查询条件聚合桥接执行日志分布、趋势和触发量 Top 规则")
     @PostMapping("/stats")
     public R<BridgeExecutionTraceStatsResultVO> stats(@RequestBody PageParams<BridgeExecutionTracePageQuery> params) {
         try {
             BridgeExecutionTracePageQuery query = params == null ? null : params.getModel();
-            return R.success(superService.getTraceStats(query));
+            return R.data(superService.getTraceStats(query));
         } catch (Exception e) {
             log.error("查询 trace 统计失败: {}", e.getMessage(), e);
-            return R.fail();
+            return R.fail("查询 trace 统计失败");
         }
     }
 
@@ -83,12 +67,10 @@ public class BridgeExecutionTraceController extends BaseController<BridgeExecuti
         try {
             BridgeExecutionTraceResultVO result = superService.getTraceDetail(traceId, ruleId);
             echoService.action(result);
-            return R.success(result);
-        } catch (BizException be) {
-            return R.fail(be);
-        } catch (Exception e) {
+            return R.data(result);
+        }  catch (Exception e) {
             log.error("查询 trace 详情失败 traceId={} ruleId={}: {}", traceId, ruleId, e.getMessage(), e);
-            return R.fail();
+            return R.fail("查询 trace 详情失败");
         }
     }
 
@@ -99,11 +81,9 @@ public class BridgeExecutionTraceController extends BaseController<BridgeExecuti
     public R<String> replay(@PathVariable("traceId") String traceId) {
         try {
             return R.success(superService.replay(traceId));
-        } catch (BizException be) {
-            return R.fail(be);
-        } catch (Exception e) {
+        }  catch (Exception e) {
             log.error("死信重放失败 traceId={}: {}", traceId, e.getMessage(), e);
-            return R.fail();
+            return R.fail("死信重放失败");
         }
     }
 }

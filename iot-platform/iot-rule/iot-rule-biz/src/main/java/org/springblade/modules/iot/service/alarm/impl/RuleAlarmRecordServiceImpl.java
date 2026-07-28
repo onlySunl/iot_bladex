@@ -4,16 +4,19 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.core.mp.base.BaseServiceImpl;
-import org.springblade.core.secure.utils.AuthUtil;
+import com.mqttsnet.basic.context.ContextUtil;
+import com.mqttsnet.basic.model.Kv;
+import com.mqttsnet.basic.utils.ArgumentAssert;
+import com.mqttsnet.basic.utils.BeanPlusUtil;
+import com.mqttsnet.basic.utils.StrPool;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+import org.springblade.common.constant.BizConstant;
+import org.springblade.common.constant.DsConstant;
 import org.springblade.core.log.exception.ServiceException;
-import org.springblade.common.model.Kv;
-import org.springblade.common.utils.ArgumentAssert;
-import org.springblade.common.utils.BeanUtil;
-import org.springblade.core.tool.utils.StringPool;
-import org.springblade.core.tool.utils.StringUtils;
-import org.springblade.modules.iot.common.constant.BizConstant;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.core.mp.base.BaseServiceImpl;
+
 import org.springblade.modules.iot.dto.alarm.RuleAlarmActionConfigDTO;
 import org.springblade.modules.iot.dto.alarm.RuleAlarmChannelTemplateDTO;
 import org.springblade.modules.iot.dto.alarm.RuleAlarmRecipientDTO;
@@ -29,11 +32,8 @@ import org.springblade.modules.iot.enumeration.alarm.AlarmChannelStatusEnum;
 import org.springblade.modules.iot.enumeration.alarm.AlarmChannelTypeEnum;
 import org.springblade.modules.iot.enumeration.alarm.AlarmRecordHandledStatusEnum;
 import org.springblade.modules.iot.manager.alarm.RuleAlarmRecordManager;
-import org.springblade.modules.iot.msg.enumeration.NoticeRemindModeEnum;
-import org.springblade.modules.iot.msg.facade.MsgFacade;
-import org.springblade.modules.iot.msg.vo.save.ExtendMsgRecipientSaveVO;
-import org.springblade.modules.iot.msg.vo.update.ExtendMsgPublishVO;
-import org.springblade.modules.iot.msg.vo.update.ExtendMsgSendVO;
+
+import org.springblade.modules.iot.mapper.alarm.RuleAlarmRecordMapper;
 import org.springblade.modules.iot.protocol.vo.param.DeviceAlarmNotificationRequestParam;
 import org.springblade.modules.iot.service.alarm.RuleAlarmChannelService;
 import org.springblade.modules.iot.service.alarm.RuleAlarmRecordService;
@@ -46,19 +46,11 @@ import org.springblade.modules.iot.vo.result.alarm.RuleAlarmRecordDetailsResultV
 import org.springblade.modules.iot.vo.result.alarm.RuleAlarmRecordResultVO;
 import org.springblade.modules.iot.vo.save.alarm.RuleAlarmRecordSaveVO;
 import org.springblade.modules.iot.vo.update.alarm.RuleAlarmRecordUpdateVO;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * <p>
@@ -74,13 +66,13 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class RuleAlarmRecordServiceImpl extends BaseServiceImpl<RuleAlarmRecordManager, Long, RuleAlarmRecord> implements RuleAlarmRecordService {
+public class RuleAlarmRecordServiceImpl extends BaseServiceImpl<RuleAlarmRecordMapper, RuleAlarmRecord> implements RuleAlarmRecordService {
 
     @Autowired
     private RuleAlarmService ruleAlarmService;
 
     @Autowired
-    private RuleAlarmChannelService ruleAlarmChannelService;
+    private RuleAlarmRecordManager ruleAlarmRecordManager;
 
     @Autowired
     private MsgFacade msgApi;
@@ -105,7 +97,7 @@ public class RuleAlarmRecordServiceImpl extends BaseServiceImpl<RuleAlarmRecordM
         RuleAlarmRecord ruleAlarmRecord = buildRuleAlarmRecordSaveVO(saveVO);
 
         // Save alarm record
-        superManager.save(ruleAlarmRecord);
+        ruleAlarmRecordManager.save(ruleAlarmRecord);
 
         return BeanPlusUtil.toBeanIgnoreError(ruleAlarmRecord, RuleAlarmRecordSaveVO.class);
     }
@@ -128,12 +120,6 @@ public class RuleAlarmRecordServiceImpl extends BaseServiceImpl<RuleAlarmRecordM
      */
     private RuleAlarmRecord buildRuleAlarmRecordSaveVO(RuleAlarmRecordSaveVO saveVO) {
         RuleAlarmRecord ruleAlarmRecord = BeanPlusUtil.copyProperties(saveVO, RuleAlarmRecord.class);
-        if (ruleAlarmRecord.getCreatedOrgId() == null) {
-            Long currentDeptId = ContextUtil.getCurrentDeptId();
-            if (currentDeptId != null) {
-                ruleAlarmRecord.setCreatedOrgId(currentDeptId);
-            }
-        }
         return ruleAlarmRecord;
     }
 
@@ -154,7 +140,7 @@ public class RuleAlarmRecordServiceImpl extends BaseServiceImpl<RuleAlarmRecordM
         RuleAlarmRecord ruleAlarmRecord = buildRuleAlarmRecordUpdateVO(updateVO);
 
         // Update alarm record
-        superManager.updateById(ruleAlarmRecord);
+        ruleAlarmRecordManager.updateById(ruleAlarmRecord);
 
         return updateVO;
     }
@@ -189,7 +175,7 @@ public class RuleAlarmRecordServiceImpl extends BaseServiceImpl<RuleAlarmRecordM
     public Boolean deleteAlarmRecord(Long id) {
         ArgumentAssert.notNull(id, "ID cannot be null");
 
-        RuleAlarmRecord ruleAlarmRecord = superManager.getById(id);
+        RuleAlarmRecord ruleAlarmRecord = ruleAlarmRecordManager.getById(id);
         if (ruleAlarmRecord == null) {
             throw BizException.wrap("The rule alarm record does not exist");
         }
@@ -199,7 +185,7 @@ public class RuleAlarmRecordServiceImpl extends BaseServiceImpl<RuleAlarmRecordM
         //     throw BizException.wrap("The rule alarm record is currently in use and cannot be deleted");
         // }
 
-        return superManager.removeById(id);
+        return ruleAlarmRecordManager.removeById(id);
     }
 
     /**
@@ -212,9 +198,9 @@ public class RuleAlarmRecordServiceImpl extends BaseServiceImpl<RuleAlarmRecordM
     public RuleAlarmRecordDetailsResultVO getAlarmRecordDetails(Long id) {
         ArgumentAssert.notNull(id, "Rule alarm record ID cannot be null");
 
-        RuleAlarmRecord ruleAlarmRecord = superManager.getById(id);
+        RuleAlarmRecord ruleAlarmRecord = ruleAlarmRecordManager.getById(id);
         if (ruleAlarmRecord == null) {
-            throw BizException.wrap("Rule alarm record does not exist");
+            throw new ServiceException("Rule alarm record does not exist");
         }
         RuleAlarmRecordDetailsResultVO alarmRecordDetailsResultVO = BeanPlusUtil.toBeanIgnoreError(ruleAlarmRecord, RuleAlarmRecordDetailsResultVO.class);
 

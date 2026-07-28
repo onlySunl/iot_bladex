@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.Map;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.CustomBaseEntity;
 
 /**
  * @program: thinglinks-cloud

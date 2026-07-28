@@ -1,5 +1,5 @@
 package org.springblade.modules.iot.cacert.entity.audit;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.AutoColumn;
 
@@ -11,7 +11,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import static com.baomidou.mybatisplus.annotation.SqlCondition.EQUAL;
 
 /**
  * CA 证书审计日志 ── 记录证书全生命周期操作(导入/颁发/吊销/下载/SSL 测试)。
@@ -25,7 +24,7 @@ import static com.baomidou.mybatisplus.annotation.SqlCondition.EQUAL;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "ca_cert_audit_log", comment = "CaCertAuditLog table")
-public class CaCertAuditLog extends CustomBaseEntity {
+public class CaCertAuditLog extends Entity {
 
     @Serial
     private static final long serialVersionUID = 1L;
