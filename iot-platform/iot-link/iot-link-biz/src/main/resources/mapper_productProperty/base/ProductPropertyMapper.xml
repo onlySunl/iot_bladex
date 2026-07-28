@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mqttsnet.thinglinks.productproperty.mapper.ProductPropertyMapper">
+    <!--
+        代码生成器 by 2023-03-14 19:39:59
+        自定义sql建议在base文件夹同级新建ext文件夹，并新建同名且同namespace的xml进行编写。方便修改字段时，重新生成此文件。
+    -->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mqttsnet.thinglinks.productproperty.entity.ProductProperty">
+        <id column="id" property="id"/>
+        <result column="service_id" property="serviceId"/>
+        <result column="property_code" property="propertyCode"/>
+        <result column="property_name" property="propertyName"/>
+        <result column="datatype" property="datatype"/>
+        <result column="description" property="description"/>
+        <result column="enumlist" property="enumlist"/>
+        <result column="max" property="max"/>
+        <result column="maxlength" property="maxlength"/>
+        <result column="method" property="method"/>
+        <result column="min" property="min"/>
+        <result column="required" property="required"/>
+        <result column="step" property="step"/>
+        <result column="unit" property="unit"/>
+        <result column="icon" property="icon"/>
+        <result column="remark" property="remark"/>
+        <result column="deleted" property="deleted"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="updated_time" property="updatedTime"/>
+        <result column="updated_by" property="updatedBy"/>
+        <result column="created_org_id" property="createdOrgId"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, service_id, property_code, property_name, datatype, description, 
+        enumlist, max, maxlength, method, min, required, 
+        step, unit, icon, remark, deleted, created_time, created_by, 
+        updated_time, updated_by, created_org_id
+    </sql>
+
+    <!-- 逻辑删除条件 - 可在其他SQL中引用 -->
+    <sql id="LogicDelete_Condition">
+        <if test="true">deleted = 0</if>
+    </sql>
+
+</mapper>

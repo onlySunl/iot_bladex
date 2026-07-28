@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>iot-link</artifactId>
+        <groupId>org.springblade</groupId>
+        <version>4.9.0.RELEASE</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>iot-link-biz</artifactId>
+    <name>${project.artifactId}</name>
+    <description>设备集成服务-业务模块</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-link-entity</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-file-sdk</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.websocket</groupId>
+            <artifactId>jakarta.websocket-client-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>iot-databases</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>iot-cache-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>iot-echo-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>iot-mvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>iot-protocol-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>iot-dynamic-tp-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-system-api</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-tds-api</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-broker-api</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-base-api</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+        </dependency>
+
+        <!-- 对象反射比对:产品版本 diff 字段级值比对(ReflectionDiffBuilder) -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <!-- 测试 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+
+        <!-- JMH 核心依赖 -->
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-core</artifactId>
+            <version>1.37</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-generator-annprocess</artifactId>
+            <version>1.37</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 异步分析工具 -->
+        <dependency>
+            <groupId>com.github.oshi</groupId>
+            <artifactId>oshi-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>iot-statemachine-starter</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.4</version>
+                <configuration>
+                    <skip>false</skip>
+                    <skipTests>false</skipTests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

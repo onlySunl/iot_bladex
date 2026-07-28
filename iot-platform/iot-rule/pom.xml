@@ -21,28 +21,4 @@
         <module>iot-rule-facade</module>
         <module>iot-rule-server</module>
     </modules>
-
-    <dependencies>
-        <!-- 本地框架模块 -->
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-core-basic</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-core-mvc</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-core-database</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-core-cache</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-    </dependencies>
 </project>

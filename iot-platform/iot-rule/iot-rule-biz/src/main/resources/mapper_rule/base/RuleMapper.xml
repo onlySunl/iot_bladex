@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mqttsnet.thinglinks.mapper.linkage.RuleMapper">
+    <!--
+        代码生成器 by 2023-07-19 23:20:14
+        自定义sql建议在base文件夹同级新建ext文件夹，并新建同名且同namespace的xml进行编写。方便修改字段时，重新生成此文件。
+    -->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mqttsnet.thinglinks.entity.linkage.Rule">
+        <id column="id" property="id"/>
+        <result column="rule_name" property="ruleName"/>
+        <result column="rule_identification" property="ruleIdentification"/>
+        <result column="app_id" property="appId"/>
+        <result column="effective_type" property="effectiveType"/>
+        <result column="appoint_content" property="appointContent"/>
+        <result column="status" property="status"/>
+        <result column="remark" property="remark"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_by" property="updatedBy"/>
+        <result column="updated_time" property="updatedTime"/>
+        <result column="created_org_id" property="createdOrgId"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, rule_name, rule_identification, app_id, effective_type, appoint_content, 
+        status, remark, created_by, created_time, updated_by, updated_time, 
+        created_org_id
+    </sql>
+
+</mapper>

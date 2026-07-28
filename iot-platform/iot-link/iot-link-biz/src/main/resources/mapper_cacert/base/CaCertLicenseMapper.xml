@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mqttsnet.thinglinks.cacert.mapper.license.CaCertLicenseMapper">
+<!--
+    代码生成器 by 2025-06-27 15:48:10
+    自定义sql建议在base文件夹同级新建ext文件夹，并新建同名且同namespace的xml进行编写。方便修改字段时，重新生成此文件。
+-->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mqttsnet.thinglinks.cacert.entity.license.CaCertLicense">
+        <id column="id" property="id" />
+        <result column="cert_name" property="certName" />
+        <result column="serial_number" property="serialNumber" />
+        <result column="common_name" property="commonName" />
+        <result column="organization" property="organization" />
+        <result column="organizational_unit" property="organizationalUnit" />
+        <result column="country_name" property="countryName" />
+        <result column="province_name" property="provinceName" />
+        <result column="locality_name" property="localityName" />
+        <result column="email" property="email" />
+        <result column="license_base64" property="licenseBase64" />
+        <result column="business_license_fileid" property="businessLicenseFileid" />
+        <result column="authorization_cert_fileid" property="authorizationCertFileid" />
+        <result column="algorithm" property="algorithm" />
+        <result column="param1" property="param1" />
+        <result column="param2" property="param2" />
+        <result column="extend_params" property="extendParams" />
+        <result column="not_before" property="notBefore" />
+        <result column="not_after" property="notAfter" />
+        <result column="revoke_time" property="revokeTime" />
+        <result column="state" property="state" />
+        <result column="remark" property="remark" />
+        <result column="deleted" property="deleted" />
+        <result column="created_time" property="createdTime" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_time" property="updatedTime" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="created_org_id" property="createdOrgId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, cert_name, serial_number, common_name, organization, organizational_unit, 
+        country_name, province_name, locality_name, email, license_base64, business_license_fileid, 
+        authorization_cert_fileid, algorithm, param1, param2, extend_params, not_before, 
+        not_after, revoke_time, state, remark, deleted, created_time, created_by, 
+        updated_time, updated_by, created_org_id
+    </sql>
+
+    <!-- 逻辑删除条件 - 可在其他SQL中引用 -->
+    <sql id="LogicDelete_Condition">
+        <if test="true">deleted = 0</if>
+    </sql>
+
+</mapper>
