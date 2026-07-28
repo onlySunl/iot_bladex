@@ -44,20 +44,7 @@
     <!-- 子模块定义                                  -->
     <!-- ======================================== -->
     <modules>
-        <!-- 业务逻辑层: 核心业务实现 -->
-        <module>iot-rule-biz</module>
-        
-        <!-- 数据桥接层: 数据源和数据目标桥接 -->
-        <module>iot-rule-biz-bridge</module>
-        
-        <!-- 控制器层: REST API 接口 -->
-        <module>iot-rule-controller</module>
-        
-        <!-- 门面接口层: API 定义和实现 -->
-        <module>iot-rule-facade</module>
-        
-        <!-- 服务启动层: 独立服务部署 -->
-        <module>iot-rule-server</module>
+
     </modules>
 
     <!-- ======================================== -->

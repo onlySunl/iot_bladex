@@ -41,17 +41,7 @@
     <!-- 子模块定义                                  -->
     <!-- ======================================== -->
     <modules>
-        <!-- 业务逻辑层: 核心业务实现 -->
-        <module>iot-link-biz</module>
-        
-        <!-- 控制器层: REST API 接口 -->
-        <module>iot-link-controller</module>
-        
-        <!-- 门面接口层: API 定义和实现 -->
-        <module>iot-link-facade</module>
-        
-        <!-- 服务启动层: 独立服务部署 -->
-        <module>iot-link-server</module>
+
     </modules>
 
     <!-- ======================================== -->
