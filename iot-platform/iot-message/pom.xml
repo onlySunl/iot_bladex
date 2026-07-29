@@ -16,7 +16,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>iot-message-facade</module>
-        <module>iot-message-entity</module>
         <module>iot-message-biz</module>
         <module>iot-message-controller</module>
         <module>iot-message-server</module>
