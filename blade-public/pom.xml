@@ -35,8 +35,6 @@
         <module>blade-core-databridge</module>
         <!-- 动态线程池核心模块 -->
         <module>blade-core-dynamic-tp</module>
-        <!-- MyBatis 扩展模块 -->
-        <module>blade-mybatis-ext</module>
     </modules>
 
     <dependencies>
