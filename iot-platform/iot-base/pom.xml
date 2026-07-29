@@ -18,7 +18,6 @@
     <modules>
         <module>iot-base-facade</module>
         <module>iot-base-server</module>
-        <module>iot-base-entity</module>
         <module>iot-base-biz</module>
         <module>iot-base-controller</module>
     </modules>

@@ -24,6 +24,8 @@
         <module>iot-entity-mqs</module>
         <module>iot-entity-broker</module>
         <module>iot-entity-tds</module>
+        <!-- IoT 基础实体模块 -->
+        <module>iot-entity-base</module>
     </modules>
 
 </project>
