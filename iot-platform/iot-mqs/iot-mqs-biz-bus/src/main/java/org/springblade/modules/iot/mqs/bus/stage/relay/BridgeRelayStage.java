@@ -6,7 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import org.springblade.modules.iot.bus.stage.AbstractDeviceEventStage;
 import org.springblade.modules.iot.bus.stage.StageContext;
 import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
-import org.springblade.common.mq.BizMqRouteConstant;
+import org.springblade.modules.iot.common.mq.BizMqRouteConstant;
 import org.springblade.modules.iot.constants.bus.BusConstants;
 import org.springblade.modules.iot.entity.protocol.DeviceProtocolEvent;
 import org.springblade.modules.iot.enumeration.bus.StagePhaseEnum;
@@ -79,7 +79,7 @@ public class BridgeRelayStage extends AbstractDeviceEventStage {
             .tenantId(event.getTenantId())
             .protocolType(StrUtil.nullToDefault(event.getProtocolType(), PROTOCOL_FALLBACK))
             .actionType(event.getEventType())
-            .clientId(StrUtil.nullToDefault(event.getClientId(), StrPool.EMPTY))
+            .clientId(StrUtil.nullToDefault(event.getClientId(), StrUtil.EMPTY))
             .userId(event.getUserId())
             .address(event.getAddress())
             .appId(event.getAppId())

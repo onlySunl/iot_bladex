@@ -4,13 +4,14 @@ import java.util.Optional;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
+import org.springblade.basic.cache.utils.CachePlusUtil;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
-import org.springblade.common.cache.link.device.DeviceCacheKeyBuilder;
-import org.springblade.common.constant.CommonIotConstants;
+import org.springblade.modules.iot.common.cache.link.device.DeviceCacheKeyBuilder;
+import org.springblade.modules.iot.common.constant.CommonIotConstants;
 import org.springblade.modules.iot.device.entity.DeviceAction;
 import org.springblade.modules.iot.device.enumeration.DeviceActionStatusEnum;
-import org.springblade.common.enums.DeviceActionTypeEnum;
+import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.device.vo.save.DeviceActionSaveVO;
 import org.springblade.modules.iot.entity.device.CommonDeviceEvent;
 import org.springblade.modules.iot.link.facade.DeviceOpenInnerFacade;
@@ -23,7 +24,7 @@ import org.springframework.stereotype.Service;
 /**
  * ============================================================================
  * Description:
- * ??????????b??????????ervice Impl
+ * 设备事件动作Service Impl
  * ============================================================================
  *
  * @author mqttsnet
@@ -48,8 +49,12 @@ public class DeviceEventActionServiceImpl implements DeviceEventActionService {
     private CachePlusUtil cachePlusOpsUtil;
 
     /**
-     * ?e?????????????????????????     *
-     * @param eventMessage ??????????????     * @param actionType   ??????????????     * @param describable  ???????     */
+     * 保存设备事件动作
+     *
+     * @param eventMessage 事件消息
+     * @param actionType   动作类型
+     * @param describable  描述
+     */
     @Override
     public void saveDeviceEventAction(String eventMessage, DeviceActionTypeEnum actionType, String describable) {
         JSONObject map = JSON.parseObject(eventMessage);
@@ -68,7 +73,7 @@ public class DeviceEventActionServiceImpl implements DeviceEventActionService {
         deviceActionSaveVO.setStatus(DeviceActionStatusEnum.SUCCESSFUL.getValue());
         deviceActionSaveVO.setRemark(describable);
         R<DeviceAction> deviceActionR = deviceOpenInnerApi.saveDeviceAction(deviceActionSaveVO);
-        if (Boolean.TRUE.equals(R.isSuccess(deviceActionR))) {
+        if (Boolean.TRUE.equals(deviceActionR.getIsSuccess())) {
             log.info("Save device action success: deviceAction={}", deviceActionR.getData());
         } else {
             log.error("Save device action failed: deviceAction={}", deviceActionR.getData());
@@ -77,7 +82,8 @@ public class DeviceEventActionServiceImpl implements DeviceEventActionService {
 
     /**
      * {@inheritDoc}
-     * <p>??????????event ??????????{@link DeviceActionSaveVO} ??facade;deviceId ??????????facade ????????????????????????????     */
+     * <p>直接取 event 字段建 {@link DeviceActionSaveVO} 走 facade;deviceId 缺失或 facade 失败仅告警不抛。
+     */
     @Override
     public void save(CommonDeviceEvent event) {
         if (event == null || event.getActionType() == null) {
@@ -97,7 +103,7 @@ public class DeviceEventActionServiceImpl implements DeviceEventActionService {
             vo.setStatus(DeviceActionStatusEnum.SUCCESSFUL.getValue());
             vo.setRemark(event.getActionType().getDesc());
             R<DeviceAction> r = deviceOpenInnerApi.saveDeviceAction(vo);
-            if (!Boolean.TRUE.equals(R.isSuccess(r))) {
+            if (!Boolean.TRUE.equals(r.getIsSuccess())) {
                 log.warn("[DeviceEventAction] save failed (non-blocking) clientId={} action={} msg={}",
                     event.getClientId(), event.getActionType(), r.getMsg());
             }

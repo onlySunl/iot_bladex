@@ -1,9 +1,10 @@
 package org.springblade.modules.iot.mqs.bridge;
 
 import cn.hutool.core.util.StrUtil;
-import org.springblade.modules.iot.common.mq.IotRocketmqTemplate;
+import org.springblade.basic.context.ContextUtil;
+import org.springblade.basic.rocketmq.producer.RocketmqTemplate;
 import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
-import org.springblade.common.mq.BizMqRouteConstant;
+import org.springblade.modules.iot.common.mq.BizMqRouteConstant;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Component;
  * <h3>定位</h3>
  * 在 mqs 现有事件链路(MQTT / WebSocket / TCP 协议处理)尾部以"旁路 + 同步确认"方式
  * 投递 {@link BridgeMessageEnvelope} 到 RocketMQ {@link BizMqRouteConstant.Bridge#DEVICE_EVENT},
- * 由 thinglinks-rule 的 BridgeDeviceEventConsumer 消费做规则匹配 + 桥接分发.
+ * 由 iot-rule 的 BridgeDeviceEventConsumer 消费做规则匹配 + 桥接分发.
  *
  * <h3>容错策略</h3>
  * <ul>
@@ -44,20 +45,20 @@ public class MqsBridgeEventProducer {
 
     private final ObjectProvider<RocketmqTemplate> rocketmqTemplateProvider;
 
-    @Value("${thinglinks.mqs.bridge-event.sync-send-timeout-ms:5000}")
+    @Value("${iot.mqs.bridge-event.sync-send-timeout-ms:5000}")
     private long sendTimeoutMs;
 
-    @Value("${thinglinks.mqs.bridge-event.sync-send-max-attempts:2}")
+    @Value("${iot.mqs.bridge-event.sync-send-max-attempts:2}")
     private int sendMaxAttempts;
 
     /**
      * 启动时主动检查 RocketMQ 是否注入成功.
-     * <p>在 mqs-server 部署且 thinglinks-rocketmq-starter 依赖在的前提下,
+     * <p>在 mqs-server 部署且 iot-rocketmq-starter 依赖在的前提下,
      * RocketmqTemplate 应该是必有 Bean.如果 null 大概率是:
      * <ul>
      *   <li>nacos 上 rocketmq.yml 没引(spring.config.import 漏配)</li>
      *   <li>rocketmq.name-server 为空,导致 RocketMQTemplate 没装配</li>
-     *   <li>maven 依赖没引 thinglinks-rocketmq-starter</li>
+     *   <li>maven 依赖没引 iot-rocketmq-starter</li>
      * </ul>
      * 启动期就报警,比每条事件丢失才发现强.
      */
@@ -69,7 +70,7 @@ public class MqsBridgeEventProducer {
                 "桥接旁路投递将被跳过 ── 检查:" +
                 "(1) nacos rocketmq.yml 是否被 spring.config.import 引入;" +
                 "(2) rocketmq.name-server 是否非空;" +
-                "(3) thinglinks-rocketmq-starter 依赖是否在 pom 中.");
+                "(3) iot-rocketmq-starter 依赖是否在 pom 中.");
         } else {
             log.info("[MqsBridgeEventProducer] startup self-check OK: RocketmqTemplate ready");
         }

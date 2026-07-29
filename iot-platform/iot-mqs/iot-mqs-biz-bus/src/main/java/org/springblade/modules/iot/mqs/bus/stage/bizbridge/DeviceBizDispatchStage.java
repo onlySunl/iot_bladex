@@ -5,7 +5,7 @@ import java.util.Optional;
 import cn.hutool.core.util.StrUtil;
 import org.springblade.modules.iot.bus.stage.AbstractDeviceEventStage;
 import org.springblade.modules.iot.bus.stage.StageContext;
-import org.springblade.common.enums.DeviceActionTypeEnum;
+import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.entity.device.CommonDeviceEvent;
 import org.springblade.modules.iot.entity.protocol.DeviceProtocolEvent;
 import org.springblade.modules.iot.enumeration.bus.StagePhaseEnum;

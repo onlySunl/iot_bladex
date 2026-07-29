@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Map;
 import java.util.Optional;
 
-import org.springblade.common.enums.DeviceActionTypeEnum;
+import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.entity.device.CommonDeviceEvent;
 import org.springblade.modules.iot.entity.protocol.DeviceProtocolEvent;
 import org.springblade.modules.iot.product.enumeration.ProtocolTypeEnum;

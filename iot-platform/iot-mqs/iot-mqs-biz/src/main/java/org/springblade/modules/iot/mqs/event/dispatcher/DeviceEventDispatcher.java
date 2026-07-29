@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
-import org.springblade.common.enums.DeviceActionTypeEnum;
+import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.entity.device.CommonDeviceEvent;
 import org.springblade.modules.iot.mqs.event.hook.DeviceEventContext;
 import org.springblade.modules.iot.mqs.event.hook.DeviceEventHook;

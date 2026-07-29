@@ -3,7 +3,7 @@ package org.springblade.modules.iot.mqs.uplink.handler;
 import org.springblade.modules.iot.entity.uplink.source.UplinkMessageEventSource;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description:
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com

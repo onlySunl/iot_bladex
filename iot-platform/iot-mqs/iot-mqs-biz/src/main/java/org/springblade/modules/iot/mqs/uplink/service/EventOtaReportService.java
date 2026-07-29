@@ -3,7 +3,7 @@ package org.springblade.modules.iot.mqs.uplink.service;
 import java.util.Optional;
 
 import com.alibaba.fastjson2.JSON;
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
 import org.springblade.modules.iot.link.facade.OtaOpenInnerFacade;
 import org.springblade.modules.iot.protocol.vo.param.TopoOtaPullResponseParam;
 import org.springblade.modules.iot.protocol.vo.param.TopoOtaReportParam;
@@ -18,7 +18,8 @@ import org.springframework.stereotype.Service;
  * File Name: EventOtaCommandResponseService
  * -----------------------------------------------------------------------------
  * Description:
- * OTA ???????????????????????????? mqtt???????$???????? * -----------------------------------------------------------------------------
+ * OTA 上报软固件版本信息  mqtt事件业务层
+ * -----------------------------------------------------------------------------
  *
  * @author xiaonannet
  * @version 1.0
@@ -52,7 +53,7 @@ public class EventOtaReportService {
             R<TopoOtaReportResponseParam> otaReportResponseParamR = otaOpenInnerFacade.otaReportByMqtt(topoOtaReportParam);
             log.info("OTA Report Response: {}", JSON.toJSONString(otaReportResponseParamR));
 
-            if (!R.isSuccess(otaReportResponseParamR)) {
+            if (!otaReportResponseParamR.getIsSuccess()) {
                 log.error("Failed to OTA Report: {}", otaReportResponseParamR.getErrorMsg());
                 return Optional.empty();
             }

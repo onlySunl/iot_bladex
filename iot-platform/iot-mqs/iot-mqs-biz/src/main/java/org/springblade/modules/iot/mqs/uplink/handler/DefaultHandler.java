@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: 其他默认Topic处理器
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com

@@ -6,7 +6,7 @@ import java.util.Map;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
-import org.springblade.core.tool.utils.BeanUtil;
+import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
 import org.springblade.modules.iot.cache.vo.product.ProductCacheVO;
 import org.springblade.modules.iot.cache.vo.product.ProductModelCacheVO;

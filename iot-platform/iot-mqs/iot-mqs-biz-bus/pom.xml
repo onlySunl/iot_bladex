@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- MQS Bus 业务层：Kafka 协议解析/数据总线/Stage 流水线 -->
-
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
     <parent>
-        <groupId>org.springblade</groupId>
         <artifactId>iot-mqs</artifactId>
+        <groupId>org.springblade</groupId>
         <version>4.9.0.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -19,10 +16,10 @@
 
     <dependencies>
         <!-- 业务实体 + 服务依赖 (stage 内调既有 service 落库 / 解物模型) -->
-                <dependency>
+        <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-entity-mqs</artifactId>
-            <version>${project.version}</version>
+            <artifactId>iot-mqs-entity</artifactId>
+            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
@@ -37,10 +34,21 @@
         </dependency>
 
         <!-- 基础工具 (Hutool / 上下文 / 缓存 / RocketMQ / Kafka / 动态线程池) -->
-
         <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-cache-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-rocketmq-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-kafka-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-dynamic-tp-starter</artifactId>
         </dependency>
 
         <!-- Micrometer 监控指标 -->

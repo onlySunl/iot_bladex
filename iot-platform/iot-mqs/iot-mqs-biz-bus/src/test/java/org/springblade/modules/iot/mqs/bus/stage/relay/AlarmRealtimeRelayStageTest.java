@@ -2,13 +2,14 @@ package org.springblade.modules.iot.mqs.bus.stage.relay;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.Iterator;
 
-import org.springblade.modules.iot.common.mq.IotRocketmqTemplate;
+import org.springblade.basic.rocketmq.producer.RocketmqTemplate;
 import org.springblade.modules.iot.bus.stage.StageContext;
-import org.springblade.common.enums.DeviceActionTypeEnum;
-import org.springblade.common.mq.BizMqRouteConstant;
+import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
+import org.springblade.modules.iot.common.mq.BizMqRouteConstant;
 import org.springblade.modules.iot.entity.protocol.DeviceProtocolEvent;
 import org.springblade.modules.iot.mqs.bus.stats.BusStatsService;
 import org.apache.rocketmq.client.producer.SendCallback;

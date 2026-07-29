@@ -6,12 +6,13 @@ import java.util.Map;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springblade.common.protocol.ProtocolMessageAdapter;
-import org.springblade.modules.iot.common.protocol.EncryptionDetailsDTO;
-import org.springblade.modules.iot.common.protocol.ProtocolDataMessageDTO;
+import org.springblade.basic.context.ContextUtil;
+import org.springblade.basic.protocol.factory.ProtocolMessageAdapter;
+import org.springblade.basic.protocol.model.EncryptionDetailsDTO;
+import org.springblade.basic.protocol.model.ProtocolDataMessageDTO;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
-import org.springblade.common.constant.CommonIotConstants;
+import org.springblade.modules.iot.common.constant.CommonIotConstants;
 import org.springblade.modules.iot.device.enumeration.DeviceEncryptMethodEnum;
 import org.springblade.modules.iot.entity.uplink.source.UplinkMessageEventSource;
 import org.springblade.modules.iot.link.facade.DeviceOpenInnerFacade;
@@ -21,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: 处理SECRET_KEY主题
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com

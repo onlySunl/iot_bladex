@@ -3,7 +3,7 @@ package org.springblade.modules.iot.mqs.event.assembler;
 import java.util.Optional;
 
 import cn.hutool.core.util.StrUtil;
-import org.springblade.common.enums.DeviceActionTypeEnum;
+import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.entity.device.CommonDeviceEvent;
 import org.springblade.modules.iot.entity.protocol.DeviceProtocolEvent;
 import org.springblade.modules.iot.product.enumeration.ProtocolTypeEnum;

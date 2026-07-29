@@ -2,7 +2,7 @@ package org.springblade.modules.iot.mqs.uplink.service;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
 import org.springblade.modules.iot.device.entity.DeviceCommand;
 import org.springblade.modules.iot.device.enumeration.DeviceCommandStatusEnum;
@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: EventCommandService
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com
@@ -42,7 +42,7 @@ public class EventCommandService {
         DeviceCommandSaveVO saveVO = convertToSaveVO(deviceCacheVO, topic, body, dataBody);
         R<DeviceCommand> response = deviceOpenInnerApi.saveDeviceCommand(saveVO);
 
-        if (Boolean.FALSE.equals(R.isSuccess(response))) {
+        if (Boolean.FALSE.equals(response.getIsSuccess())) {
             log.error("Failed to process device command: {}", JSON.toJSONString(response));
             throw new IllegalStateException("Failed to save device command");
         }
@@ -64,7 +64,7 @@ public class EventCommandService {
         DeviceCommandSaveVO saveVO = new DeviceCommandSaveVO();
         saveVO.setDeviceIdentification(deviceCacheVO.getDeviceIdentification());
         saveVO.setCommandType(DeviceCommandTypeEnum.COMMAND_RESPONSE.getValue());
-        // 鏀跺埌鍝嶅簲鍗宠惤搴?鍛戒护鎴愯触(errCode)銆乻erviceCode/cmd 鐢卞墠绔粠 remark(deviceRsp)瑙ｆ瀽灞曠ず,鍚庣涓嶅啀瑙ｆ瀽
+        // 收到响应即落库;命令成败(errCode)、serviceCode/cmd 由前端从 remark(deviceRsp)解析展示,后端不再解析
         saveVO.setStatus(DeviceCommandStatusEnum.SUCCESS.getValue());
         JSONObject raw = new JSONObject();
         raw.put("topic", topic);

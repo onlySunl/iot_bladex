@@ -1,10 +1,12 @@
 package org.springblade.modules.iot.mqs.bus.stage.enrich;
 
 import cn.hutool.core.util.StrUtil;
+import org.springblade.basic.cache.utils.CachePlusUtil;
+import org.springblade.basic.context.ContextUtil;
 import org.springblade.modules.iot.bus.hook.DeviceEventEnricher;
 import org.springblade.modules.iot.bus.stage.StageContext;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
-import org.springblade.common.cache.link.device.DeviceCacheKeyBuilder;
+import org.springblade.modules.iot.common.cache.link.device.DeviceCacheKeyBuilder;
 import org.springblade.modules.iot.constants.bus.BusConstants;
 import org.springblade.modules.iot.entity.protocol.DeviceProtocolEvent;
 import lombok.RequiredArgsConstructor;
@@ -87,7 +89,7 @@ public class DeviceCacheEnricher implements DeviceEventEnricher {
      * @param cache 设备缓存
      */
     private void syncContextUtil(DeviceCacheVO cache) {
-        String tenantId = cache.getTenantId();
+        Long tenantId = cache.getTenantId();
         if (tenantId == null) {
             return;
         }

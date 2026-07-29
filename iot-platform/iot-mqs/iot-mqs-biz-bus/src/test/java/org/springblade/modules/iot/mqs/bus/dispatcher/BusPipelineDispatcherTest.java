@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springblade.basic.context.ContextUtil;
 import org.springblade.modules.iot.bus.adapter.ProtocolEdgeAdapter;
 import org.springblade.modules.iot.bus.hook.DeviceEventCallback;
 import org.springblade.modules.iot.bus.hook.DeviceEventDropException;
@@ -16,7 +17,7 @@ import org.springblade.modules.iot.bus.hook.DeviceEventInterceptor;
 import org.springblade.modules.iot.bus.route.RouteEntry;
 import org.springblade.modules.iot.bus.stage.DeviceEventStage;
 import org.springblade.modules.iot.bus.stage.StageContext;
-import org.springblade.common.enums.DeviceActionTypeEnum;
+import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.dto.bus.DeviceEventOutcome;
 import org.springblade.modules.iot.entity.protocol.DeviceProtocolEvent;
 import org.springblade.modules.iot.enumeration.bus.DispatchGroupEnum;

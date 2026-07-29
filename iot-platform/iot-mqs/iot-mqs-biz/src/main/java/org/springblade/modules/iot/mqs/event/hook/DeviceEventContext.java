@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.mqs.event.hook;
 
-import org.springblade.common.enums.DeviceActionTypeEnum;
+import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.entity.device.CommonDeviceEvent;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -8,7 +8,7 @@ import cn.hutool.core.util.StrUtil;
 import org.springblade.modules.iot.bus.stage.StageContext;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
 import org.springblade.modules.iot.constants.bus.BusConstants;
-import org.springblade.common.enums.DeviceActionTypeEnum;
+import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.entity.protocol.DeviceProtocolEvent;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;

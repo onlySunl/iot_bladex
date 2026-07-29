@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.mqs.event.processor;
 
 import cn.hutool.core.util.StrUtil;
-import org.springblade.common.enums.DeviceActionTypeEnum;
+import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.entity.device.CommonDeviceEvent;
 import org.springblade.modules.iot.entity.uplink.source.UplinkMessageEventSource;
 import org.springblade.modules.iot.mqs.uplink.handler.TopicHandler;

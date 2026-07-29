@@ -3,7 +3,7 @@ package org.springblade.modules.iot.mqs.uplink.handler.factory;
 import java.util.List;
 import java.util.Optional;
 
-import org.springblade.common.protocol.ProtocolMessageAdapter;
+import org.springblade.basic.protocol.factory.ProtocolMessageAdapter;
 import org.springblade.modules.iot.broker.DeviceDownlinkFacade;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
 import org.springblade.modules.iot.vo.query.DownlinkCommand;
@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: 通用逻辑处理器
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com

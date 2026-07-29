@@ -2,7 +2,7 @@ package org.springblade.modules.iot.mqs.bus.stage.distribution;
 
 import org.springblade.modules.iot.bus.stage.AbstractDeviceEventStage;
 import org.springblade.modules.iot.bus.stage.StageContext;
-import org.springblade.common.enums.DeviceActionTypeEnum;
+import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.entity.protocol.DeviceProtocolEvent;
 import org.springblade.modules.iot.enumeration.bus.StagePhaseEnum;
 import org.springblade.modules.iot.mqs.bus.stats.BusStatsService;

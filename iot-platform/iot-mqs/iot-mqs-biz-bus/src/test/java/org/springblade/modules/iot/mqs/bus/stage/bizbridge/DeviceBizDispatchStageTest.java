@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 import java.util.Optional;
 
 import org.springblade.modules.iot.bus.stage.StageContext;
-import org.springblade.common.enums.DeviceActionTypeEnum;
+import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.entity.device.CommonDeviceEvent;
 import org.springblade.modules.iot.entity.protocol.DeviceProtocolEvent;
 import org.springblade.modules.iot.mqs.event.assembler.CommonDeviceEventAssembler;

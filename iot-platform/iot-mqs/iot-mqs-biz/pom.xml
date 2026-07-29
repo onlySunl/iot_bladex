@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- MQS 业务层：消息消费/事件分发 -->
-
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
     <parent>
-        <groupId>org.springblade</groupId>
         <artifactId>iot-mqs</artifactId>
+        <groupId>org.springblade</groupId>
         <version>4.9.0.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -18,23 +15,56 @@
     <description>消息治理服务-业务模块</description>
 
     <dependencies>
-                <dependency>
+        <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-entity-mqs</artifactId>
-            <version>${project.version}</version>
+            <artifactId>iot-mqs-entity</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>thinglinks-file-sdk</artifactId>
+            <version>4.9.0.RELEASE</version>
         </dependency>
         <!--
             mqs 不再持有 ws session(已迁至 broker 协议接入层)。
             ws 业务事件通过 Kafka 消费,纯 POJO 处理,不需要 jakarta.websocket / spring-boot-starter-websocket。
         -->
         <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-starter-mybatis</artifactId>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-databases</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-cache-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-echo-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-mvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-rocketmq-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-kafka-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-protocol-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-chatgpt-starter</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-dynamic-tp-starter</artifactId>
         </dependency>
 
         <dependency>
@@ -54,27 +84,26 @@
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-link-api</artifactId>
+            <artifactId>thinglinks-link-api</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-link-biz</artifactId>
+            <artifactId>thinglinks-link-biz</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-broker-api</artifactId>
+            <artifactId>thinglinks-broker-api</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
-                <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-entity-tds</artifactId>
-            <version>${project.version}</version>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-tds-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-tds-api</artifactId>
+            <artifactId>thinglinks-tds-api</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
 

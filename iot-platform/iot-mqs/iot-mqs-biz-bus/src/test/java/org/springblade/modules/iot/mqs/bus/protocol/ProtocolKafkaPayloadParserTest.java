@@ -7,8 +7,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.alibaba.fastjson2.JSON;
-import org.springblade.common.constant.CommonIotConstants;
-import org.springblade.common.enums.DeviceActionTypeEnum;
+import org.springblade.modules.iot.common.constant.CommonIotConstants;
+import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.common.mq.KafkaConsumerTopicConstant;
 import org.springblade.modules.iot.constants.bus.BusKafkaJsonField;
 import org.springblade.modules.iot.entity.protocol.DeviceProtocolEvent;

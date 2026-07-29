@@ -10,7 +10,9 @@ import lombok.Getter;
  * @author mqttsnet
  * @since 2026-05-14
  */
-@Getterpublic enum DeviceEventHookOrder {
+@Getter
+@AllArgsConstructor
+public enum DeviceEventHookOrder {
 
     /**
      * 入口前置:trace 注入 / 入口指标计数

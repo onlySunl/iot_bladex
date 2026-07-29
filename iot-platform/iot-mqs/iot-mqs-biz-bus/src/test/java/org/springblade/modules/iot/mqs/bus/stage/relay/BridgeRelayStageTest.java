@@ -5,9 +5,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.springblade.modules.iot.bus.stage.StageContext;
-import org.springblade.common.enums.DeviceActionTypeEnum;
+import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
-import org.springblade.common.mq.BizMqRouteConstant;
+import org.springblade.modules.iot.common.mq.BizMqRouteConstant;
 import org.springblade.modules.iot.entity.protocol.DeviceProtocolEvent;
 import org.springblade.modules.iot.mqs.bridge.MqsBridgeEventProducer;
 import org.springblade.modules.iot.mqs.bus.stats.BusStatsService;

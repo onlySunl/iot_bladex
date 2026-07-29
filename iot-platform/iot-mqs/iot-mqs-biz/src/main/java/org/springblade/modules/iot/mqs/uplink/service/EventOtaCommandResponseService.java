@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.mqs.uplink.service;
 
 import com.alibaba.fastjson2.JSON;
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
 import org.springblade.modules.iot.link.facade.OtaOpenInnerFacade;
 import org.springblade.modules.iot.protocol.vo.param.TopoOtaCommandResponseParam;

@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.basic.context.ContextUtil;
 import org.springblade.modules.iot.bus.hook.StageFailureHandler;
 import org.springblade.modules.iot.bus.hook.StageGuard;
 import org.springblade.modules.iot.bus.stage.DeviceEventStage;
@@ -51,7 +51,7 @@ public class AsyncStageRunner {
 
     private static String stripStageSuffix(String name) {
         if (StrUtil.isBlank(name)) {
-            return StrPool.EMPTY;
+            return StrUtil.EMPTY;
         }
         return name.endsWith(STAGE_SUFFIX) ? name.substring(0, name.length() - STAGE_SUFFIX.length()) : name;
     }

@@ -10,9 +10,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.springblade.modules.iot.common.mq.IotRocketmqTemplate;
+import org.springblade.basic.rocketmq.producer.RocketmqTemplate;
 import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
-import org.springblade.common.mq.BizMqRouteConstant;
+import org.springblade.modules.iot.common.mq.BizMqRouteConstant;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.client.producer.SendStatus;
 import org.junit.jupiter.api.DisplayName;

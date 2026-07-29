@@ -4,7 +4,7 @@ import org.springblade.modules.iot.mqs.api.MqsApi;
 import org.springframework.stereotype.Component;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: mqs API熔断
  * @packagename: org.springblade.modules.iot.mqs.api.hystrix
  * @author: ShiHuan Sun

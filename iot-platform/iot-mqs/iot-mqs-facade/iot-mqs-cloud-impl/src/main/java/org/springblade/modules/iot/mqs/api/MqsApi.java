@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.mqs.api;
 
-import org.springblade.core.tool.constant.BladeConstant;
+import org.springblade.basic.constant.Constants;
 import org.springblade.modules.iot.mqs.api.hystrix.MqsApiFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 
@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  *
  * @author xiaonannet
  */
-@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:thinglinks-mqs-server}", fallback = MqsApiFallback.class, path = "/mqs")
+@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:iot-mqs-server}", fallback = MqsApiFallback.class, path = "/mqs")
 public interface MqsApi {
 
 

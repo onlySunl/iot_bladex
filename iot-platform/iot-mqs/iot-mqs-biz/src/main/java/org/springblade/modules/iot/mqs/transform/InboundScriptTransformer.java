@@ -10,18 +10,20 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import org.springblade.core.tool.api.R;
-import org.springblade.modules.iot.cache.CacheKeyModular;
-import org.springblade.common.utils.StrPool;
-import org.springblade.modules.iot.common.utils.MqttTopicMatcher;
-import org.springblade.modules.iot.common.utils.TopicPlaceholders;
+import org.springblade.basic.base.R;
+import org.springblade.basic.cache.redis2.CacheResult;
+import org.springblade.basic.cache.repository.CachePlusOps;
+import org.springblade.basic.model.cache.CacheKey;
+import org.springblade.basic.utils.StrPool;
+import org.springblade.basic.utils.topic.MqttTopicMatcher;
+import org.springblade.basic.utils.topic.TopicPlaceholders;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
 import org.springblade.modules.iot.cache.vo.product.ProductCacheVO;
 import org.springblade.modules.iot.cache.vo.product.ProductModelCacheVO;
-import org.springblade.common.cache.rule.groovy.GroovyScriptCacheKeyBuilder;
+import org.springblade.modules.iot.common.cache.rule.groovy.GroovyScriptCacheKeyBuilder;
 import org.springblade.modules.iot.common.cache.rule.groovy.TransformScriptEntry;
-import org.springblade.common.constant.CommonIotConstants;
+import org.springblade.modules.iot.common.constant.CommonIotConstants;
 import org.springblade.modules.iot.entity.device.CommonDeviceEvent;
 import org.springblade.modules.iot.entity.uplink.source.UplinkMessageEventSource;
 import org.springblade.modules.iot.product.enumeration.ProtocolTypeEnum;
@@ -33,23 +35,23 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
- * 鐠佹儳顦稉濠咁攽閸樼喎顫愰幎銉︽瀮閵嗗苯澧犵純顔挎祮閹诡潿鈧秮鏀㈤埞鈧?閸?topic 鐠侯垳鏁?{@code TopicHandlerFactory})娑斿澧犻幍褑顢?
- * 閹稿鈧奔楠囬崫?+ 娴溠冩惂閸欐垵绔烽悧鍫熸拱 + topic 濡€崇础閵嗗秴鎳℃稉顓犳暏閹寸兘鍘ょ純顔炬畱 Groovy 閼存碍婀?閹跺﹤宸堕崯鍡欘潌閺?topic/閹躲儲鏋?
- * 鏉烆剚宕查幋鎰挬閸欑増鐖ｉ崙?{@code /v1/devices/{deviceId}/datas} 閹躲儲鏋?閸愬秳姘﹂崥搴ｇ敾 handler 鐠ф澘甯張澶愭懠鐠侯垬鈧?
+ * 设备上行原始报文「前置转换」── 在 topic 路由({@code TopicHandlerFactory})之前执行:
+ * 按「产品 + 产品发布版本 + topic 模式」命中用户配置的 Groovy 脚本,把厂商私有 topic/报文
+ * 转换成平台标准 {@code /v1/devices/{deviceId}/datas} 报文,再交后续 handler 走原有链路。
  *
- * <p>闁氨鏁ゆ禍搴㈠閺堝绗傜悰?topic(娑撳秵顒?datas):閺堫亜鎳℃稉顓犵拨鐎规俺鍓奸張顒€鍨崢鐔哥壉闁繋绱?閸涙垝鑵戦幍宥堟祮閹?
- * 娴犺缍嶅鍌氱埗娑撯偓瀵板妾风痪褌璐熼崢鐔哥壉闁繋绱?缂佹繀绗夐梼缁樻焽娑撳﹨顢戞稉濠氭懠鐠侯垬鈧?
+ * <p>通用于所有上行 topic(不止 datas):未命中绑定脚本则原样透传,命中才转换;
+ * 任何异常一律降级为原样透传,绝不阻断上行主链路。
  *
- * <p>缂傛挸鐡?{@code HGETALL(娴溠冩惂+閻楀牊婀板?} 娑撯偓濞嗏€冲絿閸ョ偠顕氭禍褍鎼х拠銉у閺堫剙鍙忛柈?{@code topic 濡€崇础 閳?閼存碍婀伴崘鍛啇},
- * 閸愬懎鐡ㄩ柅鎰蒋閸栧綊鍘?閺冪姷绮︾€规碍妞傚鏈佃礋缁?闂嗗爼顤傛径鏍х磻闁库偓(娑撳秴褰?Feign)閵?
+ * <p>缓存:{@code HGETALL(产品+版本桶)} 一次取回该产品该版本全部 {@code topic 模式 → 脚本内容},
+ * 内存逐条匹配;无绑定时桶为空,零额外开销(不发 Feign)。
  *
- * <p>閼存碍婀?I/O 婵傛垹瀹?
+ * <p>脚本 I/O 契约:
  * <ul>
- *   <li>閸忋儱寮?executeParams JSON):{@code originTopic / originBody / clientId / deviceIdentification / productIdentification};
- *       閸欙附鏁為崗?{@code device}(鐠佹儳顦崺铏诡攨娣団剝浼?DTO,娑撳秴鎯?password)娑?{@code product}(娴溠冩惂閸╄櫣顢呮穱鈩冧紖 DTO),
- *       閼存碍婀伴崣?{@code device.signKey} / {@code device.encryptMethod} / {@code product.protocolType} 閸斻劍鈧礁褰囬崐?/li>
- *   <li>閸戝搫寮?閼存碍婀?return,閸?context):{@code {"topic":"/v1/devices/.../datas","payload":{楠炲啿褰撮弽鍥у櫙缂佹挻鐎瘆}};
- *       缂?{@code topic} 娣囨繃瀵旈崢?topic;context 闂堢偟瀹崇€规氨绮ㄩ弸鍕灟閺佺繝缍嬭ぐ鎾茬稊 payload閵?/li>
+ *   <li>入参(executeParams JSON):{@code originTopic / originBody / clientId / deviceIdentification / productIdentification};
+ *       另注入 {@code device}(设备基础信息 DTO,不含 password)与 {@code product}(产品基础信息 DTO),
+ *       脚本可 {@code device.signKey} / {@code device.encryptMethod} / {@code product.protocolType} 动态取值</li>
+ *   <li>出参(脚本 return,即 context):{@code {"topic":"/v1/devices/.../datas","payload":{平台标准结构}}};
+ *       缺 {@code topic} 保持原 topic;context 非约定结构则整体当作 payload。</li>
  * </ul>
  *
  * @author mqttsnet
@@ -71,15 +73,15 @@ public class InboundScriptTransformer {
     private final ScriptBindingAssembler bindingAssembler;
 
     /**
-     * 鐟欙絾鐎介崙鍝勫讲鐠侯垳鏁遍惃?{@link UplinkMessageEventSource} 閳光偓閳光偓 閸涙垝鑵戦崜宥囩枂鏉烆剚宕查懘姘拱閸掓瑨绻戦崶鐐舵祮閹广垹鎮楅惃?
-     * (閺€鐟板晸 topic + 閺嶅洤鍣幎銉︽瀮),閸氾箑鍨幐澶婂斧婵绨ㄦ禒鑸电€鎭掆偓?
+     * 解析出可路由的 {@link UplinkMessageEventSource} ── 命中前置转换脚本则返回转换后的
+     * (改写 topic + 标准报文),否则按原始事件构建。
      *
-     * @param event 鐠佹儳顦柅姘辨暏娴滃娆?PUBLISH)
-     * @return 閸欘垯姘?{@code TopicHandlerFactory} 鐠侯垳鏁遍惃鍕Х閹垱绨?
+     * @param event 设备通用事件(PUBLISH)
+     * @return 可交 {@code TopicHandlerFactory} 路由的消息源
      */
     public UplinkMessageEventSource resolveEventSource(CommonDeviceEvent event) {
-        // 娴兼ê鍘涢悽?bus 闂冭埖顔屽鑼缎掗弸鎰扳偓蹇庣炊閻ㄥ嫯顔曟径鍥╃处鐎?閸忓秹鍣搁崣?;缂傚搫銇?婵″倹婀紒?bus 鐎靛苯瀵查惃鍕珶缂傛ê婧€閺?閸忔粌绨抽懛顏勫絿閵?
-        // 鐟欙絾鐎芥稉鈧▎锟犫偓蹇庣炊閸?source(娑撳鐖?handler 閸忓秹鍣搁崣?+ 娓氭稖鍓奸張顒€鎳℃稉顓炲灲閺傤厼顦查悽銊ｂ偓?
+        // 优先用 bus 阶段已解析透传的设备缓存(免重取);缺失(如未经 bus 富化的边缘场景)兜底自取。
+        // 解析一次透传到 source(下游 handler 免重取)+ 供脚本命中判断复用。
         DeviceCacheVO deviceVO = Optional.ofNullable(event.getDeviceCache()).orElseGet(() -> resolveDevice(event));
         try {
             Transformed t = tryTransform(event, deviceVO);
@@ -95,7 +97,7 @@ public class InboundScriptTransformer {
     }
 
     /**
-     * 閸涙垝鑵戦獮鑸靛⒔鐞涘矁鍓奸張顒€鍨潻鏂挎礀鏉烆剚宕茬紒鎾寸亯,閸氾箑鍨潻鏂挎礀 {@code null}(鐠ф澘甯弽鐑解偓蹇庣炊)閵?
+     * 命中并执行脚本则返回转换结果,否则返回 {@code null}(走原样透传)。
      */
     private Transformed tryTransform(CommonDeviceEvent event, DeviceCacheVO deviceVO) {
         String topic = event.getTopic();
@@ -121,26 +123,26 @@ public class InboundScriptTransformer {
         if (matched == null || StrUtil.isBlank(matched.entry().getContent())) {
             return null;
         }
-        // 閸涙垝鑵戦崥搴㈠閸欐牔楠囬崫浣虹处鐎?閺堫亜鎳℃稉顓濈瑝閺?;鐠佹儳顦紓鎾崇摠娑撳﹪娼板鎻掑絿,閻╁瓨甯存径宥囨暏濞夈劌鍙嗛懘姘拱
+        // 命中后才取产品缓存(未命中不查);设备缓存上面已取,直接复用注入脚本
         ProductCacheVO productVO = linkCacheDataHelper.getProductCacheVO(product).orElse(null);
-        // 閼存碍婀伴崬顖欑闁?娑撳氦顕涢幆?RuleGroovyScriptResultVO#buildOnlyKey 娑撯偓閼?:閼存碍婀扮猾璇茬€?濞撶娀浜?娴溠冩惂:娑撳顣藉Ο鈥崇础 閳光偓閳光偓 娓?rule 鐠佺増澧界悰宀€绮虹拋?
+        // 脚本唯一键(与详情 RuleGroovyScriptResultVO#buildOnlyKey 一致):脚本类型:渠道:产品:主题模式 ── 供 rule 记执行统计
         String scriptUniqueKey = String.join(StrPool.COLON, GroovyScriptCacheKeyBuilder.TRANSFORM_SCRIPT_TYPE, channel, product, matched.topicPattern());
         return executeScript(event, topic, matched.entry(), scriptUniqueKey, deviceVO, productVO);
     }
 
     /**
-     * 濡楄泛鍞撮幐?topic 濡€崇础闁劖娼崠褰掑帳,閸涙垝鑵戞潻鏃囶嚉閺?{@link TransformScriptEntry}(閼存碍婀伴崘鍛啇 + 閹碘晛鐫嶉崣鍌涙殶)閵?
+     * 桶内按 topic 模式逐条匹配,命中返该条 {@link TransformScriptEntry}(脚本内容 + 扩展参数)。
      *
-     * <p>娑撳孩藟閹?{@code TopicMatchStrategy} / ACL 闁村瓨娼堥崥灞肩婵傛顕㈡稊?閸忓牏鏁?
-     * {@link TopicPlaceholders#replaceWithWildcard} 閹?{@code ${...}} 閸楃姳缍呯粭锕佹祮閹?MQTT 閸楁洖鐪伴柅姘跺帳 {@code +},
-     * 閸愬秳姘?{@link MqttTopicMatcher} 娑撳海婀＄€圭偘绗傜悰?topic 濮ｆ柨顕?閳光偓閳光偓 閻╁瓨甯撮幏?{@code ${...}} 閸樼喍瑕嗛崠褰掑帳娴兼俺顫﹁ぐ鎾崇摟闂堛垽鍣?濮樻瓕绻欐稉宥呮嚒娑擃厹鈧?
+     * <p>与桥接 {@code TopicMatchStrategy} / ACL 鉴权同一套语义:先用
+     * {@link TopicPlaceholders#replaceWithWildcard} 把 {@code ${...}} 占位符转成 MQTT 单层通配 {@code +},
+     * 再交 {@link MqttTopicMatcher} 与真实上行 topic 比对 ── 直接拿 {@code ${...}} 原串匹配会被当字面量,永远不命中。
      */
     private MatchedScript matchScript(Map<String, CacheResult<String>> bucket, String topic) {
         for (Map.Entry<String, CacheResult<String>> entry : bucket.entrySet()) {
             String mqttPattern = TopicPlaceholders.replaceWithWildcard(entry.getKey());
             if (MqttTopicMatcher.match(mqttPattern, topic)) {
                 TransformScriptEntry scriptEntry = parseBucketValue(entry.getValue() == null ? null : entry.getValue().getRawValue());
-                // entry.getKey() 閸楀啿鎳℃稉顓犳畱娑撳顣藉Ο鈥崇础(topicPattern,濡?field),閸ョ偘绱堕悽銊ょ艾閹疯壈鍓奸張顒€鏁稉鈧柨?
+                // entry.getKey() 即命中的主题模式(topicPattern,桶 field),回传用于拼脚本唯一键
                 return scriptEntry == null ? null : new MatchedScript(entry.getKey(), scriptEntry);
             }
         }
@@ -148,13 +150,13 @@ public class InboundScriptTransformer {
     }
 
     /**
-     * 閸涙垝鑵戦惃鍕壖閺?閳光偓閳光偓 閸栧綊鍘ら崚鎵畱娑撳顣藉Ο鈥崇础(topicPattern,濡?field) + 閼存碍婀伴弶锛勬窗閵?
+     * 命中的脚本 ── 匹配到的主题模式(topicPattern,桶 field) + 脚本条目。
      */
     private record MatchedScript(String topicPattern, TransformScriptEntry entry) {
     }
 
     /**
-     * 鐟欙絾鐎藉璺衡偓?JSON 閳?{@link TransformScriptEntry}閵嗗倸鍚嬬€硅妫弽鐓庣础(缁绢垵鍓奸張顒€鍞寸€圭懓鐡х粭锔胯):闂?JSON 閸掓瑦鏆ｆ稉鎻掔秼 content閵?
+     * 解析桶值 JSON → {@link TransformScriptEntry}。兼容旧格式(纯脚本内容字符串):非 JSON 则整串当 content。
      */
     private TransformScriptEntry parseBucketValue(String raw) {
         if (StrUtil.isBlank(raw)) {
@@ -166,20 +168,20 @@ public class InboundScriptTransformer {
                 return entry;
             }
         } catch (Exception ignore) {
-            // 閺冄勭壐瀵?缁绢垵鍓奸張顒€鍞寸€?鐠ч绗呴棃銏犲幑鎼?
+            // 旧格式(纯脚本内容)走下面兜底
         }
         return new TransformScriptEntry(raw, null);
     }
 
     /**
-     * Feign 鐠?rule 閹稿鍓奸張顒€鍞寸€硅澧界悰?鐟欙絾鐎?context 閳?{閺€鐟板晸 topic, 閺嶅洤鍣幎銉︽瀮 payload}閵?
-     * 濞夈劌鍙?{@code device}(閻欘剛鐝?DTO,娑撳秴鎯?password)+ {@code product}(閻欘剛鐝?DTO)+ {@code config}(閼存碍婀?extend_params),
-     * 閼存碍婀伴崣?{@code device.signKey} / {@code device.encryptMethod} / {@code product.protocolType} / {@code config.xxx} 閸斻劍鈧礁褰囬崐绗衡偓?
+     * Feign 调 rule 按脚本内容执行,解析 context → {改写 topic, 标准报文 payload}。
+     * 注入 {@code device}(独立 DTO,不含 password)+ {@code product}(独立 DTO)+ {@code config}(脚本 extend_params),
+     * 脚本可 {@code device.signKey} / {@code device.encryptMethod} / {@code product.protocolType} / {@code config.xxx} 动态取值。
      */
     private Transformed executeScript(CommonDeviceEvent event, String topic, TransformScriptEntry entry,
                                       String scriptUniqueKey, DeviceCacheVO deviceVO, ProductCacheVO productVO) {
-        // 鏉╂劘顢戦弮?閹稿顔曟径鍥╃拨鐎规氨澧楅張顒冃掗弸鎰⒖濡€崇€?缁岃櫣澧楅張顒€娲栭柅鈧粙鍐茬暰閻?閻忔澘瀹抽幀?previousFullVersionNo,閸氾箑鍨?activeVersionNo),
-        // 娑撳孩鏆熼幑顔荤瑐閹躲儴鐭惧鍕經瀵板嫪绔撮懛?閳ユ柡鈧?閺堫亜鍙嗛悘鏉垮缂佸嫮娈戠粚铏瑰閺堫剝顔曟径鍥︾瑝鎼存梹瀵滈悘鏉垮閻楀牐袙閺嬫劖濮ら弬?
+        // 运行时:按设备绑定版本解析物模型;空版本回退稳定版(灰度态=previousFullVersionNo,否则=activeVersionNo),
+        // 与数据上报路径口径一致 —— 未入灰度组的空版本设备不应按灰度版解析报文
         String modelVersionNo = deviceVO == null ? null : deviceVO.getBoundProductVersionNo();
         if (StrUtil.isBlank(modelVersionNo) && productVO != null) {
             modelVersionNo = StrUtil.blankToDefault(
@@ -188,7 +190,7 @@ public class InboundScriptTransformer {
         ProductModelCacheVO productModel = StrUtil.isBlank(modelVersionNo) ? null
             : linkCacheDataHelper.resolveProductModelByVersionNo(event.getProductIdentification(), modelVersionNo).orElse(null);
 
-        // 娑撳簺鈧苯婀痪鑳殶鐠囨洏鈧秴鍙￠悽銊ユ倱娑撯偓婵傛绮︾€规氨绮嶇憗?闂嗚埖绱撶粔?:originTopic / originBody / clientId / device / product / productModel / config 閳?
+        // 与「在线调试」共用同一套绑定组装(零漂移):originTopic / originBody / clientId / device / product / productModel / config …
         Map<String, Object> params = bindingAssembler.assemble(deviceVO, productVO, productModel,
             topic, decodeBody(event), event.getPayloadHex(),
             event.getClientId(), event.getDeviceIdentification(), event.getProductIdentification(),
@@ -197,11 +199,11 @@ public class InboundScriptTransformer {
         RuleGroovyScriptDirectCompileParam param = new RuleGroovyScriptDirectCompileParam();
         param.setScriptContent(entry.getContent());
         param.setExecuteParams(JSON.toJSONString(params));
-        // 閼存碍婀伴崬顖欑闁款噣鈧繋绱剁紒?rule,娓氭稒瀵滈懘姘拱缂佹潙瀹崇拋鐗堝⒔鐞涘瞼绮虹拋?total/success/fail)
+        // 脚本唯一键透传给 rule,供按脚本维度记执行统计(total/success/fail)
         param.setScriptUniqueKey(scriptUniqueKey);
 
         R<GroovyScriptEngineExecutorResultVO> r = ruleOpenInnerFacade.executeScriptContent(param);
-        if (r == null || !Boolean.TRUE.equals(R.isSuccess(r)) || r.getData() == null) {
+        if (r == null || !Boolean.TRUE.equals(r.getIsSuccess()) || r.getData() == null) {
             log.warn("[InboundTransform] script exec non-success clientId={} topic={} r={}", event.getClientId(), topic, JSON.toJSONString(r));
             return null;
         }
@@ -216,7 +218,7 @@ public class InboundScriptTransformer {
             Object payloadVal = ctx.get(CTX_PAYLOAD);
             payload = payloadVal instanceof String ? (String) payloadVal : JSON.toJSONString(payloadVal);
         } else {
-            // 闂堢偟瀹崇€规氨绮ㄩ弸?閺佺繝缍嬭ぐ鎾茬稊楠炲啿褰撮弽鍥у櫙閹躲儲鏋?
+            // 非约定结构:整体当作平台标准报文
             payload = context instanceof String ? (String) context : JSON.toJSONString(context);
         }
         if (StrUtil.isBlank(payload)) {
@@ -237,13 +239,13 @@ public class InboundScriptTransformer {
                 return JSON.parseObject((String) context);
             }
         } catch (Exception ignore) {
-            // 鐟欙絾鐎芥径杈Е閹?null 婢跺嫮鎮?娴溿倗鏁辩拫鍐暏閺傜懓鍘规惔鏇炵秼娴ｆ粍鏆ｆ担?payload
+            // 解析失败按 null 处理,交由调用方兜底当作整体 payload
         }
         return null;
     }
 
     /**
-     * 閸欐牞顔曟径鍥╃处鐎?VO 閳光偓閳光偓 閺冦垻鏁ゆ禍搴ば掗弸鎰拨鐎规氨娈戞禍褍鎼ч崣鎴濈閻楀牊婀?閻楀牊婀扮紒鏉戝鐎规矮缍呭?,娑旂喍缍旀稉楦垮壖閺?{@code device} 缂佹垵鐣鹃惃鍕降濠ф劑鈧?
+     * 取设备缓存 VO ── 既用于解析绑定的产品发布版本(版本维度定位桶),也作为脚本 {@code device} 绑定的来源。
      */
     private DeviceCacheVO resolveDevice(CommonDeviceEvent event) {
         String key = StrUtil.blankToDefault(event.getDeviceIdentification(), event.getClientId());
@@ -254,7 +256,7 @@ public class InboundScriptTransformer {
     }
 
     /**
-     * 閸楀繗顔呯猾璇茬€?閳?濞撶娀浜剧紓鏍垳(娑撳氦鍓奸張?channelCode 鐎涙鍚€鐎靛綊缍?mqtt / webSocket)閵?
+     * 协议类型 → 渠道编码(与脚本 channelCode 字典对齐:mqtt / webSocket)。
      */
     private String resolveChannel(String protocolType) {
         if (StrUtil.isBlank(protocolType)) {
@@ -271,13 +273,13 @@ public class InboundScriptTransformer {
 
     private String decodeBody(CommonDeviceEvent event) {
         if (StrUtil.isBlank(event.getPayload())) {
-            return StrPool.EMPTY;
+            return StrUtil.EMPTY;
         }
         return new String(Base64.decode(event.getPayload()), StandardCharsets.UTF_8);
     }
 
     /**
-     * 閹稿娴嗛幑銏犳倵閻?topic + 閺嶅洤鍣幎銉︽瀮閺嬪嫬缂撳☉鍫熶紖濠?payload 闁插秵鏌?Base64,娓氭稑鎮楃紒?handler 鐟欙絿鐖?閵?
+     * 按转换后的 topic + 标准报文构建消息源(payload 重新 Base64,供后续 handler 解码)。
      */
     private UplinkMessageEventSource buildTransformedSource(CommonDeviceEvent event, String topic, String payload, DeviceCacheVO deviceVO) {
         byte[] bytes = payload.getBytes(StandardCharsets.UTF_8);
@@ -294,7 +296,7 @@ public class InboundScriptTransformer {
     }
 
     /**
-     * 閸樼喐鐗遍柅蹇庣炊:閹稿甯慨瀣╃皑娴犺埖鐎鐑樼Х閹垱绨?娑撳孩婀崥顖滄暏閸撳秶鐤嗘潪顒佸床閺冩儼顢戞稉杞扮閼?閵?
+     * 原样透传:按原始事件构建消息源(与未启用前置转换时行为一致)。
      */
     private UplinkMessageEventSource buildOriginalSource(CommonDeviceEvent event, DeviceCacheVO deviceVO) {
         byte[] payloadBytes = StrUtil.isBlank(event.getPayload())
@@ -314,7 +316,7 @@ public class InboundScriptTransformer {
     }
 
     /**
-     * 鏉烆剚宕茬紒鎾寸亯 閳光偓閳光偓 閺€鐟板晸閸氬海娈?topic + 楠炲啿褰撮弽鍥у櫙閹躲儲鏋?payload閵?
+     * 转换结果 ── 改写后的 topic + 平台标准报文 payload。
      */
     private record Transformed(String topic, String payload) {
     }

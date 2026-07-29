@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.basic.context.ContextUtil;
 import org.springblade.modules.iot.constants.bus.BusConstants;
 import org.springblade.modules.iot.dto.bus.DeviceEventOutcome;
 import org.springblade.modules.iot.enumeration.bus.PipelineStatusEnum;

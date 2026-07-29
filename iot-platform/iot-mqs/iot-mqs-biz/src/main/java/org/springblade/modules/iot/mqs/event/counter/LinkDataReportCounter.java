@@ -1,20 +1,15 @@
 package org.springblade.modules.iot.mqs.event.counter;
 
 import java.time.LocalDateTime;
-import org.springblade.common.utils.DateUtil;
 import java.time.format.DateTimeFormatter;
-import org.springblade.common.utils.DateUtil;
 
-import org.springblade.modules.iot.cache.CacheKeyModular;
-import org.springblade.common.utils.DateUtil;
-import org.springblade.common.cache.link.counter.UpLinkDataCounterCacheKeyBuilder;
-import org.springblade.common.utils.DateUtil;
+import org.springblade.basic.cache.repository.CachePlusOps;
+import org.springblade.basic.model.cache.CacheHashKey;
+import org.springblade.basic.utils.DateUtils;
+import org.springblade.modules.iot.common.cache.link.counter.UpLinkDataCounterCacheKeyBuilder;
 import lombok.RequiredArgsConstructor;
-import org.springblade.common.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.common.utils.DateUtil;
 import org.springframework.stereotype.Component;
-import org.springblade.common.utils.DateUtil;
 
 /**
  * 上行数据上报计数器 ── 由 mqs 自维护.
@@ -32,8 +27,8 @@ import org.springblade.common.utils.DateUtil;
 @RequiredArgsConstructor
 public class LinkDataReportCounter {
 
-    private static final DateTimeFormatter DAY_FORMATTER = DateTimeFormatter.ofPattern(DateUtil.YYYYMMDD_FORMAT);
-    private static final DateTimeFormatter MINUTE_FORMATTER = DateTimeFormatter.ofPattern(DateUtil.HHMM_FORMAT);
+    private static final DateTimeFormatter DAY_FORMATTER = DateTimeFormatter.ofPattern(DateUtils.YYYYMMDD_FORMAT);
+    private static final DateTimeFormatter MINUTE_FORMATTER = DateTimeFormatter.ofPattern(DateUtils.HHMM_FORMAT);
 
     private final CachePlusOps cachePlusOps;
 

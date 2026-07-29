@@ -3,7 +3,7 @@ package org.springblade.modules.iot.mqs.event.hook;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
-import org.springblade.common.enums.DeviceActionTypeEnum;
+import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.device.enumeration.DeviceConnectStatusEnum;
 import org.springblade.modules.iot.entity.device.CommonDeviceEvent;
 import org.springblade.modules.iot.mqs.event.hook.impl.DeviceConnectStatusSyncHook;

@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.mqs.transform.controller;
 
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
 import org.springblade.modules.iot.mqs.transform.InboundTransformDebugService;
 import org.springblade.modules.iot.mqs.transform.dto.TransformDebugParam;
 import org.springblade.modules.iot.mqs.transform.dto.TransformDebugResultVO;

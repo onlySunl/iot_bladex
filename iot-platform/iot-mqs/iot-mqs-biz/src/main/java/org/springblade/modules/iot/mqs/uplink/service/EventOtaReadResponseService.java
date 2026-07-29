@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.mqs.uplink.service;
 
 import com.alibaba.fastjson2.JSON;
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
 import org.springblade.modules.iot.link.facade.OtaOpenInnerFacade;
 import org.springblade.modules.iot.protocol.vo.param.TopoOtaReadResponseParam;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,8 @@ import org.springframework.stereotype.Service;
  * File Name: EventOtaCommandResponseService
  * -----------------------------------------------------------------------------
  * Description:
- * OTA ???????????????????????????? mqtt???????$???????? * -----------------------------------------------------------------------------
+ * OTA 读取软固件信息响应  mqtt事件业务层
+ * -----------------------------------------------------------------------------
  *
  * @author xiaonannet
  * @version 1.0
@@ -46,7 +47,7 @@ public class EventOtaReadResponseService {
             R<?> otaReadResponseParamR = otaOpenInnerFacade.otaReadResponseByMqtt(topoOtaReadResponseParam);
             log.info("OTA Read response: {}", JSON.toJSONString(otaReadResponseParamR));
 
-            if (!R.isSuccess(otaReadResponseParamR)) {
+            if (!otaReadResponseParamR.getIsSuccess()) {
                 log.error("Failed to save OTA command response: {}", otaReadResponseParamR.getErrorMsg());
             }
 

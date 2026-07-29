@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- MQS 控制器：REST API 端点 -->
-
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <parent>
-        <groupId>org.springblade</groupId>
         <artifactId>iot-mqs</artifactId>
+        <groupId>org.springblade</groupId>
         <version>4.9.0.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -15,22 +12,24 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>iot-mqs-controller</artifactId>
     <name>${project.artifactId}</name>
-    <description>MQS Controller</description>
+    <description>消息治理服务-控制器模块</description>
 
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-mqs-biz</artifactId>
-            <version>${project.version}</version>
+            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-mqs-biz-bus</artifactId>
-            <version>${project.version}</version>
+            <version>4.9.0.RELEASE</version>
         </dependency>
+
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>blade-starter-redis</artifactId>
+            <artifactId>thinglinks-login-user-resolver</artifactId>
+            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

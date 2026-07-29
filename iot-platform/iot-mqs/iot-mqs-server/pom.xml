@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- MQS 启动模块：Spring Boot Application -->
-
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
     <parent>
-        <groupId>org.springblade</groupId>
         <artifactId>iot-mqs</artifactId>
+        <groupId>org.springblade</groupId>
         <version>4.9.0.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -15,33 +12,79 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>iot-mqs-server</artifactId>
     <name>${project.artifactId}</name>
-    <description>消息治理服务模块</description>
+    <description>消息治理服务-启动模块</description>
 
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-mqs-controller</artifactId>
-            <version>${project.version}</version>
+            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-mqs-biz-bus</artifactId>
-            <version>${project.version}</version>
+            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-mqs-cloud-impl</artifactId>
-            <version>${project.version}</version>
+            <artifactId>thinglinks-oauth-api</artifactId>
+            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-platform</artifactId>
-            <version>${project.version}</version>
-            <type>pom</type>
+            <artifactId>thinglinks-oauth-cloud-impl</artifactId>
+            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>blade-starter-redis</artifactId>
+            <artifactId>iot-common-config</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-rule-cloud-impl</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>thinglinks-base-cloud-impl</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>thinglinks-broker-cloud-impl</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>thinglinks-link-cloud-impl</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>thinglinks-tds-cloud-impl</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>thinglinks-data-scope-sdk</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>thinglinks-system-cloud-impl</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-all-cloud</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mqttsnet.basic</groupId>
+            <artifactId>thinglinks-dynamic-tp-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -49,4 +92,38 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <filters>
+            <filter>../../src/main/filters/config-${profile.active}.properties</filter>
+        </filters>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- docker打包插件 -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>${dockerfile-maven-plugin.version}</version>
+                <configuration>
+                    <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                    <tag>4.9.0.RELEASE</tag>
+                    <buildArgs>
+                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
 </project>

@@ -4,7 +4,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
 import org.springblade.modules.iot.device.enumeration.DeviceConnectStatusEnum;
 import org.springblade.modules.iot.link.facade.DeviceOpenInnerFacade;
 import org.junit.jupiter.api.DisplayName;

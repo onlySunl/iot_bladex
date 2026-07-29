@@ -21,7 +21,7 @@ public class ScriptDeviceContextDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    private String tenantId;
+    private Long tenantId;
     private String clientId;
     private String userName;
     private String certSerialNumber;

@@ -5,8 +5,8 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.springblade.core.tool.api.R;
-import org.springblade.common.enums.DeviceActionTypeEnum;
+import org.springblade.basic.base.R;
+import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.device.entity.DeviceAction;
 import org.springblade.modules.iot.device.enumeration.DeviceActionStatusEnum;
 import org.springblade.modules.iot.device.vo.save.DeviceActionSaveVO;

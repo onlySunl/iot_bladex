@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>iot-mqs</artifactId>
+        <groupId>org.springblade</groupId>
+        <version>4.9.0.RELEASE</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>iot-mqs-entity</artifactId>
+    <name>${project.artifactId}</name>
+    <description>消息治理服务-实体模块</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-common</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <!-- link 域 DTO/VO 依赖。协议事件类型 DeviceActionTypeEnum 已收敛到 iot-common。 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-entity-link</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+    </dependencies>
+
+</project>

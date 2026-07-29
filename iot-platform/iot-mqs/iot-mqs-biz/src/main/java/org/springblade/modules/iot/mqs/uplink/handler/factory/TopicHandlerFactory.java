@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: 设备上行 Topic 处理工厂类(协议中立:MQTT / WS / TCP 上行经统一主流程均路由至此)。
  * 通过 Spring 自动发现所有 {@link TopicHandler} Bean,凡 {@link TopicHandler#topicPattern()} 非空者
  * 即按 {@link TopicHandler#order()} 升序自动注册到路由表;新增厂商 topic 处理器只需新增一个

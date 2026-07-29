@@ -5,7 +5,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.springblade.common.enums.DeviceActionTypeEnum;
+import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
 import org.springblade.modules.iot.mqs.bridge.MqsBridgeEventProducer;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;

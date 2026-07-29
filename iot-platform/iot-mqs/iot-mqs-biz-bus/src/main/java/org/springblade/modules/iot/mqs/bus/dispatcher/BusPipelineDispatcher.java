@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.basic.context.ContextUtil;
 import org.springblade.modules.iot.bus.hook.DeviceEventCallback;
 import org.springblade.modules.iot.bus.hook.DeviceEventDropException;
 import org.springblade.modules.iot.bus.hook.DeviceEventEnricher;
@@ -240,7 +240,7 @@ public class BusPipelineDispatcher {
             BusConstants.Log.DISPATCH, event.getTraceId(),
             orFallback(event.getClientId(), FALLBACK), action,
             status.getValue(), outcome.effectiveStageCount(), ms, group.getValue(),
-            failureReason == null ? StrPool.EMPTY : (" reason=" + failureReason));
+            failureReason == null ? StrUtil.EMPTY : (" reason=" + failureReason));
 
         recordMetrics(protocol, action, group, status, ms);
         invokeCallbacks(event, outcome);

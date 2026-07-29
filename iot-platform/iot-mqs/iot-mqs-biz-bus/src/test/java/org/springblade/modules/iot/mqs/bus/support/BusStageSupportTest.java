@@ -2,7 +2,7 @@ package org.springblade.modules.iot.mqs.bus.support;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.springblade.common.enums.DeviceActionTypeEnum;
+import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.entity.protocol.DeviceProtocolEvent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

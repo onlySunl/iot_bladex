@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- MQS API：Feign 接口定义 -->
-
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>iot-mqs-facade</artifactId>
@@ -18,10 +15,10 @@
     <description>基础服务-Api模块</description>
 
     <dependencies>
-                <dependency>
+        <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-entity-mqs</artifactId>
-            <version>${project.version}</version>
+            <artifactId>iot-mqs-entity</artifactId>
+            <version>4.9.0.RELEASE</version>
         </dependency>
     </dependencies>
 </project>

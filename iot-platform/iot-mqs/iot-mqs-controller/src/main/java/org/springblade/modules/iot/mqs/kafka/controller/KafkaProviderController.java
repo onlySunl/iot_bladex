@@ -3,8 +3,8 @@ package org.springblade.modules.iot.mqs.kafka.controller;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import org.springblade.common.mq.KafkaProducerService;
-import org.springblade.modules.iot.common.mq.KafkaSendResultHandler;
+import org.springblade.basic.kafka.producer.KafkaProducerService;
+import org.springblade.basic.kafka.producer.KafkaSendResultHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: KafkaController
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com
