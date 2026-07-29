@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.broker;
 
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
 import org.springblade.modules.iot.vo.query.PublishWebSocketMessageRequestVO;
 
 /**

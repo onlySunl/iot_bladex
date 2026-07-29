@@ -4,7 +4,7 @@ import java.util.List;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.basic.base.service.impl.SuperServiceImpl;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.productversionchangelog.entity.ProductVersionChangeLog;
 import org.springblade.modules.iot.productversionchangelog.enumeration.ProductChangeTargetTypeEnum;

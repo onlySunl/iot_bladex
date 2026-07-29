@@ -9,22 +9,21 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.basic.base.R;
-import org.springblade.basic.base.service.impl.SuperServiceImpl;
+import org.springblade.common.iot.constant.BizConstant;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.exception.BizException;
-import org.springblade.basic.protocol.factory.ProtocolMessageAdapter;
-import org.springblade.basic.protocol.model.EncryptionDetailsDTO;
-import org.springblade.basic.protocol.model.ProtocolDataMessageDTO;
 import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.basic.utils.SnowflakeIdUtil;
 import org.springblade.modules.iot.broker.MqttBrokerOpenInnerFacade;
 import org.springblade.modules.iot.broker.WebSocketBrokerOpenInnerFacade;
 import org.springblade.modules.iot.broker.DeviceDownlinkFacade;
+import org.springblade.modules.iot.protocol.factory.ProtocolMessageAdapter;
+import org.springblade.modules.iot.protocol.model.EncryptionDetailsDTO;
 import org.springblade.modules.iot.vo.query.DownlinkCommand;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
-import org.springblade.modules.iot.common.constant.BizConstant;
 import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.device.entity.DeviceCommand;
 import org.springblade.modules.iot.device.enumeration.DeviceCommandStatusEnum;
@@ -118,7 +117,7 @@ public class DeviceCommandServiceImpl extends SuperServiceImpl<DeviceCommandMana
                                 .like(DeviceCommand::getContent, topicKeyword)
                                 .or()
                                 .like(DeviceCommand::getRemark, topicKeyword))
-                        .orderByDesc(DeviceCommand::getCreatedTime)
+                        .orderByDesc(DeviceCommand::getCreateTime)
                         .last("LIMIT " + safeLimit)
                         .list(),
                 DeviceCommandResultVO.class);

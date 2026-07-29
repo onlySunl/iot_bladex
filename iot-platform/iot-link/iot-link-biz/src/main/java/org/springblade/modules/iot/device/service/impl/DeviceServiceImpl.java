@@ -27,7 +27,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springblade.core.mvc.request.PageParams;
-import org.springblade.basic.base.service.impl.SuperServiceImpl;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.converter.Builder;
 import org.springblade.core.database.mybatis.conditions.Wraps;

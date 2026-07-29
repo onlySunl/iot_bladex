@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.basic.base.service.impl.SuperServiceImpl;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.core.database.mybatis.conditions.Wraps;
 import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.common.iot.constant.DsConstant;

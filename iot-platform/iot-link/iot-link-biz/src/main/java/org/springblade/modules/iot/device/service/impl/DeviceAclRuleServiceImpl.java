@@ -10,7 +10,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.basic.base.service.impl.SuperServiceImpl;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.core.database.mybatis.conditions.Wraps;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.utils.BeanPlusUtil;

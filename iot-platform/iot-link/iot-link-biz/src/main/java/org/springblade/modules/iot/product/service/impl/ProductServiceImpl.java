@@ -18,7 +18,7 @@ import com.alibaba.fastjson2.JSON;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springblade.core.mvc.request.PageParams;
-import org.springblade.basic.base.service.impl.SuperServiceImpl;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.utils.ArgumentAssert;

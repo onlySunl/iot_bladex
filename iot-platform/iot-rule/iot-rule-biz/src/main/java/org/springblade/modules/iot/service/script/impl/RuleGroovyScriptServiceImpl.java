@@ -10,7 +10,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import org.springblade.basic.base.service.impl.SuperServiceImpl;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.converter.Builder;
 import org.springblade.basic.database.mybatis.conditions.Wraps;

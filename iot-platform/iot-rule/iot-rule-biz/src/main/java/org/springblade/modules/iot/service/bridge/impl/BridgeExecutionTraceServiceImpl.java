@@ -3,7 +3,7 @@ package org.springblade.modules.iot.service.bridge.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import org.springblade.basic.base.service.impl.SuperServiceImpl;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.utils.ArgumentAssert;

@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.service.execution;
 
-import org.springblade.basic.tds.enumeration.TdDataTypeEnum;
+import org.springblade.core.tds.enumeration.TdDataTypeEnum;
 import lombok.Data;
 import lombok.Getter;
 

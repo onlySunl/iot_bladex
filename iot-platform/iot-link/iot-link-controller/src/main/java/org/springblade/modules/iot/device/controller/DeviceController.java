@@ -1,53 +1,8 @@
 package org.springblade.modules.iot.device.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.basic.annotation.log.WebLog;
-import org.springblade.basic.base.R;
-import org.springblade.basic.base.controller.SuperController;
-import org.springblade.core.mvc.request.PageParams;
-import org.springblade.basic.cache.lock.DistributedLock;
-import org.springblade.basic.cache.lock.LockRunResult;
-import org.springblade.basic.context.ContextUtil;
-import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
-import org.springblade.basic.easyexcel.EasyExcelListener;
-import org.springblade.basic.easyexcel.EasyExcelUtils;
-import org.springblade.basic.easyexcel.ExcelCheckManager;
-import org.springblade.basic.easyexcel.ExcelImportErrDto;
-import org.springblade.basic.exception.BizException;
-import org.springblade.basic.interfaces.echo.EchoService;
-import org.springblade.basic.jackson.JsonUtil;
-import org.springblade.basic.model.cache.CacheKey;
-import org.springblade.basic.utils.BeanPlusUtil;
-import org.springblade.basic.utils.StrPool;
-import org.springblade.modules.iot.common.lock.link.LinkLockKeyBuilder;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
-import org.springblade.modules.iot.device.easyexcel.DeviceEasyExcelService;
-import org.springblade.modules.iot.device.easyexcel.DeviceExportData;
-import org.springblade.modules.iot.device.easyexcel.DeviceImportData;
-import org.springblade.modules.iot.device.entity.Device;
-import org.springblade.modules.iot.device.service.DeviceService;
-import org.springblade.modules.iot.device.vo.query.DeviceDetailsPageQuery;
-import org.springblade.modules.iot.device.vo.query.DevicePageQuery;
-import org.springblade.modules.iot.device.vo.query.DeviceSslTestQuery;
-import org.springblade.modules.iot.device.vo.result.DeviceDetailsResultVO;
-import org.springblade.modules.iot.device.vo.result.DeviceSslTestResultVO;
-import org.springblade.modules.iot.device.vo.result.DeviceOverviewResultVO;
-import org.springblade.modules.iot.device.vo.result.DeviceResultVO;
-import org.springblade.modules.iot.device.vo.result.DeviceVersionResultVO;
-import org.springblade.modules.iot.device.vo.result.DeviceVersionDistributionVO;
-import org.springblade.modules.iot.device.vo.save.DeviceSaveVO;
-import org.springblade.modules.iot.device.vo.update.DeviceUpdateVO;
-import org.springblade.modules.iot.device.vo.update.DeviceVersionSwitchVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -57,17 +12,48 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.basic.base.R;
+import org.springblade.basic.context.ContextUtil;
+import org.springblade.basic.exception.BizException;
+import org.springblade.basic.interfaces.echo.EchoService;
+import org.springblade.basic.jackson.JsonUtil;
+import org.springblade.basic.model.cache.CacheKey;
+import org.springblade.basic.utils.BeanPlusUtil;
+import org.springblade.basic.utils.StrPool;
+import org.springblade.common.iot.lock.link.LinkLockKeyBuilder;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.core.cache.lock.DistributedLock;
+import org.springblade.core.cache.lock.LockRunResult;
+import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.core.easyexcel.EasyExcelListener;
+import org.springblade.core.easyexcel.EasyExcelUtils;
+import org.springblade.core.easyexcel.ExcelCheckManager;
+import org.springblade.core.easyexcel.ExcelImportErrDto;
+import org.springblade.core.mvc.controller.SuperController;
+import org.springblade.core.mvc.request.PageParams;
+import org.springblade.modules.iot.device.easyexcel.DeviceEasyExcelService;
+import org.springblade.modules.iot.device.easyexcel.DeviceExportData;
+import org.springblade.modules.iot.device.easyexcel.DeviceImportData;
+import org.springblade.modules.iot.device.entity.Device;
+import org.springblade.modules.iot.device.service.DeviceService;
+import org.springblade.modules.iot.device.vo.query.DeviceDetailsPageQuery;
+import org.springblade.modules.iot.device.vo.query.DevicePageQuery;
+import org.springblade.modules.iot.device.vo.query.DeviceSslTestQuery;
+import org.springblade.modules.iot.device.vo.result.*;
+import org.springblade.modules.iot.device.vo.save.DeviceSaveVO;
+import org.springblade.modules.iot.device.vo.update.DeviceUpdateVO;
+import org.springblade.modules.iot.device.vo.update.DeviceVersionSwitchVO;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -102,7 +88,7 @@ public class DeviceController extends SuperController<DeviceService, Long, Devic
     public QueryWrap<Device> handlerWrapper(Device model, PageParams<DevicePageQuery> params) {
         QueryWrap<Device> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
-        DataScopeHelper.startDataScope("device");
+        //DataScopeHelper.startDataScope("device");
         return queryWrap;
     }
 
@@ -299,7 +285,7 @@ public class DeviceController extends SuperController<DeviceService, Long, Devic
     @GetMapping("/deviceOverview")
     public R<DeviceOverviewResultVO> getDeviceOverview() {
         try {
-            DataScopeHelper.startDataScope("device");
+            //DataScopeHelper.startDataScope("device");
             DeviceOverviewResultVO deviceOverview = superService.getDeviceOverview();
             return R.success(deviceOverview);
         } catch (BizException be) {
@@ -344,7 +330,7 @@ public class DeviceController extends SuperController<DeviceService, Long, Devic
         log.info("getDeviceVersionByProduct productIdentification:{}", productIdentification);
         try {
             // 开启数据权限
-            DataScopeHelper.startDataScope("device");
+            //DataScopeHelper.startDataScope("device");
             DeviceVersionResultVO result = superService.getDeviceVersionByProduct(productIdentification);
             echoService.action(result);
             return R.success(result);

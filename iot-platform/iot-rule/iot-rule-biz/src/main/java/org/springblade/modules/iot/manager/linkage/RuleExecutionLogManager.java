@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.manager.linkage;
 
-import org.springblade.basic.base.manager.SuperManager;
+import org.springblade.core.mvc.manager.SuperManager;
 import org.springblade.modules.iot.entity.linkage.RuleExecutionLog;
 import org.springblade.modules.iot.vo.query.linkage.RuleExecutionLogPageQuery;
 import org.springblade.modules.iot.vo.result.linkage.RuleExecutionLogStatsResultVO;

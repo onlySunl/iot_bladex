@@ -2,7 +2,7 @@ package org.springblade.modules.iot.ota.manager;
 
 import java.util.List;
 
-import org.springblade.basic.base.manager.SuperManager;
+import org.springblade.core.mvc.manager.SuperManager;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeTargets;
 import org.springblade.modules.iot.ota.vo.query.OtaUpgradeTargetsPageQuery;
 

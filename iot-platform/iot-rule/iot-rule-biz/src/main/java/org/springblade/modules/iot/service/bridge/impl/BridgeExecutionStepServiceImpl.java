@@ -2,7 +2,7 @@ package org.springblade.modules.iot.service.bridge.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import org.springblade.basic.base.service.impl.SuperServiceImpl;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.entity.bridge.BridgeExecutionStep;

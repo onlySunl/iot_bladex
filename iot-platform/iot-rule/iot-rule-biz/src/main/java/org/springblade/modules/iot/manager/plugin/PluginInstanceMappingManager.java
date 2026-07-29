@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.manager.plugin;
 
-import org.springblade.basic.base.manager.SuperManager;
+import org.springblade.core.mvc.manager.SuperManager;
 import org.springblade.modules.iot.entity.plugin.PluginInstanceMapping;
 import org.springblade.modules.iot.vo.query.plugin.PluginInstanceMappingPageQuery;
 import org.springblade.modules.iot.vo.save.plugin.PluginInstanceMappingSaveVO;

@@ -10,7 +10,7 @@ import org.springblade.basic.condition.model.dto.BaseConditionDTO;
 import org.springblade.basic.condition.service.ConditionEvaluatorService;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.exception.BizException;
-import org.springblade.basic.tds.enumeration.TdDataTypeEnum;
+import org.springblade.core.tds.enumeration.TdDataTypeEnum;
 import org.springblade.modules.iot.common.constant.BizConstant;
 import org.springblade.modules.iot.dto.linkage.AntiShakeSchemePolicyDTO;
 import org.springblade.modules.iot.dto.linkage.RuleConditionPolicyDTO;

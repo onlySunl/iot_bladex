@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ReUtil;
 import java.util.Optional;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.basic.base.service.impl.SuperServiceImpl;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.utils.ArgumentAssert;

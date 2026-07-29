@@ -22,12 +22,7 @@
             <artifactId>blade-core-basic</artifactId>
         </dependency>
 
-        <!-- EasyExcel -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>easyexcel</artifactId>
-            <version>${easyexcel.version}</version>
-        </dependency>
+
 
         <!-- Spring Web -->
         <dependency>

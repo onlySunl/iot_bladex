@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.manager.alarm;
 
-import org.springblade.basic.base.manager.SuperManager;
+import org.springblade.core.mvc.manager.SuperManager;
 import org.springblade.modules.iot.entity.alarm.RuleAlarmChannel;
 import org.springblade.modules.iot.vo.query.alarm.RuleAlarmChannelPageQuery;
 

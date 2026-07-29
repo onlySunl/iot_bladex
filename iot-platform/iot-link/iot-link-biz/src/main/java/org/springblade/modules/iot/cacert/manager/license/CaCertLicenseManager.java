@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.cacert.manager.license;
 
-import org.springblade.basic.base.manager.SuperManager;
+import org.springblade.core.mvc.manager.SuperManager;
 import org.springblade.modules.iot.cacert.entity.license.CaCertLicense;
 
 /**

@@ -3,7 +3,7 @@ package org.springblade.modules.iot.service.bridge.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import org.springblade.basic.base.service.impl.SuperServiceImpl;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.basic.databridge.model.ConnectorConfig;
 import org.springblade.basic.databridge.model.ConnectorType;
 import org.springblade.basic.databridge.registry.ConnectorRegistry;

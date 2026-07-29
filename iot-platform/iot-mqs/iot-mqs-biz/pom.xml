@@ -53,6 +53,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-link-biz</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

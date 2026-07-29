@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.manager.script;
 
-import org.springblade.basic.base.manager.SuperManager;
+import org.springblade.core.mvc.manager.SuperManager;
 import org.springblade.modules.iot.entity.script.RuleGroovyScript;
 import org.springblade.modules.iot.vo.query.script.RuleGroovyScriptPageQuery;
 

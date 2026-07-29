@@ -4,7 +4,7 @@ import cn.hutool.core.net.NetUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import org.springblade.basic.base.R;
-import org.springblade.basic.base.service.impl.SuperServiceImpl;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.basic.context.ContextConstants;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.converter.Builder;

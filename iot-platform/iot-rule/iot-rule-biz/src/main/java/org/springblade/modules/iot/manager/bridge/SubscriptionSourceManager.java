@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.manager.bridge;
 
-import org.springblade.basic.base.manager.SuperManager;
+import org.springblade.core.mvc.manager.SuperManager;
 import org.springblade.modules.iot.entity.bridge.SubscriptionSource;
 import org.springblade.modules.iot.vo.query.bridge.SubscriptionSourcePageQuery;
 

@@ -2,7 +2,7 @@ package org.springblade.modules.iot.service.plugin.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.basic.base.service.impl.SuperServiceImpl;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.entity.plugin.PluginInstanceMapping;

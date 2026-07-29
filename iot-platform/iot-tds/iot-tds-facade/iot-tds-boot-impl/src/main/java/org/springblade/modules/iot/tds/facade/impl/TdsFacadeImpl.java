@@ -2,12 +2,12 @@ package org.springblade.modules.iot.tds.facade.impl;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
+import org.springblade.basic.base.R;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.core.tds.model.SuperTableDTO;
 import org.springblade.core.tds.model.TableDTO;
 import org.springblade.core.tds.utils.TdsUtils;
-import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.tds.facade.TdsFacade;
 import org.springblade.modules.iot.tds.service.TdsService;
 import lombok.RequiredArgsConstructor;
@@ -204,7 +204,7 @@ public class TdsFacadeImpl implements TdsFacade {
         try {
             ArgumentAssert.notBlank(tableName, "表名称不能为空");
             List<SuperTableDescribeVO> superTableDescribeVOS = tdsService.describeSuperOrSubTable(ContextUtil.getDataBase(), tableName);
-            return R.data(superTableDescribeVOS);
+            return R.success(superTableDescribeVOS);
         } catch (Exception e) {
             log.error("查询超级表、子表结构失败{}", e.getMessage());
             return R.fail(e.getMessage());
@@ -230,7 +230,7 @@ public class TdsFacadeImpl implements TdsFacade {
         try {
             ArgumentAssert.notBlank(tableName, "Table name cannot be blank");
             CompletableFuture<List<Map<String, Object>>> dataInRangeOrLastRecord = tdsService.getDataInRangeOrLastRecord(ContextUtil.getDataBase(), tableName, startTime, endTime);
-            return R.data(dataInRangeOrLastRecord.get());
+            return R.success(dataInRangeOrLastRecord.get());
         } catch (Exception e) {
             log.error("Failed to query the latest record from the table", e);
             return R.fail("Query failed: " + e.getMessage());

@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.productcommandrequest.manager;
 
-import org.springblade.basic.base.manager.SuperManager;
+import org.springblade.core.mvc.manager.SuperManager;
 import org.springblade.modules.iot.productcommandrequest.entity.ProductCommandRequest;
 import org.springblade.modules.iot.productcommandrequest.vo.save.ProductCommandRequestSaveVO;
 

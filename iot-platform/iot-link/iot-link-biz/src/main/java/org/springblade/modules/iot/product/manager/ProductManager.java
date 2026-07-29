@@ -3,7 +3,7 @@ package org.springblade.modules.iot.product.manager;
 import java.util.List;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.basic.base.manager.SuperManager;
+import org.springblade.core.mvc.manager.SuperManager;
 import org.springblade.core.mvc.request.PageParams;
 import org.springblade.modules.iot.product.entity.Product;
 import org.springblade.modules.iot.product.vo.query.ProductPageQuery;

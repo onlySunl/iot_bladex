@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.service.linkage.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.basic.base.service.impl.SuperServiceImpl;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.database.mybatis.conditions.Wraps;
 import org.springblade.basic.exception.BizException;

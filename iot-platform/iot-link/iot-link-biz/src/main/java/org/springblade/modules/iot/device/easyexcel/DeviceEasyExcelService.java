@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.device.easyexcel;
 
-import org.springblade.basic.easyexcel.ExcelCheckResult;
+import org.springblade.core.easyexcel.ExcelCheckResult;
 
 import java.util.List;
 

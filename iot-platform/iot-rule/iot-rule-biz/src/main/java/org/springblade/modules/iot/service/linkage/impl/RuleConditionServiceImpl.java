@@ -4,7 +4,7 @@ import com.baomidou.dynamic.datasource.annotation.DS;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springblade.basic.base.service.impl.SuperServiceImpl;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.basic.condition.model.dto.ConditionInfoDTO;
 import org.springblade.basic.condition.model.dto.ConditionParamResult;
 import org.springblade.basic.condition.model.dto.SingleConditionDTO;
