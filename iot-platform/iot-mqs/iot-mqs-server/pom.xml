@@ -25,67 +25,15 @@
             <artifactId>iot-mqs-biz-bus</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>thinglinks-oauth-api</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>thinglinks-oauth-cloud-impl</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-common-config</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
+
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-rule-cloud-impl</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>thinglinks-base-cloud-impl</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>thinglinks-broker-cloud-impl</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>thinglinks-link-cloud-impl</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>thinglinks-tds-cloud-impl</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
 
 
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>thinglinks-data-scope-sdk</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>thinglinks-system-cloud-impl</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>thinglinks-all-cloud</artifactId>
-        </dependency>
 
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>thinglinks-dynamic-tp-starter</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

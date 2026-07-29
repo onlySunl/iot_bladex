@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
+
 import java.io.Serial;
 import java.io.Serializable;
 
@@ -22,6 +24,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @ToString(callSuper = true)
 @Builder
+@Accessors(chain = true)
 @Schema(title = "DeviceQrcodeResultVO", description = "设备二维码信息结果VO")
 public class DeviceQrcodeResultVO implements Serializable {
 

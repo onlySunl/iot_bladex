@@ -19,6 +19,5 @@
         <module>iot-rule-biz-bridge</module>
         <module>iot-rule-controller</module>
         <module>iot-rule-facade</module>
-        <module>iot-rule-server</module>
     </modules>
 </project>
