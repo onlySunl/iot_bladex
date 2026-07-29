@@ -37,6 +37,8 @@
         <module>blade-core-dynamic-tp</module>
         <!-- UID 生成模块 -->
         <module>blade-core-uid</module>
+        <!-- EasyExcel 封装模块 -->
+        <module>blade-core-easyexcel</module>
     </modules>
 
     <dependencies>
