@@ -55,7 +55,7 @@ public class TDengineTest {
         Map<String, SuperTableDTO> superTableDTOMap = TdsUtils.handleSuperTable(jsonObject);
         for (Map.Entry<String, SuperTableDTO> entry : superTableDTOMap.entrySet()) {
             SuperTableDTO value = entry.getValue();
-            value.setDataBaseName("thinglinks");
+            value.setDataBaseName("iot");
             // 进行相应的操作
             tdengineService.createSuperTableAndColumn(value);
         }
@@ -72,7 +72,7 @@ public class TDengineTest {
         Map<String, TableDTO> subTableMap = TdsUtils.handleSubTable(jsonObject);
         for (Map.Entry<String, TableDTO> entry : subTableMap.entrySet()) {
             TableDTO value = entry.getValue();
-            value.setDataBaseName("thinglinks");
+            value.setDataBaseName("iot");
             // 进行相应的操作
             tdengineService.createSubTable(value);
         }

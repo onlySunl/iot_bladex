@@ -70,7 +70,7 @@ public interface DataSourceService extends SuperService<Long, DataSource> {
 
     /**
      * 测试连接（基于 DB 中已保存的数据源配置）。
-     * <p>调用 thinglinks-util {@code Sink.testConnection()} 或 {@code Source.testConnection()}，
+     * <p>调用 iot-util {@code Sink.testConnection()} 或 {@code Source.testConnection()}，
      * 自动按 sourceType + direction 路由到对应实现。</p>
      *
      * @param id 数据源主键 ID

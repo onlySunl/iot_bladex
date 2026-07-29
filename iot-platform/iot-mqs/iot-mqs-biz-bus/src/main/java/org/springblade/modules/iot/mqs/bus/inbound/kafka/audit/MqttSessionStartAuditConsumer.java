@@ -23,10 +23,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class MqttSessionStartAuditConsumer {
 
-    private static final String CONSUMER_GROUP = ConsumerGroupConstant.THINGLINKS_CONSUMER_GROUP_PREFIX + "AUDIT_SESSION_START";
+    private static final String CONSUMER_GROUP = ConsumerGroupConstant.IOT_CONSUMER_GROUP_PREFIX + "AUDIT_SESSION_START";
 
     @KafkaListener(
-        topics = KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_SESSION_START_TOPIC,
+        topics = KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_SESSION_START_TOPIC,
         groupId = CONSUMER_GROUP,
         containerFactory = "kafkaListenerContainerFactory"
     )

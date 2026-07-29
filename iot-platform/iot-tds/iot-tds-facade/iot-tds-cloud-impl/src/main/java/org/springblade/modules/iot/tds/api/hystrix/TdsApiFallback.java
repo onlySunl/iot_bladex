@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: Tds API熔断
  * @packagename: org.springblade.modules.iot.tds.api.hystrix
  * @author: ShiHuan Sun

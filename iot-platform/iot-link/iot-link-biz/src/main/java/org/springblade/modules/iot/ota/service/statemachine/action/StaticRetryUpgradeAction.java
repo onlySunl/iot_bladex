@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * 静态升级重试Action类
  * 处理静态升级重试事件（FAILED → IN_PROGRESS）
  *
- * @author thinglinks
+ * @author blade
  * @date 2024/12/19
  */
 @Slf4j

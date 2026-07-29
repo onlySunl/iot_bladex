@@ -31,7 +31,7 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
  * <pre>{@code
  * {
  *   "broker":        "tcp://host:1883",          // 或 ssl://host:8883
- *   "clientId":      "thinglinks-bridge-12345",  // 可选
+ *   "clientId":      "iot-bridge-12345",  // 可选
  *   "topicTemplate": "out/${routingKey}",        // 必填，支持 ${routingKey} ${header.XXX} ${ts}
  *   "qos":           1,                           // 0 / 1 / 2
  *   "retained":      false,

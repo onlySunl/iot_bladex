@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * Fields VO
- * Compatibility class for thinglinks migration
+ * Compatibility class for IoT migration
  */
 @Data
 public class FieldsVO {

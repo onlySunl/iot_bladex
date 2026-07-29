@@ -4,9 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 /**
- * @program: thinglinks
+ * @program: blade
  * @description: 标签查询模型
- * @packagename: com.mqttsnet.thinglinks.tdengine.api.domain.rule
+ * @packagename: org.springblade.modules.iot.tdengine.api.domain.rule
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com
  * @date: 2022-07-27 18:40

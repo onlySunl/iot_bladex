@@ -17,8 +17,8 @@ import org.springframework.stereotype.Component;
 @Component
 @TopicRoute(
     value = {
-        KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_SUBSCRIPTION_ACKED_TOPIC,
-        KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_UNSUBSCRIPTION_ACKED_TOPIC
+        KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_SUBSCRIPTION_ACKED_TOPIC,
+        KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_UNSUBSCRIPTION_ACKED_TOPIC
     },
     mode = MatchModeEnum.EXACT,
     group = DispatchGroupEnum.CONTROL_ACK

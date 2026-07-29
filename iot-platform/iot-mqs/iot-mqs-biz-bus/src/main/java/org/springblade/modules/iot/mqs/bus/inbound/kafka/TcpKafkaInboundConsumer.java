@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TcpKafkaInboundConsumer extends AbstractProtocolKafkaInboundConsumer {
 
-    private static final String CONSUMER_GROUP = ConsumerGroupConstant.THINGLINKS_CONSUMER_GROUP_PREFIX + "BUS_TCP";
+    private static final String CONSUMER_GROUP = ConsumerGroupConstant.IOT_CONSUMER_GROUP_PREFIX + "BUS_TCP";
     private static final String PROTOCOL_NAME = "TCP";
 
     public TcpKafkaInboundConsumer(BusPipelineDispatcher dispatcher, BusStatsService statsService) {
@@ -34,15 +34,15 @@ public class TcpKafkaInboundConsumer extends AbstractProtocolKafkaInboundConsume
 
     @KafkaListener(
         topics = {
-            KafkaConsumerTopicConstant.Mqs.MqsTcp.THINGLINKS_TCP_CLIENT_CONNECTED_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsTcp.THINGLINKS_TCP_CLIENT_DISCONNECTED_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsTcp.THINGLINKS_TCP_SERVER_DISCONNECTED_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsTcp.THINGLINKS_TCP_DEVICE_KICKED_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsTcp.THINGLINKS_TCP_SUBSCRIPTION_ACKED_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsTcp.THINGLINKS_TCP_UNSUBSCRIPTION_ACKED_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsTcp.THINGLINKS_TCP_DISTRIBUTION_ERROR_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsTcp.THINGLINKS_TCP_DISTRIBUTION_COMPLETED_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsTcp.THINGLINKS_TCP_PING_REQ_TOPIC
+            KafkaConsumerTopicConstant.Mqs.MqsTcp.IOT_TCP_CLIENT_CONNECTED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsTcp.IOT_TCP_CLIENT_DISCONNECTED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsTcp.IOT_TCP_SERVER_DISCONNECTED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsTcp.IOT_TCP_DEVICE_KICKED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsTcp.IOT_TCP_SUBSCRIPTION_ACKED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsTcp.IOT_TCP_UNSUBSCRIPTION_ACKED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsTcp.IOT_TCP_DISTRIBUTION_ERROR_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsTcp.IOT_TCP_DISTRIBUTION_COMPLETED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsTcp.IOT_TCP_PING_REQ_TOPIC
         },
         groupId = CONSUMER_GROUP,
         containerFactory = "kafkaListenerContainerFactory"

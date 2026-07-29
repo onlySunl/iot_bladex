@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: TcpMessageEvent
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com

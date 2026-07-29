@@ -27,7 +27,7 @@ import cn.hutool.core.util.StrUtil;
  * 适用于:
  * <ul>
  *   <li>规则数量级有限(千级)且上层已有规则缓存的场景(如桥接 {@code BridgeRuleCache})</li>
- *   <li>不依赖 caffeine,可下沉到 thinglinks-core 给所有模块用</li>
+ *   <li>不依赖 caffeine,可下沉到 blade-core-basic 给所有模块用</li>
  * </ul>
  * 如对 ACL 鉴权这种高 QPS 热点路径有缓存编译需求,业务侧可在外层套 caffeine
  *

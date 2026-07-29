@@ -2,7 +2,7 @@ package org.springblade.modules.iot.protocol.factory;
 
 /**
  * Protocol Message Adapter
- * Compatibility class for thinglinks migration
+ * Compatibility class for IoT migration
  */
 public interface ProtocolMessageAdapter {
 }

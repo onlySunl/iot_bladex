@@ -6,7 +6,7 @@ import org.springblade.modules.iot.vo.query.PublishWebSocketMessageRequestVO;
 import org.springframework.stereotype.Component;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: WebSocket Broker开放API熔断
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com

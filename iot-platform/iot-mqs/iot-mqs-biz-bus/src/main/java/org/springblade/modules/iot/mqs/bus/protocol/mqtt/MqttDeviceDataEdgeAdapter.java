@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @TopicRoute(
-    value = KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_DISTRIBUTION_COMPLETED_TOPIC,
+    value = KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_DISTRIBUTION_COMPLETED_TOPIC,
     mode = MatchModeEnum.EXACT,
     group = DispatchGroupEnum.DEVICE_DATA
 )

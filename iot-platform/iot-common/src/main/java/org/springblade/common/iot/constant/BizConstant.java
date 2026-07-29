@@ -14,22 +14,22 @@ public interface BizConstant {
     /**
      * 业务项目 需要扫描的包
      */
-    String BUSINESS_PACKAGE = "com.mqttsnet.thinglinks";
+    String BUSINESS_PACKAGE = "org.springblade.modules.iot";
     /**
      * 被T
      */
     String LOGIN_STATUS = "T";
 
-    String BASE = "thinglinks-base-server";
-    String FILE = "thinglinks-file-server";
-    String MSG = "thinglinks-msg-server";
-    String OAUTH = "thinglinks-oauth-server";
-    String GATE = "thinglinks-gateway-server";
-    String TENANT = "thinglinks-system-server";
-    String BASE_EXECUTOR = "thinglinks-base-executor";
-    String EXTEND_EXECUTOR = "thinglinks-extend-executor";
-    String ORDER = "thinglinks-example-server";
-    String DEMO = "thinglinks-demo-server";
+    String BASE = "iot-base-server";
+    String FILE = "iot-file-server";
+    String MSG = "iot-msg-server";
+    String OAUTH = "iot-oauth-server";
+    String GATE = "iot-gateway-server";
+    String TENANT = "iot-system-server";
+    String BASE_EXECUTOR = "iot-base-executor";
+    String EXTEND_EXECUTOR = "iot-extend-executor";
+    String ORDER = "iot-example-server";
+    String DEMO = "iot-demo-server";
 
     /**
      * 初始化数据源时json的参数，

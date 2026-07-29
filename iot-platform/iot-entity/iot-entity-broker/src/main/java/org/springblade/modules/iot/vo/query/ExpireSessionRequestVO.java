@@ -44,7 +44,7 @@ public class ExpireSessionRequestVO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Schema(description = "租户ID", required = true, example = "thinglinks")
+    @Schema(description = "租户ID", required = true, example = "iot")
     private String tenantId;
 
     @Schema(description = "过期秒数", required = true, example = "3600")

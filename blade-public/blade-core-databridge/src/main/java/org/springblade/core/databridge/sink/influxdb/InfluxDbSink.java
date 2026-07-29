@@ -28,7 +28,7 @@ import java.util.Map;
  * 本类所有 public / package-private 方法的 <b>参数类型 + 返回类型 + throws 类型</b>
  * 不直接引用 com.influxdb 任何类，全部用 Object 兜底。influxdb-client 类型仅出现在
  * <b>方法体局部变量</b> 中。这样保证 driver 不在 classpath 时
- * （{@code <optional>true</optional>}），反射式扫描器（如 thinglinks-databases 的
+ * （{@code <optional>true</optional>}），反射式扫描器（如 blade-core-database 的
  * TenantLineAnnotationRegister 通过 Class.forName + getDeclaredMethods() 触发的
  * method signature 解析）不会抛 NoClassDefFoundError。
  *

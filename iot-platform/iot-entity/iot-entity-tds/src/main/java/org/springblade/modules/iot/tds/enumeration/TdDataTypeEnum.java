@@ -5,7 +5,7 @@ import lombok.Getter;
 
 /**
  * TDengine Data Type Enum
- * Compatibility class for thinglinks migration
+ * Compatibility class for IoT migration
  */
 @Getter
 @AllArgsConstructor

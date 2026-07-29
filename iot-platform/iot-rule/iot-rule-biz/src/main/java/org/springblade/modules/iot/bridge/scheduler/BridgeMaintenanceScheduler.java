@@ -46,9 +46,9 @@ public class BridgeMaintenanceScheduler {
 
     /**
      * 启动扫描的租户 ID 列表(逗号分隔)。
-     * <pre>thinglinks.bridge.bootstrap.tenant-ids: 1,2,3</pre>
+     * <pre>iot.bridge.bootstrap.tenant-ids: 1,2,3</pre>
      */
-    @Value("${thinglinks.bridge.bootstrap.tenant-ids:1}")
+    @Value("${iot.bridge.bootstrap.tenant-ids:1}")
     private String bootstrapTenantIdsRaw;
 
     /**

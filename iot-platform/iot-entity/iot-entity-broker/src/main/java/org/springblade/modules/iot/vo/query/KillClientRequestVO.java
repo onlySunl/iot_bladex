@@ -44,7 +44,7 @@ public class KillClientRequestVO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Schema(description = "租户ID", required = true, example = "thinglinks")
+    @Schema(description = "租户ID", required = true, example = "iot")
     private String tenantId;
 
     @Schema(description = "用户ID", required = true, example = "user123")

@@ -11,9 +11,9 @@ import lombok.ToString;
 import java.io.Serial;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: 设备概况统计
- * @packagename: com.mqttsnet.thinglinks.device.vo.result
+ * @packagename: org.springblade.modules.iot.device.vo.result
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com
  * @date: 2023-05-13 09:28

@@ -18,7 +18,7 @@ import java.util.stream.Stream;
  * <h3>与 BifroMQ event-collector plugin 对齐</h3>
  * <table border="1">
  *   <tr><th>enum</th><th>plugin EventType</th><th>topic / 来源</th></tr>
- *   <tr><td>PUBLISH</td><td>DISTED</td><td>BifroMQ Standalone:plugin DISTED → {@code mqtt.distribution.completed.topic}(body 带完整 PUBLISH 报文);或外部 mqtt-to-kafka connector → {@code thinglinks-mqs-mqttMsg}</td></tr>
+ *   <tr><td>PUBLISH</td><td>DISTED</td><td>BifroMQ Standalone:plugin DISTED → {@code mqtt.distribution.completed.topic}(body 带完整 PUBLISH 报文);或外部 mqtt-to-kafka connector → {@code iot-mqs-mqttMsg}</td></tr>
  *   <tr><td>CONNECT</td><td>CLIENT_CONNECTED</td><td>mqtt.client.connected.topic</td></tr>
  *   <tr><td>DISCONNECT</td><td>BY_CLIENT</td><td>mqtt.client.disconnect.topic(客户端主动 DISCONNECT 报文)</td></tr>
  *   <tr><td>CLOSE</td><td>BY_SERVER + 17 被动断</td><td>mqtt.server.disconnect.topic(broker 关连接:keepalive 超时 / ACL / 协议错误等)</td></tr>

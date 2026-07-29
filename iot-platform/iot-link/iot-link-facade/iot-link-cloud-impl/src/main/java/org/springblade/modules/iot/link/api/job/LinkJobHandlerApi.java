@@ -33,7 +33,7 @@ import java.util.List;
  * @email 13733918655@163.com
  * @date 2024-07-20 13:20
  */
-@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:thinglinks-link-server}",
+@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:iot-link-server}",
         fallback = LinkJobHandlerApiFallback.class, path = "/")
 public interface LinkJobHandlerApi {
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: 设备API熔断
  * @packagename: org.springblade.modules.iot.link.api.device.hystrix
  * @author: ShiHuan Sun

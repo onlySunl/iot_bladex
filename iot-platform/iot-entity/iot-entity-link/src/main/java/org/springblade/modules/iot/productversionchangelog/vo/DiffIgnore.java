@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  * 不影响 JSON 序列化:仅反射 diff 时读取,不带 @JsonIgnore 语义,字段值仍出现在 HTTP 响应里。
  *
  * @author mqttsnet
- * @see com.mqttsnet.thinglinks.productversion.diff.EntityFieldDiffer
+ * @see org.springblade.modules.iot.productversion.diff.EntityFieldDiffer
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)

@@ -16,7 +16,7 @@ import java.util.List;
  * @author mqttsnet
  * @since 2026-05-06
  */
-@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:thinglinks-link-server}",
+@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:iot-link-server}",
         fallback = ProductTopicOpenInnerApiFallback.class, path = "/inner/productTopicOpen")
 public interface ProductTopicOpenInnerApi {
 

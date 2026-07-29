@@ -9,7 +9,7 @@ import lombok.Getter;
  * 序列化契约:Jackson 按 {@link Enum#name()} 序列化为字符串(如 "CREATE_STABLE"),跟老 JSON 数据 / 前端 i18n key 兼容,故不带 value。
  *
  * @author mqttsnet
- * @see com.mqttsnet.thinglinks.productpublishrecord.vo.ddl.PublishDdlItemVO
+ * @see org.springblade.modules.iot.productpublishrecord.vo.ddl.PublishDdlItemVO
  */
 @Getter
 @AllArgsConstructor

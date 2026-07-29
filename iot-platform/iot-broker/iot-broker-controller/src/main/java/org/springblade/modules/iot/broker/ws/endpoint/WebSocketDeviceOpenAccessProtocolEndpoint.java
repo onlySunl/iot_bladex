@@ -12,7 +12,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.mqttsnet.basic.kafka.producer.KafkaProducerService;
+import org.springblade.basic.kafka.producer.KafkaProducerService;
 import org.springblade.common.constant.ContextConstants;
 
 import org.springblade.core.tool.jackson.JsonUtil;
@@ -289,7 +289,7 @@ public class WebSocketDeviceOpenAccessProtocolEndpoint {
                 .errorMessage(error.getMessage())
                 .build();
             kafkaProducerService.thingLinksKafkaTemplateSendMsg(
-                    KafkaConsumerTopicConstant.MqsWebSocket.THINGLINKS_WEBSOCKET_DISTRIBUTION_ERROR_TOPIC,
+                    KafkaConsumerTopicConstant.MqsWebSocket.IOT_WEBSOCKET_DISTRIBUTION_ERROR_TOPIC,
                 JsonUtil.toJson(event));
         } catch (Exception e) {
             log.error("WebSocket onError 投递异常, Session ID: {}", session.getId(), e);
@@ -316,7 +316,7 @@ public class WebSocketDeviceOpenAccessProtocolEndpoint {
     }
 
     /**
-     * PING 心跳 → Kafka(THINGLINKS_WEBSOCKET_PING_REQ_TOPIC)。
+     * PING 心跳 → Kafka(IOT_WEBSOCKET_PING_REQ_TOPIC)。
      */
     private void publishPing(Session session, WsDeviceSessionInfo ctx) {
         try {
@@ -330,7 +330,7 @@ public class WebSocketDeviceOpenAccessProtocolEndpoint {
                 .channelId(session.getId())
                 .build();
             kafkaProducerService.thingLinksKafkaTemplateSendMsg(
-                KafkaConsumerTopicConstant.MqsWebSocket.THINGLINKS_WEBSOCKET_PING_REQ_TOPIC,
+                KafkaConsumerTopicConstant.MqsWebSocket.IOT_WEBSOCKET_PING_REQ_TOPIC,
                 JsonUtil.toJson(ping));
         } catch (Exception e) {
             log.error("[ws] PING 投递 Kafka 失败 clientId={}", ctx.getClientId(), e);
@@ -338,7 +338,7 @@ public class WebSocketDeviceOpenAccessProtocolEndpoint {
     }
 
     /**
-     * 设备上行业务报文 → Kafka(THINGLINKS_WEBSOCKET_DISTRIBUTION_COMPLETED_TOPIC,与 MQTT 主通路对齐)。
+     * 设备上行业务报文 → Kafka(IOT_WEBSOCKET_DISTRIBUTION_COMPLETED_TOPIC,与 MQTT 主通路对齐)。
      *
      * <p>报文统一协议:{@code {"topic":"<ThingLinks Topic>","payload":"<统一消息体JSON字符串>"}}。
      * topic 决定下游规则脚本 / 物模型 / 时序入库的路由;payload 才是真正的设备数据载荷(下游解码的对象)。
@@ -381,7 +381,7 @@ public class WebSocketDeviceOpenAccessProtocolEndpoint {
                 .originalSize(raw.length)
                 .build();
             kafkaProducerService.thingLinksKafkaTemplateSendMsg(
-                KafkaConsumerTopicConstant.MqsWebSocket.THINGLINKS_WEBSOCKET_DISTRIBUTION_COMPLETED_TOPIC,
+                KafkaConsumerTopicConstant.MqsWebSocket.IOT_WEBSOCKET_DISTRIBUTION_COMPLETED_TOPIC,
                 JsonUtil.toJson(event));
         } catch (Exception e) {
             log.error("WebSocket onMsg 投递异常, sessionId={} clientId={}", session.getId(), ctx.getClientId(), e);
@@ -406,7 +406,7 @@ public class WebSocketDeviceOpenAccessProtocolEndpoint {
             .build();
         try {
             kafkaProducerService.thingLinksKafkaTemplateSendMsg(
-                KafkaConsumerTopicConstant.MqsWebSocket.THINGLINKS_WEBSOCKET_CLIENT_CONNECTED_TOPIC,
+                KafkaConsumerTopicConstant.MqsWebSocket.IOT_WEBSOCKET_CLIENT_CONNECTED_TOPIC,
                 JsonUtil.toJson(event));
         } catch (Exception e) {
             log.error("发送连接成功设备事件消息时出错: {}", e.getMessage());
@@ -428,7 +428,7 @@ public class WebSocketDeviceOpenAccessProtocolEndpoint {
             .build();
         try {
             kafkaProducerService.thingLinksKafkaTemplateSendMsg(
-                KafkaConsumerTopicConstant.MqsWebSocket.THINGLINKS_WEBSOCKET_CLIENT_DISCONNECTED_TOPIC,
+                KafkaConsumerTopicConstant.MqsWebSocket.IOT_WEBSOCKET_CLIENT_DISCONNECTED_TOPIC,
                 JsonUtil.toJson(event));
         } catch (Exception e) {
             log.error("发送断开设备事件消息时出错: {}", e.getMessage());

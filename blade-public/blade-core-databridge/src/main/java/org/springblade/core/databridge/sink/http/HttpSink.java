@@ -34,7 +34,7 @@ import okhttp3.Response;
  * {
  *   "url":         "https://api.example.com/iot",  // 必填
  *   "method":      "POST",                          // POST/PUT/PATCH
- *   "headers":     { "X-Source": "thinglinks" },    // 静态请求头
+ *   "headers":     { "X-Source": "blade" },    // 静态请求头
  *   "queryParams": { "src": "iot" },                // URL 参数
  *   "contentType": "application/json"               // 默认 application/json
  * }

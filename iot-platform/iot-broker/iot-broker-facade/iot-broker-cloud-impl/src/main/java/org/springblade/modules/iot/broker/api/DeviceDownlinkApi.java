@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  *
  * @author mqttsnet
  */
-@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:thinglinks-broker-server}", fallback = DeviceDownlinkApiFallback.class, path = "/inner/deviceDownlinkOpen")
+@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:iot-broker-server}", fallback = DeviceDownlinkApiFallback.class, path = "/inner/deviceDownlinkOpen")
 public interface DeviceDownlinkApi {
 
     /**

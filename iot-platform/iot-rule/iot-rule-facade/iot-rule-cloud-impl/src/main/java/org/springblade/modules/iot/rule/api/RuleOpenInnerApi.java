@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author mqttsnet
  * @date 2025/4/14 14:59
  */
-@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:thinglinks-rule-server}", fallback = RuleOpenInnerApiFallback.class, path = "/inner/ruleOpen")
+@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:iot-rule-server}", fallback = RuleOpenInnerApiFallback.class, path = "/inner/ruleOpen")
 public interface RuleOpenInnerApi {
 
 

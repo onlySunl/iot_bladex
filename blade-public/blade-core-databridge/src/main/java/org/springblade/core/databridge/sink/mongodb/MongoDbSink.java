@@ -29,7 +29,7 @@ import java.util.Map;
  * mongo / bson 类型仅出现在 <b>方法体局部变量</b> 中。
  * <p>
  * 这样保证：mongodb-driver-sync 不在 classpath 时（{@code <optional>true</optional>}），
- * 任何反射式扫描器（如 thinglinks-databases 的 TenantLineAnnotationRegister
+ * 任何反射式扫描器（如 blade-core-database 的 TenantLineAnnotationRegister
  * 通过 Class.forName + getDeclaredMethods() 触发的 method signature 解析）不会
  * 因为找不到 Bson 等类抛 NoClassDefFoundError。
  *

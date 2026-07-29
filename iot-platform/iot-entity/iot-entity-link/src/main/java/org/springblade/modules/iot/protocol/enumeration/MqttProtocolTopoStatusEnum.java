@@ -6,9 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: MQTT协议Topo 状态枚举
- * @packagename: com.mqttsnet.thinglinks.device.enumeration
+ * @packagename: org.springblade.modules.iot.device.enumeration
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com
  * @date: 2023-05-20 17:51

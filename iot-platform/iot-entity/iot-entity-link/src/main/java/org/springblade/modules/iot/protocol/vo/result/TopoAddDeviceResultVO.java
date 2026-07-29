@@ -11,9 +11,9 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: 协议添加网关子设备响应信息
- * @packagename: com.mqttsnet.thinglinks.device.vo.result
+ * @packagename: org.springblade.modules.iot.device.vo.result
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com
  * @date: 2023-05-18 23:03

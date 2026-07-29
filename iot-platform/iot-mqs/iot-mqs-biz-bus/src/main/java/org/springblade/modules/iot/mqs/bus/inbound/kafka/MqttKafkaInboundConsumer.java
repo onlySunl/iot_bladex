@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MqttKafkaInboundConsumer extends AbstractProtocolKafkaInboundConsumer {
 
-    private static final String CONSUMER_GROUP = ConsumerGroupConstant.THINGLINKS_CONSUMER_GROUP_PREFIX + "BUS_MQTT";
+    private static final String CONSUMER_GROUP = ConsumerGroupConstant.IOT_CONSUMER_GROUP_PREFIX + "BUS_MQTT";
     private static final String PROTOCOL_NAME = "MQTT";
 
     public MqttKafkaInboundConsumer(BusPipelineDispatcher dispatcher, BusStatsService statsService) {
@@ -34,15 +34,15 @@ public class MqttKafkaInboundConsumer extends AbstractProtocolKafkaInboundConsum
 
     @KafkaListener(
         topics = {
-            KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_CLIENT_CONNECTED_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_CLIENT_DISCONNECTED_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_SERVER_CONNECTED_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_DEVICE_KICKED_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_SUBSCRIPTION_ACKED_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_UNSUBSCRIPTION_ACKED_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_DISTRIBUTION_ERROR_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_DISTRIBUTION_COMPLETED_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_PING_REQ_TOPIC
+            KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_CLIENT_CONNECTED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_CLIENT_DISCONNECTED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_SERVER_CONNECTED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_DEVICE_KICKED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_SUBSCRIPTION_ACKED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_UNSUBSCRIPTION_ACKED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_DISTRIBUTION_ERROR_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_DISTRIBUTION_COMPLETED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_PING_REQ_TOPIC
         },
         groupId = CONSUMER_GROUP,
         containerFactory = "kafkaListenerContainerFactory"

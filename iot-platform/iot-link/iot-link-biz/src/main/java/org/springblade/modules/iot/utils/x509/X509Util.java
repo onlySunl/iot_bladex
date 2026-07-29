@@ -89,7 +89,7 @@ public class X509Util {
     private static final String ROOT_DN = "CN=mqttsnet CA,O=HNU,OU=CS,C=CN,ST=海南省";
     private static final DistributionPoint[] DISTRIBUTION_POINTS = new DistributionPoint[1];
 
-    private static final String PRIVATE_KEY_PATH = "/etc/mqttsnet/thinglinks/ssl/root.privateKey";
+    private static final String PRIVATE_KEY_PATH = "/etc/blade/iot/ssl/root.privateKey";
 
 
     static {

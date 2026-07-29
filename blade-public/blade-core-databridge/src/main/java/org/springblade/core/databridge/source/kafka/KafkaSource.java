@@ -31,7 +31,7 @@ import org.apache.kafka.common.serialization.ByteArrayDeserializer;
  * <pre>{@code
  * {
  *   "bootstrapServers": "host:9092",
- *   "groupId":          "thinglinks-bridge-12345",
+ *   "groupId":          "iot-bridge-12345",
  *   "topics":           "iot-events,user-events",   // 多个用逗号分隔
  *   "autoOffsetReset":  "latest"                    // earliest / latest
  * }

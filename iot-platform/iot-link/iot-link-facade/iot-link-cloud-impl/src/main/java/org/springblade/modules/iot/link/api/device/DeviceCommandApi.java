@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @email 13733918655@163.com
  * @date 2023-11-12 03:20
  */
-@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:thinglinks-link-server}",
+@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:iot-link-server}",
         fallback = DeviceCommandApiFallback.class, path = "/deviceCommand")
 public interface DeviceCommandApi {
 

@@ -17,7 +17,7 @@ public class KafkaConnectionDto implements ProtocolConnectionDto {
     public String bootstrapServers;
 
     /**
-     * Kafka 客户端 ID。空则自动生成（thinglinks-bridge-${dsId}）。可选
+     * Kafka 客户端 ID。空则自动生成（iot-bridge-${dsId}）。可选
      */
     public String clientId;
 

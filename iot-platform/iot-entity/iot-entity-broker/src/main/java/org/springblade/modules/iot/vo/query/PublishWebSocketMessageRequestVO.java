@@ -13,7 +13,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: 发送消息VO
  * @packagename: org.springblade.modules.iot.mqtt.vo
  * @author: ShiHuan Sun
@@ -36,7 +36,7 @@ public class PublishWebSocketMessageRequestVO implements Serializable {
     @Schema(description = "可选的调用者提供的请求ID", example = "1234567890")
     private Long reqId;
 
-    @Schema(description = "租户ID", required = true, example = "thinglinks")
+    @Schema(description = "租户ID", required = true, example = "iot")
     private String tenantId;
 
     @Schema(description = "客户端ID", required = true, example = "client123")

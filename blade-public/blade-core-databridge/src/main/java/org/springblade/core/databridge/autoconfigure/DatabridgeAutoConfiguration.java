@@ -53,7 +53,7 @@ import org.springframework.context.annotation.Bean;
  * </ul>
  *
  * <h3>禁用方式</h3>
- * <p>设置 {@code thinglinks.databridge.enabled=false}（缺省 true）可一键禁用整个 starter。
+ * <p>设置 {@code blade.databridge.enabled=false}（缺省 true）可一键禁用整个 starter。
  *
  * <h3>定制扩展</h3>
  * 全部 Bean 都用 {@link ConditionalOnMissingBean}：业务侧若需替换默认实现（如自定义 KafkaSink），
@@ -64,7 +64,7 @@ import org.springframework.context.annotation.Bean;
  */
 @Slf4j
 @AutoConfiguration
-@ConditionalOnProperty(prefix = "thinglinks.databridge", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "blade.databridge", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class DatabridgeAutoConfiguration {
 
     public DatabridgeAutoConfiguration() {

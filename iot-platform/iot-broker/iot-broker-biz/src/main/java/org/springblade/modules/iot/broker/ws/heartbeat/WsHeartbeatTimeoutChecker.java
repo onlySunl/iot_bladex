@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  * WS 心跳超时检测器 + 在线续期器。
  *
  * <h3>职责</h3>
- * 节点本地起一个 {@link ScheduledExecutorService},按 {@code thinglinks.ws.heartbeat.check-interval-ms}
+ * 节点本地起一个 {@link ScheduledExecutorService},按 {@code iot.ws.heartbeat.check-interval-ms}
  * 周期(默认 30s)扫本地所有 ws session:
  * <ul>
  *   <li><b>超时关闭</b>:{@code now - lastActiveTime > timeoutMs} 即视为掉线,关闭其 socket
@@ -50,13 +50,13 @@ public class WsHeartbeatTimeoutChecker {
     /**
      * 心跳超时阈值(ms),默认 90s ── 设备 30s 一次 PING,3 次失败容忍度
      */
-    @Value("${thinglinks.ws.heartbeat.timeout-ms:90000}")
+    @Value("${iot.ws.heartbeat.timeout-ms:90000}")
     private long timeoutMs;
 
     /**
      * 扫描周期(ms),默认 30s
      */
-    @Value("${thinglinks.ws.heartbeat.check-interval-ms:30000}")
+    @Value("${iot.ws.heartbeat.check-interval-ms:30000}")
     private long checkIntervalMs;
 
     private ScheduledExecutorService scheduler;

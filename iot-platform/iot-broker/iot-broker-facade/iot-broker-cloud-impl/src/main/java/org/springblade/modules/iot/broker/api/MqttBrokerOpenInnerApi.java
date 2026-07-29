@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: MqttBroker-开放接口API
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com
  * @date: 2023-05-06 12:35
  **/
-@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:thinglinks-broker-server}", fallback = MqttBrokerOpenInnerApiFallback.class, path = "/inner/mqttBrokerOpen")
+@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:iot-broker-server}", fallback = MqttBrokerOpenInnerApiFallback.class, path = "/inner/mqttBrokerOpen")
 public interface MqttBrokerOpenInnerApi {
 
 

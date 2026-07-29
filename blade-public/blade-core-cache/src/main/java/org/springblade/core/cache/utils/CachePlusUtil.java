@@ -29,7 +29,7 @@ import org.springframework.stereotype.Component;
  * 用 List 方法写入、再用单对象方法读取（或反之）会失败；List 方法读到旧的 {@code @class} 数据时解析
  * 失败 → 回源 → 用纯 JSON 覆写，可自愈。
  *
- * @program: thinglinks-util
+ * @program: blade-core-basic
  * @description: 缓存工具类
  * @packagename: org.springblade.basic.cache.utils
  * @author: ShiHuan Sun

@@ -14,9 +14,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: 设备详情结果VO
- * @packagename: com.mqttsnet.thinglinks.device.vo.result
+ * @packagename: org.springblade.modules.iot.device.vo.result
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com
  * @date: 2023-05-25 16:22

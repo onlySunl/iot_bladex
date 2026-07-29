@@ -43,7 +43,7 @@ import org.springframework.stereotype.Service;
  * 设备桶收绑定具体设备的规则;消费端取两桶并集。空结论写 NullVal 占位防穿透。
  *
  * <p><b>一致性</b>:纯 TTL 模型 ── Redis 桶 {@link RuleTriggerCacheKeys#INDEX_BUCKET_TTL},
- * 进程内缓存 {@code thinglinks.rule.trigger.index-local-cache-seconds}(默认 30s,
+ * 进程内缓存 {@code iot.rule.trigger.index-local-cache-seconds}(默认 30s,
  * 高吞吐下把同产品全部消息的 HGETALL 收敛为每实例每 TTL 一次,消除热 key)。
  * 规则 CUD 后最迟一个桶 TTL 生效;条件改绑产品后的旧桶残留 field 只造成无效评估
  * (评估时详情已是新条件,事件不匹配即短路),随桶过期自愈。
@@ -65,7 +65,7 @@ public class RuleTriggerIndexService {
     private final RuleService ruleService;
 
     /** 进程内索引缓存 TTL(秒);0=关闭本地缓存 */
-    @Value("${thinglinks.rule.trigger.index-local-cache-seconds:30}")
+    @Value("${iot.rule.trigger.index-local-cache-seconds:30}")
     private long localCacheSeconds;
 
     /** 进程内缓存条数上限,超限整体清空兜底(索引项极小,正常远达不到) */

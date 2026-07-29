@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
  * 反序列化时通过 versionNo 区分,无需独立的 schemaVersion 字段。</p>
  *
  * @author mqttsnet
- * @see com.mqttsnet.thinglinks.productversion.entity.ProductVersion
+ * @see org.springblade.modules.iot.productversion.entity.ProductVersion
  */
 @Data
 @NoArgsConstructor

@@ -12,7 +12,7 @@ import java.util.stream.Stream;
  * <p>
  * 桥接数据源协议类型（rule_data_source.source_type 字段）。
  * 与 {@code org.springblade.modules.iot.basic.databridge.model.ConnectorType} 1:1 对齐 ──
- * thinglinks-util starter 拿到 source_type 字符串后通过 {@code ConnectorType.valueOf(...)}
+ * iot-util starter 拿到 source_type 字符串后通过 {@code ConnectorType.valueOf(...)}
  * 反查对应的 Sink/Source 实现。
  * </p>
  *

@@ -5,13 +5,13 @@ package org.springblade.model.constant;
  * <p>
  * 切记，该类下的接口和方法，一定要自己手动创建，否则会注入失败
  * <p>
- * 本类中的 @thinglinks.generator auto insert 请勿删除
+ * 本类中的 @iot.generator auto insert 请勿删除
  *
  * @author mqttsnet
  * @date 2020年01月20日11:16:37
  */
 public interface EchoApi {
-    // @thinglinks.generator auto insert EchoApi
+    // @iot.generator auto insert EchoApi
 
     /**
      * 字典 回显实现类

@@ -1906,7 +1906,7 @@ public class DeviceServiceImpl extends SuperServiceImpl<DeviceManager, Long, Dev
     // ────────────── 产品版本发布:设备改绑 service 入口 ──────────────
     // 这 3 个方法走 service 而非直接 Manager 的原因:
     //   1. @DS(BASE_TENANT) 切库 AOP 在 Service 层 ── Manager 无 @DS,跨域直调会 fallback 到默认库,
-    //      UPDATE 跨租户串味或报 "Table 'thinglinks_ds_c_defaults.device' doesn't exist"
+    //      UPDATE 跨租户串味或报 "Table 'iot_ds_c_defaults.device' doesn't exist"
     //   2. 不加 @Transactional ── dynamic-datasource 跟 @Transactional 冲突:事务开启会锁定当前 DS,
     //      后续 @DS SPEL 重新求值不生效。这里是单 UPDATE,InnoDB 单 SQL 本身原子,无需事务包裹
 

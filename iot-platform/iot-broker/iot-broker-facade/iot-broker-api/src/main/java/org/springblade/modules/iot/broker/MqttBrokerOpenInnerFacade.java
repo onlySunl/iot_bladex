@@ -8,7 +8,7 @@ import org.springblade.modules.iot.vo.result.MqttSessionDetailsResultVO;
 import java.util.List;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: MqttBroker-开放接口API
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com

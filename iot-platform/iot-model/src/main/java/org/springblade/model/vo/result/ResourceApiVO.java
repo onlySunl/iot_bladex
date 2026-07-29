@@ -38,8 +38,8 @@ public class ResourceApiVO implements Serializable {
     private String requestMethod;
 
     /**
-     * 接口路径;thinglinks-cloud版：uri需要拼接上gateway中路径前缀
-     * thinglinks-boot版: uri需要不需要拼接前缀
+     * 接口路径;iot-platform版：uri需要拼接上gateway中路径前缀
+     * blade-boot版: uri需要不需要拼接前缀
      */
     @TableField(value = "uri", condition = Condition.LIKE)
     private String uri;

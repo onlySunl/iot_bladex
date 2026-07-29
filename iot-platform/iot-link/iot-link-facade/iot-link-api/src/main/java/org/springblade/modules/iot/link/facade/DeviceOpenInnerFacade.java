@@ -23,7 +23,7 @@ import org.springblade.modules.iot.protocol.vo.result.TopoDeviceOperationResultV
 import org.springblade.modules.iot.protocol.vo.result.TopoQueryDeviceResultVO;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: 设备-开放接口API
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com

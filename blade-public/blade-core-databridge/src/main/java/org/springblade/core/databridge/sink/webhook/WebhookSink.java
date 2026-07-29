@@ -40,7 +40,7 @@ import okhttp3.Response;
  * <pre>{@code
  * {
  *   "url":     "https://thirdparty.example.com/webhook",
- *   "headers": { "X-Source": "thinglinks" },
+ *   "headers": { "X-Source": "blade" },
  *   "contentType": "application/json"
  * }
  * }</pre>

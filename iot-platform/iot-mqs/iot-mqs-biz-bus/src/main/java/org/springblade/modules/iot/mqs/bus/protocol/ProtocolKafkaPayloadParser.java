@@ -107,19 +107,19 @@ public class ProtocolKafkaPayloadParser {
 
     /** MQTT topic → 动作(仅 MQTT;改这里不影响 WS/TCP)。 */
     private static void putMqttTopicEvents(Map<String, DeviceActionTypeEnum> m) {
-        m.put(MqsMqtt.THINGLINKS_MQTT_CLIENT_CONNECTED_TOPIC, DeviceActionTypeEnum.CONNECT);
-        m.put(MqsMqtt.THINGLINKS_MQTT_CLIENT_DISCONNECTED_TOPIC, DeviceActionTypeEnum.DISCONNECT);
-        m.put(MqsMqtt.THINGLINKS_MQTT_SERVER_CONNECTED_TOPIC, DeviceActionTypeEnum.CLOSE);
-        m.put(MqsMqtt.THINGLINKS_MQTT_DEVICE_KICKED_TOPIC, DeviceActionTypeEnum.KICKED);
-        m.put(MqsMqtt.THINGLINKS_MQTT_SUBSCRIPTION_ACKED_TOPIC, DeviceActionTypeEnum.SUBSCRIBE);
-        m.put(MqsMqtt.THINGLINKS_MQTT_UNSUBSCRIPTION_ACKED_TOPIC, DeviceActionTypeEnum.UNSUBSCRIBE);
-        m.put(MqsMqtt.THINGLINKS_MQTT_PING_REQ_TOPIC, DeviceActionTypeEnum.PING);
+        m.put(MqsMqtt.IOT_MQTT_CLIENT_CONNECTED_TOPIC, DeviceActionTypeEnum.CONNECT);
+        m.put(MqsMqtt.IOT_MQTT_CLIENT_DISCONNECTED_TOPIC, DeviceActionTypeEnum.DISCONNECT);
+        m.put(MqsMqtt.IOT_MQTT_SERVER_CONNECTED_TOPIC, DeviceActionTypeEnum.CLOSE);
+        m.put(MqsMqtt.IOT_MQTT_DEVICE_KICKED_TOPIC, DeviceActionTypeEnum.KICKED);
+        m.put(MqsMqtt.IOT_MQTT_SUBSCRIPTION_ACKED_TOPIC, DeviceActionTypeEnum.SUBSCRIBE);
+        m.put(MqsMqtt.IOT_MQTT_UNSUBSCRIPTION_ACKED_TOPIC, DeviceActionTypeEnum.UNSUBSCRIBE);
+        m.put(MqsMqtt.IOT_MQTT_PING_REQ_TOPIC, DeviceActionTypeEnum.PING);
         // BifroMQ Standalone 部署:plugin DISTED → distribution.completed.topic 是设备 PUBLISH 唯一可用来源
         // (broker 无内置 mqtt-to-kafka connector);DISTED body 带完整 PUBLISH 报文(topic/qos/payload/publisher).
         // 注意:DISTED 上下行都触发 ── 下行命令(backend publisher)走到这里时 DeviceCacheEnricher 会 cache miss,
         // 后续 PayloadDecodeStage 无物模型自然 skip,实现天然过滤.
-        m.put(MqsMqtt.THINGLINKS_MQTT_DISTRIBUTION_COMPLETED_TOPIC, DeviceActionTypeEnum.PUBLISH);
-        m.put(MqsMqtt.THINGLINKS_MQTT_DISTRIBUTION_ERROR_TOPIC, DeviceActionTypeEnum.DISPATCH_ERROR);
+        m.put(MqsMqtt.IOT_MQTT_DISTRIBUTION_COMPLETED_TOPIC, DeviceActionTypeEnum.PUBLISH);
+        m.put(MqsMqtt.IOT_MQTT_DISTRIBUTION_ERROR_TOPIC, DeviceActionTypeEnum.DISPATCH_ERROR);
     }
 
     /**
@@ -129,26 +129,26 @@ public class ProtocolKafkaPayloadParser {
      * WS 无订阅模型,故不设 SUBSCRIBE / UNSUBSCRIBE。
      */
     private static void putWebSocketTopicEvents(Map<String, DeviceActionTypeEnum> m) {
-        m.put(MqsWebSocket.THINGLINKS_WEBSOCKET_CLIENT_CONNECTED_TOPIC, DeviceActionTypeEnum.CONNECT);
-        m.put(MqsWebSocket.THINGLINKS_WEBSOCKET_CLIENT_DISCONNECTED_TOPIC, DeviceActionTypeEnum.DISCONNECT);
-        m.put(MqsWebSocket.THINGLINKS_WEBSOCKET_SERVER_DISCONNECTED_TOPIC, DeviceActionTypeEnum.CLOSE);
-        m.put(MqsWebSocket.THINGLINKS_WEBSOCKET_DEVICE_KICKED_TOPIC, DeviceActionTypeEnum.KICKED);
-        m.put(MqsWebSocket.THINGLINKS_WEBSOCKET_PING_REQ_TOPIC, DeviceActionTypeEnum.PING);
-        m.put(MqsWebSocket.THINGLINKS_WEBSOCKET_DISTRIBUTION_COMPLETED_TOPIC, DeviceActionTypeEnum.PUBLISH);
-        m.put(MqsWebSocket.THINGLINKS_WEBSOCKET_DISTRIBUTION_ERROR_TOPIC, DeviceActionTypeEnum.DISPATCH_ERROR);
+        m.put(MqsWebSocket.IOT_WEBSOCKET_CLIENT_CONNECTED_TOPIC, DeviceActionTypeEnum.CONNECT);
+        m.put(MqsWebSocket.IOT_WEBSOCKET_CLIENT_DISCONNECTED_TOPIC, DeviceActionTypeEnum.DISCONNECT);
+        m.put(MqsWebSocket.IOT_WEBSOCKET_SERVER_DISCONNECTED_TOPIC, DeviceActionTypeEnum.CLOSE);
+        m.put(MqsWebSocket.IOT_WEBSOCKET_DEVICE_KICKED_TOPIC, DeviceActionTypeEnum.KICKED);
+        m.put(MqsWebSocket.IOT_WEBSOCKET_PING_REQ_TOPIC, DeviceActionTypeEnum.PING);
+        m.put(MqsWebSocket.IOT_WEBSOCKET_DISTRIBUTION_COMPLETED_TOPIC, DeviceActionTypeEnum.PUBLISH);
+        m.put(MqsWebSocket.IOT_WEBSOCKET_DISTRIBUTION_ERROR_TOPIC, DeviceActionTypeEnum.DISPATCH_ERROR);
     }
 
     /** TCP topic → 动作(仅 TCP;改这里不影响 MQTT/WS)。 */
     private static void putTcpTopicEvents(Map<String, DeviceActionTypeEnum> m) {
-        m.put(MqsTcp.THINGLINKS_TCP_CLIENT_CONNECTED_TOPIC, DeviceActionTypeEnum.CONNECT);
-        m.put(MqsTcp.THINGLINKS_TCP_CLIENT_DISCONNECTED_TOPIC, DeviceActionTypeEnum.DISCONNECT);
-        m.put(MqsTcp.THINGLINKS_TCP_SERVER_DISCONNECTED_TOPIC, DeviceActionTypeEnum.CLOSE);
-        m.put(MqsTcp.THINGLINKS_TCP_DEVICE_KICKED_TOPIC, DeviceActionTypeEnum.KICKED);
-        m.put(MqsTcp.THINGLINKS_TCP_SUBSCRIPTION_ACKED_TOPIC, DeviceActionTypeEnum.SUBSCRIBE);
-        m.put(MqsTcp.THINGLINKS_TCP_UNSUBSCRIPTION_ACKED_TOPIC, DeviceActionTypeEnum.UNSUBSCRIBE);
-        m.put(MqsTcp.THINGLINKS_TCP_PING_REQ_TOPIC, DeviceActionTypeEnum.PING);
-        m.put(MqsTcp.THINGLINKS_TCP_DISTRIBUTION_COMPLETED_TOPIC, DeviceActionTypeEnum.PUBLISH);
-        m.put(MqsTcp.THINGLINKS_TCP_DISTRIBUTION_ERROR_TOPIC, DeviceActionTypeEnum.DISPATCH_ERROR);
+        m.put(MqsTcp.IOT_TCP_CLIENT_CONNECTED_TOPIC, DeviceActionTypeEnum.CONNECT);
+        m.put(MqsTcp.IOT_TCP_CLIENT_DISCONNECTED_TOPIC, DeviceActionTypeEnum.DISCONNECT);
+        m.put(MqsTcp.IOT_TCP_SERVER_DISCONNECTED_TOPIC, DeviceActionTypeEnum.CLOSE);
+        m.put(MqsTcp.IOT_TCP_DEVICE_KICKED_TOPIC, DeviceActionTypeEnum.KICKED);
+        m.put(MqsTcp.IOT_TCP_SUBSCRIPTION_ACKED_TOPIC, DeviceActionTypeEnum.SUBSCRIBE);
+        m.put(MqsTcp.IOT_TCP_UNSUBSCRIPTION_ACKED_TOPIC, DeviceActionTypeEnum.UNSUBSCRIBE);
+        m.put(MqsTcp.IOT_TCP_PING_REQ_TOPIC, DeviceActionTypeEnum.PING);
+        m.put(MqsTcp.IOT_TCP_DISTRIBUTION_COMPLETED_TOPIC, DeviceActionTypeEnum.PUBLISH);
+        m.put(MqsTcp.IOT_TCP_DISTRIBUTION_ERROR_TOPIC, DeviceActionTypeEnum.DISPATCH_ERROR);
     }
 
     /**

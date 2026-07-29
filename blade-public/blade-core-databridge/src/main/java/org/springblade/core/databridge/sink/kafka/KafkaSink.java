@@ -38,7 +38,7 @@ import org.apache.kafka.common.serialization.ByteArraySerializer;
  * <pre>{@code
  * {
  *   "bootstrapServers": "host1:9092,host2:9092",   // 必填
- *   "clientId":         "thinglinks-bridge-12345", // 可选，默认按 identifier 拼
+ *   "clientId":         "iot-bridge-12345", // 可选，默认按 identifier 拼
  *   "topic":            "iot-out",                 // 必填
  *   "useTls":           false                      // 可选
  * }

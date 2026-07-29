@@ -90,7 +90,7 @@ public class ProductVersionSchemaSyncListener {
     private CompletableFuture<Boolean> runAsync(ProductVersionLifecycleEventSource src,
                                                 Function<ProductVersionLifecycleEventSource, Boolean> action,
                                                 String tag) {
-        // 多租户隔离 fail-fast:DsConstant.BASE_TENANT = "#thread.thinglinks_base" 走 SPEL 取
+        // 多租户隔离 fail-fast:DsConstant.BASE_TENANT = "#thread.iot_base" 走 SPEL 取
         // ThreadLocal 数据源名,tenantId 缺失时 dynamic-datasource 静默 fallback 到 primary "0"
         // 默认库 → 跨租户数据串味(把 A 租户的 publish_record 写到默认库)。
         // 这里早返并 markFailed,让 record 状态可见(用户能在前端看到失败,而不是默写错库)。

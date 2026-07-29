@@ -27,7 +27,7 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
  * <pre>{@code
  * {
  *   "broker":      "tcp://host:1883",
- *   "clientId":    "thinglinks-bridge-sub-12345",
+ *   "clientId":    "iot-bridge-sub-12345",
  *   "topicFilter": "in/+/data",                  // 支持 MQTT 通配符 + / #
  *   "qos":         1,
  *   "username":    "..."

@@ -74,7 +74,7 @@ public class SubscriptionSourceLifecycleManager {
     /**
      * 启动扫描的租户 ID 列表(逗号分隔)。
      */
-    @Value("${thinglinks.bridge.bootstrap.tenant-ids:1}")
+    @Value("${iot.bridge.bootstrap.tenant-ids:1}")
     private String bootstrapTenantIdsRaw;
 
     /**

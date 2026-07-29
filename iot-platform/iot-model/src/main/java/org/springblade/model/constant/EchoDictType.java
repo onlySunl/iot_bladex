@@ -5,19 +5,19 @@ package org.springblade.model.constant;
  * <p>
  * 存放系统中常用的类型
  * <p>
- * 本类中的 @thinglinks.generator auto insert 请勿删除
+ * 本类中的 @iot.generator auto insert 请勿删除
  *
  * @author mqttsnet
  * @date 2019/07/26
  */
 public interface EchoDictType {
-    // @thinglinks.generator auto insert EchoDictType
+    // @iot.generator auto insert EchoDictType
 
     /**
      * 全局字典类型
      */
     interface Global {
-        // @thinglinks.generator auto insert Global
+        // @iot.generator auto insert Global
 
         /**
          * 行政级别
@@ -55,7 +55,7 @@ public interface EchoDictType {
      * 基础服务
      */
     interface Base {
-        // @thinglinks.generator auto insert Base
+        // @iot.generator auto insert Base
         String MSG_INTERFACE_LOGGING_STATUS = "MsgInterfaceLoggingStatusEnum";
         String INTERFACE_EXEC_MODE = "InterfaceExecModeEnum";
         String MSG_TEMPLATE_TYPE = "MsgTemplateTypeEnum";
@@ -136,7 +136,7 @@ public interface EchoDictType {
      * 租户服务
      */
     interface System {
-        // @thinglinks.generator auto insert System
+        // @iot.generator auto insert System
 
         String DefTenantRegisterTypeEnum = "DefTenantRegisterTypeEnum";
         /**
@@ -197,7 +197,7 @@ public interface EchoDictType {
      * 开放平台管理端
      */
     interface SopAdmin {
-        // @thinglinks.generator auto insert SopAdmin
+        // @iot.generator auto insert SopAdmin
         String NotifyStatusEnum = "NotifyStatusEnum";
     }
 
@@ -205,7 +205,7 @@ public interface EchoDictType {
      * 认证服务
      */
     interface Oauth {
-        // @thinglinks.generator auto insert Oauth
+        // @iot.generator auto insert Oauth
 
     }
 
@@ -213,7 +213,7 @@ public interface EchoDictType {
      * 文件服务
      */
     interface File {
-        // @thinglinks.generator auto insert File
+        // @iot.generator auto insert File
 
     }
 
@@ -221,7 +221,7 @@ public interface EchoDictType {
      * 消息服务
      */
     interface Msg {
-        // @thinglinks.generator auto insert Msg
+        // @iot.generator auto insert Msg
 
     }
 
@@ -229,7 +229,7 @@ public interface EchoDictType {
      * 网关服务
      */
     interface Gateway {
-        // @thinglinks.generator auto insert Gateway
+        // @iot.generator auto insert Gateway
 
     }
 
@@ -237,7 +237,7 @@ public interface EchoDictType {
      * Link服务
      */
     interface Link {
-        // @thinglinks.generator auto insert Link
+        // @iot.generator auto insert Link
 
         /**
          * 设备认证方式
@@ -438,7 +438,7 @@ public interface EchoDictType {
      * 视频服务
      */
     interface Video {
-        // @thinglinks.generator auto insert Video
+        // @iot.generator auto insert Video
 
         /** 流媒体服务类型 (zlm/abl) */
         String VIDEO_MEDIA_SERVER_TYPE = "VIDEO_MEDIA_SERVER_TYPE";
@@ -495,7 +495,7 @@ public interface EchoDictType {
     /**
      * 北向集成 / 数据桥接字典类型
      * <p>
-     * 与 thinglinks-databridge-starter ConnectorType / Serializer.name() 等枚举对齐
+     * 与 blade-core-databridge ConnectorType / Serializer.name() 等枚举对齐
      * </p>
      */
     interface Bridge {

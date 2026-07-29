@@ -5,7 +5,7 @@ package org.springblade.common.constant;
  */
 public class ContextConstants {
     /**
-     * thinglinks_defaults库
+     * iot_defaults库
      */
     public static final Long DEF_TENANT_ID = 0L;
 
@@ -57,12 +57,12 @@ public class ContextConstants {
     /**
      * 请求头和线程变量中的 base库 租户数据源标识(base为基础数据库就是关系型)
      */
-    public static final String TENANT_BASE_POOL_NAME_HEADER = "thinglinks_base";
+    public static final String TENANT_BASE_POOL_NAME_HEADER = "iot_base";
 
     /**
      * 请求头和线程变量中的 extend库 租户数据源标识(extend为时序性数据库)
      */
-    public static final String TENANT_EXTEND_POOL_NAME_HEADER = "thinglinks_extend";
+    public static final String TENANT_EXTEND_POOL_NAME_HEADER = "iot_extend";
     /**
      * 请求头和线程变量中的 企业ID
      */

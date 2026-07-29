@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 /**
  * 通用数据桥接 payload（写入下游 Sink 用）。
  * <p>
- * 本类是 {@code thinglinks-databridge-starter} 对外暴露的唯一消息容器，
+ * 本类是 {@code blade-core-databridge} 对外暴露的唯一消息容器，
  * <b>仅持有 byte[] / Map / String / long</b>，<b>0 业务字段</b>。业务侧
  * （如 IoT 桥接的 BridgeMessageEnvelope）需自行序列化为 byte[] 后填充本对象的 body。
  * </p>

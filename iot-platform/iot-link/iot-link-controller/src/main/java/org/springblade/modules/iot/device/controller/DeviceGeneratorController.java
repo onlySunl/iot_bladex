@@ -211,7 +211,7 @@ public class DeviceGeneratorController {
                                         String username, String password) {
         // 构建设备基本信息
         return Device.builder()
-                .appId("thinglinks-test")
+                .appId("iot-test")
                 .deviceName(buildDeviceName(productResultVO, deviceNumber))
                 .deviceIdentification(buildDeviceIdentifier(productResultVO, deviceNumber))
                 .clientId(buildClientId(productResultVO, deviceNumber, ContextUtil.getTenantId()))

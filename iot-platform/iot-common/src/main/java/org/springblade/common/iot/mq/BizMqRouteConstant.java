@@ -8,10 +8,10 @@ package org.springblade.common.iot.mq;
  *
  * <h2>命名规约</h2>
  * <ul>
- *   <li><b>Topic</b>:项目前缀 {@code ${THINGLINKS_MQ_NAMESPACE}-} + 业务域 + 用途,全小写连字符。例:
- *       {@code ${THINGLINKS_MQ_NAMESPACE}-bridge-device-event}</li>
+ *   <li><b>Topic</b>:项目前缀 {@code ${IOT_MQ_NAMESPACE}-} + 业务域 + 用途,全小写连字符。例:
+ *       {@code ${IOT_MQ_NAMESPACE}-bridge-device-event}</li>
  *   <li><b>Tag</b>:业务事件类型(eventType / actionType / sourceType 等)。例:{@code PUBLISH} / {@code instance-up}</li>
- *   <li><b>ConsumerGroup</b>:大写 {@code CID_${THINGLINKS_MQ_NAMESPACE_UPPER}_<DOMAIN>_<PURPOSE>};
+ *   <li><b>ConsumerGroup</b>:大写 {@code CID_${IOT_MQ_NAMESPACE_UPPER}_<DOMAIN>_<PURPOSE>};
  *       BROADCASTING 模式额外附加节点 IP / 主机名后缀让每节点独立 group(避免 offset 抢占)</li>
  *   <li><b>Destination 拼接</b>:业务侧 send 时用 {@code topic + ":" + tag} 拼装传给
  *       {@code RocketMQTemplate}(spring rocketmq 的 destination 语法)</li>
@@ -22,17 +22,17 @@ package org.springblade.common.iot.mq;
  * <pre>
  * ┌─────────────────────────────── 桥接出站(设备 → 第三方) ───────────────────────────────┐
  * │                                                                                         │
- * │ 设备 ─MQTT/WS/TCP─→ thinglinks-mqs                                                        │
+ * │ 设备 ─MQTT/WS/TCP─→ iot-mqs                                                        │
  * │                       │                                                                  │
  * │                       │ 主链路:解析 + 持久化 DeviceAction(不变)                          │
  * │                       │ 旁路:MqsBridgeEventProducer.publishBridgeEvent (best-effort)   │
  * │                       ↓                                                                  │
- * │           [ Topic: ${THINGLINKS_MQ_NAMESPACE}-bridge-device-event ]   ← Bridge#DEVICE_EVENT             │
+ * │           [ Topic: ${IOT_MQ_NAMESPACE}-bridge-device-event ]   ← Bridge#DEVICE_EVENT             │
  * │           [ Tag:   actionType (PUBLISH/CONNECT/...) ]                                   │
  * │           [ Mode:  CLUSTERING / Group: BRIDGE_DEVICE_EVENT ]                            │
  * │                       │                                                                  │
  * │                       ↓                                                                  │
- * │ thinglinks-rule.BridgeDeviceEventConsumer                                                │
+ * │ iot-rule.BridgeDeviceEventConsumer                                                │
  * │     → BridgeRuleMatcher.matchOutbound (Caffeine 缓存命中)                                 │
  * │     → SinkDispatcher.dispatch (限流 + 转换 + 投递 + 重试 + 死信 + Trace 日志)              │
  * │     → 第三方系统(Kafka / Redis / RocketMQ / RabbitMQ / MySQL / HTTP / WebHook / MQTT)       │
@@ -45,12 +45,12 @@ package org.springblade.common.iot.mq;
  * │           │ rule.SubscriptionSourceLifecycleManager (订阅 / HTTP endpoint)                │
  * │           │   → 字段映射 → BridgeMessageEnvelope                                          │
  * │           ↓                                                                              │
- * │           [ Topic: ${THINGLINKS_MQ_NAMESPACE}-bridge-ingress ]   ← Bridge#INGRESS                       │
+ * │           [ Topic: ${IOT_MQ_NAMESPACE}-bridge-ingress ]   ← Bridge#INGRESS                       │
  * │           [ Tag:   targetHandler (MQTT_FORWARD/RAW_INSERT/RULE_TRIGGER) ]               │
  * │           [ Mode:  CLUSTERING / Group: BRIDGE_INGRESS ]                                  │
  * │                       │                                                                  │
  * │                       ↓                                                                  │
- * │ thinglinks-mqs.BridgeIngressRocketmqConsumerHandler                                      │
+ * │ iot-mqs.BridgeIngressRocketmqConsumerHandler                                      │
  * │   ├─ MQTT_FORWARD  → 伪装成设备 publish,走 MqttPublishEventListener 主链路                 │
  * │   ├─ RAW_INSERT    → 调 link-api Feign 直写 device_action 表                              │
  * │   └─ RULE_TRIGGER  → 调 rule-api Feign 触发场景联动                                        │
@@ -61,7 +61,7 @@ package org.springblade.common.iot.mq;
  * │ 设备 PING (ws 心跳)                                                                    │
  * │   → broker.WsHeartbeatTracker.update                                                   │
  * │   → 本地 lastActiveTime + Redis TTL + Owner 续命                                         │
- * │   → [ Topic: ${THINGLINKS_MQ_NAMESPACE}-ws-heartbeat-sync ]   ← WebSocket#HEARTBEAT_SYNC                │
+ * │   → [ Topic: ${IOT_MQ_NAMESPACE}-ws-heartbeat-sync ]   ← WebSocket#HEARTBEAT_SYNC                │
  * │   → [ Mode:  BROADCASTING / Group: WS_HEARTBEAT_SYNC_PREFIX + ${HOSTNAME或IP} ]         │
  * │   → 各 broker 节点 WsHeartbeatSyncListener 收到 → 持有该 session 的节点更新本地存活(重连漂移兜底) │
  * └───────────────────────────────────────────────────────────────────────────────────────┘
@@ -71,7 +71,7 @@ package org.springblade.common.iot.mq;
  * │ 业务侧下发命令 → 任一 broker 节点                                                       │
  * │   → WebSocketBrokerServiceImpl.publishMessage(vo)                                      │
  * │   → 编码 ws 子协议报文 + 在线校验(查 Redis session 信息)                                │
- * │   → [ Topic: ${THINGLINKS_MQ_NAMESPACE}-ws-command-downlink ]   ← WebSocket#COMMAND_DOWNLINK           │
+ * │   → [ Topic: ${IOT_MQ_NAMESPACE}-ws-command-downlink ]   ← WebSocket#COMMAND_DOWNLINK           │
  * │   → [ Mode:  BROADCASTING / Group: WS_COMMAND_DOWNLINK_PREFIX + ${spring.application.name} ] │
  * │   → 每个 broker 节点 WsCommandDownlinkListener 收到 → 查本地 Holder                       │
  * │       ├─ 命中(持有该设备 TCP 的节点)→ 推 socket                                         │
@@ -87,7 +87,7 @@ package org.springblade.common.iot.mq;
  *   </tr>
  *   <tr>
  *     <td>{@link Bridge#DEVICE_EVENT}</td>
- *     <td>${THINGLINKS_MQ_NAMESPACE}-bridge-device-event</td>
+ *     <td>${IOT_MQ_NAMESPACE}-bridge-device-event</td>
  *     <td>CLUSTERING</td>
  *     <td>mqs · {@code MqsBridgeEventProducer}</td>
  *     <td>rule · {@code BridgeDeviceEventConsumer}</td>
@@ -95,7 +95,7 @@ package org.springblade.common.iot.mq;
  *   </tr>
  *   <tr>
  *     <td>{@link Bridge#INGRESS}</td>
- *     <td>${THINGLINKS_MQ_NAMESPACE}-bridge-ingress</td>
+ *     <td>${IOT_MQ_NAMESPACE}-bridge-ingress</td>
  *     <td>CLUSTERING</td>
  *     <td>rule · {@code SubscriptionSourceLifecycleManager} / {@code BridgeIngressOpenAnyUserController}</td>
  *     <td>mqs · {@code BridgeIngressRocketmqConsumerHandler}</td>
@@ -103,7 +103,7 @@ package org.springblade.common.iot.mq;
  *   </tr>
  *   <tr>
  *     <td>{@link Bridge#DEAD_LETTER}</td>
- *     <td>${THINGLINKS_MQ_NAMESPACE}-bridge-dlq</td>
+ *     <td>${IOT_MQ_NAMESPACE}-bridge-dlq</td>
  *     <td>CLUSTERING</td>
  *     <td>rule · {@code SinkDispatcher.sendToDeadLetter} <i>(预留)</i></td>
  *     <td>监控告警 <i>(待接入)</i></td>
@@ -111,7 +111,7 @@ package org.springblade.common.iot.mq;
  *   </tr>
  *   <tr>
  *     <td>{@link WebSocket#HEARTBEAT_SYNC}</td>
- *     <td>${THINGLINKS_MQ_NAMESPACE}-ws-heartbeat-sync</td>
+ *     <td>${IOT_MQ_NAMESPACE}-ws-heartbeat-sync</td>
  *     <td>BROADCASTING</td>
  *     <td>broker · {@code WsHeartbeatTracker}</td>
  *     <td>broker 全节点 · {@code WsHeartbeatSyncListener}</td>
@@ -119,7 +119,7 @@ package org.springblade.common.iot.mq;
  *   </tr>
  *   <tr>
  *     <td>{@link WebSocket#COMMAND_DOWNLINK}</td>
- *     <td>${THINGLINKS_MQ_NAMESPACE}-ws-command-downlink</td>
+ *     <td>${IOT_MQ_NAMESPACE}-ws-command-downlink</td>
  *     <td>BROADCASTING</td>
  *     <td>broker · {@code WebSocketBrokerServiceImpl}</td>
  *     <td>broker 全节点 · {@code WsCommandDownlinkListener}</td>
@@ -165,10 +165,10 @@ package org.springblade.common.iot.mq;
 public interface BizMqRouteConstant {
 
     /** Topic 前缀，由根目录产品清单中的消息队列命名空间组成。 */
-    String TOPIC_PREFIX = ConsumerGroupConstant.THINGLINKS_MQ_NAMESPACE + "-";
+    String TOPIC_PREFIX = ConsumerGroupConstant.IOT_MQ_NAMESPACE + "-";
 
     /** Consumer Group 前缀，引用 ConsumerGroupConstant 中的消费组前缀。 */
-    String CONSUMER_GROUP_PREFIX = ConsumerGroupConstant.THINGLINKS_CONSUMER_GROUP_PREFIX;
+    String CONSUMER_GROUP_PREFIX = ConsumerGroupConstant.IOT_CONSUMER_GROUP_PREFIX;
 
     // =========================================================================================
     // 业务域:桥接(rule 服务承载)
@@ -189,9 +189,9 @@ public interface BizMqRouteConstant {
          * ({@code BridgeMessageEnvelope}),由 rule 桥接消费器消费做规则匹配 + 第三方系统分发。
          *
          * <ul>
-         *   <li><b>Producer</b>:thinglinks-mqs · {@code MqsBridgeEventProducer.publishBridgeEvent}
+         *   <li><b>Producer</b>:iot-mqs · {@code MqsBridgeEventProducer.publishBridgeEvent}
          *       (异步、失败仅 warn 不阻塞主链路)</li>
-         *   <li><b>Consumer</b>:thinglinks-rule · {@code BridgeDeviceEventConsumer}
+         *   <li><b>Consumer</b>:iot-rule · {@code BridgeDeviceEventConsumer}
          *       (基于 {@code AbstractTenantAwareRocketmqListener} 自动恢复 ContextUtil)</li>
          *   <li><b>Mode</b>:{@code CLUSTERING}(集群消费 ── 多副本只投一次)</li>
          *   <li><b>Tag</b>:{@code actionType.name()} ── PUBLISH / CONNECT / DISCONNECT / CLOSE /
@@ -201,7 +201,7 @@ public interface BizMqRouteConstant {
          *   <li><b>ConsumerGroup</b>:{@link Groups#BRIDGE_DEVICE_EVENT}</li>
          *   <li><b>QPS 预期</b>:跟设备 publish 量级一致,生产环境建议 ≥ 5k(队列数 ≥ 16)</li>
          *   <li><b>失败处理</b>:Consumer 抛异常 → broker 重投 → 超 max-reconsume-times 进
-         *       {@code %DLQ%CID_${THINGLINKS_MQ_NAMESPACE_UPPER}_BRIDGE_DEVICE_EVENT}(自动死信 topic)</li>
+         *       {@code %DLQ%CID_${IOT_MQ_NAMESPACE_UPPER}_BRIDGE_DEVICE_EVENT}(自动死信 topic)</li>
          * </ul>
          */
         String DEVICE_EVENT = TOPIC_PREFIX + "bridge-device-event";
@@ -214,9 +214,9 @@ public interface BizMqRouteConstant {
          * 不同还原策略(MQTT 主链路伪装 / 直写 device_action / 触发规则联动)。
          *
          * <ul>
-         *   <li><b>Producer</b>:thinglinks-rule · {@code SubscriptionSourceLifecycleManager}
+         *   <li><b>Producer</b>:iot-rule · {@code SubscriptionSourceLifecycleManager}
          *       (订阅源后台拉取) + {@code BridgeIngressOpenAnyUserController}(HTTP POST 入站)</li>
-         *   <li><b>Consumer</b>:thinglinks-mqs · {@code BridgeIngressRocketmqConsumerHandler}</li>
+         *   <li><b>Consumer</b>:iot-mqs · {@code BridgeIngressRocketmqConsumerHandler}</li>
          *   <li><b>Mode</b>:{@code CLUSTERING}</li>
          *   <li><b>Tag</b>:targetHandler(由 subscription_source.target_handler 字段决定)
          *       ── {@link Tags#INGRESS_MQTT_FORWARD} / {@link Tags#INGRESS_RAW_INSERT}
@@ -235,7 +235,7 @@ public interface BizMqRouteConstant {
          * 给监控告警系统消费 + DB 死信日志追溯 + 后续手工回放。
          *
          * <ul>
-         *   <li><b>Producer</b>:thinglinks-rule · {@code SinkDispatcher.sendToDeadLetter}<i>(预留实现)</i></li>
+         *   <li><b>Producer</b>:iot-rule · {@code SinkDispatcher.sendToDeadLetter}<i>(预留实现)</i></li>
          *   <li><b>Consumer</b>:监控告警系统 / 运维大盘<i>(待接入)</i></li>
          *   <li><b>Mode</b>:{@code CLUSTERING}</li>
          *   <li><b>Tag</b>:{@code ruleCode}(便于按规则维度告警 / 聚合)</li>
@@ -272,9 +272,9 @@ public interface BizMqRouteConstant {
          * 避免 timeout checker 误关闭仍活跃的连接。
          *
          * <ul>
-         *   <li><b>Producer</b>:thinglinks-broker · {@code WsHeartbeatTracker.update}
+         *   <li><b>Producer</b>:iot-broker · {@code WsHeartbeatTracker.update}
          *       (异步、失败仅 warn ── 心跳是软实时,Redis TTL 90s 自然兜底)</li>
-         *   <li><b>Consumer</b>:thinglinks-broker 全节点 · {@code WsHeartbeatSyncListener}
+         *   <li><b>Consumer</b>:iot-broker 全节点 · {@code WsHeartbeatSyncListener}
          *       (仅当本节点持有该 clientId 的 session 才更新本地存活)</li>
          *   <li><b>Mode</b>:{@code BROADCASTING}(每节点都收)</li>
          *   <li><b>Tag</b>:{@code *}(无 tag,业务侧不区分)</li>
@@ -298,9 +298,9 @@ public interface BizMqRouteConstant {
          * 端口不可达 / 多 RestTemplate Bean 等场景脆弱。命令为低频必达场景,广播扇出开销可忽略。
          *
          * <ul>
-         *   <li><b>Producer</b>:thinglinks-broker · {@code WebSocketBrokerServiceImpl.publishMessage}
+         *   <li><b>Producer</b>:iot-broker · {@code WebSocketBrokerServiceImpl.publishMessage}
          *       (异步、失败仅 warn ── 不阻塞业务侧下发调用)</li>
-         *   <li><b>Consumer</b>:thinglinks-broker 全节点 · {@code WsCommandDownlinkListener}
+         *   <li><b>Consumer</b>:iot-broker 全节点 · {@code WsCommandDownlinkListener}
          *       (仅当本节点持有该 clientId 的 session 才投递)</li>
          *   <li><b>Mode</b>:{@code BROADCASTING}(每节点都收)</li>
          *   <li><b>Tag</b>:{@code *}(无 tag)</li>
@@ -331,9 +331,9 @@ public interface BizMqRouteConstant {
          * <h3>实时告警事件 Topic</h3>
          *
          * <ul>
-         *   <li><b>Producer</b>:thinglinks-mqs · {@code AlarmRealtimeRelayStage}
+         *   <li><b>Producer</b>:iot-mqs · {@code AlarmRealtimeRelayStage}
          *       (POST 阶段,失败仅 warn ── 告警不能影响主链路)</li>
-         *   <li><b>Consumer</b>:thinglinks-rule · {@code AlarmRealtimeConsumer}
+         *   <li><b>Consumer</b>:iot-rule · {@code AlarmRealtimeConsumer}
          *       (规则匹配 + 告警下发,后续接入)</li>
          *   <li><b>Mode</b>:{@code CLUSTERING}(多副本只投一次)</li>
          *   <li><b>Tag</b>:productIdentification ── 便于按产品维度过滤订阅</li>
@@ -391,7 +391,7 @@ public interface BizMqRouteConstant {
      *
      * <p><b>命名规约</b>:
      * <ul>
-     *   <li>{@code CLUSTERING} 模式:固定 group 名 {@code CID_${THINGLINKS_MQ_NAMESPACE_UPPER}_<DOMAIN>_<PURPOSE>},
+     *   <li>{@code CLUSTERING} 模式:固定 group 名 {@code CID_${IOT_MQ_NAMESPACE_UPPER}_<DOMAIN>_<PURPOSE>},
      *       多副本同 group 共享 offset,broker 负载均衡</li>
      *   <li>{@code BROADCASTING} 模式:必须每节点独立 group(否则各节点抢占同一 offset 互相覆盖),
      *       本接口提供 {@code _PREFIX} 常量,业务侧 Consumer 注解里拼接节点标识(优先 HOSTNAME,兜底 IP):

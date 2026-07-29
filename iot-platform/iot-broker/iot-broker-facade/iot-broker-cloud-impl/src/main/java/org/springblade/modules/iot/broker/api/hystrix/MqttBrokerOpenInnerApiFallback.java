@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: MqttBroker开放API熔断
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com

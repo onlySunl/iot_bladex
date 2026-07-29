@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
 public @interface WebLog {
     /**
      * 是否启用 操作日志
-     * 禁用控制优先级：thinglinks.log.enabled = false > 控制器类上@WebLog(enabled = false) > 控制器方法上@WebLog(enabled = false)
+     * 禁用控制优先级：blade.log.enabled = false > 控制器类上@WebLog(enabled = false) > 控制器方法上@WebLog(enabled = false)
      *
      * @return 是否启用
      */

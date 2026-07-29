@@ -17,8 +17,8 @@ import lombok.ToString;
  * 产品物模型版本快照实体,每次发布产生一行,product_snapshot_json 冻结当时整棵产品树,不可变。
  *
  * @author mqttsnet
- * @see com.mqttsnet.thinglinks.productversion.enumeration.ProductVersionStatusEnum
- * @see com.mqttsnet.thinglinks.productversion.enumeration.ProductPublishStrategyEnum
+ * @see org.springblade.modules.iot.productversion.enumeration.ProductVersionStatusEnum
+ * @see org.springblade.modules.iot.productversion.enumeration.ProductPublishStrategyEnum
  */
 @Data
 @NoArgsConstructor
@@ -49,9 +49,9 @@ public class ProductVersion extends Entity<Long> {
     private Integer versionStatus;
 
     /**
-     * 产品快照 JSON,对应 {@link com.mqttsnet.thinglinks.productversion.vo.snapshot.ProductSnapshotVO}。
+     * 产品快照 JSON,对应 {@link org.springblade.modules.iot.productversion.vo.snapshot.ProductSnapshotVO}。
      */
-    @AutoColumn(value = "product_snapshot_json", comment = "产品快照 JSON,对应 {@link com.mqttsnet.thinglinks.productversion.vo.snapshot.ProductSnapshotVO}。")
+    @AutoColumn(value = "product_snapshot_json", comment = "产品快照 JSON,对应 {@link org.springblade.modules.iot.productversion.vo.snapshot.ProductSnapshotVO}。")
     private String productSnapshotJson;
 
     /**

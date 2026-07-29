@@ -34,7 +34,7 @@ import java.util.Set;
 
 /**
  * HTTP 入站桥接 endpoint(第三方主动 POST 数据进来)。走 /anyUser/ 前缀免登录开放接口,POST /anyUser/bridge/ingress/{sourceCode},通过 header X-Signature = HMAC_SHA256(timestamp + body).hex() + X-Timestamp(epoch millis) 签名防重放。
- * 链路:校验 → HttpSource.ingest → LifecycleManager 注册的 handler 字段映射 → RocketMQ thinglinks-bridge-ingress → mqs BridgeIngressConsumer 按 targetHandler 分发。
+ * 链路:校验 → HttpSource.ingest → LifecycleManager 注册的 handler 字段映射 → RocketMQ iot-bridge-ingress → mqs BridgeIngressConsumer 按 targetHandler 分发。
  *
  * @author mqttsnet
  * @since 2026-04-28

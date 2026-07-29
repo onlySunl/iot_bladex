@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
  * 产品物模型版本状态枚举。
  *
  * @author mqttsnet
- * @see com.mqttsnet.thinglinks.productversion.entity.ProductVersion
+ * @see org.springblade.modules.iot.productversion.entity.ProductVersion
  */
 @Getter
 @AllArgsConstructor

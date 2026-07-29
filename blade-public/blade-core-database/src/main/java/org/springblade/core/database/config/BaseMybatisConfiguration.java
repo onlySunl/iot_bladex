@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * Mybatis 常用重用拦截器，thinglinks.database.multiTenantType=任意模式 都需要实例出来
+ * Mybatis 常用重用拦截器，blade.database.multiTenantType=任意模式 都需要实例出来
  * <p>
  * 拦截器执行一定是：
  * DataScopeInterceptor > PaginationInterceptor

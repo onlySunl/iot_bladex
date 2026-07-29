@@ -3,7 +3,7 @@ package org.springblade.core.databridge.model;
 /**
  * 数据桥接连接器协议类型枚举。
  * <p>
- * 本枚举是 {@code thinglinks-databridge-starter} 对外宣称<b>本 starter 支持哪些协议</b>的清单，
+ * 本枚举是 {@code blade-core-databridge} 对外宣称<b>本 starter 支持哪些协议</b>的清单，
  * 既用于 {@link ConnectorConfig#getType()} 描述配置归属哪种协议，也用于
  * {@code ConnectorRegistry} 把请求路由到对应的 {@code Sink} / {@code Source} 实现。
  * </p>

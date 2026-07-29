@@ -8,7 +8,7 @@ import org.springblade.basic.context.ContextUtil;
 import java.util.Optional;
 
 /**
- * @program: thinglinks-util
+ * @program: blade-core-basic
  * @description: 租户操作工具类
  * @packagename: com.mqttsnet.basic.utils
  * @author: ShiHuan Sun

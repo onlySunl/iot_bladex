@@ -6,7 +6,7 @@ import org.springblade.modules.iot.device.vo.result.DeviceDetailsResultVO;
 import java.util.List;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: 设备管理API
  * @packagename: org.springblade.modules.iot.link.api.device
  * @author: ShiHuan Sun

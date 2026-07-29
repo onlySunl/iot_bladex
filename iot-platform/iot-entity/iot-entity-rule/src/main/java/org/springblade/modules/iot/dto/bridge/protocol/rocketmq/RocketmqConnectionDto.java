@@ -25,7 +25,7 @@ public class RocketmqConnectionDto implements ProtocolConnectionDto {
     public String tag;
 
     /**
-     * Producer Group。空则使用 PG_THINGLINKS_BRIDGE_${dsId}
+     * Producer Group。空则使用 PG_IOT_BRIDGE_${dsId}
      */
     public String producerGroup;
 

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  *
  * @author xiaonannet
  */
-@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:thinglinks-rule-server}", fallback = RuleJobHandlerApiFallback.class, path = "/")
+@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:iot-rule-server}", fallback = RuleJobHandlerApiFallback.class, path = "/")
 public interface RuleJobHandlerApi {
 
 

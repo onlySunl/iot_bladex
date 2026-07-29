@@ -31,7 +31,7 @@ class ProtocolKafkaPayloadParserTest {
         json.put("messageId", "mid-1");
 
         DeviceProtocolEvent event = ProtocolKafkaPayloadParser.parse(JSON.toJSONString(json),
-            KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_CLIENT_CONNECTED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_CLIENT_CONNECTED_TOPIC,
             ProtocolTypeEnum.MQTT);
 
         assertThat(event.getProtocolType()).isEqualTo(ProtocolTypeEnum.MQTT.getValue());
@@ -51,7 +51,7 @@ class ProtocolKafkaPayloadParserTest {
     @DisplayName("验证缺少 eventType 时可根据生命周期 topic 推断动作")
     void parseInfersLifecycleActionFromSourceTopicWhenEventTypeMissing() {
         DeviceProtocolEvent event = ProtocolKafkaPayloadParser.parse(JSON.toJSONString(basePayload()),
-            KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_CLIENT_CONNECTED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_CLIENT_CONNECTED_TOPIC,
             ProtocolTypeEnum.MQTT);
 
         assertThat(event.getEventType()).isEqualTo(DeviceActionTypeEnum.CONNECT.getValue());

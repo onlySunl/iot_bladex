@@ -62,7 +62,7 @@ public class RuleNotificationTemplateServiceImpl implements RuleNotificationTemp
     private final LinkCacheDataHelper linkCacheDataHelper;
     private final RuleAlarmService ruleAlarmService;
 
-    @Value("${thinglinks.console-url:}")
+    @Value("${iot.console-url:}")
     private String consoleUrl;
 
     @Override

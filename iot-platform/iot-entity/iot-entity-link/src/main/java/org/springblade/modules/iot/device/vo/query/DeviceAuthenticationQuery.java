@@ -15,9 +15,9 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: 设备认证Query
- * @packagename: com.mqttsnet.thinglinks.device.vo.query
+ * @packagename: org.springblade.modules.iot.device.vo.query
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com
  * @date: 2023-04-20 20:27

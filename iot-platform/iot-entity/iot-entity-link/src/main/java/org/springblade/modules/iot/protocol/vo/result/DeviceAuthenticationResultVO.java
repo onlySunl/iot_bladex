@@ -13,9 +13,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: 设备认证结果VO
- * @packagename: com.mqttsnet.thinglinks.device.vo.result
+ * @packagename: org.springblade.modules.iot.device.vo.result
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com
  * @date: 2023-07-13 23:17

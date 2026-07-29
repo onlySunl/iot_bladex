@@ -17,7 +17,7 @@ import lombok.ToString;
  * 区别于版本对比({@code ProductVersionService.diff} 的两版本全量差异);发布动作不写本表(走 product_publish_record)。
  *
  * @author mqttsnet
- * @see com.mqttsnet.thinglinks.productversionchangelog.enumeration.ProductVersionChangeTypeEnum
+ * @see org.springblade.modules.iot.productversionchangelog.enumeration.ProductVersionChangeTypeEnum
  */
 @Data
 @NoArgsConstructor

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @author mqttsnet
  * @date 2025-06-22
  */
-@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:thinglinks-link-server}",
+@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:iot-link-server}",
         fallback = ProductOpenInnerApiFallback.class, path = "/inner/productOpen")
 public interface ProductOpenInnerApi {
 

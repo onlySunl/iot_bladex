@@ -4,7 +4,7 @@ import org.springblade.basic.base.R;
 import org.springblade.modules.iot.vo.query.PublishWebSocketMessageRequestVO;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: WebSocketBroker-开放接口API
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com

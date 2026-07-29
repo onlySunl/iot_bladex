@@ -79,7 +79,7 @@ public class LampMetaObjectHandler implements MetaObjectHandler {
             if (oldId != null) {
                 return;
             }
-            // 根据 thinglinks.database.id-type 决定实现类
+            // 根据 blade.database.id-type 决定实现类
             Long id = uidGenerator.getUid();
             // 判断id字段的类型是字符串还是Long
             Object idVal = StrPool.STRING_TYPE_NAME.equals(metaObject.getGetterType(SuperEntity.ID_FIELD).getName()) ? String.valueOf(id) : id;
@@ -93,7 +93,7 @@ public class LampMetaObjectHandler implements MetaObjectHandler {
             if (oldId != null) {
                 return;
             }
-            // 根据 thinglinks.database.id-type 决定实现类
+            // 根据 blade.database.id-type 决定实现类
             Long id = uidGenerator.getUid();
             Object idVal = StrPool.STRING_TYPE_NAME.equals(metaObject.getGetterType(SuperEntity.ID_FIELD).getName()) ? String.valueOf(id) : id;
             this.setFieldValByName(SuperEntity.ID_FIELD, idVal, metaObject);
@@ -124,7 +124,7 @@ public class LampMetaObjectHandler implements MetaObjectHandler {
         if (ObjectUtil.isNotEmpty(fieldValue)) {
             return;
         }
-        // 根据 thinglinks.database.id-type 决定实现类
+        // 根据 blade.database.id-type 决定实现类
         Long id = uidGenerator.getUid();
         Object idVal = keyType.getName().equalsIgnoreCase(StrPool.STRING_TYPE_NAME) ? String.valueOf(id) : id;
         this.setFieldValByName(keyProperty, idVal, metaObject);

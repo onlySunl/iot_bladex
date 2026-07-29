@@ -196,7 +196,7 @@ public class example1_genCer {
         HashMap<String, Object> infoMap = new HashMap<String, Object>();
         infoMap.put(CTFC_DOMAIN_NAME, "www.mqttsnet.com");        //CN：用户姓名或域名
         infoMap.put(CTFC_ORG_UNIT_NAME, "mqttsnet");         //OU：组织单位名称
-        infoMap.put(CTFC_ORG_NAME, "thinglinks");                //O：组织名称
+        infoMap.put(CTFC_ORG_NAME, "iot");                //O：组织名称
         infoMap.put(CTFC_COUNTRY_CODE, "CN");                //C：单位的两字母国家代码
         infoMap.put(CTFC_CITY, "北京市");                        //L：城市或区域
         infoMap.put(CTFC_PROVINCE, "北京市");                    //ST：省份或州

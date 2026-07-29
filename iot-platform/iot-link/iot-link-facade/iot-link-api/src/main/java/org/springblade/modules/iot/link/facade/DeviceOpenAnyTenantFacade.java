@@ -5,7 +5,7 @@ import org.springblade.modules.iot.protocol.vo.result.DeviceAuthenticationResult
 import org.springframework.http.ResponseEntity;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: 设备-开放接口API
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com

@@ -9,9 +9,9 @@ import lombok.ToString;
 import java.io.Serializable;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: 协议数据内容返回VO
- * @packagename: com.mqttsnet.thinglinks.device.vo.result
+ * @packagename: org.springblade.modules.iot.device.vo.result
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com
  * @date: 2023-05-22 15:44

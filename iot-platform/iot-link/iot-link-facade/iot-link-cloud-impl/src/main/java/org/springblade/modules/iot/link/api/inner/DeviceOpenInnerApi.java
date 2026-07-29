@@ -36,13 +36,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: 设备-开放接口API
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com
  * @date: 2023-05-06 12:35
  **/
-@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:thinglinks-link-server}",
+@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:iot-link-server}",
         fallback = DeviceOpenInnerApiFallback.class, path = "/inner/deviceOpen")
 public interface DeviceOpenInnerApi {
 

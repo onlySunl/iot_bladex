@@ -24,7 +24,7 @@ import java.util.Map;
  * pulsar 类型仅出现在 <b>方法体局部变量</b> 中（含嵌套类的方法体）。
  * <p>
  * 这样保证 driver 不在 classpath 时（{@code <optional>true</optional>}），反射式扫描器
- * （如 thinglinks-databases 的 TenantLineAnnotationRegister 通过
+ * （如 blade-core-database 的 TenantLineAnnotationRegister 通过
  * Class.forName + getDeclaredMethods/getDeclaredFields 触发的 signature 解析）不会
  * 因为找不到 pulsar 类抛 NoClassDefFoundError。
  *

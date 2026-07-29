@@ -3,7 +3,7 @@ package org.springblade.modules.iot.entity.protocol.base;
 import java.io.Serial;
 import java.io.Serializable;
 
-import com.mqttsnet.basic.utils.HybridLogicalClockUtil;
+import org.springblade.basic.utils.HybridLogicalClockUtil;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

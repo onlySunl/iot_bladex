@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
  * 产品发布记录操作意图枚举。
  *
  * @author mqttsnet
- * @see com.mqttsnet.thinglinks.productpublishrecord.entity.ProductPublishRecord
+ * @see org.springblade.modules.iot.productpublishrecord.entity.ProductPublishRecord
  */
 @Getter
 @AllArgsConstructor

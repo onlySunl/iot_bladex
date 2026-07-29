@@ -17,7 +17,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: 超级表结构VO
  * @packagename: org.springblade.modules.iot.tds.vo.result
  * @author: ShiHuan Sun

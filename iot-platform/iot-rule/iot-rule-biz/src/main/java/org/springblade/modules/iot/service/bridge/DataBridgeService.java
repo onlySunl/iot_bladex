@@ -66,7 +66,7 @@ public interface DataBridgeService extends SuperService<Long, DataBridge> {
 
     /**
      * 测试发送（编辑表单"测试发送"按钮用）。
-     * <p>用规则当前配置 + 用户提供的 sample envelope，调 thinglinks-util {@code Sink.send()} 实际发送一次。
+     * <p>用规则当前配置 + 用户提供的 sample envelope，调 iot-util {@code Sink.send()} 实际发送一次。
      * 返回结果含 success / messageId / latencyMs / errorCode / errorMessage / attributes。</p>
      *
      * @param id             桥接规则主键 ID

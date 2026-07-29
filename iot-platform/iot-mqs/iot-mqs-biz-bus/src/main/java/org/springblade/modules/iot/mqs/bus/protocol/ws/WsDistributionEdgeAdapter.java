@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @TopicRoute(
-    value = KafkaConsumerTopicConstant.Mqs.MqsWebSocket.THINGLINKS_WEBSOCKET_DISTRIBUTION_ERROR_TOPIC,
+    value = KafkaConsumerTopicConstant.Mqs.MqsWebSocket.IOT_WEBSOCKET_DISTRIBUTION_ERROR_TOPIC,
     mode = MatchModeEnum.EXACT,
     group = DispatchGroupEnum.DISTRIBUTION_ACK
 )

@@ -2,7 +2,7 @@ package org.springblade.modules.iot.tds.constant;
 
 /**
  * TDS Constants
- * Compatibility class for thinglinks migration
+ * Compatibility class for IoT migration
  */
 public final class TdsConstants {
     private TdsConstants() {}

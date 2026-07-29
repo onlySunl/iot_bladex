@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 @RefreshScope
 @ConfigurationProperties(prefix = ProductTopicTemplateConfig.PREFIX)
 public class ProductTopicTemplateConfig {
-    public static final String PREFIX = "thinglinks" + ".topic-templates";
+    public static final String PREFIX = "iot" + ".topic-templates";
     private Map<String, List<ProductTopicTemplate>> productTopicTemplates = new HashMap<>();
 
     public Map<String, List<ProductTopicTemplate>> getProductTopicTemplates() {

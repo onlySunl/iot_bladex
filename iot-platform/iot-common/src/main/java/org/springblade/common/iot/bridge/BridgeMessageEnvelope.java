@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
  *   <li><b>不是</b> DB 实体（不存表），不带 {@code @TableName} 注解</li>
  *   <li><b>是</b> RocketMQ 消息 body 的强类型映射（业务侧序列化为 JSON byte[] 后塞 RocketMQ）</li>
  *   <li>包含 IoT 业务字段（productId / deviceId / actionType / topic 等），<b>区别于</b>
- *       thinglinks-util {@code org.springblade.basic.databridge.model.ConnectorPayload}（通用 byte[]+Map）</li>
+ *       iot-util {@code org.springblade.basic.databridge.model.ConnectorPayload}（通用 byte[]+Map）</li>
  * </ul>
  *
  * <h3>透传原则</h3>
@@ -28,11 +28,11 @@ import lombok.NoArgsConstructor;
  * 其它字段(traceId / tenantId / device 等)仅供规则匹配 + 审计 trace 用,不进 body。
  *
  * <h3>放置位置</h3>
- * 放在 thinglinks-common 是因为<b>多个服务都需要构造/解析此对象</b>:
+ * 放在 iot-common 是因为<b>多个服务都需要构造/解析此对象</b>:
  * <ul>
- *   <li>thinglinks-mqs-biz:构造并通过 RocketMQ 投递到 {@code thinglinks-bridge-device-event}</li>
- *   <li>thinglinks-rule-biz:消费 RocketMQ 后反序列化为本对象,做规则匹配</li>
- *   <li>thinglinks-rule-controller / SubscriptionSourceManager:入站时构造本对象后投 ingress topic</li>
+ *   <li>iot-mqs-biz:构造并通过 RocketMQ 投递到 {@code iot-bridge-device-event}</li>
+ *   <li>iot-rule-biz:消费 RocketMQ 后反序列化为本对象,做规则匹配</li>
+ *   <li>iot-rule-controller / SubscriptionSourceManager:入站时构造本对象后投 ingress topic</li>
  * </ul>
  *
  * @author mqttsnet

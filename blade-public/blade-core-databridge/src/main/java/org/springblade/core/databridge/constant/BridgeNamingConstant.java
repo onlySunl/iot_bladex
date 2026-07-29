@@ -11,7 +11,7 @@ public final class BridgeNamingConstant {
     /**
      * 出站 Sink 通用 client 标识前缀(Kafka clientId / MQTT clientId 等默认值,后接 identifier)。
      */
-    public static final String SINK_CLIENT_PREFIX = "thinglinks-bridge-";
+    public static final String SINK_CLIENT_PREFIX = "iot-bridge-";
     /**
      * RocketMQ Sink producer group 默认前缀(后接 identifier);RocketMQ 字符规约 {@code ^[%|a-zA-Z0-9_-]+$}。
      */
@@ -19,7 +19,7 @@ public final class BridgeNamingConstant {
     /**
      * MQTT Source(入站订阅)clientId 默认前缀(后接 identifier)。
      */
-    public static final String MQTT_SOURCE_CLIENT_PREFIX = "thinglinks-bridge-sub-";
+    public static final String MQTT_SOURCE_CLIENT_PREFIX = "iot-bridge-sub-";
     /**
      * Kafka Source(入站订阅)consumer client.id 前缀(后接 identifier)。
      */

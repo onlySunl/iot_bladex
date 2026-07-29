@@ -39,6 +39,8 @@
         <module>blade-core-uid</module>
         <!-- EasyExcel 封装模块 -->
         <module>blade-core-easyexcel</module>
+        <!-- 协议抽象模块 -->
+        <module>blade-core-protocol</module>
     </modules>
 
     <dependencies>

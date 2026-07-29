@@ -12,7 +12,7 @@ import java.io.Serializable;
  * WebSocket device session metadata stored in Redis for multi-node sharing.
  *
  * <p>Stub during domain migration. Full fields (nodeId, connectedAt, etc.)
- * will be restored from the original thinglinks source.</p>
+ * will be restored from the original iot source.</p>
  */
 @Data
 @Builder

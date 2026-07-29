@@ -57,7 +57,7 @@ public class DeviceBusTestController {
         if (StrUtil.isBlank(rawJson)) {
             return R.fail("rawJson 不能为空");
         }
-        return doDispatch(KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_DISTRIBUTION_COMPLETED_TOPIC, rawJson);
+        return doDispatch(KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_DISTRIBUTION_COMPLETED_TOPIC, rawJson);
     }
 
     /**

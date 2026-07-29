@@ -10,9 +10,9 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: 设备密钥响应信息
- * @packagename: com.mqttsnet.thinglinks.protocol.vo.result
+ * @packagename: org.springblade.modules.iot.protocol.vo.result
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com
  * @date: 2024-09-03 11:03

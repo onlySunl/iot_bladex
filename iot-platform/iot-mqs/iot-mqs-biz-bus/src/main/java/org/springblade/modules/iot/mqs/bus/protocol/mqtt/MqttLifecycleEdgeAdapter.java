@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 @Component
 @TopicRoute(
     value = {
-        KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_CLIENT_CONNECTED_TOPIC,
-        KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_CLIENT_DISCONNECTED_TOPIC,
-        KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_SERVER_CONNECTED_TOPIC,
-        KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_DEVICE_KICKED_TOPIC,
-        KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_PING_REQ_TOPIC
+        KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_CLIENT_CONNECTED_TOPIC,
+        KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_CLIENT_DISCONNECTED_TOPIC,
+        KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_SERVER_CONNECTED_TOPIC,
+        KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_DEVICE_KICKED_TOPIC,
+        KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_PING_REQ_TOPIC
     },
     mode = MatchModeEnum.EXACT,
     group = DispatchGroupEnum.DEVICE_LIFECYCLE

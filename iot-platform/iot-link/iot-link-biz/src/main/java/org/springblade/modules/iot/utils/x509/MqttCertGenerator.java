@@ -43,7 +43,7 @@ public class MqttCertGenerator {
     private static final String CLIENT_DN = "CN=CLIENT,O=mqttsnet,OU=www.mqttsnet.com,C=CN,ST=BJ,L=BJ";
 
     /** PKCS12 客户端证书口令的环境变量名称。 */
-    private static final String P12_PASSWORD_ENV = "THINGLINKS_MQTT_P12_PASSWORD";
+    private static final String P12_PASSWORD_ENV = "IOT_MQTT_P12_PASSWORD";
 
     static {
         Security.addProvider(new BouncyCastleProvider());

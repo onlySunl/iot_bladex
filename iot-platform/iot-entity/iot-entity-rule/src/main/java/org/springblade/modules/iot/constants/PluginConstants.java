@@ -29,6 +29,6 @@ public interface PluginConstants {
     /**
      * 插件实例应用名(本应用)
      */
-    String PLUGIN_INSTANCE_APPLICATION_NAME = "thinglinks-rule-server";
+    String PLUGIN_INSTANCE_APPLICATION_NAME = "iot-rule-server";
 
 }

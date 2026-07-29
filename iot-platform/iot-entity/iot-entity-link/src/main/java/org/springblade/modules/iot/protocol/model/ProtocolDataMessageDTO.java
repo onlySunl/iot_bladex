@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * Protocol Data Message DTO
- * Compatibility class for thinglinks migration
+ * Compatibility class for IoT migration
  */
 @Data
 public class ProtocolDataMessageDTO {

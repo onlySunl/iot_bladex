@@ -36,7 +36,7 @@ public class TenantLineAnnotationRegister implements EnvironmentCapable, BeanPos
     private static final String DEFAULT_RESOURCE_PATTERN = "**/*.class";
     private Environment environment;
     private ResourcePatternResolver resourcePatternResolver;
-    @Value("${thinglinks.scan.basePackage}")
+    @Value("${blade.scan.basePackage}")
     private String packages;
 
     protected String resolveBasePackage(String basePackage) {

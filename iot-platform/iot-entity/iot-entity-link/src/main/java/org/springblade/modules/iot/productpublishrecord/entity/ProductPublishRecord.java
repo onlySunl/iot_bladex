@@ -21,8 +21,8 @@ import java.util.List;
  * 产品发布记录实体,记录发布 / 回滚 / 历史清理操作的执行轨迹。
  *
  * @author mqttsnet
- * @see com.mqttsnet.thinglinks.productpublishrecord.enumeration.ProductPublishRecordIntentEnum
- * @see com.mqttsnet.thinglinks.productpublishrecord.enumeration.ProductPublishRecordStatusEnum
+ * @see org.springblade.modules.iot.productpublishrecord.enumeration.ProductPublishRecordIntentEnum
+ * @see org.springblade.modules.iot.productpublishrecord.enumeration.ProductPublishRecordStatusEnum
  */
 @Data
 @NoArgsConstructor

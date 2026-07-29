@@ -2,7 +2,7 @@ package org.springblade.modules.iot.tds.utils;
 
 /**
  * TDS Utils
- * Compatibility class for thinglinks migration
+ * Compatibility class for IoT migration
  */
 public final class TdsUtils {
     private TdsUtils() {}

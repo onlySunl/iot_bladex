@@ -11,15 +11,15 @@ public interface JobConstant {
     /**
      * 默认基础库的定时任务组
      */
-    String DEF_BASE_JOB_GROUP_NAME = "thinglinks-base-executor";
+    String DEF_BASE_JOB_GROUP_NAME = "iot-base-executor";
 
 
-    String DEF_EXTEND_JOB_GROUP_NAME = "thinglinks-extend-executor";
+    String DEF_EXTEND_JOB_GROUP_NAME = "iot-extend-executor";
 
     /**
      * 物联网业务系统的定时任务组
      */
-    String DEF_IOT_JOB_GROUP_NAME = "thinglinks-iot-executor";
+    String DEF_IOT_JOB_GROUP_NAME = "iot-iot-executor";
 
 
     /**

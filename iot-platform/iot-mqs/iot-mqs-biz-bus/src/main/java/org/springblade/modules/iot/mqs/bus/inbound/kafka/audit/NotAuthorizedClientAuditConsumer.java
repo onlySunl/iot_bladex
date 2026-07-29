@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * 客户端认证失败 audit consumer ── 单 record log 消费,不入业务流程.
  *
  * <p>对应 BifroMQ {@code NotAuthorizedClient} 事件;plugin 把事件 JSON 发到
- * {@link KafkaConsumerTopicConstant.Mqs.MqsMqtt#THINGLINKS_MQTT_CLIENT_UNAUTHORIZED_TOPIC},
+ * {@link KafkaConsumerTopicConstant.Mqs.MqsMqtt#IOT_MQTT_CLIENT_UNAUTHORIZED_TOPIC},
  * 本 consumer 仅打 INFO 日志便于运维 {@code grep '[audit.unauthorized]'} 排查认证失败设备.
  *
  * <p>失败仅 warn 不抛 + finally ack:audit 是 best-effort,不能阻塞 Kafka offset 提交.
@@ -24,10 +24,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class NotAuthorizedClientAuditConsumer {
 
-    private static final String CONSUMER_GROUP = ConsumerGroupConstant.THINGLINKS_CONSUMER_GROUP_PREFIX + "AUDIT_NOT_AUTHORIZED";
+    private static final String CONSUMER_GROUP = ConsumerGroupConstant.IOT_CONSUMER_GROUP_PREFIX + "AUDIT_NOT_AUTHORIZED";
 
     @KafkaListener(
-        topics = KafkaConsumerTopicConstant.Mqs.MqsMqtt.THINGLINKS_MQTT_CLIENT_UNAUTHORIZED_TOPIC,
+        topics = KafkaConsumerTopicConstant.Mqs.MqsMqtt.IOT_MQTT_CLIENT_UNAUTHORIZED_TOPIC,
         groupId = CONSUMER_GROUP,
         containerFactory = "kafkaListenerContainerFactory"
     )

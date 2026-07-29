@@ -25,7 +25,7 @@ import org.springblade.modules.iot.protocol.vo.result.TopoQueryDeviceResultVO;
 import org.springframework.stereotype.Component;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: 设备开放API熔断
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com

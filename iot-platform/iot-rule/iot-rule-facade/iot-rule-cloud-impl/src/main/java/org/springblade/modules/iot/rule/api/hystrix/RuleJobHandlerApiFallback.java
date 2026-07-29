@@ -8,7 +8,7 @@ import org.springblade.modules.iot.vo.result.script.GroovyScriptEngineExecutorRe
 import org.springframework.stereotype.Component;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: RuleJobHandlerApi API熔断
  * @packagename: org.springblade.modules.iot.rule.api.hystrix
  * @author: ShiHuan Sun

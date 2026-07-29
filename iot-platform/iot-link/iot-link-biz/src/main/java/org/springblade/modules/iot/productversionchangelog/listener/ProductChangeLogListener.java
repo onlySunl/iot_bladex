@@ -59,7 +59,7 @@ public class ProductChangeLogListener {
         if (src == null || src.getProductIdentification() == null) {
             return;
         }
-        // 多租户隔离 fail-fast:DsConstant.BASE_TENANT = "#thread.thinglinks_base" 走 SPEL 取
+        // 多租户隔离 fail-fast:DsConstant.BASE_TENANT = "#thread.iot_base" 走 SPEL 取
         // ThreadLocal 数据源名;若 tenantId 缺失,SPEL 返 null → dynamic-datasource 静默
         // fallback 到 primary "0" 默认库 → 跨租户数据串味。这里早返避免此风险。
         if (ContextUtil.getTenantId() == null) {

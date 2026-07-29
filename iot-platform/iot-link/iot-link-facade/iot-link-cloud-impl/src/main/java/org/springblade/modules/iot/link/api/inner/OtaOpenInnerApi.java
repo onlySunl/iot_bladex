@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @version 1.0.0
  * @since 2025/12/26
  */
-@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:thinglinks-link-server}",
+@FeignClient(name = "${" + Constants.PROJECT_PREFIX + ".feign.tenant-server:iot-link-server}",
         fallback = OtaOpenInnerApiFallback.class, path = "/inner/otaOpen")
 public interface OtaOpenInnerApi {
 

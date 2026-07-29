@@ -3,7 +3,7 @@ package org.springblade.common.iot.constant;
 /**
  * 公共常量类，定义系统中广泛使用的常量字段
  *
- * @author thinglinks
+ * @author blade
  */
 public class CommonIotConstants {
 

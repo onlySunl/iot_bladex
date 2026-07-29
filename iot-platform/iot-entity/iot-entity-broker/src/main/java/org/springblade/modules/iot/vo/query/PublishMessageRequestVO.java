@@ -17,7 +17,7 @@ import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @program: thinglinks-cloud
+ * @program: iot-platform
  * @description: MQTT 发送消息VO
  * @packagename: org.springblade.modules.iot.mqtt.vo
  * @author: ShiHuan Sun
@@ -42,7 +42,7 @@ public class PublishMessageRequestVO implements Serializable {
     private Long reqId;
 
     @NotBlank(message = "租户ID不能为空")
-    @Schema(description = "租户ID", required = true, example = "thinglinks")
+    @Schema(description = "租户ID", required = true, example = "iot")
     private String tenantId;
 
     @NotBlank(message = "消息主题不能为空")

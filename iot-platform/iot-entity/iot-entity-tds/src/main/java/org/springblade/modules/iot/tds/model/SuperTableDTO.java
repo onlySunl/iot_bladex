@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Super Table DTO
- * Compatibility class for thinglinks migration
+ * Compatibility class for IoT migration
  */
 @Data
 public class SuperTableDTO {

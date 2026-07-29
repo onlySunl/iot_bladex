@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "thinglinks.security.algorithms")
+@ConfigurationProperties(prefix = "blade.security.algorithms")
 public class EncryptKeyProperties {
     /**
      * AES算法配置

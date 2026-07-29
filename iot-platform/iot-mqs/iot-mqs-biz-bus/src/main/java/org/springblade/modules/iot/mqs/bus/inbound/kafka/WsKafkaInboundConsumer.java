@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class WsKafkaInboundConsumer extends AbstractProtocolKafkaInboundConsumer {
 
-    private static final String CONSUMER_GROUP = ConsumerGroupConstant.THINGLINKS_CONSUMER_GROUP_PREFIX + "BUS_WEBSOCKET";
+    private static final String CONSUMER_GROUP = ConsumerGroupConstant.IOT_CONSUMER_GROUP_PREFIX + "BUS_WEBSOCKET";
     private static final String PROTOCOL_NAME = "WEBSOCKET";
 
     public WsKafkaInboundConsumer(BusPipelineDispatcher dispatcher, BusStatsService statsService) {
@@ -34,13 +34,13 @@ public class WsKafkaInboundConsumer extends AbstractProtocolKafkaInboundConsumer
 
     @KafkaListener(
         topics = {
-            KafkaConsumerTopicConstant.Mqs.MqsWebSocket.THINGLINKS_WEBSOCKET_CLIENT_CONNECTED_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsWebSocket.THINGLINKS_WEBSOCKET_CLIENT_DISCONNECTED_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsWebSocket.THINGLINKS_WEBSOCKET_SERVER_DISCONNECTED_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsWebSocket.THINGLINKS_WEBSOCKET_DEVICE_KICKED_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsWebSocket.THINGLINKS_WEBSOCKET_DISTRIBUTION_ERROR_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsWebSocket.THINGLINKS_WEBSOCKET_DISTRIBUTION_COMPLETED_TOPIC,
-            KafkaConsumerTopicConstant.Mqs.MqsWebSocket.THINGLINKS_WEBSOCKET_PING_REQ_TOPIC
+            KafkaConsumerTopicConstant.Mqs.MqsWebSocket.IOT_WEBSOCKET_CLIENT_CONNECTED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsWebSocket.IOT_WEBSOCKET_CLIENT_DISCONNECTED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsWebSocket.IOT_WEBSOCKET_SERVER_DISCONNECTED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsWebSocket.IOT_WEBSOCKET_DEVICE_KICKED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsWebSocket.IOT_WEBSOCKET_DISTRIBUTION_ERROR_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsWebSocket.IOT_WEBSOCKET_DISTRIBUTION_COMPLETED_TOPIC,
+            KafkaConsumerTopicConstant.Mqs.MqsWebSocket.IOT_WEBSOCKET_PING_REQ_TOPIC
         },
         groupId = CONSUMER_GROUP,
         containerFactory = "kafkaListenerContainerFactory"
