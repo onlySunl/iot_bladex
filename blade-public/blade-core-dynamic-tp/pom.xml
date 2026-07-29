@@ -3,7 +3,7 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>iot_bladex</artifactId>
+        <artifactId>blade-public</artifactId>
         <groupId>org.springblade</groupId>
         <version>4.9.0.RELEASE</version>
     </parent>
