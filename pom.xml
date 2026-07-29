@@ -427,6 +427,7 @@
         <module>blade-core-annotation</module>
         <module>blade-core-tds</module>
         <module>blade-core-databridge</module>
+        <module>blade-core-dynamic-tp</module>
     </modules>
 
     <build>
