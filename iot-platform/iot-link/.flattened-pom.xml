@@ -1,27 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    设备集成服务模块
-    
-    模块结构:
-    ├── iot-link-biz/          # 业务逻辑层
-    │   ├── 设备接入管理
-    │   ├── 设备消息处理
-    │   ├── 产品管理
-    │   ├── 物模型管理
-    │   ├── OTA 升级管理
-    │   └── 缓存管理
-    │
-    ├── iot-link-controller/   # 控制器层
-    │   └── REST API 接口
-    │
-    ├── iot-link-facade/       # 门面接口层
-    │   ├── iot-link-api           # API 接口定义
-    │   ├── iot-link-boot-impl     # Boot 模式实现
-    │   └── iot-link-cloud-impl    # Cloud 模式实现
-    │
-    └── iot-link-server/       # 服务启动层
-        └── 独立服务部署
--->
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
@@ -30,7 +7,7 @@
   <version>4.9.0.RELEASE</version>
   <packaging>pom</packaging>
   <name>iot-link</name>
-  <description>设备集成服务 - 设备接入与管理</description>
+  <description>设备集成服务模块</description>
   <distributionManagement>
     <repository>
       <id>blade-release</id>
@@ -45,12 +22,6 @@
   </distributionManagement>
   <dependencies>
     <dependency>
-      <groupId>com.tangzc</groupId>
-      <artifactId>auto-table-annotation</artifactId>
-      <version>1.8.3</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>org.springblade</groupId>
       <artifactId>blade-starter-mybatis</artifactId>
       <version>4.9.0.RELEASE</version>
@@ -61,6 +32,12 @@
       <artifactId>blade-core-boot</artifactId>
       <version>4.9.0.RELEASE</version>
       <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springblade</groupId>
+          <artifactId>blade-core-cloud</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springblade</groupId>
@@ -88,6 +65,18 @@
     </dependency>
     <dependency>
       <groupId>org.springblade</groupId>
+      <artifactId>blade-starter-swagger</artifactId>
+      <version>4.9.0.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.xiaoymin</groupId>
+      <artifactId>knife4j-openapi3-ui</artifactId>
+      <version>4.5.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springblade</groupId>
       <artifactId>blade-starter-data-scope</artifactId>
       <version>4.9.0.RELEASE</version>
       <scope>compile</scope>
@@ -100,20 +89,8 @@
     </dependency>
     <dependency>
       <groupId>org.springblade</groupId>
-      <artifactId>blade-starter-develop</artifactId>
+      <artifactId>blade-starter-redis</artifactId>
       <version>4.9.0.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springblade</groupId>
-      <artifactId>blade-starter-swagger</artifactId>
-      <version>4.9.0.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.github.xiaoymin</groupId>
-      <artifactId>knife4j-openapi3-ui</artifactId>
-      <version>4.5.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -142,44 +119,14 @@
     </dependency>
     <dependency>
       <groupId>org.springblade</groupId>
-      <artifactId>blade-starter-oss</artifactId>
-      <version>4.9.0.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springblade</groupId>
-      <artifactId>blade-starter-sms</artifactId>
-      <version>4.9.0.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springblade</groupId>
       <artifactId>blade-starter-literule</artifactId>
       <version>4.9.0.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springblade</groupId>
-      <artifactId>blade-starter-redis</artifactId>
+      <artifactId>blade-starter-oss</artifactId>
       <version>4.9.0.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springblade</groupId>
-      <artifactId>blade-starter-powerjob</artifactId>
-      <version>4.9.0.RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.baomidou</groupId>
-      <artifactId>mybatis-plus-generator</artifactId>
-      <version>3.5.14</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.github.whvcse</groupId>
-      <artifactId>easy-captcha</artifactId>
-      <version>1.6.2</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -219,6 +166,12 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>org.springblade</groupId>
+      <artifactId>blade-starter-sms</artifactId>
+      <version>4.9.0.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>com.aliyun</groupId>
       <artifactId>aliyun-java-sdk-core</artifactId>
       <version>4.7.6</version>
@@ -234,28 +187,6 @@
       <groupId>com.yunpian.sdk</groupId>
       <artifactId>yunpian-java-sdk</artifactId>
       <version>1.2.7</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>technology.tabula</groupId>
-      <artifactId>tabula</artifactId>
-      <version>1.0.5</version>
-      <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-simple</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.pdfbox</groupId>
-      <artifactId>pdfbox</artifactId>
-      <version>2.0.24</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -283,21 +214,39 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>io.swagger</groupId>
-      <artifactId>swagger-annotations</artifactId>
-      <version>1.5.22</version>
+      <groupId>com.tangzc</groupId>
+      <artifactId>auto-table-annotation</artifactId>
+      <version>1.8.3</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>com.github.binarywang</groupId>
-      <artifactId>weixin-java-miniapp</artifactId>
-      <version>4.6.0</version>
+      <groupId>com.github.whvcse</groupId>
+      <artifactId>easy-captcha</artifactId>
+      <version>1.6.2</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springblade</groupId>
+      <artifactId>blade-starter-powerjob</artifactId>
+      <version>4.9.0.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-pool2</artifactId>
       <version>2.12.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.baomidou</groupId>
+      <artifactId>mybatis-plus-generator</artifactId>
+      <version>3.5.14</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.swagger</groupId>
+      <artifactId>swagger-annotations</artifactId>
+      <version>1.5.22</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

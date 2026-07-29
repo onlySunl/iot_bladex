@@ -34,22 +34,8 @@
         </dependency>
 
         <!-- 基础工具 (Hutool / 上下文 / 缓存 / RocketMQ / Kafka / 动态线程池) -->
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>thinglinks-cache-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>thinglinks-rocketmq-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>thinglinks-kafka-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>thinglinks-dynamic-tp-starter</artifactId>
-        </dependency>
+
+
 
         <!-- Micrometer 监控指标 -->
         <dependency>

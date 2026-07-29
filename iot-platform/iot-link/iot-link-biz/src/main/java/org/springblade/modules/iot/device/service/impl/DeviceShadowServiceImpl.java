@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.basic.base.R;
+import org.springblade.basic.utils.DateUtils;
 import org.springblade.core.tds.constant.TdsConstants;
 import org.springblade.core.tds.utils.TdsUtils;
 import org.springblade.basic.utils.BeanPlusUtil;
-import org.springblade.basic.utils.DateUtil;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
 import org.springblade.modules.iot.cache.vo.product.ProductModelCacheVO;
 import org.springblade.common.iot.constant.DsConstant;
@@ -169,8 +169,8 @@ public class DeviceShadowServiceImpl implements DeviceShadowService {
 
     private ProductPropertyResultVO buildPropertyResultVO(ProductPropertyResultVO propertyResultVO, Map<String, Object> data) {
         Optional.ofNullable(data.get(TdsConstants.TS))
-                .map(ts -> DateUtil.date2LocalDateTime(DateUtil.parseDatetime(ts.toString())))
-                .ifPresent(propertyResultVO::setCreatedTime);
+                .map(ts -> DateUtils.parseDate(ts.toString()))
+                .ifPresent(propertyResultVO::setCreateTime);
         propertyResultVO.setPropertyValue(data.get(propertyResultVO.getPropertyCode()));
         return propertyResultVO;
     }

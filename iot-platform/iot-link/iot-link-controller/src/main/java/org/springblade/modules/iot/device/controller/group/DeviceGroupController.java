@@ -1,29 +1,28 @@
 package org.springblade.modules.iot.device.controller.group;
 
-import java.util.List;
-
-import org.springblade.basic.annotation.log.WebLog;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springblade.basic.base.R;
-import org.springblade.basic.base.controller.SuperController;
-import org.springblade.core.mvc.request.PageParams;
-import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.interfaces.echo.EchoService;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.core.mvc.controller.SuperController;
+import org.springblade.core.mvc.request.PageParams;
 import org.springblade.modules.iot.device.entity.group.DeviceGroup;
 import org.springblade.modules.iot.device.service.group.DeviceGroupService;
 import org.springblade.modules.iot.device.vo.query.group.DeviceGroupPageQuery;
 import org.springblade.modules.iot.device.vo.result.group.DeviceGroupResultVO;
 import org.springblade.modules.iot.device.vo.save.group.DeviceGroupSaveVO;
 import org.springblade.modules.iot.device.vo.update.group.DeviceGroupUpdateVO;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -54,7 +53,7 @@ public class DeviceGroupController extends SuperController<DeviceGroupService, L
     public QueryWrap<DeviceGroup> handlerWrapper(DeviceGroup model, PageParams<DeviceGroupPageQuery> params) {
         QueryWrap<DeviceGroup> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
-        DataScopeHelper.startDataScope("device_group");
+        //DataScopeHelper.startDataScope("device_group");
         return queryWrap;
     }
 

@@ -54,7 +54,7 @@ public class OtaUpgradesManagerImpl extends SuperManagerImpl<OtaUpgradesMapper, 
                 .like(StringUtils.hasText(paramsModel.getCustomInfo()), OtaUpgrades::getCustomInfo, paramsModel.getCustomInfo())
                 .like(StringUtils.hasText(paramsModel.getRemark()), OtaUpgrades::getRemark, paramsModel.getRemark())
                 .eq(paramsModel.getCreatedOrgId() != null, OtaUpgrades::getCreatedOrgId, paramsModel.getCreatedOrgId())
-                .orderByDesc(OtaUpgrades::getCreatedTime);
+                .orderByDesc(OtaUpgrades::getCreateTime);
 
         return otaUpgradesMapper.selectPage(page, wrap);
     }
@@ -75,7 +75,7 @@ public class OtaUpgradesManagerImpl extends SuperManagerImpl<OtaUpgradesMapper, 
         queryWrap.lambda().eq(query.getId() != null, OtaUpgrades::getId, query.getId());
         queryWrap.lambda().in(CollUtil.isNotEmpty(query.getIds()), OtaUpgrades::getId, query.getIds());
         queryWrap.lambda().eq(query.getStatus() != null, OtaUpgrades::getStatus, query.getStatus());
-        queryWrap.lambda().orderByDesc(OtaUpgrades::getCreatedTime);
+        queryWrap.lambda().orderByDesc(OtaUpgrades::getCreateTime);
         return otaUpgradesMapper.selectList(queryWrap);
     }
 

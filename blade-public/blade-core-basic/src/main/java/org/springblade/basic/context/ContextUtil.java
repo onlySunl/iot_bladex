@@ -8,6 +8,8 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import org.slf4j.MDC;
 import org.springblade.basic.utils.StrPool;
+import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.core.tool.utils.Func;
 
 
 /**
@@ -172,7 +174,8 @@ public final class ContextUtil {
      * 租户 id
      */
     public static Long getTenantId() {
-        return get(ContextConstants.TENANT_ID_HEADER, Long.class);
+        //return get(ContextConstants.TENANT_ID_HEADER, Long.class);
+        return Func.toLong(AuthUtil.getTenantId());
     }
 
     /**

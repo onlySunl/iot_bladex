@@ -10,13 +10,20 @@ import java.util.stream.Collectors;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.basic.cache.redis2.CacheResult;
-import org.springblade.basic.cache.repository.CachePlusOps;
-import org.springblade.basic.cache.utils.CachePlusUtil;
 import org.springblade.basic.jackson.JsonUtil;
 import org.springblade.basic.model.cache.CacheHashKey;
 import org.springblade.basic.model.cache.CacheKey;
-import org.springblade.basic.utils.DateUtil;
+import org.springblade.basic.utils.DateUtils;
+import org.springblade.common.iot.cache.link.collectionpool.DeviceActionCollectionPoolCacheKeyBuilder;
+import org.springblade.common.iot.cache.link.device.DeviceAclRuleCacheKeyBuilder;
+import org.springblade.common.iot.cache.link.device.DeviceCacheKeyBuilder;
+import org.springblade.common.iot.cache.link.ota.OtaTaskExecutorOffsetCacheKeyBuilder;
+import org.springblade.common.iot.cache.link.product.ProductCacheKeyBuilder;
+import org.springblade.common.iot.cache.link.product.ProductModelCacheKeyBuilder;
+import org.springblade.common.iot.cache.link.product.ProductModelSuperTableCacheKeyBuilder;
+import org.springblade.core.cache.redis2.CacheResult;
+import org.springblade.core.cache.repository.CachePlusOps;
+import org.springblade.core.cache.utils.CachePlusUtil;
 import org.springblade.modules.iot.cache.device.DeviceAclRuleCacheService;
 import org.springblade.modules.iot.cache.device.DeviceCacheService;
 import org.springblade.modules.iot.cache.product.ProductCacheService;
@@ -26,13 +33,6 @@ import org.springblade.modules.iot.cache.vo.device.DeviceActionCacheVO;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
 import org.springblade.modules.iot.cache.vo.product.ProductCacheVO;
 import org.springblade.modules.iot.cache.vo.product.ProductModelCacheVO;
-import org.springblade.modules.iot.common.cache.link.collectionpool.DeviceActionCollectionPoolCacheKeyBuilder;
-import org.springblade.modules.iot.common.cache.link.device.DeviceAclRuleCacheKeyBuilder;
-import org.springblade.modules.iot.common.cache.link.device.DeviceCacheKeyBuilder;
-import org.springblade.modules.iot.common.cache.link.ota.OtaTaskExecutorOffsetCacheKeyBuilder;
-import org.springblade.modules.iot.common.cache.link.product.ProductCacheKeyBuilder;
-import org.springblade.modules.iot.common.cache.link.product.ProductModelCacheKeyBuilder;
-import org.springblade.modules.iot.common.cache.link.product.ProductModelSuperTableCacheKeyBuilder;
 import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.tds.vo.result.SuperTableDescribeVO;
 import lombok.RequiredArgsConstructor;
@@ -322,7 +322,7 @@ public class LinkCacheDataHelper {
      */
     public void setDeviceActionCacheVO(String productIdentification, String deviceIdentification, DeviceActionCacheVO deviceActionCacheVO) {
         CacheKey cacheKey = DeviceActionCollectionPoolCacheKeyBuilder.build(productIdentification, deviceIdentification);
-        cachePlusOps.zAdd(cacheKey, deviceActionCacheVO, DateUtil.microsecondStampL());
+        cachePlusOps.zAdd(cacheKey, deviceActionCacheVO, DateUtils.microsecondStampL());
         cachePlusOps.expire(cacheKey);
     }
 

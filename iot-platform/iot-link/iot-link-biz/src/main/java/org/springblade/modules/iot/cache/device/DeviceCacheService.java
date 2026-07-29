@@ -9,9 +9,12 @@ import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.model.cache.CacheKey;
 import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.basic.utils.BeanPlusUtil;
+import org.springblade.common.iot.cache.link.device.DeviceCacheKeyBuilder;
 import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.core.cache.repository.CachePlusOps;
+import org.springblade.core.dynamic.tp.context.ContextAwareExecutor;
 import org.springblade.core.mvc.request.PageParams;
+import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.iot.cache.CacheSuperAbstract;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
 import org.springblade.modules.iot.device.service.DeviceQueryService;
@@ -123,7 +126,7 @@ public class DeviceCacheService extends CacheSuperAbstract {
                     long deviceStart = System.currentTimeMillis();
                     try {
                         DeviceCacheVO cacheVO = BeanPlusUtil.toBeanIgnoreError(device, DeviceCacheVO.class);
-                        cacheVO.setTenantId(tenantId);
+                        cacheVO.setTenantId(Func.toStr(tenantId));
 
                         // 更新缓存
                         this.cacheDeviceBasedOnIdentification(cacheVO);

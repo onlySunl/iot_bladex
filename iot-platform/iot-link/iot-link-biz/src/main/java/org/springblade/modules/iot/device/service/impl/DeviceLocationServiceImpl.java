@@ -1,12 +1,12 @@
 package org.springblade.modules.iot.device.service.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.basic.base.service.impl.SuperServiceImpl;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.converter.Builder;
 import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.common.iot.constant.DsConstant;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.modules.iot.device.entity.DeviceLocation;
 import org.springblade.modules.iot.device.manager.DeviceLocationManager;
 import org.springblade.modules.iot.device.service.DeviceLocationService;

@@ -20,53 +20,11 @@
             <artifactId>iot-mqs-entity</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>thinglinks-file-sdk</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
+
         <!--
             mqs 不再持有 ws session(已迁至 broker 协议接入层)。
             ws 业务事件通过 Kafka 消费,纯 POJO 处理,不需要 jakarta.websocket / spring-boot-starter-websocket。
         -->
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>thinglinks-databases</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>thinglinks-cache-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>thinglinks-echo-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>thinglinks-mvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>thinglinks-rocketmq-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>thinglinks-kafka-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>thinglinks-protocol-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>thinglinks-chatgpt-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>thinglinks-dynamic-tp-starter</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -81,30 +39,6 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-extension</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>thinglinks-link-api</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>thinglinks-link-biz</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>thinglinks-broker-api</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>thinglinks-tds-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>thinglinks-tds-api</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
 
         <dependency>

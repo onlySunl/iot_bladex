@@ -12,18 +12,18 @@ import java.util.stream.IntStream;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springblade.basic.base.R;
+import org.springblade.basic.utils.DateUtils;
+import org.springblade.common.iot.enums.DeviceActionTypeEnum;
+import org.springblade.core.dynamic.tp.context.ContextAwareExecutor;
 import org.springblade.core.mvc.request.PageParams;
 import org.springblade.basic.context.ContextUtil;
-import org.springblade.basic.utils.DateUtil;
 import org.springblade.modules.iot.broker.MqttBrokerOpenInnerFacade;
 import org.springblade.modules.iot.cache.CacheSuperAbstract;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
 import org.springblade.common.iot.constant.DsConstant;
-import org.springblade.modules.iot.context.ContextAwareExecutor;
 import org.springblade.modules.iot.device.entity.DeviceAction;
 import org.springblade.modules.iot.device.enumeration.DeviceActionStatusEnum;
-import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.device.enumeration.DeviceConnectStatusEnum;
 import org.springblade.modules.iot.device.enumeration.DeviceNodeTypeEnum;
 import org.springblade.modules.iot.device.enumeration.DeviceStatusEnum;
@@ -429,7 +429,7 @@ public class DeviceSyncInnerServiceImpl extends CacheSuperAbstract implements De
                 .append(", DeviceIdentification: ").append(device.getDeviceIdentification())
                 .append(", Current Status: ").append(currentStatus)
                 .append(", Target Status: ").append(targetStatus)
-                .append(", Timestamp: ").append(DateUtil.millisecondStampL())
+                .append(", Timestamp: ").append(DateUtils.millisecondStampL())
                 .append(", Source: System Sync");
 
         if (!currentStatus.equals(targetStatus)) {

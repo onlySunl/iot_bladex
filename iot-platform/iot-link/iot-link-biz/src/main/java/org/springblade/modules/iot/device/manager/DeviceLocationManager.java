@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.device.manager;
 
-import org.springblade.basic.base.manager.SuperManager;
+import org.springblade.core.mvc.manager.SuperManager;
 import org.springblade.modules.iot.device.entity.DeviceLocation;
 import org.springblade.modules.iot.device.vo.query.DeviceLocationPageQuery;
 import org.springblade.modules.iot.device.vo.result.DeviceLocationResultVO;

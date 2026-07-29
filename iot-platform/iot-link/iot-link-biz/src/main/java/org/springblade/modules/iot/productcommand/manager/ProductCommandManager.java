@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.productcommand.manager;
 
-import org.springblade.basic.base.manager.SuperManager;
+import org.springblade.core.mvc.manager.SuperManager;
 import org.springblade.modules.iot.productcommand.entity.ProductCommand;
 
 import java.util.List;

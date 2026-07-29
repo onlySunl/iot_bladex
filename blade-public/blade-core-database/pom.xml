@@ -49,12 +49,7 @@
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-basic</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>thinglinks-uid</artifactId>
-            <version>1.0.8.3</version>
-            <scope>compile</scope>
-        </dependency>
+
         <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-core</artifactId>
@@ -67,11 +62,11 @@
             <version>3.9.1</version>
             <scope>compile</scope>
         </dependency>
+        <!-- 百度雪花算法UID生成器 -->
         <dependency>
-            <groupId>com.mqttsnet.basic</groupId>
-            <artifactId>thinglinks-annotation</artifactId>
-            <version>1.0.8.3</version>
-            <scope>compile</scope>
+            <groupId>com.github.wujun234</groupId>
+            <artifactId>uid-generator-spring-boot-starter</artifactId>
+            <version>1.0.6</version>
         </dependency>
     </dependencies>
 </project>

@@ -127,13 +127,19 @@
             <groupId>org.springblade</groupId>
             <artifactId>iot-common</artifactId>
             <version>4.9.0.RELEASE</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-mvc</artifactId>
             <version>4.9.0.RELEASE</version>
-            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-dynamic-tp</artifactId>
         </dependency>
     </dependencies>
 

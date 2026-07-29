@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.basic.base.manager.SuperManager;
+import org.springblade.core.mvc.manager.SuperManager;
 import org.springblade.core.mvc.request.PageParams;
 import org.springblade.modules.iot.productversion.entity.ProductVersion;
 import org.springblade.modules.iot.productversion.vo.query.ProductVersionPageQuery;

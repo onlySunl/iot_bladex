@@ -17,11 +17,6 @@
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-rule-entity</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
             <artifactId>iot-entity-rule</artifactId>
         </dependency>
     </dependencies>

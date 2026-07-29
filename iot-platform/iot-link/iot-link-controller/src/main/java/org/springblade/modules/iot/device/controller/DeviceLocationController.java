@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.device.controller;
 
 import org.springblade.basic.base.R;
-import org.springblade.basic.base.controller.SuperController;
 import org.springblade.basic.interfaces.echo.EchoService;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.modules.iot.device.entity.DeviceLocation;
 import org.springblade.modules.iot.device.service.DeviceLocationService;
 import org.springblade.modules.iot.device.vo.query.DeviceLocationPageQuery;

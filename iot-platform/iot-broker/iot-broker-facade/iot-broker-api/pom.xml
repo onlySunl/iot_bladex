@@ -23,5 +23,9 @@
             <artifactId>iot-entity-broker</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-basic</artifactId>
+        </dependency>
     </dependencies>
 </project>

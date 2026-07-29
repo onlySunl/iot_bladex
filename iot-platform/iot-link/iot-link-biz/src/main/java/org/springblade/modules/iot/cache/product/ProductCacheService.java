@@ -9,15 +9,16 @@ import java.util.stream.IntStream;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springblade.common.iot.cache.link.product.ProductCacheKeyBuilder;
+import org.springblade.core.cache.repository.CachePlusOps;
 import org.springblade.core.mvc.request.PageParams;
-import org.springblade.basic.cache.repository.CachePlusOps;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.model.cache.CacheKey;
 import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.basic.utils.BeanPlusUtil;
+import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.iot.cache.CacheSuperAbstract;
 import org.springblade.modules.iot.cache.vo.product.ProductCacheVO;
-import org.springblade.modules.iot.common.cache.link.product.ProductCacheKeyBuilder;
 import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.product.service.ProductQueryService;
 import org.springblade.modules.iot.product.vo.query.ProductPageQuery;
@@ -141,7 +142,7 @@ public class ProductCacheService extends CacheSuperAbstract {
      */
     private ProductCacheVO transformToProductCacheVO(Long tenantId, ProductResultVO product) {
         ProductCacheVO cacheVO = BeanPlusUtil.toBeanIgnoreError(product, ProductCacheVO.class);
-        cacheVO.setTenantId(tenantId);
+        cacheVO.setTenantId(Func.toStr(tenantId));
         return cacheVO;
     }
 

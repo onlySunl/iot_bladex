@@ -22,7 +22,6 @@ import org.springblade.core.database.mybatis.typehandler.FullLikeTypeHandler;
 import org.springblade.core.database.mybatis.typehandler.LeftLikeTypeHandler;
 import org.springblade.core.database.mybatis.typehandler.RightLikeTypeHandler;
 import org.springblade.core.database.properties.DatabaseProperties;
-import com.mqttsnet.basic.uid.dao.WorkerNodeDao;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.mapping.VendorDatabaseIdProvider;
