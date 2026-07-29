@@ -2,7 +2,7 @@ package org.springblade.modules.iot.productversionchangelog.service;
 
 import java.util.List;
 
-import org.springblade.basic.mvc.service.SuperService;
+import org.springblade.core.mvc.service.SuperService;
 import org.springblade.modules.iot.productversionchangelog.entity.ProductVersionChangeLog;
 import org.springblade.modules.iot.productversionchangelog.enumeration.ProductChangeTargetTypeEnum;
 import org.springblade.modules.iot.productversionchangelog.enumeration.ProductVersionChangeTypeEnum;

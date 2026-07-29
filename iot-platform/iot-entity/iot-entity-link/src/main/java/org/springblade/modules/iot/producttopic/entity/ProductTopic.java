@@ -28,7 +28,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "iot_product_topic", comment = "ProductTopic table")
-public class ProductTopic extends Entity {
+public class ProductTopic extends Entity<Long> {
     @Serial
     private static final long serialVersionUID = 1L;
 

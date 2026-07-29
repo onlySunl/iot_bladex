@@ -5,12 +5,12 @@ import java.io.Serializable;
 import java.util.Map;
 
 import cn.hutool.core.map.MapUtil;
-import org.springblade.common.echo.EchoVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springblade.basic.interfaces.echo.EchoVO;
 
 /**
  * 产品快照 ── 命令参数节点(request / response 共用)。

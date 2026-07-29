@@ -28,7 +28,7 @@ import java.io.Serial;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "ota_upgrades", comment = "OtaUpgrades table")
-public class OtaUpgrades extends Entity {
+public class OtaUpgrades extends Entity<Long> {
     @Serial
     private static final long serialVersionUID = 1L;
 

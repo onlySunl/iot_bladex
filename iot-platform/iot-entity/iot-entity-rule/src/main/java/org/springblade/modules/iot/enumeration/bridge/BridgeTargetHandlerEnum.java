@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.enumeration.bridge;
 
-import org.springblade.common.mq.BizMqRouteConstant;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
+import org.springblade.common.iot.mq.BizMqRouteConstant;
 
 import java.util.Optional;
 import java.util.stream.Stream;

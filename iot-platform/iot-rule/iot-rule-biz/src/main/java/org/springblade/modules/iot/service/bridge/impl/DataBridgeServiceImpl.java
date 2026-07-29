@@ -22,7 +22,7 @@ import org.springblade.modules.iot.bridge.trace.BridgeStepType;
 import org.springblade.modules.iot.bridge.trace.BridgeTraceBuilder;
 import org.springblade.modules.iot.cache.vo.bridge.DataBridgeCacheVO;
 import org.springblade.modules.iot.common.constant.CommonIotConstants;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
 import org.springblade.modules.iot.entity.bridge.DataBridge;
 import org.springblade.modules.iot.entity.bridge.DataSource;

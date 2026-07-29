@@ -2,7 +2,7 @@ package org.springblade.modules.iot.vo.result.dashboard;
 
 
 import cn.hutool.core.map.MapUtil;
-import com.mqttsnet.basic.interfaces.echo.EchoVO;
+import org.springblade.basic.interfaces.echo.EchoVO;
 import org.springblade.modules.iot.vo.result.alarm.RuleAlarmRecordResultVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
-import org.springblade.basic.base.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 
 /**
  * -----------------------------------------------------------------------------
@@ -47,7 +47,7 @@ import org.springblade.basic.base.entity.CustomBaseEntity;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @Schema(title = "RuleDashboardSummaryResultVO", description = "仪表板概要统计VO")
-public class RuleDashboardSummaryResultVO extends CustomBaseEntity implements Serializable, EchoVO {
+public class RuleDashboardSummaryResultVO extends Entity implements Serializable, EchoVO {
     @Serial
     private static final long serialVersionUID = 1L;
 

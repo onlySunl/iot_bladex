@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.basic.base.manager.SuperManager;
-import org.springblade.basic.base.request.PageParams;
+import org.springblade.core.mvc.manager.SuperManager;
+import org.springblade.core.mvc.request.PageParams;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeRecordsSummaryResultDTO;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeRecords;
 import org.springblade.modules.iot.ota.vo.query.OtaUpgradeRecordsPageQuery;

@@ -21,7 +21,7 @@ import org.springblade.basic.database.mybatis.conditions.Wraps;
 import org.springblade.basic.model.cache.CacheKey;
 import org.springblade.modules.iot.common.constant.BizConstant;
 import org.springblade.modules.iot.common.cache.rule.trigger.RuleTriggerCacheKeys;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.dto.linkage.condition.group.DeviceActionConditionGroupDTO;
 import org.springblade.modules.iot.dto.linkage.condition.group.DevicePropertiesConditionGroupDTO;
 import org.springblade.modules.iot.entity.linkage.Rule;

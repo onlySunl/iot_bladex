@@ -20,7 +20,7 @@ import org.springblade.basic.easyexcel.ExcelCheckResult;
 import org.springblade.basic.easyexcel.ExcelImportErrDto;
 import org.springblade.basic.utils.SnowflakeIdUtil;
 import org.springblade.basic.utils.TenantUtil;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.device.easyexcel.DeviceEasyExcelService;
 import org.springblade.modules.iot.device.easyexcel.DeviceImportData;
 import org.springblade.modules.iot.device.entity.Device;

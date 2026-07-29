@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.service.alarm;
 
-import org.springblade.basic.base.service.SuperService;
+import org.springblade.core.mvc.service.SuperService;
 import org.springblade.modules.iot.dto.alarm.RuleAlarmActionConfigDTO;
 import org.springblade.modules.iot.dto.linkage.execution.PolicyContext;
 import org.springblade.modules.iot.entity.alarm.RuleAlarmRecord;

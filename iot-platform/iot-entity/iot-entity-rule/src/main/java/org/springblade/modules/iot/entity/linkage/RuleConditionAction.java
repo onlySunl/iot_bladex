@@ -1,15 +1,10 @@
 package org.springblade.modules.iot.entity.linkage;
-import com.tangzc.autotable.annotation.AutoTable;
-import com.tangzc.autotable.annotation.AutoColumn;
 
-import org.springblade.basic.base.entity.CustomBaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.AutoTable;
+import lombok.*;
 import lombok.experimental.Accessors;
+import org.springblade.basic.base.entity.Entity;
 
 
 /**
@@ -30,7 +25,7 @@ import lombok.experimental.Accessors;
 @Builder
     
 @AutoTable(value = "iot_rule_condition_action", comment = "RuleConditionAction table")
-public class RuleConditionAction extends CustomBaseEntity {
+public class RuleConditionAction extends Entity<Long> {
     private static final long serialVersionUID = 1L;
 
     /**

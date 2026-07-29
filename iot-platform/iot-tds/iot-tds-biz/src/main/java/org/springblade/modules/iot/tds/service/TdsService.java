@@ -1,9 +1,9 @@
 package org.springblade.modules.iot.tds.service;
 
-import org.springblade.common.tds.Fields;
-import org.springblade.common.tds.SuperTableDTO;
-import org.springblade.common.tds.TableDTO;
-import org.springblade.common.tds.TagsSelectDTO;
+import org.springblade.core.tds.model.Fields;
+import org.springblade.core.tds.model.SuperTableDTO;
+import org.springblade.core.tds.model.TableDTO;
+import org.springblade.core.tds.model.TagsSelectDTO;
 import org.springblade.modules.iot.tds.vo.result.SuperTableDescribeVO;
 import org.apache.ibatis.annotations.Param;
 

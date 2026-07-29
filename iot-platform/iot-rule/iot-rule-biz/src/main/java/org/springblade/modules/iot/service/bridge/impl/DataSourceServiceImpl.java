@@ -16,7 +16,7 @@ import org.springblade.basic.utils.SnowflakeIdUtil;
 import org.springblade.modules.iot.bridge.event.DataSourceDeleteCheckEvent;
 import org.springblade.modules.iot.bridge.event.publisher.BridgeEventPublisher;
 import org.springblade.modules.iot.bridge.event.source.DataSourceDeleteCheckEventSource;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.entity.bridge.DataSource;
 import org.springblade.modules.iot.enumeration.bridge.BridgeDirectionEnum;
 import org.springblade.modules.iot.manager.bridge.DataSourceManager;

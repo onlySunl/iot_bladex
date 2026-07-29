@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.device.manager.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.springblade.basic.base.manager.impl.SuperManagerImpl;
+import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
 import org.springblade.basic.utils.StringUtils;
 import org.springblade.modules.iot.device.entity.DeviceCommand;
 import org.springblade.modules.iot.device.manager.DeviceCommandManager;

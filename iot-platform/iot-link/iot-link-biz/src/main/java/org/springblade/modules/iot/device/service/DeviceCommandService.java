@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.device.service;
 
-import org.springblade.basic.mvc.service.SuperService;
+import org.springblade.core.mvc.service.SuperService;
 import org.springblade.modules.iot.device.entity.DeviceCommand;
 import org.springblade.modules.iot.device.vo.query.DeviceCommandPageQuery;
 import org.springblade.modules.iot.device.vo.save.DeviceCommandSaveVO;

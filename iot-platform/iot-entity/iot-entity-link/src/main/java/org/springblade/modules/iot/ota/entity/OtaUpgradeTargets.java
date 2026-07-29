@@ -28,7 +28,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "ota_upgrade_targets", comment = "OtaUpgradeTargets table")
-public class OtaUpgradeTargets extends Entity {
+public class OtaUpgradeTargets extends Entity<Long> {
     @Serial
     private static final long serialVersionUID = 1L;
 

@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.cacert.mapper.license;
 
-import org.springblade.basic.base.mapper.SuperMapper;
+import org.springblade.core.mvc.mapper.SuperMapper;
 import org.springblade.modules.iot.cacert.entity.license.CaCertLicense;
 import org.springframework.stereotype.Repository;
 

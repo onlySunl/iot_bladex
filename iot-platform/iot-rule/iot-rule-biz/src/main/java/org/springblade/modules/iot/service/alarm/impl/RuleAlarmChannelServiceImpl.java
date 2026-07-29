@@ -7,7 +7,7 @@ import org.springblade.basic.base.service.impl.SuperServiceImpl;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.basic.utils.BeanPlusUtil;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.dto.alarm.channel.dingtalk.DingTalkMessageParamDTO;
 import org.springblade.modules.iot.dto.alarm.channel.fs.FeishuMessageParamDTO;
 import org.springblade.modules.iot.dto.alarm.channel.site.SiteMessageParamDTO;

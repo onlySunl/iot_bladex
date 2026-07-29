@@ -16,8 +16,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>thinglinks-link-api</module>
-        <module>thinglinks-link-boot-impl</module>
-        <module>thinglinks-link-cloud-impl</module>
+        <module>iot-link-api</module>
+        <module>iot-link-boot-impl</module>
+        <module>iot-link-cloud-impl</module>
     </modules>
 </project>

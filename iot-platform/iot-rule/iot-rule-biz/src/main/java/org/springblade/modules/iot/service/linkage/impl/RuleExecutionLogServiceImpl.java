@@ -8,7 +8,7 @@ import org.springblade.basic.base.service.impl.SuperServiceImpl;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.basic.utils.SnowflakeIdUtil;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.dto.alarm.RuleAlarmActionConfigDTO;
 import org.springblade.modules.iot.entity.linkage.RuleExecutionLog;
 import org.springblade.modules.iot.enumeration.linkage.ConditionTypeEnum;

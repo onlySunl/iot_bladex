@@ -1,5 +1,5 @@
 package org.springblade.modules.iot.device.entity.group;
-import com.mqttsnet.basic.base.entity.TreeEntity;
+import org.springblade.basic.base.entity.TreeEntity;
 import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.AutoColumn;
 

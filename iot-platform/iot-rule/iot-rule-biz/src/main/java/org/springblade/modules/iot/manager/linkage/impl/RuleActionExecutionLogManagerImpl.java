@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.manager.linkage.impl;
 
 import cn.hutool.core.text.CharSequenceUtil;
-import org.springblade.basic.base.manager.impl.SuperManagerImpl;
+import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
 import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.modules.iot.entity.linkage.RuleActionExecutionLog;
 import org.springblade.modules.iot.manager.linkage.RuleActionExecutionLogManager;

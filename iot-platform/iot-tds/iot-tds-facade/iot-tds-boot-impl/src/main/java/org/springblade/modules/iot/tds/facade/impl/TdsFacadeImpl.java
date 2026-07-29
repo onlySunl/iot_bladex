@@ -2,17 +2,17 @@ package org.springblade.modules.iot.tds.facade.impl;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
-import org.springblade.common.cache.ContextUtil;
-import org.springblade.common.tds.SuperTableDTO;
-import org.springblade.common.tds.TableDTO;
-import org.springblade.common.tds.utils.TdsUtils;
-import org.springblade.common.utils.ArgumentAssert;
+import org.springblade.basic.context.ContextUtil;
+import org.springblade.basic.utils.ArgumentAssert;
+import org.springblade.core.tds.model.SuperTableDTO;
+import org.springblade.core.tds.model.TableDTO;
+import org.springblade.core.tds.utils.TdsUtils;
 import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.tds.facade.TdsFacade;
 import org.springblade.modules.iot.tds.service.TdsService;
-import org.springblade.modules.iot.tds.vo.result.SuperTableDescribeVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.modules.iot.tds.vo.result.SuperTableDescribeVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

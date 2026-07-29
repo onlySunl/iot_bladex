@@ -3,7 +3,7 @@ package org.springblade.modules.iot.productversion.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springblade.basic.mvc.service.SuperService;
+import org.springblade.core.mvc.service.SuperService;
 import org.springblade.modules.iot.productpublishrecord.entity.ProductPublishRecord;
 import org.springblade.modules.iot.productversion.entity.ProductVersion;
 import org.springblade.modules.iot.productversion.vo.diff.ProductVersionDiffVO;

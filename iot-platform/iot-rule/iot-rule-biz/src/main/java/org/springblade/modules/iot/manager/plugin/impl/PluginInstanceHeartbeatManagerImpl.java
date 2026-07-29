@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.manager.plugin.impl;
 
-import org.springblade.basic.base.manager.impl.SuperManagerImpl;
+import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
 import org.springblade.modules.iot.entity.plugin.PluginInstanceHeartbeat;
 import org.springblade.modules.iot.manager.plugin.PluginInstanceHeartbeatManager;
 import org.springblade.modules.iot.mapper.plugin.PluginInstanceHeartbeatMapper;

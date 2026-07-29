@@ -5,10 +5,10 @@ import java.util.List;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.basic.database.mybatis.conditions.Wraps;
+import org.springblade.core.database.mybatis.conditions.Wraps;
 import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.modules.iot.cache.vo.device.DeviceAclRuleCacheVO;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.device.entity.DeviceAclRule;
 import org.springblade.modules.iot.device.manager.DeviceAclRuleManager;
 import org.springblade.modules.iot.device.service.DeviceAclRuleQueryService;

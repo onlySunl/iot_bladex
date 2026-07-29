@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.mapper.bridge;
 
-import org.springblade.basic.base.mapper.SuperMapper;
+import org.springblade.core.mvc.mapper.SuperMapper;
 import org.springblade.modules.iot.entity.bridge.DataSource;
 import org.springframework.stereotype.Repository;
 

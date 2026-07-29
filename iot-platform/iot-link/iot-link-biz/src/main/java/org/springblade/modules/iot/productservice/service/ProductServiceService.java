@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.productservice.service;
 
-import org.springblade.basic.mvc.service.SuperService;
+import org.springblade.core.mvc.service.SuperService;
 import org.springblade.modules.iot.productservice.entity.ProductServices;
 import org.springblade.modules.iot.productservice.vo.save.ProductServiceSaveVO;
 import org.springblade.modules.iot.productservice.vo.update.ProductServiceUpdateVO;

@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.vo.update.linkage;
 
-import org.springblade.basic.base.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -41,7 +41,7 @@ public class RuleConditionUpdateVO implements Serializable {
     @Schema(description = "规则条件动作参数")
     List<RuleConditionActionUpdateVO> conditionActionUpdateVOS;
     @Schema(description = "主键")
-    @NotNull(message = "请填写主键", groups = CustomBaseEntity.Update.class)
+    @NotNull(message = "请填写主键", groups = Entity.Update.class)
     private Long id;
     /**
      * 规则

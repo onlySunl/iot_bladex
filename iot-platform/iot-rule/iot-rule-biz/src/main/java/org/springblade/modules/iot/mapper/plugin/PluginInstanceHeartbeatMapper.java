@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.mapper.plugin;
 
-import org.springblade.basic.base.mapper.SuperMapper;
+import org.springblade.core.mvc.mapper.SuperMapper;
 import org.springblade.modules.iot.entity.plugin.PluginInstanceHeartbeat;
 import org.springframework.stereotype.Repository;
 

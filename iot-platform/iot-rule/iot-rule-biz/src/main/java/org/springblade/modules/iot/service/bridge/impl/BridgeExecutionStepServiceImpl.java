@@ -4,7 +4,7 @@ import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springblade.basic.base.service.impl.SuperServiceImpl;
 import org.springblade.basic.utils.BeanPlusUtil;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.entity.bridge.BridgeExecutionStep;
 import org.springblade.modules.iot.manager.bridge.BridgeExecutionStepManager;
 import org.springblade.modules.iot.service.bridge.BridgeExecutionStepService;

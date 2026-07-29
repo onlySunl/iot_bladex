@@ -29,7 +29,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "ca_cert_license", comment = "CaCertLicense table")
-public class CaCertLicense extends Entity {
+public class CaCertLicense extends Entity<Long>{
     @Serial
     private static final long serialVersionUID = 1L;
 

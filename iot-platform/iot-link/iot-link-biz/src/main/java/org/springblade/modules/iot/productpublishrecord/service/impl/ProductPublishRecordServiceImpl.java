@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.basic.base.service.impl.SuperServiceImpl;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.productpublishrecord.entity.ProductPublishRecord;
 import org.springblade.modules.iot.productpublishrecord.enumeration.ProductPublishRecordIntentEnum;
 import org.springblade.modules.iot.productpublishrecord.enumeration.ProductPublishRecordStatusEnum;

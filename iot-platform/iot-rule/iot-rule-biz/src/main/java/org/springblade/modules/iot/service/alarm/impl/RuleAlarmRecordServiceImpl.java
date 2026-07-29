@@ -13,7 +13,7 @@ import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.basic.utils.StrPool;
 import org.springblade.basic.utils.StringUtils;
 import org.springblade.modules.iot.common.constant.BizConstant;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.dto.alarm.RuleAlarmActionConfigDTO;
 import org.springblade.modules.iot.dto.alarm.RuleAlarmChannelTemplateDTO;
 import org.springblade.modules.iot.dto.alarm.RuleAlarmRecipientDTO;

@@ -12,7 +12,7 @@ import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.basic.utils.SnowflakeIdUtil;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.entity.alarm.RuleAlarm;
 import org.springblade.modules.iot.manager.alarm.RuleAlarmManager;
 import org.springblade.modules.iot.service.alarm.RuleAlarmChannelService;

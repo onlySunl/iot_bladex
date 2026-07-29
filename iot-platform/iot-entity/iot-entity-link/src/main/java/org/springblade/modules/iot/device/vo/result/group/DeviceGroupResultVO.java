@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.device.vo.result.group;
 
 import cn.hutool.core.map.MapUtil;
-import com.mqttsnet.basic.base.entity.TreeEntity;
-import com.mqttsnet.basic.interfaces.echo.EchoVO;
+import org.springblade.basic.base.entity.TreeEntity;
+import org.springblade.basic.interfaces.echo.EchoVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 

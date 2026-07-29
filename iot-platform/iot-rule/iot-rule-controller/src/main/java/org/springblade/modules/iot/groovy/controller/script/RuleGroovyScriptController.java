@@ -4,7 +4,7 @@ import com.alibaba.fastjson2.JSON;
 import org.springblade.basic.annotation.log.WebLog;
 import org.springblade.basic.base.R;
 import org.springblade.basic.base.controller.SuperController;
-import org.springblade.basic.base.request.PageParams;
+import org.springblade.core.mvc.request.PageParams;
 import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.interfaces.echo.EchoService;

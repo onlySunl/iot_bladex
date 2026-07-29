@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.basic.base.request.PageParams;
-import org.springblade.basic.mvc.service.SuperService;
+import org.springblade.core.mvc.request.PageParams;
+import org.springblade.core.mvc.service.SuperService;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeRecords;
 import org.springblade.modules.iot.ota.enumeration.OtaTaskRecordAppConfirmStatusEnum;
 import org.springblade.modules.iot.ota.vo.query.OtaUpgradeRecordsPageQuery;

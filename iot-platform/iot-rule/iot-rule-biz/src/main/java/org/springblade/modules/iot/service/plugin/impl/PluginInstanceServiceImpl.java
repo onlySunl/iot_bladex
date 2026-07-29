@@ -9,7 +9,7 @@ import org.springblade.basic.database.mybatis.conditions.Wraps;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.basic.utils.BeanPlusUtil;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.constants.PluginConstants;
 import org.springblade.modules.iot.entity.plugin.PluginInstance;
 import org.springblade.modules.iot.manager.plugin.PluginInstanceManager;

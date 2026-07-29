@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.basic.base.service.impl.SuperServiceImpl;
-import org.springblade.basic.database.mybatis.conditions.Wraps;
+import org.springblade.core.database.mybatis.conditions.Wraps;
 import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.basic.utils.TreeUtil;
 import org.springblade.modules.iot.device.entity.group.DeviceGroup;

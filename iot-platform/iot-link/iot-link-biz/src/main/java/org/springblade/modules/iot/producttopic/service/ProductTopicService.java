@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.producttopic.service;
 
-import org.springblade.basic.mvc.service.SuperService;
+import org.springblade.core.mvc.service.SuperService;
 import org.springblade.modules.iot.product.enumeration.ProductTypeEnum;
 import org.springblade.modules.iot.producttopic.entity.ProductTopic;
 

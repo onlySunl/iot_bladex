@@ -2,10 +2,10 @@ package org.springblade.modules.iot.product.service.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.basic.base.request.PageParams;
+import org.springblade.core.mvc.request.PageParams;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.utils.BeanPlusUtil;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.device.vo.result.ProductOverviewResultVO;
 import java.time.LocalDateTime;
 

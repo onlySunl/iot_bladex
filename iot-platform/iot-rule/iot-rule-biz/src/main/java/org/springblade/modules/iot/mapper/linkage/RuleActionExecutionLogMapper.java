@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.mapper.linkage;
 
-import org.springblade.basic.base.mapper.SuperMapper;
+import org.springblade.core.mvc.mapper.SuperMapper;
 import org.springblade.modules.iot.entity.linkage.RuleActionExecutionLog;
 import org.springframework.stereotype.Repository;
 

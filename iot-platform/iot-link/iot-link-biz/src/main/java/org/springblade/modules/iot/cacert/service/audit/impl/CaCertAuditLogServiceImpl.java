@@ -6,7 +6,7 @@ import org.springblade.modules.iot.cacert.entity.audit.CaCertAuditLog;
 import org.springblade.modules.iot.cacert.enumeration.CaCertAuditTypeEnum;
 import org.springblade.modules.iot.cacert.mapper.audit.CaCertAuditLogMapper;
 import org.springblade.modules.iot.cacert.service.audit.CaCertAuditLogService;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;

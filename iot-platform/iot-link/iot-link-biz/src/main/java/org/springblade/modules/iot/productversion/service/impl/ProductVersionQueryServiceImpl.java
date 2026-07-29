@@ -3,7 +3,7 @@ package org.springblade.modules.iot.productversion.service.impl;
 import java.util.Optional;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.productversion.entity.ProductVersion;
 import org.springblade.modules.iot.productversion.manager.ProductVersionManager;
 import org.springblade.modules.iot.productversion.service.ProductVersionQueryService;

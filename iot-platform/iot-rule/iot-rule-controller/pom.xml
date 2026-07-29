@@ -20,5 +20,9 @@
             <artifactId>iot-rule-biz</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-databridge</artifactId>
+        </dependency>
     </dependencies>
 </project>

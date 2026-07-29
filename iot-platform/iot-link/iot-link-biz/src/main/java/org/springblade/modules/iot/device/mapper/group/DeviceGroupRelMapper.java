@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.device.mapper.group;
 
-import org.springblade.basic.base.mapper.SuperMapper;
+import org.springblade.core.mvc.mapper.SuperMapper;
 import org.springblade.modules.iot.device.entity.group.DeviceGroupRel;
 import org.springframework.stereotype.Repository;
 

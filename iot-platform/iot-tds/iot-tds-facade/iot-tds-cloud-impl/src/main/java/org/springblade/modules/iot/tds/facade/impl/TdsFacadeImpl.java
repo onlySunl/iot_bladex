@@ -1,12 +1,13 @@
 package org.springblade.modules.iot.tds.facade.impl;
 
-import org.springblade.common.tds.SuperTableDTO;
-import org.springblade.common.tds.TableDTO;
+import jakarta.annotation.Resource;
+import org.springblade.core.tds.model.SuperTableDTO;
+import org.springblade.core.tds.model.TableDTO;
 import org.springblade.core.tool.api.R;
+import lombok.extern.slf4j.Slf4j;
 import org.springblade.modules.iot.tds.api.TdsApi;
 import org.springblade.modules.iot.tds.facade.TdsFacade;
 import org.springblade.modules.iot.tds.vo.result.SuperTableDescribeVO;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ import java.util.Map;
 @Slf4j
 public class TdsFacadeImpl implements TdsFacade {
     @Lazy
-    @Autowired
+    @Resource
     private TdsApi tdsApi;
 
     @Override

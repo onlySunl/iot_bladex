@@ -4,7 +4,7 @@ import java.util.List;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.springblade.basic.base.manager.impl.SuperManagerImpl;
+import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeTargets;
 import org.springblade.modules.iot.ota.manager.OtaUpgradeTargetsManager;
 import org.springblade.modules.iot.ota.mapper.OtaUpgradeTargetsMapper;

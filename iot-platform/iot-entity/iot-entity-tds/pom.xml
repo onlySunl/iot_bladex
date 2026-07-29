@@ -22,7 +22,10 @@
             <groupId>org.springblade</groupId>
             <artifactId>blade-common</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-basic</artifactId>
+        </dependency>
 
 
     </dependencies>

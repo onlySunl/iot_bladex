@@ -1,14 +1,9 @@
 package org.springblade.modules.iot.entity.bridge;
-import org.springblade.basic.base.entity.CustomBaseEntity;
-import com.tangzc.autotable.annotation.AutoTable;
-import com.tangzc.autotable.annotation.AutoColumn;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.AutoTable;
+import lombok.*;
+import org.springblade.basic.base.entity.Entity;
 
 import java.io.Serial;
 
@@ -30,7 +25,7 @@ import java.io.Serial;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "iot_rule_subscription_source", comment = "SubscriptionSource table")
-public class SubscriptionSource extends CustomBaseEntity {
+public class SubscriptionSource extends Entity<Long> {
 
     @Serial
     private static final long serialVersionUID = 1L;

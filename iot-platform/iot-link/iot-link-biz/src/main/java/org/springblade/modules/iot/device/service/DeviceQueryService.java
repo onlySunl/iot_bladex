@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.device.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.basic.mvc.request.PageParams;
+import org.springblade.core.mvc.request.PageParams;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
 import org.springblade.modules.iot.device.entity.Device;
 import org.springblade.modules.iot.device.vo.query.DevicePageQuery;

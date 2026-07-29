@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.device.manager.impl;
 
-import org.springblade.basic.base.manager.impl.SuperManagerImpl;
+import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
 import org.springblade.modules.iot.device.entity.DeviceAclRule;
 import org.springblade.modules.iot.device.manager.DeviceAclRuleManager;
 import org.springblade.modules.iot.device.mapper.DeviceAclRuleMapper;

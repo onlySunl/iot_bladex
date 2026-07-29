@@ -2,7 +2,7 @@ package org.springblade.modules.iot.manager.plugin.impl;
 
 import cn.hutool.core.text.CharSequenceUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.springblade.basic.base.manager.impl.SuperManagerImpl;
+import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
 import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.modules.iot.entity.plugin.PluginInstance;
 import org.springblade.modules.iot.manager.plugin.PluginInstanceManager;

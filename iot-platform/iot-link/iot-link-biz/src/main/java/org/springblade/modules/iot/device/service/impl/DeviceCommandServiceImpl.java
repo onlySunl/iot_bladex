@@ -25,7 +25,7 @@ import org.springblade.modules.iot.vo.query.DownlinkCommand;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
 import org.springblade.modules.iot.common.constant.BizConstant;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.device.entity.DeviceCommand;
 import org.springblade.modules.iot.device.enumeration.DeviceCommandStatusEnum;
 import org.springblade.modules.iot.device.enumeration.DeviceCommandTypeEnum;

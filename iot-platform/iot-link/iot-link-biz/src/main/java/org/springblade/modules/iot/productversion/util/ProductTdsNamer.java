@@ -2,7 +2,7 @@ package org.springblade.modules.iot.productversion.util;
 
 import cn.hutool.core.util.StrUtil;
 import org.springblade.basic.context.ContextConstants;
-import org.springblade.basic.tds.utils.TdsUtils;
+import org.springblade.core.tds.utils.TdsUtils;
 
 /**
  * 产品物模型版本化 TD 表命名工具。带版本拼 productType_productIdentification_versionNo_serviceCode;无版本

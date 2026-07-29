@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.manager.alarm.impl;
 
-import org.springblade.basic.base.manager.impl.SuperManagerImpl;
+import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
 import org.springblade.modules.iot.entity.alarm.RuleAlarmRecord;
 import org.springblade.modules.iot.manager.alarm.RuleAlarmRecordManager;
 import org.springblade.modules.iot.mapper.alarm.RuleAlarmRecordMapper;

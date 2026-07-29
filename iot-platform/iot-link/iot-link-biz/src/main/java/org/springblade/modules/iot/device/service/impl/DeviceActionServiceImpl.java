@@ -13,7 +13,7 @@ import org.springblade.modules.iot.broker.MqttBrokerOpenInnerFacade;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
 import org.springblade.modules.iot.cache.vo.device.DeviceActionCacheVO;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.device.entity.DeviceAction;
 import org.springblade.modules.iot.device.enumeration.DeviceActionStatusEnum;
 import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;

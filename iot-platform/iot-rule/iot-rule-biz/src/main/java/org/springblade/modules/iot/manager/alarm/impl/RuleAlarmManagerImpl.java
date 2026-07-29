@@ -2,7 +2,7 @@ package org.springblade.modules.iot.manager.alarm.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.text.CharSequenceUtil;
-import org.springblade.basic.base.manager.impl.SuperManagerImpl;
+import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
 import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.modules.iot.entity.alarm.RuleAlarm;
 import org.springblade.modules.iot.manager.alarm.RuleAlarmManager;

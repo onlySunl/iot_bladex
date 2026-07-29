@@ -2,10 +2,10 @@ package org.springblade.modules.iot.tds.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import org.springblade.common.tds.Fields;
-import org.springblade.common.tds.SuperTableDTO;
-import org.springblade.common.tds.TableDTO;
 import org.springblade.core.log.exception.ServiceException;
+import org.springblade.core.tds.model.Fields;
+import org.springblade.core.tds.model.SuperTableDTO;
+import org.springblade.core.tds.model.TableDTO;
 
 import java.util.List;
 import java.util.regex.Pattern;

@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.producttopic.manager.impl;
 
-import org.springblade.basic.base.manager.impl.SuperManagerImpl;
+import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
 import org.springblade.modules.iot.producttopic.entity.ProductTopic;
 import org.springblade.modules.iot.producttopic.manager.ProductTopicManager;
 import org.springblade.modules.iot.producttopic.mapper.ProductTopicMapper;

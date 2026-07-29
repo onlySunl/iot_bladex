@@ -2,8 +2,8 @@ package org.springblade.modules.iot.productservice.manager.impl;
 
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.ObjectUtil;
-import org.springblade.basic.base.manager.impl.SuperManagerImpl;
-import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
+import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.modules.iot.productservice.entity.ProductServices;
 import org.springblade.modules.iot.productservice.manager.ProductServiceManager;
 import org.springblade.modules.iot.productservice.mapper.ProductServiceMapper;

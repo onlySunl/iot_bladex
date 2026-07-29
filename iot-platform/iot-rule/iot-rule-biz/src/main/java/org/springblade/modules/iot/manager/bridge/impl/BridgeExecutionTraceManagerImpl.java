@@ -2,7 +2,7 @@ package org.springblade.modules.iot.manager.bridge.impl;
 
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.StrUtil;
-import org.springblade.basic.base.manager.impl.SuperManagerImpl;
+import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
 import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.modules.iot.entity.bridge.BridgeExecutionTrace;
 import org.springblade.modules.iot.manager.bridge.BridgeExecutionTraceManager;

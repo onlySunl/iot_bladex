@@ -2,7 +2,7 @@ package org.springblade.modules.iot.service.execution.service;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.basic.context.ContextUtil;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.dto.linkage.RuleConditionPolicyDTO;
 import org.springblade.modules.iot.dto.linkage.execution.PolicyContext;
 import org.springblade.modules.iot.dto.linkage.execution.PolicyPair;

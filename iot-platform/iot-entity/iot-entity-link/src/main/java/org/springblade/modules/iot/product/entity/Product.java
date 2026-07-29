@@ -25,7 +25,7 @@ import java.io.Serial;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "iot_product", comment = "Product table")
-public class Product extends Entity {
+public class Product extends Entity<Long> {
     @Serial
     private static final long serialVersionUID = 1L;
 

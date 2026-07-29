@@ -17,7 +17,7 @@ import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.basic.utils.SnowflakeIdUtil;
 import java.util.Objects;
 
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.dto.linkage.condition.group.DevicePropertiesConditionGroupDTO;
 import org.springblade.modules.iot.entity.linkage.RuleCondition;
 import org.springblade.modules.iot.enumeration.linkage.RuleStatusEnum;

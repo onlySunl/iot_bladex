@@ -11,7 +11,7 @@ import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.basic.utils.SnowflakeIdUtil;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.product.service.ProductQueryService;
 import org.springblade.modules.iot.product.service.ProductService;
 import org.springblade.modules.iot.product.vo.param.ProductParamVO;

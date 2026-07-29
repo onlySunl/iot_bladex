@@ -19,5 +19,11 @@
             <artifactId>iot-link-biz</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-common</artifactId>
+            <version>4.9.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>

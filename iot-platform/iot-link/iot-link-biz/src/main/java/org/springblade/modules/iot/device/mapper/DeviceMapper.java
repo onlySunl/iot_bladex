@@ -2,7 +2,7 @@ package org.springblade.modules.iot.device.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
-import org.springblade.basic.base.mapper.SuperMapper;
+import org.springblade.core.mvc.mapper.SuperMapper;
 import org.springblade.modules.iot.device.dto.DeviceOverviewResultDTO;
 import org.springblade.modules.iot.device.dto.DeviceVersionDTO;
 import org.springblade.modules.iot.device.entity.Device;

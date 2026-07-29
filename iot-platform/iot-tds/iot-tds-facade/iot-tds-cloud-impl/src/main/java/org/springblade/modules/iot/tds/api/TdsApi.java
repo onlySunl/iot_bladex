@@ -1,9 +1,9 @@
 package org.springblade.modules.iot.tds.api;
 
 import org.springblade.common.constant.Constants;
-import org.springblade.common.tds.SuperTableDTO;
-import org.springblade.common.tds.TableDTO;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springblade.core.tds.model.SuperTableDTO;
+import org.springblade.core.tds.model.TableDTO;
 import org.springblade.core.tool.api.R;
 import org.springblade.modules.iot.tds.api.hystrix.TdsApiFallback;
 import org.springblade.modules.iot.tds.vo.result.SuperTableDescribeVO;

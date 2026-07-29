@@ -29,7 +29,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "ota_upgrade_tasks", comment = "OtaUpgradeTasks table")
-public class OtaUpgradeTasks extends Entity {
+public class OtaUpgradeTasks extends Entity<Long> {
     @Serial
     private static final long serialVersionUID = 1L;
 

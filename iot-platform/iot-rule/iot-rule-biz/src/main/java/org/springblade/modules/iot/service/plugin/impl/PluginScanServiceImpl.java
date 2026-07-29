@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.service.plugin.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.service.plugin.PluginScanService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

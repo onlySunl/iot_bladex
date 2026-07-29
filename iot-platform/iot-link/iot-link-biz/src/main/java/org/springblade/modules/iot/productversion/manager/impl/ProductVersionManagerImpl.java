@@ -5,10 +5,10 @@ import java.util.Optional;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.basic.base.manager.impl.SuperManagerImpl;
-import org.springblade.basic.base.request.PageParams;
-import org.springblade.basic.database.mybatis.conditions.Wraps;
-import org.springblade.basic.database.mybatis.conditions.query.LbQueryWrap;
+import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
+import org.springblade.core.mvc.request.PageParams;
+import org.springblade.core.database.mybatis.conditions.Wraps;
+import org.springblade.core.database.mybatis.conditions.query.LbQueryWrap;
 import org.springblade.modules.iot.productversion.entity.ProductVersion;
 import org.springblade.modules.iot.productversion.manager.ProductVersionManager;
 import org.springblade.modules.iot.productversion.mapper.ProductVersionMapper;

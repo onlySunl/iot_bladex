@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.vo.update.bridge;
 
-import org.springblade.basic.base.entity.CustomBaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +11,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.springblade.basic.base.entity.Entity;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -39,7 +39,7 @@ public class DataSourceUpdateVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Schema(description = "主键")
-    @NotNull(message = "请填写主键", groups = CustomBaseEntity.Update.class)
+    @NotNull(message = "请填写主键", groups = Entity.Update.class)
     private Long id;
 
     @Schema(description = "应用ID")

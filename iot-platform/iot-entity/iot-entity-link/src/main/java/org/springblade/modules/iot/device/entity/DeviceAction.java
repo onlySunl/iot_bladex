@@ -29,7 +29,7 @@ import java.io.Serial;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "iot_device_action", comment = "DeviceAction table")
-public class DeviceAction extends Entity {
+public class DeviceAction extends Entity<Long> {
     @Serial
     private static final long serialVersionUID = 1L;
 

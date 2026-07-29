@@ -2,7 +2,7 @@ package org.springblade.modules.iot.ota.manager;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springblade.basic.base.manager.SuperManager;
-import org.springblade.basic.base.request.PageParams;
+import org.springblade.core.mvc.request.PageParams;
 import org.springblade.modules.iot.ota.entity.OtaUpgrades;
 import org.springblade.modules.iot.ota.vo.query.OtaUpgradesPageQuery;
 

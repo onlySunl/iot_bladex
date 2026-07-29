@@ -31,7 +31,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "iot_product_publish_record", comment = "ProductPublishRecord table")
-public class ProductPublishRecord extends Entity {
+public class ProductPublishRecord extends Entity<Long> {
 
     @Serial
     private static final long serialVersionUID = 1L;

@@ -1,13 +1,13 @@
 package org.springblade.modules.iot.vo.result.server;
 
 
-import com.mqttsnet.basic.utils.ArithUtil;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.springblade.basic.utils.ArithUtil;
 
 /**
  * 內存相关信息

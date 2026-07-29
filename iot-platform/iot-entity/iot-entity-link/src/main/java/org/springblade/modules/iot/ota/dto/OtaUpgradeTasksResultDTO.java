@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.ota.dto;
 
 import cn.hutool.core.map.MapUtil;
-import com.mqttsnet.basic.interfaces.echo.EchoVO;
+import org.springblade.basic.interfaces.echo.EchoVO;
 import lombok.*;
 import org.springblade.basic.base.entity.Entity;
 

@@ -14,7 +14,7 @@ import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.basic.utils.StrPool;
 import org.springblade.modules.iot.PluginServer;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.entity.plugin.PluginInfo;
 import org.springblade.modules.iot.enumeration.plugin.PluginActionStatusEnum;
 import org.springblade.modules.iot.enumeration.plugin.PluginInfoStatusEnum;

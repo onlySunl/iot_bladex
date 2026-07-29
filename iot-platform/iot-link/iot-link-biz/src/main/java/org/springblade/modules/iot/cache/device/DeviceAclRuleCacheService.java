@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.modules.iot.cache.vo.device.DeviceAclRuleCacheVO;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.device.service.DeviceAclRuleQueryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

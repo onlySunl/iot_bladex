@@ -1,26 +1,22 @@
 package org.springblade.modules.iot.ota.controller;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.basic.annotation.log.WebLog;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springblade.basic.base.R;
-import org.springblade.basic.base.controller.SuperController;
-import org.springblade.basic.base.request.PageParams;
 import org.springblade.basic.context.ContextUtil;
-import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.interfaces.echo.EchoService;
 import org.springblade.basic.utils.BeanPlusUtil;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.core.mvc.controller.SuperController;
+import org.springblade.core.mvc.request.PageParams;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeRecords;
 import org.springblade.modules.iot.ota.service.OtaUpgradeRecordsService;
 import org.springblade.modules.iot.ota.service.OtaUpgradeTasksService;
@@ -32,21 +28,14 @@ import org.springblade.modules.iot.ota.vo.result.OtaUpgradeTasksResultVO;
 import org.springblade.modules.iot.ota.vo.result.OtaUpgradesResultVO;
 import org.springblade.modules.iot.ota.vo.save.OtaUpgradeRecordsSaveVO;
 import org.springblade.modules.iot.ota.vo.update.OtaUpgradeRecordsUpdateVO;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -79,7 +68,7 @@ public class OtaUpgradeRecordsController extends SuperController<OtaUpgradeRecor
     public QueryWrap<OtaUpgradeRecords> handlerWrapper(OtaUpgradeRecords model, PageParams<OtaUpgradeRecordsPageQuery> params) {
         QueryWrap<OtaUpgradeRecords> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
-        DataScopeHelper.startDataScope("ota_upgrade_records");
+       // DataScopeHelper.startDataScope("ota_upgrade_records");
         return queryWrap;
     }
 

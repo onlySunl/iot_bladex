@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.producttopic.mapper;
 
-import org.springblade.basic.base.mapper.SuperMapper;
+import org.springblade.core.mvc.mapper.SuperMapper;
 import org.springblade.modules.iot.producttopic.entity.ProductTopic;
 import org.springframework.stereotype.Repository;
 

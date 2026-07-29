@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-link-entity</artifactId>
+            <artifactId>iot-entity-link</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
     </dependencies>

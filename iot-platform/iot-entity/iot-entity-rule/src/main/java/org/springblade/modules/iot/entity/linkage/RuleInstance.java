@@ -1,15 +1,10 @@
 package org.springblade.modules.iot.entity.linkage;
-import com.tangzc.autotable.annotation.AutoTable;
-import com.tangzc.autotable.annotation.AutoColumn;
 
-import org.springblade.basic.base.entity.CustomBaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.AutoTable;
+import lombok.*;
 import lombok.experimental.Accessors;
+import org.springblade.basic.base.entity.Entity;
 
 import java.io.Serial;
 
@@ -32,7 +27,7 @@ import java.io.Serial;
 @Builder
     
 @AutoTable(value = "iot_rule_instance", comment = "RuleInstance table")
-public class RuleInstance extends CustomBaseEntity {
+public class RuleInstance extends Entity<Long> {
     @Serial
     private static final long serialVersionUID = 1L;
 

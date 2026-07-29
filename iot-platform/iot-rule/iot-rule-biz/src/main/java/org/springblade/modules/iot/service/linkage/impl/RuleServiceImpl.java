@@ -18,7 +18,7 @@ import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.basic.utils.SnowflakeIdUtil;
 import org.springblade.basic.utils.StringUtils;
 import org.springblade.modules.iot.common.cache.rule.trigger.RuleTriggerCacheKeys;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.dto.linkage.RuleConditionActionPolicyDTO;
 import org.springblade.modules.iot.dto.linkage.RuleConditionPolicyDTO;
 import org.springblade.modules.iot.dto.linkage.RulePolicyDTO;

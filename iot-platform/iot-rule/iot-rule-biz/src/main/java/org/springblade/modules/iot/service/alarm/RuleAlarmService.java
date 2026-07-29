@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.service.alarm;
 
-import org.springblade.basic.base.service.SuperService;
+import org.springblade.core.mvc.service.SuperService;
 import org.springblade.modules.iot.entity.alarm.RuleAlarm;
 import org.springblade.modules.iot.vo.query.alarm.RuleAlarmPageQuery;
 import org.springblade.modules.iot.vo.result.alarm.RuleAlarmDetailsResultVO;

@@ -1,10 +1,10 @@
 package org.springblade.modules.iot.cache.vo.device;
 
 import cn.hutool.core.map.MapUtil;
-import com.mqttsnet.basic.interfaces.echo.EchoVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.springblade.basic.base.entity.Entity;
+import org.springblade.basic.interfaces.echo.EchoVO;
 
 import java.io.Serial;
 import java.io.Serializable;

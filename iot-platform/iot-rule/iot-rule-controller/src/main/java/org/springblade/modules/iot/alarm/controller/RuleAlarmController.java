@@ -1,12 +1,17 @@
 package org.springblade.modules.iot.alarm.controller;
 
-import org.springblade.basic.annotation.log.WebLog;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springblade.basic.base.R;
-import org.springblade.basic.base.controller.SuperController;
-import org.springblade.basic.base.request.PageParams;
-import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.interfaces.echo.EchoService;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.core.mvc.controller.SuperController;
+import org.springblade.core.mvc.request.PageParams;
 import org.springblade.modules.iot.entity.alarm.RuleAlarm;
 import org.springblade.modules.iot.service.alarm.RuleAlarmService;
 import org.springblade.modules.iot.vo.query.alarm.RuleAlarmPageQuery;
@@ -14,21 +19,8 @@ import org.springblade.modules.iot.vo.result.alarm.RuleAlarmDetailsResultVO;
 import org.springblade.modules.iot.vo.result.alarm.RuleAlarmResultVO;
 import org.springblade.modules.iot.vo.save.alarm.RuleAlarmSaveVO;
 import org.springblade.modules.iot.vo.update.alarm.RuleAlarmUpdateVO;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -55,13 +47,7 @@ public class RuleAlarmController extends SuperController<RuleAlarmService, Long,
         return echoService;
     }
 
-    @Override
-    public QueryWrap<RuleAlarm> handlerWrapper(RuleAlarm model, PageParams<RuleAlarmPageQuery> params) {
-        QueryWrap<RuleAlarm> queryWrap = super.handlerWrapper(model, params);
-        // 开启数据权限
-        DataScopeHelper.startDataScope("rule_alarm");
-        return queryWrap;
-    }
+
 
     /**
      * 新增 告警规则

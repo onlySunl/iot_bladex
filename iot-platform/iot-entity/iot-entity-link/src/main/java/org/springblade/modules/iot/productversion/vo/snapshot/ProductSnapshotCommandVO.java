@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import cn.hutool.core.map.MapUtil;
-import com.mqttsnet.basic.interfaces.echo.EchoVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springblade.basic.interfaces.echo.EchoVO;
 
 /**
  * 产品快照 ── 物模型命令节点。

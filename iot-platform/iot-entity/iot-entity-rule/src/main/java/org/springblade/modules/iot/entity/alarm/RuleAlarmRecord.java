@@ -1,15 +1,10 @@
 package org.springblade.modules.iot.entity.alarm;
-import com.tangzc.autotable.annotation.AutoTable;
-import com.tangzc.autotable.annotation.AutoColumn;
 
-import org.springblade.basic.base.entity.CustomBaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.tangzc.autotable.annotation.AutoColumn;
+import com.tangzc.autotable.annotation.AutoTable;
+import lombok.*;
 import lombok.experimental.Accessors;
+import org.springblade.basic.base.entity.Entity;
 
 import java.time.LocalDateTime;
 
@@ -32,7 +27,7 @@ import java.time.LocalDateTime;
 @Builder
     
 @AutoTable(value = "iot_rule_alarm_record", comment = "RuleAlarmRecord table")
-public class RuleAlarmRecord extends CustomBaseEntity {
+public class RuleAlarmRecord extends Entity<Long> {
     private static final long serialVersionUID = 1L;
 
     /**

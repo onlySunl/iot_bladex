@@ -16,7 +16,7 @@ import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
 import org.springblade.modules.iot.cache.vo.device.DeviceActionCacheVO;
 import org.springblade.modules.iot.common.cache.rule.trigger.RuleTriggerCacheKeys;
 import org.springblade.modules.iot.common.constant.BizConstant;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.device.vo.result.DeviceActionResultVO;
 import org.springblade.modules.iot.dto.linkage.AntiShakeSchemePolicyDTO;

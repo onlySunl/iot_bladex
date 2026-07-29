@@ -10,9 +10,15 @@
   <description>设备集成服务-实体模块</description>
   <distributionManagement>
     <repository>
-      <id>maven-releases</id>
-      <url>http://140.143.155.241:18085/repository/maven-releases/</url>
+      <id>blade-release</id>
+      <name>Release Repository</name>
+      <url>http://nexus.bladex.vip/repository/bladex-releases/</url>
     </repository>
+    <snapshotRepository>
+      <id>blade-snapshots</id>
+      <name>Snapshot Repository</name>
+      <url>http://nexus.bladex.vip/repository/bladex-snapshots/</url>
+    </snapshotRepository>
   </distributionManagement>
   <dependencies>
     <dependency>
@@ -27,8 +33,24 @@
       <version>4.9.0.RELEASE</version>
       <scope>compile</scope>
     </dependency>
-
-
+    <dependency>
+      <groupId>org.springblade</groupId>
+      <artifactId>blade-core-basic</artifactId>
+      <version>4.9.0.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springblade</groupId>
+      <artifactId>blade-core-annotation</artifactId>
+      <version>4.9.0.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springblade</groupId>
+      <artifactId>iot-model</artifactId>
+      <version>4.9.0.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
     <dependency>
       <groupId>com.tangzc</groupId>
       <artifactId>auto-table-annotation</artifactId>
@@ -246,25 +268,25 @@
     <dependency>
       <groupId>cn.hutool</groupId>
       <artifactId>hutool-core</artifactId>
-      <version>5.8.32</version>
+      <version>5.8.22</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>cn.hutool</groupId>
       <artifactId>hutool-crypto</artifactId>
-      <version>5.8.32</version>
+      <version>5.8.22</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>cn.hutool</groupId>
       <artifactId>hutool-http</artifactId>
-      <version>5.8.32</version>
+      <version>5.8.22</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>cn.hutool</groupId>
       <artifactId>hutool-json</artifactId>
-      <version>5.8.32</version>
+      <version>5.8.22</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

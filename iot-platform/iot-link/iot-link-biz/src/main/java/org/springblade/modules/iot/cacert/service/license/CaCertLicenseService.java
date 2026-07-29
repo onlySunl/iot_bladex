@@ -3,7 +3,7 @@ package org.springblade.modules.iot.cacert.service.license;
 import java.io.File;
 import java.time.LocalDateTime;
 
-import org.springblade.basic.mvc.service.SuperService;
+import org.springblade.core.mvc.service.SuperService;
 import org.springblade.modules.iot.cacert.entity.license.CaCertLicense;
 import org.springblade.modules.iot.cacert.vo.result.license.CaCertLicenseImpactResultVO;
 import org.springblade.modules.iot.cacert.vo.result.license.CaCertLicenseResultVO;

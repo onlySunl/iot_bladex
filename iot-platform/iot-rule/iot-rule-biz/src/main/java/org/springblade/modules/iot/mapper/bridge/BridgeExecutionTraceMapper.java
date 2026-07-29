@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.mapper.bridge;
 
-import org.springblade.basic.base.mapper.SuperMapper;
+import org.springblade.core.mvc.mapper.SuperMapper;
 import org.springblade.modules.iot.entity.bridge.BridgeExecutionTrace;
 import org.springblade.modules.iot.vo.query.bridge.BridgeExecutionTracePageQuery;
 import org.apache.ibatis.annotations.Param;

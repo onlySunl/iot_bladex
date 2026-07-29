@@ -2,7 +2,7 @@ package org.springblade.modules.iot.linkage.controller;
 
 import org.springblade.basic.base.R;
 import org.springblade.basic.base.controller.SuperController;
-import org.springblade.basic.base.request.PageParams;
+import org.springblade.core.mvc.request.PageParams;
 import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.interfaces.echo.EchoService;
 import org.springblade.modules.iot.datascope.DataScopeHelper;

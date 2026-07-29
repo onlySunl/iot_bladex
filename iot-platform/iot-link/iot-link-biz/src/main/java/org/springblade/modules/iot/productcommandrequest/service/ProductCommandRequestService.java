@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.productcommandrequest.service;
 
-import org.springblade.basic.mvc.service.SuperService;
+import org.springblade.core.mvc.service.SuperService;
 import org.springblade.modules.iot.productcommandrequest.entity.ProductCommandRequest;
 import org.springblade.modules.iot.productcommandrequest.vo.result.ProductCommandRequestResultVO;
 import org.springblade.modules.iot.productcommandrequest.vo.save.ProductCommandRequestSaveVO;

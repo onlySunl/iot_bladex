@@ -23,7 +23,7 @@ import org.springblade.basic.model.cache.CacheHashKey;
 import org.springblade.basic.utils.DateUtil;
 import org.springblade.modules.iot.common.cache.link.counter.DownLinkDataCounterCacheKeyBuilder;
 import org.springblade.modules.iot.common.cache.link.counter.UpLinkDataCounterCacheKeyBuilder;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.context.ContextAwareExecutor;
 import org.springblade.modules.iot.dashboard.enumeration.LinkDataTypeEnum;
 import org.springblade.modules.iot.dashboard.enumeration.TimeUnitEnum;

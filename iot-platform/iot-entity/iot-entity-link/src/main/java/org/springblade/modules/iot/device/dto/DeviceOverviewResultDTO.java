@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.device.dto;
 
 import cn.hutool.core.map.MapUtil;
-import com.mqttsnet.basic.interfaces.echo.EchoVO;
+import org.springblade.basic.interfaces.echo.EchoVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.springblade.basic.base.entity.Entity;

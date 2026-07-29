@@ -33,7 +33,7 @@ import org.springblade.modules.iot.common.cache.link.ota.OtaTaskExecutorOffsetCa
 import org.springblade.modules.iot.common.cache.link.product.ProductCacheKeyBuilder;
 import org.springblade.modules.iot.common.cache.link.product.ProductModelCacheKeyBuilder;
 import org.springblade.modules.iot.common.cache.link.product.ProductModelSuperTableCacheKeyBuilder;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.tds.vo.result.SuperTableDescribeVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -45,7 +45,30 @@
       <version>1.18.42</version>
       <scope>provided</scope>
     </dependency>
-
+    <dependency>
+      <groupId>org.springblade</groupId>
+      <artifactId>blade-core-basic</artifactId>
+      <version>4.9.0.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springblade</groupId>
+      <artifactId>blade-core-annotation</artifactId>
+      <version>4.9.0.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springblade</groupId>
+      <artifactId>iot-model</artifactId>
+      <version>4.9.0.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springblade</groupId>
+      <artifactId>iot-common</artifactId>
+      <version>4.9.0.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
     <dependency>
       <groupId>com.tangzc</groupId>
       <artifactId>auto-table-annotation</artifactId>

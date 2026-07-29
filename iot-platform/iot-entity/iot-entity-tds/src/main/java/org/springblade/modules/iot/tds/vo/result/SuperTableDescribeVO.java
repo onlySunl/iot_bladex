@@ -2,7 +2,6 @@ package org.springblade.modules.iot.tds.vo.result;
 
 
 import cn.hutool.core.map.MapUtil;
-import com.mqttsnet.basic.interfaces.echo.EchoVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,10 +10,11 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.springblade.basic.base.entity.Entity;
+import org.springblade.basic.interfaces.echo.EchoVO;
 
 import java.io.Serializable;
 import java.util.Map;
-import org.springblade.basic.base.entity.CustomBaseEntity;
 
 /**
  * @program: thinglinks-cloud
@@ -32,7 +32,7 @@ import org.springblade.basic.base.entity.CustomBaseEntity;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @Schema(title = "SuperTableDescribeVO", description = "超级表结构VO")
-public class SuperTableDescribeVO extends CustomBaseEntity implements Serializable, EchoVO {
+public class SuperTableDescribeVO extends Entity<Long> implements Serializable, EchoVO {
 
     private static final long serialVersionUID = 1L;
 

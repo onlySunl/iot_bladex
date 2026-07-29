@@ -1,26 +1,5 @@
 package org.springblade.modules.iot.productproperty.controller;
 
-import java.util.concurrent.TimeUnit;
-
-import org.springblade.basic.annotation.log.WebLog;
-import org.springblade.basic.base.R;
-import org.springblade.basic.base.controller.SuperController;
-import org.springblade.basic.base.request.PageParams;
-import org.springblade.basic.cache.lock.DistributedLock;
-import org.springblade.basic.cache.lock.LockRunResult;
-import org.springblade.basic.context.ContextUtil;
-import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
-import org.springblade.basic.exception.BizException;
-import org.springblade.basic.interfaces.echo.EchoService;
-import org.springblade.basic.model.cache.CacheKey;
-import org.springblade.modules.iot.common.lock.link.LinkLockKeyBuilder;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
-import org.springblade.modules.iot.productproperty.entity.ProductProperty;
-import org.springblade.modules.iot.productproperty.service.ProductPropertyService;
-import org.springblade.modules.iot.productproperty.vo.query.ProductPropertyPageQuery;
-import org.springblade.modules.iot.productproperty.vo.result.ProductPropertyResultVO;
-import org.springblade.modules.iot.productproperty.vo.save.ProductPropertySaveVO;
-import org.springblade.modules.iot.productproperty.vo.update.ProductPropertyUpdateVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -28,14 +7,27 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.basic.base.R;
+import org.springblade.basic.context.ContextUtil;
+import org.springblade.basic.exception.BizException;
+import org.springblade.basic.interfaces.echo.EchoService;
+import org.springblade.basic.model.cache.CacheKey;
+import org.springblade.common.iot.lock.link.LinkLockKeyBuilder;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.core.cache.lock.DistributedLock;
+import org.springblade.core.cache.lock.LockRunResult;
+import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.core.mvc.controller.SuperController;
+import org.springblade.modules.iot.productproperty.entity.ProductProperty;
+import org.springblade.modules.iot.productproperty.service.ProductPropertyService;
+import org.springblade.modules.iot.productproperty.vo.query.ProductPropertyPageQuery;
+import org.springblade.modules.iot.productproperty.vo.result.ProductPropertyResultVO;
+import org.springblade.modules.iot.productproperty.vo.save.ProductPropertySaveVO;
+import org.springblade.modules.iot.productproperty.vo.update.ProductPropertyUpdateVO;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -61,14 +53,6 @@ public class ProductPropertyController extends SuperController<ProductPropertySe
     @Override
     public EchoService getEchoService() {
         return echoService;
-    }
-
-    @Override
-    public QueryWrap<ProductProperty> handlerWrapper(ProductProperty model, PageParams<ProductPropertyPageQuery> params) {
-        QueryWrap<ProductProperty> queryWrap = super.handlerWrapper(model, params);
-        // 开启数据权限
-        DataScopeHelper.startDataScope("product_property");
-        return queryWrap;
     }
 
 

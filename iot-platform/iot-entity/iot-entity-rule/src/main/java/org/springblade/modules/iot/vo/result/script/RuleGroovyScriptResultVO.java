@@ -2,9 +2,9 @@ package org.springblade.modules.iot.vo.result.script;
 
 import com.google.common.base.Joiner;
 
-import com.mqttsnet.basic.model.cache.CacheKey;
-import com.mqttsnet.basic.utils.StrPool;
-import org.springblade.common.cache.rule.groovy.GroovyScriptCacheKeyBuilder;
+import org.springblade.basic.model.cache.CacheKey;
+import org.springblade.basic.utils.StrPool;
+import org.springblade.common.iot.cache.rule.groovy.GroovyScriptCacheKeyBuilder;
 import org.springblade.model.vo.AuditableResultVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -65,9 +65,6 @@ public class RuleGroovyScriptResultVO extends AuditableResultVO {
 
     @Schema(description = "Object Version")
     private String objectVersion;
-
-    @Schema(description = "Remark")
-    private String remark;
 
     /**
      * Get CacheHashKey

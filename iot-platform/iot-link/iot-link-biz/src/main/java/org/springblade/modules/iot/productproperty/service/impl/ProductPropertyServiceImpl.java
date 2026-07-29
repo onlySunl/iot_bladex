@@ -9,7 +9,7 @@ import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.basic.utils.BeanPlusUtil;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.product.constant.ThingModelCodeRule;
 import org.springblade.modules.iot.product.event.publisher.ProductEventPublisher;
 import org.springblade.modules.iot.product.event.source.ProductModelChangedSource;

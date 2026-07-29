@@ -1,32 +1,57 @@
 package org.springblade.core.tds.model;
 
+import cn.hutool.core.bean.BeanUtil;
 import lombok.Data;
 
-/**
- * 字段 VO
- *
- * @author Chill
- */
+import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Data
-public class FieldsVO {
+public class FieldsVO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
-     * 字段名
+     * 字段名称
      */
-    private String name;
+    private String fieldName;
 
     /**
-     * 字段类型
+     * 字段数据类型
      */
-    private String type;
+    private String dataType;
 
     /**
-     * 字段长度
+     * 字段字节大小
      */
-    private Integer length;
+    private Integer size;
 
-    /**
-     * 是否为标签
-     */
-    private Boolean isTag;
+    public FieldsVO() {
+    }
+
+    public FieldsVO(String fieldName) {
+        this.fieldName = fieldName;
+    }
+
+    public FieldsVO(String fieldName, String dataType) {
+        this.fieldName = fieldName;
+        this.dataType = dataType;
+    }
+
+    public FieldsVO(String fieldName, String dataType, Integer size) {
+        this.fieldName = fieldName;
+        this.dataType = dataType;
+        this.size = size;
+    }
+
+    public static List<Fields> toFieldsList(List<FieldsVO> fieldsVOList) {
+        return fieldsVOList.stream()
+                .map(fieldsVO -> BeanUtil.toBeanIgnoreError(fieldsVO, Fields.class))
+                .collect(Collectors.toList());
+    }
+
+    public static Fields toFields(FieldsVO fieldsVo) {
+        return BeanUtil.toBeanIgnoreError(fieldsVo, Fields.class);
+    }
 }

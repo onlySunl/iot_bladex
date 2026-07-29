@@ -1,10 +1,10 @@
 package org.springblade.modules.iot.vo.result.server;
 
-import com.mqttsnet.basic.utils.ArithUtil;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.basic.utils.ArithUtil;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.CentralProcessor.TickType;

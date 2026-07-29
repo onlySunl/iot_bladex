@@ -11,7 +11,7 @@ import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.basic.utils.SnowflakeIdUtil;
 import org.springblade.modules.iot.bridge.dispatcher.SinkDispatcher;
 import org.springblade.modules.iot.cache.vo.bridge.DataBridgeCacheVO;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
 import org.springblade.modules.iot.entity.bridge.BridgeExecutionStep;
 import org.springblade.modules.iot.entity.bridge.BridgeExecutionTrace;

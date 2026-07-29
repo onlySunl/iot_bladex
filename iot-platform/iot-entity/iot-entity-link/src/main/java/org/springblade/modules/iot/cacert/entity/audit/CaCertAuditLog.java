@@ -24,7 +24,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @AutoTable(value = "ca_cert_audit_log", comment = "CaCertAuditLog table")
-public class CaCertAuditLog extends Entity {
+public class CaCertAuditLog extends Entity<Long> {
 
     @Serial
     private static final long serialVersionUID = 1L;

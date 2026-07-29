@@ -3,7 +3,7 @@ package org.springblade.modules.iot.ota.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springblade.basic.mvc.service.SuperService;
+import org.springblade.core.mvc.service.SuperService;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeTargetsResultDTO;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeTargets;
 import org.springblade.modules.iot.ota.enumeration.OtaUpgradeTargetStatusEnum;

@@ -1,22 +1,18 @@
 package org.springblade.modules.iot.ota.service.impl;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springblade.basic.base.request.PageParams;
-import org.springblade.basic.base.service.impl.SuperServiceImpl;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.converter.Builder;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.basic.utils.BeanPlusUtil;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
+import org.springblade.core.mvc.request.PageParams;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeRecordsSummaryResultDTO;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeRecords;
 import org.springblade.modules.iot.ota.enumeration.OtaTaskRecordAppConfirmStatusEnum;
@@ -27,9 +23,13 @@ import org.springblade.modules.iot.ota.vo.result.OtaUpgradeRecordsResultVO;
 import org.springblade.modules.iot.ota.vo.result.OtaUpgradeRecordsSummaryResultVO;
 import org.springblade.modules.iot.ota.vo.save.OtaUpgradeRecordsSaveVO;
 import org.springblade.modules.iot.ota.vo.update.OtaUpgradeRecordsUpdateVO;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -126,8 +126,8 @@ public class OtaUpgradeRecordsServiceImpl extends SuperServiceImpl<OtaUpgradeRec
     @Override
     public OtaUpgradeRecordsSummaryResultVO getOtaUpgradeRecordsSummary(Long taskId) {
         PageParams<OtaUpgradeRecordsPageQuery> params = new PageParams<>();
-        OtaUpgradeRecordsPageQuery query = new OtaUpgradeRecordsPageQuery()
-                .setTaskId(taskId);
+        OtaUpgradeRecordsPageQuery query = new OtaUpgradeRecordsPageQuery();
+        query.setTaskId(taskId);
         params.setModel(query);
         OtaUpgradeRecordsSummaryResultDTO summaryDTO = superManager.selectOtaUpgradeRecordsSummary(params);
         return BeanPlusUtil.toBeanIgnoreError(summaryDTO, OtaUpgradeRecordsSummaryResultVO.class);

@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.service.script.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.dto.script.ProductInfoDTO;
 import org.springblade.modules.iot.service.script.GroovyScriptProductService;
 import lombok.RequiredArgsConstructor;

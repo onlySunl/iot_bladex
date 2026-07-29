@@ -16,7 +16,7 @@ import org.springblade.modules.iot.bridge.enrich.DataSourceInfoAttacher;
 import org.springblade.modules.iot.bridge.event.DataSourceDeleteCheckEvent;
 import org.springblade.modules.iot.bridge.event.SubscriptionSourceChangedEvent;
 import org.springblade.modules.iot.bridge.event.source.SubscriptionSourceChangedEventSource;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.entity.bridge.DataSource;
 import org.springblade.modules.iot.entity.bridge.SubscriptionSource;
 import org.springblade.modules.iot.manager.bridge.SubscriptionSourceManager;

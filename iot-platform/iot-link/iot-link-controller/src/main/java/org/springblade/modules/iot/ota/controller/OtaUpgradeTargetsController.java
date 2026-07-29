@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.ota.controller;
 
 import org.springblade.basic.base.controller.SuperController;
-import org.springblade.basic.base.request.PageParams;
-import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.core.mvc.request.PageParams;
+import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.interfaces.echo.EchoService;
 import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeTargets;

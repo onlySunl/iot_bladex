@@ -2,9 +2,9 @@ package org.springblade.modules.iot.manager.linkage.impl;
 
 import cn.hutool.core.text.CharSequenceUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import org.springblade.basic.base.manager.impl.SuperManagerImpl;
+import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
 import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.entity.linkage.Rule;
 import org.springblade.modules.iot.manager.linkage.RuleManager;
 import org.springblade.modules.iot.mapper.linkage.RuleMapper;

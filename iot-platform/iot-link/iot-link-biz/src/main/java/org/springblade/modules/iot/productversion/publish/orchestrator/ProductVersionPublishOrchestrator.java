@@ -13,11 +13,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 import cn.hutool.core.collection.CollUtil;
 import org.springblade.basic.base.R;
 import org.springblade.basic.exception.BizException;
-import org.springblade.basic.tds.constant.TdsConstants;
-import org.springblade.basic.tds.enumeration.TdDataTypeEnum;
-import org.springblade.basic.tds.model.FieldsVO;
-import org.springblade.basic.tds.model.SuperTableDTO;
-import org.springblade.basic.utils.DateUtil;
+import org.springblade.core.tds.constant.TdsConstants;
+import org.springblade.core.tds.enumeration.TdDataTypeEnum;
+import org.springblade.core.tds.model.FieldsVO;
+import org.springblade.core.tds.model.SuperTableDTO;
+import org.springblade.basic.utils.DateUtils;
 import org.springblade.modules.iot.cache.product.ProductModelCacheService;
 import org.springblade.modules.iot.device.service.DeviceService;
 import org.springblade.modules.iot.device.vo.result.DeviceVersionDistributionVO;
@@ -96,7 +96,7 @@ public class ProductVersionPublishOrchestrator {
     /**
      * 时间戳格式化器 ── DDL item.executedAt 字段的统一格式。
      */
-    private static final java.time.format.DateTimeFormatter EXECUTED_AT_FORMATTER = DateTimeFormatter.ofPattern(DateUtil.CHINESE_DATETIME_FORMAT_LINE);
+    private static final java.time.format.DateTimeFormatter EXECUTED_AT_FORMATTER = DateTimeFormatter.ofPattern(DateUtils.CHINESE_DATETIME_FORMAT_LINE);
 
     private final TdsFacade tdsFacade;
     private final ProductVersionService productVersionService;
@@ -376,7 +376,7 @@ public class ProductVersionPublishOrchestrator {
         long startMs = System.currentTimeMillis();
         for (ProductPublishRecord record : candidates) {
             // 创建已超 RETRY_TIMEOUT_HOURS 仍 RUNNING → 判永久卡死,markFailed 不再重试
-            if (record.getCreatedTime() != null && record.getCreatedTime().isBefore(timeoutBefore)
+            if (record.getCreateTime() != null && DateUtils.date2LocalDateTime(record.getCreateTime()).isBefore(timeoutBefore)
                 && ProductPublishRecordStatusEnum.RUNNING.getValue().equals(record.getStatus())) {
                 productPublishRecordService.markFailed(record.getId(),
                     "retry timeout: still RUNNING after " + RETRY_TIMEOUT_HOURS + "h, no further retry");

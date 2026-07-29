@@ -103,7 +103,6 @@
       <version>1.0.8.3</version>
       <scope>compile</scope>
     </dependency>
-
     <dependency>
       <groupId>com.tangzc</groupId>
       <artifactId>auto-table-annotation</artifactId>

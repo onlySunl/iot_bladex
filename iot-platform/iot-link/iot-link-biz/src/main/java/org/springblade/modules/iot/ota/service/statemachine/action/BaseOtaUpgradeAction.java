@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import com.alibaba.cola.statemachine.Action;
 import org.springblade.basic.utils.BeanPlusUtil;
+import org.springblade.common.utils.DateUtil;
 import org.springblade.modules.iot.device.vo.result.DeviceResultVO;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeRecordsResultDTO;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeTasksResultDTO;
@@ -343,7 +344,7 @@ public abstract class BaseOtaUpgradeAction implements Action<OtaUpgradeTaskStatu
         // 获取升级记录的开始时间（如果没有开始时间，使用创建时间）
         LocalDateTime recordStartTime = upgradeRecord.getStartTime();
         if (Objects.isNull(recordStartTime)) {
-            recordStartTime = upgradeRecord.getCreatedTime();
+            recordStartTime = DateUtil.toLocalDateTime(upgradeRecord.getCreateTime());
         }
 
         // 如果还是没有时间，则无法判断超时
