@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    blade-public: 公共核心模块聚合
+    管理所有 blade-core-* 子模块，提供基础框架能力
+-->
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>iot_bladex</artifactId>
+        <groupId>org.springblade</groupId>
+        <version>4.9.0.RELEASE</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>blade-public</artifactId>
+    <name>${project.artifactId}</name>
+    <description>公共核心模块聚合 - 管理所有 blade-core-* 子模块</description>
+    <packaging>pom</packaging>
+
+    <modules>
+        <!-- 基础核心模块 -->
+        <module>blade-core-basic</module>
+        <!-- MVC 核心模块 -->
+        <module>blade-core-mvc</module>
+        <!-- 数据库核心模块 -->
+        <module>blade-core-database</module>
+        <!-- 缓存核心模块 -->
+        <module>blade-core-cache</module>
+        <!-- 注解核心模块 -->
+        <module>blade-core-annotation</module>
+        <!-- 时序数据库核心模块 -->
+        <module>blade-core-tds</module>
+        <!-- 数据桥接核心模块 -->
+        <module>blade-core-databridge</module>
+        <!-- 动态线程池核心模块 -->
+        <module>blade-core-dynamic-tp</module>
+        <!-- MyBatis 扩展模块 -->
+        <module>blade-mybatis-ext</module>
+    </modules>
+
+    <dependencies>
+        <!-- 公共依赖由子模块各自管理 -->
+    </dependencies>
+</project>
