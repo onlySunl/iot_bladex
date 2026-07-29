@@ -3,9 +3,13 @@
     ========================================================================
     BLADE_IOT 物联网平台 - 顶层聚合工程
     ========================================================================
-    项目描述: 基于 Spring BladeX 框架的 IoT 物联网后端平台
+    职责: 管理主程序核心 JAR 包及引用
     技术栈: Java 17 + Spring Boot 3.2.10 + BladeX 4.9.0.RELEASE
-    构建工具: Maven
+    ========================================================================
+    子模块职责划分:
+    - blade-public:    核心框架模块 (blade-core-*)
+    - iot-platform:    IoT 物联网平台 (设备管理、规则引擎、消息队列等)
+    - nvr-platform:    NVR 视频平台 (GB28181、ONVIF、流媒体等)
     ========================================================================
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -42,19 +46,12 @@
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <lombok.version>1.18.36</lombok.version>
 
-        <!-- ===== 工具类库 ===== -->
+        <!-- ===== 通用工具类 ===== -->
         <hutool.version>5.8.32</hutool.version>
         <commons.beanutils.version>1.9.4</commons.beanutils.version>
         <swagger.version>1.5.22</swagger.version>
 
-        <!-- ===== 网络通信 ===== -->
-        <netty.version>4.1.94.Final</netty.version>
-        <okhttp.version>4.12.0</okhttp.version>
-
-        <!-- ===== 消息队列 ===== -->
-        <rocketmq.client.version>4.9.4</rocketmq.client.version>
-
-        <!-- ===== PDF/文档处理 ===== -->
+        <!-- ===== 文档处理 ===== -->
         <auto.table.version>1.8.3</auto.table.version>
         <tabula.version>1.0.5</tabula.version>
         <pdfbox.version>2.0.24</pdfbox.version>
@@ -65,14 +62,6 @@
 
         <!-- ===== 第三方 SDK ===== -->
         <weixin.miniapp.version>4.6.0</weixin.miniapp.version>
-        <thinglinks.version>1.0.8.3</thinglinks.version>
-
-        <!-- ===== Docker 配置 ===== -->
-        <docker.registry.url>192.168.0.188</docker.registry.url>
-        <docker.username>admin</docker.username>
-        <docker.password>admin12345</docker.password>
-        <docker.namespace>blade</docker.namespace>
-        <docker.fabric.version>0.42.0</docker.fabric.version>
     </properties>
 
     <!-- ==================== 依赖版本统一管理 ==================== -->
@@ -101,7 +90,7 @@
                 </exclusions>
             </dependency>
 
-            <!-- 项目内部模块 -->
+            <!-- ==================== 2. 项目内部公共模块 ==================== -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>blade-common</artifactId>
@@ -112,6 +101,8 @@
                 <artifactId>blade-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <!-- ==================== 3. 核心框架模块 (blade-public) ==================== -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>blade-core-basic</artifactId>
@@ -153,8 +144,7 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- ==================== 2. ORM 扩展 ==================== -->
-            <!-- MyBatis-Plus-Join (兼容 MyBatis-Plus 3.5.8+) -->
+            <!-- ==================== 4. ORM 扩展 ==================== -->
             <dependency>
                 <groupId>com.github.yulichang</groupId>
                 <artifactId>mybatis-plus-join-boot-starter</artifactId>
@@ -166,25 +156,6 @@
                 <version>4.3.1</version>
             </dependency>
 
-            <!-- ==================== 3. 网络通信 & 协议 ==================== -->
-            <dependency>
-                <groupId>io.netty</groupId>
-                <artifactId>netty-all</artifactId>
-                <version>${netty.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>okhttp</artifactId>
-                <version>${okhttp.version}</version>
-            </dependency>
-
-            <!-- ==================== 4. 消息队列 ==================== -->
-            <dependency>
-                <groupId>org.apache.rocketmq</groupId>
-                <artifactId>rocketmq-client</artifactId>
-                <version>${rocketmq.client.version}</version>
-            </dependency>
-
             <!-- ==================== 5. 通用工具类 ==================== -->
             <dependency>
                 <groupId>commons-beanutils</groupId>
@@ -192,19 +163,7 @@
                 <version>${commons.beanutils.version}</version>
             </dependency>
 
-            <!-- ==================== 6. 邮件服务 ==================== -->
-            <dependency>
-                <groupId>jakarta.mail</groupId>
-                <artifactId>jakarta.mail-api</artifactId>
-                <version>${jakarta.mail.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.angus</groupId>
-                <artifactId>jakarta.mail</artifactId>
-                <version>${angus.mail.version}</version>
-            </dependency>
-
-            <!-- ==================== 7. 文档处理 ==================== -->
+            <!-- ==================== 6. 文档处理 ==================== -->
             <dependency>
                 <groupId>com.tangzc</groupId>
                 <artifactId>auto-table-annotation</artifactId>
@@ -221,6 +180,18 @@
                 <version>${pdfbox.version}</version>
             </dependency>
 
+            <!-- ==================== 7. 邮件服务 ==================== -->
+            <dependency>
+                <groupId>jakarta.mail</groupId>
+                <artifactId>jakarta.mail-api</artifactId>
+                <version>${jakarta.mail.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.angus</groupId>
+                <artifactId>jakarta.mail</artifactId>
+                <version>${angus.mail.version}</version>
+            </dependency>
+
             <!-- ==================== 8. 对象映射 ==================== -->
             <dependency>
                 <groupId>org.mapstruct</groupId>
@@ -234,7 +205,6 @@
             </dependency>
 
             <!-- ==================== 9. 第三方 SDK ==================== -->
-            <!-- 微信小程序 -->
             <dependency>
                 <groupId>com.github.binarywang</groupId>
                 <artifactId>weixin-java-miniapp</artifactId>
@@ -246,7 +216,6 @@
     <!-- ==================== 全局公共依赖（所有子模块自动继承） ==================== -->
     <dependencies>
         <!-- ==================== 1. BladeX 基础框架 ==================== -->
-        <!-- 核心启动器 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-starter-mybatis</artifactId>
@@ -295,108 +264,78 @@
             <groupId>org.springblade</groupId>
             <artifactId>blade-starter-redis</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-generator</artifactId>
-        </dependency>
 
         <!-- ==================== 4. 业务功能 ==================== -->
-        <!-- Excel 导入导出 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-starter-excel</artifactId>
         </dependency>
-        <!-- 社交登录 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-starter-social</artifactId>
         </dependency>
-        <!-- 国际化 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-starter-i18n</artifactId>
         </dependency>
-        <!-- 报表 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-starter-report</artifactId>
         </dependency>
-        <!-- 规则引擎 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-starter-literule</artifactId>
         </dependency>
 
         <!-- ==================== 5. 云存储 SDK ==================== -->
-        <!-- AWS S3 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-oss</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-s3</artifactId>
         </dependency>
-        <!-- MinIO -->
         <dependency>
             <groupId>io.minio</groupId>
             <artifactId>minio</artifactId>
         </dependency>
-        <!-- 阿里云 OSS -->
         <dependency>
             <groupId>com.aliyun.oss</groupId>
             <artifactId>aliyun-sdk-oss</artifactId>
         </dependency>
-        <!-- 华为云 OBS -->
         <dependency>
             <groupId>com.huaweicloud</groupId>
             <artifactId>esdk-obs-java</artifactId>
         </dependency>
-        <!-- 腾讯云 COS -->
         <dependency>
             <groupId>com.qcloud</groupId>
             <artifactId>cos_api</artifactId>
         </dependency>
-        <!-- 七牛云 Kodo -->
         <dependency>
             <groupId>com.qiniu</groupId>
             <artifactId>qiniu-java-sdk</artifactId>
         </dependency>
 
         <!-- ==================== 6. 短信 SDK ==================== -->
-        <!-- 阿里云短信 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-sms</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-java-sdk-core</artifactId>
         </dependency>
-        <!-- 腾讯云短信 -->
         <dependency>
             <groupId>com.tencentcloudapi</groupId>
             <artifactId>tencentcloud-sdk-java-sms</artifactId>
         </dependency>
-        <!-- 云片短信 -->
         <dependency>
             <groupId>com.yunpian.sdk</groupId>
             <artifactId>yunpian-java-sdk</artifactId>
         </dependency>
 
-        <!-- ==================== 7. 文档处理 ==================== -->
-        <dependency>
-            <groupId>technology.tabula</groupId>
-            <artifactId>tabula</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-simple</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.pdfbox</groupId>
-            <artifactId>pdfbox</artifactId>
-        </dependency>
-
-        <!-- ==================== 8. Hutool 工具包 ==================== -->
+        <!-- ==================== 7. Hutool 工具包 ==================== -->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-core</artifactId>
@@ -414,52 +353,34 @@
             <artifactId>hutool-json</artifactId>
         </dependency>
 
-        <!-- ==================== 9. 自动建表 ==================== -->
+        <!-- ==================== 8. 其他公共依赖 ==================== -->
         <dependency>
             <groupId>com.tangzc</groupId>
             <artifactId>auto-table-annotation</artifactId>
             <scope>compile</scope>
         </dependency>
-
-        <!-- ==================== 10. 验证码 ==================== -->
         <dependency>
             <groupId>com.github.whvcse</groupId>
             <artifactId>easy-captcha</artifactId>
         </dependency>
-
-        <!-- ==================== 11. 任务调度 ==================== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-starter-powerjob</artifactId>
-        </dependency>
-
-        <!-- ==================== 12. 文件上传 & Redis 连接池 ==================== -->
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-starter-oss</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-starter-sms</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
-
-        <!-- ==================== 13. 微信小程序 ==================== -->
         <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-miniapp</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
         </dependency>
-
-        <!-- ==================== 14. Swagger 文档注解 ==================== -->
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
         </dependency>
 
-        <!-- ==================== 15. 编译期依赖（provided，不传递运行时） ==================== -->
+        <!-- ==================== 9. 编译期依赖 ==================== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-auto</artifactId>
@@ -476,7 +397,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- ==================== 16. 测试依赖 ==================== -->
+        <!-- ==================== 10. 测试依赖 ==================== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-test</artifactId>
@@ -491,7 +412,7 @@
         <!-- ===== 公共基础 ===== -->
         <module>blade-common</module>
         <module>blade-api</module>
-        <!-- ===== 核心框架（blade-core-* 聚合） ===== -->
+        <!-- ===== 核心框架 ===== -->
         <module>blade-public</module>
         <!-- ===== 业务平台 ===== -->
         <module>iot-platform</module>

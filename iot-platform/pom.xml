@@ -1,51 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    IoT Platform 根聚合工程
-    
+    ========================================================================
+    IoT 物联网平台 - 聚合工程
+    ========================================================================
+    职责: 管理 IoT 平台下的 JAR 包版本及引用
+    包含: 设备集成、MQTT Broker、消息队列、规则引擎、时序数据等
+    ========================================================================
     项目结构:
-    ├── iot-entity/          # 实体模块层 (所有业务实体定义)
-    │   ├── iot-entity-link      # 设备集成实体
-    │   ├── iot-entity-broker    # MQTT Broker 实体
-    │   ├── iot-entity-mqs       # 消息队列实体
-    │   ├── iot-entity-rule      # 规则引擎实体
-    │   ├── iot-entity-tds       # 时序数据实体
-    │   └── iot-entity-common    # 公共实体
-    │
+    ├── iot-entity/          # 实体模块层
     ├── iot-broker/          # MQTT Broker 服务层
-    │   ├── iot-broker-biz       # Broker 业务逻辑
-    │   ├── iot-broker-controller # Broker 控制器
-    │   ├── iot-broker-facade    # Broker 门面接口
-    │   └── iot-broker-server    # Broker 服务启动
-    │
     ├── iot-link/            # 设备集成服务层
-    │   ├── iot-link-biz         # 设备集成业务逻辑
-    │   ├── iot-link-controller  # 设备集成控制器
-    │   ├── iot-link-facade      # 设备集成门面接口
-    │   └── iot-link-server      # 设备集成服务启动
-    │
     ├── iot-mqs/             # 消息队列服务层
-    │   ├── iot-mqs-biz          # 消息队列业务逻辑
-    │   ├── iot-mqs-biz-bus      # 消息总线
-    │   ├── iot-mqs-controller   # 消息队列控制器
-    │   ├── iot-mqs-facade       # 消息队列门面接口
-    │   └── iot-mqs-server       # 消息队列服务启动
-    │
     ├── iot-rule/            # 规则引擎服务层
-    │   ├── iot-rule-biz         # 规则引擎业务逻辑
-    │   ├── iot-rule-biz-bridge  # 规则引擎数据桥接
-    │   ├── iot-rule-controller  # 规则引擎控制器
-    │   ├── iot-rule-facade      # 规则引擎门面接口
-    │   └── iot-rule-server      # 规则引擎服务启动
-    │
     ├── iot-sdk/             # SDK 模块
-    │   ├── iot-sdk-core         # SDK 核心
-    │   └── iot-simple-sdk       # 简单 SDK
-    │
-    └── iot-tds/             # 时序数据服务层
-        ├── iot-tds-biz          # 时序数据业务逻辑
-        ├── iot-tds-controller   # 时序数据控制器
-        ├── iot-tds-facade       # 时序数据门面接口
-        └── iot-tds-server       # 时序数据服务启动
+    ├── iot-tds/             # 时序数据服务层
+    ├── iot-common/          # 公共模块
+    └── iot-model/           # 模型模块
+    ========================================================================
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -61,41 +32,10 @@
     <artifactId>iot-platform</artifactId>
     <packaging>pom</packaging>
     <name>iot-platform</name>
-    <description>IoT 物联网平台聚合模块 - 基于 ThingLinks 迁移</description>
+    <description>IoT 物联网平台聚合工程 - 管理 IoT 相关依赖</description>
 
-    <!-- ======================================== -->
-    <!-- 子模块定义 (按业务域分组)                    -->
-    <!-- ======================================== -->
-    <modules>
-        <!-- 实体模块层: 所有业务实体定义 -->
-        <module>iot-entity</module>
-        
-        <!-- MQTT Broker 服务层: MQTT 消息代理 -->
-        <module>iot-broker</module>
-        
-        <!-- 设备集成服务层: 设备接入与管理 -->
-        <module>iot-link</module>
-        
-        <!-- 消息队列服务层: 消息路由与处理 -->
-        <module>iot-mqs</module>
-        
-        <!-- 规则引擎服务层: 场景联动与规则执行 -->
-        <module>iot-rule</module>
-        
-        <!-- SDK 模块: 客户端开发工具包 -->
-        <module>iot-sdk</module>
-        
-        <!-- 时序数据服务层: 时序数据存储与查询 -->
-        <module>iot-tds</module>
-        <module>iot-common</module>
-        <module>iot-model</module>
-    </modules>
-
-    <!-- ======================================== -->
-    <!-- 依赖版本管理                               -->
-    <!-- ======================================== -->
+    <!-- ==================== IoT 平台版本属性 ==================== -->
     <properties>
-        <!-- IoT Platform 版本 -->
         <iot-platform.version>4.9.0.RELEASE</iot-platform.version>
         
         <!-- 数据库相关 -->
@@ -121,18 +61,37 @@
         
         <!-- 脚本引擎 -->
         <groovy.version>4.0.15</groovy.version>
+        
+        <!-- 状态机 -->
+        <cola-statemachine.version>5.0.0</cola-statemachine.version>
     </properties>
 
-    <!-- ======================================== -->
-    <!-- 依赖管理 (子模块继承)                       -->
-    <!-- ======================================== -->
+    <!-- ==================== 子模块列表 ==================== -->
+    <modules>
+        <!-- 实体模块层 -->
+        <module>iot-entity</module>
+        <!-- MQTT Broker 服务层 -->
+        <module>iot-broker</module>
+        <!-- 设备集成服务层 -->
+        <module>iot-link</module>
+        <!-- 消息队列服务层 -->
+        <module>iot-mqs</module>
+        <!-- 规则引擎服务层 -->
+        <module>iot-rule</module>
+        <!-- SDK 模块 -->
+        <module>iot-sdk</module>
+        <!-- 时序数据服务层 -->
+        <module>iot-tds</module>
+        <!-- 公共模块 -->
+        <module>iot-common</module>
+        <!-- 模型模块 -->
+        <module>iot-model</module>
+    </modules>
+
+    <!-- ==================== IoT 平台依赖版本管理 ==================== -->
     <dependencyManagement>
         <dependencies>
-            <!-- ======================================== -->
-            <!-- 内部模块依赖                                -->
-            <!-- ======================================== -->
-            
-            <!-- 实体模块 -->
+            <!-- ==================== 1. IoT 实体模块 ==================== -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-entity-link</artifactId>
@@ -158,8 +117,14 @@
                 <artifactId>iot-entity-tds</artifactId>
                 <version>${iot-platform.version}</version>
             </dependency>
-            
-            <!-- 业务模块 -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-entity-common</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+
+            <!-- ==================== 2. IoT 业务模块 ==================== -->
+            <!-- 设备集成 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-link-biz</artifactId>
@@ -181,6 +146,7 @@
                 <version>${iot-platform.version}</version>
             </dependency>
             
+            <!-- 规则引擎 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-rule-biz</artifactId>
@@ -202,6 +168,7 @@
                 <version>${iot-platform.version}</version>
             </dependency>
             
+            <!-- MQTT Broker -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-broker-biz</artifactId>
@@ -213,6 +180,7 @@
                 <version>${iot-platform.version}</version>
             </dependency>
             
+            <!-- 消息队列 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-mqs-biz</artifactId>
@@ -224,6 +192,7 @@
                 <version>${iot-platform.version}</version>
             </dependency>
             
+            <!-- 时序数据 -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-tds-biz</artifactId>
@@ -235,7 +204,7 @@
                 <version>${iot-platform.version}</version>
             </dependency>
             
-            <!-- SDK 模块 -->
+            <!-- SDK -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-sdk-core</artifactId>
@@ -247,9 +216,7 @@
                 <version>${iot-platform.version}</version>
             </dependency>
 
-            <!-- ======================================== -->
-            <!-- 数据库相关依赖                              -->
-            <!-- ======================================== -->
+            <!-- ==================== 3. IoT 数据库相关 ==================== -->
             <dependency>
                 <groupId>com.mysql</groupId>
                 <artifactId>mysql-connector-j</artifactId>
@@ -266,18 +233,14 @@
                 <version>${mybatis-plus.version}</version>
             </dependency>
 
-            <!-- ======================================== -->
-            <!-- 缓存相关依赖                                -->
-            <!-- ======================================== -->
+            <!-- ==================== 4. IoT 缓存相关 ==================== -->
             <dependency>
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson-spring-boot-starter</artifactId>
                 <version>${redisson.version}</version>
             </dependency>
 
-            <!-- ======================================== -->
-            <!-- 消息队列依赖                                -->
-            <!-- ======================================== -->
+            <!-- ==================== 5. IoT 消息队列 ==================== -->
             <dependency>
                 <groupId>org.apache.rocketmq</groupId>
                 <artifactId>rocketmq-spring-boot-starter</artifactId>
@@ -289,9 +252,7 @@
                 <version>${kafka.version}</version>
             </dependency>
 
-            <!-- ======================================== -->
-            <!-- 工具类依赖                                  -->
-            <!-- ======================================== -->
+            <!-- ==================== 6. IoT 工具类 ==================== -->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
@@ -308,9 +269,7 @@
                 <version>${oshi.version}</version>
             </dependency>
 
-            <!-- ======================================== -->
-            <!-- 网络协议依赖                                -->
-            <!-- ======================================== -->
+            <!-- ==================== 7. IoT 网络协议 ==================== -->
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
@@ -322,9 +281,7 @@
                 <version>${mqtt-client.version}</version>
             </dependency>
 
-            <!-- ======================================== -->
-            <!-- 脚本引擎依赖                                -->
-            <!-- ======================================== -->
+            <!-- ==================== 8. IoT 脚本引擎 ==================== -->
             <dependency>
                 <groupId>org.apache.groovy</groupId>
                 <artifactId>groovy</artifactId>
@@ -335,72 +292,17 @@
                 <artifactId>groovy-json</artifactId>
                 <version>${groovy.version}</version>
             </dependency>
-            <!-- COLA 状态机 -->
+
+            <!-- ==================== 9. IoT 状态机 ==================== -->
             <dependency>
                 <groupId>com.alibaba.cola</groupId>
                 <artifactId>cola-component-statemachine</artifactId>
-                <version>5.0.0</version>
-            </dependency>
-            <!-- 基础实体模块 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-base-entity</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <!-- 核心 MVC 模块 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-core-mvc</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <!-- 核心数据库模块 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-core-database</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <!-- 核心缓存模块 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-core-cache</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <!-- BladeX API 模块 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-api</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <!-- BladeX 核心基础模块 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-core-basic</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <!-- 自定义注解模块 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-annotation</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <!-- 核心时序数据库模块 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-core-tds</artifactId>
-                <version>4.9.0.RELEASE</version>
-            </dependency>
-            <!-- 核心数据桥接模块 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-core-databridge</artifactId>
-                <version>4.9.0.RELEASE</version>
+                <version>${cola-statemachine.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
-    <!-- ======================================== -->
-    <!-- 构建配置                                    -->
-    <!-- ======================================== -->
+    <!-- ==================== 构建配置 ==================== -->
     <build>
         <plugins>
             <plugin>
@@ -422,9 +324,7 @@
         </plugins>
     </build>
 
-    <!-- ======================================== -->
-    <!-- 发布配置                                    -->
-    <!-- ======================================== -->
+    <!-- ==================== 发布配置 ==================== -->
     <distributionManagement>
         <repository>
             <id>blade-release</id>

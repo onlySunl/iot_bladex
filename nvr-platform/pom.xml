@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ========================================================================
+    NVR 视频平台 - 聚合工程
+    ========================================================================
+    职责: 管理 NVR 平台下的 JAR 包版本及引用
+    包含: 公共基础、业务、多厂商 SDK、GB28181/ONVIF/JT1078 等协议模块
+    ========================================================================
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- 顶层父工程：BLADE_IOT 统一基础框架版本 -->
     <parent>
         <groupId>org.springblade</groupId>
         <artifactId>iot_bladex</artifactId>
@@ -17,39 +24,35 @@
     <version>4.9.0.RELEASE</version>
     <packaging>pom</packaging>
     <name>nvr-platform</name>
-    <description>
-        NVR 国标/摄像头协议整体聚合根工程，统一管控所有子模块版本；
-        包含公共基础、业务、多厂商 SDK、GB28181/ONVIF/JT1078 等协议模块。
-    </description>
+    <description>NVR 视频平台聚合工程 - 管理 NVR 相关依赖</description>
 
+    <!-- ==================== NVR 平台特有版本属性 ==================== -->
     <properties>
-        <!-- NVR 平台特有组件版本 -->
+        <!-- 协议组件版本 -->
         <eclipse.paho.version>1.2.5</eclipse.paho.version>
         <milo.version>0.6.8</milo.version>
         <jain-sip.version>1.2.0</jain-sip.version>
+        <netty.version>4.1.94.Final</netty.version>
     </properties>
 
     <!-- ==================== 子模块列表 ==================== -->
     <modules>
+        <!-- 公共基础模块 -->
         <module>nvr-common</module>
+        <!-- API 接口模块 -->
         <module>nvr-api</module>
+        <!-- 服务模块 -->
         <module>nvr-service</module>
+        <!-- 业务模块 -->
         <module>nvr-biz</module>
+        <!-- 协议模块 -->
         <module>nvr-protocol</module>
     </modules>
 
-    <!-- ==================== 依赖版本统一管控 ==================== -->
+    <!-- ==================== NVR 平台依赖版本管理 ==================== -->
     <dependencyManagement>
         <dependencies>
-
-            <!-- ===== 1. BladeX 基础公共框架 ===== -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-common</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <!-- ===== 2. NVR 平台内部基础模块 ===== -->
+            <!-- ==================== 1. NVR 平台内部基础模块 ==================== -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>nvr-common</artifactId>
@@ -81,7 +84,7 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- ===== 3. NVR 协议实现模块 ===== -->
+            <!-- ==================== 2. NVR 协议实现模块 ==================== -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>nvr-protocol-qs</artifactId>
@@ -97,8 +100,13 @@
                 <artifactId>nvr-protocol-haikang-isup</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-protocol-onvif</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
-            <!-- ===== 4. 各厂商/国标协议 API 模块 ===== -->
+            <!-- ==================== 3. NVR 厂商 API 模块 ==================== -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>nvr-api-dahua</artifactId>
@@ -140,28 +148,31 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- ===== 5. 第三方协议/网络组件 ===== -->
+            <!-- ==================== 4. NVR 协议/网络组件 ==================== -->
+            <!-- SIP 协议栈 -->
             <dependency>
                 <groupId>javax.sip</groupId>
                 <artifactId>jain-sip-api</artifactId>
                 <version>${jain-sip.version}</version>
             </dependency>
+            <!-- Netty 网络框架 -->
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
                 <version>${netty.version}</version>
             </dependency>
+            <!-- MQTT 客户端 -->
             <dependency>
                 <groupId>org.eclipse.paho</groupId>
                 <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
                 <version>${eclipse.paho.version}</version>
             </dependency>
+            <!-- OPC UA (Milo) -->
             <dependency>
                 <groupId>org.eclipse.milo</groupId>
                 <artifactId>stack-client</artifactId>
                 <version>${milo.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 </project>
