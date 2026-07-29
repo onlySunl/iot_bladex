@@ -41,6 +41,8 @@
         <module>blade-core-easyexcel</module>
         <!-- 协议抽象模块 -->
         <module>blade-core-protocol</module>
+        <!-- 数据验证模块 -->
+        <module>blade-core-validator</module>
     </modules>
 
     <dependencies>
