@@ -35,6 +35,8 @@
         <module>blade-core-databridge</module>
         <!-- 动态线程池核心模块 -->
         <module>blade-core-dynamic-tp</module>
+        <!-- UID 生成模块 -->
+        <module>blade-core-uid</module>
     </modules>
 
     <dependencies>
