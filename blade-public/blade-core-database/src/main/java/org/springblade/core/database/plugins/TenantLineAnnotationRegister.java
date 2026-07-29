@@ -2,11 +2,11 @@ package org.springblade.core.database.plugins;
 
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
-import com.mqttsnet.basic.annotation.database.TenantLine;
 import org.springblade.basic.utils.StrPool;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springblade.core.annotation.database.TenantLine;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanPostProcessor;

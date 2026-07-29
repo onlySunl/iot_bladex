@@ -16,8 +16,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.idev.excel.annotation.ExcelProperty;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.basic.context.ContextUtil;
-import org.springblade.basic.easyexcel.ExcelCheckResult;
-import org.springblade.basic.easyexcel.ExcelImportErrDto;
+
 import org.springblade.basic.utils.SnowflakeIdUtil;
 import org.springblade.basic.utils.TenantUtil;
 import org.springblade.common.iot.constant.DsConstant;

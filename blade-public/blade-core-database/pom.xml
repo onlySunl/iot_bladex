@@ -48,8 +48,13 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-basic</artifactId>
+            <version>4.9.0.RELEASE</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-uid</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
         <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-core</artifactId>
@@ -62,11 +67,10 @@
             <version>3.9.1</version>
             <scope>compile</scope>
         </dependency>
-        <!-- 百度雪花算法UID生成器 -->
         <dependency>
-            <groupId>com.github.wujun234</groupId>
-            <artifactId>uid-generator-spring-boot-starter</artifactId>
-            <version>1.0.6</version>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-annotation</artifactId>
         </dependency>
+
     </dependencies>
 </project>
