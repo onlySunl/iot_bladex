@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springblade</groupId>
+        <artifactId>iot-platform</artifactId>
+        <version>4.9.0.RELEASE</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>iot-base</artifactId>
+    <name>${project.artifactId}</name>
+    <packaging>jar</packaging>
+    <description>IoT 平台基础模块 - 提供基础实体、枚举、异常、工具类</description>
+
+    <dependencies>
+        <!-- Blade Core Basic -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-basic</artifactId>
+        </dependency>
+
+        <!-- Blade Core MVC -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-mvc</artifactId>
+        </dependency>
+
+        <!-- Blade Core Database -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-database</artifactId>
+        </dependency>
+
+        <!-- Blade Core Cache -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-cache</artifactId>
+        </dependency>
+
+        <!-- Blade Core Validator -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-validator</artifactId>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+</project>

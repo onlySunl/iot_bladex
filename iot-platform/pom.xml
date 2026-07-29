@@ -70,6 +70,8 @@
     <modules>
         <!-- 实体模块层 -->
         <module>iot-entity</module>
+        <!-- IoT 基础模块 -->
+        <module>iot-base</module>
         <!-- MQTT Broker 服务层 -->
         <module>iot-broker</module>
         <!-- 设备集成服务层 -->
