@@ -1,0 +1,110 @@
+package org.springblade.modules.iot.msg.strategy.impl.mail;
+
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.StrUtil;
+import com.mqttsnet.basic.exception.BizException;
+import org.springblade.modules.iot.msg.entity.ExtendMsg;
+import org.springblade.modules.iot.msg.entity.ExtendMsgRecipient;
+import org.springblade.modules.iot.msg.entity.ExtendMsgTemplate;
+import org.springblade.modules.iot.msg.strategy.MsgStrategy;
+import org.springblade.modules.iot.msg.strategy.domain.MsgParam;
+import org.springblade.modules.iot.msg.strategy.domain.MsgResult;
+import org.springblade.modules.iot.msg.strategy.domain.mail.NetEaseMailProperty;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.HtmlEmail;
+import org.springframework.stereotype.Service;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 网易邮件
+ *
+ * @author mqttsnet
+ * @date 2026/01/04 17:56
+ */
+@Slf4j
+@Service("netEaseMailMsgStrategyImpl")
+public class NetEaseMailMsgStrategyImpl implements MsgStrategy {
+
+    @Override
+    public MsgResult exec(MsgParam msgParam) {
+        ExtendMsg extendMsg = msgParam.getExtendMsg();
+        List<ExtendMsgRecipient> recipientList = msgParam.getRecipientList();
+        ExtendMsgTemplate extendMsgTemplate = msgParam.getExtendMsgTemplate();
+        Map<String, Object> propertyParams = msgParam.getPropertyParams();
+
+        List<File> tempFileList = new ArrayList<>();
+        try {
+            NetEaseMailProperty property = new NetEaseMailProperty();
+            BeanUtil.fillBeanWithMap(propertyParams, property, true);
+            if (property.getDebug() != null && property.getDebug()) {
+                return MsgResult.builder().result("debug模式无需发送").build();
+            }
+            MsgResult msgResult = replaceVariable(extendMsg, extendMsgTemplate);
+            HtmlEmail email = buildEmail(msgResult, recipientList, property, tempFileList);
+
+            return msgResult.setResult(email.send());
+        } catch (Exception e) {
+            log.warn("邮件发送失败:", e);
+            throw new BizException(e.getMessage());
+        } finally {
+            for (File file : tempFileList) {
+                try {
+                    log.info("delete temp file : {}", file.getAbsoluteFile());
+                    FileUtils.forceDelete(file);
+                } catch (IOException e) {
+                    log.error(e.getMessage(), e);
+                }
+            }
+        }
+    }
+
+    private HtmlEmail buildEmail(MsgResult msgResult, List<ExtendMsgRecipient> recipientList,
+                                 NetEaseMailProperty property, List<File> tempFileList)
+            throws EmailException {
+        HtmlEmail htmlEmail = new HtmlEmail();
+
+        htmlEmail.setHostName(property.getHostName());
+        if (property.getSsl() != null && property.getSsl()) {
+            htmlEmail.setSSLOnConnect(true);
+            if (StrUtil.isNotEmpty(property.getSmtpPort())) {
+                htmlEmail.setSslSmtpPort(property.getSmtpPort());
+            }
+        } else {
+            if (StrUtil.isNotEmpty(property.getSmtpPort())) {
+                htmlEmail.setSmtpPort(Integer.parseInt(property.getSmtpPort()));
+            }
+        }
+
+        htmlEmail.setAuthentication(property.getUsername(), property.getPassword());
+        if (property.getDebug() != null) {
+            htmlEmail.setDebug(property.getDebug());
+        }
+        htmlEmail.setCharset(StrUtil.isNotEmpty(property.getCharset()) ? property.getCharset() : StandardCharsets.UTF_8.name());
+        if (StrUtil.isNotEmpty(property.getFromName()) && StrUtil.isNotEmpty(property.getFromEmail())) {
+            htmlEmail.setFrom(property.getFromEmail(), property.getFromName());
+        }
+
+        for (ExtendMsgRecipient recipient : recipientList) {
+            if (StrUtil.isNotEmpty(recipient.getExt())) {
+                htmlEmail.addTo(recipient.getRecipient(), recipient.getExt());
+            } else {
+                htmlEmail.addTo(recipient.getRecipient());
+            }
+        }
+
+        htmlEmail.setSubject(msgResult.getTitle());
+        htmlEmail.setHtmlMsg(msgResult.getContent());
+
+        // 附件
+
+        return htmlEmail;
+    }
+}

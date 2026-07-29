@@ -1,0 +1,45 @@
+package org.springblade.modules.iot.base.manager.system.impl;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mqttsnet.basic.base.manager.impl.SuperManagerImpl;
+import com.mqttsnet.basic.database.mybatis.conditions.Wraps;
+import org.springblade.modules.iot.base.entity.system.BaseOperationLog;
+import org.springblade.modules.iot.base.manager.system.BaseOperationLogManager;
+import org.springblade.modules.iot.base.mapper.system.BaseOperationLogExtMapper;
+import org.springblade.modules.iot.base.mapper.system.BaseOperationLogMapper;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * <p>
+ * 通用业务实现类
+ * 操作日志
+ * </p>
+ *
+ * @author mqttsnet
+ * @date 2021-11-08
+ * @create [2021-11-08] [mqttsnet] 
+ */
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class BaseOperationLogManagerImpl extends SuperManagerImpl<BaseOperationLogMapper, BaseOperationLog> implements BaseOperationLogManager {
+    private final BaseOperationLogExtMapper baseOperationLogExtMapper;
+
+    @Override
+    public Long clearLog(LocalDateTime clearBeforeTime, Integer clearBeforeNum) {
+        List<Long> idList = Collections.emptyList();
+        if (clearBeforeNum != null) {
+            Page<BaseOperationLog> page = super.page(new Page<>(0, clearBeforeNum), Wraps.<BaseOperationLog>lbQ().select(BaseOperationLog::getId).orderByDesc(BaseOperationLog::getCreatedTime));
+            idList = page.getRecords().stream().map(BaseOperationLog::getId).toList();
+        }
+        baseOperationLogExtMapper.clearLog(clearBeforeTime, idList);
+        return baseMapper.clearLog(clearBeforeTime, idList);
+    }
+
+}
