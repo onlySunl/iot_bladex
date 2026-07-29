@@ -102,7 +102,6 @@ org\springblade\modules\iot\productversion\vo\snapshot\ProductSnapshotServiceVO$
 org\springblade\modules\iot\productcommand\vo\param\ProductCommandParamVO$ProductCommandParamVOBuilder.class
 org\springblade\modules\iot\productservice\vo\param\ProductServiceMqParamVO$ProductServiceMqParamVOBuilder.class
 org\springblade\modules\iot\cacert\vo\save\license\CaCertLicenseSaveVO.class
-org\springblade\modules\iot\protocol\factory\ProtocolMessageAdapter.class
 org\springblade\modules\iot\device\vo\result\DeviceSslTestStepVO.class
 org\springblade\modules\iot\ota\vo\query\OtaUpgradesPageQuery$OtaUpgradesPageQueryBuilder.class
 org\springblade\modules\iot\productversion\vo\canary\CanaryGroup$CanaryGroupBuilder.class

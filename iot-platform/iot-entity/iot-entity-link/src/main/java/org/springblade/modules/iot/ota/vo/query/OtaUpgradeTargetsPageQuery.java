@@ -11,6 +11,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
+
 /**
  * <p>
  * 表单查询条件VO
@@ -26,6 +28,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode
 @Builder
+@Accessors(chain = true)
 @Schema(description = "OTA升级目标表")
 public class OtaUpgradeTargetsPageQuery implements Serializable {
 

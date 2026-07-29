@@ -2,9 +2,9 @@ package org.springblade.core.mvc.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.mqttsnet.basic.annotation.log.WebLog;
 import org.springblade.basic.base.R;
 import org.springblade.basic.base.entity.SuperEntity;
+import org.springblade.core.annotation.log.WebLog;
 import org.springblade.core.database.mybatis.conditions.Wraps;
 import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.interfaces.echo.EchoService;

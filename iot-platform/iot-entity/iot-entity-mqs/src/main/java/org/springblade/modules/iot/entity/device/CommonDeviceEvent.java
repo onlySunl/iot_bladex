@@ -5,7 +5,7 @@ import java.util.Map;
 import com.alibaba.fastjson2.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
-import org.springblade.common.enums.DeviceActionTypeEnum;
+import org.springblade.modules.iot.device.enumeration.DeviceActionTypeEnum;
 import org.springblade.modules.iot.product.enumeration.ProtocolTypeEnum;
 import lombok.Builder;
 import lombok.Getter;

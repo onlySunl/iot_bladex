@@ -16,11 +16,12 @@ import org.springblade.basic.exception.BizException;
 import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.basic.utils.SnowflakeIdUtil;
+import org.springblade.core.protocol.factory.ProtocolMessageAdapter;
+import org.springblade.core.protocol.model.EncryptionDetailsDTO;
+import org.springblade.core.protocol.model.ProtocolDataMessageDTO;
 import org.springblade.modules.iot.broker.MqttBrokerOpenInnerFacade;
 import org.springblade.modules.iot.broker.WebSocketBrokerOpenInnerFacade;
 import org.springblade.modules.iot.broker.DeviceDownlinkFacade;
-import org.springblade.modules.iot.protocol.factory.ProtocolMessageAdapter;
-import org.springblade.modules.iot.protocol.model.EncryptionDetailsDTO;
 import org.springblade.modules.iot.vo.query.DownlinkCommand;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
@@ -322,7 +323,7 @@ public class DeviceCommandServiceImpl extends SuperServiceImpl<DeviceCommandMana
      * Creates a DeviceCommandSaveVO object based on the command request and response.
      *
      * @param deviceResultVO The device result value object.
-     * @param response       The response from the MQTT broker.
+     * @param     outcome   The response from the MQTT broker.
      * @return A populated DeviceCommandSaveVO object.
      */
     private DeviceCommandSaveVO createDeviceCommandSaveVO(DeviceResultVO deviceResultVO, SendOutcome outcome) {

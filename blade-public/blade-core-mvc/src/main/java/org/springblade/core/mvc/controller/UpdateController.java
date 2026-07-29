@@ -1,9 +1,9 @@
 package org.springblade.core.mvc.controller;
 
-import com.mqttsnet.basic.annotation.log.WebLog;
 import org.springblade.basic.base.R;
 import org.springblade.basic.base.entity.SuperEntity;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springblade.core.annotation.log.WebLog;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;

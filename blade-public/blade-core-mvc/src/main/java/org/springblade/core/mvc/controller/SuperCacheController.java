@@ -1,9 +1,9 @@
 package org.springblade.core.mvc.controller;
 
-import com.mqttsnet.basic.annotation.log.WebLog;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springblade.basic.base.R;
 import org.springblade.basic.base.entity.SuperEntity;
+import org.springblade.core.annotation.log.WebLog;
 import org.springblade.core.mvc.service.SuperCacheService;
 import org.springblade.basic.utils.BeanPlusUtil;
 import org.springframework.web.bind.annotation.PathVariable;

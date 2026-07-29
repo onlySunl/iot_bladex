@@ -417,7 +417,7 @@ public class OtaUpgradeTasksServiceImpl extends SuperServiceImpl<OtaUpgradeTasks
 
         // 获取最新的升级记录（按创建时间排序）
         OtaUpgradeRecordsResultVO record = upgradeRecords.stream()
-                .max(Comparator.comparing(OtaUpgradeRecordsResultVO::getCreatedTime, Comparator.nullsLast(Comparator.naturalOrder())))
+                .max(Comparator.comparing(OtaUpgradeRecordsResultVO::getCreateTime, Comparator.nullsLast(Comparator.naturalOrder())))
                 .orElseThrow(() -> BizException.wrap("No OTA upgrade package found for the device"));
 
         // 根据升级记录中的升级包ID查询升级包信息
@@ -728,7 +728,7 @@ public class OtaUpgradeTasksServiceImpl extends SuperServiceImpl<OtaUpgradeTasks
                 .collect(Collectors.toMap(OtaUpgradeTasksResultVO::getId, v -> v));
 
         List<TopoOtaListUpgradeableVersionsResponseParam.UpgradeVersionInfo> upgradeVersionsList = upgradeRecords.stream()
-                .sorted(Comparator.comparing(OtaUpgradeRecordsResultVO::getCreatedTime, Comparator.nullsFirst(Comparator.reverseOrder())))
+                .sorted(Comparator.comparing(OtaUpgradeRecordsResultVO::getCreateTime, Comparator.nullsFirst(Comparator.reverseOrder())))
                 .map(record -> buildUpgradeVersionInfo(record, packageType, otaUpgradesResultDTOMap, otaUpgradeTasksResultVOMap))
                 .filter(Optional::isPresent)
                 .map(Optional::get)

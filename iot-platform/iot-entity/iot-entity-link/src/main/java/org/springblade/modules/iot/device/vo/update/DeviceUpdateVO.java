@@ -10,6 +10,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springblade.basic.base.entity.Entity;
+import org.springblade.modules.iot.device.entity.Device;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -26,7 +28,7 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @Builder
 @Schema(title = "DeviceUpdateVO", description = "设备档案信息表")
-public class DeviceUpdateVO implements Serializable {
+public class DeviceUpdateVO extends Device {
 
     @Serial
     private static final long serialVersionUID = 1L;
