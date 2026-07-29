@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.springblade.modules.iot</groupId>
+        <artifactId>iot-message-facade</artifactId>
+        <version>4.9.0.RELEASE</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>iot-message-boot-impl</artifactId>
+    <name>${project.artifactId}</name>
+    <description>系统服务api层-单体版实现类</description>
+    <dependencies>
+        <dependency>
+            <groupId>org.springblade.modules.iot</groupId>
+            <artifactId>iot-message-api</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade.modules.iot</groupId>
+            <artifactId>iot-message-biz</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+    </dependencies>
+
+</project>
