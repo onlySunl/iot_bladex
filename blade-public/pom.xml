@@ -43,6 +43,8 @@
         <module>blade-core-protocol</module>
         <!-- 数据验证模块 -->
         <module>blade-core-validator</module>
+        <!-- Kafka 集成模块 -->
+        <module>blade-core-kafka</module>
     </modules>
 
     <dependencies>
