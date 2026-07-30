@@ -3,7 +3,7 @@ package org.springblade.modules.iot.msg.strategy;
 import cn.hutool.core.util.StrUtil;
 import org.springblade.basic.jackson.JsonUtil;
 import org.springblade.basic.model.Kv;
-import org.springblade.modules.iot.common.utils.FreeMarkerUtil;
+import org.springblade.common.iot.utils.FreeMarkerUtil;
 import org.springblade.modules.iot.msg.entity.ExtendMsg;
 import org.springblade.modules.iot.msg.entity.ExtendMsgTemplate;
 import org.springblade.modules.iot.msg.glue.GlueFactory;

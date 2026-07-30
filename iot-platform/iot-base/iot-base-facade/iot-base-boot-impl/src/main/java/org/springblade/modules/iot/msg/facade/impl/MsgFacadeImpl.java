@@ -1,4 +1,12 @@
 package org.springblade.modules.iot.msg.facade.impl;
+
+import lombok.RequiredArgsConstructor;
+import org.springblade.modules.iot.msg.biz.MsgBiz;
+import org.springblade.modules.iot.msg.facade.MsgFacade;
+import org.springblade.modules.iot.msg.vo.update.ExtendMsgPublishVO;
+import org.springblade.modules.iot.msg.vo.update.ExtendMsgSendVO;
+import org.springframework.stereotype.Service;
+
 /**
  * 消息接口
  *
