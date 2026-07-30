@@ -49,6 +49,8 @@
         <module>blade-core-fastdfs</module>
         <!-- 钉钉集成模块 -->
         <module>blade-core-dinger</module>
+        <!-- RocketMQ 集成模块 -->
+        <module>blade-core-rocketmq</module>
     </modules>
 
     <dependencies>
