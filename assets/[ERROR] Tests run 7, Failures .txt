@@ -1,0 +1,114 @@
+[ERROR] Tests run: 7, Failures: 3, Errors: 1, Skipped: 0, Time elapsed: 2.159 s <<< FAILURE! -- in org.springblade.modules.iot.file.strategy.impl.local.LocalFileStrategyImplTest
+[ERROR] org.springblade.modules.iot.file.strategy.impl.local.LocalFileStrategyImplTest.uploadRejectsTraversalInBusinessType -- Time elapsed: 2.098 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception type thrown, expected: <org.springblade.basic.exception.BizException> but was: <java.lang.NoClassDefFoundError>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:67)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3128)
+	at org.springblade.modules.iot.file.strategy.impl.local.LocalFileStrategyImplTest.uploadRejectsTraversalInBusinessType(LocalFileStrategyImplTest.java:74)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: java.lang.NoClassDefFoundError: org/apache/commons/io/input/UnsynchronizedByteArrayInputStream
+	at org.apache.tika.config.TikaConfig.getDefaultMimeTypes(TikaConfig.java:335)
+	at org.apache.tika.config.TikaConfig.<init>(TikaConfig.java:262)
+	at org.apache.tika.config.TikaConfig.getDefaultConfig(TikaConfig.java:409)
+	at org.apache.tika.Tika.<init>(Tika.java:119)
+	at org.springblade.common.iot.utils.FileUploadUtils.<clinit>(FileUploadUtils.java:30)
+	at org.springblade.modules.iot.file.strategy.impl.AbstractFileStrategy.upload(AbstractFileStrategy.java:62)
+	at org.springblade.modules.iot.file.strategy.impl.local.LocalFileStrategyImplTest.lambda$uploadRejectsTraversalInBusinessType$1(LocalFileStrategyImplTest.java:75)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
+	... 6 more
+Caused by: java.lang.ClassNotFoundException: org.apache.commons.io.input.UnsynchronizedByteArrayInputStream
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:520)
+	... 14 more
+[ERROR] org.springblade.modules.iot.file.strategy.impl.local.LocalFileStrategyImplTest.uploadRejectsTraversalInBucket -- Time elapsed: 0.006 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception type thrown, expected: <org.springblade.basic.exception.BizException> but was: <java.lang.NoClassDefFoundError>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:67)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3128)
+	at org.springblade.modules.iot.file.strategy.impl.local.LocalFileStrategyImplTest.uploadRejectsTraversalInBucket(LocalFileStrategyImplTest.java:64)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: java.lang.NoClassDefFoundError: Could not initialize class org.springblade.common.iot.utils.FileUploadUtils
+	at org.springblade.modules.iot.file.strategy.impl.AbstractFileStrategy.upload(AbstractFileStrategy.java:62)
+	at org.springblade.modules.iot.file.strategy.impl.local.LocalFileStrategyImplTest.lambda$uploadRejectsTraversalInBucket$0(LocalFileStrategyImplTest.java:65)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
+	... 6 more
+Caused by: java.lang.ExceptionInInitializerError: Exception java.lang.NoClassDefFoundError: org/apache/commons/io/input/UnsynchronizedByteArrayInputStream [in thread "main"]
+	at org.apache.tika.config.TikaConfig.getDefaultMimeTypes(TikaConfig.java:335)
+	at org.apache.tika.config.TikaConfig.<init>(TikaConfig.java:262)
+	at org.apache.tika.config.TikaConfig.getDefaultConfig(TikaConfig.java:409)
+	at org.apache.tika.Tika.<init>(Tika.java:119)
+	at org.springblade.common.iot.utils.FileUploadUtils.<clinit>(FileUploadUtils.java:30)
+	at org.springblade.modules.iot.file.strategy.impl.AbstractFileStrategy.upload(AbstractFileStrategy.java:62)
+	at org.springblade.modules.iot.file.strategy.impl.local.LocalFileStrategyImplTest.lambda$uploadRejectsTraversalInBusinessType$1(LocalFileStrategyImplTest.java:75)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3128)
+	at org.springblade.modules.iot.file.strategy.impl.local.LocalFileStrategyImplTest.uploadRejectsTraversalInBusinessType(LocalFileStrategyImplTest.java:74)
+	... 3 more
+[ERROR] org.springblade.modules.iot.file.strategy.impl.local.LocalFileStrategyImplTest.uploadStoresFileInsideConfiguredRoot -- Time elapsed: 0.005 s <<< ERROR!
+java.lang.NoClassDefFoundError: Could not initialize class org.springblade.common.iot.utils.FileUploadUtils
+	at org.springblade.modules.iot.file.strategy.impl.AbstractFileStrategy.upload(AbstractFileStrategy.java:62)
+	at org.springblade.modules.iot.file.strategy.impl.local.LocalFileStrategyImplTest.uploadStoresFileInsideConfiguredRoot(LocalFileStrategyImplTest.java:51)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: java.lang.ExceptionInInitializerError: Exception java.lang.NoClassDefFoundError: org/apache/commons/io/input/UnsynchronizedByteArrayInputStream [in thread "main"]
+	at org.apache.tika.config.TikaConfig.getDefaultMimeTypes(TikaConfig.java:335)
+	at org.apache.tika.config.TikaConfig.<init>(TikaConfig.java:262)
+	at org.apache.tika.config.TikaConfig.getDefaultConfig(TikaConfig.java:409)
+	at org.apache.tika.Tika.<init>(Tika.java:119)
+	at org.springblade.common.iot.utils.FileUploadUtils.<clinit>(FileUploadUtils.java:30)
+	at org.springblade.modules.iot.file.strategy.impl.AbstractFileStrategy.upload(AbstractFileStrategy.java:62)
+	at org.springblade.modules.iot.file.strategy.impl.local.LocalFileStrategyImplTest.lambda$uploadRejectsTraversalInBusinessType$1(LocalFileStrategyImplTest.java:75)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3128)
+	at org.springblade.modules.iot.file.strategy.impl.local.LocalFileStrategyImplTest.uploadRejectsTraversalInBusinessType(LocalFileStrategyImplTest.java:74)
+	... 3 more
+[ERROR] org.springblade.modules.iot.file.strategy.impl.local.LocalFileStrategyImplTest.uploadRejectsBucketSymlinkOutsideStorageRoot -- Time elapsed: 0.006 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception type thrown, expected: <org.springblade.basic.exception.BizException> but was: <java.lang.NoClassDefFoundError>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:67)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3128)
+	at org.springblade.modules.iot.file.strategy.impl.local.LocalFileStrategyImplTest.uploadRejectsBucketSymlinkOutsideStorageRoot(LocalFileStrategyImplTest.java:86)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: java.lang.NoClassDefFoundError: Could not initialize class org.springblade.common.iot.utils.FileUploadUtils
+	at org.springblade.modules.iot.file.strategy.impl.AbstractFileStrategy.upload(AbstractFileStrategy.java:62)
+	at org.springblade.modules.iot.file.strategy.impl.local.LocalFileStrategyImplTest.lambda$uploadRejectsBucketSymlinkOutsideStorageRoot$2(LocalFileStrategyImplTest.java:87)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
+	... 6 more
+Caused by: java.lang.ExceptionInInitializerError: Exception java.lang.NoClassDefFoundError: org/apache/commons/io/input/UnsynchronizedByteArrayInputStream [in thread "main"]
+	at org.apache.tika.config.TikaConfig.getDefaultMimeTypes(TikaConfig.java:335)
+	at org.apache.tika.config.TikaConfig.<init>(TikaConfig.java:262)
+	at org.apache.tika.config.TikaConfig.getDefaultConfig(TikaConfig.java:409)
+	at org.apache.tika.Tika.<init>(Tika.java:119)
+	at org.springblade.common.iot.utils.FileUploadUtils.<clinit>(FileUploadUtils.java:30)
+	at org.springblade.modules.iot.file.strategy.impl.AbstractFileStrategy.upload(AbstractFileStrategy.java:62)
+	at org.springblade.modules.iot.file.strategy.impl.local.LocalFileStrategyImplTest.lambda$uploadRejectsTraversalInBusinessType$1(LocalFileStrategyImplTest.java:75)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3128)
+	at org.springblade.modules.iot.file.strategy.impl.local.LocalFileStrategyImplTest.uploadRejectsTraversalInBusinessType(LocalFileStrategyImplTest.java:74)
+	... 3 more
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   LocalFileStrategyImplTest.uploadRejectsBucketSymlinkOutsideStorageRoot:86 Unexpected exception type thrown, expected: <org.springblade.basic.exception.BizException> but was: <java.lang.NoClassDefFoundError>
+[ERROR]   LocalFileStrategyImplTest.uploadRejectsTraversalInBucket:64 Unexpected exception type thrown, expected: <org.springblade.basic.exception.BizException> but was: <java.lang.NoClassDefFoundError>
+[ERROR]   LocalFileStrategyImplTest.uploadRejectsTraversalInBusinessType:74 Unexpected exception type thrown, expected: <org.springblade.basic.exception.BizException> but was: <java.lang.NoClassDefFoundError>
+[ERROR] Errors: 
+[ERROR]   LocalFileStrategyImplTest.uploadStoresFileInsideConfiguredRoot:51 » NoClassDefFound Could not initialize class org.springblade.common.iot.utils.FileUploadUtils
+[INFO] 
+[ERROR] Tests run: 9, Failures: 3, Errors: 1, Skipped: 0
+[INFO] 
