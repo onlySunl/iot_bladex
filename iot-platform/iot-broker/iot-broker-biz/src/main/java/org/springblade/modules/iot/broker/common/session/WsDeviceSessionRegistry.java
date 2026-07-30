@@ -2,10 +2,10 @@ package org.springblade.modules.iot.broker.common.session;
 
 import java.util.Optional;
 
-import org.springblade.basic.cache.repository.CachePlusOps;
-import org.springblade.basic.cache.utils.CachePlusUtil;
 import org.springblade.basic.model.cache.CacheKey;
-import org.springblade.common.cache.broker.ws.WsDeviceSessionCacheKeyBuilder;
+import org.springblade.common.iot.cache.broker.ws.WsDeviceSessionCacheKeyBuilder;
+import org.springblade.core.cache.repository.CachePlusOps;
+import org.springblade.core.cache.utils.CachePlusUtil;
 import org.springblade.modules.iot.common.cache.broker.ws.WsDeviceSessionInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -65,7 +65,7 @@ public class WsDeviceSessionRegistry {
      * @param clientId 客户端 ID
      * @return 在线则返回 session 信息;离线 / 读失败返回 empty
      */
-    public Optional<WsDeviceSessionInfo> get(String tenantId, String clientId) {
+    public Optional<WsDeviceSessionInfo> get(Long tenantId, String clientId) {
         try {
             CacheKey key = WsDeviceSessionCacheKeyBuilder.build(tenantId, clientId);
             return cachePlusOpsUtil.getObjectFromCache(key.getKey(), WsDeviceSessionInfo.class);
@@ -78,14 +78,14 @@ public class WsDeviceSessionRegistry {
     /**
      * 设备是否在线(session 信息是否存在)。
      */
-    public boolean isOnline(String tenantId, String clientId) {
+    public boolean isOnline(Long tenantId, String clientId) {
         return get(tenantId, clientId).isPresent();
     }
 
     /**
      * 设备 ws @OnClose / 心跳超时时清除 session 信息。
      */
-    public void remove(String tenantId, String clientId) {
+    public void remove(Long tenantId, String clientId) {
         try {
             CacheKey key = WsDeviceSessionCacheKeyBuilder.build(tenantId, clientId);
             cachePlusOps.del(key);

@@ -50,7 +50,7 @@ import org.springblade.modules.iot.common.constant.AppendixType;
 import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.device.entity.Device;
 import org.springblade.modules.iot.device.service.DeviceQueryService;
-import org.springblade.modules.iot.common.utils.FileUploadUtils;
+import org.springblade.common.iot.utils.FileUploadUtils;
 import org.springblade.modules.iot.common.utils.FreeMarkerUtil;
 import org.springblade.modules.iot.file.facade.FileFacade;
 import org.springblade.modules.iot.file.vo.result.FileResultVO;

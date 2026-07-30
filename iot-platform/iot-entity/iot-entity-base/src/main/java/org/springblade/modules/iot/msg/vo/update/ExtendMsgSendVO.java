@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.msg.vo.update;
 
-import com.mqttsnet.basic.model.Kv;
+import org.springblade.basic.model.Kv;
 import org.springblade.modules.iot.msg.vo.save.ExtendMsgRecipientSaveVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;

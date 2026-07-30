@@ -2,7 +2,6 @@ package org.springblade.modules.iot.msg.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.mqttsnet.basic.base.entity.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,11 +9,12 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.springblade.basic.base.entity.Entity;
 
 import java.time.LocalDateTime;
 
 import static com.baomidou.mybatisplus.annotation.SqlCondition.EQUAL;
-import static org.springblade.modules.iot.model.constant.Condition.LIKE;
+import static org.springblade.model.constant.Condition.LIKE;
 
 
 /**

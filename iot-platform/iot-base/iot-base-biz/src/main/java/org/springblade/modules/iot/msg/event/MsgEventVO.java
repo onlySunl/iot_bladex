@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.msg.event;
 
-import org.springblade.modules.iot.model.vo.BaseEventVO;
+import org.springblade.model.vo.BaseEventVO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;

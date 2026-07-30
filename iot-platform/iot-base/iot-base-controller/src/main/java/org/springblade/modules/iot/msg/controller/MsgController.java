@@ -1,17 +1,15 @@
 package org.springblade.modules.iot.msg.controller;
 
-import com.mqttsnet.basic.annotation.log.WebLog;
-import com.mqttsnet.basic.annotation.user.LoginUser;
-import com.mqttsnet.basic.base.R;
-import com.mqttsnet.basic.base.entity.SuperEntity;
-import org.springblade.modules.iot.model.entity.system.SysUser;
-import org.springblade.modules.iot.msg.biz.MsgBiz;
-import org.springblade.modules.iot.msg.vo.update.ExtendMsgSendVO;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.basic.base.R;
+import org.springblade.basic.base.entity.SuperEntity;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.core.secure.utils.AuthUtil;
+import org.springblade.modules.iot.msg.biz.MsgBiz;
+import org.springblade.modules.iot.msg.vo.update.ExtendMsgSendVO;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,8 +39,8 @@ public class MsgController {
     @Operation(summary = "根据模板发送消息", description = "根据模板发送消息")
     @PostMapping("/extendMsg/sendByTemplate")
     @WebLog("发送消息")
-    public R<Boolean> sendByTemplate(@RequestBody @Validated(SuperEntity.Update.class) ExtendMsgSendVO data, @Parameter(hidden = true) @LoginUser(isEmployee = true) SysUser sysUser) {
-        return R.success(msgBiz.sendByTemplate(data, sysUser));
+    public R<Boolean> sendByTemplate(@RequestBody @Validated(SuperEntity.Update.class) ExtendMsgSendVO data) {
+        return R.success(msgBiz.sendByTemplate(data, AuthUtil.getUser()));
     }
 
 }

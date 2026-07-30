@@ -1,10 +1,10 @@
 package org.springblade.modules.iot.msg.enumeration;
 
-import com.mqttsnet.basic.interfaces.BaseEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springblade.basic.interfaces.BaseEnum;
 
 import java.util.stream.Stream;
 
@@ -26,19 +26,19 @@ public enum TaskStatus implements BaseEnum {
     /**
      * DRAFT
      */
-    DRAFT("草稿", "default"),
+    DRAFT("草稿", "0"),
     /**
      * WAITING
      */
-    WAITING("等待执行", "warning"),
+    WAITING("等待执行", "1"),
     /**
      * SUCCESS
      */
-    SUCCESS("执行成功", "success"),
+    SUCCESS("执行成功", "2"),
     /**
      * FAIL
      */
-    FAIL("执行失败", "error");
+    FAIL("执行失败", "-1");
 
     @Schema(description = "描述")
     private String desc;

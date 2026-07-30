@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.msg.controller;
 
-import com.mqttsnet.basic.base.R;
-import com.mqttsnet.basic.base.controller.SuperController;
-import com.mqttsnet.basic.interfaces.echo.EchoService;
+import org.springblade.basic.base.R;
+import org.springblade.basic.interfaces.echo.EchoService;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.modules.iot.msg.biz.ExtendMsgTemplateBiz;
 import org.springblade.modules.iot.msg.entity.ExtendMsgTemplate;
 import org.springblade.modules.iot.msg.service.ExtendMsgTemplateService;
@@ -28,8 +28,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static org.springblade.modules.iot.common.constant.SwaggerConstants.DATA_TYPE_LONG;
-import static org.springblade.modules.iot.common.constant.SwaggerConstants.DATA_TYPE_STRING;
+import static org.springblade.common.iot.constant.SwaggerConstants.DATA_TYPE_LONG;
+import static org.springblade.common.iot.constant.SwaggerConstants.DATA_TYPE_STRING;
 
 /**
  * <p>

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>iot-base</artifactId>
-        <groupId>org.springblade.modules.iot</groupId>
+        <groupId>org.springblade</groupId>
         <version>4.9.0.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -16,20 +16,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springblade.modules.iot</groupId>
+            <groupId>org.springblade</groupId>
             <artifactId>iot-base-biz</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
-        <dependency>
-            <groupId>org.springblade.modules.iot</groupId>
-            <artifactId>thinglinks-data-scope-sdk</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade.modules.iot</groupId>
-            <artifactId>thinglinks-login-user-resolver</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

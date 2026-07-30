@@ -3,7 +3,7 @@ package org.springblade.modules.iot.msg.strategy;
 import cn.hutool.core.exceptions.ExceptionUtil;
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import com.mqttsnet.basic.utils.ArgumentAssert;
+import org.springblade.basic.utils.ArgumentAssert;
 import com.mqttsnet.basic.utils.SpringUtils;
 import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.msg.entity.DefInterface;

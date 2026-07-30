@@ -3,8 +3,8 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>org.springblade.modules.iot</groupId>
-        <artifactId>thinglinks-dependencies-parent</artifactId>
+        <groupId>org.springblade</groupId>
+        <artifactId>iot-platform</artifactId>
         <version>4.9.0.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -17,7 +17,6 @@
 
     <modules>
         <module>iot-base-facade</module>
-        <module>iot-base-server</module>
         <module>iot-base-biz</module>
         <module>iot-base-controller</module>
     </modules>

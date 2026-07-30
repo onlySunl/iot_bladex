@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.msg.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.mqttsnet.basic.base.request.PageParams;
-import com.mqttsnet.basic.base.service.SuperService;
+import org.springblade.core.mvc.request.PageParams;
+import org.springblade.core.mvc.service.SuperService;
 import org.springblade.modules.iot.msg.entity.ExtendNotice;
 import org.springblade.modules.iot.msg.vo.query.ExtendNoticePageQuery;
 import org.springblade.modules.iot.msg.vo.result.ExtendNoticeResultVO;

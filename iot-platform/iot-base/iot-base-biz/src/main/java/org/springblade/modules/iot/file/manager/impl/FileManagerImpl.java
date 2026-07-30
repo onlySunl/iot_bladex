@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.file.manager.impl;
 
-import com.mqttsnet.basic.base.manager.impl.SuperManagerImpl;
+import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
 import org.springblade.modules.iot.file.entity.File;
 import org.springblade.modules.iot.file.manager.FileManager;
 import org.springblade.modules.iot.file.mapper.FileMapper;

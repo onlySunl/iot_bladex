@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.msg.service;
 
-import com.mqttsnet.basic.base.service.SuperService;
+import org.springblade.core.mvc.service.SuperService;
 import org.springblade.modules.iot.msg.entity.DefInterfaceProperty;
 import org.springblade.modules.iot.msg.vo.save.DefInterfacePropertyBatchSaveVO;
 

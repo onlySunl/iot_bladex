@@ -7,7 +7,7 @@ import com.baidubce.services.sms.SmsClient;
 import com.baidubce.services.sms.SmsClientConfiguration;
 import com.baidubce.services.sms.model.SendMessageV3Request;
 import com.baidubce.services.sms.model.SendMessageV3Response;
-import com.mqttsnet.basic.utils.StrPool;
+import org.springblade.basic.utils.StrPool;
 import org.springblade.modules.iot.msg.entity.ExtendMsg;
 import org.springblade.modules.iot.msg.entity.ExtendMsgRecipient;
 import org.springblade.modules.iot.msg.entity.ExtendMsgTemplate;

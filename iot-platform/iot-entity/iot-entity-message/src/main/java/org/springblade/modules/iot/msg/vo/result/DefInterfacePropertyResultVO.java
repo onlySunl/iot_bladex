@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.msg.vo.result;
 
-import org.springblade.modules.iot.model.vo.AuditableResultVO;
+import org.springblade.model.vo.AuditableResultVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,10 +30,6 @@ import lombok.experimental.Accessors;
 public class DefInterfacePropertyResultVO extends AuditableResultVO {
 
     private static final long serialVersionUID = 1L;
-
-    @Schema(description = "ID")
-    private Long id;
-
     /**
      * 接口ID
      */
@@ -59,11 +55,6 @@ public class DefInterfacePropertyResultVO extends AuditableResultVO {
      */
     @Schema(description = "顺序号")
     private Integer sortValue;
-    /**
-     * 备注
-     */
-    @Schema(description = "备注")
-    private String remarks;
 
 
 }

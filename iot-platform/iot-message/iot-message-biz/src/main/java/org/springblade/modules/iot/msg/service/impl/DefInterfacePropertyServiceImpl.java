@@ -2,19 +2,20 @@ package org.springblade.modules.iot.msg.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import com.mqttsnet.basic.base.service.impl.SuperServiceImpl;
-import com.mqttsnet.basic.exception.BizException;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.basic.exception.BizException;
+import org.springblade.common.iot.constant.DsConstant;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.modules.iot.msg.entity.DefInterfaceProperty;
 import org.springblade.modules.iot.msg.manager.DefInterfacePropertyManager;
 import org.springblade.modules.iot.msg.service.DefInterfacePropertyService;
 import org.springblade.modules.iot.msg.vo.save.DefInterfacePropertyBatchSaveVO;
 import org.springblade.modules.iot.msg.vo.save.DefInterfacePropertySaveVO;
 import org.springblade.modules.iot.msg.vo.update.DefInterfacePropertyUpdateVO;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 import java.util.Map;

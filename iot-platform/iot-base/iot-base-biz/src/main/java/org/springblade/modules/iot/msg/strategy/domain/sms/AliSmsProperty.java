@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.msg.strategy.domain.sms;
 
 import cn.hutool.core.util.StrUtil;
-import com.mqttsnet.basic.utils.ArgumentAssert;
+import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.modules.iot.msg.strategy.domain.BaseProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

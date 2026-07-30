@@ -1,15 +1,5 @@
 package org.springblade.modules.iot.job.facade.impl;
 
-import cn.hutool.http.HttpRequest;
-import com.alibaba.fastjson2.JSON;
-import com.mqttsnet.basic.base.R;
-import com.mqttsnet.basic.constant.Constants;
-import org.springblade.modules.iot.job.dto.JobReturnT;
-import org.springblade.modules.iot.job.dto.XxlJobInfoVO;
-import org.springblade.modules.iot.job.facade.JobFacade;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
 /**
  * @author tangyh

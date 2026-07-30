@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.mqttsnet.basic.jackson.JsonUtil;
 import com.mqttsnet.basic.model.Kv;
-import com.mqttsnet.basic.utils.StrPool;
+import org.springblade.basic.utils.StrPool;
 import org.springblade.modules.iot.msg.entity.ExtendMsg;
 import org.springblade.modules.iot.msg.entity.ExtendMsgRecipient;
 import org.springblade.modules.iot.msg.entity.ExtendMsgTemplate;

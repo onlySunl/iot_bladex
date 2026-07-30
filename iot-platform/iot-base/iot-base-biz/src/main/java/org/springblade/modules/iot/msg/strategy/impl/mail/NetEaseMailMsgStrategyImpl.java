@@ -2,7 +2,7 @@ package org.springblade.modules.iot.msg.strategy.impl.mail;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
-import com.mqttsnet.basic.exception.BizException;
+import org.springblade.basic.exception.BizException;
 import org.springblade.modules.iot.msg.entity.ExtendMsg;
 import org.springblade.modules.iot.msg.entity.ExtendMsgRecipient;
 import org.springblade.modules.iot.msg.entity.ExtendMsgTemplate;

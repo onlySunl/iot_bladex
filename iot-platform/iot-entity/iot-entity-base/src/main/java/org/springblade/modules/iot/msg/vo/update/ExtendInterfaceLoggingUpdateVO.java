@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.msg.vo.update;
 
-import com.mqttsnet.basic.base.entity.SuperEntity;
+import org.springblade.basic.base.entity.SuperEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -11,6 +11,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.springblade.basic.base.entity.SuperEntity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

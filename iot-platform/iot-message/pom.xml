@@ -3,22 +3,20 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>org.springblade.modules.iot</groupId>
-        <artifactId>thinglinks-dependencies-parent</artifactId>
+        <groupId>org.springblade</groupId>
+        <artifactId>iot-platform</artifactId>
         <version>4.9.0.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
+    <groupId>org.springblade</groupId>
     <artifactId>iot-message</artifactId>
-
     <modelVersion>4.0.0</modelVersion>
     <name>${project.artifactId}</name>
     <description>系统服务</description>
     <packaging>pom</packaging>
     <modules>
-        <module>iot-message-facade</module>
         <module>iot-message-biz</module>
         <module>iot-message-controller</module>
-        <module>iot-message-server</module>
     </modules>
 
 </project>

@@ -4,18 +4,19 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.map.MapUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import com.mqttsnet.basic.base.service.impl.SuperServiceImpl;
-import com.mqttsnet.basic.context.ContextConstants;
-import com.mqttsnet.basic.context.ContextUtil;
-import com.mqttsnet.basic.database.mybatis.conditions.Wraps;
-import com.mqttsnet.basic.jackson.JsonUtil;
-import com.mqttsnet.basic.utils.ArgumentAssert;
-import com.mqttsnet.basic.utils.SpringUtils;
-import org.springblade.modules.iot.common.constant.DsConstant;
-import org.springblade.modules.iot.common.constant.JobConstant;
+import org.springblade.basic.context.ContextConstants;
+import org.springblade.basic.jackson.JsonUtil;
+import org.springblade.basic.utils.SpringUtils;
+import org.springblade.common.iot.constant.DsConstant;
+import org.springblade.common.iot.constant.JobConstant;
+import org.springblade.core.database.mybatis.conditions.Wraps;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
+import org.springblade.basic.context.ContextUtil;
+import org.springblade.basic.utils.ArgumentAssert;
+import org.springblade.core.secure.BladeUser;
+import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.iot.job.dto.XxlJobInfoVO;
 import org.springblade.modules.iot.job.facade.JobFacade;
-import org.springblade.modules.iot.model.entity.system.SysUser;
 import org.springblade.modules.iot.msg.entity.ExtendMsg;
 import org.springblade.modules.iot.msg.entity.ExtendMsgRecipient;
 import org.springblade.modules.iot.msg.entity.ExtendMsgTemplate;
@@ -78,16 +79,16 @@ public class ExtendMsgServiceImpl extends SuperServiceImpl<ExtendMsgManager, Lon
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean publish(ExtendMsgPublishVO data, SysUser sysUser) {
+    public Boolean publish(ExtendMsgPublishVO data, BladeUser sysUser) {
         ExtendMsg extendMsg = BeanUtil.toBean(data, ExtendMsg.class);
         extendMsg.setType(MsgTemplateTypeEnum.NOTICE.getCode());
         extendMsg.setChannel(SourceType.APP);
 
-        extendMsg.setCreatedOrgId((sysUser != null && sysUser.getEmployee() != null) ? sysUser.getEmployee().getLastDeptId() : null);
+        extendMsg.setCreateDept((sysUser != null && sysUser.getDeptId() != null) ? Func.toLong(sysUser.getDeptId()) : null);
         if (data != null && data.getDraft() != null && data.getDraft()) {
-            extendMsg.setStatus(TaskStatus.DRAFT);
+            extendMsg.setStatus(Func.toInt(TaskStatus.DRAFT.getCode()));
         } else {
-            extendMsg.setStatus(TaskStatus.WAITING);
+            extendMsg.setStatus(Func.toInt(TaskStatus.WAITING.getCode()));
         }
         if (extendMsg.getId() == null) {
             superManager.save(extendMsg);
@@ -129,7 +130,7 @@ public class ExtendMsgServiceImpl extends SuperServiceImpl<ExtendMsgManager, Lon
                 }
             });
 
-            extendMsg.setStatus(TaskStatus.SUCCESS);
+            extendMsg.setStatus(Func.toInt(TaskStatus.SUCCESS.getCode()));
             superManager.updateById(extendMsg);
         } else {
             // 延时消息任务由 thinglinks-base-executor 模块执行。
@@ -173,13 +174,13 @@ public class ExtendMsgServiceImpl extends SuperServiceImpl<ExtendMsgManager, Lon
             }
         });
 
-        extendMsg.setStatus(TaskStatus.SUCCESS);
+        extendMsg.setStatus(Func.toInt(TaskStatus.SUCCESS.getCode()));
         superManager.updateById(extendMsg);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean send(ExtendMsgSendVO data, ExtendMsgTemplate msgTemplate, SysUser sysUser) {
+    public Boolean send(ExtendMsgSendVO data, ExtendMsgTemplate msgTemplate, BladeUser sysUser) {
         ExtendMsg extendMsg = BeanUtil.toBean(data, ExtendMsg.class);
         extendMsg.setTemplateCode(data.getCode());
         extendMsg.setChannel(SourceType.SERVICE);
@@ -191,9 +192,9 @@ public class ExtendMsgServiceImpl extends SuperServiceImpl<ExtendMsgManager, Lon
         if (CollUtil.isNotEmpty(data.getConfigList())) {
             extendMsg.setConfigList(JsonUtil.toJson(data.getConfigList()));
         }
-        extendMsg.setCreatedOrgId((sysUser != null && sysUser.getEmployee() != null) ? sysUser.getEmployee().getLastDeptId() : null);
+        extendMsg.setCreateDept((sysUser != null && sysUser.getDeptId() != null) ? Func.toLong(sysUser.getDeptId()) : null);
 
-        extendMsg.setStatus(TaskStatus.WAITING);
+        extendMsg.setStatus(Func.toInt(TaskStatus.WAITING.getCode()));
         if (extendMsg.getId() == null) {
             superManager.save(extendMsg);
         } else {

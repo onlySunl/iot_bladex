@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.msg.manager;
 
-import com.mqttsnet.basic.base.manager.SuperManager;
+import org.springblade.core.mvc.manager.SuperManager;
 import org.springblade.modules.iot.msg.entity.ExtendMsgRecipient;
 
 import java.util.List;

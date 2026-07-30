@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.file.service;
 
-import com.mqttsnet.basic.base.service.SuperService;
+import org.springblade.core.mvc.service.SuperService;
 import org.springblade.modules.iot.file.entity.File;
 import org.springblade.modules.iot.file.vo.param.FileUploadVO;
 import org.springblade.modules.iot.file.vo.result.FileResultVO;

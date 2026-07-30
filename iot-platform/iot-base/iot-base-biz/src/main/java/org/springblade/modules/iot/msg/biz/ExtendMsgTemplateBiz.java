@@ -2,7 +2,7 @@ package org.springblade.modules.iot.msg.biz;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.mqttsnet.basic.database.mybatis.conditions.Wraps;
-import com.mqttsnet.basic.utils.ArgumentAssert;
+import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.modules.iot.msg.entity.DefMsgTemplate;
 import org.springblade.modules.iot.msg.entity.ExtendMsgTemplate;
 import org.springblade.modules.iot.msg.service.DefMsgTemplateService;

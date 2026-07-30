@@ -1,13 +1,6 @@
 package org.springblade.modules.iot.file.facade;
-
-
 import java.util.List;
 import java.util.Map;
-
-import com.mqttsnet.basic.base.R;
-import org.springblade.modules.iot.file.enumeration.FileStorageType;
-import org.springblade.modules.iot.file.vo.result.FileResultVO;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 文件接口

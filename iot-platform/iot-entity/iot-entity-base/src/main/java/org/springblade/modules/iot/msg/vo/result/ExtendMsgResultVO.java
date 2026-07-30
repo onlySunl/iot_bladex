@@ -1,9 +1,10 @@
 package org.springblade.modules.iot.msg.vo.result;
 
-import com.mqttsnet.basic.annotation.echo.Echo;
-import org.springblade.modules.iot.model.constant.EchoApi;
-import org.springblade.modules.iot.model.constant.EchoDictType;
-import org.springblade.modules.iot.model.vo.AuditableResultVO;
+import org.springblade.core.annotation.echo.Echo;
+import org.springblade.model.constant.EchoApi;
+import org.springblade.model.constant.EchoApi;
+import org.springblade.model.constant.EchoDictType;
+import org.springblade.model.vo.AuditableResultVO;
 import org.springblade.modules.iot.msg.enumeration.SourceType;
 import org.springblade.modules.iot.msg.enumeration.TaskStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -38,10 +39,6 @@ import java.util.List;
 public class ExtendMsgResultVO extends AuditableResultVO {
 
     private static final long serialVersionUID = 1L;
-
-    @Schema(description = "短信记录ID")
-    private Long id;
-
     /**
      * 消息模板;
      * #extend_msg_template
@@ -61,9 +58,7 @@ public class ExtendMsgResultVO extends AuditableResultVO {
      * 执行状态;
      * #TaskStatus{DRAFT:草稿;WAITING:等待执行;SUCCESS:执行成功;FAIL:执行失败}
      */
-    @Schema(description = "执行状态")
-    @Echo(api = EchoApi.DICTIONARY_ITEM_FEIGN_CLASS, dictType = EchoDictType.Base.TaskStatus)
-    private TaskStatus status;
+
     /**
      * 发送渠道;
      * #SourceType{APP:应用;SERVICE:服务}

@@ -2,7 +2,9 @@ package org.springblade.modules.iot.msg.strategy.impl.mail;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
-import com.mqttsnet.basic.exception.BizException;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.HtmlEmail;
+import org.springblade.basic.exception.BizException;
 import org.springblade.modules.iot.msg.entity.ExtendMsg;
 import org.springblade.modules.iot.msg.entity.ExtendMsgRecipient;
 import org.springblade.modules.iot.msg.entity.ExtendMsgTemplate;
@@ -12,8 +14,6 @@ import org.springblade.modules.iot.msg.strategy.domain.MsgResult;
 import org.springblade.modules.iot.msg.strategy.domain.mail.TencentMailProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Service;
 
 import java.io.File;

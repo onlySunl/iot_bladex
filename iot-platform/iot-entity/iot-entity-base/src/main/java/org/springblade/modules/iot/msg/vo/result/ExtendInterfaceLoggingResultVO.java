@@ -1,17 +1,12 @@
 package org.springblade.modules.iot.msg.vo.result;
 
-import com.mqttsnet.basic.annotation.echo.Echo;
-import org.springblade.modules.iot.model.constant.EchoApi;
-import org.springblade.modules.iot.model.constant.EchoDictType;
-import org.springblade.modules.iot.model.vo.AuditableResultVO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.Accessors;
+import org.springblade.core.annotation.echo.Echo;
+import org.springblade.model.constant.EchoApi;
+import org.springblade.model.constant.EchoDictType;
+import org.springblade.model.vo.AuditableResultVO;
 
 import java.io.Serial;
 import java.time.LocalDateTime;
@@ -37,10 +32,6 @@ public class ExtendInterfaceLoggingResultVO extends AuditableResultVO {
 
     @Serial
     private static final long serialVersionUID = 1L;
-
-    @Schema(description = "")
-    private Long id;
-
     /**
      * 接口日志ID;
      * #extend_interface_log
@@ -58,9 +49,7 @@ public class ExtendInterfaceLoggingResultVO extends AuditableResultVO {
      *
      * @Echo(api = EchoApi.DICTIONARY_ITEM_FEIGN_CLASS, dictType = EchoDictType.Base.MSG_INTERFACE_LOGGING_STATUS)
      */
-    @Schema(description = "执行状态")
-    @Echo(api = EchoApi.DICTIONARY_ITEM_FEIGN_CLASS, dictType = EchoDictType.Base.MSG_INTERFACE_LOGGING_STATUS)
-    private String status;
+
     /**
      * 请求参数
      */

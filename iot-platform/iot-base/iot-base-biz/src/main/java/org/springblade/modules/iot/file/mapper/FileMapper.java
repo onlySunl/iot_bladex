@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.file.mapper;
 
-import com.mqttsnet.basic.base.mapper.SuperMapper;
+
+import org.springblade.core.mvc.mapper.SuperMapper;
 import org.springblade.modules.iot.file.entity.File;
 import org.springblade.modules.iot.file.vo.result.FileResultVO;
 import io.lettuce.core.dynamic.annotation.Param;

@@ -15,7 +15,7 @@
 //import com.aliyun.oss.model.UploadPartRequest;
 //import com.aliyun.oss.model.UploadPartResult;
 //import com.mqttsnet.basic.base.R;
-//import com.mqttsnet.basic.utils.StrPool;
+//import org.springblade.basic.utils.StrPool;
 //import org.springblade.modules.iot.file.dto.chunk.FileChunksMergeDTO;
 //import org.springblade.modules.iot.file.entity.File;
 //import org.springblade.modules.iot.file.mapper.FileMapper;

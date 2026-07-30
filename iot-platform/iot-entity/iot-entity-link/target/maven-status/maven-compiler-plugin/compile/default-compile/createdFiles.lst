@@ -387,7 +387,6 @@ org\springblade\modules\iot\device\vo\query\DeviceActionPageQuery.class
 org\springblade\modules\iot\device\entity\group\DeviceGroup.class
 org\springblade\modules\iot\device\enumeration\ClientAclActionTypeEnum.class
 org\springblade\modules\iot\device\vo\result\DeviceResultVO$DeviceResultVOBuilder.class
-org\springblade\modules\iot\device\vo\update\DeviceUpdateVO$DeviceUpdateVOBuilder.class
 org\springblade\modules\iot\productversion\vo\result\ProductVersionStatisticsResultVO.class
 org\springblade\modules\iot\cache\vo\device\DeviceCacheVO$DeviceCacheVOBuilder.class
 org\springblade\modules\iot\productproperty\enumeration\DataTypeEnum.class

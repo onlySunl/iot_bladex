@@ -3,7 +3,7 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>org.springblade.modules.iot</groupId>
+        <groupId>org.springblade</groupId>
         <artifactId>iot-base-facade</artifactId>
         <version>4.9.0.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
@@ -16,7 +16,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springblade.modules.iot</groupId>
+            <groupId>org.springblade</groupId>
             <artifactId>iot-base-api</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>

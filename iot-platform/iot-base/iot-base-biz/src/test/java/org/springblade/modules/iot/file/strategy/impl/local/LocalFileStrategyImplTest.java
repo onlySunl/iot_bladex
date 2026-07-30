@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.file.strategy.impl.local;
 
-import com.mqttsnet.basic.context.ContextUtil;
-import com.mqttsnet.basic.exception.BizException;
+import org.springblade.basic.context.ContextUtil;
+import org.springblade.basic.exception.BizException;
 import org.springblade.modules.iot.file.domain.FileDeleteBO;
 import org.springblade.modules.iot.file.entity.File;
 import org.springblade.modules.iot.file.mapper.FileMapper;

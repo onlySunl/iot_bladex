@@ -1,9 +1,8 @@
 package org.springblade.modules.iot.msg.vo.result;
 
-import com.mqttsnet.basic.annotation.echo.Echo;
-import org.springblade.modules.iot.model.constant.EchoApi;
-import org.springblade.modules.iot.model.constant.EchoDictType;
-import org.springblade.modules.iot.model.vo.AuditableResultVO;
+import org.springblade.core.annotation.echo.Echo;
+import org.springblade.model.constant.EchoApi;
+import org.springblade.model.constant.EchoDictType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,6 +11,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.springblade.model.vo.AuditableResultVO;
 
 /**
  * <p>
@@ -33,10 +33,6 @@ import lombok.experimental.Accessors;
 public class DefMsgTemplateResultVO extends AuditableResultVO {
 
     private static final long serialVersionUID = 1L;
-
-    @Schema(description = "模板ID")
-    private Long id;
-
     /**
      * 消息类型;
      * [01-短信 02-邮件 03-站内信];

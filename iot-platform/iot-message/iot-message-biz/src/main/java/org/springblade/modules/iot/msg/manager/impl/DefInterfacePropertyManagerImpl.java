@@ -1,14 +1,15 @@
 package org.springblade.modules.iot.msg.manager.impl;
 
 import cn.hutool.core.map.MapUtil;
-import com.mqttsnet.basic.base.manager.impl.SuperManagerImpl;
-import com.mqttsnet.basic.database.mybatis.conditions.Wraps;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.database.mybatis.conditions.Wraps;
+import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
 import org.springblade.modules.iot.msg.entity.DefInterfaceProperty;
 import org.springblade.modules.iot.msg.manager.DefInterfacePropertyManager;
 import org.springblade.modules.iot.msg.mapper.DefInterfacePropertyMapper;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.Map;

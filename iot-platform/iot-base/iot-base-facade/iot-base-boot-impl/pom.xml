@@ -3,12 +3,12 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>org.springblade.modules.iot</groupId>
+        <groupId>org.springblade</groupId>
         <artifactId>iot-base-facade</artifactId>
         <version>4.9.0.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-
+    <groupId>org.springblade</groupId>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>iot-base-boot-impl</artifactId>
     <name>${project.artifactId}</name>
@@ -16,14 +16,19 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springblade.modules.iot</groupId>
+            <groupId>org.springblade</groupId>
             <artifactId>iot-base-api</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>org.springblade.modules.iot</groupId>
+            <groupId>org.springblade</groupId>
             <artifactId>iot-base-biz</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
     </dependencies>
 </project>

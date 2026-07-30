@@ -9,12 +9,12 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.mqttsnet.basic.base.service.impl.SuperServiceImpl;
-import com.mqttsnet.basic.context.ContextUtil;
-import com.mqttsnet.basic.exception.BizException;
-import com.mqttsnet.basic.utils.ArgumentAssert;
-import com.mqttsnet.basic.utils.BeanPlusUtil;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.basic.context.ContextUtil;
+import org.springblade.basic.exception.BizException;
+import org.springblade.basic.utils.ArgumentAssert;
+import org.springblade.basic.utils.BeanPlusUtil;
+import org.springblade.common.iot.constant.DsConstant;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.modules.iot.file.entity.File;
 import org.springblade.modules.iot.file.manager.FileManager;
 import org.springblade.modules.iot.file.properties.FileServerProperties;
@@ -88,7 +88,7 @@ public class FileServiceImpl extends SuperServiceImpl<FileManager, Long, File> i
         long start = System.currentTimeMillis();
         File fileFile = fileContext.upload(file, fileUploadVO);
         long uploadEnd = System.currentTimeMillis();
-        fileFile.setTenantId(ContextUtil.getTenantId());
+        fileFile.setTenantId(ContextUtil.getTenantId().toString());
         fileManager.save(fileFile);
         long saveEnd = System.currentTimeMillis();
 

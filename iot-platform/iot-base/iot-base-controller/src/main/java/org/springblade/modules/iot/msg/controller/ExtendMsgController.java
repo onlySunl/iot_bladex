@@ -1,15 +1,13 @@
 package org.springblade.modules.iot.msg.controller;
 
-import com.mqttsnet.basic.annotation.log.WebLog;
-import com.mqttsnet.basic.annotation.user.LoginUser;
-import com.mqttsnet.basic.base.R;
-import com.mqttsnet.basic.base.controller.SuperController;
-import com.mqttsnet.basic.base.entity.SuperEntity;
-import com.mqttsnet.basic.base.request.PageParams;
-import com.mqttsnet.basic.database.mybatis.conditions.query.QueryWrap;
-import com.mqttsnet.basic.interfaces.echo.EchoService;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
-import org.springblade.modules.iot.model.entity.system.SysUser;
+import org.springblade.basic.base.R;
+import org.springblade.basic.base.entity.SuperEntity;
+import org.springblade.basic.interfaces.echo.EchoService;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.core.mvc.controller.SuperController;
+import org.springblade.core.mvc.request.PageParams;
+import org.springblade.core.secure.utils.AuthUtil;
 import org.springblade.modules.iot.msg.biz.MsgBiz;
 import org.springblade.modules.iot.msg.entity.ExtendMsg;
 import org.springblade.modules.iot.msg.enumeration.SourceType;
@@ -62,23 +60,23 @@ public class ExtendMsgController extends SuperController<ExtendMsgService, Long,
     @Operation(summary = "根据模板发送消息", description = "根据模板发送消息")
     @PostMapping("/sendByTemplate")
     @WebLog("发送消息")
-    public R<Boolean> sendByTemplate(@RequestBody @Validated(SuperEntity.Update.class) ExtendMsgSendVO data, @Parameter(hidden = true) @LoginUser(isEmployee = true) SysUser sysUser) {
-        return R.success(msgBiz.sendByTemplate(data, sysUser));
+    public R<Boolean> sendByTemplate(@RequestBody @Validated(SuperEntity.Update.class) ExtendMsgSendVO data) {
+        return R.success(msgBiz.sendByTemplate(data, AuthUtil.getUser()));
     }
 
     @Operation(summary = "发布站内信", description = "发布站内信")
     @PostMapping("/publish")
     @WebLog("发布站内信")
-    public R<Boolean> publish(@RequestBody @Validated(SuperEntity.Update.class) ExtendMsgPublishVO data, @Parameter(hidden = true) @LoginUser(isEmployee = true) SysUser sysUser) {
+    public R<Boolean> publish(@RequestBody @Validated(SuperEntity.Update.class) ExtendMsgPublishVO data) {
 
-        return R.success(msgBiz.publish(data, sysUser));
+        return R.success(msgBiz.publish(data, AuthUtil.getUser()));
     }
 
     @Override
     public QueryWrap<ExtendMsg> handlerWrapper(ExtendMsg model, PageParams<ExtendMsgPageQuery> params) {
         QueryWrap<ExtendMsg> queryWrap = super.handlerWrapper(model, params);
         queryWrap.lambda().eq(ExtendMsg::getChannel, SourceType.APP);
-        DataScopeHelper.startDataScope("extend_msg");
+        //DataScopeHelper.startDataScope("extend_msg");
         return queryWrap;
     }
 

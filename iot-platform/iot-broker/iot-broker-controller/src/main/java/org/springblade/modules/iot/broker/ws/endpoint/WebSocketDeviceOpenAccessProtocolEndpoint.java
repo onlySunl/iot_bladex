@@ -12,17 +12,16 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import org.springblade.basic.kafka.producer.KafkaProducerService;
 import org.springblade.common.constant.ContextConstants;
 
+import org.springblade.common.iot.constant.CommonIotConstants;
+import org.springblade.common.iot.enums.DeviceActionTypeEnum;
 import org.springblade.core.tool.jackson.JsonUtil;
 import org.springblade.core.tool.utils.SpringUtil;
 import org.springblade.modules.iot.broker.common.session.WsDeviceSessionRegistry;
 import org.springblade.modules.iot.broker.ws.heartbeat.WsHeartbeatTracker;
 import org.springblade.modules.iot.broker.ws.session.WebSocketSubject;
 import org.springblade.modules.iot.common.cache.broker.ws.WsDeviceSessionInfo;
-import org.springblade.common.constant.CommonIotConstants;
-import org.springblade.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.common.mq.KafkaConsumerTopicConstant;
 import org.springblade.modules.iot.device.enumeration.DeviceAuthModeEnum;
 import org.springblade.modules.iot.device.vo.query.DeviceAuthenticationQuery;
@@ -205,7 +204,7 @@ public class WebSocketDeviceOpenAccessProtocolEndpoint {
      */
     @OnClose
     public void onClose(Session session,
-                        @PathParam(CommonIotConstants.TENANT_ID) String tenantId,
+                        @PathParam(CommonIotConstants.TENANT_ID) Long tenantId,
                         @PathParam(CommonIotConstants.CLIENT_ID) String clientId) {
         initSpringBeans();
         log.info("WebSocket【DeviceOpenAccessProtocolEndpoint】连接关闭, Session ID: {}, tenantId: {}, clientId: {}",

@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.msg.mapper;
 
-import com.mqttsnet.basic.base.mapper.SuperMapper;
+import org.springblade.core.mvc.mapper.SuperMapper;
 import org.springblade.modules.iot.msg.entity.ExtendInterfaceLog;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

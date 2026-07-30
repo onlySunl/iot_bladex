@@ -1,10 +1,9 @@
 package org.springblade.modules.iot.msg.enumeration;
-
-import com.mqttsnet.basic.interfaces.BaseEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springblade.basic.interfaces.BaseEnum;
 
 import java.util.stream.Stream;
 

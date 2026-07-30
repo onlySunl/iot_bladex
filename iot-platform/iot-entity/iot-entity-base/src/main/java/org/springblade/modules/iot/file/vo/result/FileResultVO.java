@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.file.vo.result;
 
+import org.springblade.model.enumeration.base.FileType;
 import org.springblade.modules.iot.file.enumeration.FileStorageType;
-import org.springblade.modules.iot.model.enumeration.base.FileType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

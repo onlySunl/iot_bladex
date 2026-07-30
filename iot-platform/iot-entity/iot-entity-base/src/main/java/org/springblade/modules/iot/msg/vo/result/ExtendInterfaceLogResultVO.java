@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.msg.vo.result;
 
-import org.springblade.modules.iot.model.vo.AuditableResultVO;
+import org.springblade.model.vo.AuditableResultVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,8 +33,6 @@ public class ExtendInterfaceLogResultVO extends AuditableResultVO {
 
     private static final long serialVersionUID = 1L;
 
-    @Schema(description = "")
-    private Long id;
 
     /**
      * 接口ID;

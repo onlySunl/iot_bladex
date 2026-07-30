@@ -3,20 +3,11 @@ package org.springblade.modules.iot.msg.biz;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import com.mqttsnet.basic.exception.BizException;
-import com.mqttsnet.basic.utils.ArgumentAssert;
-import org.springblade.modules.iot.model.entity.system.SysUser;
-import org.springblade.modules.iot.msg.entity.DefInterface;
-import org.springblade.modules.iot.msg.entity.DefMsgTemplate;
-import org.springblade.modules.iot.msg.entity.ExtendMsg;
-import org.springblade.modules.iot.msg.entity.ExtendMsgRecipient;
-import org.springblade.modules.iot.msg.entity.ExtendMsgTemplate;
-import org.springblade.modules.iot.msg.service.DefInterfacePropertyService;
-import org.springblade.modules.iot.msg.service.DefInterfaceService;
-import org.springblade.modules.iot.msg.service.DefMsgTemplateService;
-import org.springblade.modules.iot.msg.service.ExtendMsgRecipientService;
-import org.springblade.modules.iot.msg.service.ExtendMsgService;
-import org.springblade.modules.iot.msg.service.ExtendMsgTemplateService;
+import org.springblade.basic.exception.BizException;
+import org.springblade.basic.utils.ArgumentAssert;
+import org.springblade.core.secure.BladeUser;
+import org.springblade.modules.iot.msg.entity.*;
+import org.springblade.modules.iot.msg.service.*;
 import org.springblade.modules.iot.msg.strategy.MsgContext;
 import org.springblade.modules.iot.msg.vo.update.ExtendMsgPublishVO;
 import org.springblade.modules.iot.msg.vo.update.ExtendMsgSendVO;
@@ -28,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-import static com.mqttsnet.basic.exception.code.ExceptionCode.BASE_VALID_PARAM;
+import static org.springblade.basic.exception.code.ExceptionCode.BASE_VALID_PARAM;
 
 /**
  * 消息业务层，
@@ -89,7 +80,7 @@ public class MsgBiz {
      * @param data
      * @return
      */
-    public Boolean sendByTemplate(ExtendMsgSendVO data, SysUser sysUser) {
+    public Boolean sendByTemplate(ExtendMsgSendVO data, BladeUser sysUser) {
         ExtendMsgTemplate msgTemplate = validAndInit(data);
         return extendMsgService.send(data, msgTemplate, sysUser);
     }
@@ -137,7 +128,7 @@ public class MsgBiz {
      * @date 2022/7/24 6:32 PM
      * @create [2022/7/24 6:32 PM ] [mqttsnet] [初始创建]
      */
-    public Boolean publish(ExtendMsgPublishVO data, SysUser sysUser) {
+    public Boolean publish(ExtendMsgPublishVO data, BladeUser sysUser) {
         //1，验证必要参数
         ArgumentAssert.notEmpty(data.getRecipientList(), "请填写消息接收人");
         ArgumentAssert.notEmpty(data.getTitle(), "请填写标题");

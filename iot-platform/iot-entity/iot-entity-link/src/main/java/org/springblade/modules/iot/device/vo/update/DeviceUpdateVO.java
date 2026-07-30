@@ -26,7 +26,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Builder
 @Schema(title = "DeviceUpdateVO", description = "设备档案信息表")
 public class DeviceUpdateVO extends Device {
 

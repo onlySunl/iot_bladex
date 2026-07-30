@@ -1,9 +1,9 @@
 package org.springblade.modules.iot.msg.service.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
-import com.mqttsnet.basic.base.service.impl.SuperServiceImpl;
-import com.mqttsnet.basic.database.mybatis.conditions.Wraps;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
+import org.springblade.core.database.mybatis.conditions.Wraps;
+import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.modules.iot.msg.entity.ExtendInterfaceLog;
 import org.springblade.modules.iot.msg.entity.ExtendInterfaceLogging;
 import org.springblade.modules.iot.msg.manager.ExtendInterfaceLogManager;

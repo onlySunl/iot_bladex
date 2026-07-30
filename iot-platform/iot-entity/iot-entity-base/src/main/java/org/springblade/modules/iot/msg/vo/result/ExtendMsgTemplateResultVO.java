@@ -1,9 +1,10 @@
 package org.springblade.modules.iot.msg.vo.result;
 
-import com.mqttsnet.basic.annotation.echo.Echo;
-import org.springblade.modules.iot.model.constant.EchoApi;
-import org.springblade.modules.iot.model.constant.EchoDictType;
-import org.springblade.modules.iot.model.vo.AuditableResultVO;
+import org.springblade.core.annotation.echo.Echo;
+import org.springblade.model.constant.EchoApi;
+import org.springblade.model.constant.EchoApi;
+import org.springblade.model.constant.EchoDictType;
+import org.springblade.model.vo.AuditableResultVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,18 +35,12 @@ public class ExtendMsgTemplateResultVO extends AuditableResultVO {
 
     private static final long serialVersionUID = 1L;
 
-    @Schema(description = "模板ID")
-    private Long id;
-
     /**
      * 消息类型;
      * [01-短信 02-邮件 03-站内信];
      *
      * @Echo(api = EchoApi.DICTIONARY_ITEM_FEIGN_CLASS, dictType = EchoDictType.Base.MSG_TEMPLATE_TYPE)
      */
-    @Schema(description = "消息类型")
-    @Echo(api = EchoApi.DICTIONARY_ITEM_FEIGN_CLASS, dictType = EchoDictType.Base.MSG_TEMPLATE_TYPE)
-    private String type;
 
     /** 接口ID */
     @Schema(description = "接口ID")
@@ -83,11 +78,6 @@ public class ExtendMsgTemplateResultVO extends AuditableResultVO {
      */
     @Schema(description = "模板参数")
     private String param;
-    /**
-     * 备注
-     */
-    @Schema(description = "备注")
-    private String remarks;
     /**
      * 打开方式;
      *

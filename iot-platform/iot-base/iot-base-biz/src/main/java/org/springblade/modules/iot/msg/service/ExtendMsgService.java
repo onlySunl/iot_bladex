@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.msg.service;
 
-import com.mqttsnet.basic.base.service.SuperService;
-import org.springblade.modules.iot.model.entity.system.SysUser;
+import org.springblade.core.mvc.service.SuperService;
+import org.springblade.core.secure.BladeUser;
 import org.springblade.modules.iot.msg.entity.ExtendMsg;
 import org.springblade.modules.iot.msg.entity.ExtendMsgTemplate;
 import org.springblade.modules.iot.msg.vo.result.ExtendMsgResultVO;
@@ -32,7 +32,7 @@ public interface ExtendMsgService extends SuperService<Long, ExtendMsg> {
      * @create [2022/10/28 4:57 PM ] [mqttsnet] [初始创建]
      */
 
-    Boolean send(ExtendMsgSendVO data, ExtendMsgTemplate msgTemplate, SysUser sysUser);
+    Boolean send(ExtendMsgSendVO data, ExtendMsgTemplate msgTemplate, BladeUser sysUser);
 
 
     /**
@@ -53,7 +53,7 @@ public interface ExtendMsgService extends SuperService<Long, ExtendMsg> {
      * @date 2022/10/28 4:57 PM
      * @create [2022/10/28 4:57 PM ] [mqttsnet] [初始创建]
      */
-    Boolean publish(ExtendMsgPublishVO data, SysUser sysUser);
+    Boolean publish(ExtendMsgPublishVO data, BladeUser sysUser);
 
     /**
      * 查询消息详情

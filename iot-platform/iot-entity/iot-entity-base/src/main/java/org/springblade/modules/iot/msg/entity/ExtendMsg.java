@@ -2,7 +2,7 @@ package org.springblade.modules.iot.msg.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.mqttsnet.basic.base.entity.Entity;
+import org.springblade.basic.base.entity.Entity;
 import org.springblade.modules.iot.msg.enumeration.SourceType;
 import org.springblade.modules.iot.msg.enumeration.TaskStatus;
 import lombok.AllArgsConstructor;
@@ -12,11 +12,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-
 import java.time.LocalDateTime;
-
 import static com.baomidou.mybatisplus.annotation.SqlCondition.EQUAL;
-import static org.springblade.modules.iot.model.constant.Condition.LIKE;
+import static org.springblade.model.constant.Condition.LIKE;
 
 
 /**
@@ -54,13 +52,11 @@ public class ExtendMsg extends Entity<Long> {
      */
     @TableField(value = "type", condition = LIKE)
     private String type;
-
     /**
      * 执行状态;
      * #TaskStatus{DRAFT:草稿;WAITING:等待执行;SUCCESS:执行成功;FAIL:执行失败}
      */
-    @TableField(value = "status", condition = EQUAL)
-    private TaskStatus status;
+
 
     /**
      * 发送渠道;
@@ -132,9 +128,4 @@ public class ExtendMsg extends Entity<Long> {
     @TableField(value = "remind_mode", condition = LIKE)
     private String remindMode;
 
-    /**
-     * 所属组织
-     */
-    @TableField(value = "created_org_id", condition = EQUAL)
-    private Long createdOrgId;
 }

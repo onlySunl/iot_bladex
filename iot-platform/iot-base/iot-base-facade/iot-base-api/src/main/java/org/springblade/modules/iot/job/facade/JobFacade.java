@@ -1,6 +1,5 @@
 package org.springblade.modules.iot.job.facade;
 
-import com.mqttsnet.basic.base.R;
 import org.springblade.modules.iot.job.dto.JobReturnT;
 import org.springblade.modules.iot.job.dto.XxlJobInfoVO;
 

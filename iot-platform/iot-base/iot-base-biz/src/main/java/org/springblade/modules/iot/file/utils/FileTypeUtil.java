@@ -2,7 +2,7 @@ package org.springblade.modules.iot.file.utils;
 
 
 import cn.hutool.core.util.StrUtil;
-import org.springblade.modules.iot.model.enumeration.base.FileType;
+import org.springblade.model.enumeration.base.FileType;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;

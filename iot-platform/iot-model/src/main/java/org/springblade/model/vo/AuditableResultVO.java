@@ -30,10 +30,8 @@ import java.util.Map;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public abstract class AuditableResultVO extends Entity<Long> implements Serializable, EchoVO {
-
     @Serial
     private static final long serialVersionUID = 1L;
-
     /**
      * 字典 / 用户 / 组织等回显结果集合 ── EchoService 通过反射把带 @Echo 字段的查回值写入此 Map,
      * key = 字段名,value = 中文展示文本(用户昵称 / 组织名 / 字典 label),前端 echoMapText(record, '字段名') 优先取此处。
@@ -42,21 +40,4 @@ public abstract class AuditableResultVO extends Entity<Long> implements Serializ
     @Schema(description = "回显结果集合(字典 / 用户 / 组织等翻译值)")
     private Map<String, Object> echoMap = MapUtil.newHashMap();
 
-    /** shadow SuperEntity.createdBy 并挂 {@link Echo},由 EchoService 回填用户昵称到 echoMap.createdBy。 */
-    @Schema(description = "创建人")
-    @Echo(api = EchoApi.DEF_USER_ID_CLASS)
-    private Long createdBy;
-
-    /** shadow Entity.updatedBy,回填用户昵称到 echoMap.updatedBy。 */
-    @Schema(description = "最后修改人")
-    @Echo(api = EchoApi.DEF_USER_ID_CLASS)
-    private Long updatedBy;
-
-    /**
-     * shadow SuperEntity.createdOrgId,回填组织名到 echoMap.createdOrgId。
-     * 数据为空(用户未绑定组织 / 系统操作)时 echoService 不写入 echoMap,前端 echoMapText 自动回退到原 ID。
-     */
-    @Schema(description = "创建人组织")
-    @Echo(api = EchoApi.ORG_ID_CLASS)
-    private Long createdOrgId;
 }

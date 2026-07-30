@@ -1,14 +1,6 @@
 package org.springblade.modules.iot.msg.controller;
 
-import com.mqttsnet.basic.base.R;
-import com.mqttsnet.basic.base.controller.SuperController;
-import com.mqttsnet.basic.interfaces.echo.EchoService;
-import org.springblade.modules.iot.msg.entity.DefMsgTemplate;
-import org.springblade.modules.iot.msg.service.DefMsgTemplateService;
-import org.springblade.modules.iot.msg.vo.query.DefMsgTemplatePageQuery;
-import org.springblade.modules.iot.msg.vo.result.DefMsgTemplateResultVO;
-import org.springblade.modules.iot.msg.vo.save.DefMsgTemplateSaveVO;
-import org.springblade.modules.iot.msg.vo.update.DefMsgTemplateUpdateVO;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -17,14 +9,23 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.basic.base.R;
+import org.springblade.basic.interfaces.echo.EchoService;
+import org.springblade.core.mvc.controller.SuperController;
+import org.springblade.modules.iot.msg.entity.DefMsgTemplate;
+import org.springblade.modules.iot.msg.service.DefMsgTemplateService;
+import org.springblade.modules.iot.msg.vo.query.DefMsgTemplatePageQuery;
+import org.springblade.modules.iot.msg.vo.result.DefMsgTemplateResultVO;
+import org.springblade.modules.iot.msg.vo.save.DefMsgTemplateSaveVO;
+import org.springblade.modules.iot.msg.vo.update.DefMsgTemplateUpdateVO;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springblade.modules.iot.common.constant.SwaggerConstants.DATA_TYPE_LONG;
-import static org.springblade.modules.iot.common.constant.SwaggerConstants.DATA_TYPE_STRING;
+import static org.springblade.common.iot.constant.SwaggerConstants.DATA_TYPE_LONG;
+import static org.springblade.common.iot.constant.SwaggerConstants.DATA_TYPE_STRING;
 
 /**
  * <p>

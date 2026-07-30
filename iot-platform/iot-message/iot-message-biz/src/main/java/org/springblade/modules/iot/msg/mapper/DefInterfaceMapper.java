@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.msg.mapper;
 
 import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
-import com.mqttsnet.basic.base.mapper.SuperMapper;
+import org.springblade.core.mvc.mapper.SuperMapper;
 import org.springblade.modules.iot.msg.entity.DefInterface;
 import org.springframework.stereotype.Repository;
 

@@ -1,9 +1,13 @@
 package org.springblade.modules.iot.msg.controller;
 
-import com.mqttsnet.basic.annotation.log.WebLog;
-import com.mqttsnet.basic.base.R;
-import com.mqttsnet.basic.base.controller.SuperController;
-import com.mqttsnet.basic.interfaces.echo.EchoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springblade.basic.base.R;
+import org.springblade.basic.interfaces.echo.EchoService;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.modules.iot.msg.entity.DefInterfaceProperty;
 import org.springblade.modules.iot.msg.service.DefInterfacePropertyService;
 import org.springblade.modules.iot.msg.vo.query.DefInterfacePropertyPageQuery;
@@ -11,10 +15,6 @@ import org.springblade.modules.iot.msg.vo.result.DefInterfacePropertyResultVO;
 import org.springblade.modules.iot.msg.vo.save.DefInterfacePropertyBatchSaveVO;
 import org.springblade.modules.iot.msg.vo.save.DefInterfacePropertySaveVO;
 import org.springblade.modules.iot.msg.vo.update.DefInterfacePropertyUpdateVO;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

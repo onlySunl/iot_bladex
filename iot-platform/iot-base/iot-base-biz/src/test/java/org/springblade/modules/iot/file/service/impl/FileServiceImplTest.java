@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.file.service.impl;
 
-import com.mqttsnet.basic.exception.BizException;
+import org.springblade.basic.exception.BizException;
 import org.springblade.modules.iot.file.properties.FileServerProperties;
 import org.springblade.modules.iot.file.vo.param.FileUploadVO;
 import org.junit.jupiter.api.Test;

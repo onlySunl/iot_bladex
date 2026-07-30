@@ -1,10 +1,4 @@
 package org.springblade.modules.iot.job.dto;
-
-import com.mqttsnet.basic.utils.BeanPlusUtil;
-import com.mqttsnet.basic.utils.DateUtils;
-import lombok.Data;
-import lombok.ToString;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

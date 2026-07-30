@@ -12,7 +12,7 @@ import com.mqttsnet.basic.dinger.process.INoticeProcessor;
 import com.mqttsnet.basic.dinger.properties.FeiShuProperties;
 import com.mqttsnet.basic.jackson.JsonUtil;
 import com.mqttsnet.basic.model.Kv;
-import com.mqttsnet.basic.utils.ArgumentAssert;
+import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.modules.iot.msg.entity.ExtendMsg;
 import org.springblade.modules.iot.msg.entity.ExtendMsgRecipient;
 import org.springblade.modules.iot.msg.strategy.MsgStrategy;

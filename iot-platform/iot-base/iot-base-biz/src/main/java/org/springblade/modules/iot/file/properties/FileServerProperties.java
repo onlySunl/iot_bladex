@@ -2,13 +2,13 @@ package org.springblade.modules.iot.file.properties;
 
 
 import cn.hutool.core.util.StrUtil;
-import com.mqttsnet.basic.constant.Constants;
-import com.mqttsnet.basic.exception.BizException;
-import com.mqttsnet.basic.utils.StrPool;
-import org.springblade.modules.iot.file.enumeration.FileStorageType;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springblade.basic.constant.Constants;
+import org.springblade.basic.exception.BizException;
+import org.springblade.basic.utils.StrPool;
+import org.springblade.modules.iot.file.enumeration.FileStorageType;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.util.unit.DataSize;

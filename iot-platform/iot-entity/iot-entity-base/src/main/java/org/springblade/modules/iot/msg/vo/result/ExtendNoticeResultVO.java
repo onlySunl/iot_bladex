@@ -1,9 +1,10 @@
 package org.springblade.modules.iot.msg.vo.result;
 
-import com.mqttsnet.basic.annotation.echo.Echo;
-import org.springblade.modules.iot.model.constant.EchoApi;
-import org.springblade.modules.iot.model.constant.EchoDictType;
-import org.springblade.modules.iot.model.vo.AuditableResultVO;
+import org.springblade.core.annotation.echo.Echo;
+import org.springblade.model.constant.EchoApi;
+import org.springblade.model.constant.EchoApi;
+import org.springblade.model.constant.EchoDictType;
+import org.springblade.model.vo.AuditableResultVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,9 +36,6 @@ import java.time.LocalDateTime;
 public class ExtendNoticeResultVO extends AuditableResultVO {
 
     private static final long serialVersionUID = 1L;
-
-    @Schema(description = "ID")
-    private Long id;
     /**
      * 消息ID
      */

@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.msg.vo.update;
 
-import com.mqttsnet.basic.base.entity.SuperEntity;
+import org.springblade.basic.base.entity.SuperEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

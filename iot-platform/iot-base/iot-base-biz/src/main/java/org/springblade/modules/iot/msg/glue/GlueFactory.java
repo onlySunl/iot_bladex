@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.msg.glue;
 
-import com.mqttsnet.basic.exception.BizException;
+import org.springblade.basic.exception.BizException;
 import org.springblade.modules.iot.msg.glue.impl.SpringGlueFactory;
 import org.springblade.modules.iot.msg.strategy.MsgStrategy;
 import groovy.lang.Binding;
