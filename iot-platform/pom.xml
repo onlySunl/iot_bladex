@@ -74,6 +74,8 @@
         <module>iot-base</module>
         <!-- IoT 消息模块 -->
         <module>iot-message</module>
+        <!-- IoT 文件 SDK 模块 -->
+        <module>iot-file-sdk</module>
 
         <!-- MQTT Broker 服务层 -->
         <module>iot-broker</module>
