@@ -4,7 +4,7 @@ package org.springblade.modules.iot.job.facade.impl;
 import cn.hutool.http.HttpRequest;
 import com.alibaba.fastjson.JSON;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
+import org.springframework.beans.factory.annotation.Value;
 import org.springblade.basic.base.R;
 import org.springblade.basic.constant.Constants;
 import org.springblade.modules.iot.job.dto.JobReturnT;
