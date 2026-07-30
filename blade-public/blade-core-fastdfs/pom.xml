@@ -11,7 +11,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>blade-fastdfs</artifactId>
+    <artifactId>blade-core-fastdfs</artifactId>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
     <description>BladeX FastDFS 文件存储模块</description>
