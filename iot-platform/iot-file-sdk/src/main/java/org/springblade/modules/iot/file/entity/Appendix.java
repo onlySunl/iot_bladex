@@ -11,10 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
-import java.time.LocalDateTime;
-
-import static org.springblade.modules.iot.model.constant.Condition.LIKE;
-
+import static org.springblade.core.database.mybatis.conditions.Wraps.LIKE;
 
 /**
  * <p>
@@ -31,6 +28,7 @@ import static org.springblade.modules.iot.model.constant.Condition.LIKE;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
+@Builder
 @TableName("com_appendix")
 @AllArgsConstructor
 public class Appendix extends SuperEntity<Long> {
@@ -51,14 +49,5 @@ public class Appendix extends SuperEntity<Long> {
     private Long tenantId;
 
 
-    @Builder
-    public Appendix(Long id, LocalDateTime createdTime, Long createdBy, Long bizId, String bizType, Long tenantId) {
-        this.id = id;
-        this.createdTime = createdTime;
-        this.createdBy = createdBy;
-        this.bizId = bizId;
-        this.bizType = bizType;
-        this.tenantId = tenantId;
-    }
 
 }

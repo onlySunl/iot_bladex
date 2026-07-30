@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.file.mapper;
 
 import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
-import org.springblade.basic.base.mapper.SuperMapper;
+import org.springblade.core.mvc.mapper.SuperMapper;
 import org.springblade.modules.iot.file.entity.Appendix;
 import org.springframework.stereotype.Repository;
 

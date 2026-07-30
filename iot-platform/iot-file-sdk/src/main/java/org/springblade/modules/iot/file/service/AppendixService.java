@@ -2,17 +2,13 @@ package org.springblade.modules.iot.file.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.common.collect.Multimap;
+import lombok.*;
 import org.springblade.basic.base.entity.SuperEntity;
-import org.springblade.basic.base.manager.SuperManager;
 import org.springblade.basic.interfaces.echo.EchoVO;
+import org.springblade.core.mvc.manager.SuperManager;
+import org.springblade.model.vo.result.AppendixResultVO;
+import org.springblade.model.vo.save.AppendixSaveVO;
 import org.springblade.modules.iot.file.entity.Appendix;
-import org.springblade.modules.iot.model.vo.result.AppendixResultVO;
-import org.springblade.modules.iot.model.vo.save.AppendixSaveVO;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
