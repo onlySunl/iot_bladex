@@ -46,7 +46,7 @@
         <!-- Kafka 集成模块 -->
         <module>blade-core-kafka</module>
         <!-- FastDFS 文件存储模块 -->
-        <module>blade-fastdfs</module>
+        <module>blade-core-fastdfs</module>
     </modules>
 
     <dependencies>
