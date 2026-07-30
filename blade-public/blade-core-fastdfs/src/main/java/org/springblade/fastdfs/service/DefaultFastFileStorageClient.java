@@ -1,5 +1,6 @@
 package org.springblade.fastdfs.service;
 
+import net.coobird.thumbnailator.Thumbnails;
 import org.springblade.fastdfs.FdfsClientConstants;
 import org.springblade.fastdfs.domain.fdfs.MetaData;
 import org.springblade.fastdfs.domain.fdfs.StorageNode;
@@ -14,7 +15,6 @@ import org.springblade.fastdfs.domain.upload.FastImageFile;
 import org.springblade.fastdfs.domain.upload.ThumbImage;
 import org.springblade.fastdfs.exception.FdfsUnsupportImageTypeException;
 import org.springblade.fastdfs.exception.FdfsUploadImageException;
-import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;

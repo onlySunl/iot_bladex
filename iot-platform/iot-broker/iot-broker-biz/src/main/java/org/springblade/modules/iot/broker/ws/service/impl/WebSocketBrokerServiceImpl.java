@@ -1,8 +1,11 @@
 package org.springblade.modules.iot.broker.ws.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import org.apache.rocketmq.client.producer.SendCallback;
+import org.apache.rocketmq.client.producer.SendResult;
 import org.springblade.common.iot.mq.BizMqRouteConstant;
 import org.springblade.core.log.exception.ServiceException;
+import org.springblade.core.rocketmq.producer.RocketmqTemplate;
 import org.springblade.modules.iot.broker.common.counter.DownLinkDataReportCounter;
 import org.springblade.modules.iot.broker.common.session.WsDeviceSessionRegistry;
 import org.springblade.modules.iot.broker.ws.service.WebSocketBrokerService;
@@ -13,7 +16,7 @@ import org.springblade.modules.iot.vo.query.PublishWebSocketMessageRequestVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.kafka.support.SendResult;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Service;
 
 /**

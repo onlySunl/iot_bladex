@@ -16,6 +16,7 @@ import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.core.database.mybatis.conditions.Wraps;
 import org.springblade.core.database.mybatis.conditions.query.LbQueryWrap;
 import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
+import org.springblade.core.tool.utils.Func;
 import org.springblade.model.vo.result.AppendixResultVO;
 import org.springblade.model.vo.save.AppendixSaveVO;
 import org.springblade.modules.iot.file.entity.Appendix;
@@ -152,7 +153,7 @@ public class DefAppendixServiceImpl extends SuperManagerImpl<AppendixMapper, App
                             Appendix dix = new Appendix();
                             dix.setBizId(appendix.getBizId()).setBizType(item.getBizType());
                             dix.setId(id);
-                            dix.setTenantId(ContextUtil.getTenantId());
+                            dix.setTenantId(Func.toStr(ContextUtil.getTenantId()));
                             return dix;
                         }))).toList();
 

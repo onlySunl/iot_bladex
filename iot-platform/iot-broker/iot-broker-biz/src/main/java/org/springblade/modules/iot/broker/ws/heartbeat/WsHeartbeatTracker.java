@@ -2,12 +2,14 @@ package org.springblade.modules.iot.broker.ws.heartbeat;
 
 
 import org.springblade.common.iot.mq.BizMqRouteConstant;
+import org.springblade.core.rocketmq.producer.RocketmqTemplate;
 import org.springblade.modules.iot.broker.ws.session.WebSocketSubject;
 import org.springblade.modules.iot.entity.ws.heartbeat.WsHeartbeatSyncEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
 
 /**

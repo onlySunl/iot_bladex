@@ -45,8 +45,6 @@ public class Appendix extends SuperEntity<Long> {
      */
     @TableField(value = "biz_type", condition = LIKE)
     private String bizType;
-    @TableField(value = "tenant_id")
-    private Long tenantId;
 
 
 
