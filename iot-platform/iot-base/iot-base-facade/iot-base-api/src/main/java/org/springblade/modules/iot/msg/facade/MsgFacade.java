@@ -1,4 +1,8 @@
 package org.springblade.modules.iot.msg.facade;
+
+import org.springblade.modules.iot.msg.vo.update.ExtendMsgPublishVO;
+import org.springblade.modules.iot.msg.vo.update.ExtendMsgSendVO;
+
 /**
  * 消息接口
  *

@@ -1,4 +1,9 @@
 package org.springblade.modules.iot.file.facade;
+import org.springblade.basic.base.R;
+import org.springblade.modules.iot.file.enumeration.FileStorageType;
+import org.springblade.modules.iot.file.vo.result.FileResultVO;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +31,7 @@ public interface FileFacade {
      * 根据文件ID列表获取文件URL
      *
      * @param ids 文件ID列表
-     * @return {@link R<Map<Long,String>>} 文件ID对应的文件URL
+     * @return {@link R <Map<Long,String>>} 文件ID对应的文件URL
      */
     R<Map<Long, String>> findUrlFromDefById(List<Long> ids);
 

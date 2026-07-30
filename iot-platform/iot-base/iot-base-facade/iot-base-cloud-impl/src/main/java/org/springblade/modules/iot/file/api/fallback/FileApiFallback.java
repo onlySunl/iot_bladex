@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.file.api.fallback;
 
-import com.mqttsnet.basic.base.R;
+import org.springblade.basic.base.R;
 import org.springblade.modules.iot.file.api.FileApi;
 import org.springblade.modules.iot.file.enumeration.FileStorageType;
 import org.springblade.modules.iot.file.vo.result.FileResultVO;
