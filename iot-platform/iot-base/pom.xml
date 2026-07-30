@@ -16,8 +16,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>iot-base-facade</module>
         <module>iot-base-biz</module>
+        <module>iot-base-facade</module>
         <module>iot-base-controller</module>
     </modules>
 </project>
