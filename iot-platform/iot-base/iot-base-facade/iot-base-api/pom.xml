@@ -12,24 +12,53 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>iot-base-api</artifactId>
     <name>${project.artifactId}</name>
-    <description>基础服务-Api模块</description>
+    <description>基础服务-Api模块 (Spring Boot)</description>
 
     <dependencies>
+        <!-- IoT Entity Base -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-entity-base</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
+
+        <!-- Blade Core Basic -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-basic</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
+
+        <!-- Spring Boot Starter Web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Starter Validation -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.36</version>
+            <scope>provided</scope>
         </dependency>
-
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

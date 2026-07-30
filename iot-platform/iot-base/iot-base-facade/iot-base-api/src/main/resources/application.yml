@@ -1,0 +1,12 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: iot-base-api
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    org.springblade: DEBUG
