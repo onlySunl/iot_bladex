@@ -4,10 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
-import com.dingtalk.api.response.OapiRobotSendResponse;
-import org.springblade.basic.dinger.content.DingtalktInfoReq;
-import org.springblade.basic.dinger.process.INoticeProcessor;
-import org.springblade.basic.dinger.properties.DingTalkProperties;
+
 import org.springblade.basic.jackson.JsonUtil;
 import org.springblade.basic.model.Kv;
 import org.springblade.basic.utils.ArgumentAssert;

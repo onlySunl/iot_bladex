@@ -6,7 +6,7 @@ import cn.hutool.core.util.URLUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.basic.utils.CollHelper;
 import org.springblade.basic.utils.StrPool;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.file.domain.FileDeleteBO;
 import org.springblade.modules.iot.file.domain.FileGetUrlBO;
 import org.springblade.modules.iot.file.entity.File;

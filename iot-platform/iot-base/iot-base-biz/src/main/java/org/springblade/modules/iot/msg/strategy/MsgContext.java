@@ -5,7 +5,8 @@ import com.alibaba.fastjson2.JSON;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.basic.utils.SpringUtils;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
+import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.iot.msg.entity.DefInterface;
 import org.springblade.modules.iot.msg.entity.ExtendInterfaceLog;
 import org.springblade.modules.iot.msg.entity.ExtendInterfaceLogging;
@@ -61,14 +62,12 @@ public class MsgContext {
         }
 
         ExtendInterfaceLogging logging = ExtendInterfaceLogging.builder()
-                .status(MsgInterfaceLoggingStatusEnum.INIT.getValue())
                 .logId(extendInterfaceLog.getId())
                 .bizId(extendMsg.getBizId())
                 .execTime(LocalDateTime.now())
                 .params(extendMsg.getParam())
                 .build();
-
-
+        logging.setStatus(Func.toInt(MsgInterfaceLoggingStatusEnum.INIT.getValue()));
         MsgParam msgParam = MsgParam.builder().extendMsg(extendMsg).extendMsgTemplate(extendMsgTemplate)
                 .propertyParams(propertyParams)
                 .recipientList(recipientList).build();
@@ -93,12 +92,12 @@ public class MsgContext {
 
             boolean success = msgStrategy.isSuccess(result);
             if (success) {
-                logging.setStatus(MsgInterfaceLoggingStatusEnum.SUCCESS.getValue());
-                extendMsg.setStatus(TaskStatus.SUCCESS);
+                logging.setStatus(Func.toInt(MsgInterfaceLoggingStatusEnum.SUCCESS.getValue()));
+                extendMsg.setStatus(Func.toInt(TaskStatus.SUCCESS.getCode()));
                 extendInterfaceLogManager.incrSuccessCount(extendInterfaceLog.getId());
             } else {
-                extendMsg.setStatus(TaskStatus.FAIL);
-                logging.setStatus(MsgInterfaceLoggingStatusEnum.FAIL.getValue());
+                extendMsg.setStatus(Func.toInt(TaskStatus.FAIL.getExtra()));
+                logging.setStatus(Func.toInt(MsgInterfaceLoggingStatusEnum.FAIL.getExtra()));
                 extendInterfaceLogManager.incrFailCount(extendInterfaceLog.getId());
             }
 
@@ -109,11 +108,11 @@ public class MsgContext {
             extendMsgManager.updateById(extendMsg);
         } catch (Exception e) {
 
-            extendMsg.setStatus(TaskStatus.FAIL);
+            extendMsg.setStatus(Func.toInt(TaskStatus.FAIL.getExtra()));
             extendMsgManager.updateById(extendMsg);
 
             log.error("执行发送消息失败", e);
-            logging.setStatus(MsgInterfaceLoggingStatusEnum.FAIL.getValue());
+            logging.setStatus(Func.toInt(MsgInterfaceLoggingStatusEnum.FAIL.getExtra()));
             logging.setErrorMsg(ExceptionUtil.getRootCauseMessage(e));
             extendInterfaceLogManager.incrFailCount(extendInterfaceLog.getId());
 

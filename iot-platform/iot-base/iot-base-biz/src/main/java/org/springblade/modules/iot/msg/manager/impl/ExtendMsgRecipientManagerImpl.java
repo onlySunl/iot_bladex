@@ -1,7 +1,8 @@
 package org.springblade.modules.iot.msg.manager.impl;
 
-import org.springblade.basic.base.manager.impl.SuperManagerImpl;
-import org.springblade.basic.database.mybatis.conditions.Wraps;
+
+import org.springblade.core.database.mybatis.conditions.Wraps;
+import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
 import org.springblade.modules.iot.msg.entity.ExtendMsgRecipient;
 import org.springblade.modules.iot.msg.manager.ExtendMsgRecipientManager;
 import org.springblade.modules.iot.msg.mapper.ExtendMsgRecipientMapper;

@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.msg.biz;
 
 import cn.hutool.core.bean.BeanUtil;
-import org.springblade.basic.database.mybatis.conditions.Wraps;
 import org.springblade.basic.utils.ArgumentAssert;
+import org.springblade.core.database.mybatis.conditions.Wraps;
 import org.springblade.modules.iot.msg.entity.DefMsgTemplate;
 import org.springblade.modules.iot.msg.entity.ExtendMsgTemplate;
 import org.springblade.modules.iot.msg.service.DefMsgTemplateService;
@@ -42,11 +42,6 @@ public class ExtendMsgTemplateBiz {
         defMsgTemplateList.forEach(item -> {
             if (!exists.contains(item.getCode())) {
                 ExtendMsgTemplate extendMsgTemplate = BeanUtil.toBean(item, ExtendMsgTemplate.class);
-                extendMsgTemplate.setId(null);
-                extendMsgTemplate.setCreatedBy(null);
-                extendMsgTemplate.setCreatedTime(null);
-                extendMsgTemplate.setUpdatedBy(null);
-                extendMsgTemplate.setUpdatedTime(null);
                 extendMsgTemplateList.add(extendMsgTemplate);
             }
         });

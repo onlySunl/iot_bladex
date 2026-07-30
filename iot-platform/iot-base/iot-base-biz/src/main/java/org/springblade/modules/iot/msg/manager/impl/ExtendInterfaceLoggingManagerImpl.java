@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.msg.manager.impl;
 
-import org.springblade.basic.base.manager.impl.SuperManagerImpl;
+import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
 import org.springblade.modules.iot.msg.entity.ExtendInterfaceLogging;
 import org.springblade.modules.iot.msg.manager.ExtendInterfaceLoggingManager;
 import org.springblade.modules.iot.msg.mapper.ExtendInterfaceLoggingMapper;

@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.msg.manager.impl;
 
-import org.springblade.basic.base.manager.impl.SuperManagerImpl;
+import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
 import org.springblade.modules.iot.msg.entity.ExtendNotice;
 import org.springblade.modules.iot.msg.manager.ExtendNoticeManager;
 import org.springblade.modules.iot.msg.mapper.ExtendNoticeMapper;

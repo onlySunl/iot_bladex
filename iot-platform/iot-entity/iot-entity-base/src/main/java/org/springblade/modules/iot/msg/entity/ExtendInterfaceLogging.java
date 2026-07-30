@@ -29,9 +29,9 @@ import static org.springblade.model.constant.Condition.LIKE;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
-@Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
 @Builder
+@Accessors(chain = true)
 @TableName("extend_interface_logging")
 public class ExtendInterfaceLogging extends Entity<Long> {
     private static final long serialVersionUID = 1L;

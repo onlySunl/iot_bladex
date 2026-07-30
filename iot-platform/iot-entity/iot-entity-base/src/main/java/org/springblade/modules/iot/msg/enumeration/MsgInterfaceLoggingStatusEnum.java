@@ -20,15 +20,15 @@ public enum MsgInterfaceLoggingStatusEnum implements BaseEnum {
     /**
      * 初始化
      */
-    INIT("01", "初始化"),
+    INIT("0", "初始化"),
     /**
      * 成功
      */
-    SUCCESS("02", "成功"),
+    SUCCESS("2", "成功"),
     /**
      * 失败
      */
-    FAIL("03", "失败");
+    FAIL("-1", "失败");
     private String value;
     private String desc;
 

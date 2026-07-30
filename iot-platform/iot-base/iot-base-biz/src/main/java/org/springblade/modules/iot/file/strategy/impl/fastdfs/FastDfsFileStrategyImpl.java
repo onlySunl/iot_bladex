@@ -1,11 +1,12 @@
 package org.springblade.modules.iot.file.strategy.impl.fastdfs;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
-import com.github.tobato.fastdfs.domain.fdfs.StorePath;
-import com.github.tobato.fastdfs.service.FastFileStorageClient;
+
 import org.springblade.basic.utils.CollHelper;
 import org.springblade.basic.utils.StrPool;
-import org.springblade.modules.iot.common.constant.DsConstant;
+import org.springblade.common.iot.constant.DsConstant;
+import org.springblade.fastdfs.domain.fdfs.StorePath;
+import org.springblade.fastdfs.service.FastFileStorageClient;
 import org.springblade.modules.iot.file.domain.FileDeleteBO;
 import org.springblade.modules.iot.file.domain.FileGetUrlBO;
 import org.springblade.modules.iot.file.entity.File;

@@ -4,11 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
-import org.springblade.basic.dinger.content.WeChatInfo;
-import org.springblade.basic.dinger.content.WeChatInfoReq;
-import org.springblade.basic.dinger.process.INoticeProcessor;
-import org.springblade.basic.dinger.process.WeChatNoticeProcessor;
-import org.springblade.basic.dinger.properties.WeChatProperties;
+
 import org.springblade.basic.jackson.JsonUtil;
 import org.springblade.basic.model.Kv;
 import org.springblade.basic.utils.ArgumentAssert;
