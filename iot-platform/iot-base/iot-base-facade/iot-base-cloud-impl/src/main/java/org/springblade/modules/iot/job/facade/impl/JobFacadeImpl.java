@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.job.facade.impl;
 
-import com.mqttsnet.basic.base.R;
-import com.mqttsnet.basic.constant.Constants;
+import org.springblade.basic.base.R;
+import org.springblade.basic.constant.Constants;
 import org.springblade.modules.iot.job.api.JobApi;
 import org.springblade.modules.iot.job.dto.JobReturnT;
 import org.springblade.modules.iot.job.dto.XxlJobInfoVO;

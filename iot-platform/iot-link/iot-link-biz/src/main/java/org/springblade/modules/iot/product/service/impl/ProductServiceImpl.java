@@ -232,7 +232,7 @@ public class ProductServiceImpl extends SuperServiceImpl<ProductManager, Long, P
      *
      * @param productIdentification 产品标识
      * @return {@link ProductParamVO} 产品管理完整参数VO
-     * @throws com.mqttsnet.basic.exception.BizException 如果产品不存在
+     * @throws org.springblade.basic.exception.BizException 如果产品不存在
      */
     @Override
     public ProductParamVO selectFullProductByProductIdentification(String productIdentification) {

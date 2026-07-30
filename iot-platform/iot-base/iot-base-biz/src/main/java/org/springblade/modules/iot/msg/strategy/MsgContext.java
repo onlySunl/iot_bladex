@@ -4,7 +4,7 @@ import cn.hutool.core.exceptions.ExceptionUtil;
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.basic.utils.ArgumentAssert;
-import com.mqttsnet.basic.utils.SpringUtils;
+import org.springblade.basic.utils.SpringUtils;
 import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.msg.entity.DefInterface;
 import org.springblade.modules.iot.msg.entity.ExtendInterfaceLog;

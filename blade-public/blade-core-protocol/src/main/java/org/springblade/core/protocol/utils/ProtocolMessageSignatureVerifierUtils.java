@@ -19,7 +19,7 @@ import java.util.function.Function;
 /**
  * @program: thinglinks-util
  * @description: 协议消息处理Utils
- * @packagename: com.mqttsnet.basic.utils
+ * @packagename: org.springblade.basic.utils
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com
  * @date: 2023-05-07 00:12

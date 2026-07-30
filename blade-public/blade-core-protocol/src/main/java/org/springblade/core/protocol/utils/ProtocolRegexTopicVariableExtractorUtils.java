@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  * @description: 协议Topic变量提取工具类
  * RegexVariableExtractor is a utility class that provides methods to extract
  * specific variables (version and deviceId) from a given input string.
- * @packagename: com.mqttsnet.basic.utils.protocol
+ * @packagename: org.springblade.basic.utils.protocol
  * @author: ShiHuan Sun
  * @e-mainl: 13733918655@163.com
  * @date: 2023-05-07 14:10

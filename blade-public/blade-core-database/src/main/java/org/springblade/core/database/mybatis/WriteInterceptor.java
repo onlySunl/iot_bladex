@@ -6,7 +6,7 @@ package org.springblade.core.database.mybatis;//package org.springblade.basic.da
 //import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
 //import org.springblade.basic.context.ContextUtil;
 //import org.springblade.basic.database.properties.DatabaseProperties;
-//import com.mqttsnet.basic.exception.BizException;
+//import org.springblade.basic.exception.BizException;
 //import org.springblade.basic.utils.SpringUtils;
 //import jakarta.servlet.http.HttpServletRequest;
 //import lombok.SneakyThrows;

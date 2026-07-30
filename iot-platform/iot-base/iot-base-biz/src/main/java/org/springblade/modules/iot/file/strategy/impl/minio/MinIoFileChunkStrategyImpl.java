@@ -1,7 +1,7 @@
 //package org.springblade.modules.iot.file.strategy.impl.minio;
 //
 //import lombok.extern.slf4j.Slf4j;
-//import com.mqttsnet.basic.base.R;
+//import org.springblade.basic.base.R;
 //import org.springblade.modules.iot.file.dto.chunk.FileChunksMergeDTO;
 //import org.springblade.modules.iot.file.entity.File;
 //import org.springblade.modules.iot.file.mapper.FileMapper;

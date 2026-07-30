@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
  * Sink 发送结果（专用值对象，<b>非</b> 业务通用 R 包装）。
  * <p>
  * 本类是 {@code Sink.send(...)} 的统一返回类型，包含发送是否成功、底层协议返回 ID、
- * 端到端延迟、失败原因等字段。设计上<b>避免</b>使用业务层的 {@code com.mqttsnet.basic.base.R}
+ * 端到端延迟、失败原因等字段。设计上<b>避免</b>使用业务层的 {@code org.springblade.basic.base.R}
  * 包装，原因：
  * </p>
  * <ul>

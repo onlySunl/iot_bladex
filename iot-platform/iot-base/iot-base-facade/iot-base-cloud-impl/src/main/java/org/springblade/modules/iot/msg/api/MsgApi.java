@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.msg.api;
 
 
-import com.mqttsnet.basic.base.R;
-import com.mqttsnet.basic.constant.Constants;
+import org.springblade.basic.base.R;
+import org.springblade.basic.constant.Constants;
 import org.springblade.modules.iot.msg.vo.update.ExtendMsgPublishVO;
 import org.springblade.modules.iot.msg.vo.update.ExtendMsgSendVO;
 import io.swagger.v3.oas.annotations.Operation;

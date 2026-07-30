@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.msg.glue.impl;
 
-import com.mqttsnet.basic.utils.SpringUtils;
+import org.springblade.basic.utils.SpringUtils;
 import org.springblade.modules.iot.msg.glue.GlueFactory;
 import jakarta.annotation.Resource;
 import org.slf4j.Logger;

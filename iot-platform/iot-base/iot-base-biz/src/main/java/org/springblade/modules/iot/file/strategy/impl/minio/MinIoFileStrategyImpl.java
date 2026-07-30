@@ -3,7 +3,7 @@ package org.springblade.modules.iot.file.strategy.impl.minio;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import com.mqttsnet.basic.utils.CollHelper;
+import org.springblade.basic.utils.CollHelper;
 import org.springblade.basic.utils.StrPool;
 import org.springblade.modules.iot.common.constant.DsConstant;
 import org.springblade.modules.iot.file.domain.FileDeleteBO;

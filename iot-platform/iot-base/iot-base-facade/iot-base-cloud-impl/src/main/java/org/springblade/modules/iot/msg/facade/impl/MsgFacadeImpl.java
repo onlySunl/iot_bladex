@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.msg.facade.impl;
 
 
-import com.mqttsnet.basic.base.R;
+import org.springblade.basic.base.R;
 import org.springblade.modules.iot.msg.api.MsgApi;
 import org.springblade.modules.iot.msg.facade.MsgFacade;
 import org.springblade.modules.iot.msg.vo.update.ExtendMsgPublishVO;

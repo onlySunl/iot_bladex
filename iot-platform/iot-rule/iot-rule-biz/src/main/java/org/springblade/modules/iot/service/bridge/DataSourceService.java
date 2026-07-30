@@ -111,7 +111,7 @@ public interface DataSourceService extends SuperService<Long, DataSource> {
      *
      * @param id 数据源主键 ID
      * @return true=删除成功
-     * @throws com.mqttsnet.basic.exception.BizException 存在引用时抛出，错误信息含引用数量提示
+     * @throws org.springblade.basic.exception.BizException 存在引用时抛出，错误信息含引用数量提示
      */
     boolean deleteDataSource(Long id);
 }

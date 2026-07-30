@@ -391,7 +391,7 @@ public interface DeviceService extends SuperService<Long, Device> {
     /**
      * 切换设备绑定版本(影子发布的"外部切流"入口):把指定产品下给定设备的 bound_product_version_no 改到 targetVersionNo,
      * 命中网关会连带其子设备一并切换(保持子设备版本=网关版本)。校验目标版本存在且处于 已发布/灰度/影子 状态(TD 超表已就绪),
-     * 否则抛 {@link com.mqttsnet.basic.exception.BizException}。改绑后由 DeviceRebindEvent 在提交后失效设备缓存,下次上报即按
+     * 否则抛 {@link org.springblade.basic.exception.BizException}。改绑后由 DeviceRebindEvent 在提交后失效设备缓存,下次上报即按
      * 新版本路由到对应超表。幂等:已在目标版本的设备重复切换为同值写入,无副作用。
      *
      * @param productIdentification 产品标识(收口改绑范围 + 校验目标版本归属)

@@ -1,11 +1,11 @@
 package org.springblade.modules.iot.file.controller;
 
-import com.mqttsnet.basic.base.controller.DeleteController;
-import com.mqttsnet.basic.base.controller.QueryController;
-import com.mqttsnet.basic.base.controller.SuperSimpleController;
-import com.mqttsnet.basic.base.request.PageParams;
+import org.springblade.basic.base.controller.DeleteController;
+import org.springblade.basic.base.controller.QueryController;
+import org.springblade.basic.base.controller.SuperSimpleController;
+import org.springblade.basic.base.request.PageParams;
 import org.springblade.basic.context.ContextUtil;
-import com.mqttsnet.basic.interfaces.echo.EchoService;
+import org.springblade.basic.interfaces.echo.EchoService;
 import org.springblade.modules.iot.file.entity.File;
 import org.springblade.modules.iot.file.service.FileService;
 import io.swagger.v3.oas.annotations.tags.Tag;

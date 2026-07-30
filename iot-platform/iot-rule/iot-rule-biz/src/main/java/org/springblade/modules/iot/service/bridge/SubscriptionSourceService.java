@@ -82,7 +82,7 @@ public interface SubscriptionSourceService extends SuperService<Long, Subscripti
      *
      * @param id 订阅源主键 ID
      * @return true=删除成功
-     * @throws com.mqttsnet.basic.exception.BizException 订阅源处于启用状态时抛出
+     * @throws org.springblade.basic.exception.BizException 订阅源处于启用状态时抛出
      */
     boolean deleteSubscriptionSource(Long id);
 

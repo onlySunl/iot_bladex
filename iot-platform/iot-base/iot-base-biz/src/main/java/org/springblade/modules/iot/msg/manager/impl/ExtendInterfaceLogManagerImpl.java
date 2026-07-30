@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.msg.manager.impl;
 
-import com.mqttsnet.basic.base.manager.impl.SuperManagerImpl;
-import com.mqttsnet.basic.database.mybatis.conditions.Wraps;
+import org.springblade.basic.base.manager.impl.SuperManagerImpl;
+import org.springblade.basic.database.mybatis.conditions.Wraps;
 import org.springblade.modules.iot.msg.entity.ExtendInterfaceLog;
 import org.springblade.modules.iot.msg.manager.ExtendInterfaceLogManager;
 import org.springblade.modules.iot.msg.mapper.ExtendInterfaceLogMapper;

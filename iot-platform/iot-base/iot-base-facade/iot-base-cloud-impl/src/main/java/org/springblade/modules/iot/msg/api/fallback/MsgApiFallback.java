@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.msg.api.fallback;
 
-import com.mqttsnet.basic.base.R;
+import org.springblade.basic.base.R;
 import org.springblade.modules.iot.msg.api.MsgApi;
 import org.springblade.modules.iot.msg.vo.update.ExtendMsgPublishVO;
 import org.springblade.modules.iot.msg.vo.update.ExtendMsgSendVO;

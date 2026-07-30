@@ -71,7 +71,7 @@ public interface DataBridgeService extends SuperService<Long, DataBridge> {
      *
      * @param id             桥接规则主键 ID
      * @param sampleEnvelope 样例消息（任意 Map，会被 JSON 序列化成 byte[] 发送）
-     * @return {@link Map} 发送结果，键值参考 {@code com.mqttsnet.basic.databridge.model.SendResult} 字段
+     * @return {@link Map} 发送结果，键值参考 {@code org.springblade.basic.databridge.model.SendResult} 字段
      */
     Map<String, Object> testSink(Long id, Map<String, Object> sampleEnvelope);
 
@@ -101,7 +101,7 @@ public interface DataBridgeService extends SuperService<Long, DataBridge> {
      *
      * @param id 桥接规则主键 ID
      * @return true=删除成功
-     * @throws com.mqttsnet.basic.exception.BizException 规则处于启用状态时抛出
+     * @throws org.springblade.basic.exception.BizException 规则处于启用状态时抛出
      */
     boolean deleteDataBridge(Long id);
 
