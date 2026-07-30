@@ -1,21 +1,19 @@
 package org.springblade.modules.iot.broker.ws.service.impl;
 
 import cn.hutool.core.util.StrUtil;
-import org.springblade.basic.rocketmq.producer.RocketmqTemplate;
+import org.springblade.common.iot.mq.BizMqRouteConstant;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.broker.common.counter.DownLinkDataReportCounter;
 import org.springblade.modules.iot.broker.common.session.WsDeviceSessionRegistry;
 import org.springblade.modules.iot.broker.ws.service.WebSocketBrokerService;
 import org.springblade.modules.iot.broker.ws.session.WebSocketSubject;
-import org.springblade.common.mq.BizMqRouteConstant;
 import org.springblade.modules.iot.entity.ws.command.WsCommandBroadcastEvent;
 import org.springblade.modules.iot.entity.ws.protocol.WsCommandProtocolEncoder;
 import org.springblade.modules.iot.vo.query.PublishWebSocketMessageRequestVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.rocketmq.client.producer.SendCallback;
-import org.apache.rocketmq.client.producer.SendResult;
-import org.springframework.beans.factory.ObjectProvider;
+
+import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
 
 /**
@@ -59,7 +57,7 @@ public class WebSocketBrokerServiceImpl implements WebSocketBrokerService {
             throw new ServiceException("clientId 不能为空");
         }
 
-        String tenantId = publishMessageRequestVO.getTenantId();
+        Long tenantId = publishMessageRequestVO.getTenantId();
         // 下行数据下发计数(broker 自维护,旁路统计不影响主链路)
         downLinkDataReportCounter.incrementDownLink();
 

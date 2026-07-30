@@ -22,7 +22,7 @@ public class ContextConstants {
     /**
      * 内置租户
      */
-    public static final String BUILT_IN_TENANT_ID_STR = "000000";
+    public static final Long BUILT_IN_TENANT_ID_STR = 000000l;
     /**
      * 请求头中携带的 应用id key
      */

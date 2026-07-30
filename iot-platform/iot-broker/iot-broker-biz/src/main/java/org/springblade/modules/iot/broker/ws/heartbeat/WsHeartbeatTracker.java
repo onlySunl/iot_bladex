@@ -1,14 +1,13 @@
 package org.springblade.modules.iot.broker.ws.heartbeat;
 
-import org.springblade.basic.rocketmq.producer.RocketmqTemplate;
-import org.springblade.common.mq.BizMqRouteConstant;
+
+import org.springblade.common.iot.mq.BizMqRouteConstant;
 import org.springblade.modules.iot.broker.ws.session.WebSocketSubject;
 import org.springblade.modules.iot.entity.ws.heartbeat.WsHeartbeatSyncEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
 
 /**
@@ -41,7 +40,7 @@ public class WsHeartbeatTracker {
      * @param tenantId 租户 ID
      * @param clientId 设备 clientId
      */
-    public void update(String tenantId, String clientId) {
+    public void update(Long tenantId, String clientId) {
         long now = System.currentTimeMillis();
 
         // 1. 本地 session lastActiveTime(timeout checker 据此判活)

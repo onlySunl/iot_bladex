@@ -36,7 +36,7 @@ public abstract class BaseEvent implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Schema(description = "租户ID", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String tenantId;
+    private Long tenantId;
 
     @Schema(description = "客户端ID", requiredMode = Schema.RequiredMode.REQUIRED)
     private String clientId;

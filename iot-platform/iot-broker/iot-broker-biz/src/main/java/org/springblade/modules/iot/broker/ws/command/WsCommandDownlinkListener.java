@@ -1,7 +1,8 @@
 package org.springblade.modules.iot.broker.ws.command;
 
 import com.alibaba.fastjson2.JSON;
-import org.springblade.common.mq.BizMqRouteConstant;
+import org.apache.rocketmq.spring.annotation.MessageModel;
+import org.springblade.common.iot.mq.BizMqRouteConstant;
 import org.springblade.modules.iot.broker.ws.service.impl.WebSocketBrokerServiceImpl;
 import org.springblade.modules.iot.broker.ws.session.WebSocketSubject;
 
@@ -10,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.spring.annotation.ConsumeMode;
-import org.apache.rocketmq.spring.annotation.MessageModel;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

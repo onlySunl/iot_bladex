@@ -16,6 +16,7 @@ import org.springblade.common.constant.ContextConstants;
 
 import org.springblade.common.iot.constant.CommonIotConstants;
 import org.springblade.common.iot.enums.DeviceActionTypeEnum;
+import org.springblade.core.kafka.producer.KafkaProducerService;
 import org.springblade.core.tool.jackson.JsonUtil;
 import org.springblade.core.tool.utils.SpringUtil;
 import org.springblade.modules.iot.broker.common.session.WsDeviceSessionRegistry;
@@ -124,7 +125,7 @@ public class WebSocketDeviceOpenAccessProtocolEndpoint {
      */
     @OnOpen
     public void onOpen(Session session, EndpointConfig config,
-                       @PathParam(CommonIotConstants.TENANT_ID) String tenantId,
+                       @PathParam(CommonIotConstants.TENANT_ID) Long tenantId,
                        @PathParam(CommonIotConstants.CLIENT_ID) String clientId) {
         initSpringBeans();
         log.info("WebSocket【DeviceOpenAccessProtocolEndpoint】连接成功, Session ID: {}, tenantId: {}, clientId: {}",

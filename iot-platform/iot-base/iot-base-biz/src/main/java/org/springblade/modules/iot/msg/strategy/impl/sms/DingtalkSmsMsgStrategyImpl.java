@@ -5,9 +5,13 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 
+import com.dingtalk.api.response.OapiRobotSendResponse;
 import org.springblade.basic.jackson.JsonUtil;
 import org.springblade.basic.model.Kv;
 import org.springblade.basic.utils.ArgumentAssert;
+import org.springblade.core.dinger.content.DingtalktInfoReq;
+import org.springblade.core.dinger.process.INoticeProcessor;
+import org.springblade.core.dinger.properties.DingTalkProperties;
 import org.springblade.modules.iot.msg.entity.ExtendMsg;
 import org.springblade.modules.iot.msg.entity.ExtendMsgRecipient;
 import org.springblade.modules.iot.msg.service.DefInterfacePropertyService;

@@ -43,7 +43,7 @@ public class WsHeartbeatSyncEvent implements Serializable {
     /**
      * 租户 ID(Long 类型,与 owner / heartbeat key 命名空间一致)
      */
-    private String tenantId;
+    private Long tenantId;
 
     /**
      * 设备 clientId

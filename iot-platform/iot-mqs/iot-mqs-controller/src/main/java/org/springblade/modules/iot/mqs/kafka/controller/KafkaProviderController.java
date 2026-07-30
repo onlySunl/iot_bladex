@@ -3,11 +3,12 @@ package org.springblade.modules.iot.mqs.kafka.controller;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import org.springblade.basic.kafka.producer.KafkaProducerService;
-import org.springblade.basic.kafka.producer.KafkaSendResultHandler;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.kafka.producer.KafkaProducerService;
+import org.springblade.core.kafka.producer.KafkaSendResultHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;

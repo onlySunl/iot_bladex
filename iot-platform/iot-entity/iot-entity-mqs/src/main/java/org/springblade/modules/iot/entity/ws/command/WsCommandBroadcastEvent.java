@@ -44,7 +44,7 @@ public class WsCommandBroadcastEvent implements Serializable {
     /**
      * 租户 ID(字符串形式,与 session 信息 / 心跳事件命名空间一致)。
      */
-    private String tenantId;
+    private Long tenantId;
 
     /**
      * 目标设备 clientId(各节点据此查本地 session 表)。

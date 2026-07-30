@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.broker.ws.heartbeat;
 
 import com.alibaba.fastjson2.JSON;
-import org.springblade.common.mq.BizMqRouteConstant;
+import org.springblade.common.iot.mq.BizMqRouteConstant;
 import org.springblade.modules.iot.broker.ws.session.WebSocketSubject;
 import org.springblade.modules.iot.entity.ws.heartbeat.WsHeartbeatSyncEvent;
 import lombok.RequiredArgsConstructor;

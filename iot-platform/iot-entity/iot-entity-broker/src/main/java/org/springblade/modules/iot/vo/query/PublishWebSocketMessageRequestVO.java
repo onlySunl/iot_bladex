@@ -37,7 +37,7 @@ public class PublishWebSocketMessageRequestVO implements Serializable {
     private Long reqId;
 
     @Schema(description = "租户ID", required = true, example = "iot")
-    private String tenantId;
+    private Long tenantId;
 
     @Schema(description = "客户端ID", required = true, example = "client123")
     private String clientId;
