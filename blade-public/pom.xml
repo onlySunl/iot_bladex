@@ -51,6 +51,8 @@
         <module>blade-core-dinger</module>
         <!-- RocketMQ 集成模块 -->
         <module>blade-core-rocketmq</module>
+        <!-- Groovy 脚本引擎模块 -->
+        <module>blade-core-groovy</module>
     </modules>
 
     <dependencies>
