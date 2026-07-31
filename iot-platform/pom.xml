@@ -94,6 +94,8 @@
         <module>iot-common</module>
         <!-- 模型模块 -->
         <module>iot-model</module>
+        <!-- Starter 聚合模块 -->
+        <module>iot-platform-starter</module>
     </modules>
 
     <!-- ==================== IoT 平台依赖版本管理 ==================== -->

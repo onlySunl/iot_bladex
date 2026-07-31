@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ========================================================================
+    IoT 平台 Starter - 聚合所有 IoT 业务模块
+    ========================================================================
+    职责: 一键引入所有 IoT 平台功能模块
+    使用: blade-server 引入此模块即可获得完整 IoT 能力
+    ========================================================================
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.springblade</groupId>
+        <artifactId>iot-platform</artifactId>
+        <version>4.9.0.RELEASE</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>iot-platform-starter</artifactId>
+    <name>${project.artifactId}</name>
+    <description>IoT 平台 Starter - 聚合所有业务模块</description>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <!-- ==================== IoT 公共模块 ==================== -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-model</artifactId>
+        </dependency>
+
+        <!-- ==================== IoT 业务模块 (boot-impl 包含自动配置) ==================== -->
+        <!-- 基础服务 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-base-boot-impl</artifactId>
+        </dependency>
+        <!-- 设备集成 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-link-boot-impl</artifactId>
+        </dependency>
+        <!-- MQTT Broker -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-broker-boot-impl</artifactId>
+        </dependency>
+        <!-- 消息队列 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-mqs-boot-impl</artifactId>
+        </dependency>
+        <!-- 规则引擎 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-rule-boot-impl</artifactId>
+        </dependency>
+        <!-- 时序数据 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-tds-boot-impl</artifactId>
+        </dependency>
+
+        <!-- ==================== IoT 消息模块 ==================== -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-message-biz</artifactId>
+        </dependency>
+
+        <!-- ==================== IoT 文件 SDK ==================== -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-file-sdk</artifactId>
+        </dependency>
+    </dependencies>
+</project>

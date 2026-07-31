@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ========================================================================
+    NVR 平台 Starter - 聚合所有 NVR 业务模块
+    ========================================================================
+    职责: 一键引入所有 NVR 平台功能模块
+    使用: blade-server 引入此模块即可获得完整 NVR 能力
+    ========================================================================
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.springblade</groupId>
+        <artifactId>nvr-platform</artifactId>
+        <version>4.9.0.RELEASE</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>nvr-platform-starter</artifactId>
+    <name>${project.artifactId}</name>
+    <description>NVR 平台 Starter - 聚合所有业务模块</description>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <!-- ==================== NVR 公共基础模块 ==================== -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>nvr-common</artifactId>
+        </dependency>
+
+        <!-- ==================== NVR 业务模块 ==================== -->
+        <!-- 业务逻辑层 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>nvr-biz</artifactId>
+        </dependency>
+        <!-- 服务层 -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>nvr-service</artifactId>
+        </dependency>
+    </dependencies>
+</project>

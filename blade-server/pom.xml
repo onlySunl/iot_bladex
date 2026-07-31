@@ -31,53 +31,16 @@
             <artifactId>blade-api</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
-        <!-- ===== 2. IoT 平台模块 ===== -->
+        <!-- ===== 2. IoT 平台 Starter（聚合所有 IoT 业务模块） ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-model</artifactId>
-        </dependency>
-        <!-- IoT 业务模块 (boot-impl 包含自动配置) -->
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-base-boot-impl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-link-boot-impl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-broker-boot-impl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-mqs-boot-impl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-rule-boot-impl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>iot-tds-boot-impl</artifactId>
+            <artifactId>iot-platform-starter</artifactId>
         </dependency>
 
-        <!-- ===== 3. NVR 平台模块 ===== -->
+        <!-- ===== 3. NVR 平台 Starter（聚合所有 NVR 业务模块） ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>nvr-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-biz</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>nvr-service</artifactId>
+            <artifactId>nvr-platform-starter</artifactId>
         </dependency>
 
         <!-- ===== 3. Redisson 分布式锁/队列（规则引擎使用） ===== -->

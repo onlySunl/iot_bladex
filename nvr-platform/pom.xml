@@ -47,6 +47,8 @@
         <module>nvr-biz</module>
         <!-- 协议模块 -->
         <module>nvr-protocol</module>
+        <!-- Starter 聚合模块 -->
+        <module>nvr-platform-starter</module>
     </modules>
 
     <!-- ==================== NVR 平台依赖版本管理 ==================== -->

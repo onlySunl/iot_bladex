@@ -405,7 +405,19 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- ==================== 4.13 ORM 扩展 ==================== -->
+            <!-- ==================== 4.13 平台 Starter 模块 ==================== -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-platform-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-platform-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- ==================== 4.14 ORM 扩展 ==================== -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
