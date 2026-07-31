@@ -1,0 +1,226 @@
+[ERROR] [ERROR] Some problems were encountered while processing the POMs:
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.projectlombok:lombok:jar -> duplicate declaration of version (?) @ line 38, column 21
+'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.projectlombok:lombok:jar -> duplicate declaration of version (?) @ line 38, column 21
+
+
+[ERROR] 'dependencies.dependency.version' for com.baomidou:mybatis-plus-boot-starter:jar is missing. @ line 19, column 21
+[ERROR] 'dependencies.dependency.version' for com.baomidou:mybatis-plus-boot-starter:jar is missing. @ line 21, column 21
+[ERROR] 'dependencies.dependency.version' for tk.mybatis:mapper-core:jar is missing. @ line 54, column 21
+[ERROR] 'dependencies.dependency.version' for p6spy:p6spy:jar is missing. @ line 59, column 21
+[ERROR] 'dependencies.dependency.version' for com.taosdata.jdbc:taos-jdbcdriver:jar is missing. @ line 25, column 21
+[ERROR] 'dependencies.dependency.version' for com.influxdb:influxdb-client-java:jar is missing. @ line 60, column 21
+[ERROR] 'dependencies.dependency.version' for com.baomidou:dynamic-datasource-creator:jar is missing. @ line 68, column 21
+[ERROR] 'dependencies.dependency.version' for org.eclipse.paho:org.eclipse.paho.client.mqttv3:jar is missing. @ line 82, column 21
+[ERROR] 'dependencies.dependency.version' for net.coobird:thumbnailator:jar is missing. @ line 39, column 21
+[ERROR] 'dependencies.dependency.version' for com.aliyun:alibaba-dingtalk-service-sdk:jar is missing. @ line 45, column 21
+[ERROR] 'dependencies.dependency.version' for org.apache.rocketmq:rocketmq-spring-boot-starter:jar is missing. @ line 27, column 21
+[ERROR] 'dependencies.dependency.version' for org.checkerframework:checker-qual:jar is missing. @ line 54, column 21
+[ERROR] 'dependencies.dependency.version' for com.baomidou:mybatis-plus-boot-starter:jar is missing. @ line 27, column 21
+[ERROR] 'dependencies.dependency.version' for com.taosdata.jdbc:taos-jdbcdriver:jar is missing. @ line 38, column 21
+[ERROR] 'dependencies.dependency.version' for com.unfbx:chatgpt-java:jar is missing. @ line 44, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-model:jar is missing. @ line 40, column 21
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.springblade:blade-core-basic:jar -> duplicate declaration of version (?) @ line 55, column 21
+'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.springblade:blade-core-basic:jar -> duplicate declaration of version (?) @ line 55, column 21
+
+
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-model:jar is missing. @ line 50, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-common:jar is missing. @ line 59, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-model:jar is missing. @ line 26, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-model:jar is missing. @ line 29, column 21
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: com.baidubce:bce-java-sdk:jar -> duplicate declaration of version (?) @ line 98, column 21
+'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: com.baidubce:bce-java-sdk:jar -> duplicate declaration of version (?) @ line 98, column 21
+
+
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-base-api:jar is missing. @ line 18, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-entity-base:jar is missing. @ line 26, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-common:jar is missing. @ line 39, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-message-biz:jar is missing. @ line 44, column 21
+[ERROR] 'dependencies.dependency.version' for org.apache.commons:commons-email:jar is missing. @ line 49, column 21
+[ERROR] 'dependencies.dependency.version' for com.baidubce:bce-java-sdk:jar is missing. @ line 98, column 21
+[ERROR] 'dependencies.dependency.version' for org.codehaus.groovy:groovy-all:pom is missing. @ line 59, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-file-sdk:jar is missing. @ line 69, column 21
+[ERROR] 'dependencies.dependency.version' for com.aliyun:dysmsapi20170525:jar is missing. @ line 75, column 21
+[ERROR] 'dependencies.dependency.version' for com.tencentcloudapi:tencentcloud-sdk-java:jar is missing. @ line 87, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-entity-base:jar is missing. @ line 19, column 21
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.projectlombok:lombok:jar -> duplicate declaration of version (?) @ line 30, column 21
+'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.projectlombok:lombok:jar -> duplicate declaration of version (?) @ line 30, column 21
+
+
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-base-api:jar is missing. @ line 18, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-base-biz:jar is missing. @ line 22, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-base-api:jar is missing. @ line 18, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-base-biz:jar is missing. @ line 18, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-entity-message:jar is missing. @ line 25, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-common:jar is missing. @ line 33, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-message-biz:jar is missing. @ line 17, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-common:jar is missing. @ line 18, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-model:jar is missing. @ line 52, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-common:jar is missing. @ line 99, column 21
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.springblade:blade-core-mvc:jar -> duplicate declaration of version (?) @ line 125, column 21
+'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.springblade:blade-core-mvc:jar -> duplicate declaration of version (?) @ line 125, column 21
+'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.bouncycastle:bcpkix-jdk18on:jar -> duplicate declaration of version (?) @ line 152, column 21
+
+[ERROR] 'dependencies.dependency.version' for org.openjdk.jmh:jmh-core:jar is missing. @ line 92, column 21
+[ERROR] 'dependencies.dependency.version' for org.openjdk.jmh:jmh-generator-annprocess:jar is missing. @ line 96, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-common:jar is missing. @ line 121, column 21
+[ERROR] 'dependencies.dependency.version' for org.bouncycastle:bcpkix-jdk18on:jar is missing. @ line 152, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-entity-base:jar is missing. @ line 157, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-base-api:jar is missing. @ line 162, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-common:jar is missing. @ line 21, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-common:jar is missing. @ line 18, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-mqs-entity:jar is missing. @ line 18, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-mqs-entity:jar is missing. @ line 18, column 21
+[ERROR] 'dependencies.dependency.version' for com.unfbx:chatgpt-java:jar is missing. @ line 62, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-mqs-entity:jar is missing. @ line 19, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-mqs-biz-bus:jar is missing. @ line 22, column 21
+[ERROR] 'dependencies.dependency.version' for org.owasp:dependency-check-maven:jar is missing. @ line 56, column 21
+[ERROR] 'dependencies.dependency.version' for org.apache.rocketmq:rocketmq-spring-boot:jar is missing. @ line 28, column 21
+[ERROR] 'dependencies.dependency.version' for com.alibaba.fastjson2:fastjson2:jar is missing. @ line 23, column 21
+[ERROR] 'dependencies.dependency.version' for commons-logging:commons-logging:jar is missing. @ line 28, column 21
+[ERROR] 'dependencies.dependency.version' for commons-io:commons-io:jar is missing. @ line 32, column 21
+[ERROR] 'dependencies.dependency.version' for org.springblade:iot-common:jar is missing. @ line 54, column 21
+[ERROR] 'dependencies.dependency.version' for org.apache.tika:tika-core:jar is missing. @ line 35, column 21
+[ERROR] 'dependencies.dependency.version' for commons-io:commons-io:jar is missing. @ line 41, column 21
+[WARNING] 'dependencies.dependency.systemPath' for com.github.cbyzzy:Examples:jar should not point at files within the project directory, ${project.basedir}/src/main/resources/jar/examples.jar will be unresolvable by dependent projects @ line 59, column 25
+[WARNING] 'dependencies.dependency.systemPath' for com.sun.jna:jna:jar should not point at files within the project directory, ${project.basedir}/src/main/resources/jar/jna.jar will be unresolvable by dependent projects @ line 66, column 25
+ @ 
+[ERROR] The build could not read 35 projects -> [Help 1]
+[ERROR]   
+[ERROR]   The project org.springblade:blade-core-basic:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\blade-public\blade-core-basic\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for com.baomidou:mybatis-plus-boot-starter:jar is missing. @ line 19, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:blade-core-database:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\blade-public\blade-core-database\pom.xml) has 3 errors
+[ERROR]     'dependencies.dependency.version' for com.baomidou:mybatis-plus-boot-starter:jar is missing. @ line 21, column 21
+[ERROR]     'dependencies.dependency.version' for tk.mybatis:mapper-core:jar is missing. @ line 54, column 21
+[ERROR]     'dependencies.dependency.version' for p6spy:p6spy:jar is missing. @ line 59, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:blade-core-tds:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\blade-public\blade-core-tds\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for com.taosdata.jdbc:taos-jdbcdriver:jar is missing. @ line 25, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:blade-core-databridge:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\blade-public\blade-core-databridge\pom.xml) has 3 errors
+[ERROR]     'dependencies.dependency.version' for com.influxdb:influxdb-client-java:jar is missing. @ line 60, column 21
+[ERROR]     'dependencies.dependency.version' for com.baomidou:dynamic-datasource-creator:jar is missing. @ line 68, column 21
+[ERROR]     'dependencies.dependency.version' for org.eclipse.paho:org.eclipse.paho.client.mqttv3:jar is missing. @ line 82, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:blade-core-fastdfs:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\blade-public\blade-core-fastdfs\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for net.coobird:thumbnailator:jar is missing. @ line 39, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:blade-core-dinger:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\blade-public\blade-core-dinger\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for com.aliyun:alibaba-dingtalk-service-sdk:jar is missing. @ line 45, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:blade-core-rocketmq:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\blade-public\blade-core-rocketmq\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for org.apache.rocketmq:rocketmq-spring-boot-starter:jar is missing. @ line 27, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:blade-core-groovy:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\blade-public\blade-core-groovy\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for org.checkerframework:checker-qual:jar is missing. @ line 54, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:blade-core-condition:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\blade-public\blade-core-condition\pom.xml) has 2 errors
+[ERROR]     'dependencies.dependency.version' for com.baomidou:mybatis-plus-boot-starter:jar is missing. @ line 27, column 21
+[ERROR]     'dependencies.dependency.version' for com.taosdata.jdbc:taos-jdbcdriver:jar is missing. @ line 38, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:blade-core-chatgpt:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\blade-public\blade-core-chatgpt\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for com.unfbx:chatgpt-java:jar is missing. @ line 44, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-entity-link:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-link\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-model:jar is missing. @ line 40, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-entity-rule:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-rule\pom.xml) has 2 errors
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-model:jar is missing. @ line 50, column 21
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-common:jar is missing. @ line 59, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-entity-base:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-base\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-model:jar is missing. @ line 26, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-entity-message:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-entity\iot-entity-message\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-model:jar is missing. @ line 29, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-base-biz:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-base\iot-base-biz\pom.xml) has 10 errors
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-base-api:jar is missing. @ line 18, column 21
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-entity-base:jar is missing. @ line 26, column 21
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-common:jar is missing. @ line 39, column 21
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-message-biz:jar is missing. @ line 44, column 21
+[ERROR]     'dependencies.dependency.version' for org.apache.commons:commons-email:jar is missing. @ line 49, column 21
+[ERROR]     'dependencies.dependency.version' for com.baidubce:bce-java-sdk:jar is missing. @ line 98, column 21
+[ERROR]     'dependencies.dependency.version' for org.codehaus.groovy:groovy-all:pom is missing. @ line 59, column 21
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-file-sdk:jar is missing. @ line 69, column 21
+[ERROR]     'dependencies.dependency.version' for com.aliyun:dysmsapi20170525:jar is missing. @ line 75, column 21
+[ERROR]     'dependencies.dependency.version' for com.tencentcloudapi:tencentcloud-sdk-java:jar is missing. @ line 87, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-base-api:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-base\iot-base-facade\iot-base-api\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-entity-base:jar is missing. @ line 19, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-base-boot-impl:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-base\iot-base-facade\iot-base-boot-impl\pom.xml) has 2 errors
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-base-api:jar is missing. @ line 18, column 21
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-base-biz:jar is missing. @ line 22, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-base-cloud-impl:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-base\iot-base-facade\iot-base-cloud-impl\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-base-api:jar is missing. @ line 18, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-base-controller:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-base\iot-base-controller\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-base-biz:jar is missing. @ line 18, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-message-biz:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-message\iot-message-biz\pom.xml) has 2 errors
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-entity-message:jar is missing. @ line 25, column 21
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-common:jar is missing. @ line 33, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-message-controller:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-message\iot-message-controller\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-message-biz:jar is missing. @ line 17, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-file-sdk:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-file-sdk\pom.xml) has 2 errors
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-common:jar is missing. @ line 18, column 21
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-model:jar is missing. @ line 52, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-broker-biz:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-broker\iot-broker-biz\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-common:jar is missing. @ line 99, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-link-biz:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-link\iot-link-biz\pom.xml) has 6 errors
+[ERROR]     'dependencies.dependency.version' for org.openjdk.jmh:jmh-core:jar is missing. @ line 92, column 21
+[ERROR]     'dependencies.dependency.version' for org.openjdk.jmh:jmh-generator-annprocess:jar is missing. @ line 96, column 21
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-common:jar is missing. @ line 121, column 21
+[ERROR]     'dependencies.dependency.version' for org.bouncycastle:bcpkix-jdk18on:jar is missing. @ line 152, column 21
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-entity-base:jar is missing. @ line 157, column 21
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-base-api:jar is missing. @ line 162, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-link-controller:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-link\iot-link-controller\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-common:jar is missing. @ line 21, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-mqs-entity:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-mqs\iot-mqs-entity\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-common:jar is missing. @ line 18, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-mqs-api:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-mqs\iot-mqs-facade\iot-mqs-api\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-mqs-entity:jar is missing. @ line 18, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-mqs-biz:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-mqs\iot-mqs-biz\pom.xml) has 2 errors
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-mqs-entity:jar is missing. @ line 18, column 21
+[ERROR]     'dependencies.dependency.version' for com.unfbx:chatgpt-java:jar is missing. @ line 62, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-mqs-biz-bus:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-mqs\iot-mqs-biz-bus\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-mqs-entity:jar is missing. @ line 19, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-mqs-controller:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-mqs\iot-mqs-controller\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-mqs-biz-bus:jar is missing. @ line 22, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-rule-biz:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-rule\iot-rule-biz\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for org.owasp:dependency-check-maven:jar is missing. @ line 56, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-rule-biz-bridge:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-rule\iot-rule-biz-bridge\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for org.apache.rocketmq:rocketmq-spring-boot:jar is missing. @ line 28, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-sdk-core:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-sdk\iot-sdk-core\pom.xml) has 3 errors
+[ERROR]     'dependencies.dependency.version' for com.alibaba.fastjson2:fastjson2:jar is missing. @ line 23, column 21
+[ERROR]     'dependencies.dependency.version' for commons-logging:commons-logging:jar is missing. @ line 28, column 21
+[ERROR]     'dependencies.dependency.version' for commons-io:commons-io:jar is missing. @ line 32, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-tds-biz:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-tds\iot-tds-biz\pom.xml) has 1 error
+[ERROR]     'dependencies.dependency.version' for org.springblade:iot-common:jar is missing. @ line 54, column 21
+[ERROR]   
+[ERROR]   The project org.springblade:iot-common:4.9.0.RELEASE (D:\workspace\IOT\iot_bladex_v1.0\iot-platform\iot-common\pom.xml) has 2 errors
+[ERROR]     'dependencies.dependency.version' for org.apache.tika:tika-core:jar is missing. @ line 35, column 21
+[ERROR]     'dependencies.dependency.version' for commons-io:commons-io:jar is missing. @ line 41, column 21
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/ProjectBuildingException
+Process finished with exit code 1

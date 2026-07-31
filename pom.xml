@@ -78,6 +78,32 @@
 
         <!-- ===== 第三方 SDK 版本 ===== -->
         <weixin.miniapp.version>4.6.0</weixin.miniapp.version>
+        <dingtalk.version>2.0.0</dingtalk.version>
+        <aliyun-dysms.version>3.0.0</aliyun-dysms.version>
+        <tencentcloud-sdk.version>3.1.874</tencentcloud-sdk.version>
+        <bce-sdk.version>0.10.182</bce-sdk.version>
+        <chatgpt-java.version>1.1.2-beta0</chatgpt-java.version>
+
+        <!-- ===== ORM 扩展版本 ===== -->
+        <tkmybatis.version>1.1.5</tkmybatis.version>
+        <p6spy.version>3.9.1</p6spy.version>
+        <dynamic-datasource.version>4.2.0</dynamic-datasource.version>
+
+        <!-- ===== 时序数据库版本 ===== -->
+        <taos.jdbc.version>3.2.7</taos.jdbc.version>
+        <influxdb.version>7.1.0</influxdb.version>
+
+        <!-- ===== 消息队列版本 ===== -->
+        <mqtt.version>1.2.5</mqtt.version>
+        <rocketmq.version>2.2.3</rocketmq.version>
+
+        <!-- ===== 工具类扩展版本 ===== -->
+        <thumbnailator.version>0.4.20</thumbnailator.version>
+        <checker-qual.version>3.38.0</checker-qual.version>
+        <commons-email.version>1.6.0</commons-email.version>
+
+        <!-- ===== Groovy 版本 ===== -->
+        <groovy.version>3.0.19</groovy.version>
     </properties>
 
     <!-- ==================== 4. 依赖版本管控（核心！杜绝版本混乱） ==================== -->
@@ -290,7 +316,142 @@
                 <version>${mapstruct.version}</version>
             </dependency>
 
-            <!-- ==================== 4.9 第三方 SDK ==================== -->
+            <!-- ==================== 4.9 IoT 平台模块 ==================== -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-base-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-base-biz</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-entity-base</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-message-biz</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-file-sdk</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- ==================== 4.10 ORM 扩展 ==================== -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper-core</artifactId>
+                <version>${tkmybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>p6spy</groupId>
+                <artifactId>p6spy</artifactId>
+                <version>${p6spy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-creator</artifactId>
+                <version>${dynamic-datasource.version}</version>
+            </dependency>
+
+            <!-- ==================== 4.11 时序数据库 ==================== -->
+            <dependency>
+                <groupId>com.taosdata.jdbc</groupId>
+                <artifactId>taos-jdbcdriver</artifactId>
+                <version>${taos.jdbc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.influxdb</groupId>
+                <artifactId>influxdb-client-java</artifactId>
+                <version>${influxdb.version}</version>
+            </dependency>
+
+            <!-- ==================== 4.12 消息队列 ==================== -->
+            <dependency>
+                <groupId>org.eclipse.paho</groupId>
+                <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+                <version>${mqtt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${rocketmq.version}</version>
+            </dependency>
+
+            <!-- ==================== 4.13 工具类 ==================== -->
+            <dependency>
+                <groupId>net.coobird</groupId>
+                <artifactId>thumbnailator</artifactId>
+                <version>${thumbnailator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.checkerframework</groupId>
+                <artifactId>checker-qual</artifactId>
+                <version>${checker-qual.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-email</artifactId>
+                <version>${commons-email.version}</version>
+            </dependency>
+
+            <!-- ==================== 4.14 第三方 SDK ==================== -->
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>alibaba-dingtalk-service-sdk</artifactId>
+                <version>${dingtalk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>dysmsapi20170525</artifactId>
+                <version>${aliyun-dysms.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tencentcloudapi</groupId>
+                <artifactId>tencentcloud-sdk-java</artifactId>
+                <version>${tencentcloud-sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baidubce</groupId>
+                <artifactId>bce-java-sdk</artifactId>
+                <version>${bce-sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.unfbx</groupId>
+                <artifactId>chatgpt-java</artifactId>
+                <version>${chatgpt-java.version}</version>
+            </dependency>
+
+            <!-- ==================== 4.15 Groovy ==================== -->
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy-all</artifactId>
+                <version>${groovy.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <!-- ==================== 4.16 其他第三方 SDK ==================== -->
             <dependency>
                 <groupId>com.github.binarywang</groupId>
                 <artifactId>weixin-java-miniapp</artifactId>
