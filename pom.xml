@@ -1,96 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    ========================================================================
-    BLADE_IOT 物联网平台 - 顶层聚合工程
-    ========================================================================
-    职责: 管理主程序核心 JAR 包及引用
-    技术栈: Java 17 + Spring Boot 3.2.10 + BladeX 4.9.0.RELEASE
-    ========================================================================
-    子模块职责划分:
-    - blade-public:    核心框架模块 (blade-core-*)
-    - iot-platform:    IoT 物联网平台 (设备管理、规则引擎、消息队列等)
-    - nvr-platform:    NVR 视频平台 (GB28181、ONVIF、流媒体等)
-    ========================================================================
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- ==================== 项目基本信息 ==================== -->
+    <!-- ==================== 1. 项目基础坐标 ==================== -->
     <groupId>org.springblade</groupId>
     <artifactId>iot_bladex</artifactId>
     <version>4.9.0.RELEASE</version>
     <packaging>pom</packaging>
-    <name>iot_bladex</name>
-    <description>BLADE_IOT 物联网平台 - 顶层聚合工程</description>
 
-    <!-- ==================== 版本属性统一管理 ==================== -->
+    <name>${project.artifactId}</name>
+    <description>IoT 物联网平台 - 基于 Spring BladeX 框架</description>
+    <url>https://github.com/your-org/iot_bladex</url>
+
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>BladeX Team</name>
+            <email>support@springblade.org</email>
+        </developer>
+    </developers>
+
+    <!-- ==================== 2. 父工程继承（统一管控版本） ==================== -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.10</version>
+        <relativePath/>
+    </parent>
+
+    <!-- ==================== 3. 属性集（版本集中管理） ==================== -->
     <properties>
-        <!-- ===== 项目版本 ===== -->
-        <project.version>4.9.0.RELEASE</project.version>
-        <bladex.project.version>${project.version}</bladex.project.version>
-
-        <!-- ===== JDK & 编码 ===== -->
+        <!-- ===== 基础配置 ===== -->
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
 
-        <!-- ===== Maven 插件版本 ===== -->
+        <!-- ===== BladeX 框架版本 ===== -->
+        <bladex.version>4.9.0.RELEASE</bladex.version>
+
+        <!-- ===== 插件版本 ===== -->
         <maven.plugin.version>3.11.0</maven.plugin.version>
-        <maven.flatten.version>1.3.0</maven.flatten.version>
         <maven.jar.plugin.version>3.3.0</maven.jar.plugin.version>
+        <maven.flatten.version>1.5.0</maven.flatten.version>
+        <maven.docker.version>0.43.4</maven.docker.version>
 
-        <!-- ===== ORM 框架 ===== -->
-        <mybatis-plus-join.version>1.5.9</mybatis-plus-join.version>
-        <mapstruct.version>1.5.5.Final</mapstruct.version>
-        <lombok.version>1.18.36</lombok.version>
+        <!-- ===== ORM 版本 ===== -->
+        <mybatis-plus.version>3.5.5</mybatis-plus.version>
+        <mybatis-plus-join.version>1.4.10</mybatis-plus-join.version>
 
-        <!-- ===== 通用工具类 ===== -->
-        <hutool.version>5.8.32</hutool.version>
+        <!-- ===== 工具类版本 ===== -->
+        <hutool.version>5.8.25</hutool.version>
         <commons.beanutils.version>1.9.4</commons.beanutils.version>
-        <swagger.version>1.5.22</swagger.version>
+        <easy.captcha.version>1.6.2</easy.captcha.version>
+        <swagger.version>1.6.14</swagger.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <lombok.version>1.18.30</lombok.version>
 
-        <!-- ===== 文档处理 ===== -->
-        <auto.table.version>1.8.3</auto.table.version>
+        <!-- ===== 文档处理版本 ===== -->
+        <auto.table.version>3.5.3.1</auto.table.version>
         <tabula.version>1.0.5</tabula.version>
-        <pdfbox.version>2.0.24</pdfbox.version>
+        <pdfbox.version>3.0.1</pdfbox.version>
 
-        <!-- ===== 邮件服务 ===== -->
+        <!-- ===== 邮件版本 ===== -->
         <jakarta.mail.version>2.1.3</jakarta.mail.version>
-        <angus.mail.version>1.0.0</angus.mail.version>
+        <angus.mail.version>2.0.3</angus.mail.version>
 
-        <!-- ===== 第三方 SDK ===== -->
+        <!-- ===== 第三方 SDK 版本 ===== -->
         <weixin.miniapp.version>4.6.0</weixin.miniapp.version>
     </properties>
 
-    <!-- ==================== 依赖版本统一管理 ==================== -->
+    <!-- ==================== 4. 依赖版本管控（核心！杜绝版本混乱） ==================== -->
     <dependencyManagement>
         <dependencies>
-            <!-- ==================== 1. BladeX 框架核心 ==================== -->
-            <!-- BladeX BOM (Bill of Materials) -->
+            <!-- ==================== 4.1 BladeX 框架依赖 ==================== -->
             <dependency>
-                <groupId>org.springblade.platform</groupId>
-                <artifactId>blade-bom</artifactId>
-                <version>${bladex.project.version}</version>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-dependencies</artifactId>
+                <version>${bladex.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
 
-            <!-- BladeX 核心启动器 -->
-            <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-core-boot</artifactId>
-                <version>${bladex.project.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springblade</groupId>
-                        <artifactId>blade-core-cloud</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <!-- ==================== 2. 项目内部公共模块 ==================== -->
+            <!-- ==================== 4.2 项目内部模块 ==================== -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>blade-common</artifactId>
@@ -102,7 +104,7 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- ==================== 3. 核心框架模块 (blade-public) ==================== -->
+            <!-- ==================== 4.3 核心框架模块 (blade-public) ==================== -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>blade-core-basic</artifactId>
@@ -143,8 +145,73 @@
                 <artifactId>blade-core-dynamic-tp</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-uid</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-easyexcel</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-protocol</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-validator</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-kafka</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-rocketmq</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-fastdfs</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-dinger</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-groovy</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-condition</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-chatgpt</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>open-exp-client-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>open-plugin-manager</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
-            <!-- ==================== 4. ORM 扩展 ==================== -->
+            <!-- ==================== 4.4 ORM 扩展 ==================== -->
             <dependency>
                 <groupId>com.github.yulichang</groupId>
                 <artifactId>mybatis-plus-join-boot-starter</artifactId>
@@ -156,14 +223,21 @@
                 <version>4.3.1</version>
             </dependency>
 
-            <!-- ==================== 5. 通用工具类 ==================== -->
+            <!-- ==================== 4.5 通用工具类 ==================== -->
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
                 <version>${commons.beanutils.version}</version>
             </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-bom</artifactId>
+                <version>${hutool.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
-            <!-- ==================== 6. 文档处理 ==================== -->
+            <!-- ==================== 4.6 文档处理 ==================== -->
             <dependency>
                 <groupId>com.tangzc</groupId>
                 <artifactId>auto-table-annotation</artifactId>
@@ -180,7 +254,7 @@
                 <version>${pdfbox.version}</version>
             </dependency>
 
-            <!-- ==================== 7. 邮件服务 ==================== -->
+            <!-- ==================== 4.7 邮件服务 ==================== -->
             <dependency>
                 <groupId>jakarta.mail</groupId>
                 <artifactId>jakarta.mail-api</artifactId>
@@ -192,7 +266,7 @@
                 <version>${angus.mail.version}</version>
             </dependency>
 
-            <!-- ==================== 8. 对象映射 ==================== -->
+            <!-- ==================== 4.8 对象映射 ==================== -->
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
@@ -204,7 +278,7 @@
                 <version>${mapstruct.version}</version>
             </dependency>
 
-            <!-- ==================== 9. 第三方 SDK ==================== -->
+            <!-- ==================== 4.9 第三方 SDK ==================== -->
             <dependency>
                 <groupId>com.github.binarywang</groupId>
                 <artifactId>weixin-java-miniapp</artifactId>
@@ -213,9 +287,9 @@
         </dependencies>
     </dependencyManagement>
 
-    <!-- ==================== 全局公共依赖（所有子模块自动继承） ==================== -->
+    <!-- ==================== 5. 全局公共依赖（所有子模块自动继承） ==================== -->
     <dependencies>
-        <!-- ==================== 1. BladeX 基础框架 ==================== -->
+        <!-- ===== 5.1 BladeX 基础框架 ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-starter-mybatis</artifactId>
@@ -233,7 +307,7 @@
             <artifactId>blade-starter-tenant</artifactId>
         </dependency>
 
-        <!-- ==================== 2. Web & API ==================== -->
+        <!-- ===== 5.2 Web & API ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-starter-http</artifactId>
@@ -246,12 +320,8 @@
             <groupId>org.springblade</groupId>
             <artifactId>blade-starter-swagger</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-openapi3-ui</artifactId>
-        </dependency>
 
-        <!-- ==================== 3. 数据访问 ==================== -->
+        <!-- ===== 5.3 数据访问 ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-starter-data-scope</artifactId>
@@ -265,7 +335,7 @@
             <artifactId>blade-starter-redis</artifactId>
         </dependency>
 
-        <!-- ==================== 4. 业务功能 ==================== -->
+        <!-- ===== 5.4 业务功能 ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-starter-excel</artifactId>
@@ -287,7 +357,7 @@
             <artifactId>blade-starter-literule</artifactId>
         </dependency>
 
-        <!-- ==================== 5. 云存储 SDK ==================== -->
+        <!-- ===== 5.5 云存储 SDK ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-starter-oss</artifactId>
@@ -317,7 +387,7 @@
             <artifactId>qiniu-java-sdk</artifactId>
         </dependency>
 
-        <!-- ==================== 6. 短信 SDK ==================== -->
+        <!-- ===== 5.6 短信 SDK ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-starter-sms</artifactId>
@@ -335,33 +405,28 @@
             <artifactId>yunpian-java-sdk</artifactId>
         </dependency>
 
-        <!-- ==================== 7. Hutool 工具包 ==================== -->
+        <!-- ===== 5.7 Hutool 工具包 ===== -->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-core</artifactId>
-            <version>${hutool.version}</version>
         </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-crypto</artifactId>
-            <version>${hutool.version}</version>
         </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-http</artifactId>
-            <version>${hutool.version}</version>
         </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-json</artifactId>
-            <version>${hutool.version}</version>
         </dependency>
 
-        <!-- ==================== 8. 其他公共依赖 ==================== -->
+        <!-- ===== 5.8 其他公共依赖 ===== -->
         <dependency>
             <groupId>com.tangzc</groupId>
             <artifactId>auto-table-annotation</artifactId>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.whvcse</groupId>
@@ -378,7 +443,6 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
-
         </dependency>
         <dependency>
             <groupId>io.swagger</groupId>
@@ -386,7 +450,7 @@
             <version>${swagger.version}</version>
         </dependency>
 
-        <!-- ==================== 9. 编译期依赖 ==================== -->
+        <!-- ===== 5.9 编译期依赖 ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-auto</artifactId>
@@ -403,7 +467,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- ==================== 10. 测试依赖 ==================== -->
+        <!-- ===== 5.10 测试依赖 ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-test</artifactId>
@@ -411,26 +475,72 @@
         </dependency>
     </dependencies>
 
-    <!-- ==================== 子模块列表 ==================== -->
+    <!-- ==================== 6. 仓库配置 ==================== -->
+    <repositories>
+        <repository>
+            <id>aliyun</id>
+            <name>Aliyun Maven Repository</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>blade-releases</id>
+            <name>BladeX Releases</name>
+            <url>http://140.143.155.241:18085/repository/maven-releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>aliyun-plugin</id>
+            <name>Aliyun Maven Plugin Repository</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <!-- ==================== 7. 子模块列表 ==================== -->
     <modules>
-        <!-- ===== 服务启动 ===== -->
+        <!-- ===== 7.1 服务启动 ===== -->
         <module>blade-server</module>
-        <!-- ===== 公共基础 ===== -->
+        <!-- ===== 7.2 公共基础 ===== -->
         <module>blade-common</module>
         <module>blade-api</module>
-        <!-- ===== 核心框架 ===== -->
+        <!-- ===== 7.3 核心框架 ===== -->
         <module>blade-public</module>
-        <!-- ===== 业务平台 ===== -->
+        <!-- ===== 7.4 业务平台 ===== -->
         <module>iot-platform</module>
         <module>nvr-platform</module>
     </modules>
 
-    <!-- ==================== 构建配置 ==================== -->
+    <!-- ==================== 8. 构建配置 ==================== -->
     <build>
         <finalName>${project.name}</finalName>
+
+        <!-- ===== 8.1 全局资源过滤 ===== -->
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*</include>
+                </includes>
             </resource>
             <resource>
                 <directory>src/main/java</directory>
@@ -440,6 +550,7 @@
             </resource>
         </resources>
 
+        <!-- ===== 8.2 插件管理 ===== -->
         <plugins>
             <!-- JDK 编译插件 -->
             <plugin>
@@ -449,7 +560,7 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <encoding>UTF-8</encoding>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                     <compilerArgs>
                         <arg>-parameters</arg>
                     </compilerArgs>
@@ -515,11 +626,68 @@
         </plugins>
     </build>
 
-    <!-- ==================== 私服发布配置 ==================== -->
+    <!-- ==================== 9. 多环境配置 ==================== -->
+    <profiles>
+        <!-- ===== 9.1 开发环境 ===== -->
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spring.profiles.active>dev</spring.profiles.active>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+        </profile>
+
+        <!-- ===== 9.2 测试环境 ===== -->
+        <profile>
+            <id>test</id>
+            <properties>
+                <spring.profiles.active>test</spring.profiles.active>
+                <maven.test.skip>false</maven.test.skip>
+            </properties>
+        </profile>
+
+        <!-- ===== 9.3 生产环境 ===== -->
+        <profile>
+            <id>prod</id>
+            <properties>
+                <spring.profiles.active>prod</spring.profiles.active>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+            <build>
+                <plugins>
+                    <!-- 生产环境启用源码打包 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <!-- ==================== 10. 私服发布配置 ==================== -->
     <distributionManagement>
         <repository>
             <id>maven-releases</id>
+            <name>Releases Repository</name>
             <url>http://140.143.155.241:18085/repository/maven-releases/</url>
         </repository>
+        <snapshotRepository>
+            <id>maven-snapshots</id>
+            <name>Snapshots Repository</name>
+            <url>http://140.143.155.241:18085/repository/maven-snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
+
 </project>
