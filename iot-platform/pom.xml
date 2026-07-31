@@ -48,7 +48,8 @@
         
         <!-- 消息队列 -->
         <rocketmq.version>2.2.3</rocketmq.version>
-        <kafka.version>3.3.15</kafka.version>
+        <kafka.version>3.9.2</kafka.version>
+        <spring-kafka.version>3.3.0</spring-kafka.version>
         
         <!-- 工具类 -->
         <hutool.version>5.8.22</hutool.version>
@@ -256,7 +257,7 @@
             <dependency>
                 <groupId>org.springframework.kafka</groupId>
                 <artifactId>spring-kafka</artifactId>
-                <version>${kafka.version}</version>
+                <version>${spring-kafka.version}</version>
             </dependency>
 
             <!-- ==================== 6. IoT 工具类 ==================== -->
