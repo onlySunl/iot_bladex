@@ -1,4 +1,4 @@
-package com.mqttsnet.thinglinks.service.script.infra.groovy
+package org.springblade.modules.iot.service.script.infra.groovy
 
 productInfo.setId(100);
 println "hello world.";

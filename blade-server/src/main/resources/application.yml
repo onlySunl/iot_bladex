@@ -42,16 +42,6 @@ spring:
           session-stat-enable: true
           session-stat-max-count: 10
 
-# 加密算法配置
-blade:
-  security:
-    algorithms:
-      aes:
-        key: "0123456789abcdef"  # 16字节密钥
-        iv: "abcdef0123456789"   # 16字节初始化向量
-      sm4:
-        key: "0123456789abcdef"  # 16字节密钥
-        iv: "abcdef0123456789"   # 16字节初始化向量
 
 # mybatis
 mybatis-plus:
@@ -245,6 +235,15 @@ blade:
       - /blade-desk/notice/submit
       - /blade-flow/model/submit
       - /blade-develop/datasource/submit
+  # 加密算法配置
+  security:
+    algorithms:
+      aes:
+        key: "0123456789abcdef"  # 16字节密钥
+        iv: "abcdef0123456789"   # 16字节初始化向量
+      sm4:
+        key: "0123456789abcdef"  # 16字节密钥
+        iv: "abcdef0123456789"   # 16字节初始化向量
 
   #安全框架配置
   secure:
@@ -437,19 +436,19 @@ iot:
     # 设备离线超时(秒)
     offline-timeout: 300
 
-  security:
-    algorithms:
-      aes:
+security:
+  algorithms:
+    aes:
         # AES 密钥，用于数据库敏感字段加密，长度为 16、24 或 32 字节
-        key: ${THINGLINKS_SECURITY_AES_KEY:?"replace-with-aes-key"}
+      key: ${THINGLINKS_SECURITY_AES_KEY:?"replace-with-aes-key"}
         # AES 初始化向量，用于 CBC 模式加解密，长度为 16 字节
-        iv: ${THINGLINKS_SECURITY_AES_IV:?"replace-with-aes-iv"}
-        mode: "CBC"
-      sm4:
+      iv: ${THINGLINKS_SECURITY_AES_IV:?"replace-with-aes-iv"}
+      mode: "CBC"
+    sm4:
         # 16字节Hex
-        key: ${THINGLINKS_SECURITY_SM4_KEY:}
-        iv: ${THINGLINKS_SECURITY_SM4_IV:}
-        mode: "CBC"
+      key: ${THINGLINKS_SECURITY_SM4_KEY:}
+      iv: ${THINGLINKS_SECURITY_SM4_IV:}
+      mode: "CBC"
 
 # 告警通道配置
 config:

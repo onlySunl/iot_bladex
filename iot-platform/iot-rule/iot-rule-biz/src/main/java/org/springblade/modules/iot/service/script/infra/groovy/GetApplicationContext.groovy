@@ -1,9 +1,9 @@
-package com.mqttsnet.thinglinks.service.script.infra.groovy
+package org.springblade.modules.iot.service.script.infra.groovy
 
-import com.mqttsnet.thinglinks.dto.script.ProductInfoDTO
-import com.mqttsnet.thinglinks.service.script.GroovyScriptProductService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springblade.modules.iot.dto.script.ProductInfoDTO
+import org.springblade.modules.iot.service.script.GroovyScriptProductService
 import org.springframework.context.ApplicationContext
 
 /**

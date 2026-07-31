@@ -1,9 +1,9 @@
-package com.mqttsnet.thinglinks.service.script.infra.groovy
+package org.springblade.modules.iot.service.script.infra.groovy
 
-import com.mqttsnet.basic.groovy.entity.ExecuteParams
-import com.mqttsnet.thinglinks.dto.script.ProductInfoDTO
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springblade.core.groovy.entity.ExecuteParams
+import org.springblade.modules.iot.dto.script.ProductInfoDTO
 
 class ChangeProductInfo extends Script {
 
