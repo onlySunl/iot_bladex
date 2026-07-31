@@ -59,6 +59,8 @@
         <module>open-exp-client-api</module>
         <!-- 开放平台插件管理模块 -->
         <module>open-plugin-manager</module>
+        <!-- ChatGPT AI 集成模块 -->
+        <module>blade-core-chatgpt</module>
     </modules>
 
     <dependencies>
