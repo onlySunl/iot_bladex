@@ -15,6 +15,7 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import com.google.common.util.concurrent.RateLimiter;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.jackson.JsonUtil;
+import org.springblade.common.iot.bridge.BridgeMessageEnvelope;
 import org.springblade.common.iot.constant.CommonIotConstants;
 import org.springblade.core.databridge.model.ConnectorConfig;
 import org.springblade.core.databridge.model.ConnectorPayload;
@@ -90,7 +91,7 @@ public class SinkDispatcher {
     /**
      * 默认派发(无上游匹配延迟;replay / testSink 场景用)。
      */
-    public void dispatch(DataBridgeCacheVO rule, org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope) {
+    public void dispatch(DataBridgeCacheVO rule, BridgeMessageEnvelope envelope) {
         dispatch(rule, envelope, 0L);
     }
 
@@ -99,7 +100,7 @@ public class SinkDispatcher {
      *
      * @param matchLatencyMs 上游 matcher 耗时;0 = 无 matcher 阶段(如 replay)
      */
-    public void dispatch(DataBridgeCacheVO rule, org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope, long matchLatencyMs) {
+    public void dispatch(DataBridgeCacheVO rule, BridgeMessageEnvelope envelope, long matchLatencyMs) {
         // 回填 traceId,确保后续 header 与 Sink 端日志串联同一 traceId
         if (StrUtil.isBlank(envelope.getTraceId())) {
             envelope.setTraceId(ContextUtil.getLogTraceId());
@@ -138,7 +139,7 @@ public class SinkDispatcher {
                 trace.end(BridgeTraceBuilder.STATUS_PARTIAL, "转换脚本失败 + 策略 DROP,已丢弃");
                 return;
             }
-            org.springblade.common.iot.event.bridge.BridgeMessageEnvelope finalEnvelope = to.envelope;
+            BridgeMessageEnvelope finalEnvelope = to.envelope;
 
             ConnectorType type = parseConnectorType(dataSource.getSourceType());
             if (type == null) {
@@ -181,7 +182,7 @@ public class SinkDispatcher {
 
     // ============================== Trace 记账辅助 ==============================
 
-    private void recordIngestStep(BridgeTraceBuilder trace, org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope) {
+    private void recordIngestStep(BridgeTraceBuilder trace, BridgeMessageEnvelope envelope) {
         // envelope.ts 由 mqs 旁路 producer 端打,这里测整个 RocketMQ 链路 + 消费排队 + 反序列化 + 上下文恢复
         long latency = Optional.ofNullable(envelope.getTs())
             .map(ts -> Math.max(0L, System.currentTimeMillis() - ts))
@@ -196,7 +197,7 @@ public class SinkDispatcher {
      * <p>{@code matchType / branch / totalConditions} 是历史前端兼容字段,保留。
      */
     private void recordMatchStep(BridgeTraceBuilder trace, DataBridgeCacheVO rule,
-                                 org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope, long latencyMs) {
+                                 BridgeMessageEnvelope envelope, long latencyMs) {
         Map<String, Object> input = buildMatchStepInput(envelope);
         List<Map<String, Object>> matched = RuleMatchConditions.collect(rule, envelope);
 
@@ -225,7 +226,7 @@ public class SinkDispatcher {
      * RULE_MATCH step 的 input 摘要 ── 仅取 envelope 用于匹配的关键字段,
      * 避免 raw payload 巨长污染抽屉视图(详细 payload 看 INGEST step.inputSummary)。
      */
-    private static Map<String, Object> buildMatchStepInput(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope) {
+    private static Map<String, Object> buildMatchStepInput(BridgeMessageEnvelope envelope) {
         if (envelope == null) {
             return Collections.emptyMap();
         }
@@ -309,7 +310,7 @@ public class SinkDispatcher {
     /**
      * 投递死信(配置了 dead_letter_data_source_id 时);仅试投一次,失败仅告警。
      */
-    private void tryDeadLetter(DataBridgeCacheVO rule, org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope,
+    private void tryDeadLetter(DataBridgeCacheVO rule, BridgeMessageEnvelope envelope,
                                BridgeRetryPolicy policy, String reason, BridgeTraceBuilder trace) {
         Long dlqDsId = policy.getDeadLetterDataSourceId();
         if (dlqDsId == null) {
@@ -375,7 +376,7 @@ public class SinkDispatcher {
      * BridgeMessageEnvelope → 通用 ConnectorPayload(纯透传,body = rawMessage.getBytes(UTF-8))。
      * 元数据走 headers;encoding 信息由消费者自行从 rawMessage 解析。
      */
-    private ConnectorPayload toConnectorPayload(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope) {
+    private ConnectorPayload toConnectorPayload(BridgeMessageEnvelope envelope) {
         Map<String, String> headers = MapUtil.<String, String>builder()
             .put("X-Thinglinks-Trace", StrUtil.nullToEmpty(envelope.getTraceId()))
             .put("X-Thinglinks-Tenant", StrUtil.nullToEmpty(envelope.getTenantId()))
@@ -403,7 +404,7 @@ public class SinkDispatcher {
      * <p>分隔符用 {@code -} 而非 {@code :},兼容 RocketMQ group/topic 字符白名单 {@code ^[%|a-zA-Z0-9_-]+$}。
      * connectionJson / credentialJson 在 entity → ResultVO 转换时已解密为明文。
      */
-    private ConnectorConfig toConnectorConfig(DataSourceCacheVO ds, org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope) {
+    private ConnectorConfig toConnectorConfig(DataSourceCacheVO ds, BridgeMessageEnvelope envelope) {
         String identifier = StrUtil.nullToDefault(envelope.getTenantId(), "_") + "-" + ds.getId();
         return ConnectorConfig.builder()
             .type(parseConnectorType(ds.getSourceType()))
@@ -483,7 +484,7 @@ public class SinkDispatcher {
      * 失败策略:DROP(默认,丢弃)/ FORWARD(继续用原 envelope)。
      */
     private TransformOutcome applyTransformIfConfigured(DataBridgeCacheVO rule,
-                                                        org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope,
+                                                        BridgeMessageEnvelope envelope,
                                                         BridgeTraceBuilder trace) {
         TransformScriptConfig cfg = parseTransformScript(rule.getActionConfigJson());
         if (cfg == null || !"GROOVY".equals(cfg.type) || cfg.scriptId == null) {
@@ -509,7 +510,7 @@ public class SinkDispatcher {
                 String transformed = Optional.ofNullable(result.getContext())
                     .map(String::valueOf)
                     .orElse(originalView);
-                org.springblade.common.iot.event.bridge.BridgeMessageEnvelope tEnv = envelope.toBuilder().rawMessage(transformed).build();
+                BridgeMessageEnvelope tEnv = envelope.toBuilder().rawMessage(transformed).build();
                 trace.addSuccessStep(BridgeStepType.TRANSFORM, "Groovy 转换",
                     BridgeTraceBuilder.truncate(originalView),
                     BridgeTraceBuilder.truncate(transformed),
@@ -536,7 +537,7 @@ public class SinkDispatcher {
         }
     }
 
-    private ExecuteParams buildScriptParams(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope, String payloadView) {
+    private ExecuteParams buildScriptParams(BridgeMessageEnvelope envelope, String payloadView) {
         ExecuteParams params = new ExecuteParams();
         params.put("envelope", envelope);
         params.put("payload", payloadView);
@@ -565,15 +566,15 @@ public class SinkDispatcher {
      * TransformOutcome:envelope + 是否丢弃。
      */
     private static final class TransformOutcome {
-        final org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope;
+        final BridgeMessageEnvelope envelope;
         final boolean shouldDrop;
 
-        TransformOutcome(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope, boolean shouldDrop) {
+        TransformOutcome(BridgeMessageEnvelope envelope, boolean shouldDrop) {
             this.envelope = envelope;
             this.shouldDrop = shouldDrop;
         }
 
-        static TransformOutcome unchanged(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope env) {
+        static TransformOutcome unchanged(BridgeMessageEnvelope env) {
             return new TransformOutcome(env, false);
         }
     }

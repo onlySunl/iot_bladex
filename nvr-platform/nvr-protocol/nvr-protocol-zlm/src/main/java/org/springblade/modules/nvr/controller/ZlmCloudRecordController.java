@@ -239,7 +239,7 @@ public class ZlmCloudRecordController extends BladeController {
      * @param mediaServerId 使用的节点Id
      * @param app           应用名
      * @param stream        流ID
-     * @param seek          要定位的时间位置，从录像开始的时间算起
+     * @param stamp          要定位的时间位置，从录像开始的时间算起
      * @param schema        播放协议
      */
     @GetMapping("/seek")

@@ -18,6 +18,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.common.constant.Constants;
+import org.springblade.common.iot.bridge.BridgeMessageEnvelope;
 import org.springblade.common.iot.enums.DeviceActionTypeEnum;
 import org.springblade.common.iot.mq.BizMqRouteConstant;
 import org.springblade.core.databridge.model.ConnectorConfig;
@@ -42,7 +43,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 /**
- * 订阅源生命周期管理器(入站桥接核心):扫描启用源建连、{@link SourceMessage} 映射为 {@link org.springblade.common.iot.event.bridge.BridgeMessageEnvelope} 投 RocketMQ、{@link SubscriptionSourceChangedEvent} 联动 start/stop、关闭时优雅释放。
+ * 订阅源生命周期管理器(入站桥接核心):扫描启用源建连、{@link SourceMessage} 映射为 {@link BridgeMessageEnvelope} 投 RocketMQ、{@link SubscriptionSourceChangedEvent} 联动 start/stop、关闭时优雅释放。
  * handler 回调运行在 starter 线程,无 ContextUtil 上下文,本类手动注入。
  *
  * @author mqttsnet
@@ -264,7 +265,7 @@ public class SubscriptionSourceLifecycleManager {
      */
     private void handleSourceMessage(SubscriptionSource src, SourceMessage msg) {
         try {
-            org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope = mapToEnvelope(src, msg);
+            BridgeMessageEnvelope envelope = mapToEnvelope(src, msg);
             applyEnvelopeContext(envelope);  // ⭐ 让 RocketmqTemplate.wrap 可塞 header
 
             String dest = BizMqRouteConstant.Bridge.INGRESS + ":"
@@ -319,7 +320,7 @@ public class SubscriptionSourceLifecycleManager {
      *
      * @param envelope 桥接消息信封
      */
-    private void applyEnvelopeContext(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope) {
+    private void applyEnvelopeContext(BridgeMessageEnvelope envelope) {
         if (StrUtil.isBlank(envelope.getTenantId())) {
             throw new IllegalStateException(
                 "envelope.tenantId is blank; subscription_source.mapping_json must contain "
@@ -343,7 +344,7 @@ public class SubscriptionSourceLifecycleManager {
      * @param msg Source 回调原始消息
      * @return 桥接消息信封
      */
-    private org.springblade.common.iot.event.bridge.BridgeMessageEnvelope mapToEnvelope(SubscriptionSource src, SourceMessage msg) {
+    private BridgeMessageEnvelope mapToEnvelope(SubscriptionSource src, SourceMessage msg) {
         String rawText = msg.getBody() == null ? null : new String(msg.getBody());
 
         Map<String, Object> parsedFields = new HashMap<>();
@@ -352,7 +353,7 @@ public class SubscriptionSourceLifecycleManager {
         }
         Map<String, Object> mapped = applyMapping(src.getMappingJson(), parsedFields);
 
-        org.springblade.common.iot.event.bridge.BridgeMessageEnvelope.BridgeMessageEnvelopeBuilder b = org.springblade.common.iot.event.bridge.BridgeMessageEnvelope.builder()
+        BridgeMessageEnvelope.BridgeMessageEnvelopeBuilder b = BridgeMessageEnvelope.builder()
             .traceId(Optional.ofNullable(msg.getSourceMessageId())
                 .filter(StrUtil::isNotBlank)
                 .orElseGet(ContextUtil::getLogTraceId))

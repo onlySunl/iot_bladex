@@ -3,6 +3,7 @@ package org.springblade.modules.iot.service.bridge.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import org.springblade.common.iot.bridge.BridgeMessageEnvelope;
 import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.exception.BizException;
@@ -112,7 +113,7 @@ public class BridgeExecutionTraceServiceImpl
         DataBridge rule = dataBridgeService.getById(trace.getBridgeRuleId());
         ArgumentAssert.notNull(rule, "桥接规则不存在或已被删除,无法重放 ruleId=" + trace.getBridgeRuleId());
 
-        org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope = org.springblade.common.iot.event.bridge.BridgeMessageEnvelope.builder()
+        BridgeMessageEnvelope envelope = BridgeMessageEnvelope.builder()
                 .tenantId(ContextUtil.getTenantIdStr())
                 .productIdentification(trace.getProductIdentification())
                 .deviceIdentification(trace.getDeviceIdentification())

@@ -3,6 +3,7 @@ package org.springblade.modules.iot.bridge.matcher;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import org.springblade.basic.jackson.JsonUtil;
+import org.springblade.common.iot.bridge.BridgeMessageEnvelope;
 import org.springblade.modules.iot.bridge.match.BridgeMatchStrategyChain;
 import org.springblade.modules.iot.bridge.trace.BridgeTraceBuilder;
 import org.springblade.modules.iot.cache.helper.RuleCacheDataHelper;
@@ -37,7 +38,7 @@ public class BridgeRuleMatcher {
     /**
      * 匹配出站规则(设备事件 → 第三方);按 priority 升序;永不返 null。
      */
-    public List<DataBridgeCacheVO> matchOutbound(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope) {
+    public List<DataBridgeCacheVO> matchOutbound(BridgeMessageEnvelope envelope) {
         if (envelope == null) {
             return List.of();
         }
@@ -68,7 +69,7 @@ public class BridgeRuleMatcher {
     /**
      * 单条规则匹配(热路径不写 trace)。
      */
-    public boolean matchesEnvelope(DataBridgeCacheVO rule, org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope) {
+    public boolean matchesEnvelope(DataBridgeCacheVO rule, BridgeMessageEnvelope envelope) {
         BridgeMatchConfig cfg = parseMatchConfig(rule.getMatchConfigJson(), rule.getId());
         return cfg != null && matchesPayloadKind(cfg, envelope) && strategyChain.match(envelope, cfg);
     }
@@ -76,7 +77,7 @@ public class BridgeRuleMatcher {
     /**
      * 单条规则匹配 + 写 trace step(详情页"链路回放"用)。
      */
-    public boolean matchesEnvelopeWithTrace(DataBridgeCacheVO rule, org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope,
+    public boolean matchesEnvelopeWithTrace(DataBridgeCacheVO rule, BridgeMessageEnvelope envelope,
                                             BridgeTraceBuilder trace) {
         BridgeMatchConfig cfg = parseMatchConfig(rule.getMatchConfigJson(), rule.getId());
         return cfg != null && matchesPayloadKind(cfg, envelope) && strategyChain.matchWithTrace(envelope, cfg, trace);
@@ -86,11 +87,11 @@ public class BridgeRuleMatcher {
      * 数据形态过滤 ── matchConfig.payloadKinds 缺省只吃 {@code RAW};声明了才吃对应形态。
      * 避免存量规则把新增的物模型({@code THING_MODEL})事件重复处理。
      */
-    private boolean matchesPayloadKind(BridgeMatchConfig cfg, org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope) {
-        String kind = StrUtil.blankToDefault(envelope.getPayloadKind(), org.springblade.common.iot.event.bridge.BridgeMessageEnvelope.PAYLOAD_KIND_RAW);
+    private boolean matchesPayloadKind(BridgeMatchConfig cfg, BridgeMessageEnvelope envelope) {
+        String kind = StrUtil.blankToDefault(envelope.getPayloadKind(), BridgeMessageEnvelope.PAYLOAD_KIND_RAW);
         List<String> kinds = cfg.getPayloadKinds();
         if (CollUtil.isEmpty(kinds)) {
-            return org.springblade.common.iot.event.bridge.BridgeMessageEnvelope.PAYLOAD_KIND_RAW.equals(kind);
+            return BridgeMessageEnvelope.PAYLOAD_KIND_RAW.equals(kind);
         }
         return kinds.contains(kind);
     }

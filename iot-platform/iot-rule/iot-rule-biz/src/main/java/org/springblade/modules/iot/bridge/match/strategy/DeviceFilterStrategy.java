@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.bridge.match.strategy;
 
 import cn.hutool.core.collection.CollUtil;
+import org.springblade.common.iot.bridge.BridgeMessageEnvelope;
 import org.springblade.modules.iot.bridge.matcher.BridgeMatchConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
@@ -42,7 +43,7 @@ public class DeviceFilterStrategy implements BridgeMatchStrategy {
     }
 
     @Override
-    public MatchResult match(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope env, BridgeMatchConfig cfg) {
+    public MatchResult match(BridgeMessageEnvelope env, BridgeMatchConfig cfg) {
         return MatchResult.safe(STRATEGY, () -> {
             BridgeMatchConfig.DeviceFilter filter = cfg.getDeviceFilter();
             // tagsAny / groupIds 暂未实现 → fail-closed
@@ -56,7 +57,7 @@ public class DeviceFilterStrategy implements BridgeMatchStrategy {
                 return MatchResult.hit("device filter empty");
             }
             String actual = Optional.ofNullable(env)
-                    .map(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope::getDeviceIdentification)
+                    .map(BridgeMessageEnvelope::getDeviceIdentification)
                     .orElse(null);
             if (actual == null || actual.isBlank()) {
                 return MatchResult.miss("envelope.deviceIdentification is blank");

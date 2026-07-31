@@ -6,6 +6,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import org.springblade.basic.context.ContextUtil;
+import org.springblade.common.iot.bridge.BridgeMessageEnvelope;
 import org.springblade.common.iot.mq.BizMqRouteConstant;
 import org.springblade.core.rocketmq.listener.AbstractTenantAwareRocketmqListener;
 import org.springblade.modules.iot.dto.linkage.execution.TriggerEventDTO;
@@ -51,7 +52,7 @@ import org.springframework.stereotype.Component;
     messageModel = MessageModel.CLUSTERING,
     consumeMode = ConsumeMode.CONCURRENTLY
 )
-public class RuleTriggerEventConsumer extends AbstractTenantAwareRocketmqListener<org.springblade.common.iot.event.bridge.BridgeMessageEnvelope> {
+public class RuleTriggerEventConsumer extends AbstractTenantAwareRocketmqListener<BridgeMessageEnvelope> {
 
     /** PUBLISH 动作(设备数据上报),与 DeviceActionTypeEnum.PUBLISH.getValue() 对齐 */
     private static final String ACTION_PUBLISH = "PUBLISH";
@@ -61,12 +62,12 @@ public class RuleTriggerEventConsumer extends AbstractTenantAwareRocketmqListene
     private final RuleService ruleService;
 
     @Override
-    protected Class<org.springblade.common.iot.event.bridge.BridgeMessageEnvelope> getBodyClass() {
-        return org.springblade.common.iot.event.bridge.BridgeMessageEnvelope.class;
+    protected Class<BridgeMessageEnvelope> getBodyClass() {
+        return BridgeMessageEnvelope.class;
     }
 
     @Override
-    protected void onTenantMessage(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope, MessageExt raw) {
+    protected void onTenantMessage(BridgeMessageEnvelope envelope, MessageExt raw) {
         if (envelope == null || StrUtil.hasBlank(envelope.getProductIdentification(), envelope.getDeviceIdentification())) {
             log.warn("[RuleTriggerEvent] invalid envelope, skip. msgId={} traceId={} product={} device={} action={} payloadKind={} topic={}",
                     raw.getMsgId(),
@@ -86,7 +87,7 @@ public class RuleTriggerEventConsumer extends AbstractTenantAwareRocketmqListene
             // 同一次上报出站两路形态,按用途分流评估、互不重复:
             //   THING_MODEL(物模型匹配成功才有)→ 属性触发;
             //   RAW(每次上报恰好一条,不依赖物模型)→ 动作触发("动作==数据上行(PUBLISH)"是合法条件)。
-            if (org.springblade.common.iot.event.bridge.BridgeMessageEnvelope.PAYLOAD_KIND_THING_MODEL.equals(envelope.getPayloadKind())) {
+            if (BridgeMessageEnvelope.PAYLOAD_KIND_THING_MODEL.equals(envelope.getPayloadKind())) {
                 onThingModelReport(envelope);
             } else {
                 onLifecycleAction(envelope);
@@ -97,7 +98,7 @@ public class RuleTriggerEventConsumer extends AbstractTenantAwareRocketmqListene
     }
 
     /** 设备属性上报:快照维护 + 属性触发规则评估 */
-    private void onThingModelReport(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope) {
+    private void onThingModelReport(BridgeMessageEnvelope envelope) {
         if (StrUtil.isBlank(envelope.getRawMessage())) {
             log.warn("[RuleTriggerEvent] THING_MODEL without rawMessage, skip. device={}",
                     envelope.getDeviceIdentification());
@@ -139,7 +140,7 @@ public class RuleTriggerEventConsumer extends AbstractTenantAwareRocketmqListene
     }
 
     /** 设备生命周期事件:动作触发规则评估(取值沿用动作池路径,事件仅提供实时触发时机) */
-    private void onLifecycleAction(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope) {
+    private void onLifecycleAction(BridgeMessageEnvelope envelope) {
         List<String> rules = ruleTriggerIndexService.findTriggeredRules(
                 ConditionTypeEnum.DEVICE_ACTION_TRIGGER.getValue(),
                 envelope.getProductIdentification(), envelope.getDeviceIdentification());
@@ -160,7 +161,7 @@ public class RuleTriggerEventConsumer extends AbstractTenantAwareRocketmqListene
     }
 
     private void dispatch(List<String> rules, Integer conditionType, TriggerEventDTO triggerEvent,
-                          org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope) {
+                          BridgeMessageEnvelope envelope) {
         String tenantId = ContextUtil.getTenantId();
         log.info("[RuleTriggerEvent] matched {} rules traceId={} device={} action={} type={}",
                 rules.size(), envelope.getTraceId(), envelope.getDeviceIdentification(),

@@ -69,7 +69,7 @@
         <lombok.version>1.18.30</lombok.version>
 
         <!-- ===== 文档处理版本 ===== -->
-        <auto.table.version>3.5.3.1</auto.table.version>
+        <auto.table.version>1.8.3</auto.table.version>
         <tabula.version>1.0.5</tabula.version>
         <pdfbox.version>3.0.1</pdfbox.version>
 
