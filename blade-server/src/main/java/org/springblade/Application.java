@@ -28,6 +28,7 @@ package org.springblade;
 import org.springblade.common.constant.CommonConstant;
 import org.springblade.core.launch.BladeApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
@@ -41,7 +42,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
  */
 @EnableScheduling
 @EnableRedisHttpSession
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @ServletComponentScan
 @EnableFeignClients(basePackages = "org.springblade.modules")
 public class Application {
