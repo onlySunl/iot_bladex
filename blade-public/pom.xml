@@ -57,6 +57,8 @@
         <module>blade-core-condition</module>
         <!-- 开放平台客户端 API 模块 -->
         <module>open-exp-client-api</module>
+        <!-- 开放平台插件管理模块 -->
+        <module>open-plugin-manager</module>
     </modules>
 
     <dependencies>
