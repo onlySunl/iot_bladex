@@ -35,12 +35,24 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-platform-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.groovy</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- ===== 3. NVR 平台 Starter（聚合所有 NVR 业务模块） ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-platform-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.groovy</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- ===== 3. Redisson 分布式锁/队列（规则引擎使用） ===== -->
