@@ -342,6 +342,13 @@
                 <artifactId>iot-entity-base</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <!-- ==================== 4.10 NVR 平台模块 ==================== -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-message-biz</artifactId>

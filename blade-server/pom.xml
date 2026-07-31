@@ -31,18 +31,20 @@
             <artifactId>blade-api</artifactId>
             <version>4.9.0.RELEASE</version>
         </dependency>
-        <!-- ===== 2. IOT 视频平台公共模块 ===== -->
+        <!-- ===== 2. IoT 平台模块 ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>iot-platform</artifactId>
-            <version>4.9.0.RELEASE</version>
+            <artifactId>iot-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-model</artifactId>
         </dependency>
 
-        <!-- ===== 3. NVR 视频平台公共模块 ===== -->
+        <!-- ===== 3. NVR 平台模块 ===== -->
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>nvr-platform</artifactId>
-            <version>4.9.0.RELEASE</version>
+            <artifactId>nvr-common</artifactId>
         </dependency>
 
         <!-- ===== 3. Redisson 分布式锁/队列（规则引擎使用） ===== -->
