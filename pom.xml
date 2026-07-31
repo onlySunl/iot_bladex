@@ -48,6 +48,7 @@
 
         <!-- ===== BladeX 框架版本 ===== -->
         <bladex.version>4.9.0.RELEASE</bladex.version>
+        <bladex.project.id>blade-server</bladex.project.id>
 
         <!-- ===== 插件版本 ===== -->
         <maven.plugin.version>3.11.0</maven.plugin.version>
