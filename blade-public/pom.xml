@@ -55,6 +55,8 @@
         <module>blade-core-groovy</module>
         <!-- 动态条件构建模块 -->
         <module>blade-core-condition</module>
+        <!-- 开放平台客户端 API 模块 -->
+        <module>open-exp-client-api</module>
     </modules>
 
     <dependencies>
