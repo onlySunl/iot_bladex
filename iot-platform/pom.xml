@@ -61,7 +61,7 @@
         <mqtt-client.version>1.2.5</mqtt-client.version>
         
         <!-- 脚本引擎 -->
-        <groovy.version>3.0.19</groovy.version>
+        <blade.groovy.version>3.0.19</blade.groovy.version>
         
         <!-- 状态机 -->
         <cola-statemachine.version>5.0.0</cola-statemachine.version>
@@ -295,12 +295,12 @@
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy</artifactId>
-                <version>${groovy.version}</version>
+                <version>${blade.groovy.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-json</artifactId>
-                <version>${groovy.version}</version>
+                <version>${blade.groovy.version}</version>
             </dependency>
 
             <!-- ==================== 9. IoT 状态机 ==================== -->
