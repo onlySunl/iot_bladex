@@ -21,7 +21,6 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.5.5</version>
         </dependency>
         <!-- MySQL Driver -->
         <dependency>
@@ -32,7 +31,6 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-3-starter</artifactId>
-            <version>1.2.20</version>
         </dependency>
         <!-- Spring Boot -->
         <dependency>
@@ -48,23 +46,19 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-basic</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-uid</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-core</artifactId>
-            <version>1.1.5</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>p6spy</groupId>
             <artifactId>p6spy</artifactId>
-            <version>3.9.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

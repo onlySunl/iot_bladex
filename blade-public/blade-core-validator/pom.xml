@@ -33,7 +33,6 @@
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>8.0.1.Final</version>
         </dependency>
 
         <!-- Spring Context -->
@@ -45,7 +44,6 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.8.44</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>

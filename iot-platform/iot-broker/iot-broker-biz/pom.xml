@@ -60,7 +60,6 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-broker-api</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
 
         <!-- ============================================================== -->
@@ -100,28 +99,23 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-common</artifactId>
-            <version>4.9.0.RELEASE</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-spring-boot-starter</artifactId>
-            <version>2.3.6</version>
         </dependency>
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-client</artifactId>
-            <version>5.3.2</version>
         </dependency>
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-acl</artifactId>
-            <version>5.3.2</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-rocketmq</artifactId>
-            <version>4.9.0.RELEASE</version>
             <scope>compile</scope>
         </dependency>
 

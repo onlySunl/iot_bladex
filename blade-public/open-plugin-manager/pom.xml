@@ -39,7 +39,6 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>open-exp-client-api</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
 
     </dependencies>

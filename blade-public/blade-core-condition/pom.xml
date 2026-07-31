@@ -27,7 +27,6 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.5.5</version>
         </dependency>
 
         <!-- Lombok -->
@@ -39,7 +38,6 @@
         <dependency>
             <groupId>com.taosdata.jdbc</groupId>
             <artifactId>taos-jdbcdriver</artifactId>
-            <version>3.8.3</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

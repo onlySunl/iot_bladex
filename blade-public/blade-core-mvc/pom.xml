@@ -38,19 +38,16 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-database</artifactId>
-            <version>4.9.0.RELEASE</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-cache</artifactId>
-            <version>4.9.0.RELEASE</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-validator</artifactId>
-            <version>4.9.0.RELEASE</version>
             <scope>compile</scope>
         </dependency>
 

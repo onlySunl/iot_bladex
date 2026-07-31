@@ -18,12 +18,10 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-rule-api</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-rule-biz</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
     </dependencies>
 </project>

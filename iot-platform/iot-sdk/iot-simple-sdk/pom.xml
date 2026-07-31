@@ -16,13 +16,11 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-sdk-core</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.36</version>
             <scope>provided</scope>
         </dependency>
 

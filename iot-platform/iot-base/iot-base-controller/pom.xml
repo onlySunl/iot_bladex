@@ -18,7 +18,6 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-base-biz</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
 
         <dependency>

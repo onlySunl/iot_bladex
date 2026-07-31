@@ -18,12 +18,10 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-base-api</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-base-biz</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

@@ -19,18 +19,15 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-mqs-entity</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-mqs-biz</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
         <!-- 桥接入站 RULE_TRIGGER 分流触发规则策略 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-rule-api</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
 
         <!-- 基础工具 (Hutool / 上下文 / 缓存 / RocketMQ / Kafka / 动态线程池) -->

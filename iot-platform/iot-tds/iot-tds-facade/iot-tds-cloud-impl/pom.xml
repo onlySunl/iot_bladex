@@ -21,7 +21,6 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-tds-api</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>

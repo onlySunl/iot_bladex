@@ -19,7 +19,6 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-mvc</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
 
         <!-- ============================== 北向集成 / 数据桥接 ============================== -->
@@ -46,12 +45,10 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-link-biz</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-link-api</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
 
 
@@ -59,7 +56,6 @@
         <dependency>
             <groupId>org.owasp</groupId>
             <artifactId>dependency-check-maven</artifactId>
-            <version>12.1.8</version>
         </dependency>
 
 
@@ -85,25 +81,21 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-groovy</artifactId>
-            <version>4.9.0.RELEASE</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-condition</artifactId>
-            <version>4.9.0.RELEASE</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>open-exp-client-api</artifactId>
-            <version>4.9.0.RELEASE</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>open-plugin-manager</artifactId>
-            <version>4.9.0.RELEASE</version>
             <scope>compile</scope>
         </dependency>
 

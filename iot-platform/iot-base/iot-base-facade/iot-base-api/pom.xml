@@ -19,14 +19,12 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-entity-base</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
 
         <!-- Blade Core Basic -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-basic</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
 
         <!-- Spring Boot Starter Web -->

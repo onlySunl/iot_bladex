@@ -21,17 +21,14 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-tds-api</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-tds-biz</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-tds</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
     </dependencies>
 </project>

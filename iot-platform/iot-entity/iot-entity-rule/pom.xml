@@ -21,7 +21,6 @@
         <dependency>
             <groupId>com.github.oshi</groupId>
             <artifactId>oshi-core</artifactId>
-            <version>6.6.1</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
@@ -40,20 +39,17 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-basic</artifactId>
-            <version>4.9.0.RELEASE</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>blade-core-annotation</artifactId>
-            <version>4.9.0.RELEASE</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-model</artifactId>
-            <version>4.9.0.RELEASE</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -63,7 +59,6 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-common</artifactId>
-            <version>4.9.0.RELEASE</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

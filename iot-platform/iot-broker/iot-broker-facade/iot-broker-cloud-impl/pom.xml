@@ -21,7 +21,6 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-broker-api</artifactId>
-            <version>4.9.0.RELEASE</version>
         </dependency>
 
         <dependency>
