@@ -1,6 +1,7 @@
 package org.springblade.modules.iot.ota.dto;
 
 import cn.hutool.core.map.MapUtil;
+import lombok.experimental.Accessors;
 import org.springblade.basic.interfaces.echo.EchoVO;
 import lombok.*;
 import org.springblade.basic.base.entity.Entity;
@@ -25,6 +26,7 @@ import java.util.Map;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Builder
+@Accessors(chain = true)
 public class OtaUpgradeTasksResultDTO extends Entity implements Serializable, EchoVO {
 
     @Serial

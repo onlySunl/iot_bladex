@@ -1,10 +1,9 @@
 package org.springblade.modules.iot.ota.controller;
 
-import org.springblade.basic.base.controller.SuperController;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.core.mvc.request.PageParams;
 import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.interfaces.echo.EchoService;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeTargets;
 import org.springblade.modules.iot.ota.service.OtaUpgradeTargetsService;
 import org.springblade.modules.iot.ota.vo.query.OtaUpgradeTargetsPageQuery;
@@ -47,7 +46,7 @@ public class OtaUpgradeTargetsController extends SuperController<OtaUpgradeTarge
     public QueryWrap<OtaUpgradeTargets> handlerWrapper(OtaUpgradeTargets model, PageParams<OtaUpgradeTargetsPageQuery> params) {
         QueryWrap<OtaUpgradeTargets> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
-        DataScopeHelper.startDataScope("ota_upgrade_targets");
+        //DataScopeHelper.startDataScope("ota_upgrade_targets");
         return queryWrap;
     }
 

@@ -42,7 +42,7 @@ public interface RuleJobHandlerApi {
             @Parameter(name = "ruleIdentification", description = "Rule Identification", required = true),
     })
     @PostMapping("/inner/ruleOpen/triggerRulePolicy")
-    R<RuleDetailsResultVO> triggerRulePolicy(@RequestParam("tenantId") Long tenantId, @RequestParam("ruleIdentification") String ruleIdentification);
+    R<RuleDetailsResultVO> triggerRulePolicy(@RequestParam("tenantId") String tenantId, @RequestParam("ruleIdentification") String ruleIdentification);
 
 
     /**

@@ -1,10 +1,9 @@
 package org.springblade.modules.iot.producttopic.controller;
 
-import org.springblade.basic.base.controller.SuperController;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.core.mvc.request.PageParams;
 import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.interfaces.echo.EchoService;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.producttopic.entity.ProductTopic;
 import org.springblade.modules.iot.producttopic.service.ProductTopicService;
 import org.springblade.modules.iot.producttopic.vo.query.ProductTopicPageQuery;
@@ -47,7 +46,7 @@ public class ProductTopicController extends SuperController<ProductTopicService,
     public QueryWrap<ProductTopic> handlerWrapper(ProductTopic model, PageParams<ProductTopicPageQuery> params) {
         QueryWrap<ProductTopic> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
-        DataScopeHelper.startDataScope("product_topic");
+        //DataScopeHelper.startDataScope("product_topic");
         return queryWrap;
     }
 

@@ -53,7 +53,7 @@ public class DeviceLocationManagerImpl extends SuperManagerImpl<DeviceLocationMa
         queryWrapper.lambda().eq(StringUtils.isNotBlank(query.getCityCode()), DeviceLocation::getCityCode, query.getCityCode());
         queryWrapper.lambda().in(CollUtil.isNotEmpty(query.getCityCodeList()), DeviceLocation::getCityCode, query.getCityCodeList());
         queryWrapper.lambda().eq(StringUtils.isNotBlank(query.getRegionCode()), DeviceLocation::getRegionCode, query.getRegionCode());
-        queryWrapper.lambda().orderByDesc(DeviceLocation::getCreatedTime);
+        queryWrapper.lambda().orderByDesc(DeviceLocation::getCreateTime);
         List<DeviceLocation> deviceLocations = deviceLocationMapper.selectList(queryWrapper);
         return BeanUtil.copyToList(deviceLocations, DeviceLocationResultVO.class);
     }

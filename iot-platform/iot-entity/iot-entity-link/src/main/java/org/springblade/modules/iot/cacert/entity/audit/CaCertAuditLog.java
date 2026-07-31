@@ -1,4 +1,5 @@
 package org.springblade.modules.iot.cacert.entity.audit;
+import lombok.experimental.Accessors;
 import org.springblade.basic.base.entity.Entity;
 import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.AutoColumn;
@@ -23,6 +24,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Builder
+@Accessors(chain = true)
 @AutoTable(value = "ca_cert_audit_log", comment = "CaCertAuditLog table")
 public class CaCertAuditLog extends Entity<Long> {
 

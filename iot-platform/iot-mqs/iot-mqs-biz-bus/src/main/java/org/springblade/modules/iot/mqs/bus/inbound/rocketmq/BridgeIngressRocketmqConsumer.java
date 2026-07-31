@@ -219,7 +219,7 @@ public class BridgeIngressRocketmqConsumer extends AbstractTenantAwareRocketmqLi
                 envelope.getRawMessage());
             return;
         }
-        Long tenantId = ContextUtil.getTenantId();
+        String tenantId = ContextUtil.getTenantId();
         if (tenantId == null && StrUtil.isNotBlank(envelope.getTenantId())) {
             try {
                 tenantId = Long.valueOf(envelope.getTenantId());

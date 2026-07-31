@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.broker.downlink;
 
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
 import org.springblade.modules.iot.vo.query.DownlinkCommand;
 
 import lombok.extern.slf4j.Slf4j;

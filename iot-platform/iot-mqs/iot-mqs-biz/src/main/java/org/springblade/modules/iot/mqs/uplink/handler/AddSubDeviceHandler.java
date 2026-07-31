@@ -9,12 +9,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springblade.basic.base.R;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.exception.BizException;
-import org.springblade.basic.protocol.factory.ProtocolMessageAdapter;
-import org.springblade.basic.protocol.model.EncryptionDetailsDTO;
-import org.springblade.basic.protocol.model.ProtocolDataMessageDTO;
+
+import org.springblade.common.iot.constant.CommonIotConstants;
+import org.springblade.core.protocol.factory.ProtocolMessageAdapter;
+import org.springblade.core.protocol.model.EncryptionDetailsDTO;
+import org.springblade.core.protocol.model.ProtocolDataMessageDTO;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
-import org.springblade.modules.iot.common.constant.CommonIotConstants;
 import org.springblade.modules.iot.entity.uplink.source.UplinkMessageEventSource;
 import org.springblade.modules.iot.link.facade.DeviceOpenInnerFacade;
 import org.springblade.modules.iot.mqs.uplink.handler.factory.AbstractMessageHandler;

@@ -40,7 +40,7 @@ public class OtaUpgradeContext {
     /**
      * 租户ID
      */
-    private Long tenantId;
+    private String tenantId;
 
 
     /**

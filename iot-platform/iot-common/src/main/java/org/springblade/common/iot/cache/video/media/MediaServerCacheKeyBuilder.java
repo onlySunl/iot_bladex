@@ -21,7 +21,7 @@ import java.time.Duration;
  * @date 2025/4/18 16:45 下午
  */
 public class MediaServerCacheKeyBuilder implements CacheKeyBuilder {
-    private Long tenantId;
+    private String tenantId;
 
     /**
      * @param mediaServerType     媒体类型
@@ -33,7 +33,7 @@ public class MediaServerCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public MediaServerCacheKeyBuilder setTenantId(Long tenantId) {
+    public MediaServerCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

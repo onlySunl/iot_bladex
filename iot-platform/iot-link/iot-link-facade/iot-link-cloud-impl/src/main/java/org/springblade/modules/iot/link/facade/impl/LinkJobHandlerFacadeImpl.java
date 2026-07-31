@@ -21,32 +21,32 @@ public class LinkJobHandlerFacadeImpl implements LinkJobHandlerFacade {
     private LinkJobHandlerApi linkJobHandlerApi;
 
     @Override
-    public R<?> refreshDeviceCacheForTenant(Long tenantId) {
+    public R<?> refreshDeviceCacheForTenant(String tenantId) {
         return linkJobHandlerApi.refreshDeviceCacheForTenant(tenantId);
     }
 
     @Override
-    public R<?> syncDeviceConnectionStatus(Long tenantId) {
+    public R<?> syncDeviceConnectionStatus(String tenantId) {
         return linkJobHandlerApi.syncDeviceConnectionStatus(tenantId);
     }
 
     @Override
-    public R<?> refreshProductCacheForTenant(Long tenantId) {
+    public R<?> refreshProductCacheForTenant(String tenantId) {
         return linkJobHandlerApi.refreshProductCacheForTenant(tenantId);
     }
 
     @Override
-    public R<?> refreshProductModelCache(Long tenantId) {
+    public R<?> refreshProductModelCache(String tenantId) {
         return linkJobHandlerApi.refreshProductModelCache(tenantId);
     }
 
     @Override
-    public R<?> retryProductVersionPublish(Long tenantId) {
+    public R<?> retryProductVersionPublish(String tenantId) {
         return linkJobHandlerApi.retryProductVersionPublish(tenantId);
     }
 
     @Override
-    public R<?> otaUpgradeTasksExecute(Long tenantId) {
+    public R<?> otaUpgradeTasksExecute(String tenantId) {
         return linkJobHandlerApi.otaUpgradeTasksExecute(tenantId);
     }
 }

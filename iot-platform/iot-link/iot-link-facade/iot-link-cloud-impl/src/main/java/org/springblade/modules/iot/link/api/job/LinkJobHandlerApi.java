@@ -49,7 +49,7 @@ public interface LinkJobHandlerApi {
             @Parameter(name = "tenantId", description = "Tenant ID", required = true)
     })
     @PostMapping("/inner/cache/refreshDeviceCache")
-    R<?> refreshDeviceCacheForTenant(@RequestParam("tenantId") Long tenantId);
+    R<?> refreshDeviceCacheForTenant(@RequestParam("tenantId") String tenantId);
 
 
     /**
@@ -63,7 +63,7 @@ public interface LinkJobHandlerApi {
             @Parameter(name = "tenantId", description = "租户ID", required = true)
     })
     @PostMapping("/inner/deviceSync/syncDeviceConnectionStatus")
-    R<?> syncDeviceConnectionStatus(@RequestParam("tenantId") Long tenantId);
+    R<?> syncDeviceConnectionStatus(@RequestParam("tenantId") String tenantId);
 
     /**
      * Refreshes the product cache for a specific tenant.
@@ -76,7 +76,7 @@ public interface LinkJobHandlerApi {
             @Parameter(name = "tenantId", description = "Tenant ID", required = true)
     })
     @PostMapping("/inner/cache/refreshProductCache")
-    R<?> refreshProductCacheForTenant(@RequestParam("tenantId") Long tenantId);
+    R<?> refreshProductCacheForTenant(@RequestParam("tenantId") String tenantId);
 
 
     /**
@@ -90,7 +90,7 @@ public interface LinkJobHandlerApi {
             @Parameter(name = "tenantId", description = "Tenant ID", required = true)
     })
     @PostMapping("/inner/cache/refreshProductModelCache")
-    R<?> refreshProductModelCache(@RequestParam("tenantId") Long tenantId);
+    R<?> refreshProductModelCache(@RequestParam("tenantId") String tenantId);
 
 
     @Operation(summary = "产品版本发布重试兜底", description = "Retries stuck product-version publish records for a specific tenant.")
@@ -98,7 +98,7 @@ public interface LinkJobHandlerApi {
             @Parameter(name = "tenantId", description = "Tenant ID", required = true)
     })
     @PostMapping("/inner/cache/retryProductVersionPublish")
-    R<?> retryProductVersionPublish(@RequestParam("tenantId") Long tenantId);
+    R<?> retryProductVersionPublish(@RequestParam("tenantId") String tenantId);
 
 
     @Operation(summary = "执行OTA升级任务", description = "Executes the OTA upgrade tasks for a specific tenant.")
@@ -106,7 +106,7 @@ public interface LinkJobHandlerApi {
             @Parameter(name = "tenantId", description = "Tenant ID", required = true)
     })
     @PostMapping("/inner/otaOpen/otaUpgradeTasksExecute")
-    R<?> otaUpgradeTasksExecute(@RequestParam("tenantId") Long tenantId);
+    R<?> otaUpgradeTasksExecute(@RequestParam("tenantId") String tenantId);
 
 
     /**
@@ -122,5 +122,5 @@ public interface LinkJobHandlerApi {
             @Parameter(name = "tenantId", description = "租户ID", required = true)
     })
     @PostMapping("/inner/cache/refreshAclRuleCache")
-    R<?> refreshAclRuleCache(@RequestParam("tenantId") Long tenantId);
+    R<?> refreshAclRuleCache(@RequestParam("tenantId") String tenantId);
 }

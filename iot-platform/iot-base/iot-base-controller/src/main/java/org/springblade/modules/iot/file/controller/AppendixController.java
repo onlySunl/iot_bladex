@@ -1,12 +1,12 @@
 package org.springblade.modules.iot.file.controller;
 
-import org.springblade.basic.annotation.log.WebLog;
 import org.springblade.basic.base.R;
 import org.springblade.basic.interfaces.echo.EchoService;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.model.vo.result.AppendixResultVO;
 import org.springblade.modules.iot.file.service.AppendixService;
 import org.springblade.modules.iot.file.service.FileService;
 import org.springblade.modules.iot.file.vo.result.FileResultVO;
-import org.springblade.modules.iot.model.vo.result.AppendixResultVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

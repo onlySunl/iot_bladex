@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.mqs.event.processor;
 
-import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
+import org.springblade.common.iot.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.entity.device.CommonDeviceEvent;
 
 /**

@@ -7,7 +7,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import org.springblade.basic.utils.ArgumentAssert;
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.broker.BifroMqFacade;
 import org.springblade.modules.iot.broker.common.counter.DownLinkDataReportCounter;
@@ -52,7 +52,7 @@ public class MqttBrokerServiceImpl implements MqttBrokerService {
     public String publishMessage(PublishMessageRequestVO publishMessageRequestVO) throws ServiceException {
         log.info("Preparing to publish message publishMessageRequestVO: {}", JSON.toJSONString(publishMessageRequestVO));
         ArgumentAssert.notBlank(publishMessageRequestVO.getTopic(), "Topic is required");
-        ArgumentAssert.notBlank(publishMessageRequestVO.getTenantId(), "TenantId is required");
+        ArgumentAssert.notNull(publishMessageRequestVO.getTenantId(), "TenantId is required");
         ArgumentAssert.notNull(publishMessageRequestVO.getQos(), "Qos is required");
         // 下行数据下发计数(命令 / 消息下发)── broker 自维护,旁路统计不影响主链路
         downLinkDataReportCounter.incrementDownLink();
@@ -153,10 +153,10 @@ public class MqttBrokerServiceImpl implements MqttBrokerService {
         try {
             // userId 传 deviceIdentification (与 ACL/认证体系一致)
             MqttSessionDetailsResultVO info = getSessionInfo(tenantId, deviceIdentification, clientId);
-            return R.data(info != null);
+            return R.success(info != null);
         } catch (SessionNotFoundException e) {
             // 真离线 ── broker 明确返回 not found
-            return R.data(false);
+            return R.success(false);
         } catch (ServiceException e) {
             // broker 业务异常(非 not-found):状态不确定,调用方应保留现状
             log.warn("[Broker.isOnline] biz-error tenantId={} deviceId={} clientId={} cause={}",

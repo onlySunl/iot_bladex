@@ -65,7 +65,7 @@ public class RuleOpenInnerController {
             @Parameter(name = "ruleIdentification", description = "Rule Identification", required = true),
     })
     @PostMapping("/triggerRulePolicy")
-    public R<RuleDetailsResultVO> triggerRulePolicy(@RequestParam("tenantId") Long tenantId, @RequestParam("ruleIdentification") String ruleIdentification) {
+    public R<RuleDetailsResultVO> triggerRulePolicy(@RequestParam("tenantId") String tenantId, @RequestParam("ruleIdentification") String ruleIdentification) {
         ArgumentAssert.notNull(tenantId, "tenantId  Cannot be null");
         ArgumentAssert.notEmpty(ruleIdentification, "ruleIdentification Cannot be null");
         log.info("Trigger Rule Policy - tenantId: {}, Rule Identification: {}", tenantId, ruleIdentification);
@@ -111,7 +111,7 @@ public class RuleOpenInnerController {
     @Parameter(name = "pluginId", description = "pluginId", required = true)
     @Parameter(name = "instanceId", description = "instanceId", required = true)
     @PostMapping("/installPlugin")
-    public R<?> installPlugin(@RequestParam("tenantId") Long tenantId,
+    public R<?> installPlugin(@RequestParam("tenantId") String tenantId,
                               @RequestParam("pluginId") Long pluginId,
                               @RequestParam("instanceId") Long instanceId) {
 
@@ -134,7 +134,7 @@ public class RuleOpenInnerController {
     @Parameter(name = "pluginId", description = "pluginId", required = true)
     @Parameter(name = "instanceId", description = "instanceId", required = true)
     @DeleteMapping("/uninstallPlugin")
-    public R<?> unInstallPlugin(@RequestParam("tenantId") Long tenantId,
+    public R<?> unInstallPlugin(@RequestParam("tenantId") String tenantId,
                                 @RequestParam("pluginId") Long pluginId,
                                 @RequestParam("instanceId") Long instanceId) {
 

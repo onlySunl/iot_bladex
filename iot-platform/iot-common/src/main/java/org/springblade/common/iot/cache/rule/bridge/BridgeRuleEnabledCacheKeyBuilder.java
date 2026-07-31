@@ -29,7 +29,7 @@ import org.springblade.common.iot.cache.CacheKeyTable;
  */
 public class BridgeRuleEnabledCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     /**
      * 构造 hash bucket key(整桶定位用,适合 hGetAll / del 整桶)。
@@ -64,7 +64,7 @@ public class BridgeRuleEnabledCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public BridgeRuleEnabledCacheKeyBuilder setTenantId(Long tenantId) {
+    public BridgeRuleEnabledCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

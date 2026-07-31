@@ -104,7 +104,7 @@ public final class RuleTriggerCacheKeys {
         private final String field;
         private final ValueType valueType;
         private final Duration expire;
-        private Long tenantId;
+        private String tenantId;
 
         private TriggerKeyBuilder(String table, String field, ValueType valueType, Duration expire) {
             this.table = table;
@@ -119,7 +119,7 @@ public final class RuleTriggerCacheKeys {
         }
 
         @Override
-        public TriggerKeyBuilder setTenantId(Long tenantId) {
+        public TriggerKeyBuilder setTenantId(String tenantId) {
             this.tenantId = tenantId;
             return this;
         }

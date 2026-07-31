@@ -23,7 +23,7 @@ import org.springblade.common.iot.cache.CacheKeyTable;
  */
 public class OtaUpgradeRecordsCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     /**
      * @param id OTA升级记录ID
@@ -39,7 +39,7 @@ public class OtaUpgradeRecordsCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public OtaUpgradeRecordsCacheKeyBuilder setTenantId(Long tenantId) {
+    public OtaUpgradeRecordsCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

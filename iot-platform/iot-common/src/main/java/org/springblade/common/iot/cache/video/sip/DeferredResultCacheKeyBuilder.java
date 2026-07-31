@@ -21,7 +21,7 @@ import java.time.Duration;
  */
 public class DeferredResultCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     public static CacheKey build(String commandTypeRequestId) {
         return new DeferredResultCacheKeyBuilder()
@@ -30,7 +30,7 @@ public class DeferredResultCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public DeferredResultCacheKeyBuilder setTenantId(Long tenantId) {
+    public DeferredResultCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

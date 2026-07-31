@@ -5,7 +5,6 @@ import cn.hutool.core.util.StrUtil;
 import org.springblade.basic.utils.topic.MqttTopicMatcher;
 import org.springblade.basic.utils.topic.TopicPlaceholders;
 import org.springblade.modules.iot.bridge.matcher.BridgeMatchConfig;
-import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -49,10 +48,10 @@ public class TopicMatchStrategy implements BridgeMatchStrategy {
     }
 
     @Override
-    public MatchResult match(BridgeMessageEnvelope env, BridgeMatchConfig cfg) {
+    public MatchResult match(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope env, BridgeMatchConfig cfg) {
         return MatchResult.safe(STRATEGY, () -> {
             List<String> patterns = cfg.getTopicPatterns();
-            String topic = Optional.ofNullable(env).map(BridgeMessageEnvelope::getTopic).orElse(null);
+            String topic = Optional.ofNullable(env).map(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope::getTopic).orElse(null);
 
             if (CollUtil.isEmpty(patterns)) {
                 // 不约束 topic,直接命中

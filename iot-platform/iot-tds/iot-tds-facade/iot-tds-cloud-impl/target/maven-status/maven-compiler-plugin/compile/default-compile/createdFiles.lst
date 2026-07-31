@@ -1,3 +1,0 @@
-org\springblade\modules\iot\tds\api\TdsApi.class
-org\springblade\modules\iot\tds\api\hystrix\TdsApiFallback.class
-org\springblade\modules\iot\tds\facade\impl\TdsFacadeImpl.class

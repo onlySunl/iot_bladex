@@ -134,7 +134,7 @@ public class ExtendMsgServiceImpl extends SuperServiceImpl<ExtendMsgManager, Lon
             superManager.updateById(extendMsg);
         } else {
             // 延时消息任务由 thinglinks-base-executor 模块执行。
-            Map<String, Long> param = MapUtil.builder(ContextConstants.TENANT_ID_HEADER, ContextUtil.getTenantId()).put("msgId", extendMsg.getId()).build();
+            Map<String, String> param = MapUtil.builder(ContextConstants.TENANT_ID_HEADER, ContextUtil.getTenantId()).put("msgId", extendMsg.getId().toString()).build();
 
             XxlJobInfoVO xxlJobInfoVO = XxlJobInfoVO.create(JobConstant.DEF_BASE_JOB_GROUP_NAME,
                     "【发送消息】" + extendMsg.getTitle(), extendMsg.getSendTime(), JobConstant.PUBLISH_MSG_JOB_HANDLER, JsonUtil.toJson(param));
@@ -221,7 +221,7 @@ public class ExtendMsgServiceImpl extends SuperServiceImpl<ExtendMsgManager, Lon
             SpringUtils.publishEvent(new MsgSendEvent(msgEventVO));
         } else {
             // 延时消息任务由 thinglinks-base-executor 模块执行。
-            Map<String, Long> param = MapUtil.builder(ContextConstants.TENANT_ID_HEADER, ContextUtil.getTenantId()).put("msgId", extendMsg.getId()).build();
+            Map<String, String> param = MapUtil.builder(ContextConstants.TENANT_ID_HEADER, ContextUtil.getTenantId()).put("msgId", extendMsg.getId().toString()).build();
 
             XxlJobInfoVO xxlJobInfoVO = XxlJobInfoVO.create(JobConstant.DEF_BASE_JOB_GROUP_NAME,
                     "【发送消息】" + extendMsg.getTitle(), extendMsg.getSendTime(), JobConstant.SMS_SEND_JOB_HANDLER, JsonUtil.toJson(param));

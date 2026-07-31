@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.basic.base.controller.SuperController;
 import org.springblade.basic.interfaces.echo.EchoService;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.modules.iot.productpublishrecord.entity.ProductPublishRecord;
 import org.springblade.modules.iot.productpublishrecord.service.ProductPublishRecordService;
 import org.springblade.modules.iot.productpublishrecord.vo.query.ProductPublishRecordPageQuery;

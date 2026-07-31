@@ -18,6 +18,5 @@
         <module>iot-link-biz</module>
         <module>iot-link-controller</module>
         <module>iot-link-facade</module>
-        <module>iot-link-server</module>
     </modules>
 </project>

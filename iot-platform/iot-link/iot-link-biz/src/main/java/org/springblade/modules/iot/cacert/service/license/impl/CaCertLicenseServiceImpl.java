@@ -24,12 +24,14 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ZipUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.basic.base.R;
+import org.springblade.basic.utils.DateUtils;
+import org.springblade.common.iot.constant.AppendixType;
+import org.springblade.common.iot.utils.FreeMarkerUtil;
 import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.core.database.mybatis.conditions.Wraps;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.basic.utils.BeanPlusUtil;
-import org.springblade.basic.utils.DateUtil;
 import org.springblade.basic.utils.StrPool;
 import org.springblade.modules.iot.cacert.dto.SubjectObjectDN;
 import org.springblade.modules.iot.cacert.entity.license.CaCertLicense;
@@ -46,12 +48,10 @@ import org.springblade.modules.iot.cacert.vo.result.license.CaCertLicenseResultV
 import org.springblade.modules.iot.cacert.vo.save.license.CaCertLicenseSaveVO;
 import org.springblade.modules.iot.cacert.vo.save.license.CaCertPemImportSaveVO;
 import org.springblade.modules.iot.cacert.vo.update.license.CaCertLicenseUpdateVO;
-import org.springblade.modules.iot.common.constant.AppendixType;
 import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.device.entity.Device;
 import org.springblade.modules.iot.device.service.DeviceQueryService;
 import org.springblade.common.iot.utils.FileUploadUtils;
-import org.springblade.modules.iot.common.utils.FreeMarkerUtil;
 import org.springblade.modules.iot.file.facade.FileFacade;
 import org.springblade.modules.iot.file.vo.result.FileResultVO;
 import org.springblade.modules.iot.utils.x509.CertSerialNumberUtil;
@@ -188,8 +188,8 @@ public class CaCertLicenseServiceImpl extends SuperServiceImpl<CaCertLicenseMana
             entity.setThumbprint(X509Util.getFingerPrint(rootCert));
             entity.setLicenseBase64(X509Util.toBase64(rootCert));
             entity.setRemark(remark);
-            entity.setNotBefore(DateUtil.date2LocalDateTime(rootCert.getNotBefore()));
-            entity.setNotAfter(DateUtil.date2LocalDateTime(rootCert.getNotAfter()));
+            entity.setNotBefore(DateUtils.date2LocalDateTime(rootCert.getNotBefore()));
+            entity.setNotAfter(DateUtils.date2LocalDateTime(rootCert.getNotAfter()));
             SubjectObjectDN subjectObjectDN = SubjectObjectDN.parseSubjectDN(rootCert);
             entity.setCommonName(subjectObjectDN.getCommonName());
             entity.setOrganization(subjectObjectDN.getOrganization());
@@ -244,8 +244,8 @@ public class CaCertLicenseServiceImpl extends SuperServiceImpl<CaCertLicenseMana
 
             // 生成证书（使用JcaX509v3CertificateBuilder）
             X509Certificate rootCert = X509Util.generateRootCert(3, subjectDN, publicKey,
-                    DateUtil.localDateTime2Date(notBefore),
-                    DateUtil.localDateTime2Date(notAfter));
+                    DateUtils.localDateTime2Date(notBefore),
+                    DateUtils.localDateTime2Date(notAfter));
 
             tempCertFile = FileUploadUtils.createTempFile("root_", ".cer");
             FileUtil.writeBytes(rootCert.getEncoded(), tempCertFile);
@@ -447,8 +447,8 @@ public class CaCertLicenseServiceImpl extends SuperServiceImpl<CaCertLicenseMana
                     clientDN,
                     clientPublicKey,
                     caCert,
-                    DateUtil.localDateTime2Date(LocalDateTime.now()),
-                    DateUtil.localDateTime2Date(notAfter));
+                    DateUtils.localDateTime2Date(LocalDateTime.now()),
+                    DateUtils.localDateTime2Date(notAfter));
 
             // 生成文件包
             File zipFile = createCertPackage(tempDir, clientCert, clientKeyPair, caCert);

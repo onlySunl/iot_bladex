@@ -21,7 +21,7 @@ import java.time.Duration;
  */
 public class MsgSubscribeCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     public static CacheKey build(String cmdTypeSn) {
         return new MsgSubscribeCacheKeyBuilder()
@@ -30,7 +30,7 @@ public class MsgSubscribeCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public MsgSubscribeCacheKeyBuilder setTenantId(Long tenantId) {
+    public MsgSubscribeCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

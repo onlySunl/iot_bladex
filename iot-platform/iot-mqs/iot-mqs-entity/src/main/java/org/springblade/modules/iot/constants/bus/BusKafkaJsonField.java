@@ -1,8 +1,9 @@
 package org.springblade.modules.iot.constants.bus;
 
+import org.springblade.common.iot.constant.CommonIotConstants;
+
 import java.util.Set;
 
-import org.springblade.modules.iot.common.constant.CommonIotConstants;
 
 /**
  * BifroMQ → Kafka 上行 JSON 字段名集中表。bus 模块所有 JSON 字段提取必须用本接口

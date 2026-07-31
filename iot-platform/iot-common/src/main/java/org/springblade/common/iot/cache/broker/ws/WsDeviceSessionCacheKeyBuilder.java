@@ -36,7 +36,7 @@ import java.time.Duration;
  */
 public class WsDeviceSessionCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     /**
      * @param clientId 设备 ws 接入 clientId
@@ -51,7 +51,7 @@ public class WsDeviceSessionCacheKeyBuilder implements CacheKeyBuilder {
     /**
      * 显式指定 tenantId 构造(broker 解析 ws 子协议时已拿到 tenantId,不依赖 ContextUtil)。
      */
-    public static CacheKey build(Long tenantId, String clientId) {
+    public static CacheKey build(String tenantId, String clientId) {
         return new WsDeviceSessionCacheKeyBuilder()
                 .setTenantId(tenantId)
                 .key(clientId);
@@ -63,7 +63,7 @@ public class WsDeviceSessionCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public WsDeviceSessionCacheKeyBuilder setTenantId(Long tenantId) {
+    public WsDeviceSessionCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

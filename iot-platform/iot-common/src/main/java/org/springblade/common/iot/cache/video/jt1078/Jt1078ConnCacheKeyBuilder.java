@@ -24,7 +24,7 @@ import java.time.Duration;
  */
 public class Jt1078ConnCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     /**
      * 构建 Hash Key（用于 hGetAll / del）
@@ -45,7 +45,7 @@ public class Jt1078ConnCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public Jt1078ConnCacheKeyBuilder setTenantId(Long tenantId) {
+    public Jt1078ConnCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

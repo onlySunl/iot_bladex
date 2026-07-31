@@ -75,7 +75,7 @@ public class OtaUpgradeTasksManagerImpl extends SuperManagerImpl<OtaUpgradeTasks
         queryWrap.lambda().between(query.getScheduledStartTimeStart() != null && query.getScheduledStartTimeEnd() != null, OtaUpgradeTasks::getScheduledStartTime, query.getScheduledStartTimeStart(), query.getScheduledStartTimeEnd());
         queryWrap.lambda().like(StringUtils.hasText(query.getDescription()), OtaUpgradeTasks::getDescription, query.getDescription());
         queryWrap.lambda().like(StringUtils.hasText(query.getRemark()), OtaUpgradeTasks::getRemark, query.getRemark());
-        queryWrap.lambda().orderByDesc(OtaUpgradeTasks::getCreatedTime);
+        queryWrap.lambda().orderByDesc(OtaUpgradeTasks::getCreateTime);
         return otaUpgradeTasksMapper.selectList(queryWrap);
     }
 }

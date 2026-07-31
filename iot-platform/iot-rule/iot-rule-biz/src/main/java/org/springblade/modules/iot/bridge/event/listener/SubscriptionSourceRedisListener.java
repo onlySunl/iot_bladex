@@ -41,7 +41,7 @@ public class SubscriptionSourceRedisListener {
             return;
         }
 
-        Long tenantId = source.getTenantId();
+        String tenantId = source.getTenantId();
         log.info("[SubscriptionSourceRedisListener] received Redis pub-sub channel={} op={} sourceCode={} tenantId={}",
                 channel == null ? "?" : new String(channel, StandardCharsets.UTF_8),
                 source.getOperation(), source.getSourceCode(), tenantId);

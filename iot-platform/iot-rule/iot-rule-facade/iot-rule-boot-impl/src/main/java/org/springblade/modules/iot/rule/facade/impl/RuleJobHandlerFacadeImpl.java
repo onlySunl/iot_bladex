@@ -30,7 +30,7 @@ public class RuleJobHandlerFacadeImpl implements RuleJobHandlerFacade {
     private final BridgeMaintenanceScheduler bridgeMaintenanceScheduler;
 
     @Override
-    public R<RuleDetailsResultVO> triggerRulePolicy(Long tenantId, String ruleIdentification) {
+    public R<RuleDetailsResultVO> triggerRulePolicy(String tenantId, String ruleIdentification) {
 
         ArgumentAssert.notNull(tenantId, "tenantId  Cannot be null");
         ArgumentAssert.notEmpty(ruleIdentification, "ruleIdentification Cannot be null");

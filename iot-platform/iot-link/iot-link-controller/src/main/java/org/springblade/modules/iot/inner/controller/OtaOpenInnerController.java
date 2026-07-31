@@ -1,11 +1,11 @@
 package org.springblade.modules.iot.inner.controller;
 
 import com.alibaba.fastjson2.JSON;
-import org.springblade.basic.annotation.log.WebLog;
 import org.springblade.basic.base.R;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.utils.ArgumentAssert;
+import org.springblade.core.annotation.log.WebLog;
 import org.springblade.modules.iot.ota.enumeration.OtaTaskRecordAppConfirmStatusEnum;
 import org.springblade.modules.iot.ota.service.OtaUpgradeTaskExecutionService;
 import org.springblade.modules.iot.ota.service.OtaUpgradeTasksService;
@@ -69,7 +69,7 @@ public class OtaOpenInnerController {
             @Parameter(name = "tenantId", description = "Tenant ID", required = true)
     })
     @PostMapping("/otaUpgradeTasksExecute")
-    public R<?> otaUpgradeTasksExecute(@RequestParam("tenantId") Long tenantId) {
+    public R<?> otaUpgradeTasksExecute(@RequestParam("tenantId") String tenantId) {
         ArgumentAssert.notNull(tenantId, "tenantId Cannot be null");
         log.info("Executing OTA Upgrade Tasks - Tenant ID: {}", tenantId);
         ContextUtil.setTenantId(tenantId);

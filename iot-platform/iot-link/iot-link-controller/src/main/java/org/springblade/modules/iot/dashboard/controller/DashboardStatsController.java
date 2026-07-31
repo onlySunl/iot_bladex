@@ -6,7 +6,6 @@ import org.springblade.modules.iot.dashboard.vo.query.DashboardDetailsQuery;
 import org.springblade.modules.iot.dashboard.vo.result.DashboardDetailsResultVO;
 import org.springblade.modules.iot.dashboard.vo.result.DashboardSummaryResultVO;
 import org.springblade.modules.iot.dashboard.vo.result.DashboardTopologySummaryResultVO;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -51,8 +50,8 @@ public class DashboardStatsController {
     @Operation(summary = "获取仪表盘资产统计概要统计信息", description = "返回仪表板资产统计的总览统计信息")
     @GetMapping("/assetSummary")
     public R<DashboardSummaryResultVO> getDashboardAssetSummary() {
-        DataScopeHelper.startDataScope("device");
-        DataScopeHelper.startDataScope("product");
+        //DataScopeHelper.startDataScope("device");
+        //DataScopeHelper.startDataScope("product");
         DashboardSummaryResultVO summary = dashboardStatsService.getDashboardAssetSummary();
         return R.success(summary);
     }

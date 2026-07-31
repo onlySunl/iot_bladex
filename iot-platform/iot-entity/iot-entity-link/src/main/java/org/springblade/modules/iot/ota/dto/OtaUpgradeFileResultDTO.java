@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 
+import lombok.experimental.Accessors;
 import org.springblade.modules.iot.ota.enumeration.OtaPackageSignMethodEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @Builder
+@Accessors(chain = true)
 @Schema(title = "OtaUpgradeFileResultDTO", description = "OTA升级文件信息")
 public class OtaUpgradeFileResultDTO implements Serializable {
 

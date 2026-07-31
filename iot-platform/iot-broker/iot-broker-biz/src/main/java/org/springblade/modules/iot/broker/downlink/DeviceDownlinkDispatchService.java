@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
 import org.springblade.modules.iot.vo.query.DownlinkCommand;
 
 import lombok.extern.slf4j.Slf4j;

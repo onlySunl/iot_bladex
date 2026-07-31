@@ -5,7 +5,6 @@ import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.jackson.JsonUtil;
 import org.springblade.basic.utils.SnowflakeIdUtil;
 import org.springblade.modules.iot.cache.vo.bridge.DataBridgeCacheVO;
-import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
 import org.springblade.modules.iot.entity.bridge.BridgeExecutionStep;
 import org.springblade.modules.iot.entity.bridge.BridgeExecutionTrace;
 import lombok.Getter;
@@ -25,17 +24,17 @@ import java.util.Optional;
  */
 public class BridgeTraceBuilder {
 
-    public static final String STATUS_SUCCESS = "00";
-    public static final String STATUS_FAILED = "01";
+    public static final int STATUS_SUCCESS = 1;
+    public static final int STATUS_FAILED = -1;
     /**
      * 部分成功(多 sink / 限流跳过等场景)。
      */
-    public static final String STATUS_PARTIAL = "02";
-    public static final String STATUS_DEAD_LETTER = "03";
+    public static final int STATUS_PARTIAL = 3;
+    public static final int STATUS_DEAD_LETTER = 4;
 
-    public static final String STEP_STATUS_SUCCESS = "00";
-    public static final String STEP_STATUS_FAILED = "01";
-    public static final String STEP_STATUS_SKIPPED = "02";
+    public static final int STEP_STATUS_SUCCESS = 5;
+    public static final int STEP_STATUS_FAILED = -2;
+    public static final int STEP_STATUS_SKIPPED = 6;
 
     public static final String TRIGGER_DEVICE_DATA = "DEVICE_DATA";
     public static final String TRIGGER_SUBSCRIPTION = "SUBSCRIPTION";
@@ -80,7 +79,7 @@ public class BridgeTraceBuilder {
      * @param rule     命中的数据桥接规则缓存(可为 null)
      * @return 新建的 trace 构造器
      */
-    public static BridgeTraceBuilder start(BridgeMessageEnvelope envelope, DataBridgeCacheVO rule) {
+    public static BridgeTraceBuilder start(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope, DataBridgeCacheVO rule) {
         BridgeExecutionTrace trace = new BridgeExecutionTrace();
         trace.setTraceId(resolveTraceId(envelope));
         trace.setStartTime(LocalDateTime.now());
@@ -107,7 +106,7 @@ public class BridgeTraceBuilder {
      * @param triggerSource 触发来源标识
      * @return 新建的 trace 构造器
      */
-    public static BridgeTraceBuilder startManual(BridgeMessageEnvelope envelope, DataBridgeCacheVO rule,
+    public static BridgeTraceBuilder startManual(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope, DataBridgeCacheVO rule,
                                                  String triggerSource) {
         BridgeTraceBuilder b = start(envelope, rule);
         b.trace.setTriggerSource(triggerSource);
@@ -144,7 +143,7 @@ public class BridgeTraceBuilder {
      * @param status        trace 状态码
      * @param resultSummary 结果摘要
      */
-    public void end(String status, String resultSummary) {
+    public void end(Integer status, String resultSummary) {
         trace.setEndTime(LocalDateTime.now());
         trace.setTotalLatencyMs((int) ((System.nanoTime() - startNanos) / 1_000_000L));
         trace.setStatus(status);
@@ -183,7 +182,7 @@ public class BridgeTraceBuilder {
     // ============================== 内部 ==============================
 
     private BridgeTraceBuilder appendStep(BridgeStepType type, String name,
-                                          String status, String input, String output, String errorMsg,
+                                          int status, String input, String output, String errorMsg,
                                           long latency, Map<String, Object> ext) {
         BridgeExecutionStep step = new BridgeExecutionStep();
         step.setTraceId(trace.getTraceId());
@@ -210,11 +209,11 @@ public class BridgeTraceBuilder {
      * @param envelope 桥接消息封装
      * @return 解析出的 traceId
      */
-    private static String resolveTraceId(BridgeMessageEnvelope envelope) {
+    private static String resolveTraceId(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope) {
         return Optional.ofNullable(ContextUtil.getLogTraceId())
                 .filter(StrUtil::isNotBlank)
                 .or(() -> Optional.ofNullable(envelope)
-                        .map(BridgeMessageEnvelope::getTraceId)
+                        .map(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope::getTraceId)
                         .filter(StrUtil::isNotBlank))
                 .orElseGet(SnowflakeIdUtil::nextId);
     }

@@ -77,7 +77,7 @@ public interface RuleService extends SuperService<Long, Rule> {
      * @param ruleIdentification 规则标识
      * @return {@link RuleDetailsResultVO} 规则详情
      */
-    RuleDetailsResultVO triggerRulePolicy(Long tenantId, String ruleIdentification);
+    RuleDetailsResultVO triggerRulePolicy(String tenantId, String ruleIdentification);
 
     /**
      * 设备事件驱动触发规则策略(实时路径)。
@@ -89,7 +89,7 @@ public interface RuleService extends SuperService<Long, Rule> {
      * @param triggerConditionType 事件对应的条件类型(ConditionTypeEnum.value)
      * @param triggerEvent         触发事件上下文(消息内值)
      */
-    void triggerRulePolicyForEvent(Long tenantId, String ruleIdentification,
+    void triggerRulePolicyForEvent(String tenantId, String ruleIdentification,
                                    Integer triggerConditionType,
                                    org.springblade.modules.iot.dto.linkage.execution.TriggerEventDTO triggerEvent);
 }

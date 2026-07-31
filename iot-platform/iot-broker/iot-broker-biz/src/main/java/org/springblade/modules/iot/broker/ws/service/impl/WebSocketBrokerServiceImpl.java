@@ -60,7 +60,7 @@ public class WebSocketBrokerServiceImpl implements WebSocketBrokerService {
             throw new ServiceException("clientId 不能为空");
         }
 
-        Long tenantId = publishMessageRequestVO.getTenantId();
+        String tenantId = publishMessageRequestVO.getTenantId();
         // 下行数据下发计数(broker 自维护,旁路统计不影响主链路)
         downLinkDataReportCounter.incrementDownLink();
 

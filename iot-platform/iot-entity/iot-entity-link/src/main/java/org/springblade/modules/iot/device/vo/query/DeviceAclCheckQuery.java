@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Map;
@@ -27,6 +29,7 @@ import java.util.Map;
 @ToString(callSuper = true)
 @EqualsAndHashCode
 @Builder
+@Accessors(chain = true)
 @Schema(title = "DeviceAclCheckQuery", description = "设备ACL权限校验Query")
 public class DeviceAclCheckQuery implements Serializable {
     @Serial

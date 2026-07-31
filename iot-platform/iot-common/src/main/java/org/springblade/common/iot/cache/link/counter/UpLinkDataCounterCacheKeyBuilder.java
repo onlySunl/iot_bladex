@@ -33,7 +33,7 @@ import org.springblade.common.iot.cache.CacheKeyTable;
  */
 public class UpLinkDataCounterCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     public static CacheHashKey build(Serializable key) {
         return new UpLinkDataCounterCacheKeyBuilder().setTenantId(ContextUtil.getTenantId()).hashKey(key);
@@ -54,7 +54,7 @@ public class UpLinkDataCounterCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public UpLinkDataCounterCacheKeyBuilder setTenantId(Long tenantId) {
+    public UpLinkDataCounterCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

@@ -4,7 +4,6 @@ import cn.hutool.core.util.StrUtil;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springblade.modules.iot.bridge.matcher.BridgeMatchConfig;
-import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.support.CronExpression;
@@ -56,7 +55,7 @@ public class TimeWindowStrategy implements BridgeMatchStrategy {
     }
 
     @Override
-    public MatchResult match(BridgeMessageEnvelope env, BridgeMatchConfig cfg) {
+    public MatchResult match(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope env, BridgeMatchConfig cfg) {
         return MatchResult.safe(STRATEGY, () -> {
             String cronExpr = cfg.getTimeWindow().getCronExpr().trim();
             CronExpression expr;
@@ -86,9 +85,9 @@ public class TimeWindowStrategy implements BridgeMatchStrategy {
      * 取 envelope.ts(毫秒)对应的 LocalDateTime;ts 缺失走系统当前时间。
      * <p>用 system default zone ── 多租户跨时区暂不支持。
      */
-    private LocalDateTime resolveNow(BridgeMessageEnvelope env) {
+    private LocalDateTime resolveNow(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope env) {
         return Optional.ofNullable(env)
-                .map(BridgeMessageEnvelope::getTs)
+                .map(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope::getTs)
                 .filter(ts -> ts > 0L)
                 .map(ts -> LocalDateTime.ofInstant(Instant.ofEpochMilli(ts), ZoneId.systemDefault()))
                 .orElseGet(LocalDateTime::now);

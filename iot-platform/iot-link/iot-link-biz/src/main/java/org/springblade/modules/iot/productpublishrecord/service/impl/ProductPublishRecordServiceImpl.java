@@ -133,10 +133,10 @@ public class ProductPublishRecordServiceImpl
             .sourceVersion(sourceVersion)
             .targetVersion(targetVersion)
             .intent(intent)
-            .status(status)
             .maxRetryCount(maxRetryCount)
             .startedTime(LocalDateTime.now())
             .build();
+        record.setStatus(status);
         productPublishRecordManager.save(record);
         return record;
     }

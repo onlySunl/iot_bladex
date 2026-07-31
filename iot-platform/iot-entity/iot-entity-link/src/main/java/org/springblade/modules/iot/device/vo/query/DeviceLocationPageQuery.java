@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -27,6 +29,7 @@ import java.util.List;
 @ToString(callSuper = true)
 @EqualsAndHashCode
 @Builder
+@Accessors(chain = true)
 @Schema(title = "DeviceLocationPageQuery", description = "设备位置表")
 public class DeviceLocationPageQuery implements Serializable {
 

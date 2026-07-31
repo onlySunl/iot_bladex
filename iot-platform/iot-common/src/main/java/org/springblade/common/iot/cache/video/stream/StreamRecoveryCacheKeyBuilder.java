@@ -21,7 +21,7 @@ import java.time.Duration;
  */
 public class StreamRecoveryCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     public static CacheKey build(String deviceChannelKey) {
         return new StreamRecoveryCacheKeyBuilder()
@@ -30,7 +30,7 @@ public class StreamRecoveryCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public StreamRecoveryCacheKeyBuilder setTenantId(Long tenantId) {
+    public StreamRecoveryCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

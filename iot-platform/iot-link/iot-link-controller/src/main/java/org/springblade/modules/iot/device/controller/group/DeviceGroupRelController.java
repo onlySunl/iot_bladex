@@ -11,12 +11,11 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.basic.base.controller.SuperController;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.core.mvc.request.PageParams;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.interfaces.echo.EchoService;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.device.entity.group.DeviceGroupRel;
 import org.springblade.modules.iot.device.service.DeviceService;
 import org.springblade.modules.iot.device.service.group.DeviceGroupRelService;
@@ -63,7 +62,7 @@ public class DeviceGroupRelController extends SuperController<DeviceGroupRelServ
     public QueryWrap<DeviceGroupRel> handlerWrapper(DeviceGroupRel model, PageParams<DeviceGroupRelPageQuery> params) {
         QueryWrap<DeviceGroupRel> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
-        DataScopeHelper.startDataScope("device_group_rel");
+        //DataScopeHelper.startDataScope("device_group_rel");
         return queryWrap;
     }
 

@@ -3,9 +3,9 @@ package org.springblade.modules.iot.productversionchangelog.controller;
 import java.util.List;
 
 import org.springblade.basic.base.R;
-import org.springblade.basic.base.controller.SuperController;
 import org.springblade.basic.interfaces.echo.EchoService;
 import org.springblade.basic.utils.BeanPlusUtil;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.modules.iot.productversionchangelog.entity.ProductVersionChangeLog;
 import org.springblade.modules.iot.productversionchangelog.service.ProductVersionChangeLogService;
 import org.springblade.modules.iot.productversionchangelog.vo.query.ProductVersionChangeLogPageQuery;

@@ -1,10 +1,10 @@
 package org.springblade.modules.iot.bridge.matcher;
 
-import org.springblade.modules.iot.common.constant.BizConstant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springblade.common.iot.constant.BizConstant;
 
 import java.io.Serial;
 import java.io.Serializable;

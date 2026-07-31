@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.mqs.event.hook;
 
-import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
+import org.springblade.common.iot.enums.DeviceActionTypeEnum;
 import org.springframework.core.Ordered;
 
 /**

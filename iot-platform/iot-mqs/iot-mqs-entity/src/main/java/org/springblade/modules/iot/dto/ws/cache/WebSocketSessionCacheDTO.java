@@ -24,7 +24,7 @@ public class WebSocketSessionCacheDTO {
 
     private String clientId;
 
-    private Long tenantId;
+    private String tenantId;
 
     private String protocolVersion;
 

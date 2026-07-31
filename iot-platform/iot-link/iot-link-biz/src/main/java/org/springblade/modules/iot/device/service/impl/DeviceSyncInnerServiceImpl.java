@@ -83,7 +83,7 @@ public class DeviceSyncInnerServiceImpl extends CacheSuperAbstract implements De
      * @param tenantId 租户 ID
      */
     @Override
-    public void syncDeviceConnectionStatus(Long tenantId) {
+    public void syncDeviceConnectionStatus(String tenantId) {
         long startTime = System.currentTimeMillis();
         AtomicInteger totalSuccess = new AtomicInteger();
         AtomicInteger totalFail = new AtomicInteger();
@@ -164,7 +164,7 @@ public class DeviceSyncInnerServiceImpl extends CacheSuperAbstract implements De
      * @param totalSuccess 全局成功累计计数器
      * @param totalFail    全局失败累计计数器
      */
-    private void processDevicesBatch(Long tenantId, List<DeviceResultVO> devices,
+    private void processDevicesBatch(String tenantId, List<DeviceResultVO> devices,
                                      AtomicInteger totalSuccess, AtomicInteger totalFail) {
         AtomicInteger pageSuccess = new AtomicInteger();
         AtomicInteger pageFail = new AtomicInteger();

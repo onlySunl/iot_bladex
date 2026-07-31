@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
 import org.springblade.modules.iot.tds.service.TdsService;
 import org.springblade.modules.iot.tds.vo.result.SuperTableDescribeVO;
 import org.springframework.validation.annotation.Validated;
@@ -318,7 +318,7 @@ public class TDengineController {
         try {
             ArgumentAssert.notBlank(tableName, "表名称不能为空");
             List<SuperTableDescribeVO> superTableDescribeVOS = tdsService.describeSuperOrSubTable(ContextUtil.getDataBase(), tableName);
-            return R.data(superTableDescribeVOS);
+            return R.success(superTableDescribeVOS);
         } catch (Exception e) {
             log.error("查询超级表、子表结构失败{}", e.getMessage());
             return R.fail(e.getMessage());
@@ -366,7 +366,7 @@ public class TDengineController {
         try {
             ArgumentAssert.notBlank(tableName, "Table name cannot be blank");
             CompletableFuture<List<Map<String, Object>>> dataInRangeOrLastRecord = tdsService.getDataInRangeOrLastRecord(ContextUtil.getDataBase(), tableName, startTime, endTime);
-            return R.data(dataInRangeOrLastRecord.get());
+            return R.success(dataInRangeOrLastRecord.get());
         } catch (Exception e) {
             log.error("Failed to query the latest record from the table", e);
             return R.fail("Query failed: " + e.getMessage());

@@ -1,7 +1,6 @@
 package org.springblade.modules.iot.bridge.match.strategy;
 
 import org.springblade.modules.iot.bridge.matcher.BridgeMatchConfig;
-import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
 
 /**
  * 桥接规则匹配 ── 单维度策略 SPI(策略工厂模式)。
@@ -46,5 +45,5 @@ public interface BridgeMatchStrategy {
      * @param cfg 已解析的匹配配置(只读)
      * @return 匹配结果(hit / miss),不要返回 skip(skip 应通过 appliesTo 返回 false 表达)
      */
-    MatchResult match(BridgeMessageEnvelope env, BridgeMatchConfig cfg);
+    MatchResult match(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope env, BridgeMatchConfig cfg);
 }

@@ -20,13 +20,13 @@ import java.time.Duration;
  * @date 2021/12/20 6:45 下午
  */
 public class IsTenantAdminCacheKeyBuilder implements CacheKeyBuilder {
-    private Long tenantId;
+    private String tenantId;
 
     public static CacheKey builder(Long employeeId) {
         return new IsTenantAdminCacheKeyBuilder().setTenantId(ContextUtil.getTenantId()).key(employeeId);
     }
 
-    public static CacheKey builder(Long tenantId, Long employeeId) {
+    public static CacheKey builder(String tenantId, Long employeeId) {
         return new IsTenantAdminCacheKeyBuilder().setTenantId(tenantId).key(employeeId);
     }
 
@@ -37,7 +37,7 @@ public class IsTenantAdminCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public IsTenantAdminCacheKeyBuilder setTenantId(Long tenantId) {
+    public IsTenantAdminCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

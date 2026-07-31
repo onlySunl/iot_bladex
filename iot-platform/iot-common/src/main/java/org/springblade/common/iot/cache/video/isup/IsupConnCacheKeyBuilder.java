@@ -24,7 +24,7 @@ import java.time.Duration;
  */
 public class IsupConnCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     /**
      * 构建 Hash Key（用于 hGetAll / del）
@@ -45,7 +45,7 @@ public class IsupConnCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public IsupConnCacheKeyBuilder setTenantId(Long tenantId) {
+    public IsupConnCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

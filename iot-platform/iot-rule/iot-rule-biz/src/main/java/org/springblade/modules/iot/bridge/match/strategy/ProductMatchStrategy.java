@@ -1,9 +1,8 @@
 package org.springblade.modules.iot.bridge.match.strategy;
 
 import cn.hutool.core.collection.CollUtil;
+import org.springblade.common.iot.constant.BizConstant;
 import org.springblade.modules.iot.bridge.matcher.BridgeMatchConfig;
-import org.springblade.modules.iot.common.constant.BizConstant;
-import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -33,10 +32,10 @@ public class ProductMatchStrategy implements BridgeMatchStrategy {
     }
 
     @Override
-    public MatchResult match(BridgeMessageEnvelope env, BridgeMatchConfig cfg) {
+    public MatchResult match(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope env, BridgeMatchConfig cfg) {
         return MatchResult.safe(STRATEGY, () -> {
             String actual = Optional.ofNullable(env)
-                    .map(BridgeMessageEnvelope::getProductIdentification)
+                    .map(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope::getProductIdentification)
                     .orElse(null);
             return BridgeMatchConfig.matchesAny(cfg.getProductIdentifications(), actual)
                     ? MatchResult.hit("matched: " + actual)

@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.service.script;
 
-import org.springblade.basic.base.service.SuperService;
+import org.springblade.core.mvc.service.SuperService;
 import org.springblade.modules.iot.entity.script.RuleGroovyScript;
 import org.springblade.modules.iot.vo.param.script.RuleGroovyScriptDirectCompileParam;
 import org.springblade.modules.iot.vo.param.script.RuleGroovyScriptExecuteScriptParam;

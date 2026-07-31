@@ -3,6 +3,7 @@ package org.springblade.modules.iot.device.vo.result;
 import java.io.Serial;
 import java.time.LocalDateTime;
 
+import lombok.experimental.Accessors;
 import org.springblade.model.vo.AuditableResultVO;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,6 +28,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Builder
+@Accessors(chain = true)
 @Schema(title = "DeviceResultVO", description = "设备档案信息表")
 public class DeviceResultVO extends AuditableResultVO {
 

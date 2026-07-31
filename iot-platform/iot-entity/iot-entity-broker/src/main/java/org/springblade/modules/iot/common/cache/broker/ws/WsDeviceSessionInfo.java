@@ -37,7 +37,7 @@ public class WsDeviceSessionInfo implements Serializable {
     /**
      * 租户 ID(字符串形式,与下游事件 / 缓存 key 命名空间对齐)。
      */
-    private Long tenantId;
+    private String tenantId;
 
     /**
      * 账号模式用户名。

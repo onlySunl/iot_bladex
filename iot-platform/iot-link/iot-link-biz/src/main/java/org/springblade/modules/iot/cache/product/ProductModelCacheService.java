@@ -60,7 +60,7 @@ public class ProductModelCacheService extends CacheSuperAbstract {
         if (StrUtil.hasBlank(productIdentification, versionNo)) {
             return null;
         }
-        Long tenantId = ContextUtil.getTenantId();
+        String tenantId = ContextUtil.getTenantId();
         try {
             ProductModelCacheVO vo = productVersionQueryService
                 .findByProductIdentificationAndVersionNo(productIdentification, versionNo)
@@ -90,7 +90,7 @@ public class ProductModelCacheService extends CacheSuperAbstract {
      *
      * @param tenantId 租户 ID,不能为空
      */
-    public void refreshAllProductModelCacheForTenant(Long tenantId) {
+    public void refreshAllProductModelCacheForTenant(String tenantId) {
         if (tenantId == null) {
             return;
         }
@@ -149,7 +149,7 @@ public class ProductModelCacheService extends CacheSuperAbstract {
             return false;
         }
         try {
-            Long tenantId = ContextUtil.getTenantId();
+            String tenantId = ContextUtil.getTenantId();
             ProductResultVO product = productQueryService.findOneByProductIdentification(productIdentification);
             if (product == null) {
                 log.warn("[product-model-refresh] product not found productIdentification={}", productIdentification);
@@ -182,7 +182,7 @@ public class ProductModelCacheService extends CacheSuperAbstract {
      * @param tenantId              租户 ID(日志用)
      * @return 是否成功(快照反查失败返 false)
      */
-    private boolean warmModelVersion(String productIdentification, String versionNo, Long tenantId) {
+    private boolean warmModelVersion(String productIdentification, String versionNo, String tenantId) {
         ProductModelCacheVO vo = loadProductModelFromDbByVersionNo(productIdentification, versionNo);
         if (vo == null) {
             log.warn("[product-model-refresh] snapshot resolution failed productIdentification={} versionNo={}",

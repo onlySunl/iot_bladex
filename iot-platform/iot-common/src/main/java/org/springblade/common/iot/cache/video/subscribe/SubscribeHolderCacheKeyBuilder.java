@@ -23,7 +23,7 @@ import java.time.Duration;
  */
 public class SubscribeHolderCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     /**
      * @param typePlatformId 类型+平台ID，如 "catalog_123" 或 "mobilePosition_456"
@@ -35,7 +35,7 @@ public class SubscribeHolderCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public SubscribeHolderCacheKeyBuilder setTenantId(Long tenantId) {
+    public SubscribeHolderCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

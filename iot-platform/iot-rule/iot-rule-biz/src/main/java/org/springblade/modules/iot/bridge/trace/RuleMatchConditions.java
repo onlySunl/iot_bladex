@@ -6,7 +6,6 @@ import cn.hutool.core.util.StrUtil;
 import org.springblade.basic.jackson.JsonUtil;
 import org.springblade.modules.iot.bridge.matcher.BridgeMatchConfig;
 import org.springblade.modules.iot.cache.vo.bridge.DataBridgeCacheVO;
-import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -54,7 +53,7 @@ public final class RuleMatchConditions {
      * 收集本次匹配命中的条件列表。失败 / 无配置 → 空列表;调用方拿到的是<b>不可变</b>列表。
      */
     public static List<Map<String, Object>> collect(DataBridgeCacheVO rule,
-                                                    BridgeMessageEnvelope envelope) {
+                                                    org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope) {
         if (rule == null) {
             return Collections.emptyList();
         }

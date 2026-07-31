@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.broker;
 
 import com.alibaba.fastjson2.JSON;
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.broker.ws.service.WebSocketBrokerService;
 import org.springblade.modules.iot.vo.query.PublishWebSocketMessageRequestVO;

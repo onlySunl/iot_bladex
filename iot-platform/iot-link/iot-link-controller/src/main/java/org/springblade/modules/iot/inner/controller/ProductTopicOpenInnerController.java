@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.inner.controller;
 
-import org.springblade.basic.annotation.log.WebLog;
 import org.springblade.basic.base.R;
+import org.springblade.core.annotation.log.WebLog;
 import org.springblade.modules.iot.producttopic.service.ProductTopicService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

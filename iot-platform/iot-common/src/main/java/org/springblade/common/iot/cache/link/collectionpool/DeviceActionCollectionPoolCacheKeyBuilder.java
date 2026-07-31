@@ -22,7 +22,7 @@ import java.time.Duration;
  */
 public class DeviceActionCollectionPoolCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     public static CacheKey build(String productIdentification) {
         return new DeviceActionCollectionPoolCacheKeyBuilder().setTenantId(ContextUtil.getTenantId()).key(productIdentification);
@@ -33,7 +33,7 @@ public class DeviceActionCollectionPoolCacheKeyBuilder implements CacheKeyBuilde
     }
 
     @Override
-    public DeviceActionCollectionPoolCacheKeyBuilder setTenantId(Long tenantId) {
+    public DeviceActionCollectionPoolCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

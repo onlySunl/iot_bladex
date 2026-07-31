@@ -163,7 +163,7 @@ public interface BaseController<Id extends Serializable, Entity extends SuperEnt
      *
      * @return 租户编码
      */
-    default Long getTenantId() {
+    default String getTenantId() {
         return ContextUtil.getTenantId();
     }
 

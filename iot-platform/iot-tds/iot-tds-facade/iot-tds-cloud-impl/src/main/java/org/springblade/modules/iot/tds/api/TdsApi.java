@@ -4,7 +4,7 @@ import org.springblade.common.constant.Constants;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springblade.core.tds.model.SuperTableDTO;
 import org.springblade.core.tds.model.TableDTO;
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
 import org.springblade.modules.iot.tds.api.hystrix.TdsApiFallback;
 import org.springblade.modules.iot.tds.vo.result.SuperTableDescribeVO;
 import org.springframework.cloud.openfeign.FeignClient;

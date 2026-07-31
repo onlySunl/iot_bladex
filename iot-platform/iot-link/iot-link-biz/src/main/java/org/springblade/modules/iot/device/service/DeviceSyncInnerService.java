@@ -27,5 +27,5 @@ public interface DeviceSyncInnerService {
      *
      * @param tenantId 租户ID
      */
-    void syncDeviceConnectionStatus(Long tenantId);
+    void syncDeviceConnectionStatus(String tenantId);
 }

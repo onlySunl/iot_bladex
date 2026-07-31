@@ -22,7 +22,7 @@ public class ScriptProductContextDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    private Long tenantId;
+    private String tenantId;
     private String appId;
     private Long templateId;
     private String productName;

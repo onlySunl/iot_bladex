@@ -53,7 +53,7 @@ public class CaCertAuditLogServiceImpl implements CaCertAuditLogService {
         }
         LambdaQueryWrapper<CaCertAuditLog> q = new LambdaQueryWrapper<CaCertAuditLog>()
                 .eq(CaCertAuditLog::getCaId, caId)
-                .orderByDesc(CaCertAuditLog::getCreatedTime)
+                .orderByDesc(CaCertAuditLog::getCreateTime)
                 .last("limit " + MAX_LIST_SIZE);
         return mapper.selectList(q);
     }

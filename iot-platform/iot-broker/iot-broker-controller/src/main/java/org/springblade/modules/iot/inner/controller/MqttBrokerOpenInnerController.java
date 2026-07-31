@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.inner.controller;
 
 import com.alibaba.fastjson2.JSON;
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.broker.mqtt.service.MqttBrokerService;
 import org.springblade.modules.iot.vo.query.AddSubscriptionRequestVO;
@@ -90,7 +90,7 @@ public class MqttBrokerOpenInnerController {
         try {
             MqttSessionDetailsResultVO mqttSessionDetailsResultVO = mqttBrokerService.getSessionInfo(tenantId, userId, clientId);
             log.info("Successfully retrieved session info for tenantId: {}, userId: {}, clientId: {}", tenantId, userId, clientId);
-            return R.data(mqttSessionDetailsResultVO);
+            return R.success(mqttSessionDetailsResultVO);
         } catch (ServiceException e) {
             log.warn("Business exception while retrieving session info for tenantId: {}, userId: {}, clientId: {}. Error: {}", tenantId, userId, clientId, e.getMessage());
             return R.fail( e.getMessage());

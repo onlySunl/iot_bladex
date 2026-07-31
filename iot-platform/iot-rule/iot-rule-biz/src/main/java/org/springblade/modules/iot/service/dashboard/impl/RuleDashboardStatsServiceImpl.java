@@ -248,7 +248,7 @@ public class RuleDashboardStatsServiceImpl implements RuleDashboardStatsService 
             // 查询条件
             LambdaQueryWrapper<RuleAlarmRecord> lambdaQueryWrapper = new LambdaQueryWrapper<>();
             lambdaQueryWrapper.in(RuleAlarmRecord::getHandledStatus, Arrays.asList(AlarmRecordHandledStatusEnum.PENDING.getValue(), AlarmRecordHandledStatusEnum.IN_PROGRESS.getValue()));
-            lambdaQueryWrapper.orderByDesc(RuleAlarmRecord::getCreatedTime);
+            lambdaQueryWrapper.orderByDesc(RuleAlarmRecord::getCreateTime);
             lambdaQueryWrapper.last("LIMIT 30");
 
             // 获取告警记录列表

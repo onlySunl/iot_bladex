@@ -32,7 +32,7 @@ import java.time.Duration;
  */
 public class OtaTaskExecutorOffsetCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     public static CacheKey build() {
         return new OtaTaskExecutorOffsetCacheKeyBuilder().setTenantId(ContextUtil.getTenantId()).key();
@@ -44,7 +44,7 @@ public class OtaTaskExecutorOffsetCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public OtaTaskExecutorOffsetCacheKeyBuilder setTenantId(Long tenantId) {
+    public OtaTaskExecutorOffsetCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

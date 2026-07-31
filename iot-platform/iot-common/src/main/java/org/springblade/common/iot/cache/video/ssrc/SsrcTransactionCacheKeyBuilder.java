@@ -24,7 +24,7 @@ import java.time.Duration;
  */
 public class SsrcTransactionCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     /**
      * 构建 SSRC 事务 Hash Key（根据设备编号）
@@ -48,7 +48,7 @@ public class SsrcTransactionCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public SsrcTransactionCacheKeyBuilder setTenantId(Long tenantId) {
+    public SsrcTransactionCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

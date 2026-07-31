@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.service.plugin;
 
-import org.springblade.basic.base.service.SuperService;
+import org.springblade.core.mvc.service.SuperService;
 import org.springblade.modules.iot.entity.plugin.PluginInstanceMapping;
 import org.springblade.modules.iot.vo.query.plugin.PluginInstanceMappingPageQuery;
 import org.springblade.modules.iot.vo.result.plugin.PluginInstanceMappingResultVO;

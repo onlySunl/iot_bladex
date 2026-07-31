@@ -22,7 +22,7 @@ import java.time.Duration;
  */
 public class SipInviteSessionCallCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     /**
      * @param key deviceIdentification
@@ -42,7 +42,7 @@ public class SipInviteSessionCallCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public SipInviteSessionCallCacheKeyBuilder setTenantId(Long tenantId) {
+    public SipInviteSessionCallCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

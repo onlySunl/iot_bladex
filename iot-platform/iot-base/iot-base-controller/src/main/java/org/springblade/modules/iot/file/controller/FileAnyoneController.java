@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.file.controller;
 
-import org.springblade.basic.annotation.log.WebLog;
 import org.springblade.basic.base.R;
 import org.springblade.basic.utils.ArgumentAssert;
+import org.springblade.core.annotation.log.WebLog;
 import org.springblade.modules.iot.file.service.FileService;
 import org.springblade.modules.iot.file.vo.param.FileUploadVO;
 import org.springblade.modules.iot.file.vo.result.FileResultVO;
@@ -28,7 +28,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Map;
 
-import static org.springblade.modules.iot.common.constant.SwaggerConstants.DATA_TYPE_MULTIPART_FILE;
+import static org.springblade.common.iot.constant.SwaggerConstants.DATA_TYPE_MULTIPART_FILE;
+
 
 /**
  * <p>

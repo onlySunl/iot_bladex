@@ -4,7 +4,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -12,16 +11,16 @@ import java.util.concurrent.TimeUnit;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springblade.basic.chatgpt.model.enumeration.OpenAiGptModelEnum;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.exception.BizException;
-import org.springblade.basic.protocol.factory.ProtocolMessageAdapter;
-import org.springblade.basic.protocol.model.EncryptionDetailsDTO;
-import org.springblade.basic.protocol.model.ProtocolDataMessageDTO;
+
 import org.springblade.basic.utils.BeanPlusUtil;
+import org.springblade.common.iot.constant.CommonIotConstants;
+import org.springblade.core.protocol.factory.ProtocolMessageAdapter;
+import org.springblade.core.protocol.model.EncryptionDetailsDTO;
+import org.springblade.core.protocol.model.ProtocolDataMessageDTO;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
-import org.springblade.modules.iot.common.constant.CommonIotConstants;
 import org.springblade.modules.iot.entity.uplink.source.UplinkMessageEventSource;
 import org.springblade.modules.iot.link.facade.DeviceOpenInnerFacade;
 import org.springblade.modules.iot.mqs.uplink.handler.factory.AbstractMessageHandler;
@@ -159,8 +158,8 @@ public class ChatgptRequestHandler extends AbstractMessageHandler implements Top
     public ChatCompletionResponse getOpenAiResponse(OpenAiChatRequestParam requestParam) {
         OpenAiClient openAiClient = buildOpenAiClient(requestParam.getApiKey(), requestParam.getApiHost());
 
-        Message message = Message.builder()
-            .role(Message.Role.USER)
+        OpenAiChatResponseResultVO.ChatChoice.Message message = Message.builder()
+            .role(OpenAiChatResponseResultVO.ChatChoice.Message.Role.USER)
             .content(requestParam.getContent())
             .build();
 

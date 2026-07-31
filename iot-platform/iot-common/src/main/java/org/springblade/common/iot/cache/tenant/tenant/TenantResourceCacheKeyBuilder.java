@@ -16,7 +16,7 @@ import java.time.Duration;
  * @date 2020/9/20 6:45 下午
  */
 public class TenantResourceCacheKeyBuilder implements CacheKeyBuilder {
-    public static CacheKey builder(Long tenantId, Long applicationId) {
+    public static CacheKey builder(String tenantId, Long applicationId) {
         return new TenantResourceCacheKeyBuilder().key(tenantId, applicationId);
     }
 

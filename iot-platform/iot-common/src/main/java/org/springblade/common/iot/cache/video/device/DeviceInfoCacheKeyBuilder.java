@@ -20,7 +20,7 @@ import java.time.Duration;
  * @date 2025/4/18 16:45 下午
  */
 public class DeviceInfoCacheKeyBuilder implements CacheKeyBuilder {
-    private Long tenantId;
+    private String tenantId;
 
     /**
      * @param deviceIdentification 设备唯一标识
@@ -31,7 +31,7 @@ public class DeviceInfoCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public DeviceInfoCacheKeyBuilder setTenantId(Long tenantId) {
+    public DeviceInfoCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

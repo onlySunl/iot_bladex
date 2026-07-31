@@ -16,6 +16,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.springblade.basic.base.entity.Entity;
 import org.springblade.basic.interfaces.echo.EchoVO;
 
@@ -35,6 +36,7 @@ import org.springblade.basic.interfaces.echo.EchoVO;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Builder
+@Accessors(chain = true)
 public class OtaUpgradesResultDTO extends Entity implements Serializable, EchoVO {
 
     @Serial

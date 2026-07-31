@@ -8,7 +8,6 @@ import java.util.Locale;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import org.springblade.basic.condition.model.dto.AppointEffectiveTimeDTO;
 import org.springblade.basic.jackson.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 

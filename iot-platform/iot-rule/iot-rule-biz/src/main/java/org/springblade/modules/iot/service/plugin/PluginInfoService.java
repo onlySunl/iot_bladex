@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.service.plugin;
 
-import org.springblade.basic.base.service.SuperService;
+import org.springblade.core.mvc.service.SuperService;
 import org.springblade.modules.iot.entity.plugin.PluginInfo;
 import org.springblade.modules.iot.enumeration.plugin.PluginActionStatusEnum;
 import org.springblade.modules.iot.vo.query.plugin.PluginInfoPageQuery;

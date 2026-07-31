@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.manager.bridge.impl;
 
 import cn.hutool.core.util.StrUtil;
+import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
-import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.modules.iot.entity.bridge.SubscriptionSource;
 import org.springblade.modules.iot.manager.bridge.SubscriptionSourceManager;
 import org.springblade.modules.iot.mapper.bridge.SubscriptionSourceMapper;
@@ -40,7 +40,7 @@ public class SubscriptionSourceManagerImpl extends SuperManagerImpl<Subscription
                 .eq(query.getDataSourceId() != null, SubscriptionSource::getDataSourceId, query.getDataSourceId())
                 .eq(StrUtil.isNotBlank(query.getTargetHandler()), SubscriptionSource::getTargetHandler, query.getTargetHandler())
                 .eq(query.getEnable() != null, SubscriptionSource::getEnable, query.getEnable())
-                .orderByDesc(SubscriptionSource::getCreatedTime);
+                .orderByDesc(SubscriptionSource::getCreateTime);
         return subscriptionSourceMapper.selectList(wrap);
     }
 

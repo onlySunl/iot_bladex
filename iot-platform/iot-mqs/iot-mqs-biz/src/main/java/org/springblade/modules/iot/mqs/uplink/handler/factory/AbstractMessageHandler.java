@@ -3,7 +3,7 @@ package org.springblade.modules.iot.mqs.uplink.handler.factory;
 import java.util.List;
 import java.util.Optional;
 
-import org.springblade.basic.protocol.factory.ProtocolMessageAdapter;
+import org.springblade.core.protocol.factory.ProtocolMessageAdapter;
 import org.springblade.modules.iot.broker.DeviceDownlinkFacade;
 import org.springblade.modules.iot.cache.helper.LinkCacheDataHelper;
 import org.springblade.modules.iot.vo.query.DownlinkCommand;

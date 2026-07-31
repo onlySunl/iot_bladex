@@ -24,6 +24,5 @@
         <module>iot-mqs-biz</module>
         <module>iot-mqs-biz-bus</module>
         <module>iot-mqs-controller</module>
-        <module>iot-mqs-server</module>
     </modules>
 </project>

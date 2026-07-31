@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.manager.bridge.impl;
 
 import cn.hutool.core.util.StrUtil;
+import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
-import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.modules.iot.entity.bridge.DataBridge;
 import org.springblade.modules.iot.manager.bridge.DataBridgeManager;
 import org.springblade.modules.iot.mapper.bridge.DataBridgeMapper;
@@ -41,7 +41,7 @@ public class DataBridgeManagerImpl extends SuperManagerImpl<DataBridgeMapper, Da
                 .eq(query.getDataSourceId() != null, DataBridge::getDataSourceId, query.getDataSourceId())
                 .eq(query.getEnable() != null, DataBridge::getEnable, query.getEnable())
                 .orderByAsc(DataBridge::getPriority)
-                .orderByDesc(DataBridge::getCreatedTime);
+                .orderByDesc(DataBridge::getCreateTime);
         return dataBridgeMapper.selectList(wrap);
     }
 

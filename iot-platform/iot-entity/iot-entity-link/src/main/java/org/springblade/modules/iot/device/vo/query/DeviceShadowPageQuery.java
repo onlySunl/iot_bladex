@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
+
 import java.io.Serial;
 import java.io.Serializable;
 
@@ -22,6 +24,7 @@ import java.io.Serializable;
 @ToString(callSuper = true)
 @EqualsAndHashCode
 @Builder
+@Accessors(chain = true)
 @Schema(title = "DeviceShadowPageQuery", description = "设备影子信息分页参数")
 public class DeviceShadowPageQuery implements Serializable {
 

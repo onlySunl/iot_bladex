@@ -2,12 +2,11 @@ package org.springblade.modules.iot.bridge.consumer;
 
 import java.util.List;
 
-import org.springblade.basic.rocketmq.listener.AbstractTenantAwareRocketmqListener;
+import org.springblade.common.iot.mq.BizMqRouteConstant;
+import org.springblade.core.rocketmq.listener.AbstractTenantAwareRocketmqListener;
 import org.springblade.modules.iot.bridge.dispatcher.SinkDispatcher;
 import org.springblade.modules.iot.bridge.matcher.BridgeRuleMatcher;
 import org.springblade.modules.iot.cache.vo.bridge.DataBridgeCacheVO;
-import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
-import org.springblade.modules.iot.common.mq.BizMqRouteConstant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.common.message.MessageExt;
@@ -40,18 +39,18 @@ import org.springframework.stereotype.Component;
     messageModel = MessageModel.CLUSTERING,
     consumeMode = ConsumeMode.CONCURRENTLY
 )
-public class BridgeDeviceEventConsumer extends AbstractTenantAwareRocketmqListener<BridgeMessageEnvelope> {
+public class BridgeDeviceEventConsumer extends AbstractTenantAwareRocketmqListener<org.springblade.common.iot.event.bridge.BridgeMessageEnvelope> {
 
     private final BridgeRuleMatcher matcher;
     private final SinkDispatcher dispatcher;
 
     @Override
-    protected Class<BridgeMessageEnvelope> getBodyClass() {
-        return BridgeMessageEnvelope.class;
+    protected Class<org.springblade.common.iot.event.bridge.BridgeMessageEnvelope> getBodyClass() {
+        return org.springblade.common.iot.event.bridge.BridgeMessageEnvelope.class;
     }
 
     @Override
-    protected void onTenantMessage(BridgeMessageEnvelope envelope, MessageExt raw) {
+    protected void onTenantMessage(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope, MessageExt raw) {
         if (envelope == null) {
             log.warn("[BridgeDeviceEventConsumer] received null envelope, msgId={}", raw.getMsgId());
             return;

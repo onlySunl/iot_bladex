@@ -45,7 +45,7 @@ public class ExtendInterfaceLoggingController extends SuperController<ExtendInte
 
     @Override
     public IPage<ExtendInterfaceLogging> query(PageParams<ExtendInterfaceLoggingPageQuery> params) {
-        Long tenantId = params.getModel().getTenantId();
+        String tenantId = params.getModel().getTenantId();
         if (tenantId != null) {
             ContextUtil.setTenantBasePoolName(tenantId);
         }

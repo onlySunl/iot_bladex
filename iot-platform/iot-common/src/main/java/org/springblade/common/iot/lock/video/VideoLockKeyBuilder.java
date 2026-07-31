@@ -119,7 +119,7 @@ public class VideoLockKeyBuilder implements CacheKeyBuilder {
     // ==================== CacheKeyBuilder 接口实现 ====================
 
     @Override
-    public VideoLockKeyBuilder setTenantId(Long tenantId) {
+    public VideoLockKeyBuilder setTenantId(String tenantId) {
         // 分布式锁不需要租户隔离
         return this;
     }

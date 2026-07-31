@@ -78,7 +78,7 @@ public class OtaUpgradeTaskExecutionServiceImpl implements OtaUpgradeTaskExecuti
 
 
     @Override
-    public void otaUpgradeTasksExecute(Long tenantId) {
+    public void otaUpgradeTasksExecute(String tenantId) {
         log.info("开始执行tenantId:{} OTA升级任务扫描并执行 - 开始执行时间: {}", tenantId, LocalDateTime.now());
 
         LocalDateTime currentTime = LocalDateTime.now();

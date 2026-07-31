@@ -2,7 +2,7 @@ package org.springblade.modules.iot.broker.downlink;
 
 import java.util.Optional;
 
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.broker.ws.service.WebSocketBrokerService;
 import org.springblade.modules.iot.vo.query.DownlinkCommand;

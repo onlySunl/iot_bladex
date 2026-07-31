@@ -45,7 +45,7 @@ public class ProductVersionManagerImpl extends SuperManagerImpl<ProductVersionMa
                 ProductVersion::getVersionStatus, model.getVersionStatus())
             .eq(model.getPublishStrategy() != null,
                 ProductVersion::getPublishStrategy, model.getPublishStrategy())
-            .orderByDesc(ProductVersion::getCreatedTime);
+            .orderByDesc(ProductVersion::getCreateTime);
 
         return productVersionMapper.selectPage(page, wrap);
     }
@@ -65,7 +65,7 @@ public class ProductVersionManagerImpl extends SuperManagerImpl<ProductVersionMa
     public List<ProductVersion> listByProductIdentification(String productIdentification) {
         LbQueryWrap<ProductVersion> wrap = Wraps.lbQ();
         wrap.eq(ProductVersion::getProductIdentification, productIdentification)
-            .orderByDesc(ProductVersion::getCreatedTime);
+            .orderByDesc(ProductVersion::getCreateTime);
         return productVersionMapper.selectList(wrap);
     }
 
@@ -74,7 +74,7 @@ public class ProductVersionManagerImpl extends SuperManagerImpl<ProductVersionMa
         LbQueryWrap<ProductVersion> wrap = Wraps.lbQ();
         wrap.eq(ProductVersion::getProductIdentification, productIdentification)
             .eq(versionStatus != null, ProductVersion::getVersionStatus, versionStatus)
-            .orderByDesc(ProductVersion::getCreatedTime);
+            .orderByDesc(ProductVersion::getCreateTime);
         return productVersionMapper.selectList(wrap);
     }
 
@@ -87,7 +87,7 @@ public class ProductVersionManagerImpl extends SuperManagerImpl<ProductVersionMa
         wrap.eq(ProductVersion::getProductIdentification, productIdentification)
             .eq(ProductVersion::getVersionStatus,
                 org.springblade.modules.iot.productversion.enumeration.ProductVersionStatusEnum.DRAFT.getValue())
-            .orderByDesc(ProductVersion::getCreatedTime)
+            .orderByDesc(ProductVersion::getCreateTime)
             .last("LIMIT 1");
         return Optional.ofNullable(productVersionMapper.selectOne(wrap));
     }

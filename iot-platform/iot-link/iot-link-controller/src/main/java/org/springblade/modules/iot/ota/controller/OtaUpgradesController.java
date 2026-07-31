@@ -1,14 +1,12 @@
 package org.springblade.modules.iot.ota.controller;
 
 import java.util.List;
-
-import org.springblade.basic.annotation.log.WebLog;
 import org.springblade.basic.base.R;
-import org.springblade.basic.base.controller.SuperController;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.core.mvc.request.PageParams;
 import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.interfaces.echo.EchoService;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.ota.entity.OtaUpgrades;
 import org.springblade.modules.iot.ota.service.OtaUpgradesService;
 import org.springblade.modules.iot.ota.vo.query.OtaUpgradesPageQuery;
@@ -64,7 +62,7 @@ public class OtaUpgradesController extends SuperController<OtaUpgradesService, L
     public QueryWrap<OtaUpgrades> handlerWrapper(OtaUpgrades model, PageParams<OtaUpgradesPageQuery> params) {
         QueryWrap<OtaUpgrades> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
-        DataScopeHelper.startDataScope("ota_upgrades");
+        //DataScopeHelper.startDataScope("ota_upgrades");
         return queryWrap;
     }
 

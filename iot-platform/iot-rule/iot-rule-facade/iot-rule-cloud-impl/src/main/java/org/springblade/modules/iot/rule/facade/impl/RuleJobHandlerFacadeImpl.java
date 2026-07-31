@@ -24,7 +24,7 @@ public class RuleJobHandlerFacadeImpl implements RuleJobHandlerFacade {
     private RuleJobHandlerApi ruleJobHandlerApi;
 
     @Override
-    public R<RuleDetailsResultVO> triggerRulePolicy(Long tenantId, String ruleIdentification) {
+    public R<RuleDetailsResultVO> triggerRulePolicy(String tenantId, String ruleIdentification) {
         return ruleJobHandlerApi.triggerRulePolicy(tenantId, ruleIdentification);
     }
 

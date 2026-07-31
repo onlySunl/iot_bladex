@@ -355,7 +355,7 @@ public class ProductVersionPublishOrchestrator {
      * @param tenantId 租户 ID(日志用,实际查询走 @DS(BASE_TENANT) 切租户库)
      * @return 实际重跑的记录数
      */
-    public int retryRunningRecordsForTenant(Long tenantId) {
+    public int retryRunningRecordsForTenant(String tenantId) {
         LocalDateTime now = LocalDateTime.now();
         // 创建早于此刻 = 已超时(RUNNING 判永久卡死)/ 已过新近失败重试期(FAILED 不再捞)
         LocalDateTime timeoutBefore = now.minusHours(RETRY_TIMEOUT_HOURS);

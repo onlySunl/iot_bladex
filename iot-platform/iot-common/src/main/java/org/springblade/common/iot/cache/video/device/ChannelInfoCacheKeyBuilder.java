@@ -20,7 +20,7 @@ import java.time.Duration;
  * @date 2026-04-17
  */
 public class ChannelInfoCacheKeyBuilder implements CacheKeyBuilder {
-    private Long tenantId;
+    private String tenantId;
 
     /**
      * @param channelIdentification 通道唯一标识
@@ -31,7 +31,7 @@ public class ChannelInfoCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public ChannelInfoCacheKeyBuilder setTenantId(Long tenantId) {
+    public ChannelInfoCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

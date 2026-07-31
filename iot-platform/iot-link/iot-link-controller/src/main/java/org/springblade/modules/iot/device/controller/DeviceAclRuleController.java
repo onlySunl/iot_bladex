@@ -3,12 +3,11 @@ package org.springblade.modules.iot.device.controller;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springblade.basic.base.R;
-import org.springblade.basic.base.controller.SuperController;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.core.mvc.request.PageParams;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.interfaces.echo.EchoService;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.device.entity.DeviceAclRule;
 import org.springblade.modules.iot.device.service.DeviceAclRuleService;
 import org.springblade.modules.iot.device.service.DeviceService;
@@ -72,7 +71,7 @@ public class DeviceAclRuleController extends SuperController<DeviceAclRuleServic
     public QueryWrap<DeviceAclRule> handlerWrapper(DeviceAclRule model, PageParams<DeviceAclRulePageQuery> params) {
         QueryWrap<DeviceAclRule> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
-        DataScopeHelper.startDataScope("device_acl_rule");
+        //DataScopeHelper.startDataScope("device_acl_rule");
         return queryWrap;
     }
 

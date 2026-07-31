@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
@@ -42,6 +44,7 @@ public class TopoAddDeviceResultVO implements Serializable {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
+    @Accessors(chain = true)
     public static class DataItem {
 
         @Schema(description = "请求处理的结果码。'0'表示成功。非'0'表示失败。详见附录。", requiredMode = Schema.RequiredMode.REQUIRED)
@@ -57,6 +60,7 @@ public class TopoAddDeviceResultVO implements Serializable {
         @NoArgsConstructor
         @AllArgsConstructor
         @Builder
+        @Accessors(chain = true)
         public static class DeviceInfo {
 
             @Schema(description = "设备名称", requiredMode = Schema.RequiredMode.REQUIRED)

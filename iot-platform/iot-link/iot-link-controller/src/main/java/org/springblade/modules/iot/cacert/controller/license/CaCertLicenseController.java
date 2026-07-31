@@ -6,9 +6,9 @@ import java.nio.file.Files;
 import java.time.LocalDateTime;
 
 import cn.hutool.core.io.FileUtil;
-import org.springblade.basic.annotation.log.WebLog;
 import org.springblade.basic.base.R;
-import org.springblade.basic.base.controller.SuperController;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.core.mvc.request.PageParams;
 import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.interfaces.echo.EchoService;
@@ -24,7 +24,6 @@ import org.springblade.modules.iot.cacert.vo.save.license.CaCertPemImportSaveVO;
 import org.springblade.modules.iot.cacert.vo.update.license.CaCertLicenseUpdateVO;
 
 import java.util.List;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -73,7 +72,7 @@ public class CaCertLicenseController extends SuperController<CaCertLicenseServic
     public QueryWrap<CaCertLicense> handlerWrapper(CaCertLicense model, PageParams<CaCertLicensePageQuery> params) {
         QueryWrap<CaCertLicense> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
-        DataScopeHelper.startDataScope("ca_cert_license");
+        //DataScopeHelper.startDataScope("ca_cert_license");
         return queryWrap;
     }
 

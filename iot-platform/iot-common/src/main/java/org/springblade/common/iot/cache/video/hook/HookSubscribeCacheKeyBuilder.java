@@ -21,7 +21,7 @@ import java.time.Duration;
  */
 public class HookSubscribeCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     public static CacheKey build(String hookKey) {
         return new HookSubscribeCacheKeyBuilder()
@@ -30,7 +30,7 @@ public class HookSubscribeCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public HookSubscribeCacheKeyBuilder setTenantId(Long tenantId) {
+    public HookSubscribeCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

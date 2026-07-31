@@ -3,6 +3,7 @@ package org.springblade.modules.iot.protocol.vo.result;
 import java.io.Serial;
 import java.util.List;
 
+import lombok.experimental.Accessors;
 import org.springblade.modules.iot.cache.vo.device.DeviceAclRuleCacheVO;
 import org.springblade.model.vo.AuditableResultVO;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -26,6 +27,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Builder
+@Accessors(chain = true)
 @Schema(title = "DeviceAuthenticationResultVO", description = "设备认证结果")
 public class DeviceAuthenticationResultVO<T> extends AuditableResultVO {
 

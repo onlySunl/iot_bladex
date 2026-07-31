@@ -4,7 +4,7 @@ import org.springblade.common.cache.ContextUtil;
 import org.springblade.common.tds.SuperTableDTO;
 import org.springblade.common.tds.TableDTO;
 import org.springblade.common.utils.ArgumentAssert;
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
 import org.springblade.modules.iot.tds.service.TdsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -187,7 +187,7 @@ public class TdsInnerController {
     @Operation(summary = "查询超级表、子表结构", description = "查询超级表、子表结构")
     @GetMapping("/describeSuperOrSubTable")
     public R describeSuperOrSubTable(@RequestParam(value = "tableName") String tableName) {
-        return R.data(tdsService.describeSuperOrSubTable(ContextUtil.getDataBase(), tableName));
+        return R.success(tdsService.describeSuperOrSubTable(ContextUtil.getDataBase(), tableName));
     }
 
     /**
@@ -225,7 +225,7 @@ public class TdsInnerController {
         try {
             ArgumentAssert.notBlank(tableName, "Table name cannot be blank");
             CompletableFuture<List<Map<String, Object>>> dataInRangeOrLastRecord = tdsService.getDataInRangeOrLastRecord(ContextUtil.getDataBase(), tableName, startTime, endTime);
-            return R.data(dataInRangeOrLastRecord.get());
+            return R.success(dataInRangeOrLastRecord.get());
         } catch (Exception e) {
             log.error("Failed to query the latest record from the table", e);
             return R.fail("Query failed: " + e.getMessage());

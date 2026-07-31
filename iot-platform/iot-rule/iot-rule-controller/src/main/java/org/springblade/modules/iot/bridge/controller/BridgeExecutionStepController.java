@@ -1,17 +1,16 @@
 package org.springblade.modules.iot.bridge.controller;
 
-import org.springblade.basic.base.controller.SuperController;
-import org.springblade.core.mvc.request.PageParams;
-import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springblade.basic.interfaces.echo.EchoService;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
+import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.core.mvc.controller.SuperController;
+import org.springblade.core.mvc.request.PageParams;
 import org.springblade.modules.iot.entity.bridge.BridgeExecutionStep;
 import org.springblade.modules.iot.service.bridge.BridgeExecutionStepService;
 import org.springblade.modules.iot.vo.query.bridge.BridgeExecutionStepPageQuery;
 import org.springblade.modules.iot.vo.result.bridge.BridgeExecutionStepResultVO;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,9 +40,9 @@ public class BridgeExecutionStepController extends SuperController<BridgeExecuti
 
     @Override
     public QueryWrap<BridgeExecutionStep> handlerWrapper(BridgeExecutionStep model,
-                                                        PageParams<BridgeExecutionStepPageQuery> params) {
+                                                         PageParams<BridgeExecutionStepPageQuery> params) {
         QueryWrap<BridgeExecutionStep> queryWrap = super.handlerWrapper(model, params);
-        DataScopeHelper.startDataScope("rule_bridge_execution_step");
+        //DataScopeHelper.startDataScope("rule_bridge_execution_step");
         return queryWrap;
     }
 }

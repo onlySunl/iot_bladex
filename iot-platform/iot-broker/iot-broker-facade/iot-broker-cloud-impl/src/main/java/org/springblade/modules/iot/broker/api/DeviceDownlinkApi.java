@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.broker.api;
 
 import org.springblade.common.constant.Constants;
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
 import org.springblade.core.tool.constant.BladeConstant;
 import org.springblade.modules.iot.broker.api.hystrix.DeviceDownlinkApiFallback;
 import org.springblade.modules.iot.vo.query.DownlinkCommand;

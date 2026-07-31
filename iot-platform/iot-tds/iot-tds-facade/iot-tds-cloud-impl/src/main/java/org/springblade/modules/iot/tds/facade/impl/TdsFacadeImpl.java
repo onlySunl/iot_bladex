@@ -3,7 +3,7 @@ package org.springblade.modules.iot.tds.facade.impl;
 import jakarta.annotation.Resource;
 import org.springblade.core.tds.model.SuperTableDTO;
 import org.springblade.core.tds.model.TableDTO;
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springblade.modules.iot.tds.api.TdsApi;
 import org.springblade.modules.iot.tds.facade.TdsFacade;

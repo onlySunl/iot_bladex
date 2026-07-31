@@ -39,7 +39,7 @@ public class OptLogDTO implements Serializable {
     /**
      * 租户编码
      */
-    private Long tenantId;
+    private String tenantId;
     private Long userId;
 
     /**

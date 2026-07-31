@@ -1,27 +1,28 @@
 package org.springblade.modules.iot.product.controller;
 
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-
 import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springblade.basic.annotation.log.WebLog;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springblade.basic.base.R;
-import org.springblade.basic.base.controller.SuperController;
-import org.springblade.core.mvc.request.PageParams;
-import org.springblade.basic.cache.lock.DistributedLock;
-import org.springblade.basic.cache.lock.LockRunResult;
 import org.springblade.basic.context.ContextUtil;
-import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.interfaces.echo.EchoService;
 import org.springblade.basic.model.cache.CacheKey;
 import org.springblade.basic.utils.SnowflakeIdUtil;
-import org.springblade.modules.iot.common.lock.link.LinkLockKeyBuilder;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
+import org.springblade.common.iot.lock.link.LinkLockKeyBuilder;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.core.cache.lock.DistributedLock;
+import org.springblade.core.cache.lock.LockRunResult;
+import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.core.mvc.controller.SuperController;
+import org.springblade.core.mvc.request.PageParams;
 import org.springblade.modules.iot.device.vo.result.ProductOverviewResultVO;
 import org.springblade.modules.iot.product.converter.ProductModelConverter;
 import org.springblade.modules.iot.product.entity.Product;
@@ -32,28 +33,17 @@ import org.springblade.modules.iot.product.vo.result.ProductModelJsonResultVO;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;
 import org.springblade.modules.iot.product.vo.save.ProductSaveVO;
 import org.springblade.modules.iot.product.vo.update.ProductUpdateVO;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -91,7 +81,7 @@ public class ProductController extends SuperController<ProductService, Long, Pro
     public QueryWrap<Product> handlerWrapper(Product model, PageParams<ProductPageQuery> params) {
         QueryWrap<Product> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
-        DataScopeHelper.startDataScope("product");
+        //DataScopeHelper.startDataScope("product");
         return queryWrap;
     }
 
@@ -288,7 +278,7 @@ public class ProductController extends SuperController<ProductService, Long, Pro
     @Operation(summary = "获取产品概况统计信息", description = "统计产品的概况信息")
     @GetMapping("/productOverview")
     public R<ProductOverviewResultVO> getProductOverview() {
-        DataScopeHelper.startDataScope("product");
+        //DataScopeHelper.startDataScope("product");
         ProductOverviewResultVO productOverview = superService.getProductOverview();
         return R.success(productOverview);
     }

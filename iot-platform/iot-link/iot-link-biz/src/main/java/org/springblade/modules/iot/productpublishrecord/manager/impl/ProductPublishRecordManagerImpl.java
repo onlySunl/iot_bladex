@@ -44,7 +44,7 @@ public class ProductPublishRecordManagerImpl extends SuperManagerImpl<ProductPub
                         ProductPublishRecord::getTargetVersion, model.getTargetVersion())
                 .eq(model.getIntent() != null, ProductPublishRecord::getIntent, model.getIntent())
                 .eq(model.getStatus() != null, ProductPublishRecord::getStatus, model.getStatus())
-                .orderByDesc(ProductPublishRecord::getCreatedTime);
+                .orderByDesc(ProductPublishRecord::getCreateTime);
 
         return productPublishRecordMapper.selectPage(page, wrap);
     }
@@ -53,7 +53,7 @@ public class ProductPublishRecordManagerImpl extends SuperManagerImpl<ProductPub
     public List<ProductPublishRecord> listByProductIdentification(String productIdentification) {
         LbQueryWrap<ProductPublishRecord> wrap = Wraps.lbQ();
         wrap.eq(ProductPublishRecord::getProductIdentification, productIdentification)
-                .orderByDesc(ProductPublishRecord::getCreatedTime);
+                .orderByDesc(ProductPublishRecord::getCreateTime);
         return productPublishRecordMapper.selectList(wrap);
     }
 
@@ -65,8 +65,8 @@ public class ProductPublishRecordManagerImpl extends SuperManagerImpl<ProductPub
         int safeLimit = Math.max(1, Math.min(limit, 500));
         LbQueryWrap<ProductPublishRecord> wrap = Wraps.lbQ();
         wrap.eq(ProductPublishRecord::getStatus, status)
-                .ge(ProductPublishRecord::getCreatedTime, sinceTime)
-                .orderByAsc(ProductPublishRecord::getCreatedTime)
+                .ge(ProductPublishRecord::getCreateTime, sinceTime)
+                .orderByAsc(ProductPublishRecord::getCreateTime)
                 .last("LIMIT " + safeLimit);
         return productPublishRecordMapper.selectList(wrap);
     }
@@ -89,7 +89,7 @@ public class ProductPublishRecordManagerImpl extends SuperManagerImpl<ProductPub
         // intent=PUBLISH(0) + status=SUCCESS(1) + created_time >= since
         wrap.eq(ProductPublishRecord::getIntent, 0)
                 .eq(ProductPublishRecord::getStatus, 1)
-                .ge(ProductPublishRecord::getCreatedTime, since);
+                .ge(ProductPublishRecord::getCreateTime, since);
         return productPublishRecordMapper.selectCount(wrap);
     }
 }

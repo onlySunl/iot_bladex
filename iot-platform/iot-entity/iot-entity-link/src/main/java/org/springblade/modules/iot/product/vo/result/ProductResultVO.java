@@ -1,5 +1,6 @@
 package org.springblade.modules.iot.product.vo.result;
 
+import lombok.experimental.Accessors;
 import org.springblade.model.vo.AuditableResultVO;
 import org.springblade.modules.iot.productservice.vo.result.ProductServiceResultVO;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,6 +28,7 @@ import java.util.List;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Builder
+@Accessors(chain = true)
 @Schema(title = "ProductResultVO", description = "产品模型")
 public class ProductResultVO extends AuditableResultVO {
 

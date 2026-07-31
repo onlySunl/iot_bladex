@@ -28,37 +28,37 @@ public class LinkJobHandlerApiFallback implements LinkJobHandlerApi {
 
 
     @Override
-    public R<?> refreshDeviceCacheForTenant(Long tenantId) {
+    public R<?> refreshDeviceCacheForTenant(String tenantId) {
         return R.timeout();
     }
 
     @Override
-    public R<?> syncDeviceConnectionStatus(Long tenantId) {
+    public R<?> syncDeviceConnectionStatus(String tenantId) {
         return R.timeout();
     }
 
     @Override
-    public R<?> refreshProductCacheForTenant(Long tenantId) {
+    public R<?> refreshProductCacheForTenant(String tenantId) {
         return R.timeout();
     }
 
     @Override
-    public R<?> refreshProductModelCache(Long tenantId) {
+    public R<?> refreshProductModelCache(String tenantId) {
         return R.timeout();
     }
 
     @Override
-    public R<?> retryProductVersionPublish(Long tenantId) {
+    public R<?> retryProductVersionPublish(String tenantId) {
         return R.timeout();
     }
 
     @Override
-    public R<?> otaUpgradeTasksExecute(Long tenantId) {
+    public R<?> otaUpgradeTasksExecute(String tenantId) {
         return R.timeout();
     }
 
     @Override
-    public R<?> refreshAclRuleCache(Long tenantId) {
+    public R<?> refreshAclRuleCache(String tenantId) {
         return R.timeout();
     }
 }

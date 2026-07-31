@@ -22,7 +22,7 @@ import java.time.Duration;
  * @date 2024/06/30 6:45 下午
  */
 public class OneLinkTokenKeyCacheKeyBuilder implements CacheKeyBuilder {
-    private Long tenantId;
+    private String tenantId;
 
     public static CacheKey build() {
         return new DownLinkDataCounterCacheKeyBuilder().setTenantId(ContextUtil.getTenantId()).key();
@@ -38,7 +38,7 @@ public class OneLinkTokenKeyCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public OneLinkTokenKeyCacheKeyBuilder setTenantId(Long tenantId) {
+    public OneLinkTokenKeyCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

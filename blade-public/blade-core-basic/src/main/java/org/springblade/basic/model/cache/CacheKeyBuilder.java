@@ -84,7 +84,7 @@ public interface CacheKeyBuilder {
      * @param tenantId 企业id
      * @return 构造器
      */
-    default CacheKeyBuilder setTenantId(Long tenantId) {
+    default CacheKeyBuilder setTenantId(String tenantId) {
         return this;
     }
 

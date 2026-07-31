@@ -26,7 +26,7 @@ import java.time.Duration;
  */
 public class StreamInfoCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     /**
      * 构建流信息 Hash Key（根据设备编号）
@@ -61,7 +61,7 @@ public class StreamInfoCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public StreamInfoCacheKeyBuilder setTenantId(Long tenantId) {
+    public StreamInfoCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

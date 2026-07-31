@@ -43,7 +43,7 @@ public class ProductVersionChangeLogManagerImpl
                 ProductVersionChangeLog::getVersionNo, model.getVersionNo())
             .eq(model.getChangeType() != null,
                 ProductVersionChangeLog::getChangeType, model.getChangeType())
-            .orderByDesc(ProductVersionChangeLog::getCreatedTime);
+            .orderByDesc(ProductVersionChangeLog::getCreateTime);
 
         return productVersionChangeLogMapper.selectPage(page, wrap);
     }
@@ -52,7 +52,7 @@ public class ProductVersionChangeLogManagerImpl
     public List<ProductVersionChangeLog> listByProductIdentification(String productIdentification) {
         LbQueryWrap<ProductVersionChangeLog> wrap = Wraps.lbQ();
         wrap.eq(ProductVersionChangeLog::getProductIdentification, productIdentification)
-            .orderByDesc(ProductVersionChangeLog::getCreatedTime);
+            .orderByDesc(ProductVersionChangeLog::getCreateTime);
         return productVersionChangeLogMapper.selectList(wrap);
     }
 }

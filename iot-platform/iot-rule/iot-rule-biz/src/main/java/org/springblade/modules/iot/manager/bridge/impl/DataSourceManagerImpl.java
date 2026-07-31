@@ -41,7 +41,7 @@ public class DataSourceManagerImpl extends SuperManagerImpl<DataSourceMapper, Da
                 .eq(StrUtil.isNotBlank(query.getSourceType()), DataSource::getSourceType, query.getSourceType())
                 .eq(query.getEnable() != null, DataSource::getEnable, query.getEnable())
                 .eq(StrUtil.isNotBlank(query.getHealthStatus()), DataSource::getHealthStatus, query.getHealthStatus())
-                .orderByDesc(DataSource::getCreatedTime);
+                .orderByDesc(DataSource::getCreateTime);
         return dataSourceMapper.selectList(wrap);
     }
 

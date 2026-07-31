@@ -5,7 +5,6 @@ import org.springblade.modules.iot.bridge.match.strategy.MatchResult;
 import org.springblade.modules.iot.bridge.matcher.BridgeMatchConfig;
 import org.springblade.modules.iot.bridge.trace.BridgeStepType;
 import org.springblade.modules.iot.bridge.trace.BridgeTraceBuilder;
-import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
@@ -47,7 +46,7 @@ public class BridgeMatchStrategyChain {
     /**
      * 纯匹配(热路径不写 trace)。任一 applicable 策略 MISS → false。
      */
-    public boolean match(BridgeMessageEnvelope env, BridgeMatchConfig cfg) {
+    public boolean match(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope env, BridgeMatchConfig cfg) {
         if (cfg == null) {
             return false;
         }
@@ -60,7 +59,7 @@ public class BridgeMatchStrategyChain {
     /**
      * 带 trace 输出版本 ── 每个 applicable 策略写一条 RULE_MATCH step。
      */
-    public boolean matchWithTrace(BridgeMessageEnvelope env, BridgeMatchConfig cfg,
+    public boolean matchWithTrace(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope env, BridgeMatchConfig cfg,
                                   BridgeTraceBuilder trace) {
         if (cfg == null) {
             return false;

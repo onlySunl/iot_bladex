@@ -3,11 +3,11 @@ package org.springblade.modules.iot.bridge.scheduler;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springblade.basic.context.ContextUtil;
-import org.springblade.basic.databridge.model.ConnectorConfig;
-import org.springblade.basic.databridge.model.ConnectorType;
-import org.springblade.basic.databridge.registry.ConnectorRegistry;
-import org.springblade.basic.databridge.spi.Sink;
-import org.springblade.basic.databridge.spi.Source;
+import org.springblade.common.constant.Constants;
+import org.springblade.common.constant.ContextConstants;
+import org.springblade.core.databridge.model.ConnectorConfig;
+import org.springblade.core.databridge.model.ConnectorType;
+import org.springblade.core.databridge.registry.ConnectorRegistry;
 import org.springblade.modules.iot.entity.bridge.DataSource;
 import org.springblade.modules.iot.service.bridge.BridgeExecutionStepService;
 import org.springblade.modules.iot.service.bridge.BridgeExecutionTraceService;
@@ -58,7 +58,7 @@ public class BridgeMaintenanceScheduler {
         parseTenantIds().forEach(this::runHealthCheckForTenant);
     }
 
-    private void runHealthCheckForTenant(Long tenantId) {
+    private void runHealthCheckForTenant(String tenantId) {
         long start = System.currentTimeMillis();
         try {
             ContextUtil.setTenantId(tenantId);
@@ -143,7 +143,7 @@ public class BridgeMaintenanceScheduler {
         parseTenantIds().forEach(t -> cleanupOldTracesForTenant(t, cutoff, days));
     }
 
-    private void cleanupOldTracesForTenant(Long tenantId, LocalDateTime cutoff, int days) {
+    private void cleanupOldTracesForTenant(String tenantId, LocalDateTime cutoff, int days) {
         long start = System.currentTimeMillis();
         try {
             ContextUtil.setTenantId(tenantId);
@@ -162,11 +162,11 @@ public class BridgeMaintenanceScheduler {
     /**
      * 逗号分隔 → Long 列表;空 / 全非法兜底 [1]。
      */
-    private List<Long> parseTenantIds() {
+    private List<String> parseTenantIds() {
         if (StrUtil.isBlank(bootstrapTenantIdsRaw)) {
-            return List.of(1L);
+            return List.of(Constants.DEFAULT_TENANT_ID);
         }
-        List<Long> ids = Arrays.stream(bootstrapTenantIdsRaw.split(","))
+        List<String> ids = Arrays.stream(bootstrapTenantIdsRaw.split(","))
                 .map(String::trim)
                 .filter(s -> !s.isEmpty())
                 .map(this::parseLongSafe)
@@ -174,12 +174,12 @@ public class BridgeMaintenanceScheduler {
                 .map(Optional::get)
                 .distinct()
                 .toList();
-        return ids.isEmpty() ? List.of(1L) : ids;
+        return ids.isEmpty() ? List.of(Constants.DEFAULT_TENANT_ID) : ids;
     }
 
-    private Optional<Long> parseLongSafe(String s) {
+    private Optional<String> parseLongSafe(String s) {
         try {
-            return Optional.of(Long.valueOf(s));
+            return Optional.of(String.valueOf(s));
         } catch (NumberFormatException e) {
             log.warn("[BridgeMaintenance] invalid tenantId in config: {}", s);
             return Optional.empty();

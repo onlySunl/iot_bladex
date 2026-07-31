@@ -5,11 +5,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import org.springblade.basic.cache.lock.DistributedLock;
-import org.springblade.basic.cache.lock.LockRunResult;
+
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.model.cache.CacheKey;
-import org.springblade.modules.iot.common.lock.link.LinkLockKeyBuilder;
+import org.springblade.common.iot.lock.link.LinkLockKeyBuilder;
+import org.springblade.core.cache.lock.DistributedLock;
+import org.springblade.core.cache.lock.LockRunResult;
 import org.springblade.modules.iot.product.event.ProductModelChangedEvent;
 import org.springblade.modules.iot.product.event.source.ProductModelChangedSource;
 import org.springblade.modules.iot.productversion.service.ProductVersionService;

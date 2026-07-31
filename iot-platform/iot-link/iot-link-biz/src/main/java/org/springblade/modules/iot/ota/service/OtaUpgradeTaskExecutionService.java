@@ -24,7 +24,7 @@ public interface OtaUpgradeTaskExecutionService {
      *
      * @param tenantId 租户ID
      */
-    void otaUpgradeTasksExecute(Long tenantId);
+    void otaUpgradeTasksExecute(String tenantId);
 
     /**
      * 执行OTA升级任务

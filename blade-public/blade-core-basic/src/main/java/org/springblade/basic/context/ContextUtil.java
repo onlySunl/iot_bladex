@@ -173,9 +173,9 @@ public final class ContextUtil {
     /**
      * 租户 id
      */
-    public static Long getTenantId() {
+    public static String getTenantId() {
         //return get(ContextConstants.TENANT_ID_HEADER, Long.class);
-        return Func.toLong(AuthUtil.getTenantId());
+        return AuthUtil.getTenantId();
     }
 
     /**

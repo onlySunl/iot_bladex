@@ -4,7 +4,6 @@ import cn.hutool.core.util.StrUtil;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springblade.modules.iot.bridge.matcher.BridgeMatchConfig;
-import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.expression.Expression;
@@ -62,7 +61,7 @@ public class PayloadFilterStrategy implements BridgeMatchStrategy {
     }
 
     @Override
-    public MatchResult match(BridgeMessageEnvelope env, BridgeMatchConfig cfg) {
+    public MatchResult match(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope env, BridgeMatchConfig cfg) {
         return MatchResult.safe(STRATEGY, () -> {
             BridgeMatchConfig.PayloadFilter filter = cfg.getPayloadFilter();
             Type type = Type.parse(filter.getType());
@@ -72,7 +71,7 @@ public class PayloadFilterStrategy implements BridgeMatchStrategy {
                 return MatchResult.miss("unknown payloadFilter type: " + filter.getType());
             }
             String payload = Optional.ofNullable(env)
-                    .map(BridgeMessageEnvelope::getRawMessage)
+                    .map(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope::getRawMessage)
                     .orElse("");
             return handlers.get(type).apply(filter.getExpression(), payload);
         });

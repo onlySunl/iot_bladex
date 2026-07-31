@@ -92,7 +92,7 @@ public class SubscriptionSourceLifecycleManager {
      *
      * @param tenantId 租户 ID
      */
-    private void scanOneTenant(Long tenantId) {
+    private void scanOneTenant(String tenantId) {
         try {
             ContextUtil.setTenantId(tenantId);
             List<SubscriptionSource> all = subscriptionSourceService.list(

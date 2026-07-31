@@ -1,7 +1,6 @@
 package org.springblade.modules.iot.dashboard.controller;
 
 import org.springblade.basic.base.R;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.service.dashboard.RuleDashboardStatsService;
 import org.springblade.modules.iot.vo.result.dashboard.RuleBridgeSummaryResultVO;
 import org.springblade.modules.iot.vo.result.dashboard.RuleDashboardSummaryResultVO;
@@ -50,12 +49,12 @@ public class RuleDashboardStatsController {
     @GetMapping("/assetSummary")
     public R<RuleDashboardSummaryResultVO> getDashboardAssetSummary() {
         log.info("Fetching dashboard assetSummary statistics");
-        DataScopeHelper.startDataScope("rule");
-        DataScopeHelper.startDataScope("rule_instance");
-        DataScopeHelper.startDataScope("plugin_info");
-        DataScopeHelper.startDataScope("rule_groovy_script");
-        DataScopeHelper.startDataScope("rule_alarm");
-        DataScopeHelper.startDataScope("rule_alarm_record");
+        //DataScopeHelper.startDataScope("rule");
+        //DataScopeHelper.startDataScope("rule_instance");
+        //DataScopeHelper.startDataScope("plugin_info");
+        //DataScopeHelper.startDataScope("rule_groovy_script");
+        //DataScopeHelper.startDataScope("rule_alarm");
+        //DataScopeHelper.startDataScope("rule_alarm_record");
         RuleDashboardSummaryResultVO summary = ruleDashboardStatsService.getDashboardAssetSummary();
         return R.success(summary);
     }
@@ -65,10 +64,10 @@ public class RuleDashboardStatsController {
     @GetMapping("/bridgeSummary")
     public R<RuleBridgeSummaryResultVO> getBridgeSummary() {
         log.info("Fetching dashboard bridgeSummary statistics");
-        DataScopeHelper.startDataScope("rule_data_source");
-        DataScopeHelper.startDataScope("rule_data_bridge");
-        DataScopeHelper.startDataScope("rule_subscription_source");
-        DataScopeHelper.startDataScope("rule_bridge_execution_trace");
+        //DataScopeHelper.startDataScope("rule_data_source");
+       // DataScopeHelper.startDataScope("rule_data_bridge");
+        //DataScopeHelper.startDataScope("rule_subscription_source");
+        //DataScopeHelper.startDataScope("rule_bridge_execution_trace");
         RuleBridgeSummaryResultVO summary = ruleDashboardStatsService.getBridgeSummary();
         return R.success(summary);
     }

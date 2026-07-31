@@ -10,6 +10,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
+
 /**
  * Description:
  * OTA升级确认响应参数
@@ -23,6 +25,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString(callSuper = true)
 @Builder
+@Accessors(chain = true)
 @Schema(title = "OtaUpgradeRecordsResultVO", description = "OTA升级记录表")
 public class DeviceOtaUpgradeAppConfirmationResultVO implements Serializable {
     @Serial

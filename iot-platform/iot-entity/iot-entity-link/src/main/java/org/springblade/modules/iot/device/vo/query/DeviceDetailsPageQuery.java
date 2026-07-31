@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
@@ -25,6 +27,7 @@ import java.util.List;
 @ToString(callSuper = true)
 @EqualsAndHashCode
 @Builder
+@Accessors(chain = true)
 @Schema(title = "DeviceDetailsPageQuery", description = "设备详情信息 page query")
 public class DeviceDetailsPageQuery implements Serializable {
 

@@ -36,7 +36,7 @@ public class ExtendInterfaceLogPageQuery implements Serializable {
 
     @Schema(description = "")
     private Long id;
-    private Long tenantId;
+    private String tenantId;
 
     /**
      * 接口ID;

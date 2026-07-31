@@ -59,7 +59,7 @@ public class ProductCacheService extends CacheSuperAbstract {
      *
      * @param tenantId 租户ID，不能为null
      */
-    public void refreshProductCacheForTenant(Long tenantId) {
+    public void refreshProductCacheForTenant(String tenantId) {
         long startTime = System.currentTimeMillis();
         AtomicInteger totalSuccess = new AtomicInteger();
         AtomicInteger totalFail = new AtomicInteger();
@@ -110,7 +110,7 @@ public class ProductCacheService extends CacheSuperAbstract {
      * @param totalSuccess 成功累计计数器
      * @param totalFail    失败累计计数器
      */
-    private void processProductsBatch(Long tenantId,
+    private void processProductsBatch(String tenantId,
                                       List<ProductResultVO> products,
                                       AtomicInteger totalSuccess,
                                       AtomicInteger totalFail) {
@@ -140,7 +140,7 @@ public class ProductCacheService extends CacheSuperAbstract {
      * @param product  产品结果 VO
      * @return 产品缓存 VO
      */
-    private ProductCacheVO transformToProductCacheVO(Long tenantId, ProductResultVO product) {
+    private ProductCacheVO transformToProductCacheVO(String tenantId, ProductResultVO product) {
         ProductCacheVO cacheVO = BeanPlusUtil.toBeanIgnoreError(product, ProductCacheVO.class);
         cacheVO.setTenantId(Func.toStr(tenantId));
         return cacheVO;
@@ -173,7 +173,7 @@ public class ProductCacheService extends CacheSuperAbstract {
     public boolean refreshProductCache(String productIdentification) {
         ArgumentAssert.notBlank(productIdentification, "productIdentification is null");
         try {
-            Long tenantId = ContextUtil.getTenantId();
+            String tenantId = ContextUtil.getTenantId();
             log.info("开始刷新{}产品缓存: {}", tenantId, productIdentification);
             ProductResultVO product = productQueryService.findOneByProductIdentification(productIdentification);
             if (product == null) {
@@ -203,7 +203,7 @@ public class ProductCacheService extends CacheSuperAbstract {
             return null;
         }
         try {
-            Long tenantId = ContextUtil.getTenantId();
+            String tenantId = ContextUtil.getTenantId();
             ProductResultVO product = productQueryService.findOneByProductIdentification(productIdentification);
             if (product == null) {
                 log.warn("[product-fallback] DB miss productIdentification={} tenantId={}",

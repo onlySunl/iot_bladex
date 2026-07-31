@@ -89,7 +89,7 @@ public class DeviceCacheEnricher implements DeviceEventEnricher {
      * @param cache 设备缓存
      */
     private void syncContextUtil(DeviceCacheVO cache) {
-        Long tenantId = cache.getTenantId();
+        String tenantId = cache.getTenantId();
         if (tenantId == null) {
             return;
         }

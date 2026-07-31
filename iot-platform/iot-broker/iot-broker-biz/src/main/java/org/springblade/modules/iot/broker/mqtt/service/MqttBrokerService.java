@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.broker.mqtt.service;
 
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
 import org.springblade.core.log.exception.ServiceException;
 import org.springblade.modules.iot.vo.query.PublishMessageRequestVO;
 import org.springblade.modules.iot.vo.result.MqttSessionDetailsResultVO;

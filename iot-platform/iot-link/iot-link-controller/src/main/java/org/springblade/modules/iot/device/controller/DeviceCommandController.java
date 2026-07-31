@@ -2,10 +2,10 @@ package org.springblade.modules.iot.device.controller;
 
 import java.util.List;
 
-import org.springblade.basic.annotation.log.WebLog;
 import org.springblade.basic.base.R;
-import org.springblade.basic.base.controller.SuperController;
 import org.springblade.basic.interfaces.echo.EchoService;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.modules.iot.device.entity.DeviceCommand;
 import org.springblade.modules.iot.device.service.DeviceCommandService;
 import org.springblade.modules.iot.device.vo.query.DeviceCommandPageQuery;

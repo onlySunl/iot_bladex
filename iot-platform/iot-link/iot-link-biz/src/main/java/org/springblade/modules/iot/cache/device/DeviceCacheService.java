@@ -68,7 +68,7 @@ public class DeviceCacheService extends CacheSuperAbstract {
      *
      * @param tenantId 租户ID,不能为null
      */
-    public void refreshDeviceCacheForTenant(Long tenantId) {
+    public void refreshDeviceCacheForTenant(String tenantId) {
         long startTime = System.currentTimeMillis();
         AtomicInteger totalSuccess = new AtomicInteger();
         AtomicInteger totalFail = new AtomicInteger();
@@ -114,7 +114,7 @@ public class DeviceCacheService extends CacheSuperAbstract {
     /**
      * 处理设备批次数据,只缓存设备本身字段;产品 / 物模型走各自独立缓存,消费方按需读取。
      */
-    private void processDevicesBatch(Long tenantId,
+    private void processDevicesBatch(String tenantId,
                                      List<DeviceResultVO> devices,
                                      AtomicInteger totalSuccess,
                                      AtomicInteger totalFail) {

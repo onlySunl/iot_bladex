@@ -26,7 +26,7 @@ import java.time.Duration;
  */
 public class RtpPortPoolCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     /**
      * 构建 RTP 端口池 Hash Key
@@ -50,7 +50,7 @@ public class RtpPortPoolCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public RtpPortPoolCacheKeyBuilder setTenantId(Long tenantId) {
+    public RtpPortPoolCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

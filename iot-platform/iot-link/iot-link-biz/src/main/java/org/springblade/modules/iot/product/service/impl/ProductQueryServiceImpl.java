@@ -2,6 +2,7 @@ package org.springblade.modules.iot.product.service.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springblade.basic.utils.DateUtils;
 import org.springblade.core.mvc.request.PageParams;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.utils.BeanPlusUtil;
@@ -139,7 +140,7 @@ public class ProductQueryServiceImpl implements ProductQueryService {
             } else if (Objects.equals(product.getProductStatus(), ProductStatusEnum.LOCKED.getValue())) {
                 disabledCount.incrementAndGet();
             }
-            LocalDateTime createdTime = product.getCreatedTime();
+            LocalDateTime createdTime = DateUtils.date2LocalDateTime(product.getCreateTime());
             if (createdTime != null) {
                 if (!createdTime.isBefore(todayStart)) {
                     todayNewCount.incrementAndGet();

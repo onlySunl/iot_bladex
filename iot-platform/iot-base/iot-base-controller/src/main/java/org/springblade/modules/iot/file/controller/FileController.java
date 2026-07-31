@@ -1,11 +1,11 @@
 package org.springblade.modules.iot.file.controller;
 
-import org.springblade.basic.base.controller.DeleteController;
-import org.springblade.basic.base.controller.QueryController;
-import org.springblade.basic.base.controller.SuperSimpleController;
-import org.springblade.basic.base.request.PageParams;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.interfaces.echo.EchoService;
+import org.springblade.core.mvc.controller.DeleteController;
+import org.springblade.core.mvc.controller.QueryController;
+import org.springblade.core.mvc.controller.SuperSimpleController;
+import org.springblade.core.mvc.request.PageParams;
 import org.springblade.modules.iot.file.entity.File;
 import org.springblade.modules.iot.file.service.FileService;
 import io.swagger.v3.oas.annotations.tags.Tag;

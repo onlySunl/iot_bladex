@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 public class RuleJobHandlerApiFallback implements RuleJobHandlerApi {
 
     @Override
-    public R<RuleDetailsResultVO> triggerRulePolicy(Long tenantId, String ruleIdentification) {
+    public R<RuleDetailsResultVO> triggerRulePolicy(String tenantId, String ruleIdentification) {
         return R.timeout();
     }
 

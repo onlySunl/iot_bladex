@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.service.linkage;
 
-import org.springblade.basic.base.service.SuperService;
+import org.springblade.core.mvc.service.SuperService;
 import org.springblade.modules.iot.entity.linkage.RuleInstance;
 import org.springblade.modules.iot.vo.result.linkage.RuleInstanceResultVO;
 import org.springblade.modules.iot.vo.save.linkage.RuleInstanceSaveVO;

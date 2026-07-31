@@ -11,6 +11,8 @@ import cn.hutool.core.collection.CollUtil;
 import org.springblade.basic.base.R;
 
 import org.springblade.core.oss.OssTemplate;
+import org.springblade.modules.iot.file.facade.FileFacade;
+import org.springblade.modules.iot.file.vo.result.FileResultVO;
 import org.springblade.modules.iot.ota.dto.OtaUpgradeFileResultDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +31,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class OtaUpgradeFileUtils {
 
-    private final OssTemplate fileFacade;
+    private final FileFacade fileFacade;
 
     /**
      * 获取OTA升级文件信息映射

@@ -125,7 +125,7 @@ public class WebSocketDeviceOpenAccessProtocolEndpoint {
      */
     @OnOpen
     public void onOpen(Session session, EndpointConfig config,
-                       @PathParam(CommonIotConstants.TENANT_ID) Long tenantId,
+                       @PathParam(CommonIotConstants.TENANT_ID) String tenantId,
                        @PathParam(CommonIotConstants.CLIENT_ID) String clientId) {
         initSpringBeans();
         log.info("WebSocket【DeviceOpenAccessProtocolEndpoint】连接成功, Session ID: {}, tenantId: {}, clientId: {}",
@@ -205,7 +205,7 @@ public class WebSocketDeviceOpenAccessProtocolEndpoint {
      */
     @OnClose
     public void onClose(Session session,
-                        @PathParam(CommonIotConstants.TENANT_ID) Long tenantId,
+                        @PathParam(CommonIotConstants.TENANT_ID) String tenantId,
                         @PathParam(CommonIotConstants.CLIENT_ID) String clientId) {
         initSpringBeans();
         log.info("WebSocket【DeviceOpenAccessProtocolEndpoint】连接关闭, Session ID: {}, tenantId: {}, clientId: {}",

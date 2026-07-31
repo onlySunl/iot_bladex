@@ -25,7 +25,7 @@ public interface RuleJobHandlerFacade {
      * @param ruleIdentification The unique identification string of the rule.
      * @return {@link RuleDetailsResultVO} containing the updated details of the rule after triggering its policy.
      */
-    R<RuleDetailsResultVO> triggerRulePolicy(Long tenantId, String ruleIdentification);
+    R<RuleDetailsResultVO> triggerRulePolicy(String tenantId, String ruleIdentification);
 
 
     /**

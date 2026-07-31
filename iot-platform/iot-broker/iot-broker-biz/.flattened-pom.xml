@@ -110,6 +110,30 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>org.apache.rocketmq</groupId>
+      <artifactId>rocketmq-spring-boot-starter</artifactId>
+      <version>2.3.6</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.rocketmq</groupId>
+      <artifactId>rocketmq-client</artifactId>
+      <version>5.3.2</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.rocketmq</groupId>
+      <artifactId>rocketmq-acl</artifactId>
+      <version>5.3.2</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springblade</groupId>
+      <artifactId>blade-core-rocketmq</artifactId>
+      <version>4.9.0.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>org.springblade</groupId>
       <artifactId>blade-core-boot</artifactId>
       <version>4.9.0.RELEASE</version>

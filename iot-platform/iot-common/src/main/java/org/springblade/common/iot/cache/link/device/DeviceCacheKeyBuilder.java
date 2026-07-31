@@ -22,7 +22,7 @@ import java.time.Duration;
  */
 public class DeviceCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     /**
      * @param value deviceIdentification or clientId
@@ -38,7 +38,7 @@ public class DeviceCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public DeviceCacheKeyBuilder setTenantId(Long tenantId) {
+    public DeviceCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

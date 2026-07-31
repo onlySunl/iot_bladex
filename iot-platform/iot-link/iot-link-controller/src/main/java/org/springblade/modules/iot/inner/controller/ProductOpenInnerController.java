@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.inner.controller;
 
-import org.springblade.basic.annotation.log.WebLog;
 import org.springblade.basic.base.R;
 import org.springblade.basic.interfaces.echo.EchoService;
+import org.springblade.core.annotation.log.WebLog;
 import org.springblade.modules.iot.product.service.ProductService;
 import org.springblade.modules.iot.product.vo.param.ProductParamVO;
 import org.springblade.modules.iot.product.vo.result.ProductResultVO;

@@ -58,7 +58,7 @@ public class OtaTaskExecutionEventSource extends Entity<Long> implements Seriali
     /**
      * 租户ID
      */
-    private Long tenantId;
+    private String tenantId;
 
     /**
      * 创建人组织ID

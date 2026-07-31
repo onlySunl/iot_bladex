@@ -2,7 +2,7 @@ package org.springblade.modules.iot.tds.api.hystrix;
 
 import org.springblade.core.tds.model.SuperTableDTO;
 import org.springblade.core.tds.model.TableDTO;
-import org.springblade.core.tool.api.R;
+import org.springblade.basic.base.R;
 import org.springblade.modules.iot.tds.api.TdsApi;
 import org.springblade.modules.iot.tds.vo.result.SuperTableDescribeVO;
 import org.springframework.stereotype.Component;

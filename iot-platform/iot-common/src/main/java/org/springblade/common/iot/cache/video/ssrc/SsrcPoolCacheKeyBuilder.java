@@ -26,7 +26,7 @@ import java.time.Duration;
  */
 public class SsrcPoolCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     /**
      * 构建 SSRC 池 Hash Key（根据流媒体服务器标识）
@@ -50,7 +50,7 @@ public class SsrcPoolCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public SsrcPoolCacheKeyBuilder setTenantId(Long tenantId) {
+    public SsrcPoolCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

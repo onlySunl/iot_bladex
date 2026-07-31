@@ -12,15 +12,14 @@ import java.util.stream.Collectors;
 
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.basic.annotation.log.WebLog;
 import org.springblade.basic.base.R;
-import org.springblade.basic.base.controller.SuperController;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.core.mvc.request.PageParams;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.interfaces.echo.EchoService;
 import org.springblade.basic.utils.BeanPlusUtil;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.ota.entity.OtaUpgradeTasks;
 import org.springblade.modules.iot.ota.service.OtaUpgradeTargetsService;
 import org.springblade.modules.iot.ota.service.OtaUpgradeTaskExecutionService;
@@ -110,7 +109,7 @@ public class OtaUpgradeTasksController extends SuperController<OtaUpgradeTasksSe
     public QueryWrap<OtaUpgradeTasks> handlerWrapper(OtaUpgradeTasks model, PageParams<OtaUpgradeTasksPageQuery> params) {
         QueryWrap<OtaUpgradeTasks> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
-        DataScopeHelper.startDataScope("ota_upgrade_tasks");
+        //DataScopeHelper.startDataScope("ota_upgrade_tasks");
         return queryWrap;
     }
 

@@ -1,12 +1,11 @@
 package org.springblade.modules.iot.productcommand.controller;
 
-import org.springblade.basic.annotation.log.WebLog;
 import org.springblade.basic.base.R;
-import org.springblade.basic.base.controller.SuperController;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.core.mvc.request.PageParams;
 import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.interfaces.echo.EchoService;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.productcommand.entity.ProductCommand;
 import org.springblade.modules.iot.productcommand.service.ProductCommandService;
 import org.springblade.modules.iot.productcommand.vo.query.ProductCommandPageQuery;
@@ -58,7 +57,7 @@ public class ProductCommandController extends SuperController<ProductCommandServ
     public QueryWrap<ProductCommand> handlerWrapper(ProductCommand model, PageParams<ProductCommandPageQuery> params) {
         QueryWrap<ProductCommand> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
-        DataScopeHelper.startDataScope("product_command");
+        //DataScopeHelper.startDataScope("product_command");
         return queryWrap;
     }
 

@@ -19,7 +19,7 @@ public class EmployeeOrgCacheKeyBuilder implements CacheKeyBuilder {
         return new EmployeeOrgCacheKeyBuilder().key(employeeId);
     }
 
-    public static CacheKey build(Long employeeId, Long tenantId) {
+    public static CacheKey build(Long employeeId, String tenantId) {
         EmployeeOrgCacheKeyBuilder employeeOrgCacheKeyBuilder = new EmployeeOrgCacheKeyBuilder();
         if (tenantId != null) {
             employeeOrgCacheKeyBuilder.setTenantId(tenantId);

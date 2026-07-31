@@ -78,6 +78,10 @@
             <groupId>org.springblade</groupId>
             <artifactId>iot-entity-rule</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-databridge</artifactId>
+        </dependency>
 
     </dependencies>
 

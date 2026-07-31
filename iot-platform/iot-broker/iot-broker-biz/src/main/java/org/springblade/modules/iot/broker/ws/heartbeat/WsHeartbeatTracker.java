@@ -42,7 +42,7 @@ public class WsHeartbeatTracker {
      * @param tenantId 租户 ID
      * @param clientId 设备 clientId
      */
-    public void update(Long tenantId, String clientId) {
+    public void update(String tenantId, String clientId) {
         long now = System.currentTimeMillis();
 
         // 1. 本地 session lastActiveTime(timeout checker 据此判活)

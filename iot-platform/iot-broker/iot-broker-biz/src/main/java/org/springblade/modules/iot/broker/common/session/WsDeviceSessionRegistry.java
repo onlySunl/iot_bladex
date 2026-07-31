@@ -65,7 +65,7 @@ public class WsDeviceSessionRegistry {
      * @param clientId 客户端 ID
      * @return 在线则返回 session 信息;离线 / 读失败返回 empty
      */
-    public Optional<WsDeviceSessionInfo> get(Long tenantId, String clientId) {
+    public Optional<WsDeviceSessionInfo> get(String tenantId, String clientId) {
         try {
             CacheKey key = WsDeviceSessionCacheKeyBuilder.build(tenantId, clientId);
             return cachePlusOpsUtil.getObjectFromCache(key.getKey(), WsDeviceSessionInfo.class);
@@ -78,14 +78,14 @@ public class WsDeviceSessionRegistry {
     /**
      * 设备是否在线(session 信息是否存在)。
      */
-    public boolean isOnline(Long tenantId, String clientId) {
+    public boolean isOnline(String tenantId, String clientId) {
         return get(tenantId, clientId).isPresent();
     }
 
     /**
      * 设备 ws @OnClose / 心跳超时时清除 session 信息。
      */
-    public void remove(Long tenantId, String clientId) {
+    public void remove(String tenantId, String clientId) {
         try {
             CacheKey key = WsDeviceSessionCacheKeyBuilder.build(tenantId, clientId);
             cachePlusOps.del(key);

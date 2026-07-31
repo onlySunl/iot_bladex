@@ -67,7 +67,7 @@ public class CacheInnerController {
             @Parameter(name = "tenantId", description = "Tenant ID", required = true)
     })
     @PostMapping("/refreshDeviceCache")
-    public R<?> refreshDeviceCacheForTenant(@RequestParam("tenantId") Long tenantId) {
+    public R<?> refreshDeviceCacheForTenant(@RequestParam("tenantId") String tenantId) {
         ArgumentAssert.notNull(tenantId, "tenantId Cannot be null");
         log.info("Refreshing device cache for tenant ID: {}", tenantId);
         ContextUtil.setTenantId(tenantId);
@@ -86,7 +86,7 @@ public class CacheInnerController {
             @Parameter(name = "tenantId", description = "Tenant ID", required = true)
     })
     @PostMapping("/refreshProductCache")
-    public R<?> refreshProductCacheForTenant(@RequestParam("tenantId") Long tenantId) {
+    public R<?> refreshProductCacheForTenant(@RequestParam("tenantId") String tenantId) {
         ArgumentAssert.notNull(tenantId, "tenantId Cannot be null");
         log.info("Refreshing product cache for tenant ID: {}", tenantId);
         ContextUtil.setTenantId(tenantId);
@@ -106,7 +106,7 @@ public class CacheInnerController {
             @Parameter(name = "tenantId", description = "Tenant ID", required = true)
     })
     @PostMapping("/refreshProductModelCache")
-    public R<?> refreshProductModelCache(@RequestParam("tenantId") Long tenantId) {
+    public R<?> refreshProductModelCache(@RequestParam("tenantId") String tenantId) {
         ArgumentAssert.notNull(tenantId, "tenantId Cannot be null");
         log.info("Refreshing product model cache for tenant ID: {}", tenantId);
         ContextUtil.setTenantId(tenantId);
@@ -125,7 +125,7 @@ public class CacheInnerController {
             @Parameter(name = "tenantId", description = "Tenant ID", required = true)
     })
     @PostMapping("/retryProductVersionPublish")
-    public R<?> retryProductVersionPublish(@RequestParam("tenantId") Long tenantId) {
+    public R<?> retryProductVersionPublish(@RequestParam("tenantId") String tenantId) {
         ArgumentAssert.notNull(tenantId, "tenantId Cannot be null");
         ContextUtil.setTenantId(tenantId);
         int retried = productVersionPublishOrchestrator.retryRunningRecordsForTenant(tenantId);

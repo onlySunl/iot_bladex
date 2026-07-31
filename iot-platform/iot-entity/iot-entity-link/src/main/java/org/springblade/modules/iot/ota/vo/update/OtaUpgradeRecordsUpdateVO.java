@@ -1,5 +1,6 @@
 package org.springblade.modules.iot.ota.vo.update;
 
+import lombok.experimental.Accessors;
 import org.springblade.basic.base.entity.Entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
@@ -30,6 +31,7 @@ import java.time.LocalDateTime;
 @ToString(callSuper = true)
 @EqualsAndHashCode
 @Builder
+@Accessors(chain = true)
 @Schema(title = "OtaUpgradeRecordsUpdateVO", description = "OTA升级记录表")
 public class OtaUpgradeRecordsUpdateVO implements Serializable {
 

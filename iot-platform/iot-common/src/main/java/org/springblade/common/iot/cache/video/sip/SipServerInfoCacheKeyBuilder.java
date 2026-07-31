@@ -40,7 +40,7 @@ public class SipServerInfoCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public SipServerInfoCacheKeyBuilder setTenantId(Long tenantId) {
+    public SipServerInfoCacheKeyBuilder setTenantId(String tenantId) {
         // SIP 信息不区分租户
         return this;
     }

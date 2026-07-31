@@ -3,6 +3,7 @@ package org.springblade.modules.iot.ota.vo.result;
 import java.io.Serial;
 import java.time.LocalDateTime;
 
+import lombok.experimental.Accessors;
 import org.springblade.model.vo.AuditableResultVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Builder
+@Accessors(chain = true)
 @Schema(title = "OtaUpgradeRecordsResultVO", description = "OTA升级记录表")
 public class OtaUpgradeRecordsResultVO extends AuditableResultVO {
 

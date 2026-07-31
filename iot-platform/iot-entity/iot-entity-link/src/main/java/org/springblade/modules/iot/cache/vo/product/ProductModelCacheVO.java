@@ -30,7 +30,7 @@ import java.util.List;
 public class ProductModelCacheVO implements Serializable {
 
     @Schema(description = "租户ID")
-    private Long tenantId;
+    private String tenantId;
 
     @Schema(description = "应用ID")
     private String appId;

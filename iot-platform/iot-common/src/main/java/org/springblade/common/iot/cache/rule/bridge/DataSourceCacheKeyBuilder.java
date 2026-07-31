@@ -27,7 +27,7 @@ import org.springblade.common.iot.cache.CacheKeyTable;
  */
 public class DataSourceCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     public static CacheKey builder(Long dataSourceId) {
         return new DataSourceCacheKeyBuilder()
@@ -41,7 +41,7 @@ public class DataSourceCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public DataSourceCacheKeyBuilder setTenantId(Long tenantId) {
+    public DataSourceCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

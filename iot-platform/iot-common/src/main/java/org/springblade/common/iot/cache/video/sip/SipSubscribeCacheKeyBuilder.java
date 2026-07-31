@@ -22,7 +22,7 @@ import org.springblade.common.iot.cache.CacheKeyTable;
  */
 public class SipSubscribeCacheKeyBuilder implements CacheKeyBuilder {
 
-    private Long tenantId;
+    private String tenantId;
 
     /**
      * 构建 Key（不含 field，用于 DEL 等操作）
@@ -43,7 +43,7 @@ public class SipSubscribeCacheKeyBuilder implements CacheKeyBuilder {
     }
 
     @Override
-    public SipSubscribeCacheKeyBuilder setTenantId(Long tenantId) {
+    public SipSubscribeCacheKeyBuilder setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }

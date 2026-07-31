@@ -153,6 +153,34 @@
             <version>4.9.0.RELEASE</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpkix-jdk18on</artifactId>
+            <version>1.81</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpkix-jdk18on</artifactId>
+            <version>1.81</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-entity-base</artifactId>
+            <version>4.9.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-base-api</artifactId>
+            <version>4.9.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

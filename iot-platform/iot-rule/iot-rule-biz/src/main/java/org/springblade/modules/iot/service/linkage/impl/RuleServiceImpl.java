@@ -279,11 +279,11 @@ public class RuleServiceImpl extends SuperServiceImpl<RuleManager, Long, Rule> i
      * @return {@link RuleDetailsResultVO} 规则详情
      */
     @Override
-    public RuleDetailsResultVO triggerRulePolicy(Long tenantId, String ruleIdentification) {
+    public RuleDetailsResultVO triggerRulePolicy(String tenantId, String ruleIdentification) {
         return doTriggerRulePolicy(tenantId, ruleIdentification);
     }
 
-    private RuleDetailsResultVO doTriggerRulePolicy(Long tenantId, String ruleIdentification) {
+    private RuleDetailsResultVO doTriggerRulePolicy(String tenantId, String ruleIdentification) {
         try {
             // Retrieve rule details based on the rule identification
             RuleDetailsResultVO ruleDetails = getRuleDetailsByIdentification(ruleIdentification);
@@ -318,7 +318,7 @@ public class RuleServiceImpl extends SuperServiceImpl<RuleManager, Long, Rule> i
     }
 
     @Override
-    public void triggerRulePolicyForEvent(Long tenantId, String ruleIdentification,
+    public void triggerRulePolicyForEvent(String tenantId, String ruleIdentification,
                                           Integer triggerConditionType, TriggerEventDTO triggerEvent) {
         if (tenantId == null || StringUtils.isBlank(ruleIdentification)) {
             log.warn("[RuleTrigger] tenantId/ruleIdentification missing, skip. tenantId={} rule={}",

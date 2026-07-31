@@ -139,7 +139,7 @@ public class BridgeExecutionTraceServiceImpl
     @Override
     public boolean removeBefore(LocalDateTime cutoff) {
         return superManager.remove(Wrappers.<BridgeExecutionTrace>lambdaQuery()
-                .lt(BridgeExecutionTrace::getCreatedTime, cutoff));
+                .lt(BridgeExecutionTrace::getCreateTime, cutoff));
     }
 
     private List<BridgeExecutionTraceStatsResultVO.TimelinePoint> buildTimeline(BridgeExecutionTracePageQuery query) {

@@ -112,7 +112,7 @@ public class DeviceGeneratorController {
     @Operation(summary = "生成普通设备数据", description = "批量生成普通设备测试数据，包含随机位置信息")
     @PostMapping("/generate")
     public R<String> generateDevices(
-            @Parameter(description = "租户ID", required = true) @RequestParam Long tenantId,
+            @Parameter(description = "租户ID", required = true) @RequestParam String tenantId,
             @Parameter(description = "产品标识", required = true) @RequestParam String productId,
             @Parameter(description = "总设备数", example = "10000") @RequestParam(defaultValue = "10000") int totalDevices,
             @Parameter(description = "每批数量", example = "500") @RequestParam(defaultValue = "500") int batchSize,
@@ -210,7 +210,7 @@ public class DeviceGeneratorController {
     private Device generateSingleDevice(int deviceNumber, ProductResultVO productResultVO,
                                         String username, String password) {
         // 构建设备基本信息
-        return Device.builder()
+        Device d = Device.builder()
                 .appId("iot-test")
                 .deviceName(buildDeviceName(productResultVO, deviceNumber))
                 .deviceIdentification(buildDeviceIdentifier(productResultVO, deviceNumber))
@@ -225,9 +225,10 @@ public class DeviceGeneratorController {
                 .encryptMethod(0)
                 .deviceSdkVersion("v1")
                 .fwVersion("v1.0.0")
-                .swVersion("v1.0.0")
-                .remark(productResultVO.getProductName() + "批量生成设备序号-" + deviceNumber)
-                .build();
+                .swVersion("v1.0.0").build();
+        d.setRemark(productResultVO.getProductName() + "批量生成设备序号-" + deviceNumber);
+
+        return d;
     }
 
     /**
@@ -250,12 +251,14 @@ public class DeviceGeneratorController {
                 .setScale(6, RoundingMode.HALF_UP);
 
         // 构建最终位置信息
-        return baseLocation.toBuilder()
+        DeviceLocation d =  baseLocation.toBuilder()
                 .deviceIdentification(deviceIdentification)
                 .longitude(longitude)
                 .latitude(latitude)
-                .remark("随机位置-" + deviceIdentification + " 偏移:(" + longitudeOffset + "," + latitudeOffset + ")")
                 .build();
+        d.setRemark("随机位置-" + deviceIdentification + " 偏移:(" + longitudeOffset + "," + latitudeOffset + ")");
+
+        return d;
     }
 
 
@@ -276,7 +279,7 @@ public class DeviceGeneratorController {
     /**
      * 构建客户端ID
      */
-    private String buildClientId(ProductResultVO productResultVO, int deviceNumber, Long tenantId) {
+    private String buildClientId(ProductResultVO productResultVO, int deviceNumber, String tenantId) {
         return TenantUtil.buildOptionalItem(
                 buildDeviceIdentifier(productResultVO, deviceNumber),
                 tenantId.toString()

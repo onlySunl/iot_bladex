@@ -59,5 +59,5 @@ public class SubscriptionSourceChangedEventSource implements Serializable {
      * 让本地 listener (startOne) 内的 {@code @DS(BASE_TENANT)} 切到对应租户库。
      * 单 JVM 本地 publishEvent 路径同样有效(冗余但安全)。
      */
-    private Long tenantId;
+    private String tenantId;
 }

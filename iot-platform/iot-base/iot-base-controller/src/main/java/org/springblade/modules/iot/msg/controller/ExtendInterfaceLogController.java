@@ -47,7 +47,7 @@ public class ExtendInterfaceLogController extends SuperController<ExtendInterfac
     @Override
     public QueryWrap<ExtendInterfaceLog> handlerWrapper(ExtendInterfaceLog model, PageParams<ExtendInterfaceLogPageQuery> params) {
         QueryWrap<ExtendInterfaceLog> queryWrap = super.handlerWrapper(model, params);
-        Long tenantId = params.getModel().getTenantId();
+        String tenantId = params.getModel().getTenantId();
         if (tenantId != null) {
             ContextUtil.setTenantBasePoolName(tenantId);
         }

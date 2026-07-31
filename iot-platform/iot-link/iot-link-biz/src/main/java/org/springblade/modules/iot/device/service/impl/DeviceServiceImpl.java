@@ -26,16 +26,14 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springblade.basic.utils.*;
+import org.springblade.common.iot.enums.DeviceActionTypeEnum;
 import org.springblade.core.mvc.request.PageParams;
 import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.converter.Builder;
 import org.springblade.core.database.mybatis.conditions.Wraps;
 import org.springblade.basic.exception.BizException;
-import org.springblade.basic.utils.ArgumentAssert;
-import org.springblade.basic.utils.BeanPlusUtil;
-import org.springblade.basic.utils.SnowflakeIdUtil;
-import org.springblade.basic.utils.TenantUtil;
 import org.springblade.modules.iot.cacert.enumeration.CaCertAuditTypeEnum;
 import org.springblade.modules.iot.cacert.enumeration.CaCertStatusEnum;
 import org.springblade.modules.iot.cacert.service.audit.CaCertAuditLogService;
@@ -47,7 +45,6 @@ import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.device.entity.Device;
 import org.springblade.modules.iot.device.entity.DeviceAction;
 import org.springblade.modules.iot.device.enumeration.DeviceActionStatusEnum;
-import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.device.enumeration.DeviceAuthModeEnum;
 import org.springblade.modules.iot.device.enumeration.DeviceConnectStatusEnum;
 import org.springblade.modules.iot.device.enumeration.DeviceEncryptMethodEnum;
@@ -277,11 +274,12 @@ public class DeviceServiceImpl extends SuperServiceImpl<DeviceManager, Long, Dev
      * @return {@link DeviceAuthenticationResultVO} 认证成功结果
      */
     private DeviceAuthenticationResultVO buildSuccessResult(DeviceResultVO device) {
-        return DeviceAuthenticationResultVO.builder()
+        DeviceAuthenticationResultVO dv=  DeviceAuthenticationResultVO.builder()
                 .certificationResult(true)
                 .deviceInfoResult(BeanPlusUtil.toBeanIgnoreError(device, DeviceInfoResultVO.class))
-                .tenantId(ContextUtil.getTenantId())
                 .build();
+        dv.setTenantId(ContextUtil.getTenantId());
+        return dv;
     }
 
     /**
@@ -291,11 +289,12 @@ public class DeviceServiceImpl extends SuperServiceImpl<DeviceManager, Long, Dev
      * @return {@link DeviceAuthenticationResultVO} 认证结果
      */
     private DeviceAuthenticationResultVO buildFailureResult(String errorMessage) {
-        return DeviceAuthenticationResultVO.builder()
+        DeviceAuthenticationResultVO dv=  DeviceAuthenticationResultVO.builder()
                 .certificationResult(false)
                 .errorMessage(errorMessage)
-                .tenantId(ContextUtil.getTenantId())
                 .build();
+        dv.setTenantId(ContextUtil.getTenantId());
+        return dv;
     }
 
     /**
@@ -989,7 +988,7 @@ public class DeviceServiceImpl extends SuperServiceImpl<DeviceManager, Long, Dev
      */
     private Integer countCreatedSince(LocalDateTime since) {
         return Math.toIntExact(superManager.count(
-                Wrappers.<Device>lambdaQuery().ge(Device::getCreatedTime, since)));
+                Wrappers.<Device>lambdaQuery().ge(Device::getCreateTime, since)));
     }
 
     @Override
@@ -1298,9 +1297,9 @@ public class DeviceServiceImpl extends SuperServiceImpl<DeviceManager, Long, Dev
                                 ProductResultVO::getProductIdentification,
                                 Function.identity(),
                                 (a, b) -> {
-                                    if (a.getCreatedTime() == null) return b;
-                                    if (b.getCreatedTime() == null) return a;
-                                    return a.getCreatedTime().isAfter(b.getCreatedTime()) ? a : b;
+                                    if (a.getCreateTime() == null) return b;
+                                    if (b.getCreateTime() == null) return a;
+                                    return DateUtils.date2LocalDateTime(a.getCreateTime()).isAfter( DateUtils.date2LocalDateTime(b.getCreateTime())) ? a : b;
                                 }
                         ))
                 )
@@ -1319,9 +1318,9 @@ public class DeviceServiceImpl extends SuperServiceImpl<DeviceManager, Long, Dev
                                 DeviceLocationResultVO::getDeviceIdentification,
                                 Function.identity(),
                                 (a, b) -> {
-                                    if (a.getCreatedTime() == null) return b;
-                                    if (b.getCreatedTime() == null) return a;
-                                    return a.getCreatedTime().isAfter(b.getCreatedTime()) ? a : b;
+                                    if (a.getCreateTime() == null) return b;
+                                    if (b.getCreateTime() == null) return a;
+                                    return DateUtils.date2LocalDateTime(a.getCreateTime()).isAfter( DateUtils.date2LocalDateTime(b.getCreateTime())) ? a : b;
                                 }
                         ))
                 )

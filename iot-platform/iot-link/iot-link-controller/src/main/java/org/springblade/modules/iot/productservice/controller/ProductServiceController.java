@@ -2,19 +2,18 @@ package org.springblade.modules.iot.productservice.controller;
 
 import java.util.concurrent.TimeUnit;
 
-import org.springblade.basic.annotation.log.WebLog;
 import org.springblade.basic.base.R;
-import org.springblade.basic.base.controller.SuperController;
+import org.springblade.common.iot.lock.link.LinkLockKeyBuilder;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.core.cache.lock.DistributedLock;
+import org.springblade.core.cache.lock.LockRunResult;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.core.mvc.request.PageParams;
-import org.springblade.basic.cache.lock.DistributedLock;
-import org.springblade.basic.cache.lock.LockRunResult;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.interfaces.echo.EchoService;
 import org.springblade.basic.model.cache.CacheKey;
-import org.springblade.modules.iot.common.lock.link.LinkLockKeyBuilder;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.productservice.entity.ProductServices;
 import org.springblade.modules.iot.productservice.service.ProductServiceService;
 import org.springblade.modules.iot.productservice.vo.query.ProductServicePageQuery;
@@ -68,7 +67,7 @@ public class ProductServiceController extends SuperController<ProductServiceServ
     public QueryWrap<ProductServices> handlerWrapper(ProductServices model, PageParams<ProductServicePageQuery> params) {
         QueryWrap<ProductServices> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
-        DataScopeHelper.startDataScope("product_service");
+        //DataScopeHelper.startDataScope("product_service");
         return queryWrap;
     }
 

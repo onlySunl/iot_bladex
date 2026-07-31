@@ -1,6 +1,6 @@
 package org.springblade.modules.iot.service.bridge;
 
-import org.springblade.basic.base.service.SuperService;
+import org.springblade.core.mvc.service.SuperService;
 import org.springblade.modules.iot.entity.bridge.DataBridge;
 import org.springblade.modules.iot.vo.query.bridge.DataBridgePageQuery;
 import org.springblade.modules.iot.vo.result.bridge.DataBridgeResultVO;

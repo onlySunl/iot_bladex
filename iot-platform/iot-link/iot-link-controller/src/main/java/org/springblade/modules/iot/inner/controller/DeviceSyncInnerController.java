@@ -46,7 +46,7 @@ public class DeviceSyncInnerController {
             @Parameter(name = "tenantId", description = "租户ID", required = true)
     })
     @PostMapping("/syncDeviceConnectionStatus")
-    public R<?> syncDeviceConnectionStatus(@RequestParam("tenantId") Long tenantId) {
+    public R<?> syncDeviceConnectionStatus(@RequestParam("tenantId") String tenantId) {
         ArgumentAssert.notNull(tenantId, "tenantId cannot be null");
         log.info("Starting device connection status sync for tenantId: {}", tenantId);
         deviceSyncInnerService.syncDeviceConnectionStatus(tenantId);

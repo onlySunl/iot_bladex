@@ -1,15 +1,20 @@
 package org.springblade.modules.iot.groovy.controller.script;
 
 import com.alibaba.fastjson2.JSON;
-import org.springblade.basic.annotation.log.WebLog;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springblade.basic.base.R;
-import org.springblade.basic.base.controller.SuperController;
-import org.springblade.core.mvc.request.PageParams;
-import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.interfaces.echo.EchoService;
 import org.springblade.basic.utils.ArgumentAssert;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.core.mvc.controller.SuperController;
+import org.springblade.core.mvc.request.PageParams;
 import org.springblade.modules.iot.entity.script.RuleGroovyScript;
 import org.springblade.modules.iot.service.script.RuleGroovyScriptService;
 import org.springblade.modules.iot.vo.param.script.RuleGroovyScriptDirectCompileParam;
@@ -19,21 +24,8 @@ import org.springblade.modules.iot.vo.result.script.RuleGroovyScriptResultVO;
 import org.springblade.modules.iot.vo.result.script.RuleScriptExecStatVO;
 import org.springblade.modules.iot.vo.save.script.RuleGroovyScriptSaveVO;
 import org.springblade.modules.iot.vo.update.script.RuleGroovyScriptUpdateVO;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 规则脚本表前端控制器。
@@ -61,7 +53,7 @@ public class RuleGroovyScriptController extends SuperController<RuleGroovyScript
     public QueryWrap<RuleGroovyScript> handlerWrapper(RuleGroovyScript model, PageParams<RuleGroovyScriptPageQuery> params) {
         QueryWrap<RuleGroovyScript> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
-        DataScopeHelper.startDataScope("rule_groovy_script");
+        //DataScopeHelper.startDataScope("rule_groovy_script");
         return queryWrap;
     }
 

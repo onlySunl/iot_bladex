@@ -110,5 +110,5 @@ public class FileResultVO implements Serializable {
     private Long id;
 
     @Schema(description = "租户ID")
-    private Long tenantId;
+    private String tenantId;
 }
