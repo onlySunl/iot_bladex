@@ -20,14 +20,10 @@ spring:
 #    username: platform
 #    password: iPa682iDaJ5scRWb
   datasource:
-    dynamic:
-      primary: blade_iot
-      datasource:
-        blade_iot:
-          url: jdbc:mysql://bj-cdb-hhsh52zq.sql.tencentcdb.com:25187/blade_iot?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
-          username: root
-          #password: Root@123456
-          password: lim161128$&@
+    url: jdbc:mysql://bj-cdb-hhsh52zq.sql.tencentcdb.com:25187/blade_iot?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
+    username: root
+    #password: Root@123456
+    password: lim161128$&@
 
 #第三方登陆
 social:

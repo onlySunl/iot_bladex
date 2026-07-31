@@ -308,7 +308,7 @@ auto-table:
   show-banner: true
   mode: update
   auto-drop-column: true
-  model-package: org.springblade.modules.nvr.domain,org.springblade.modules.iot.entity
+  model-package: org.springblade.modules.nvr.domain,org.springblade.modules.iot.*.entity,org.springblade.modules.iot.entity.*
   strict-extends: true
   index-prefix: IDX_
   super-insert-position: after
@@ -425,19 +425,19 @@ iot:
     # 设备离线超时(秒)
     offline-timeout: 300
 
-# Easy-ES 配置
-easy-es:
-  enabled: false
-  # Elasticsearch 地址
-  address: localhost:9200
-  # 用户名
-  username:
-  # 密码
-  password:
-  # 索引策略: manually(手动), smoothly(平滑), not_smoothly(非平滑), keep_index(保留索引)
-  global-index-strategy: smoothly
-  # 是否打印 ES 日志
-  print-dsl: true
+  security:
+    algorithms:
+      aes:
+        # AES 密钥，用于数据库敏感字段加密，长度为 16、24 或 32 字节
+        key: ${THINGLINKS_SECURITY_AES_KEY:?"replace-with-aes-key"}
+        # AES 初始化向量，用于 CBC 模式加解密，长度为 16 字节
+        iv: ${THINGLINKS_SECURITY_AES_IV:?"replace-with-aes-iv"}
+        mode: "CBC"
+      sm4:
+        # 16字节Hex
+        key: ${THINGLINKS_SECURITY_SM4_KEY:}
+        iv: ${THINGLINKS_SECURITY_SM4_IV:}
+        mode: "CBC"
 
 # 告警通道配置
 config:
