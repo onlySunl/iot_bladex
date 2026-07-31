@@ -104,7 +104,7 @@
         <commons-email.version>1.6.0</commons-email.version>
 
         <!-- ===== Groovy 版本 ===== -->
-        <blade.groovy.version>3.0.19</blade.groovy.version>
+        <blade.groovy.version>4.0.30</blade.groovy.version>
     </properties>
 
     <!-- ==================== 4. 依赖版本管控（核心！杜绝版本混乱） ==================== -->
@@ -509,23 +509,29 @@
 
             <!-- ==================== 4.15 Groovy ==================== -->
             <dependency>
-                <groupId>org.codehaus.groovy</groupId>
+                <groupId>org.apache.groovy</groupId>
                 <artifactId>groovy-all</artifactId>
                 <version>${blade.groovy.version}</version>
                 <type>pom</type>
             </dependency>
             <dependency>
-                <groupId>org.codehaus.groovy</groupId>
+                <groupId>org.apache.groovy</groupId>
+                <artifactId>groovy-all</artifactId>
+                <version>${blade.groovy.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.groovy</groupId>
                 <artifactId>groovy</artifactId>
                 <version>${blade.groovy.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.codehaus.groovy</groupId>
+                <groupId>org.apache.groovy</groupId>
                 <artifactId>groovy-json</artifactId>
                 <version>${blade.groovy.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.codehaus.groovy</groupId>
+                <groupId>org.apache.groovy</groupId>
                 <artifactId>groovy-xml</artifactId>
                 <version>${blade.groovy.version}</version>
             </dependency>
