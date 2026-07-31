@@ -1,11 +1,7 @@
 package org.springblade.modules.iot.mqs.uplink.handler;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import cn.hutool.core.util.StrUtil;
@@ -158,8 +154,8 @@ public class ChatgptRequestHandler extends AbstractMessageHandler implements Top
     public ChatCompletionResponse getOpenAiResponse(OpenAiChatRequestParam requestParam) {
         OpenAiClient openAiClient = buildOpenAiClient(requestParam.getApiKey(), requestParam.getApiHost());
 
-        OpenAiChatResponseResultVO.ChatChoice.Message message = Message.builder()
-            .role(OpenAiChatResponseResultVO.ChatChoice.Message.Role.USER)
+        Message message = Message.builder()
+            .role(Message.Role.USER)
             .content(requestParam.getContent())
             .build();
 
