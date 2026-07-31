@@ -54,10 +54,6 @@
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
-            <artifactId>blade-core-basic</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
             <artifactId>iot-common</artifactId>
             <scope>compile</scope>
         </dependency>

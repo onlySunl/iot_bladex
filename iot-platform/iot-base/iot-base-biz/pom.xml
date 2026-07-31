@@ -50,10 +50,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-email</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.baidubce</groupId>
-            <artifactId>bce-java-sdk</artifactId>
-        </dependency>
 
         <!-- groovy 核心AST、语法树模块 -->
         <dependency>
