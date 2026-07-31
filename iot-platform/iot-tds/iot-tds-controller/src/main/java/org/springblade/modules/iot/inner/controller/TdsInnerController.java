@@ -1,10 +1,9 @@
 package org.springblade.modules.iot.inner.controller;
-
-import org.springblade.common.cache.ContextUtil;
-import org.springblade.common.tds.SuperTableDTO;
-import org.springblade.common.tds.TableDTO;
-import org.springblade.common.utils.ArgumentAssert;
 import org.springblade.basic.base.R;
+import org.springblade.basic.context.ContextUtil;
+import org.springblade.basic.utils.ArgumentAssert;
+import org.springblade.core.tds.model.SuperTableDTO;
+import org.springblade.core.tds.model.TableDTO;
 import org.springblade.modules.iot.tds.service.TdsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

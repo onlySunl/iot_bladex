@@ -1,9 +1,9 @@
 package org.springblade.modules.iot.mqs.bus.inbound.kafka.audit;
 
-import org.springblade.modules.iot.common.mq.ConsumerGroupConstant;
-import org.springblade.modules.iot.common.mq.KafkaConsumerTopicConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.springblade.common.iot.mq.ConsumerGroupConstant;
+import org.springblade.common.iot.mq.KafkaConsumerTopicConstant;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package org.springblade.common.iot.event.bridge;
+package org.springblade.common.iot.bridge;
 
 import java.io.Serial;
 import java.io.Serializable;

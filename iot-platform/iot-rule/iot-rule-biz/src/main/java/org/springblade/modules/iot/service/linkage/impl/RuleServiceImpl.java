@@ -8,16 +8,17 @@ import java.util.stream.Collectors;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
+import org.springblade.common.iot.cache.rule.trigger.RuleTriggerCacheKeys;
+import org.springblade.core.cache.redis2.CacheResult;
+import org.springblade.core.cache.repository.CachePlusOps;
 import org.springblade.core.mvc.service.impl.SuperServiceImpl;
-import org.springblade.basic.cache.redis2.CacheResult;
-import org.springblade.basic.cache.repository.CachePlusOps;
+
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.basic.utils.SnowflakeIdUtil;
 import org.springblade.basic.utils.StringUtils;
-import org.springblade.modules.iot.common.cache.rule.trigger.RuleTriggerCacheKeys;
 import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.dto.linkage.RuleConditionActionPolicyDTO;
 import org.springblade.modules.iot.dto.linkage.RuleConditionPolicyDTO;
@@ -418,7 +419,7 @@ public class RuleServiceImpl extends SuperServiceImpl<RuleManager, Long, Rule> i
     private Rule builderRuleSaveVO(RuleSaveVO saveVO) {
         Rule rule = BeanUtil.toBeanIgnoreError(saveVO, Rule.class);
         rule.setRuleIdentification(String.valueOf(SnowflakeIdUtil.nextId()));
-        rule.setCreatedOrgId(ContextUtil.getCurrentDeptId());
+        rule.setCreateDept(ContextUtil.getCurrentDeptId());
         return rule;
     }
 

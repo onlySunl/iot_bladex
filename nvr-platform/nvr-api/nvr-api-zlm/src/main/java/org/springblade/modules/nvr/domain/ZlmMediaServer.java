@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.tangzc.autotable.annotation.AutoColumn;
 import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 import org.springblade.modules.nvr.config.ZLMServerConfig;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,7 +20,7 @@ import org.springframework.util.ObjectUtils;
 @TableName("zlm_media_server")
 @EqualsAndHashCode(callSuper = true)
 @AutoTable(value = "zlm_media_server", comment = "ZLM流媒体服务器表")
-public class ZlmMediaServer extends CustomBaseEntity {
+public class ZlmMediaServer extends Entity {
 
     private static final long serialVersionUID = 1L;
 

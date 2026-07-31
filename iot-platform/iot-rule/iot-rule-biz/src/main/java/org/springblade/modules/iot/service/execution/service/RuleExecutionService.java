@@ -35,7 +35,7 @@ public class RuleExecutionService {
      * @param context 包含规则细节和条件的策略上下文
      */
     public void executePolicy(PolicyContext context) {
-        Long originalTenantId = ContextUtil.getTenantId();
+        String originalTenantId = ContextUtil.getTenantId();
         try {
             ContextUtil.setTenantId(context.getTenantId());
             List<PolicyPair<RulePolicyStrategyService, RuleConditionPolicyDTO>> policyPairs = rulePolicyStrategyFactory.getPolicyStrategies(context);

@@ -3,13 +3,14 @@ package org.springblade.modules.iot.service.bridge.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import org.springblade.common.iot.constant.CommonIotConstants;
+import org.springblade.core.databridge.model.ConnectorConfig;
+import org.springblade.core.databridge.model.ConnectorPayload;
+import org.springblade.core.databridge.model.ConnectorType;
+import org.springblade.core.databridge.model.SendResult;
+import org.springblade.core.databridge.registry.ConnectorRegistry;
+import org.springblade.core.databridge.spi.Sink;
 import org.springblade.core.mvc.service.impl.SuperServiceImpl;
-import org.springblade.basic.databridge.model.ConnectorConfig;
-import org.springblade.basic.databridge.model.ConnectorPayload;
-import org.springblade.basic.databridge.model.ConnectorType;
-import org.springblade.basic.databridge.model.SendResult;
-import org.springblade.basic.databridge.registry.ConnectorRegistry;
-import org.springblade.basic.databridge.spi.Sink;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.jackson.JsonUtil;
 import org.springblade.basic.utils.ArgumentAssert;
@@ -21,9 +22,7 @@ import org.springblade.modules.iot.bridge.event.publisher.BridgeEventPublisher;
 import org.springblade.modules.iot.bridge.trace.BridgeStepType;
 import org.springblade.modules.iot.bridge.trace.BridgeTraceBuilder;
 import org.springblade.modules.iot.cache.vo.bridge.DataBridgeCacheVO;
-import org.springblade.modules.iot.common.constant.CommonIotConstants;
 import org.springblade.common.iot.constant.DsConstant;
-import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
 import org.springblade.modules.iot.entity.bridge.DataBridge;
 import org.springblade.modules.iot.entity.bridge.DataSource;
 import org.springblade.modules.iot.manager.bridge.DataBridgeManager;
@@ -160,7 +159,7 @@ public class DataBridgeServiceImpl
         ArgumentAssert.notNull(sink, "未注册 " + type + " 类型的 Sink");
 
         // trace 上下文(testSink 也写入,详情页"最近日志"可见)
-        BridgeMessageEnvelope traceEnv = buildEnvelopeForTrace(sampleEnvelope);
+        org.springblade.common.iot.event.bridge.BridgeMessageEnvelope traceEnv = buildEnvelopeForTrace(sampleEnvelope);
         DataBridgeCacheVO ruleVO = BeanPlusUtil.toBeanIgnoreError(rule, DataBridgeCacheVO.class);
         BridgeTraceBuilder trace = BridgeTraceBuilder.startManual(
                 traceEnv, ruleVO, BridgeTraceBuilder.TRIGGER_TEST_SINK);
@@ -247,9 +246,9 @@ public class DataBridgeServiceImpl
      * 从 sampleEnvelope 提取业务字段构造 envelope 给 trace 用。缺失时给占位值,保证 trace 可筛选/展示。
      * traceId 不设 ── 由 BridgeTraceBuilder.start 统一从 ContextUtil 读上游 traceId。
      */
-    private BridgeMessageEnvelope buildEnvelopeForTrace(Map<String, Object> sample) {
+    private org.springblade.common.iot.event.bridge.BridgeMessageEnvelope buildEnvelopeForTrace(Map<String, Object> sample) {
         Map<String, Object> s = Optional.ofNullable(sample).orElseGet(HashMap::new);
-        return BridgeMessageEnvelope.builder()
+        return org.springblade.common.iot.event.bridge.BridgeMessageEnvelope.builder()
                 .tenantId(strOf(s.get(CommonIotConstants.TENANT_ID)))
                 .productIdentification(strOf(s.get("productIdentification")))
                 .deviceIdentification(strOf(s.get("deviceIdentification")))
@@ -317,8 +316,6 @@ public class DataBridgeServiceImpl
         copy.setRuleCode(SnowflakeIdUtil.nextId());
         copy.setRuleName(src.getRuleName() + " (副本)");
         copy.setEnable(Boolean.FALSE);
-        copy.setCreatedTime(null);
-        copy.setUpdatedTime(null);
         ArgumentAssert.isTrue(superManager.save(copy), "复制规则失败");
         bridgeEventPublisher.publishRuleChangedEvent(copy);
         return copy.getId();

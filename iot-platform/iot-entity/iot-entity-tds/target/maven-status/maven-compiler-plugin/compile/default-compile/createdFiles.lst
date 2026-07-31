@@ -1,8 +1,0 @@
-org\springblade\modules\iot\tds\model\SuperTableDTO.class
-org\springblade\modules\iot\tds\constant\TdsConstants.class
-org\springblade\modules\iot\tds\enumeration\TdDataTypeEnum.class
-org\springblade\modules\iot\tds\utils\TdsUtils.class
-org\springblade\modules\iot\tds\vo\result\SuperTableDescribeVO$SuperTableDescribeVOBuilder.class
-org\springblade\modules\iot\tds\model\FieldsVO.class
-org\springblade\modules\iot\tds\vo\result\SuperTableDescribeVO.class
-org\springblade\modules\iot\tds\enumeration\OperationEnum.class

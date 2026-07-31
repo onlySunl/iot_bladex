@@ -1,8 +1,9 @@
 package org.springblade.modules.iot.mqs.event.report;
 
 import com.alibaba.fastjson2.JSON;
-import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
-import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
+
+import org.springblade.common.iot.bridge.BridgeMessageEnvelope;
+import org.springblade.common.iot.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.mqs.bridge.MqsBridgeEventProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

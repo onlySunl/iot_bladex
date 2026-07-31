@@ -11,11 +11,12 @@ import com.alibaba.fastjson2.JSONObject;
 import org.springblade.basic.base.R;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.exception.BizException;
-import org.springblade.basic.rocketmq.listener.AbstractTenantAwareRocketmqListener;
-import org.springblade.modules.iot.common.constant.CommonIotConstants;
-import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
-import org.springblade.modules.iot.common.mq.BizMqRouteConstant;
-import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
+
+import org.springblade.common.iot.bridge.BridgeMessageEnvelope;
+import org.springblade.common.iot.constant.CommonIotConstants;
+import org.springblade.common.iot.enums.DeviceActionTypeEnum;
+import org.springblade.common.iot.mq.BizMqRouteConstant;
+import org.springblade.core.rocketmq.listener.AbstractTenantAwareRocketmqListener;
 import org.springblade.modules.iot.device.vo.save.DeviceActionSaveVO;
 import org.springblade.modules.iot.entity.device.CommonDeviceEvent;
 import org.springblade.modules.iot.link.facade.DeviceOpenInnerFacade;
@@ -222,7 +223,7 @@ public class BridgeIngressRocketmqConsumer extends AbstractTenantAwareRocketmqLi
         String tenantId = ContextUtil.getTenantId();
         if (tenantId == null && StrUtil.isNotBlank(envelope.getTenantId())) {
             try {
-                tenantId = Long.valueOf(envelope.getTenantId());
+                tenantId = envelope.getTenantId();
             } catch (NumberFormatException ignore) {
                 // 解析失败用 null，下游 Feign 自行处理
             }

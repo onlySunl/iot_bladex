@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.mqs.bus.protocol.mqtt;
 
+import org.springblade.common.iot.mq.KafkaConsumerTopicConstant;
 import org.springblade.modules.iot.bus.route.TopicRoute;
-import org.springblade.modules.iot.common.mq.KafkaConsumerTopicConstant;
 import org.springblade.modules.iot.enumeration.bus.DispatchGroupEnum;
 import org.springblade.modules.iot.enumeration.bus.MatchModeEnum;
 import org.springblade.modules.iot.mqs.bus.protocol.AbstractKafkaEdgeAdapter;

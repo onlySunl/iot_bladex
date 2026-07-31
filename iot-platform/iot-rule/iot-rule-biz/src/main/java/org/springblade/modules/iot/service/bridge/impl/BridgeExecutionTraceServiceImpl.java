@@ -12,7 +12,6 @@ import org.springblade.basic.utils.SnowflakeIdUtil;
 import org.springblade.modules.iot.bridge.dispatcher.SinkDispatcher;
 import org.springblade.modules.iot.cache.vo.bridge.DataBridgeCacheVO;
 import org.springblade.common.iot.constant.DsConstant;
-import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
 import org.springblade.modules.iot.entity.bridge.BridgeExecutionStep;
 import org.springblade.modules.iot.entity.bridge.BridgeExecutionTrace;
 import org.springblade.modules.iot.entity.bridge.DataBridge;
@@ -113,7 +112,7 @@ public class BridgeExecutionTraceServiceImpl
         DataBridge rule = dataBridgeService.getById(trace.getBridgeRuleId());
         ArgumentAssert.notNull(rule, "桥接规则不存在或已被删除,无法重放 ruleId=" + trace.getBridgeRuleId());
 
-        BridgeMessageEnvelope envelope = BridgeMessageEnvelope.builder()
+        org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope = org.springblade.common.iot.event.bridge.BridgeMessageEnvelope.builder()
                 .tenantId(ContextUtil.getTenantIdStr())
                 .productIdentification(trace.getProductIdentification())
                 .deviceIdentification(trace.getDeviceIdentification())

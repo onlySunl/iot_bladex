@@ -1,12 +1,11 @@
 package org.springblade.modules.iot.linkage.controller;
 
-import org.springblade.basic.annotation.log.WebLog;
 import org.springblade.basic.base.R;
-import org.springblade.basic.base.controller.SuperController;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.core.mvc.request.PageParams;
-import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.interfaces.echo.EchoService;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.entity.linkage.Rule;
 import org.springblade.modules.iot.service.linkage.RuleService;
 import org.springblade.modules.iot.vo.query.linkage.RulePageQuery;
@@ -62,7 +61,7 @@ public class RuleController extends SuperController<RuleService, Long, Rule, Rul
     public QueryWrap<Rule> handlerWrapper(Rule model, PageParams<RulePageQuery> params) {
         QueryWrap<Rule> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
-        DataScopeHelper.startDataScope("rule");
+        //DataScopeHelper.startDataScope("rule");
         return queryWrap;
     }
 

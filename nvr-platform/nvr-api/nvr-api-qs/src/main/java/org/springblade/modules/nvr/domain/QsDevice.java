@@ -7,7 +7,7 @@ import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 
 /**
  * 视频监控设备对象 qs_device
@@ -19,7 +19,7 @@ import org.springblade.common.entity.CustomBaseEntity;
 @TableName("qs_device")
 @EqualsAndHashCode(callSuper = true)
 @AutoTable(value = "qs_device", comment = "视频监控设备表")
-public class QsDevice extends CustomBaseEntity {
+public class QsDevice extends Entity {
     private static final long serialVersionUID = 1L;
 
 

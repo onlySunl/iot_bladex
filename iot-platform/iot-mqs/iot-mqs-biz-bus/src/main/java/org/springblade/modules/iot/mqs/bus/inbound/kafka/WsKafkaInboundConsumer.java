@@ -2,8 +2,8 @@ package org.springblade.modules.iot.mqs.bus.inbound.kafka;
 
 import java.util.List;
 
-import org.springblade.modules.iot.common.mq.ConsumerGroupConstant;
-import org.springblade.modules.iot.common.mq.KafkaConsumerTopicConstant;
+import org.springblade.common.iot.mq.ConsumerGroupConstant;
+import org.springblade.common.iot.mq.KafkaConsumerTopicConstant;
 import org.springblade.modules.iot.mqs.bus.dispatcher.BusPipelineDispatcher;
 import org.springblade.modules.iot.mqs.bus.stats.BusStatsService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;

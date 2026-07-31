@@ -1,0 +1,17 @@
+package org.springblade.core.groovy.exception;
+
+/**
+ * 注册脚本异常
+ *
+ * @author mqttsnet 2024/10/03 12:03
+ */
+public class RegisterScriptException extends RuntimeException {
+
+    public RegisterScriptException(String message, Throwable throwable) {
+        super(message, throwable);
+    }
+
+    public RegisterScriptException(String message) {
+        super(message);
+    }
+}

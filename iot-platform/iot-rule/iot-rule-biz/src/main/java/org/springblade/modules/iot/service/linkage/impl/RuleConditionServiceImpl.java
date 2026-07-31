@@ -4,12 +4,12 @@ import com.baomidou.dynamic.datasource.annotation.DS;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springblade.core.condition.model.dto.ConditionInfoDTO;
+import org.springblade.core.condition.model.dto.ConditionParamResult;
+import org.springblade.core.condition.model.dto.SingleConditionDTO;
+import org.springblade.core.condition.operator.ConditionOperator;
+import org.springblade.core.condition.service.ConditionService;
 import org.springblade.core.mvc.service.impl.SuperServiceImpl;
-import org.springblade.basic.condition.model.dto.ConditionInfoDTO;
-import org.springblade.basic.condition.model.dto.ConditionParamResult;
-import org.springblade.basic.condition.model.dto.SingleConditionDTO;
-import org.springblade.basic.condition.operator.ConditionOperator;
-import org.springblade.basic.condition.service.ConditionService;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.utils.ArgumentAssert;
@@ -347,7 +347,7 @@ public class RuleConditionServiceImpl extends SuperServiceImpl<RuleConditionMana
     private RuleCondition builderRuleConditionSaveVO(RuleConditionSaveVO saveVO) {
         RuleCondition ruleCondition = BeanPlusUtil.toBeanIgnoreError(saveVO, RuleCondition.class);
         ruleCondition.setConditionIdentification(String.valueOf(SnowflakeIdUtil.nextId()));
-        ruleCondition.setCreatedOrgId(ContextUtil.getCurrentDeptId());
+        ruleCondition.setCreateDept(ContextUtil.getCurrentDeptId());
         return ruleCondition;
     }
 

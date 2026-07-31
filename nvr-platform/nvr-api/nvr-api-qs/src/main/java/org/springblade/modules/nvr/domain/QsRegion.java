@@ -8,7 +8,7 @@ import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 import org.springblade.core.tool.utils.DateUtil;
 
 /**
@@ -18,7 +18,7 @@ import org.springblade.core.tool.utils.DateUtil;
 @TableName("qs_common_region")
 @EqualsAndHashCode(callSuper = true)
 @AutoTable(value = "qs_common_region", comment = "区域表")
-public class QsRegion extends CustomBaseEntity implements Comparable<QsRegion> {
+public class QsRegion extends Entity implements Comparable<QsRegion> {
     private static final long serialVersionUID = 1L;
 
 

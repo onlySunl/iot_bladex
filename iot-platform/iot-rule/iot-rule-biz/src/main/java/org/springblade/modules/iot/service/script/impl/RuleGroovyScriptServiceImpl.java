@@ -10,22 +10,23 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import org.springblade.common.iot.cache.rule.groovy.GroovyScriptCacheKeyBuilder;
+import org.springblade.core.database.mybatis.conditions.Wraps;
+import org.springblade.core.groovy.entity.EngineExecutorResult;
+import org.springblade.core.groovy.entity.ExecuteParams;
+import org.springblade.core.groovy.entity.ScriptEntry;
+import org.springblade.core.groovy.entity.ScriptQuery;
+import org.springblade.core.groovy.executor.EngineExecutor;
+import org.springblade.core.groovy.loader.ScriptLoader;
 import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.converter.Builder;
-import org.springblade.basic.database.mybatis.conditions.Wraps;
 import org.springblade.basic.exception.BizException;
-import org.springblade.basic.groovy.entity.EngineExecutorResult;
-import org.springblade.basic.groovy.entity.ExecuteParams;
-import org.springblade.basic.groovy.entity.ScriptEntry;
-import org.springblade.basic.groovy.entity.ScriptQuery;
-import org.springblade.basic.groovy.executor.EngineExecutor;
-import org.springblade.basic.groovy.loader.ScriptLoader;
+
 import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.basic.utils.StrPool;
 import org.springblade.modules.iot.bridge.event.publisher.BridgeEventPublisher;
-import org.springblade.modules.iot.common.cache.rule.groovy.GroovyScriptCacheKeyBuilder;
 import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.entity.script.RuleGroovyScript;
 import org.springblade.modules.iot.enumeration.script.ExecutionStatusEnum;
@@ -355,7 +356,7 @@ public class RuleGroovyScriptServiceImpl extends SuperServiceImpl<RuleGroovyScri
             .with(RuleGroovyScript::setScriptContent, saveVO.getScriptContent())
             .with(RuleGroovyScript::setExtendParams, saveVO.getExtendParams())
             .with(RuleGroovyScript::setRemark, saveVO.getRemark())
-            .with(RuleGroovyScript::setCreatedOrgId, ContextUtil.getCurrentDeptId())
+            .with(RuleGroovyScript::setCreateDept, ContextUtil.getCurrentDeptId())
             .build();
     }
 
@@ -384,7 +385,7 @@ public class RuleGroovyScriptServiceImpl extends SuperServiceImpl<RuleGroovyScri
             .with(RuleGroovyScript::setScriptContent, updateVO.getScriptContent())
             .with(RuleGroovyScript::setExtendParams, updateVO.getExtendParams())
             .with(RuleGroovyScript::setRemark, updateVO.getRemark())
-            .with(RuleGroovyScript::setCreatedOrgId, ContextUtil.getCurrentDeptId())
+            .with(RuleGroovyScript::setCreateDept, ContextUtil.getCurrentDeptId())
             .build();
     }
 

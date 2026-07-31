@@ -8,6 +8,7 @@ import java.util.stream.IntStream;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.modules.iot.constants.bus.BusConstants;
 import org.springblade.modules.iot.dto.bus.DeviceEventOutcome;
@@ -17,9 +18,9 @@ import org.springblade.modules.iot.mqs.bus.dispatcher.SourceTopicHolder;
 import org.springblade.modules.iot.mqs.bus.stats.BusStatsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.listener.BatchListenerFailedException;
 import org.springframework.kafka.support.Acknowledgment;
+
 
 /**
  * 协议 Kafka 入站消费者基类。每条 record 独立 traceId / tenantId,失败精准 DLT。

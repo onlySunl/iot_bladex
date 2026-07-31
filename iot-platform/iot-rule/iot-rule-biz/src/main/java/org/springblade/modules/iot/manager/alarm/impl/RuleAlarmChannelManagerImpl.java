@@ -1,8 +1,8 @@
 package org.springblade.modules.iot.manager.alarm.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
-import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.modules.iot.entity.alarm.RuleAlarmChannel;
 import org.springblade.modules.iot.manager.alarm.RuleAlarmChannelManager;
 import org.springblade.modules.iot.mapper.alarm.RuleAlarmChannelMapper;

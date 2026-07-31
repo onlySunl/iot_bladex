@@ -7,7 +7,7 @@ import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 
 /**
  * 国标GB28181平台配置对象 gb28181_platform
@@ -18,7 +18,7 @@ import org.springblade.common.entity.CustomBaseEntity;
 @TableName("gb28181_platform")
 @EqualsAndHashCode(callSuper = true)
 @AutoTable(value = "gb28181_platform", comment = "国标GB28181平台配置表")
-public class Gb28181Platform extends CustomBaseEntity {
+public class Gb28181Platform extends Entity {
     private static final long serialVersionUID = 1L;
 
 

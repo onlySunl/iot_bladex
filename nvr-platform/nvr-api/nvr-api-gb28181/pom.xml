@@ -54,5 +54,9 @@
             <artifactId>jain-sip-ri</artifactId>
             <version>${jain-sip.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-basic</artifactId>
+        </dependency>
     </dependencies>
 </project>

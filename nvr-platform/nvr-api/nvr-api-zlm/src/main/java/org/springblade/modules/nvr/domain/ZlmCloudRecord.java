@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 
 /**
  * 云端录像对象 zlm_cloud_record
@@ -21,7 +21,7 @@ import org.springblade.common.entity.CustomBaseEntity;
 @TableName("zlm_cloud_record")
 @EqualsAndHashCode(callSuper = true)
 @AutoTable(value = "zlm_cloud_record", comment = "云端录像表")
-public class ZlmCloudRecord extends CustomBaseEntity {
+public class ZlmCloudRecord extends Entity {
     private static final long serialVersionUID = 1L;
 
 

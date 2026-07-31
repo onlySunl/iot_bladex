@@ -12,6 +12,7 @@ import org.springblade.basic.exception.BizException;
 
 import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.common.iot.constant.CommonIotConstants;
+import org.springblade.core.chatgpt.model.enumeration.OpenAiGptModelEnum;
 import org.springblade.core.protocol.factory.ProtocolMessageAdapter;
 import org.springblade.core.protocol.model.EncryptionDetailsDTO;
 import org.springblade.core.protocol.model.ProtocolDataMessageDTO;

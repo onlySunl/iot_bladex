@@ -10,6 +10,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import org.springblade.basic.jackson.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.condition.model.dto.AppointEffectiveTimeDTO;
 
 /**
  * 规则生效时间窗校验 ── {@code effectiveType=1}(指定时间)时按 {@code appointContent}

@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 
 import java.util.Date;
 
@@ -19,7 +19,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @AutoTable(value = "qs_device_alarm", comment = "设备告警表")
-public class QsDeviceAlarm extends CustomBaseEntity {
+public class QsDeviceAlarm extends Entity {
     private static final long serialVersionUID = 1L;
 
 

@@ -8,7 +8,7 @@ import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 
 /**
  * 业务分组
@@ -17,7 +17,7 @@ import org.springblade.common.entity.CustomBaseEntity;
 @TableName("qs_common_group")
 @EqualsAndHashCode(callSuper = true)
 @AutoTable(value = "qs_common_group", comment = "业务分组表")
-public class QsGroup extends CustomBaseEntity implements Comparable<QsGroup> {
+public class QsGroup extends Entity implements Comparable<QsGroup> {
     private static final long serialVersionUID = 1L;
 
 

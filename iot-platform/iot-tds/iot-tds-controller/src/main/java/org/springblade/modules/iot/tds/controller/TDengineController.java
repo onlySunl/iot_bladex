@@ -2,12 +2,7 @@ package org.springblade.modules.iot.tds.controller;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
-import org.springblade.common.annotation.log.WebLog;
-import org.springblade.common.cache.ContextUtil;
-import org.springblade.common.tds.SuperTableDTO;
-import org.springblade.common.tds.TableDTO;
-import org.springblade.common.tds.utils.TdsUtils;
-import org.springblade.common.utils.ArgumentAssert;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -15,6 +10,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springblade.basic.base.R;
+import org.springblade.basic.context.ContextUtil;
+import org.springblade.basic.utils.ArgumentAssert;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.core.tds.model.SuperTableDTO;
+import org.springblade.core.tds.model.TableDTO;
+import org.springblade.core.tds.utils.TdsUtils;
 import org.springblade.modules.iot.tds.service.TdsService;
 import org.springblade.modules.iot.tds.vo.result.SuperTableDescribeVO;
 import org.springframework.validation.annotation.Validated;

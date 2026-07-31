@@ -37,7 +37,6 @@ public class PluginInfoDetailsResultVO extends AuditableResultVO {
 
     @Serial
     private static final long serialVersionUID = 1L;
-
     /**
      * 应用ID，所属应用场景
      */
@@ -78,9 +77,7 @@ public class PluginInfoDetailsResultVO extends AuditableResultVO {
      */
     @Schema(description = "文件大小（MB）")
     private BigDecimal fileSize;
-    /**
-     * 状态
-     */
+
     /**
      * 插件级别：0-系统级，1-用户级
      */
@@ -141,9 +138,6 @@ public class PluginInfoDetailsResultVO extends AuditableResultVO {
      */
     @Schema(description = "扩展参数（预留）")
     private String extendParams;
-    /**
-     * 备注
-     */
 
 
     /**
@@ -159,6 +153,9 @@ public class PluginInfoDetailsResultVO extends AuditableResultVO {
     @Builder
     @Schema(description = "插件实例信息，包含端口映射")
     public static class PluginInstanceDetails {
+
+        @Schema(description = "实例ID")
+        private Long id;
 
         @Schema(description = "实例唯一标识")
         private String instanceIdentification;
@@ -191,7 +188,10 @@ public class PluginInfoDetailsResultVO extends AuditableResultVO {
             @Schema(description = "端口类型（如 HTTP, HTTPS, 管理端口等）")
             private String portType;
 
+            @Schema(description = "端口状态：0-正常，1-异常")
+            private Integer status;
         }
     }
 
 }
+

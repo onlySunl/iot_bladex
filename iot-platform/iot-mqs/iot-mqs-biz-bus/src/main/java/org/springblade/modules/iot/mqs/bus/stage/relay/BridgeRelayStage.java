@@ -3,10 +3,10 @@ package org.springblade.modules.iot.mqs.bus.stage.relay;
 import java.util.Optional;
 
 import cn.hutool.core.util.StrUtil;
+import org.springblade.common.iot.bridge.BridgeMessageEnvelope;
+import org.springblade.common.iot.mq.BizMqRouteConstant;
 import org.springblade.modules.iot.bus.stage.AbstractDeviceEventStage;
 import org.springblade.modules.iot.bus.stage.StageContext;
-import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
-import org.springblade.modules.iot.common.mq.BizMqRouteConstant;
 import org.springblade.modules.iot.constants.bus.BusConstants;
 import org.springblade.modules.iot.entity.protocol.DeviceProtocolEvent;
 import org.springblade.modules.iot.enumeration.bus.StagePhaseEnum;

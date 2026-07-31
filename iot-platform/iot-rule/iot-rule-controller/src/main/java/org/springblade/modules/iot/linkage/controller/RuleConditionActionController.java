@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.linkage.controller;
 
-import org.springblade.basic.base.controller.SuperController;
 import org.springblade.basic.interfaces.echo.EchoService;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.modules.iot.entity.linkage.RuleConditionAction;
 import org.springblade.modules.iot.service.linkage.RuleConditionActionService;
 import org.springblade.modules.iot.vo.query.linkage.RuleConditionActionPageQuery;

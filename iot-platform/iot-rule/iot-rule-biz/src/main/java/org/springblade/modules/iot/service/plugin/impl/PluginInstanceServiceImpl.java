@@ -2,10 +2,10 @@ package org.springblade.modules.iot.service.plugin.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springblade.basic.base.R;
+import org.springblade.core.database.mybatis.conditions.Wraps;
 import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.converter.Builder;
-import org.springblade.basic.database.mybatis.conditions.Wraps;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.basic.utils.BeanPlusUtil;
@@ -13,8 +13,7 @@ import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.constants.PluginConstants;
 import org.springblade.modules.iot.entity.plugin.PluginInstance;
 import org.springblade.modules.iot.manager.plugin.PluginInstanceManager;
-import org.springblade.modules.iot.nacos.facade.NacosFacade;
-import org.springblade.modules.iot.nacos.vo.result.NacosInstanceResultVO;
+
 import org.springblade.modules.iot.service.plugin.PluginInstanceService;
 import org.springblade.modules.iot.vo.query.plugin.PluginInstancePageQuery;
 import org.springblade.modules.iot.vo.result.plugin.PluginInstanceResultVO;
@@ -46,8 +45,8 @@ import java.util.stream.Collectors;
 @Service
 public class PluginInstanceServiceImpl extends SuperServiceImpl<PluginInstanceManager, Long, PluginInstance> implements PluginInstanceService {
 
-    private final NacosFacade nacosApi;
-
+  /*  private final NacosFacade nacosApi;
+*/
 
     @Override
     public PluginInstanceSaveVO savePluginInstance(PluginInstanceSaveVO saveVO) {
@@ -73,7 +72,7 @@ public class PluginInstanceServiceImpl extends SuperServiceImpl<PluginInstanceMa
         return BeanPlusUtil.copyProperties(pluginInstanceBuilder.build(), PluginInstanceUpdateVO.class);
     }
 
-    @Override
+ /*   @Override
     public List<PluginNacosInstanceResultVO> getAvailableInstances() {
         R<List<NacosInstanceResultVO>> allInstances = nacosApi.getAllInstances(PluginConstants.PLUGIN_INSTANCE_APPLICATION_NAME, PluginConstants.PLUGIN_INSTANCE_GROUP_NAME);
         if (allInstances.getIsSuccess() && allInstances.getData() != null) {
@@ -88,7 +87,7 @@ public class PluginInstanceServiceImpl extends SuperServiceImpl<PluginInstanceMa
         }
         return Collections.emptyList();
     }
-
+*/
     @Override
     public List<PluginInstanceResultVO> getPluginInstanceResultVOList(PluginInstancePageQuery query) {
         return BeanPlusUtil.toBeanList(superManager.getPluginInstanceList(query), PluginInstanceResultVO.class);

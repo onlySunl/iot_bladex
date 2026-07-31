@@ -46,7 +46,7 @@ public interface PluginInstanceService extends SuperService<Long, PluginInstance
      *
      * @return {@link List<PluginNacosInstanceResultVO>}
      */
-    List<PluginNacosInstanceResultVO> getAvailableInstances();
+   // List<PluginNacosInstanceResultVO> getAvailableInstances();
 
     /**
      * 查询插件实例列表

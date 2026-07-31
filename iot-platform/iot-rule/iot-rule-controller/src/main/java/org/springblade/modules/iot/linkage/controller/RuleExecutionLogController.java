@@ -1,11 +1,10 @@
 package org.springblade.modules.iot.linkage.controller;
 
 import org.springblade.basic.base.R;
-import org.springblade.basic.base.controller.SuperController;
+import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.core.mvc.request.PageParams;
-import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.interfaces.echo.EchoService;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.entity.linkage.RuleExecutionLog;
 import org.springblade.modules.iot.service.linkage.RuleExecutionLogService;
 import org.springblade.modules.iot.vo.query.linkage.RuleExecutionLogPageQuery;
@@ -64,7 +63,7 @@ public class RuleExecutionLogController extends SuperController<RuleExecutionLog
                     .le(query.getStartTimeEnd() != null, RuleExecutionLog::getStartTime, query.getStartTimeEnd())
                     .orderByDesc(RuleExecutionLog::getStartTime);
         }
-        DataScopeHelper.startDataScope("rule_execution_log");
+        //DataScopeHelper.startDataScope("rule_execution_log");
         return queryWrap;
     }
 

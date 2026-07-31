@@ -9,6 +9,7 @@ import org.springblade.basic.model.cache.CacheKey;
 import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.common.iot.cache.rule.groovy.GroovyScriptCacheKeyBuilder;
 import org.springblade.common.iot.cache.rule.groovy.TransformScriptEntry;
+import org.springblade.core.groovy.helper.RegisterScriptHelper;
 import org.springblade.modules.iot.bridge.event.BridgeRuleChangedEvent;
 import org.springblade.modules.iot.bridge.event.BridgeRuleDeletedEvent;
 import org.springblade.modules.iot.bridge.event.DataSourceChangedEvent;

@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -20,7 +20,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @AutoTable(value = "qs_device_snapshot", comment = "设备抓图记录表")
-public class QsDeviceSnapshot extends CustomBaseEntity {
+public class QsDeviceSnapshot extends Entity {
     private static final long serialVersionUID = 1L;
 
 

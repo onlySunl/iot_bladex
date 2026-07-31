@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.tangzc.autotable.annotation.AutoTable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 
 import java.io.Serializable;
 
@@ -15,7 +15,7 @@ import java.io.Serializable;
 @TableName("dahua_record_download_request")
 @EqualsAndHashCode(callSuper = true)
 @AutoTable(value = "dahua_record_download_request", comment = "大华设备录像下载请求表")
-public class DahuaRecordDownloadRequest extends CustomBaseEntity implements Serializable {
+public class DahuaRecordDownloadRequest extends Entity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

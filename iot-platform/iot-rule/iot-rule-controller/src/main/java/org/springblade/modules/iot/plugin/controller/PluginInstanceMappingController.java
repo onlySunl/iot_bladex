@@ -1,7 +1,7 @@
 package org.springblade.modules.iot.plugin.controller;
 
-import org.springblade.basic.base.controller.SuperController;
 import org.springblade.basic.interfaces.echo.EchoService;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.modules.iot.entity.plugin.PluginInstanceMapping;
 import org.springblade.modules.iot.service.plugin.PluginInstanceMappingService;
 import org.springblade.modules.iot.vo.query.plugin.PluginInstanceMappingPageQuery;

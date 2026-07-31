@@ -1,14 +1,19 @@
 package org.springblade.modules.iot.plugin.controller;
 
-import org.springblade.basic.annotation.log.WebLog;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springblade.basic.base.R;
-import org.springblade.basic.base.controller.SuperController;
-import org.springblade.core.mvc.request.PageParams;
-import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.interfaces.echo.EchoService;
 import org.springblade.basic.jackson.JsonUtil;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.core.mvc.controller.SuperController;
+import org.springblade.core.mvc.request.PageParams;
 import org.springblade.modules.iot.entity.plugin.PluginInfo;
 import org.springblade.modules.iot.enumeration.plugin.PluginActionStatusEnum;
 import org.springblade.modules.iot.service.plugin.PluginInfoService;
@@ -19,21 +24,8 @@ import org.springblade.modules.iot.vo.result.plugin.PluginInfoResultVO;
 import org.springblade.modules.iot.vo.result.plugin.PluginResultVO;
 import org.springblade.modules.iot.vo.save.plugin.PluginInfoSaveVO;
 import org.springblade.modules.iot.vo.update.plugin.PluginInfoUpdateVO;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -66,7 +58,7 @@ public class PluginInfoController extends SuperController<PluginInfoService, Lon
     public QueryWrap<PluginInfo> handlerWrapper(PluginInfo model, PageParams<PluginInfoPageQuery> params) {
         QueryWrap<PluginInfo> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
-        DataScopeHelper.startDataScope("plugin_info");
+        //DataScopeHelper.startDataScope("plugin_info");
         return queryWrap;
     }
 

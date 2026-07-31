@@ -1,14 +1,13 @@
 package org.springblade.modules.iot.plugin.controller;
 
-import org.springblade.basic.annotation.log.WebLog;
 import org.springblade.basic.base.R;
-import org.springblade.basic.base.controller.SuperController;
+import org.springblade.core.annotation.log.WebLog;
+import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.core.mvc.request.PageParams;
-import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.interfaces.echo.EchoService;
 import org.springblade.basic.jackson.JsonUtil;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.entity.plugin.PluginInstance;
 import org.springblade.modules.iot.service.plugin.PluginInstanceService;
 import org.springblade.modules.iot.vo.query.plugin.PluginInstancePageQuery;
@@ -64,7 +63,7 @@ public class PluginInstanceController extends SuperController<PluginInstanceServ
     public QueryWrap<PluginInstance> handlerWrapper(PluginInstance model, PageParams<PluginInstancePageQuery> params) {
         QueryWrap<PluginInstance> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
-        DataScopeHelper.startDataScope("plugin_instance");
+        //DataScopeHelper.startDataScope("plugin_instance");
         return queryWrap;
     }
 
@@ -121,7 +120,8 @@ public class PluginInstanceController extends SuperController<PluginInstanceServ
     @GetMapping("/getAvailableInstances")
     public R<List<PluginNacosInstanceResultVO>> getAvailableInstances() {
         try {
-            return R.success(superService.getAvailableInstances());
+            //return R.success(superService.getAvailableInstances());
+            return R.success(null);
         } catch (BizException be) {
             return R.fail(be);
         } catch (Exception e) {

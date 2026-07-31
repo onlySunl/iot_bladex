@@ -1,12 +1,12 @@
 package org.springblade.modules.iot.service.plugin.impl;
 
 import cn.hutool.core.net.NetUtil;
-import org.springblade.modules.iot.PluginServer;
 import org.springblade.modules.iot.service.plugin.PluginClientService;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
+import org.springblade.open.plugin.manager.PluginServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

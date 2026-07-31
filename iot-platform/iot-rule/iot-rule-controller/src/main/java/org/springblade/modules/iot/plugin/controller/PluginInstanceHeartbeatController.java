@@ -1,10 +1,9 @@
 package org.springblade.modules.iot.plugin.controller;
 
-import org.springblade.basic.base.controller.SuperController;
+import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
+import org.springblade.core.mvc.controller.SuperController;
 import org.springblade.core.mvc.request.PageParams;
-import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.basic.interfaces.echo.EchoService;
-import org.springblade.modules.iot.datascope.DataScopeHelper;
 import org.springblade.modules.iot.entity.plugin.PluginInstanceHeartbeat;
 import org.springblade.modules.iot.service.plugin.PluginInstanceHeartbeatService;
 import org.springblade.modules.iot.vo.query.plugin.PluginInstanceHeartbeatPageQuery;
@@ -47,7 +46,7 @@ public class PluginInstanceHeartbeatController extends SuperController<PluginIns
     public QueryWrap<PluginInstanceHeartbeat> handlerWrapper(PluginInstanceHeartbeat model, PageParams<PluginInstanceHeartbeatPageQuery> params) {
         QueryWrap<PluginInstanceHeartbeat> queryWrap = super.handlerWrapper(model, params);
         // 开启数据权限
-        DataScopeHelper.startDataScope("plugin_instance_heartbeat");
+        //DataScopeHelper.startDataScope("plugin_instance_heartbeat");
         return queryWrap;
     }
 

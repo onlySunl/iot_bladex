@@ -27,5 +27,9 @@
             <groupId>org.springblade</groupId>
             <artifactId>blade-starter-redis</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-annotation</artifactId>
+        </dependency>
     </dependencies>
 </project>

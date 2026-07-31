@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.dynamic.datasource.annotation.DS;
+import org.springblade.common.iot.constant.BizConstant;
 import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.exception.BizException;
@@ -12,7 +13,6 @@ import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.basic.utils.StrPool;
 import org.springblade.basic.utils.StringUtils;
-import org.springblade.modules.iot.common.constant.BizConstant;
 import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.dto.alarm.RuleAlarmActionConfigDTO;
 import org.springblade.modules.iot.dto.alarm.RuleAlarmChannelTemplateDTO;
@@ -128,10 +128,10 @@ public class RuleAlarmRecordServiceImpl extends SuperServiceImpl<RuleAlarmRecord
      */
     private RuleAlarmRecord buildRuleAlarmRecordSaveVO(RuleAlarmRecordSaveVO saveVO) {
         RuleAlarmRecord ruleAlarmRecord = BeanPlusUtil.copyProperties(saveVO, RuleAlarmRecord.class);
-        if (ruleAlarmRecord.getCreatedOrgId() == null) {
+        if (ruleAlarmRecord.getCreateDept() == null) {
             Long currentDeptId = ContextUtil.getCurrentDeptId();
             if (currentDeptId != null) {
-                ruleAlarmRecord.setCreatedOrgId(currentDeptId);
+                ruleAlarmRecord.setCreateDept(currentDeptId);
             }
         }
         return ruleAlarmRecord;
@@ -564,7 +564,7 @@ public class RuleAlarmRecordServiceImpl extends SuperServiceImpl<RuleAlarmRecord
 
     private Long resolveAlarmRecordCreatedBy(RuleAlarmDetailsResultVO ruleAlarmDetailsResultVO) {
         return Optional.ofNullable(ruleAlarmDetailsResultVO)
-                .map(RuleAlarmDetailsResultVO::getCreatedBy)
+                .map(RuleAlarmDetailsResultVO::getCreateUser)
                 .orElse(null);
     }
 
@@ -585,7 +585,7 @@ public class RuleAlarmRecordServiceImpl extends SuperServiceImpl<RuleAlarmRecord
     private Long resolveAlarmRecordCreatedOrgId(RuleAlarmDetailsResultVO ruleAlarmDetailsResultVO,
                                                 PolicyContext policyContext) {
         Long alarmCreatedOrgId = Optional.ofNullable(ruleAlarmDetailsResultVO)
-                .map(RuleAlarmDetailsResultVO::getCreatedOrgId)
+                .map(RuleAlarmDetailsResultVO::getCreateDept)
                 .orElse(null);
         if (alarmCreatedOrgId != null) {
             return alarmCreatedOrgId;

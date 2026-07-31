@@ -5,10 +5,10 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 import cn.hutool.core.util.StrUtil;
+import org.springblade.common.iot.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.bus.stage.StageContext;
 import org.springblade.modules.iot.cache.vo.device.DeviceCacheVO;
 import org.springblade.modules.iot.constants.bus.BusConstants;
-import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.entity.protocol.DeviceProtocolEvent;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -57,7 +57,7 @@ public class BusStageSupport {
     /**
      * 安全提取 tenantId Long,null-safe。
      */
-    public Optional<Long> tenantIdLong(DeviceCacheVO cache) {
+    public Optional<String> tenantIdLong(DeviceCacheVO cache) {
         return Optional.ofNullable(cache).map(DeviceCacheVO::getTenantId);
     }
 

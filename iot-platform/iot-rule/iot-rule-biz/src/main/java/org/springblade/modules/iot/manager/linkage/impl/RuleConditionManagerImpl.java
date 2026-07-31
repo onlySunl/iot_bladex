@@ -2,8 +2,8 @@ package org.springblade.modules.iot.manager.linkage.impl;
 
 import cn.hutool.core.text.CharSequenceUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
+import org.springblade.core.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.core.mvc.manager.impl.SuperManagerImpl;
-import org.springblade.basic.database.mybatis.conditions.query.QueryWrap;
 import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.entity.linkage.RuleCondition;
 import org.springblade.modules.iot.manager.linkage.RuleConditionManager;
@@ -65,7 +65,7 @@ public class RuleConditionManagerImpl extends SuperManagerImpl<RuleConditionMapp
         queryWrap.lambda().eq(query.getAntiShake() != null, RuleCondition::getAntiShake, query.getAntiShake());
         queryWrap.lambda().like(CharSequenceUtil.isNotBlank(query.getAntiShakeScheme()), RuleCondition::getAntiShakeScheme, query.getAntiShakeScheme());
         queryWrap.lambda().like(CharSequenceUtil.isNotBlank(query.getRemark()), RuleCondition::getRemark, query.getRemark());
-        queryWrap.lambda().eq(query.getCreatedOrgId() != null, RuleCondition::getCreatedOrgId, query.getCreatedOrgId());
+        queryWrap.lambda().eq(query.getCreatedOrgId() != null, RuleCondition::getCreateDept, query.getCreatedOrgId());
 
         return ruleConditionMapper.selectList(queryWrap);
     }

@@ -7,7 +7,7 @@ import com.tangzc.autotable.annotation.AutoTable;
 import com.tangzc.autotable.annotation.enums.DefaultValueEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springblade.common.entity.CustomBaseEntity;
+import org.springblade.basic.base.entity.Entity;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ import java.util.List;
 @TableName("zlm_record_plan")
 @EqualsAndHashCode(callSuper = true)
 @AutoTable(value = "zlm_record_plan", comment = "录像计划对象")
-public class ZlmRecordPlan extends CustomBaseEntity {
+public class ZlmRecordPlan extends Entity {
     private static final long serialVersionUID = 1L;
 
     /**

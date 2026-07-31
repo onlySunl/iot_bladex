@@ -4,16 +4,15 @@ import cn.hutool.core.net.NetUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import org.springblade.basic.base.R;
+import org.springblade.core.database.mybatis.conditions.Wraps;
 import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.basic.context.ContextConstants;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.converter.Builder;
-import org.springblade.basic.database.mybatis.conditions.Wraps;
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.basic.utils.BeanPlusUtil;
 import org.springblade.basic.utils.StrPool;
-import org.springblade.modules.iot.PluginServer;
 import org.springblade.common.iot.constant.DsConstant;
 import org.springblade.modules.iot.entity.plugin.PluginInfo;
 import org.springblade.modules.iot.enumeration.plugin.PluginActionStatusEnum;
@@ -24,7 +23,6 @@ import org.springblade.modules.iot.enumeration.plugin.PluginTypeEnum;
 import org.springblade.modules.iot.file.facade.FileFacade;
 import org.springblade.modules.iot.file.vo.result.FileResultVO;
 import org.springblade.modules.iot.manager.plugin.PluginInfoManager;
-import org.springblade.modules.iot.open.exp.client.Plugin;
 import org.springblade.modules.iot.service.plugin.PluginInfoService;
 import org.springblade.modules.iot.service.plugin.PluginInstanceMappingService;
 import org.springblade.modules.iot.service.plugin.PluginInstanceService;
@@ -43,6 +41,8 @@ import org.springblade.modules.iot.vo.save.plugin.PluginInstanceMappingSaveVO;
 import org.springblade.modules.iot.vo.update.plugin.PluginInfoUpdateVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.open.exp.client.Plugin;
+import org.springblade.open.plugin.manager.PluginServer;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -638,7 +638,7 @@ public class PluginInfoServiceImpl extends SuperServiceImpl<PluginInfoManager, L
     private PluginInfo buildPluginSaveVO(PluginInfoSaveVO saveVO) {
         PluginInfo pluginInfo = BeanPlusUtil.copyProperties(saveVO, PluginInfo.class);
         pluginInfo.setStatus(PluginInfoStatusEnum.UPLOADED.getValue());
-        pluginInfo.setCreatedOrgId(ContextUtil.getCurrentDeptId());
+        pluginInfo.setCreateDept(ContextUtil.getCurrentDeptId());
         return pluginInfo;
     }
 
@@ -662,7 +662,7 @@ public class PluginInfoServiceImpl extends SuperServiceImpl<PluginInfoManager, L
                 .with(PluginInfo::setScanDate, updateVO.getScanDate())
                 .with(PluginInfo::setScanSummary, updateVO.getScanSummary())
                 .with(PluginInfo::setExtendParams, updateVO.getExtendParams())
-                .with(PluginInfo::setCreatedOrgId, ContextUtil.getCurrentDeptId());
+                .with(PluginInfo::setCreateDept, ContextUtil.getCurrentDeptId());
 
     }
 

@@ -2,6 +2,10 @@ package org.springblade.modules.iot.service.linkage;
 
 
 import com.obs.services.model.PolicyConditionItem;
+import org.springblade.core.condition.model.dto.ConditionInfoDTO;
+import org.springblade.core.condition.model.dto.ConditionParamResult;
+import org.springblade.core.condition.model.dto.SingleConditionDTO;
+import org.springblade.core.condition.operator.ConditionOperator;
 import org.springblade.core.mvc.service.SuperService;
 import org.springblade.modules.iot.entity.linkage.RuleCondition;
 import org.springblade.modules.iot.vo.query.linkage.RuleConditionPageQuery;
@@ -54,14 +58,14 @@ public interface RuleConditionService extends SuperService<Long, RuleCondition> 
      *
      * @return A list of all condition operators.
      */
-    List<PolicyConditionItem.ConditionOperator> getAllOperator();
+    List<ConditionOperator> getAllOperator();
 
     /**
      * Retrieve all available condition operator connectors.
      *
      * @return A list of all condition operator connectors.
      */
-    List<PolicyConditionItem.ConditionOperator> getAllOperatorConnect();
+    List<ConditionOperator> getAllOperatorConnect();
 
     /**
      * Validate the provided conditions.

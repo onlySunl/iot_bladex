@@ -17,16 +17,16 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springblade.basic.context.ContextUtil;
-import org.springblade.basic.databridge.model.ConnectorConfig;
-import org.springblade.basic.databridge.model.ConnectorType;
-import org.springblade.basic.databridge.model.SourceMessage;
-import org.springblade.basic.databridge.registry.ConnectorRegistry;
-import org.springblade.basic.databridge.spi.Source;
-import org.springblade.basic.rocketmq.producer.RocketmqTemplate;
+import org.springblade.common.constant.Constants;
+import org.springblade.common.iot.enums.DeviceActionTypeEnum;
+import org.springblade.common.iot.mq.BizMqRouteConstant;
+import org.springblade.core.databridge.model.ConnectorConfig;
+import org.springblade.core.databridge.model.ConnectorType;
+import org.springblade.core.databridge.model.SourceMessage;
+import org.springblade.core.databridge.registry.ConnectorRegistry;
+import org.springblade.core.databridge.spi.Source;
+import org.springblade.core.rocketmq.producer.RocketmqTemplate;
 import org.springblade.modules.iot.bridge.event.SubscriptionSourceChangedEvent;
-import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
-import org.springblade.modules.iot.common.mq.BizMqRouteConstant;
-import org.springblade.modules.iot.common.enums.DeviceActionTypeEnum;
 import org.springblade.modules.iot.entity.bridge.DataSource;
 import org.springblade.modules.iot.entity.bridge.SubscriptionSource;
 import org.springblade.modules.iot.product.enumeration.ProtocolTypeEnum;
@@ -42,7 +42,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 /**
- * 订阅源生命周期管理器(入站桥接核心):扫描启用源建连、{@link SourceMessage} 映射为 {@link BridgeMessageEnvelope} 投 RocketMQ、{@link SubscriptionSourceChangedEvent} 联动 start/stop、关闭时优雅释放。
+ * 订阅源生命周期管理器(入站桥接核心):扫描启用源建连、{@link SourceMessage} 映射为 {@link org.springblade.common.iot.event.bridge.BridgeMessageEnvelope} 投 RocketMQ、{@link SubscriptionSourceChangedEvent} 联动 start/stop、关闭时优雅释放。
  * handler 回调运行在 starter 线程,无 ContextUtil 上下文,本类手动注入。
  *
  * @author mqttsnet
@@ -82,7 +82,7 @@ public class SubscriptionSourceLifecycleManager {
      */
     @EventListener(ApplicationReadyEvent.class)
     public void initOnApplicationReady() {
-        List<Long> tenantIds = parseTenantIds();
+        List<String> tenantIds = parseTenantIds();
         log.info("[SubscriptionSourceLifecycle] application ready, scanning tenants={}", tenantIds);
         tenantIds.forEach(this::scanOneTenant);
     }
@@ -121,11 +121,11 @@ public class SubscriptionSourceLifecycleManager {
      *
      * @return 租户 ID 列表;空 / 全非法返回 [1]
      */
-    private List<Long> parseTenantIds() {
+    private List<String> parseTenantIds() {
         if (StrUtil.isBlank(bootstrapTenantIdsRaw)) {
-            return List.of(1L);
+            return List.of(Constants.DEFAULT_TENANT_ID);
         }
-        List<Long> ids = Arrays.stream(bootstrapTenantIdsRaw.split(","))
+        List<String> ids = Arrays.stream(bootstrapTenantIdsRaw.split(","))
             .map(String::trim)
             .filter(s -> !s.isEmpty())
             .map(this::parseLongSafe)
@@ -133,12 +133,12 @@ public class SubscriptionSourceLifecycleManager {
             .map(Optional::get)
             .distinct()
             .toList();
-        return ids.isEmpty() ? List.of(1L) : ids;
+        return ids.isEmpty() ? List.of(Constants.DEFAULT_TENANT_ID) : ids;
     }
 
-    private Optional<Long> parseLongSafe(String s) {
+    private Optional<String> parseLongSafe(String s) {
         try {
-            return Optional.of(Long.valueOf(s));
+            return Optional.of(s);
         } catch (NumberFormatException e) {
             log.warn("[SubscriptionSourceLifecycle] invalid tenantId in config: {}", s);
             return Optional.empty();
@@ -264,7 +264,7 @@ public class SubscriptionSourceLifecycleManager {
      */
     private void handleSourceMessage(SubscriptionSource src, SourceMessage msg) {
         try {
-            BridgeMessageEnvelope envelope = mapToEnvelope(src, msg);
+            org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope = mapToEnvelope(src, msg);
             applyEnvelopeContext(envelope);  // ⭐ 让 RocketmqTemplate.wrap 可塞 header
 
             String dest = BizMqRouteConstant.Bridge.INGRESS + ":"
@@ -319,7 +319,7 @@ public class SubscriptionSourceLifecycleManager {
      *
      * @param envelope 桥接消息信封
      */
-    private void applyEnvelopeContext(BridgeMessageEnvelope envelope) {
+    private void applyEnvelopeContext(org.springblade.common.iot.event.bridge.BridgeMessageEnvelope envelope) {
         if (StrUtil.isBlank(envelope.getTenantId())) {
             throw new IllegalStateException(
                 "envelope.tenantId is blank; subscription_source.mapping_json must contain "
@@ -343,7 +343,7 @@ public class SubscriptionSourceLifecycleManager {
      * @param msg Source 回调原始消息
      * @return 桥接消息信封
      */
-    private BridgeMessageEnvelope mapToEnvelope(SubscriptionSource src, SourceMessage msg) {
+    private org.springblade.common.iot.event.bridge.BridgeMessageEnvelope mapToEnvelope(SubscriptionSource src, SourceMessage msg) {
         String rawText = msg.getBody() == null ? null : new String(msg.getBody());
 
         Map<String, Object> parsedFields = new HashMap<>();
@@ -352,7 +352,7 @@ public class SubscriptionSourceLifecycleManager {
         }
         Map<String, Object> mapped = applyMapping(src.getMappingJson(), parsedFields);
 
-        BridgeMessageEnvelope.BridgeMessageEnvelopeBuilder b = BridgeMessageEnvelope.builder()
+        org.springblade.common.iot.event.bridge.BridgeMessageEnvelope.BridgeMessageEnvelopeBuilder b = org.springblade.common.iot.event.bridge.BridgeMessageEnvelope.builder()
             .traceId(Optional.ofNullable(msg.getSourceMessageId())
                 .filter(StrUtil::isNotBlank)
                 .orElseGet(ContextUtil::getLogTraceId))

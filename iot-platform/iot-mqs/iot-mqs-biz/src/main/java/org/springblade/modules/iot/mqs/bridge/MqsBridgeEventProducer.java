@@ -1,15 +1,16 @@
 package org.springblade.modules.iot.mqs.bridge;
 
 import cn.hutool.core.util.StrUtil;
+import org.apache.rocketmq.client.producer.SendResult;
+import org.apache.rocketmq.client.producer.SendStatus;
 import org.springblade.basic.context.ContextUtil;
-import org.springblade.basic.rocketmq.producer.RocketmqTemplate;
-import org.springblade.modules.iot.common.event.bridge.BridgeMessageEnvelope;
-import org.springblade.modules.iot.common.mq.BizMqRouteConstant;
+import org.springblade.common.iot.bridge.BridgeMessageEnvelope;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.rocketmq.client.producer.SendResult;
-import org.apache.rocketmq.client.producer.SendStatus;
+
+import org.springblade.common.iot.mq.BizMqRouteConstant;
+import org.springblade.core.rocketmq.producer.RocketmqTemplate;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

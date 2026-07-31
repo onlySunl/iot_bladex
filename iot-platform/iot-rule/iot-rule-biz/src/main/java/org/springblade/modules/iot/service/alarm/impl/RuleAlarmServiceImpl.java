@@ -2,11 +2,12 @@ package org.springblade.modules.iot.service.alarm.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
+import org.springblade.core.database.mybatis.conditions.Wraps;
 import org.springblade.core.mvc.service.impl.SuperServiceImpl;
 import org.springblade.basic.context.ContextConstants;
 import org.springblade.basic.context.ContextUtil;
 import org.springblade.basic.converter.Builder;
-import org.springblade.basic.database.mybatis.conditions.Wraps;
+
 import org.springblade.basic.exception.BizException;
 import org.springblade.basic.utils.ArgumentAssert;
 import org.springblade.basic.utils.BeanPlusUtil;
@@ -224,8 +225,8 @@ public class RuleAlarmServiceImpl extends SuperServiceImpl<RuleAlarmManager, Lon
         if (ruleAlarm == null || resultVO == null) {
             return;
         }
-        resultVO.setCreatedBy(ruleAlarm.getCreatedBy());
-        resultVO.setCreatedOrgId(ruleAlarm.getCreatedOrgId());
+        resultVO.setCreateUser(ruleAlarm.getCreateUser());
+        resultVO.setCreateDept(ruleAlarm.getCreateDept());
     }
 
 
@@ -260,7 +261,7 @@ public class RuleAlarmServiceImpl extends SuperServiceImpl<RuleAlarmManager, Lon
                 .with(RuleAlarm::setLevel, updateVO.getLevel())
                 .with(RuleAlarm::setStatus, updateVO.getStatus())
                 .with(RuleAlarm::setRemark, updateVO.getRemark())
-                .with(RuleAlarm::setCreatedOrgId, ContextUtil.getCurrentDeptId());
+                .with(RuleAlarm::setCreateDept, ContextUtil.getCurrentDeptId());
     }
 }
 
