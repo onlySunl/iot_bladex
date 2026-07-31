@@ -81,7 +81,7 @@
         <dingtalk.version>2.0.0</dingtalk.version>
         <aliyun-dysms.version>3.0.0</aliyun-dysms.version>
         <tencentcloud-sdk.version>3.1.874</tencentcloud-sdk.version>
-        <bce-sdk.version>0.10.182</bce-sdk.version>
+        <bce-sdk.version>0.10.336</bce-sdk.version>
         <chatgpt-java.version>1.1.2-beta0</chatgpt-java.version>
 
         <!-- ===== ORM 扩展版本 ===== -->
