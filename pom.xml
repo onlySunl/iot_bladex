@@ -33,7 +33,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.10</version>
+        <version>3.5.14</version>
         <relativePath/>
     </parent>
 
@@ -84,12 +84,24 @@
     <dependencyManagement>
         <dependencies>
             <!-- ==================== 4.1 BladeX 框架依赖 ==================== -->
+            <!-- Blade -->
             <dependency>
-                <groupId>org.springblade</groupId>
-                <artifactId>blade-dependencies</artifactId>
+                <groupId>org.springblade.platform</groupId>
+                <artifactId>blade-bom</artifactId>
                 <version>${bladex.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-boot</artifactId>
+                <version>${bladex.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springblade</groupId>
+                        <artifactId>blade-core-cloud</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <!-- ==================== 4.2 项目内部模块 ==================== -->
