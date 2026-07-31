@@ -103,7 +103,7 @@
         <commons-email.version>1.6.0</commons-email.version>
 
         <!-- ===== Groovy 版本 ===== -->
-        <groovy.version>3.0.19</groovy.version>
+        <blade.groovy.version>3.0.19</blade.groovy.version>
     </properties>
 
     <!-- ==================== 4. 依赖版本管控（核心！杜绝版本混乱） ==================== -->
@@ -447,7 +447,7 @@
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-all</artifactId>
-                <version>${groovy.version}</version>
+                <version>${blade.groovy.version}</version>
                 <type>pom</type>
             </dependency>
 
