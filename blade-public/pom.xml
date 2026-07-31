@@ -53,6 +53,8 @@
         <module>blade-core-rocketmq</module>
         <!-- Groovy 脚本引擎模块 -->
         <module>blade-core-groovy</module>
+        <!-- 动态条件构建模块 -->
+        <module>blade-core-condition</module>
     </modules>
 
     <dependencies>
