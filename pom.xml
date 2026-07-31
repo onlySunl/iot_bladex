@@ -361,7 +361,51 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- ==================== 4.10 ORM 扩展 ==================== -->
+            <!-- ==================== 4.11 IoT Boot 实现模块 ==================== -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-base-boot-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-link-boot-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-broker-boot-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-mqs-boot-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-rule-boot-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-tds-boot-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- ==================== 4.12 NVR 业务模块 ==================== -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-biz</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- ==================== 4.13 ORM 扩展 ==================== -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
