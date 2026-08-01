@@ -238,7 +238,7 @@ blade:
   log:
     request:
       #开启控制台请求日志
-      enabled: false
+      enabled: true
       #控制台请求日志忽略
       skip-url:
         - /blade-desk/notice/list
@@ -359,7 +359,7 @@ auto-table:
   show-banner: true
   mode: update
   auto-drop-column: true
-  model-package: org.springblade.modules.nvr.domain,org.springblade.modules.iot.*.entity,org.springblade.modules.iot.entity.*
+  model-package: org.springblade.modules.nvr.domain,org.springblade.modules.iot.*.entity
   strict-extends: true
   index-prefix: IDX_
   super-insert-position: after

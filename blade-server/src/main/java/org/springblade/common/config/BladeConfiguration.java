@@ -35,9 +35,11 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import org.springblade.core.cache.RedisAutoConfigure;
 import org.springblade.core.tool.utils.StringPool;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -50,6 +52,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author Chill
  */
 @Configuration(proxyBeanMethods = false)
+@Import(RedisAutoConfigure.class)
 public class BladeConfiguration implements WebMvcConfigurer {
 
 	/**

@@ -132,33 +132,34 @@ public class RedisAutoConfigure {
     }
 
     /**
-     * 用于 @Cacheable 相关注解
+     * cacheManager 由 blade-starter-redis 的 RedisAutoCacheManager 提供，
+     * 此处不再注册，避免重复 Bean 冲突
      *
      * @param redisConnectionFactory 链接工厂
-     * @return 缓存管理器
+     * @return 缓存管理器（已禁用）
      */
-    @Bean(name = "cacheManager")
-    @Primary
-    @ConditionalOnMissingBean(CacheManager.class)
-    public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
-        RedisCacheConfiguration defConfig = getDefConf();
-        defConfig.entryTtl(cacheProperties.getDef().getTimeToLive());
+    // @Bean(name = "cacheManager")
+    // @Primary
+    // @ConditionalOnMissingBean(CacheManager.class)
+    // public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
+    //     RedisCacheConfiguration defConfig = getDefConf();
+    //     defConfig.entryTtl(cacheProperties.getDef().getTimeToLive());
 
-        Map<String, CustomCacheProperties.Cache> configs = cacheProperties.getConfigs();
-        Map<String, RedisCacheConfiguration> map = Maps.newHashMap();
-        //自定义的缓存过期时间配置
-        Optional.ofNullable(configs).ifPresent(config ->
-                config.forEach((key, cache) -> {
-                    RedisCacheConfiguration cfg = handleRedisCacheConfiguration(cache, defConfig);
-                    map.put(key, cfg);
-                })
-        );
+    //     Map<String, CustomCacheProperties.Cache> configs = cacheProperties.getConfigs();
+    //     Map<String, RedisCacheConfiguration> map = Maps.newHashMap();
+    //     //自定义的缓存过期时间配置
+    //     Optional.ofNullable(configs).ifPresent(config ->
+    //             config.forEach((key, cache) -> {
+    //                 RedisCacheConfiguration cfg = handleRedisCacheConfiguration(cache, defConfig);
+    //                 map.put(key, cfg);
+    //             })
+    //     );
 
-        return RedisCacheManager.builder(redisConnectionFactory)
-                .cacheDefaults(defConfig)
-                .withInitialCacheConfigurations(map)
-                .build();
-    }
+    //     return RedisCacheManager.builder(redisConnectionFactory)
+    //             .cacheDefaults(defConfig)
+    //             .withInitialCacheConfigurations(map)
+    //             .build();
+    // }
 
     private RedisCacheConfiguration getDefConf() {
         RedisCacheConfiguration def = RedisCacheConfiguration.defaultCacheConfig()
