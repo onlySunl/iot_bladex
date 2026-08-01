@@ -15,10 +15,10 @@
     <packaging>jar</packaging>
 
     <dependencies>
-        <!-- Spring Boot Data Redis -->
+        <!-- BladeX Redis Starter (包含 spring-boot-starter-data-redis) -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-starter-redis</artifactId>
         </dependency>
         <!-- Spring Boot Cache -->
         <dependency>
