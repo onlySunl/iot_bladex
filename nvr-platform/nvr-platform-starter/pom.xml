@@ -75,6 +75,16 @@
             <artifactId>nvr-protocol-zlm</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>nvr-protocol-onvif</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>nvr-protocol-qs</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!-- ==================== NVR 业务模块 ==================== -->
         <!-- TODO: nvr-biz/nvr-service 为空模块，待实现后启用 -->
         <!--
