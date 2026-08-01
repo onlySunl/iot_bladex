@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -62,12 +63,12 @@ public class OpenAiAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
+    @ConditionalOnProperty(prefix = "openai", name = "api-key")
     public OpenAiClient openAiClient(OkHttpClient okHttpClient) {
         String apiHost = Optional.ofNullable(openAiProperties.getApiHost())
                 .orElse("https://api.openai.com/");
 
-        List<String> apiKey = Optional.ofNullable(openAiProperties.getApiKey())
-                .orElseGet(() -> Collections.singletonList("default-api-key"));
+        List<String> apiKey = openAiProperties.getApiKey();
 
         KeyStrategyFunction<List<String>, String> keyStrategy = apiKey.size() > 1
                 ? new KeyRandomStrategy() : new FirstKeyStrategy();
