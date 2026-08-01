@@ -86,6 +86,15 @@ mybatis-plus:
 #springdoc-openapi配置
 springdoc:
   default-flat-param-object: false
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  default-produces-media-type: application/json
 #knife4j配置
 knife4j:
   #启用
@@ -517,18 +526,6 @@ thinglinks:
         parameterType: header
         required: true
         defaultValue: "000000"
-
-# Springdoc OpenAPI 配置
-springdoc:
-  api-docs:
-    enabled: true
-    path: /v3/api-docs
-  swagger-ui:
-    enabled: true
-    path: /swagger-ui.html
-    tags-sorter: alpha
-    operations-sorter: alpha
-  default-produces-media-type: application/json
 
 # groovy 规则脚本
 
