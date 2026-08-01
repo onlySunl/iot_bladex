@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Primary;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
 /**
@@ -26,6 +27,7 @@ import org.springframework.validation.beanvalidation.MethodValidationPostProcess
 public class ValidatorConfiguration {
 
     @Bean
+    @Primary
     public Validator validator() {
         ValidatorFactory validatorFactory = ValidatorUtils.warp(Validation.byProvider(HibernateValidator.class)
                         .configure()
