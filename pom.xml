@@ -352,6 +352,73 @@
             </dependency>
             <dependency>
                 <groupId>org.springblade</groupId>
+                <artifactId>nvr-protocol-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-protocol-qs</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-protocol-zlm</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-protocol-haikang-isup</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-dahua</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-gb28181</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-haikang</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-haikang-isup</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-jt1078</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-onvif</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-qs</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-api-zlm</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- ==================== 4.11 NVR 服务/业务模块 ==================== -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>nvr-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
                 <artifactId>iot-message-biz</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -799,18 +866,23 @@
         </pluginRepository>
     </pluginRepositories>
 
-    <!-- ==================== 7. 子模块列表 ==================== -->
+    <!-- ==================== 7. 子模块列表（按编译依赖排序） ==================== -->
     <modules>
-        <!-- ===== 7.1 服务启动 ===== -->
-        <module>blade-server</module>
-        <!-- ===== 7.2 公共基础 ===== -->
+        <!-- ===== 7.1 公共基础（无内部依赖，最先编译） ===== -->
         <module>blade-common</module>
         <module>blade-api</module>
-        <!-- ===== 7.3 核心框架 ===== -->
+
+        <!-- ===== 7.2 核心框架（依赖 blade-common） ===== -->
         <module>blade-public</module>
-        <!-- ===== 7.4 业务平台 ===== -->
-        <module>iot-platform</module>
+
+        <!-- ===== 7.3 NVR 平台（依赖 blade-public） ===== -->
         <module>nvr-platform</module>
+
+        <!-- ===== 7.4 IoT 平台（依赖 blade-public） ===== -->
+        <module>iot-platform</module>
+
+        <!-- ===== 7.5 服务启动（依赖所有上述模块） ===== -->
+        <module>blade-server</module>
     </modules>
 
     <!-- ==================== 8. 构建配置 ==================== -->

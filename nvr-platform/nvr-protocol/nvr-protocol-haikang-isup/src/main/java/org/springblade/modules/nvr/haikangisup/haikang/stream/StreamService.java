@@ -3,12 +3,14 @@ package org.springblade.modules.nvr.haikangisup.haikang.stream;
 
 import com.sun.jna.Native;
 import lombok.RequiredArgsConstructor;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springblade.modules.nvr.haikangisup.callBack.FPLAYBACK_NEWLINK_CB_FILE;
 import org.springblade.modules.nvr.haikangisup.callBack.FPREVIEW_NEWLINK_CB_FILE;
 import org.springblade.modules.nvr.haikangisup.config.HaikangIsupConfig;
 import org.springblade.modules.nvr.haikangisup.haikang.cms.HCISUPCMS;
+import org.springblade.modules.nvr.haikangisup.utils.IsupNativeLibLoader;
 import org.springblade.modules.nvr.haikangisup.utils.OsSelect;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +33,11 @@ public class StreamService {
     public final FPLAYBACK_NEWLINK_CB_FILE fplayback_newlink_cb_file;
 
     private final HaikangIsupConfig haikangIsupConfig;
+    @PostConstruct
+    public void init() {
+        log.warn(">>>>>> StreamService Bean initialized <<<<<<");
+    }
+
 
     /**
      * 动态库加载
@@ -45,11 +52,11 @@ public class StreamService {
                     if (OsSelect.isWindows())
                     //win系统加载库路径
                     {
-                        strDllPath = System.getProperty("user.dir") + "\\nvr-platform\\nvr-protocol\\nvr-protocol-haikang-isup\\lib\\win\\HCISUPStream.dll";
+                        strDllPath = IsupNativeLibLoader.resolveLibPath("HCISUPStream.dll");
                     } else if (OsSelect.isLinux())
                     //Linux系统加载库路径
                     {
-                        strDllPath = System.getProperty("user.dir") + "/nvr-platform/nvr-protocol/nvr-protocol-haikang-isup/lib/linux/libHCISUPStream.so";
+                        strDllPath = IsupNativeLibLoader.resolveLibPath("libHCISUPStream.so");
                     }
                     hCEhomeStream = (HCISUPStream) Native.loadLibrary(strDllPath, HCISUPStream.class);
                 } catch (Exception ex) {
@@ -70,14 +77,14 @@ public class StreamService {
         }
         if (OsSelect.isWindows()) {
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCrypto = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCrypto = System.getProperty("user.dir") + "\\nvr-platform\\nvr-protocol\\nvr-protocol-haikang-isup\\lib\\win\\libeay32.dll"; //Linux版本是libcrypto.so库文件的路径
+            String strPathCrypto = IsupNativeLibLoader.resolveLibPath("libeay32.dll"); //Linux版本是libcrypto.so库文件的路径
             System.arraycopy(strPathCrypto.getBytes(), 0, ptrByteArrayCrypto.byValue, 0, strPathCrypto.length());
             ptrByteArrayCrypto.write();
             if (!hCEhomeStream.NET_ESTREAM_SetSDKInitCfg(0, ptrByteArrayCrypto.getPointer())) {
                 log.error("NET_ESTREAM_SetSDKInitCfg 0 失败，错误:" + hCEhomeStream.NET_ESTREAM_GetLastError());
             }
             HCISUPCMS.BYTE_ARRAY ptrByteArraySsl = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathSsl = System.getProperty("user.dir") + "\\nvr-platform\\nvr-protocol\\nvr-protocol-haikang-isup\\lib\\win\\ssleay32.dll";    //Linux版本是libssl.so库文件的路径
+            String strPathSsl = IsupNativeLibLoader.resolveLibPath("ssleay32.dll");    //Linux版本是libssl.so库文件的路径
             System.arraycopy(strPathSsl.getBytes(), 0, ptrByteArraySsl.byValue, 0, strPathSsl.length());
             ptrByteArraySsl.write();
             if (!hCEhomeStream.NET_ESTREAM_SetSDKInitCfg(1, ptrByteArraySsl.getPointer())) {
@@ -87,7 +94,7 @@ public class StreamService {
             hCEhomeStream.NET_ESTREAM_Init();
             //设置HCAapSDKCom组件库文件夹所在路径
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCom = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCom = System.getProperty("user.dir") + "\\nvr-platform\\nvr-protocol\\nvr-protocol-haikang-isup\\lib\\win\\HCAapSDKCom";      //只支持绝对路径，建议使用英文路径
+            String strPathCom = IsupNativeLibLoader.resolveLibPath("HCAapSDKCom");      //只支持绝对路径，建议使用英文路径
             System.arraycopy(strPathCom.getBytes(), 0, ptrByteArrayCom.byValue, 0, strPathCom.length());
             ptrByteArrayCom.write();
             if (!hCEhomeStream.NET_ESTREAM_SetSDKLocalCfg(5, ptrByteArrayCom.getPointer())) {
@@ -100,7 +107,7 @@ public class StreamService {
         } else if (OsSelect.isLinux()) {
             //设置libcrypto.so所在路径
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCrypto = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCrypto = System.getProperty("user.dir") + "/nvr-platform/nvr-protocol/nvr-protocol-haikang-isup/lib/linux/libcrypto.so"; //Linux版本是libcrypto.so库文件的路径
+            String strPathCrypto = IsupNativeLibLoader.resolveLibPath("libcrypto.so"); //Linux版本是libcrypto.so库文件的路径
             System.arraycopy(strPathCrypto.getBytes(), 0, ptrByteArrayCrypto.byValue, 0, strPathCrypto.length());
             ptrByteArrayCrypto.write();
             if (!hCEhomeStream.NET_ESTREAM_SetSDKInitCfg(0, ptrByteArrayCrypto.getPointer())) {
@@ -108,7 +115,7 @@ public class StreamService {
             }
             //设置libssl.so所在路径
             HCISUPCMS.BYTE_ARRAY ptrByteArraySsl = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathSsl = System.getProperty("user.dir") + "/nvr-platform/nvr-protocol/nvr-protocol-haikang-isup/lib/linux/libssl.so";    //Linux版本是libssl.so库文件的路径
+            String strPathSsl = IsupNativeLibLoader.resolveLibPath("libssl.so");    //Linux版本是libssl.so库文件的路径
             System.arraycopy(strPathSsl.getBytes(), 0, ptrByteArraySsl.byValue, 0, strPathSsl.length());
             ptrByteArraySsl.write();
             if (!hCEhomeStream.NET_ESTREAM_SetSDKInitCfg(1, ptrByteArraySsl.getPointer())) {
@@ -117,7 +124,7 @@ public class StreamService {
             hCEhomeStream.NET_ESTREAM_Init();
             //设置HCAapSDKCom组件库文件夹所在路径
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCom = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCom = System.getProperty("user.dir") + "/nvr-platform/nvr-protocol/nvr-protocol-haikang-isup/lib/linux/HCAapSDKCom/";      //只支持绝对路径，建议使用英文路径
+            String strPathCom = IsupNativeLibLoader.resolveLibPath("HCAapSDKCom/");      //只支持绝对路径，建议使用英文路径
             System.arraycopy(strPathCom.getBytes(), 0, ptrByteArrayCom.byValue, 0, strPathCom.length());
             ptrByteArrayCom.write();
             if (!hCEhomeStream.NET_ESTREAM_SetSDKLocalCfg(5, ptrByteArrayCom.getPointer())) {

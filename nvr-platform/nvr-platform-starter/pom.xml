@@ -28,18 +28,52 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>nvr-api-dahua</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>nvr-api-gb28181</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>nvr-api-haikang-isup</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>nvr-api-onvif</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>nvr-api-qs</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>nvr-api-zlm</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-protocol-common</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-protocol-haikang-isup</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-protocol-zlm</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <!-- ==================== NVR 业务模块 ==================== -->
         <!-- TODO: nvr-biz/nvr-service 为空模块，待实现后启用 -->
@@ -47,10 +81,12 @@
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-biz</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-service</artifactId>
+            <version>${project.version}</version>
         </dependency>
         -->
     </dependencies>

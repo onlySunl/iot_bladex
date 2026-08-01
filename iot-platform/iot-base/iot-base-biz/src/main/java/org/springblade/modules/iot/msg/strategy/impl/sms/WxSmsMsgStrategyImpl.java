@@ -38,6 +38,7 @@ import java.util.stream.Collectors;
 public class WxSmsMsgStrategyImpl implements MsgStrategy {
 
     @Autowired
+    @org.springframework.context.annotation.Lazy
     private RestTemplate restTemplate;
 
     /**

@@ -23,14 +23,15 @@
         <module.name>nvr.protocol</module.name>
     </properties>
 
-    <!-- 子模块引入无需写 version，由 nvr-platform 父 POM 统一管理 -->
-
-    <!-- ==================== 协议子模块清单 ==================== -->
+    <!-- ==================== 协议子模块（按编译依赖排序） ==================== -->
     <modules>
-        <module>nvr-protocol-common</module>        <!-- 协议公共基础、报文解析、网络工具基类 -->
-        <module>nvr-protocol-qs</module>           <!-- QS 球机协议底层实现 -->
-        <module>nvr-protocol-zlm</module>          <!-- ZLMediaKit 流媒体底层实现 -->
-        <module>nvr-protocol-haikang-isup</module> <!-- 海康 ISUP 私有协议底层实现 -->
+        <!-- 协议公共基础 -->
+        <module>nvr-protocol-common</module>
+        <!-- 流媒体协议 -->
+        <module>nvr-protocol-zlm</module>
+        <!-- 设备协议 -->
+        <module>nvr-protocol-qs</module>
+        <module>nvr-protocol-haikang-isup</module>
         <!-- 以下模块待开发 -->
         <!--<module>nvr-protocol-gb28181</module>-->
         <!--<module>iot-protocol-haikang</module>-->

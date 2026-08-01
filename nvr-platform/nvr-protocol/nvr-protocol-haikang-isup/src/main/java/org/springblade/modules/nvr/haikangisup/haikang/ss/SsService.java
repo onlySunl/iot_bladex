@@ -2,6 +2,7 @@ package org.springblade.modules.nvr.haikangisup.haikang.ss;
 
 import com.sun.jna.Native;
 import lombok.RequiredArgsConstructor;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springblade.modules.nvr.haikangisup.callBack.CbEHomeSSRWCallBackEx;
@@ -9,6 +10,7 @@ import org.springblade.modules.nvr.haikangisup.callBack.PSS_Message_Callback;
 import org.springblade.modules.nvr.haikangisup.callBack.PSS_Storage_Callback;
 import org.springblade.modules.nvr.haikangisup.config.HaikangIsupConfig;
 import org.springblade.modules.nvr.haikangisup.haikang.cms.HCISUPCMS;
+import org.springblade.modules.nvr.haikangisup.utils.IsupNativeLibLoader;
 import org.springblade.modules.nvr.haikangisup.utils.OsSelect;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +22,11 @@ public class SsService {
     public static HCISUPSS hCEhomeSS = null;
 
     private final HaikangIsupConfig haikangIsupConfig;
+    @PostConstruct
+    public void init() {
+        log.warn(">>>>>> SsService Bean initialized <<<<<<");
+    }
+
 
     static HCISUPSS.NET_EHOME_SS_LISTEN_PARAM pSSListenParam = new HCISUPSS.NET_EHOME_SS_LISTEN_PARAM();
 
@@ -37,9 +44,9 @@ public class SsService {
                 String strDllPath = "";
                 try {
                     if (OsSelect.isWindows()) {
-                        strDllPath = System.getProperty("user.dir") + "\\nvr-platform\\nvr-protocol\\nvr-protocol-haikang-isup\\lib\\win\\HCISUPSS.dll";
+                        strDllPath = IsupNativeLibLoader.resolveLibPath("HCISUPSS.dll");
                     } else if (OsSelect.isLinux()) {
-                        strDllPath = System.getProperty("user.dir") + "/nvr-platform/nvr-protocol/nvr-protocol-haikang-isup/lib/linux/libHCISUPSS.so";
+                        strDllPath = IsupNativeLibLoader.resolveLibPath("libHCISUPSS.so");
                     }
                     hCEhomeSS = (HCISUPSS) Native.loadLibrary(strDllPath, HCISUPSS.class);
                 } catch (Exception e) {
@@ -59,21 +66,21 @@ public class SsService {
             }
         }
         if (OsSelect.isWindows()) {
-            String strPathCrypto = System.getProperty("user.dir") + "\\nvr-platform\\nvr-protocol\\nvr-protocol-haikang-isup\\lib\\win\\libeay32.dll";
+            String strPathCrypto = IsupNativeLibLoader.resolveLibPath("libeay32.dll");
             int iPathCryptoLen = strPathCrypto.getBytes().length;
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCrypto = new HCISUPCMS.BYTE_ARRAY(iPathCryptoLen + 1);
             System.arraycopy(strPathCrypto.getBytes(), 0, ptrByteArrayCrypto.byValue, 0, iPathCryptoLen);
             ptrByteArrayCrypto.write();
             hCEhomeSS.NET_ESS_SetSDKInitCfg(4, ptrByteArrayCrypto.getPointer());
 
-            String strPathSsl = System.getProperty("user.dir") + "\\nvr-platform\\nvr-protocol\\nvr-protocol-haikang-isup\\lib\\win\\ssleay32.dll";
+            String strPathSsl = IsupNativeLibLoader.resolveLibPath("ssleay32.dll");
             int iPathSslLen = strPathSsl.getBytes().length;
             HCISUPCMS.BYTE_ARRAY ptrByteArraySsl = new HCISUPCMS.BYTE_ARRAY(iPathSslLen + 1);
             System.arraycopy(strPathSsl.getBytes(), 0, ptrByteArraySsl.byValue, 0, iPathSslLen);
             ptrByteArraySsl.write();
             hCEhomeSS.NET_ESS_SetSDKInitCfg(5, ptrByteArraySsl.getPointer());
 
-            String strPathSqlite = System.getProperty("user.dir") + "\\nvr-platform\\nvr-protocol\\nvr-protocol-haikang-isup\\lib\\win\\sqlite3.dll";
+            String strPathSqlite = IsupNativeLibLoader.resolveLibPath("sqlite3.dll");
             int iPathSqliteLen = strPathSqlite.getBytes().length;
             HCISUPCMS.BYTE_ARRAY ptrByteArraySqlite = new HCISUPCMS.BYTE_ARRAY(iPathSqliteLen + 1);
             System.arraycopy(strPathSqlite.getBytes(), 0, ptrByteArraySqlite.byValue, 0, iPathSqliteLen);
@@ -94,19 +101,19 @@ public class SsService {
             }
         } else if (OsSelect.isLinux()) {
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCrypto = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCrypto = System.getProperty("user.dir") + "/nvr-platform/nvr-protocol/nvr-protocol-haikang-isup/lib/linux/libcrypto.so";
+            String strPathCrypto = IsupNativeLibLoader.resolveLibPath("libcrypto.so");
             System.arraycopy(strPathCrypto.getBytes(), 0, ptrByteArrayCrypto.byValue, 0, strPathCrypto.length());
             ptrByteArrayCrypto.write();
             hCEhomeSS.NET_ESS_SetSDKInitCfg(4, ptrByteArrayCrypto.getPointer());
 
             HCISUPCMS.BYTE_ARRAY ptrByteArraySsl = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathSsl = System.getProperty("user.dir") + "/nvr-platform/nvr-protocol/nvr-protocol-haikang-isup/lib/linux/libssl.so";
+            String strPathSsl = IsupNativeLibLoader.resolveLibPath("libssl.so");
             System.arraycopy(strPathSsl.getBytes(), 0, ptrByteArraySsl.byValue, 0, strPathSsl.length());
             ptrByteArraySsl.write();
             hCEhomeSS.NET_ESS_SetSDKInitCfg(5, ptrByteArraySsl.getPointer());
 
             HCISUPCMS.BYTE_ARRAY ptrByteArraysplite = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathsplite = System.getProperty("user.dir") + "/nvr-platform/nvr-protocol/nvr-protocol-haikang-isup/lib/linux/libsqlite3.so";
+            String strPathsplite = IsupNativeLibLoader.resolveLibPath("libsqlite3.so");
             System.arraycopy(strPathsplite.getBytes(), 0, ptrByteArraysplite.byValue, 0, strPathsplite.length());
             ptrByteArraysplite.write();
             hCEhomeSS.NET_ESS_SetSDKInitCfg(6, ptrByteArraysplite.getPointer());

@@ -19,47 +19,39 @@
     <packaging>pom</packaging>
 
     <modules>
-        <!-- 基础核心模块 -->
-        <module>blade-core-basic</module>
-        <!-- MVC 核心模块 -->
-        <module>blade-core-mvc</module>
-        <!-- 数据库核心模块 -->
-        <module>blade-core-database</module>
-        <!-- 缓存核心模块 -->
-        <module>blade-core-cache</module>
-        <!-- 注解核心模块 -->
+        <!-- ===== 基础层（无内部依赖） ===== -->
         <module>blade-core-annotation</module>
-        <!-- 时序数据库核心模块 -->
+        <module>blade-core-basic</module>
+
+        <!-- ===== 数据层 ===== -->
+        <module>blade-core-cache</module>
+        <module>blade-core-database</module>
         <module>blade-core-tds</module>
-        <!-- 数据桥接核心模块 -->
-        <module>blade-core-databridge</module>
-        <!-- 动态线程池核心模块 -->
-        <module>blade-core-dynamic-tp</module>
-        <!-- UID 生成模块 -->
-        <module>blade-core-uid</module>
-        <!-- EasyExcel 封装模块 -->
-        <module>blade-core-easyexcel</module>
-        <!-- 协议抽象模块 -->
-        <module>blade-core-protocol</module>
-        <!-- 数据验证模块 -->
-        <module>blade-core-validator</module>
-        <!-- Kafka 集成模块 -->
+
+        <!-- ===== 中间件层 ===== -->
         <module>blade-core-kafka</module>
-        <!-- FastDFS 文件存储模块 -->
-        <module>blade-core-fastdfs</module>
-        <!-- 钉钉集成模块 -->
-        <module>blade-core-dinger</module>
-        <!-- RocketMQ 集成模块 -->
         <module>blade-core-rocketmq</module>
-        <!-- Groovy 脚本引擎模块 -->
+        <module>blade-core-fastdfs</module>
+
+        <!-- ===== 框架层 ===== -->
+        <module>blade-core-validator</module>
+        <module>blade-core-mvc</module>
+        <module>blade-core-uid</module>
+        <module>blade-core-easyexcel</module>
+        <module>blade-core-protocol</module>
+        <module>blade-core-dynamic-tp</module>
         <module>blade-core-groovy</module>
-        <!-- 动态条件构建模块 -->
         <module>blade-core-condition</module>
-        <!-- 开放平台客户端 API 模块 -->
+        <module>blade-core-dinger</module>
+
+        <!-- ===== 桥接层 ===== -->
+        <module>blade-core-databridge</module>
+
+        <!-- ===== 开放平台 ===== -->
         <module>open-exp-client-api</module>
-        <!-- 开放平台插件管理模块 -->
         <module>open-plugin-manager</module>
-        <!-- ChatGPT AI 集成模块 -->
+
+        <!-- ===== AI 集成 ===== -->
         <module>blade-core-chatgpt</module>
     </modules>
 

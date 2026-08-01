@@ -32,10 +32,10 @@
             <version>4.9.0.RELEASE</version>
         </dependency>
         <!-- ===== 2. IoT 平台 Starter（聚合所有 IoT 业务模块） ===== -->
-        <dependency>
+      <!--  <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>iot-platform-starter</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!-- ===== 3. NVR 平台 Starter（聚合所有 NVR 业务模块） ===== -->
         <dependency>
@@ -48,6 +48,18 @@
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>
             <version>3.27.2</version>
+        </dependency>
+
+        <!-- ===== 6. 内部框架模块 ===== -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-cache</artifactId>
+            <version>4.9.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-groovy</artifactId>
+            <version>4.9.0.RELEASE</version>
         </dependency>
 
         <!-- ===== 7. Spring Boot Data Redis（Blade 框架的 RedisTemplateConfiguration 需要 RedisTemplate bean） ===== -->

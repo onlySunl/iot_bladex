@@ -3,11 +3,13 @@ package org.springblade.modules.nvr.haikangisup.haikang.alarm;
 
 import com.sun.jna.Native;
 import lombok.RequiredArgsConstructor;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springblade.modules.nvr.haikangisup.callBack.EHomeMsgCallBack;
 import org.springblade.modules.nvr.haikangisup.config.HaikangIsupConfig;
 import org.springblade.modules.nvr.haikangisup.haikang.cms.HCISUPCMS;
+import org.springblade.modules.nvr.haikangisup.utils.IsupNativeLibLoader;
 import org.springblade.modules.nvr.haikangisup.utils.OsSelect;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +25,11 @@ public class AlarmService {
     private final EHomeMsgCallBack cbEHomeMsgCallBack;
 
     private final HaikangIsupConfig haikangIsupConfig;
+    @PostConstruct
+    public void init() {
+        log.warn(">>>>>> AlarmService Bean initialized <<<<<<");
+    }
+
 
     static HCISUPAlarm.NET_EHOME_ALARM_LISTEN_PARAM net_ehome_alarm_listen_param = new HCISUPAlarm.NET_EHOME_ALARM_LISTEN_PARAM();
 
@@ -32,9 +39,9 @@ public class AlarmService {
                 String strDllPath = "";
                 try {
                     if (OsSelect.isWindows()) {
-                        strDllPath = System.getProperty("user.dir") + "\\nvr-platform\\nvr-protocol\\nvr-protocol-haikang-isup\\lib\\win\\HCISUPAlarm.dll";
+                        strDllPath = IsupNativeLibLoader.resolveLibPath("HCISUPAlarm.dll");
                     } else if (OsSelect.isLinux()) {
-                        strDllPath = System.getProperty("user.dir") + "/nvr-platform/nvr-protocol/nvr-protocol-haikang-isup/lib/linux/libHCISUPAlarm.so";
+                        strDllPath = IsupNativeLibLoader.resolveLibPath("libHCISUPAlarm.so");
                     }
                     hcEHomeAlarm = (HCISUPAlarm) Native.loadLibrary(strDllPath, HCISUPAlarm.class);
                 } catch (Exception ex) {
@@ -55,13 +62,13 @@ public class AlarmService {
         }
         if (OsSelect.isWindows()) {
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCrypto = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCrypto = System.getProperty("user.dir") + "\\nvr-platform\\nvr-protocol\\nvr-protocol-haikang-isup\\lib\\win\\libeay32.dll";
+            String strPathCrypto = IsupNativeLibLoader.resolveLibPath("libeay32.dll");
             System.arraycopy(strPathCrypto.getBytes(), 0, ptrByteArrayCrypto.byValue, 0, strPathCrypto.length());
             ptrByteArrayCrypto.write();
             hcEHomeAlarm.NET_EALARM_SetSDKInitCfg(0, ptrByteArrayCrypto.getPointer());
 
             HCISUPCMS.BYTE_ARRAY ptrByteArraySsl = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathSsl = System.getProperty("user.dir") + "\\nvr-platform\\nvr-protocol\\nvr-protocol-haikang-isup\\lib\\win\\ssleay32.dll";
+            String strPathSsl = IsupNativeLibLoader.resolveLibPath("ssleay32.dll");
             System.arraycopy(strPathSsl.getBytes(), 0, ptrByteArraySsl.byValue, 0, strPathSsl.length());
             ptrByteArraySsl.write();
             hcEHomeAlarm.NET_EALARM_SetSDKInitCfg(1, ptrByteArraySsl.getPointer());
@@ -72,19 +79,19 @@ public class AlarmService {
             }
 
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCom = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCom = System.getProperty("user.dir") + "\\nvr-platform\\nvr-protocol\\nvr-protocol-haikang-isup\\lib\\win\\HCAapSDKCom";
+            String strPathCom = IsupNativeLibLoader.resolveLibPath("HCAapSDKCom");
             System.arraycopy(strPathCom.getBytes(), 0, ptrByteArrayCom.byValue, 0, strPathCom.length());
             ptrByteArrayCom.write();
             hcEHomeAlarm.NET_EALARM_SetSDKLocalCfg(5, ptrByteArrayCom.getPointer());
         } else if (OsSelect.isLinux()) {
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCrypto = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCrypto = System.getProperty("user.dir") + "/nvr-platform/nvr-protocol/nvr-protocol-haikang-isup/lib/linux/libcrypto.so";
+            String strPathCrypto = IsupNativeLibLoader.resolveLibPath("libcrypto.so");
             System.arraycopy(strPathCrypto.getBytes(), 0, ptrByteArrayCrypto.byValue, 0, strPathCrypto.length());
             ptrByteArrayCrypto.write();
             hcEHomeAlarm.NET_EALARM_SetSDKInitCfg(0, ptrByteArrayCrypto.getPointer());
 
             HCISUPCMS.BYTE_ARRAY ptrByteArraySsl = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathSsl = System.getProperty("user.dir") + "/nvr-platform/nvr-protocol/nvr-protocol-haikang-isup/lib/linux/libssl.so";
+            String strPathSsl = IsupNativeLibLoader.resolveLibPath("libssl.so");
             System.arraycopy(strPathSsl.getBytes(), 0, ptrByteArraySsl.byValue, 0, strPathSsl.length());
             ptrByteArraySsl.write();
             hcEHomeAlarm.NET_EALARM_SetSDKInitCfg(1, ptrByteArraySsl.getPointer());
@@ -95,7 +102,7 @@ public class AlarmService {
             }
 
             HCISUPCMS.BYTE_ARRAY ptrByteArrayCom = new HCISUPCMS.BYTE_ARRAY(256);
-            String strPathCom = System.getProperty("user.dir") + "/nvr-platform/nvr-protocol/nvr-protocol-haikang-isup/lib/linux/HCAapSDKCom/";
+            String strPathCom = IsupNativeLibLoader.resolveLibPath("HCAapSDKCom/");
             System.arraycopy(strPathCom.getBytes(), 0, ptrByteArrayCom.byValue, 0, strPathCom.length());
             ptrByteArrayCom.write();
             hcEHomeAlarm.NET_EALARM_SetSDKLocalCfg(5, ptrByteArrayCom.getPointer());

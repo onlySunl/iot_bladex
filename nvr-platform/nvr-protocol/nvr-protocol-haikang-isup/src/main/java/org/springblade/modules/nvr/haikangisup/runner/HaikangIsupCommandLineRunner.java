@@ -1,6 +1,6 @@
 package org.springblade.modules.nvr.haikangisup.runner;
 
-;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springblade.modules.nvr.haikangisup.config.HaikangIsupConfig;
@@ -34,6 +34,13 @@ public class HaikangIsupCommandLineRunner implements CommandLineRunner, Disposab
     private final AlarmService alarmService;
 
     private final HaikangIsupConfig haikangIsupConfig;
+
+    @PostConstruct
+    public void init() {
+        log.warn("============================================================");
+        log.warn(">>>>> HaikangIsupCommandLineRunner Bean 已创建！<<<<<");
+        log.warn("============================================================");
+    }
 
     @Override
     public void run(String... args) throws Exception {

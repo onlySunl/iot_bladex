@@ -37,17 +37,22 @@
 
     <!-- ==================== 子模块列表 ==================== -->
     <modules>
-        <!-- 公共基础模块 -->
+        <!-- ===== 公共基础 ===== -->
         <module>nvr-common</module>
-        <!-- API 接口模块 -->
-        <module>nvr-api</module>
-        <!-- 服务模块 -->
-        <module>nvr-service</module>
-        <!-- 业务模块 -->
-        <module>nvr-biz</module>
-        <!-- 协议模块 -->
+
+        <!-- ===== 协议层 ===== -->
         <module>nvr-protocol</module>
-        <!-- Starter 聚合模块 -->
+
+        <!-- ===== API 层 ===== -->
+        <module>nvr-api</module>
+
+        <!-- ===== 服务层 ===== -->
+        <module>nvr-service</module>
+
+        <!-- ===== 业务层 ===== -->
+        <module>nvr-biz</module>
+
+        <!-- ===== Starter 聚合（最后） ===== -->
         <module>nvr-platform-starter</module>
     </modules>
 

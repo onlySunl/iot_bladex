@@ -23,17 +23,18 @@
         <module.name>nvr.api</module.name>
     </properties>
 
-    <!-- 子模块引入无需写 version，由 nvr-platform 父 POM 统一管理 -->
-
-    <!-- ==================== 各协议 Feign 接口子模块清单 ==================== -->
+    <!-- ==================== Feign 接口子模块（按编译依赖排序） ==================== -->
     <modules>
-        <module>nvr-api-dahua</module>        <!-- 大华 SDK 接口 -->
-        <module>nvr-api-gb28181</module>      <!-- GB28181 国标 SIP 接口 -->
-        <module>nvr-api-haikang</module>      <!-- 海康标准 SDK 接口 -->
-        <module>nvr-api-jt1078</module>       <!-- JT1078 车载视频部标 -->
-        <module>nvr-api-onvif</module>        <!-- ONVIF 通用设备协议 -->
-        <module>nvr-api-haikang-isup</module> <!-- 海康 ISUP 私有协议 -->
-        <module>nvr-api-qs</module>           <!-- QS 球机协议 -->
-        <module>nvr-api-zlm</module>          <!-- ZLM 流媒体对接 -->
+        <!-- 国产标准协议 -->
+        <module>nvr-api-gb28181</module>
+        <module>nvr-api-onvif</module>
+        <module>nvr-api-jt1078</module>
+        <!-- 厂商私有协议 -->
+        <module>nvr-api-haikang</module>
+        <module>nvr-api-haikang-isup</module>
+        <module>nvr-api-dahua</module>
+        <!-- 球机/流媒体 -->
+        <module>nvr-api-qs</module>
+        <module>nvr-api-zlm</module>
     </modules>
 </project>

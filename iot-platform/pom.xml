@@ -69,32 +69,27 @@
 
     <!-- ==================== 子模块列表 ==================== -->
     <modules>
-        <!-- 实体模块层 -->
+        <!-- ===== 实体层（无内部依赖） ===== -->
+        <module>iot-model</module>
+        <module>iot-common</module>
         <module>iot-entity</module>
-        <!-- IoT 基础模块 -->
+
+        <!-- ===== 基础服务层 ===== -->
         <module>iot-base</module>
-        <!-- IoT 消息模块 -->
         <module>iot-message</module>
-        <!-- IoT 文件 SDK 模块 -->
         <module>iot-file-sdk</module>
 
-        <!-- MQTT Broker 服务层 -->
+        <!-- ===== 业务服务层 ===== -->
         <module>iot-broker</module>
-        <!-- 设备集成服务层 -->
         <module>iot-link</module>
-        <!-- 消息队列服务层 -->
         <module>iot-mqs</module>
-        <!-- 规则引擎服务层 -->
         <module>iot-rule</module>
-        <!-- SDK 模块 -->
-        <module>iot-sdk</module>
-        <!-- 时序数据服务层 -->
         <module>iot-tds</module>
-        <!-- 公共模块 -->
-        <module>iot-common</module>
-        <!-- 模型模块 -->
-        <module>iot-model</module>
-        <!-- Starter 聚合模块 -->
+
+        <!-- ===== SDK ===== -->
+        <module>iot-sdk</module>
+
+        <!-- ===== Starter 聚合（最后） ===== -->
         <module>iot-platform-starter</module>
     </modules>
 
