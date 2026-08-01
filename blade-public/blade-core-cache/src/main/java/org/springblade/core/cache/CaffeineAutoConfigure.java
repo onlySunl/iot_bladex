@@ -67,7 +67,7 @@ public class CaffeineAutoConfigure {
 
     @SuppressWarnings("AlibabaRemoveCommentedCode")
     @Bean
-    @Primary
+    @ConditionalOnMissingBean(CacheManager.class)
     public CacheManager caffeineCacheManager() {
         CaffeineCacheManager cacheManager = new CaffeineCacheManager();
 
