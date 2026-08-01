@@ -13,7 +13,6 @@ import org.springblade.core.groovy.loader.ScriptLoader;
 import org.springblade.core.groovy.registry.ScriptRegistry;
 import org.springblade.core.groovy.registry.impl.DefaultScriptRegistry;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -55,12 +54,12 @@ public class CoreAutoConfiguration {
     }
 
     /**
-     * 脚本注册中心，ScriptLoader 由使用方（如 iot-rule）提供，required=false 允许启动时不注入
+     * 脚本注册中心，ScriptLoader 由使用方（如 iot-rule）提供，允许启动时不注入
      */
     @Bean
     @ConditionalOnMissingBean(ScriptRegistry.class)
     public ScriptRegistry scriptRegistry(
-            @Autowired(required = false) ScriptLoader scriptLoader,
+            @org.springframework.lang.Nullable ScriptLoader scriptLoader,
             @Qualifier("thinglinksGroovyScriptEngineCache") Cache<String, ScriptEntry> cache) {
         return new DefaultScriptRegistry(scriptLoader, cache);
     }
@@ -71,7 +70,7 @@ public class CoreAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(EngineExecutor.class)
     public EngineExecutor defaultEngineExecutor(
-            @Autowired(required = false) ScriptRegistry scriptRegistry) {
+            @org.springframework.lang.Nullable ScriptRegistry scriptRegistry) {
         return new DefaultEngineExecutor(scriptRegistry);
     }
 
