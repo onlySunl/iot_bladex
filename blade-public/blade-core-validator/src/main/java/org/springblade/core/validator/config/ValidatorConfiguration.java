@@ -27,7 +27,6 @@ import org.springframework.validation.beanvalidation.MethodValidationPostProcess
 public class ValidatorConfiguration {
 
     @Bean
-    @Primary
     public Validator validator() {
         ValidatorFactory validatorFactory = ValidatorUtils.warp(Validation.byProvider(HibernateValidator.class)
                         .configure()
