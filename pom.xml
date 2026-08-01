@@ -393,7 +393,39 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- ==================== 4.12 NVR 业务模块 ==================== -->
+            <!-- ==================== 4.12 IoT Controller 模块 ==================== -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-base-controller</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-link-controller</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-broker-controller</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-mqs-controller</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-rule-controller</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-tds-controller</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- ==================== 4.13 NVR 业务模块 ==================== -->
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>nvr-biz</artifactId>

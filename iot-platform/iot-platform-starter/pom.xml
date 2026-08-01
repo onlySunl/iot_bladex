@@ -77,5 +77,37 @@
             <groupId>org.springblade</groupId>
             <artifactId>iot-file-sdk</artifactId>
         </dependency>
+
+        <!-- ==================== IoT Controller 模块 ==================== -->
+        <!-- 基础服务 Controller -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-base-controller</artifactId>
+        </dependency>
+        <!-- 设备集成 Controller -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-link-controller</artifactId>
+        </dependency>
+        <!-- MQTT Broker Controller -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-broker-controller</artifactId>
+        </dependency>
+        <!-- 消息队列 Controller -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-mqs-controller</artifactId>
+        </dependency>
+        <!-- 规则引擎 Controller -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-rule-controller</artifactId>
+        </dependency>
+        <!-- 时序数据 Controller -->
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>iot-tds-controller</artifactId>
+        </dependency>
     </dependencies>
 </project>
