@@ -43,26 +43,7 @@
             <artifactId>nvr-platform-starter</artifactId>
         </dependency>
 
-        <!-- ===== 3. Redisson 分布式锁/队列（规则引擎使用） ===== -->
-        <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson</artifactId>
-            <version>3.27.2</version>
-        </dependency>
-
-        <!-- ===== 6. 内部框架模块 ===== -->
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-core-cache</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springblade</groupId>
-            <artifactId>blade-core-groovy</artifactId>
-            <version>4.9.0.RELEASE</version>
-        </dependency>
-
-        <!-- ===== 7. Spring Boot Data Redis（Blade 框架的 RedisTemplateConfiguration 需要 RedisTemplate bean） ===== -->
+        <!-- ===== 4. Spring Boot Data Redis（NVR 模块需要） ===== -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
