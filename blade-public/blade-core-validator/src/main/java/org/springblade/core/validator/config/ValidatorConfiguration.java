@@ -8,6 +8,7 @@ import org.springblade.core.validator.component.FormValidatorController;
 import org.springblade.core.validator.component.extract.DefaultConstraintExtractImpl;
 import org.springblade.core.validator.component.extract.IConstraintExtract;
 import org.springblade.core.validator.utils.ValidatorUtils;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,6 +20,7 @@ import org.springframework.validation.beanvalidation.MethodValidationPostProcess
  * @author zuihou
  * @date 2019/07/14
  */
+@AutoConfiguration
 @ComponentScan(basePackageClasses = FormValidatorController.class)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class ValidatorConfiguration {
