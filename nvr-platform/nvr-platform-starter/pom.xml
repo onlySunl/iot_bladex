@@ -29,7 +29,18 @@
             <groupId>org.springblade</groupId>
             <artifactId>nvr-common</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>nvr-protocol-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>nvr-protocol-haikang-isup</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>nvr-protocol-zlm</artifactId>
+        </dependency>
         <!-- ==================== NVR 业务模块 ==================== -->
         <!-- TODO: nvr-biz/nvr-service 为空模块，待实现后启用 -->
         <!--

@@ -44,7 +44,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
  */
 @EnableScheduling
 @EnableRedisHttpSession
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, ValidationAutoConfiguration.class, CacheAutoConfiguration.class})
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, ValidationAutoConfiguration.class, CacheAutoConfiguration.class, org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration.class, org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration.class})
 @ServletComponentScan
 @EnableFeignClients(basePackages = "org.springblade.modules")
 public class Application {
