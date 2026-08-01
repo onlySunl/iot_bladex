@@ -1,0 +1,3 @@
+org.springblade.modules.nvr.config.ThreadPoolTaskConfig
+org.springblade.modules.nvr.config.MediaConfig
+org.springblade.modules.nvr.config.RedisMsgListenConfig

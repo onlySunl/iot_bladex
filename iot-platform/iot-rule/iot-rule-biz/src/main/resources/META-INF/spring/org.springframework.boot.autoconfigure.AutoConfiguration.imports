@@ -1,0 +1,2 @@
+org.springblade.modules.iot.config.groovy.GroovyRedisLoaderAutoConfiguration
+org.springblade.modules.iot.bridge.config.SubscriptionSourcePubSubConfig
