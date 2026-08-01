@@ -488,5 +488,47 @@ config:
     # 语音通知服务商: aliyun(阿里云, 默认), tencent(腾讯云)
     vms-provider: aliyun
 
+# Swagger/OpenAPI 配置
+thinglinks:
+  swagger:
+    license: Powered By SpringBlade
+    licenseUrl: https://bladex.vip
+    termsOfServiceUrl: https://bladex.vip
+    contact:
+      url: https://bladex.vip
+      name: SpringBlade
+      email: blade@bladex.vip
+    global-operation-parameters:
+      - name: Blade-Auth
+        description: 用户令牌
+        modelRef: String
+        parameterType: header
+        required: true
+        defaultValue: ""
+      - name: Blade-Log
+        description: 日志令牌
+        modelRef: String
+        parameterType: header
+        required: false
+        defaultValue: ""
+      - name: TenantId
+        description: 租户ID
+        modelRef: String
+        parameterType: header
+        required: true
+        defaultValue: "000000"
+
+# Springdoc OpenAPI 配置
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  default-produces-media-type: application/json
+
 # groovy 规则脚本
 
