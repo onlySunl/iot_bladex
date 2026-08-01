@@ -139,6 +139,7 @@ public class RedisAutoConfigure {
      */
     @Bean(name = "cacheManager")
     @Primary
+    @ConditionalOnMissingBean(CacheManager.class)
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         RedisCacheConfiguration defConfig = getDefConf();
         defConfig.entryTtl(cacheProperties.getDef().getTimeToLive());
