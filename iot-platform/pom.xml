@@ -95,7 +95,113 @@
 
     <!-- ==================== IoT 平台依赖版本管理 ==================== -->
     <dependencyManagement>
+
         <dependencies>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-basic</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-mvc</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-database</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-cache</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-annotation</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-tds</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-databridge</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-dynamic-tp</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-uid</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-easyexcel</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-protocol</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-validator</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-kafka</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-rocketmq</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-fastdfs</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-dinger</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-groovy</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-condition</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-core-chatgpt</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>open-exp-client-api</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>open-plugin-manager</artifactId>
+                <version>${iot-platform.version}</version>
+            </dependency>
             <!-- ==================== 1. IoT 实体模块 ==================== -->
             <dependency>
                 <groupId>org.springblade</groupId>
@@ -305,6 +411,17 @@
                 <version>${cola-statemachine.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-message-biz</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-file-sdk</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!-- ==================== 10. IoT 消息模块 ==================== -->
             <dependency>
                 <groupId>org.springblade</groupId>
@@ -325,6 +442,70 @@
                 <groupId>org.springblade</groupId>
                 <artifactId>iot-mqs-controller</artifactId>
                 <version>${iot-platform.version}</version>
+            </dependency>
+
+            <!-- ==================== 4.11 IoT Boot 实现模块 ==================== -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-base-boot-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-link-boot-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-broker-boot-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-mqs-boot-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-rule-boot-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-tds-boot-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- ==================== 4.12 IoT Controller 模块 ==================== -->
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-base-controller</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-link-controller</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-broker-controller</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-mqs-controller</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-rule-controller</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>iot-tds-controller</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <!-- ==================== 11. IoT 其他依赖 ==================== -->
