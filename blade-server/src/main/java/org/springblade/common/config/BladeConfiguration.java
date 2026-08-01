@@ -31,10 +31,15 @@ import org.springblade.core.oauth2.endpoint.OAuth2SocialEndpoint;
 import org.springblade.core.oauth2.endpoint.OAuth2TokenEndPoint;
 import org.springblade.core.secure.provider.HttpMethod;
 import org.springblade.core.secure.registry.SecureRegistry;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 import org.springblade.core.tool.utils.StringPool;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -46,6 +51,41 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration(proxyBeanMethods = false)
 public class BladeConfiguration implements WebMvcConfigurer {
+
+	/**
+	 * RestTemplate Bean
+	 */
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
+
+	/**
+	 * 系统默认线程池（供 ContextAwareExecutor 等异步任务使用）
+	 */
+	@Bean("systemDefaultExecutor")
+	@org.springframework.context.annotation.Primary
+	public ThreadPoolExecutor systemDefaultExecutor() {
+		return new ThreadPoolExecutor(
+				4, 16,
+				60L, TimeUnit.SECONDS,
+				new LinkedBlockingQueue<>(2000),
+				new ThreadPoolExecutor.CallerRunsPolicy()
+		);
+	}
+
+	/**
+	 * Link 默认线程池（设备同步等 IoT 业务使用）
+	 */
+	@Bean("linkDefaultExecutor")
+	public ThreadPoolExecutor linkDefaultExecutor() {
+		return new ThreadPoolExecutor(
+				8, 32,
+				60L, TimeUnit.SECONDS,
+				new LinkedBlockingQueue<>(5000),
+				new ThreadPoolExecutor.CallerRunsPolicy()
+		);
+	}
 
 	/**
 	 * 安全框架配置

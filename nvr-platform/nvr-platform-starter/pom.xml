@@ -31,15 +31,16 @@
         </dependency>
 
         <!-- ==================== NVR 业务模块 ==================== -->
-        <!-- 业务逻辑层 -->
+        <!-- TODO: nvr-biz/nvr-service 为空模块，待实现后启用 -->
+        <!--
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-biz</artifactId>
         </dependency>
-        <!-- 服务层 -->
         <dependency>
             <groupId>org.springblade</groupId>
             <artifactId>nvr-service</artifactId>
         </dependency>
+        -->
     </dependencies>
 </project>

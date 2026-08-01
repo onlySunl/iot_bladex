@@ -516,12 +516,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.groovy</groupId>
-                <artifactId>groovy-all</artifactId>
-                <version>${blade.groovy.version}</version>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.groovy</groupId>
                 <artifactId>groovy</artifactId>
                 <version>${blade.groovy.version}</version>
             </dependency>

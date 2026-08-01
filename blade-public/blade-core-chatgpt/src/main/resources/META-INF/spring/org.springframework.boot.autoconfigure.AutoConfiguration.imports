@@ -1,1 +1,1 @@
-org.springblade.core.chatgpt.config.ChatGptAutoConfiguration
+org.springblade.core.chatgpt.config.OpenAiAutoConfiguration

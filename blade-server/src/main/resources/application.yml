@@ -11,36 +11,50 @@ server:
     buffer-size: 1024
     # 是否分配的直接内存
     direct-buffers: true
+#缓存类型 CAFFEINE=内存 REDIS=Redis
+cache:
+  type: CAFFEINE
+
+#Groovy脚本引擎配置
+thinglinks:
+  groovy:
+    engine:
+      enable: true
+
 spring:
   datasource:
-    dynamic:
-      primary: blade_iot
-      druid:
-        # MySql、PostgreSQL、SqlServer、DaMeng校验
-        validation-query: select 1
-        # Oracle、YashanDB校验
-        #oracle: true
-        #validation-query: select 1 from dual
-        validation-query-timeout: 2000
-        initial-size: 5
-        max-active: 20
-        min-idle: 5
-        max-wait: 60000
-        test-on-borrow: false
-        test-on-return: false
-        test-while-idle: true
-        time-between-eviction-runs-millis: 60000
-        min-evictable-idle-time-millis: 300000
-        stat-view-servlet:
-          enabled: true
-          login-username: blade
-          login-password: 1qaz@WSX
-        web-stat-filter:
-          enabled: true
-          url-pattern: /*
-          exclusions: '*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*'
-          session-stat-enable: true
-          session-stat-max-count: 10
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #driver-class-name: org.postgresql.Driver
+    #driver-class-name: oracle.jdbc.OracleDriver
+    #driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    #driver-class-name: dm.jdbc.driver.DmDriver
+    #driver-class-name: com.yashandb.jdbc.Driver
+    druid:
+      # MySql、PostgreSQL、SqlServer、DaMeng校验
+      validation-query: select 1
+      # Oracle、YashanDB校验
+      #oracle: true
+      #validation-query: select 1 from dual
+      validation-query-timeout: 2000
+      initial-size: 5
+      max-active: 20
+      min-idle: 5
+      max-wait: 60000
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      stat-view-servlet:
+        enabled: true
+        login-username: blade
+        login-password: 1qaz@WSX
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: '*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*'
+        session-stat-enable: true
+        session-stat-max-count: 10
 
 
 # mybatis

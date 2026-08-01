@@ -66,7 +66,6 @@ public class DeviceGroupRel extends Entity<Long> {
     /**
      * 逻辑删除标识:0-未删除 1-已删除
      */
-    @TableLogic
     @AutoColumn(value = "deleted", comment = "逻辑删除标识:0-未删除 1-已删除")
     private Integer deleted;
 }
